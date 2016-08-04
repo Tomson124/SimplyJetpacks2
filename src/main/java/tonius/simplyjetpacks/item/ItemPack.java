@@ -50,6 +50,8 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
     private static final String TAG_FLUID = "Fluid";
     public final ModType modType;
     private final Map<Integer, T> packs = new LinkedHashMap<Integer, T>();
+
+    protected String name;
     
     public ItemPack(ModType modType, String registryName) {
         super(ArmorMaterial.IRON, 2, 1);
@@ -58,7 +60,9 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setCreativeTab(ModCreativeTab.instance);
-        
+
+        registryName = name;
+
         GameRegistry.registerItem(this, registryName);
     }
     
@@ -511,6 +515,10 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
             super(modType, registryName);
         }
         
+    }
+
+    public void registerItemModel() {
+        SimplyJetpacks.proxy.registerItemRenderer(this, 0, name);
     }
     
 }

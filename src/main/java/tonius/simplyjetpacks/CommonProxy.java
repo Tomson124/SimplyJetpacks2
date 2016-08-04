@@ -1,6 +1,7 @@
 package tonius.simplyjetpacks;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import tonius.simplyjetpacks.crafting.PlatingReturnHandler;
@@ -32,9 +33,7 @@ public class CommonProxy {
     public String getPackGUIKey() {
         return null;
     }
-    
-    public void throwCoFHLibException() {
-        throw new RuntimeException("CoFHLib is not installed or not up to date. Please install CoFH Core 3.0.2 or newer, or CoFHLib standalone 1.0.2 or newer.");
+
+    public void registerItemRenderer(Item item, int meta, String id) {
     }
-    
 }

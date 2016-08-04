@@ -6,10 +6,6 @@ import net.minecraftforge.fml.common.Loader;
 public enum ModType {
     
     SIMPLY_JETPACKS("", SimplyJetpacks.MODID),
-    THERMAL_EXPANSION(".te", "ThermalExpansion"),
-    THERMAL_DYNAMICS(null, "ThermalDynamics"),
-    REDSTONE_ARSENAL(null, "RedstoneArsenal"),
-    REDSTONE_ARMORY(null, "RArm"),
     ENDER_IO(".eio", "EnderIO"),
     BUILDCRAFT(".bc", "BuildCraft|Core");
     

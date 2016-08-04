@@ -5,10 +5,14 @@ import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiErrorScreen;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.Item;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import tonius.simplyjetpacks.CommonProxy;
+import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.handler.ClientTickHandler;
 import tonius.simplyjetpacks.client.handler.HUDTickHandler;
 import tonius.simplyjetpacks.client.handler.KeyHandler;
@@ -29,6 +33,11 @@ public class ClientProxy extends CommonProxy {
         FMLCommonHandler.instance().bus().register(new ClientTickHandler());
         FMLCommonHandler.instance().bus().register(new KeyHandler());
         FMLCommonHandler.instance().bus().register(new HUDTickHandler());
+    }
+
+    @Override
+    public void registerItemRenderer(Item item, int meta, String id) {
+        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(SimplyJetpacks.MODID + ":" + id, "inventory"));
     }
     
     /*@Override
@@ -78,27 +87,6 @@ public class ClientProxy extends CommonProxy {
             return null;
         }
         return GameSettings.getKeyDisplayString(keyCode);
-    }
-    
-    @Override
-    @SuppressWarnings("serial")
-    public void throwCoFHLibException() {
-        throw new CustomModLoadingErrorDisplayException() {
-            
-            @Override
-            public void initGui(GuiErrorScreen errorScreen, FontRenderer fontRenderer) {
-            }
-            
-            @Override
-            public void drawScreen(GuiErrorScreen gui, FontRenderer fontRenderer, int mouseRelX, int mouseRelY, float tickTime) {
-                gui.drawDefaultBackground();
-                gui.drawCenteredString(fontRenderer, "Simply Jetpacks Error - CoFHLib Not Found", gui.width / 2, 85, 0xFF5555);
-                
-                gui.drawCenteredString(fontRenderer, "CoFHLib is not installed or not up to date.", gui.width / 2, 100, 0xFFFFFF);
-                gui.drawCenteredString(fontRenderer, "Please install CoFH Core 3.0.2 or newer, or CoFHLib standalone 1.0.2 or newer.", gui.width / 2, 110, 0xFFFFFF);
-            }
-            
-        };
     }
     
 }

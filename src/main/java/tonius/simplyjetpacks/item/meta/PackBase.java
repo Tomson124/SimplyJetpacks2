@@ -23,6 +23,7 @@ import tonius.simplyjetpacks.integration.ModType;
 import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.setup.ModKey;
+import tonius.simplyjetpacks.util.EquipmentSlotHelper;
 import tonius.simplyjetpacks.util.NBTHelper;
 import tonius.simplyjetpacks.util.SJStringHelper;
 import cofh.api.energy.IEnergyContainerItem;
@@ -174,8 +175,8 @@ public class PackBase {
     
     protected void chargeInventory(EntityLivingBase user, ItemStack stack, ItemPack item) {
         if (this.fuelType == FuelType.ENERGY) {
-            for (int i = 0; i <= 4; i++) {
-                ItemStack currentStack = user.getEquipmentInSlot(i);
+            for (int i = 0; i <= 5; i++) {
+                ItemStack currentStack = user.getItemStackFromSlot(EquipmentSlotHelper.fromSlot(i));
                 if (currentStack != null && currentStack != stack && currentStack.getItem() instanceof IEnergyContainerItem) {
                     IEnergyContainerItem heldEnergyItem = (IEnergyContainerItem) currentStack.getItem();
                     if (this.usesFuel) {

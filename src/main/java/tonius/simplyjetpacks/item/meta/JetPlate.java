@@ -76,9 +76,6 @@ public class JetPlate extends Jetpack {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister register, ModType modType) {
         super.registerIcons(register, modType);
-        if (modType != ModType.THERMAL_EXPANSION || !ModType.REDSTONE_ARMORY.loaded) {
-            return;
-        }
         this.iconEnderium = register.registerIcon(SimplyJetpacks.RESOURCE_PREFIX + this.getBaseName(true) + modType.suffix + ".enderium");
     }
     
@@ -94,9 +91,6 @@ public class JetPlate extends Jetpack {
     @Override
     @SideOnly(Side.CLIENT)
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, ModType modType) {
-        if (modType != ModType.THERMAL_EXPANSION || !ModType.REDSTONE_ARMORY.loaded) {
-            return super.getArmorTexture(stack, entity, slot, modType);
-        }
         String flat = Config.enableArmor3DModels || this.armorModel == PackModelType.FLAT ? "" : ".flat";
         String enderium = this.hasEnderiumUpgrade(stack) ? ".enderium" : "";
         return SimplyJetpacks.RESOURCE_PREFIX + "textures/armor/" + this.getBaseName(true) + modType.suffix + enderium + flat + ".png";
@@ -136,9 +130,6 @@ public class JetPlate extends Jetpack {
     @SuppressWarnings("unchecked")
     public void addSubItems(ItemPack item, int meta, List list) {
         super.addSubItems(item, meta, list);
-        if (!this.showInCreativeTab || item.modType != ModType.THERMAL_EXPANSION || !ModType.REDSTONE_ARMORY.loaded) {
-            return;
-        }
         ItemStack stack;
         if (this.showEmptyInCreativeTab) {
             stack = new ItemStack(item, 1, meta);
