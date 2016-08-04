@@ -10,11 +10,11 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EntityDamageSource;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.IFluidBlock;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.model.PackModelType;
@@ -96,24 +96,29 @@ public class Jetpack extends PackBase {
                     float speedSideways = (float) (user.isSneaking() ? this.speedSideways * 0.5F : this.speedSideways);
                     float speedForward = (float) (user.isSprinting() ? speedSideways * this.sprintSpeedModifier : speedSideways);
                     if (SyncHandler.isForwardKeyDown(user)) {
-                        user.moveFlying(0, speedForward, speedForward);
+                        user.moveRelative(0, speedForward, speedForward);
                     }
                     if (SyncHandler.isBackwardKeyDown(user)) {
-                        user.moveFlying(0, -speedSideways, speedSideways * 0.8F);
+                        user.moveRelative(0, -speedSideways, speedSideways * 0.8F);
                     }
                     if (SyncHandler.isLeftKeyDown(user)) {
-                        user.moveFlying(speedSideways, 0, speedSideways);
+                        user.moveRelative(speedSideways, 0, speedSideways);
                     }
                     if (SyncHandler.isRightKeyDown(user)) {
-                        user.moveFlying(-speedSideways, 0, speedSideways);
+                        user.moveRelative(-speedSideways, 0, speedSideways);
                     }
                     
                     if (!user.worldObj.isRemote) {
                         user.fallDistance = 0.0F;
+
+                        /*
+                        TODO: Check what this is for and how to update this
                         if (user instanceof EntityPlayerMP) {
-                            ((EntityPlayerMP) user).playerNetServerHandler.floatingTickCount = 0;
-                        }
+                            ((EntityPlayerMP) user).connection.floatingTickCount = 0;
+                        }*/
                         
+                        /*
+                        TODO: Reimplement explosions
                         if (Config.flammableFluidsExplode) {
                             if (!(user instanceof EntityPlayer) || !((EntityPlayer) user).capabilities.isCreativeMode) {
                                 int x = Math.round((float) user.posX - 0.5F);
@@ -126,7 +131,7 @@ public class Jetpack extends PackBase {
                                     user.attackEntityFrom(new EntityDamageSource("jetpackexplode", user), 100.0F);
                                 }
                             }
-                        }
+                        }*/
                     }
                 }
             }
@@ -142,7 +147,7 @@ public class Jetpack extends PackBase {
                             int x = Math.round((float) user.posX - 0.5F);
                             int y = Math.round((float) user.posY) - i;
                             int z = Math.round((float) user.posZ - 0.5F);
-                            if (!user.worldObj.isAirBlock(x, y, z)) {
+                            if (!user.worldObj.isAirBlock(new BlockPos(x, y, z))) {
                                 this.doEHover(stack, user);
                                 break;
                             }
@@ -158,7 +163,7 @@ public class Jetpack extends PackBase {
             return this.fuelUsage;
         }
         
-        int fuelEfficiencyLevel = MathHelper.clampI(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency.effectId, stack), 0, 4);
+        int fuelEfficiencyLevel = MathHelper.clampI(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
         return (int) Math.round(this.fuelUsage * (20 - fuelEfficiencyLevel) / 20.0D);
     }
     
@@ -166,7 +171,7 @@ public class Jetpack extends PackBase {
         NBTHelper.getNBT(armor).setBoolean(TAG_ON, true);
         NBTHelper.getNBT(armor).setBoolean(TAG_HOVERMODE_ON, true);
         if (user instanceof EntityPlayer) {
-            ((EntityPlayer) user).addChatMessage(new ChatComponentText(StringHelper.LIGHT_RED + SJStringHelper.localize("chat.jetpack.emergencyHoverMode.msg")));
+            ((EntityPlayer) user).addChatMessage(new TextComponentString(StringHelper.LIGHT_RED + SJStringHelper.localize("chat.jetpack.emergencyHoverMode.msg")));
         }
     }
     

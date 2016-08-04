@@ -11,8 +11,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.config.Configuration;
 import tonius.simplyjetpacks.SimplyJetpacks;
@@ -195,13 +195,13 @@ public class PackBase {
     }
     
     protected void toggleState(boolean on, ItemStack stack, String type, String tag, EntityPlayer player, boolean showInChat) {
-        stack.stackTagCompound.setBoolean(tag, !on);
+        stack.getTagCompound().setBoolean(tag, !on);
         
         if (player != null && showInChat) {
             String color = on ? StringHelper.LIGHT_RED : StringHelper.BRIGHT_GREEN;
             type = type != null && !type.equals("") ? "chat." + this.name + "." + type + ".on" : "chat." + this.name + ".on";
             String msg = SJStringHelper.localize(type) + " " + color + SJStringHelper.localize("chat." + (on ? "disabled" : "enabled"));
-            player.addChatMessage(new ChatComponentText(msg));
+            player.addChatMessage(new TextComponentString(msg));
         }
     }
     

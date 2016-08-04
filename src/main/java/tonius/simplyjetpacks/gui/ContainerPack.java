@@ -1,6 +1,7 @@
 package tonius.simplyjetpacks.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
@@ -52,7 +53,7 @@ public class ContainerPack extends Container {
     
     @Override
     public boolean canInteractWith(EntityPlayer player) {
-        return player.getCurrentArmor(2) == this.chestplate;
+        return new InventoryPlayer(player).armorItemInSlot(2) == this.chestplate;
     }
     
     @Override
