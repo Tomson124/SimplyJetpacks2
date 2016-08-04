@@ -3,13 +3,15 @@ package tonius.simplyjetpacks.util;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidRegistry;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.setup.ParticleType;
 import cofh.lib.util.helpers.StringHelper;
+
+import static net.minecraft.util.text.translation.I18n.translateToLocal;
+import static net.minecraft.util.text.translation.I18n.translateToLocalFormatted;
 
 public abstract class SJStringHelper {
     
@@ -140,9 +142,9 @@ public abstract class SJStringHelper {
     public static String localize(String unlocalized, boolean prefix, Object... args) {
         String toLocalize = (prefix ? SimplyJetpacks.PREFIX : "") + unlocalized;
         if (args != null && args.length > 0) {
-            return StatCollector.translateToLocalFormatted(toLocalize, args);
+            return translateToLocalFormatted(toLocalize, args);
         } else {
-            return StatCollector.translateToLocal(toLocalize);
+            return translateToLocal(toLocalize);
         }
     }
     
@@ -150,7 +152,7 @@ public abstract class SJStringHelper {
         int i = 1;
         while (true) {
             String unlocalized = SimplyJetpacks.PREFIX + "tooltip." + base + ".description." + i;
-            String localized = StatCollector.translateToLocal(unlocalized);
+            String localized = translateToLocal(unlocalized);
             if (unlocalized.equals(localized)) {
                 break;
             }

@@ -7,7 +7,7 @@ import tonius.simplyjetpacks.gui.ContainerPack;
 import tonius.simplyjetpacks.gui.GuiPack;
 import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.item.meta.PackBase;
-import cpw.mods.fml.common.network.IGuiHandler;
+import net.minecraftforge.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler {
     

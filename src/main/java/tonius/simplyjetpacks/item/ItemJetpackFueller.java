@@ -18,8 +18,8 @@ import tonius.simplyjetpacks.setup.ModCreativeTab;
 import tonius.simplyjetpacks.util.SJStringHelper;
 import cofh.api.energy.IEnergyProvider;
 import cofh.lib.util.helpers.BlockHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemJetpackFueller extends ItemRegistered {
     

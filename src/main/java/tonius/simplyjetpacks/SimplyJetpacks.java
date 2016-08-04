@@ -12,13 +12,13 @@ import tonius.simplyjetpacks.network.PacketHandler;
 import tonius.simplyjetpacks.setup.ModEnchantments;
 import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.setup.Packs;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStoppingEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 
 @Mod(modid = SimplyJetpacks.MODID, version = SimplyJetpacks.VERSION, dependencies = SimplyJetpacks.DEPENDENCIES, guiFactory = SimplyJetpacks.GUI_FACTORY)
 public class SimplyJetpacks {
@@ -27,7 +27,9 @@ public class SimplyJetpacks {
     public static final String VERSION = "@VERSION@";
     public static final String PREFIX = MODID + ".";
     public static final String RESOURCE_PREFIX = MODID + ":";
-    public static final String DEPENDENCIES = "required-after:Forge@[10.13.2.1291,);after:ThermalExpansion;after:RedstoneArsenal;after:RArm;after:EnderIO@[1.7.10-2.1.3.243,);after:BuildCraft|Core@[6.4.15,7.0.0),[7.0.4,)";
+    public static final String DEPENDENCIES = "required-after:Forge@[12.17.0.1976,)"
+            //";after:ThermalExpansion;after:RedstoneArsenal;after:RArm;after:EnderIO@[1.7.10-2.1.3.243,);after:BuildCraft|Core@[6.4.15,7.0.0),[7.0.4,)"
+            ;
     public static final String GUI_FACTORY = "tonius.simplyjetpacks.config.ConfigGuiFactory";
     
     @Instance(MODID)

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import tonius.simplyjetpacks.integration.ModType;
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 
 public class PackDefaults {
     

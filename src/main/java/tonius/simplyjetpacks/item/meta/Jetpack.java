@@ -29,8 +29,8 @@ import tonius.simplyjetpacks.util.NBTHelper;
 import tonius.simplyjetpacks.util.SJStringHelper;
 import cofh.lib.util.helpers.MathHelper;
 import cofh.lib.util.helpers.StringHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Jetpack extends PackBase {
     
@@ -171,8 +171,8 @@ public class Jetpack extends PackBase {
     }
     
     public void setMobMode(ItemStack itemStack) {
-        itemStack.stackTagCompound.setBoolean(TAG_ON, true);
-        itemStack.stackTagCompound.setBoolean(TAG_HOVERMODE_ON, false);
+        itemStack.getTagCompound().setBoolean(TAG_ON, true);
+        itemStack.getTagCompound().setBoolean(TAG_HOVERMODE_ON, false);
     }
     
     public boolean isHoverModeOn(ItemStack stack) {
@@ -208,7 +208,7 @@ public class Jetpack extends PackBase {
     }
     
     protected ParticleType getParticleType(ItemStack stack) {
-        if (stack.stackTagCompound != null && stack.stackTagCompound.hasKey(TAG_PARTICLE)) {
+        if (stack.getTagCompound() != null && stack.getTagCompound().hasKey(TAG_PARTICLE)) {
             int particle = NBTHelper.getNBT(stack).getInteger(TAG_PARTICLE);
             ParticleType particleType = ParticleType.values()[particle];
             if (particleType != null) {

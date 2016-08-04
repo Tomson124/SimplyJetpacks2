@@ -7,7 +7,6 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiErrorScreen;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import tonius.simplyjetpacks.CommonProxy;
 import tonius.simplyjetpacks.client.handler.ClientTickHandler;
@@ -16,8 +15,8 @@ import tonius.simplyjetpacks.client.handler.KeyHandler;
 import tonius.simplyjetpacks.client.util.ParticleUtils;
 import tonius.simplyjetpacks.setup.ParticleType;
 import cofh.lib.util.helpers.MathHelper;
-import cpw.mods.fml.client.CustomModLoadingErrorDisplayException;
-import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.client.CustomModLoadingErrorDisplayException;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class ClientProxy extends CommonProxy {
     
@@ -32,10 +31,10 @@ public class ClientProxy extends CommonProxy {
         FMLCommonHandler.instance().bus().register(new HUDTickHandler());
     }
     
-    @Override
+    /*@Override
     public void showJetpackParticles(World world, EntityLivingBase wearer, ParticleType particle) {
         if (mc.gameSettings.particleSetting == 0 || mc.gameSettings.particleSetting == 1 && mc.theWorld.getTotalWorldTime() % 4L == 0) {
-            Vec3 userPos = Vec3.createVectorHelper(wearer.posX, wearer.posY, wearer.posZ);
+            Vec3d userPos = Vec4b.createVectorHelper(wearer.posX, wearer.posY, wearer.posZ);
             
             if (!wearer.equals(mc.thePlayer)) {
                 userPos = userPos.addVector(0, 1.6D, 0);
@@ -65,7 +64,7 @@ public class ClientProxy extends CommonProxy {
             v = userPos.addVector(vCenter.xCoord, vCenter.yCoord, vCenter.zCoord);
             ParticleUtils.spawnParticle(particle, world, v.xCoord, v.yCoord, v.zCoord, rand.nextDouble() * 0.05D - 0.025D, -0.2D, rand.nextDouble() * 0.05D - 0.025D);
         }
-    }
+    }*/
     
     @Override
     public void updateCustomKeybinds(String flyKeyName, String descendKeyName) {

@@ -1,7 +1,7 @@
 package tonius.simplyjetpacks.item;
 
 import net.minecraft.item.Item;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemRegistered extends Item {
     

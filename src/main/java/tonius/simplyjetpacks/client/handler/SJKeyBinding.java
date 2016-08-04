@@ -8,7 +8,7 @@ import tonius.simplyjetpacks.item.IControllableArmor;
 import tonius.simplyjetpacks.network.PacketHandler;
 import tonius.simplyjetpacks.network.message.MessageModKey;
 import tonius.simplyjetpacks.setup.ModKey;
-import cpw.mods.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 public class SJKeyBinding extends KeyBinding {
     

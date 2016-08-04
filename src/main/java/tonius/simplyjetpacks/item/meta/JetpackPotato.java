@@ -20,8 +20,8 @@ import tonius.simplyjetpacks.util.SJStringHelper;
 import cofh.lib.util.helpers.FireworksHelper;
 import cofh.lib.util.helpers.MathHelper;
 import cofh.lib.util.helpers.StringHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class JetpackPotato extends Jetpack {
     
