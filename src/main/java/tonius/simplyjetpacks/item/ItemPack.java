@@ -62,7 +62,7 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
 
         registryName = name;
 
-        GameRegistry.registerItem(this, registryName);
+        this.setRegistryName(registryName);
     }
     
     public ItemStack putPack(int meta, T pack, boolean returnFull) {

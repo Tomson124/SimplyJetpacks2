@@ -19,25 +19,6 @@ public class Packs {
         jetpackCreative = (Jetpack) new JetPlate(9001, EnumRarity.EPIC, "jetpackCreative").setDefaultParticleType(ParticleType.RAINBOW_SMOKE).setUsesFuel(false).setHasFuelIndicator(false).setShowEmptyInCreativeTab(false);
         fluxPackCreative = (FluxPack) new FluxPack(9001, EnumRarity.EPIC, "fluxPackCreative").setUsesFuel(false).setHasFuelIndicator(false).setShowEmptyInCreativeTab(false).setIsArmored(true).setShowArmored(false);
         
-        if (ModType.THERMAL_EXPANSION.loaded) {
-            jetpackTE1 = new Jetpack(1, EnumRarity.COMMON, "jetpackTE1");
-            jetpackTE1Armored = (Jetpack) new Jetpack(1, EnumRarity.COMMON, "jetpackTE1").setIsArmored(true).setPlatingMeta(1);
-            jetpackTE2 = new Jetpack(2, EnumRarity.COMMON, "jetpackTE2");
-            jetpackTE2Armored = (Jetpack) new Jetpack(2, EnumRarity.COMMON, "jetpackTE2").setIsArmored(true).setPlatingMeta(2);
-            jetpackTE3 = new Jetpack(3, EnumRarity.UNCOMMON, "jetpackTE3");
-            jetpackTE3Armored = (Jetpack) new Jetpack(3, EnumRarity.UNCOMMON, "jetpackTE3").setIsArmored(true).setPlatingMeta(3);
-            jetpackTE4 = new Jetpack(4, EnumRarity.RARE, "jetpackTE4");
-            jetpackTE4Armored = (Jetpack) new Jetpack(4, EnumRarity.RARE, "jetpackTE4").setIsArmored(true).setPlatingMeta(4);
-            jetpackTE5 = (Jetpack) new JetPlate(5, EnumRarity.EPIC, "jetpackTE5").setFluxBased(true);
-            fluxPackTE1 = new FluxPack(1, EnumRarity.COMMON, "fluxPackTE1");
-            fluxPackTE2 = new FluxPack(2, EnumRarity.COMMON, "fluxPackTE2");
-            fluxPackTE2Armored = (FluxPack) new FluxPack(2, EnumRarity.COMMON, "fluxPackTE2").setIsArmored(true).setPlatingMeta(1);
-            fluxPackTE3 = new FluxPack(3, EnumRarity.UNCOMMON, "fluxPackTE3");
-            fluxPackTE3Armored = (FluxPack) new FluxPack(3, EnumRarity.UNCOMMON, "fluxPackTE3").setIsArmored(true).setPlatingMeta(2);
-            fluxPackTE4 = new FluxPack(4, EnumRarity.RARE, "fluxPackTE4");
-            fluxPackTE4Armored = (FluxPack) new FluxPack(4, EnumRarity.RARE, "fluxPackTE4").setIsArmored(true).setPlatingMeta(3);
-        }
-        
         if (ModType.ENDER_IO.loaded) {
             jetpackEIO1 = new Jetpack(1, EnumRarity.COMMON, "jetpackEIO1");
             jetpackEIO1Armored = (Jetpack) new Jetpack(1, EnumRarity.COMMON, "jetpackEIO1").setIsArmored(true).setPlatingMeta(11);
@@ -71,23 +52,6 @@ public class Packs {
     public static Jetpack jetpackPotato;
     public static Jetpack jetpackCreative;
     public static FluxPack fluxPackCreative;
-    
-    public static Jetpack jetpackTE1;
-    public static Jetpack jetpackTE1Armored;
-    public static Jetpack jetpackTE2;
-    public static Jetpack jetpackTE2Armored;
-    public static Jetpack jetpackTE3;
-    public static Jetpack jetpackTE3Armored;
-    public static Jetpack jetpackTE4;
-    public static Jetpack jetpackTE4Armored;
-    public static Jetpack jetpackTE5;
-    public static FluxPack fluxPackTE1;
-    public static FluxPack fluxPackTE2;
-    public static FluxPack fluxPackTE2Armored;
-    public static FluxPack fluxPackTE3;
-    public static FluxPack fluxPackTE3Armored;
-    public static FluxPack fluxPackTE4;
-    public static FluxPack fluxPackTE4Armored;
     
     public static Jetpack jetpackEIO1;
     public static Jetpack jetpackEIO1Armored;

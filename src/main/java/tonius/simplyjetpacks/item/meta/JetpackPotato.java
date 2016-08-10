@@ -10,6 +10,7 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EntityDamageSource;
 import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.client.audio.SoundRegistry;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.item.ItemPack;
@@ -51,7 +52,7 @@ public class JetpackPotato extends Jetpack {
                     }
                     user.attackEntityFrom(new EntityDamageSource("jetpackpotato", user), 100.0F);
                     if (user instanceof EntityPlayer) {
-                        user.dropItem(Items.baked_potato, 1);
+                        user.dropItem(Items.BAKED_POTATO, 1);
                     }
                 }
             }
@@ -130,7 +131,7 @@ public class JetpackPotato extends Jetpack {
         NBTHelper.getNBT(itemStack).setInteger(TAG_ROCKET_TIMER, timer);
         if (timer == 0) {
             this.setFired(itemStack);
-            user.worldObj.playSoundAtEntity(user, SimplyJetpacks.RESOURCE_PREFIX + "rocket", 1.0F, 1.0F);
+            user.worldObj.playSound(user, user.getPosition(),  + "rocket", 1.0F, 1.0F);
         }
     }
     

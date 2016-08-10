@@ -28,8 +28,7 @@ public class ItemMeta extends ItemRegistered {
 
         registryName = name;
         
-        this.setUnlocalizedName(registryName);
-        this.setRegistryName(registryName);
+        this.setUnlocalizedName(SimplyJetpacks.PREFIX + registryName);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setCreativeTab(ModCreativeTab.instance);

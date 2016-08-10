@@ -44,7 +44,7 @@ public class SimplyJetpacks {
         logger = evt.getModLog();
         logger.info("Starting Simply Jetpacks");
         
-        checkCoFHLib();
+        //checkCoFHLib(); TODO: Clean up! See bottom
         
         Packs.preInit();
         Config.preInit(evt);
@@ -65,7 +65,7 @@ public class SimplyJetpacks {
         SyncHandler.clearAll();
     }
     
-    private static void checkCoFHLib() {
+    /*private static void checkCoFHLib() {
         try {
             Class.forName("cofh.lib.util.helpers.FireworksHelper$Explosion");
             logger.info("Successfully found CoFHLib");
@@ -75,6 +75,6 @@ public class SimplyJetpacks {
             logger.error("Could not find CoFHLib!");
             proxy.throwCoFHLibException();
         }
-    }
+    }*/
     
 }
