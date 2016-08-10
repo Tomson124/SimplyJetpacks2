@@ -16,10 +16,8 @@ import tonius.simplyjetpacks.integration.BCRecipes;
 import tonius.simplyjetpacks.integration.EIOItems;
 import tonius.simplyjetpacks.integration.EIORecipes;
 import tonius.simplyjetpacks.integration.ModType;
-import tonius.simplyjetpacks.item.ItemJetpackFueller;
 import tonius.simplyjetpacks.item.ItemMeta;
 import tonius.simplyjetpacks.item.ItemMeta.MetaItem;
-import tonius.simplyjetpacks.item.ItemMysteriousPotato;
 import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.item.ItemPack.ItemFluxPack;
 import tonius.simplyjetpacks.item.ItemPack.ItemJetpack;
@@ -35,8 +33,6 @@ public abstract class ModItems {
     public static ItemMeta components;
     public static ItemMeta armorPlatings;
     public static ItemMeta particleCustomizers;
-    public static ItemJetpackFueller jetpackFueller;
-    public static ItemMysteriousPotato mysteriousPotato;
 
     public static ItemStack jetpackPotato;
     public static ItemStack jetpackCreative;
@@ -120,6 +116,10 @@ public abstract class ModItems {
             ((ItemPack)item).registerItemModel();
         }
 
+        if (item instanceof ItemMeta) {
+            ((ItemMeta)item).registerItemModel();
+        }
+
         return item;
     }
     
@@ -167,42 +167,39 @@ public abstract class ModItems {
         components = new ItemMeta("components");
         armorPlatings = new ItemMeta("armorPlatings");
         particleCustomizers = new ItemMeta("particleCustomizers");
-        jetpackFueller = new ItemJetpackFueller("jetpackFueller");
-        mysteriousPotato = new ItemMysteriousPotato("mysteriousPotato");
         
-        leatherStrap = components.addMetaItem(0, new MetaItem("leatherStrap", null, EnumRarity.COMMON), true, false);
-        jetpackIcon = components.addMetaItem(1, new MetaItem("jetpack.icon", null, EnumRarity.COMMON, false, true), false, false);
+        leatherStrap = components.addMetaItem(0, new MetaItem("leatherStrap", null, EnumRarity.COMMON), false);
 
         if (integrateEIO) {
-            thrusterEIO1 = components.addMetaItem(21, new MetaItem("thruster.eio.1", null, EnumRarity.COMMON), true, false);
-            thrusterEIO2 = components.addMetaItem(22, new MetaItem("thruster.eio.2", null, EnumRarity.COMMON), true, false);
-            thrusterEIO3 = components.addMetaItem(23, new MetaItem("thruster.eio.3", null, EnumRarity.UNCOMMON), true, false);
-            thrusterEIO4 = components.addMetaItem(24, new MetaItem("thruster.eio.4", null, EnumRarity.RARE), true, false);
-            thrusterEIO5 = components.addMetaItem(25, new MetaItem("thruster.eio.5", null, EnumRarity.EPIC), true, false);
-            ingotDarkSoularium = components.addMetaItem(70, new MetaItem("ingotDarkSoularium", null, EnumRarity.UNCOMMON, true, false), true, true);
-            reinforcedGliderWing = components.addMetaItem(71, new MetaItem("reinforcedGliderWing", null, EnumRarity.UNCOMMON), true, false);
-            unitFlightControlEmpty = components.addMetaItem(72, new MetaItem("unitFlightControl.empty", null, EnumRarity.COMMON), true, false);
-            unitFlightControl = components.addMetaItem(73, new MetaItem("unitFlightControl", null, EnumRarity.UNCOMMON), true, false);
+            thrusterEIO1 = components.addMetaItem(21, new MetaItem("thruster.eio.1", null, EnumRarity.COMMON), false);
+            thrusterEIO2 = components.addMetaItem(22, new MetaItem("thruster.eio.2", null, EnumRarity.COMMON), false);
+            thrusterEIO3 = components.addMetaItem(23, new MetaItem("thruster.eio.3", null, EnumRarity.UNCOMMON), false);
+            thrusterEIO4 = components.addMetaItem(24, new MetaItem("thruster.eio.4", null, EnumRarity.RARE), false);
+            thrusterEIO5 = components.addMetaItem(25, new MetaItem("thruster.eio.5", null, EnumRarity.EPIC), false);
+            ingotDarkSoularium = components.addMetaItem(70, new MetaItem("ingotDarkSoularium", null, EnumRarity.UNCOMMON, true, false), true);
+            reinforcedGliderWing = components.addMetaItem(71, new MetaItem("reinforcedGliderWing", null, EnumRarity.UNCOMMON), false);
+            unitFlightControlEmpty = components.addMetaItem(72, new MetaItem("unitFlightControl.empty", null, EnumRarity.COMMON), false);
+            unitFlightControl = components.addMetaItem(73, new MetaItem("unitFlightControl", null, EnumRarity.UNCOMMON), false);
             
-            armorPlatingEIO1 = armorPlatings.addMetaItem(11, new MetaItem("armorPlating.eio.1", null, EnumRarity.COMMON), true, false);
-            armorPlatingEIO2 = armorPlatings.addMetaItem(12, new MetaItem("armorPlating.eio.2", null, EnumRarity.COMMON), true, false);
-            armorPlatingEIO3 = armorPlatings.addMetaItem(13, new MetaItem("armorPlating.eio.3", null, EnumRarity.COMMON), true, false);
-            armorPlatingEIO4 = armorPlatings.addMetaItem(14, new MetaItem("armorPlating.eio.4", null, EnumRarity.COMMON), true, false);
+            armorPlatingEIO1 = armorPlatings.addMetaItem(11, new MetaItem("armorPlating.eio.1", null, EnumRarity.COMMON), false);
+            armorPlatingEIO2 = armorPlatings.addMetaItem(12, new MetaItem("armorPlating.eio.2", null, EnumRarity.COMMON), false);
+            armorPlatingEIO3 = armorPlatings.addMetaItem(13, new MetaItem("armorPlating.eio.3", null, EnumRarity.COMMON), false);
+            armorPlatingEIO4 = armorPlatings.addMetaItem(14, new MetaItem("armorPlating.eio.4", null, EnumRarity.COMMON), false);
         }
         if (integrateBC) {
             if (Loader.isModLoaded("BuildCraft|Energy") && Loader.isModLoaded("BuildCraft|Factory")) {
-                thrusterBC1 = components.addMetaItem(31, new MetaItem("thruster.bc.1", null, EnumRarity.COMMON), true, false);
+                thrusterBC1 = components.addMetaItem(31, new MetaItem("thruster.bc.1", null, EnumRarity.COMMON), false);
             }
-            thrusterBC2 = components.addMetaItem(32, new MetaItem("thruster.bc.2", null, EnumRarity.UNCOMMON), true, false);
+            thrusterBC2 = components.addMetaItem(32, new MetaItem("thruster.bc.2", null, EnumRarity.UNCOMMON), false);
             
-            armorPlatingBC1 = armorPlatings.addMetaItem(21, new MetaItem("armorPlating.bc.1", null, EnumRarity.COMMON), true, false);
-            armorPlatingBC2 = armorPlatings.addMetaItem(22, new MetaItem("armorPlating.bc.2", null, EnumRarity.UNCOMMON), true, false);
+            armorPlatingBC1 = armorPlatings.addMetaItem(21, new MetaItem("armorPlating.bc.1", null, EnumRarity.COMMON), false);
+            armorPlatingBC2 = armorPlatings.addMetaItem(22, new MetaItem("armorPlating.bc.2", null, EnumRarity.UNCOMMON), false);
         }
         
-        particleDefault = particleCustomizers.addMetaItem(0, new MetaItem("particle.0", "particleCustomizers", EnumRarity.COMMON), true, false);
-        particleNone = particleCustomizers.addMetaItem(1, new MetaItem("particle.1", "particleCustomizers", EnumRarity.COMMON), true, false);
-        particleSmoke = particleCustomizers.addMetaItem(2, new MetaItem("particle.2", "particleCustomizers", EnumRarity.COMMON), true, false);
-        particleRainbowSmoke = particleCustomizers.addMetaItem(3, new MetaItem("particle.3", "particleCustomizers", EnumRarity.COMMON), true, false);
+        particleDefault = particleCustomizers.addMetaItem(0, new MetaItem("particle.0", "particleCustomizers", EnumRarity.COMMON), false);
+        particleNone = particleCustomizers.addMetaItem(1, new MetaItem("particle.1", "particleCustomizers", EnumRarity.COMMON), false);
+        particleSmoke = particleCustomizers.addMetaItem(2, new MetaItem("particle.2", "particleCustomizers", EnumRarity.COMMON), false);
+        particleRainbowSmoke = particleCustomizers.addMetaItem(3, new MetaItem("particle.3", "particleCustomizers", EnumRarity.COMMON), false);
     }
     
     private static void registerRecipes() {
@@ -219,8 +216,6 @@ public abstract class ModItems {
         ItemHelper.addShapedOreRecipe(particleNone, " D ", "DCD", " D ", 'C', dustCoal, 'D', "blockGlass");
         ItemHelper.addShapedOreRecipe(particleSmoke, " C ", "CCC", " C ", 'C', dustCoal);
         ItemHelper.addShapedOreRecipe(particleRainbowSmoke, " R ", " C ", "G B", 'C', dustCoal, 'R', "dyeRed", 'G', "dyeLime", 'B', "dyeBlue");
-        
-        ItemHelper.addShapedOreRecipe(jetpackFueller, "IY ", " IY", " SI", 'I', "ingotIron", 'Y', "dyeYellow", 'S', "stickWood");
         
         if (integrateEIO) {
             ItemHelper.addShapedOreRecipe(thrusterEIO1, "ICI", "PCP", "DSD", 'I', "ingotConductiveIron", 'P', EIOItems.redstoneConduit, 'C', EIOItems.basicCapacitor, 'D', EIOItems.basicGear, 'S', "dustRedstone");

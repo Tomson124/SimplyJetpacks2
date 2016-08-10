@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ItemRegistered extends Item {
     
     public ItemRegistered(String registryName) {
-        GameRegistry.registerItem(this, registryName);
+        setRegistryName(registryName);
     }
     
 }
