@@ -4,13 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraftforge.oredict.OreDictionary;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.setup.ModCreativeTab;
@@ -23,7 +21,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemMeta extends ItemRegistered {
     
     protected final Map<Integer, MetaItem> metaItems = new HashMap<Integer, MetaItem>();
-    protected final Map<Integer, IIcon> icons = new HashMap<Integer, IIcon>();
     protected int highestMeta = 0;
     
     public ItemMeta(String registryName) {

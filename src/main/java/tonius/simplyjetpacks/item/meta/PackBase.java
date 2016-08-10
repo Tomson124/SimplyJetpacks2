@@ -4,14 +4,13 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.config.Configuration;
@@ -48,8 +47,7 @@ public class PackBase {
     public int armorReduction = 0;
     public int armorFuelPerHit = 0;
     public int enchantability = 0;
-    
-    public IIcon icon;
+
     public FuelType fuelType = FuelType.ENERGY;
     public String fuelFluid = null;
     public PackModelType armorModel = PackModelType.FLAT;
@@ -230,22 +228,9 @@ public class PackBase {
     public ModKey[] getGuiControls() {
         return new ModKey[] { ModKey.TOGGLE_PRIMARY };
     }
-    
+
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister register, ModType modType) {
-        this.icon = register.registerIcon(SimplyJetpacks.RESOURCE_PREFIX + this.getBaseName(true) + modType.suffix);
-    }
-    
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(ItemStack stack) {
-        if (this.icon != null) {
-            return this.icon;
-        }
-        return null;
-    }
-    
-    @SideOnly(Side.CLIENT)
-    public String getArmorTexture(ItemStack stack, Entity entity, int slot, ModType modType) {
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, ModType modType) {
         String flat = Config.enableArmor3DModels || this.armorModel == PackModelType.FLAT ? "" : ".flat";
         return SimplyJetpacks.RESOURCE_PREFIX + "textures/armor/" + this.getBaseName(true) + modType.suffix + flat + ".png";
     }

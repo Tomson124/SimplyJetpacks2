@@ -7,18 +7,17 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -54,7 +53,7 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
     protected String name;
     
     public ItemPack(ModType modType, String registryName) {
-        super(ArmorMaterial.IRON, 2, 1);
+        super(ArmorMaterial.IRON, 2, EntityEquipmentSlot.CHEST);
         this.modType = modType;
         this.setUnlocalizedName(SimplyJetpacks.PREFIX + "pack" + modType.suffix);
         this.setHasSubtypes(true);
@@ -179,47 +178,20 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
             e.getValue().addSubItems(this, e.getKey(), list);
         }
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister register) {
-        for (T pack : this.packs.values()) {
-            pack.registerIcons(register, this.modType);
-        }
-    }
-    
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(ItemStack stack, int pass) {
-        T pack = this.packs.get(stack.getItemDamage());
-        if (pack != null) {
-            IIcon icon = pack.getIcon(stack);
-            if (icon != null) {
-                return icon;
-            }
-        }
-        return super.getIcon(stack, pass);
-    }
-    
-    @Override
-    @SideOnly(Side.CLIENT)
-    public boolean requiresMultipleRenderPasses() {
-        return true;
-    }
-    
-    @Override
-    @SideOnly(Side.CLIENT)
-    public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
         T pack = this.getPack(stack);
         if (pack != null) {
             return pack.getArmorTexture(stack, entity, slot, this.modType);
         }
         return super.getArmorTexture(stack, entity, slot, type);
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
-    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack stack, int armorSlot) {
+    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack stack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
         T pack = this.getPack(stack);
         if (pack != null && pack.armorModel != null && Config.enableArmor3DModels) {
             ModelBiped model = RenderUtils.getArmorModel(pack, entityLiving);
@@ -227,9 +199,9 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
                 return model;
             }
         }
-        return super.getArmorModel(entityLiving, stack, armorSlot);
+        return super.getArmorModel(entityLiving, stack, armorSlot, _default);
     }
-    
+
     // control
     @Override
     public void onKeyPressed(ItemStack stack, EntityPlayer player, ModKey key, boolean showInChat) {
@@ -262,7 +234,7 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
             return pack.armorFuelPerHit;
         }
         
-        int fuelEfficiencyLevel = MathHelper.clampI(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency.effectId, stack), 0, 4);
+        int fuelEfficiencyLevel = MathHelper.clampI(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
         return (int) Math.round(pack.armorFuelPerHit * (5 - fuelEfficiencyLevel) / 5.0D);
     }
     

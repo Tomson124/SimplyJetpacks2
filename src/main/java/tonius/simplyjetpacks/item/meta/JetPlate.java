@@ -2,12 +2,11 @@ package tonius.simplyjetpacks.item.meta;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.model.PackModelType;
@@ -25,8 +24,6 @@ public class JetPlate extends Jetpack {
     
     protected static final String TAG_CHARGER_ON = "JetPlateChargerOn";
     protected static final String TAG_ENDERIUM_UPGRADE = "JetPlateEnderiumUpgrade";
-    
-    public IIcon iconEnderium;
     
     public JetPlate(int tier, EnumRarity rarity, String defaultConfigKey) {
         super(tier, rarity, defaultConfigKey);
@@ -74,23 +71,7 @@ public class JetPlate extends Jetpack {
     
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister register, ModType modType) {
-        super.registerIcons(register, modType);
-        this.iconEnderium = register.registerIcon(SimplyJetpacks.RESOURCE_PREFIX + this.getBaseName(true) + modType.suffix + ".enderium");
-    }
-    
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(ItemStack stack) {
-        if (this.iconEnderium != null && this.hasEnderiumUpgrade(stack)) {
-            return this.iconEnderium;
-        }
-        return super.getIcon(stack);
-    }
-    
-    @Override
-    @SideOnly(Side.CLIENT)
-    public String getArmorTexture(ItemStack stack, Entity entity, int slot, ModType modType) {
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, ModType modType) {
         String flat = Config.enableArmor3DModels || this.armorModel == PackModelType.FLAT ? "" : ".flat";
         String enderium = this.hasEnderiumUpgrade(stack) ? ".enderium" : "";
         return SimplyJetpacks.RESOURCE_PREFIX + "textures/armor/" + this.getBaseName(true) + modType.suffix + enderium + flat + ".png";
@@ -150,5 +131,4 @@ public class JetPlate extends Jetpack {
         Boolean charger = this.isChargerOn(stack);
         return SJStringHelper.getHUDStateText(engine, hover, charger);
     }
-    
 }

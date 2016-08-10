@@ -1,6 +1,7 @@
 package tonius.simplyjetpacks.enchantment;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.item.ItemPack;
@@ -8,8 +9,8 @@ import tonius.simplyjetpacks.setup.ModEnchantments;
 
 public class EnchantmentFuelEfficiency extends Enchantment {
     
-    public EnchantmentFuelEfficiency(int id) {
-        super(id, 3, ModEnchantments.enchantType);
+    public EnchantmentFuelEfficiency() {
+        super(Rarity.UNCOMMON, ModEnchantments.enchantType, EntityEquipmentSlot.values());
     }
     
     @Override

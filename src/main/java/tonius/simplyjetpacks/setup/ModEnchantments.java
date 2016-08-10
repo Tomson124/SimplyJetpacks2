@@ -16,7 +16,7 @@ public abstract class ModEnchantments {
         int id = Config.enchantFuelEfficiencyID;
         
         if (id > 0) {
-            fuelEffeciency = new EnchantmentFuelEfficiency(id);
+            fuelEffeciency = new EnchantmentFuelEfficiency();
         }
     }
     
