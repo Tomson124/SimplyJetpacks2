@@ -50,14 +50,14 @@ public class KeyHandler {
                 flyState = mc.inGameHasFocus && Keyboard.isKeyDown(flyKey);
                 descendState = mc.inGameHasFocus && Keyboard.isKeyDown(descendKey);
             } else {
-                flyState = mc.gameSettings.keyBindJump.getIsKeyPressed();
-                descendState = mc.gameSettings.keyBindSneak.getIsKeyPressed();
+                flyState = mc.gameSettings.keyBindJump.isKeyDown();
+                descendState = mc.gameSettings.keyBindSneak.isKeyDown();
             }
             
-            boolean forwardState = mc.gameSettings.keyBindForward.getIsKeyPressed();
-            boolean backwardState = mc.gameSettings.keyBindBack.getIsKeyPressed();
-            boolean leftState = mc.gameSettings.keyBindLeft.getIsKeyPressed();
-            boolean rightState = mc.gameSettings.keyBindRight.getIsKeyPressed();
+            boolean forwardState = mc.gameSettings.keyBindForward.isKeyDown();
+            boolean backwardState = mc.gameSettings.keyBindBack.isKeyDown();
+            boolean leftState = mc.gameSettings.keyBindLeft.isKeyDown();
+            boolean rightState = mc.gameSettings.keyBindRight.isKeyDown();
             
             if (flyState != lastFlyState || descendState != lastDescendState || forwardState != lastForwardState || backwardState != lastBackwardState || leftState != lastLeftState || rightState != lastRightState) {
                 lastFlyState = flyState;

@@ -40,8 +40,9 @@ public abstract class EIORecipes {
     
     private static void appendItemStack(StringBuilder sb, ItemStack stack) {
         if (stack != null) {
-            String[] itemName = Item.itemRegistry.getNameForObject(stack.getItem()).split(":");
-            sb.append("<itemStack modID=\"" + itemName[0] + "\" itemName=\"" + itemName[1] + "\" itemMeta=\"" + stack.getItemDamage() + "\" number=\"" + stack.stackSize + "\" />");
+            String itemName1 = Item.REGISTRY.getNameForObject(stack.getItem()).getResourceDomain();
+            String itemName2 = Item.REGISTRY.getNameForObject(stack.getItem()).getResourcePath();
+            sb.append("<itemStack modID=\"" + itemName1 + "\" itemName=\"" + itemName2 + "\" itemMeta=\"" + stack.getItemDamage() + "\" number=\"" + stack.stackSize + "\" />");
         }
     }
     

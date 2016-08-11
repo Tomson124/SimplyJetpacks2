@@ -12,7 +12,7 @@ public class ModCreativeTab extends CreativeTabs {
     
     private ModCreativeTab() {
         super("tabSimplyJetpacks");
-        this.func_111229_a(ModEnchantments.enchantType);
+        this.setRelevantEnchantmentTypes(ModEnchantments.enchantType);
     }
     
     @Override

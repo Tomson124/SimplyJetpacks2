@@ -1,6 +1,7 @@
 package tonius.simplyjetpacks.client.handler;
 
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
@@ -22,7 +23,7 @@ public class SJKeyBinding extends KeyBinding {
     }
     
     public void handleKeyPress() {
-        ItemStack itemStack = KeyHandler.mc.thePlayer.getEquipmentInSlot(3);
+        ItemStack itemStack = KeyHandler.mc.thePlayer.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
         if (itemStack != null && itemStack.getItem() instanceof IControllableArmor) {
             PacketHandler.instance.sendToServer(new MessageModKey(this.keyType, this.keyType.alwaysShowInChat || Config.enableStateChatMessages));
         }

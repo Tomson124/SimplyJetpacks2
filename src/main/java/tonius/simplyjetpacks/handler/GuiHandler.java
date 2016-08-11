@@ -1,6 +1,7 @@
 package tonius.simplyjetpacks.handler;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import tonius.simplyjetpacks.gui.ContainerPack;
@@ -17,7 +18,7 @@ public class GuiHandler implements IGuiHandler {
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         switch (ID) {
         case PACK:
-            ItemStack chestplate = player.getCurrentArmor(2);
+            ItemStack chestplate = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
             if (chestplate != null && chestplate.getItem() instanceof ItemPack) {
                 ItemPack packItem = (ItemPack) chestplate.getItem();
                 PackBase pack = packItem.getPack(chestplate);
@@ -33,7 +34,7 @@ public class GuiHandler implements IGuiHandler {
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         switch (ID) {
         case PACK:
-            ItemStack chestplate = player.getCurrentArmor(2);
+            ItemStack chestplate = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
             if (chestplate != null && chestplate.getItem() instanceof ItemPack) {
                 ItemPack packItem = (ItemPack) chestplate.getItem();
                 PackBase pack = packItem.getPack(chestplate);
