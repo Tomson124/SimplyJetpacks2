@@ -29,7 +29,7 @@ public class PlatingReturnHandler {
             PackBase inputPack = ((ItemPack) input.getItem()).getPack(input);
             if (inputPack != null && inputPack.isArmored && inputPack.platingMeta != null) {
                 EntityItem item = evt.player.entityDropItem(new ItemStack(ModItems.armorPlatings, 1, inputPack.platingMeta), 0.0F);
-                item.delayBeforeCanPickup = 0;
+                item.setNoPickupDelay();
                 break;
             }
         }
