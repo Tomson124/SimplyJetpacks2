@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import cofh.lib.util.helpers.MathHelper;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -38,8 +39,6 @@ import tonius.simplyjetpacks.setup.ModKey;
 import tonius.simplyjetpacks.util.NBTHelper;
 import tonius.simplyjetpacks.util.SJStringHelper;
 import cofh.api.energy.IEnergyContainerItem;
-import cofh.lib.util.helpers.MathHelper;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -54,13 +53,13 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
     
     public ItemPack(ModType modType, String registryName) {
         super(ArmorMaterial.IRON, 2, EntityEquipmentSlot.CHEST);
+        this.name = registryName;
+
         this.modType = modType;
         this.setUnlocalizedName(SimplyJetpacks.PREFIX + "pack" + modType.suffix);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setCreativeTab(ModCreativeTab.instance);
-
-        registryName = name;
 
         this.setRegistryName(registryName);
     }

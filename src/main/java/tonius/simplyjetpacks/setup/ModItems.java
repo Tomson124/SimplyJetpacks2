@@ -94,7 +94,8 @@ public abstract class ModItems {
         integrateEIO = ModType.ENDER_IO.loaded && Config.enableIntegrationEIO;
         integrateBC = ModType.BUILDCRAFT.loaded && Config.enableIntegrationBC;
         
-        registerItems();
+        //registerItems();
+        initTest();
     }
     
     public static void init() {
@@ -107,6 +108,15 @@ public abstract class ModItems {
         
         registerRecipes();
         doIMC();
+    }
+
+    public static void initTest() {
+
+        jetpacksCommon = register(new ItemJetpack(ModType.SIMPLY_JETPACKS, "jetpacksCommon"));
+        jetpackPotato = jetpacksCommon.putPack(0, Packs.jetpackPotato, true);
+        jetpackCreative = jetpacksCommon.putPack(9001, Packs.jetpackCreative);
+        fluxPacksCommon = register(new ItemFluxPack(ModType.SIMPLY_JETPACKS, "fluxpacksCommon"));
+        fluxPackCreative = fluxPacksCommon.putPack(9001, Packs.fluxPackCreative);
     }
 
     private static <T extends Item> T register(T item) {
@@ -128,11 +138,11 @@ public abstract class ModItems {
         
         // For compatibility, do not change item IDs until 1.8+
         
-        jetpacksCommon = new ItemJetpack(ModType.SIMPLY_JETPACKS, "jetpacksCommon");
-        jetpackPotato = jetpacksCommon.putPack(0, Packs.jetpackPotato, true);
-        jetpackCreative = jetpacksCommon.putPack(9001, Packs.jetpackCreative);
-        fluxPacksCommon = new ItemFluxPack(ModType.SIMPLY_JETPACKS, "fluxpacksCommon");
-        fluxPackCreative = fluxPacksCommon.putPack(9001, Packs.fluxPackCreative);
+//        jetpacksCommon = new ItemJetpack(ModType.SIMPLY_JETPACKS, "jetpacksCommon");
+//        jetpackPotato = jetpacksCommon.putPack(0, Packs.jetpackPotato, true);
+//        jetpackCreative = jetpacksCommon.putPack(9001, Packs.jetpackCreative);
+//        fluxPacksCommon = new ItemFluxPack(ModType.SIMPLY_JETPACKS, "fluxpacksCommon");
+//        fluxPackCreative = fluxPacksCommon.putPack(9001, Packs.fluxPackCreative);
 
         if (integrateEIO) {
             jetpacksEIO = new ItemJetpack(ModType.ENDER_IO, "jetpacksEIO");
