@@ -6,6 +6,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import tonius.simplyjetpacks.client.model.ModelFluxPack;
 import tonius.simplyjetpacks.client.model.ModelJetpack;
 import tonius.simplyjetpacks.item.meta.PackBase;
@@ -27,7 +28,7 @@ public abstract class RenderUtils {
     }
     
     public static void drawStringAtHUDPosition(String string, HUDPositions position, FontRenderer fontRenderer, int xOffset, int yOffset, double scale, int color, boolean shadow, int lineOffset) {
-        ScaledResolution res = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+        ScaledResolution res = new ScaledResolution(mc);
         
         int screenWidth = res.getScaledWidth();
         screenWidth /= scale;
@@ -91,10 +92,7 @@ public abstract class RenderUtils {
         model.isSneak = entity.isSneaking();
         model.isRiding = entity.isRiding();
         model.isChild = entity.isChild();
-        model.heldItemRight = entity.getEquipmentInSlot(0) != null ? 1 : 0;
-        if (entity instanceof EntityPlayer) {
-            model.aimedBow = ((EntityPlayer) entity).getItemInUseDuration() > 2;
-        }
+
         return model;
     }
     

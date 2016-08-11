@@ -1,5 +1,6 @@
 package tonius.simplyjetpacks.client.handler;
 
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
@@ -16,6 +17,7 @@ import tonius.simplyjetpacks.item.ItemPack.ItemJetpack;
 import tonius.simplyjetpacks.item.meta.Jetpack;
 import tonius.simplyjetpacks.setup.ParticleType;
 
+import javax.annotation.Nullable;
 import java.util.Iterator;
 
 public class ClientTickHandler {
@@ -31,7 +33,7 @@ public class ClientTickHandler {
         }
         
         ParticleType jetpackState = null;
-        ItemStack armor = mc.thePlayer.getEquipmentInSlot(3);
+        ItemStack armor = mc.thePlayer.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
         if (armor != null && armor.getItem() instanceof ItemJetpack) {
             Jetpack jetpack = ((ItemJetpack) armor.getItem()).getPack(armor);
             if (jetpack != null) {
@@ -82,17 +84,16 @@ public class ClientTickHandler {
             sprintKeyCheck = false;
         }
         
-        if (!Config.doubleTapSprintInAir || !wearingJetpack || mc.thePlayer.onGround || mc.thePlayer.isSprinting() || mc.thePlayer.isUsingItem() || mc.thePlayer.isPotionActive(Potion.blindness)) {
+        if (!Config.doubleTapSprintInAir || !wearingJetpack || mc.thePlayer.onGround || mc.thePlayer.isSprinting() /* || mc.thePlayer.isUsingItem() TODO: Investigate */ || mc.thePlayer.isPotionActive(Potion.getPotionFromResourceLocation("poison"))) {
             return;
         }
         
         if (!sprintKeyCheck && mc.thePlayer.movementInput.moveForward >= 1.0F && !mc.thePlayer.isCollidedHorizontally && (mc.thePlayer.getFoodStats().getFoodLevel() > 6.0F || mc.thePlayer.capabilities.allowFlying)) {
-            if (mc.thePlayer.sprintToggleTimer <= 0 && !mc.gameSettings.keyBindSprint.getIsKeyPressed()) {
+            /*if (mc.thePlayer.sprintToggleTimer <= 0 && !mc.gameSettings.keyBindSprint.getIsKeyPressed()) {
                 mc.thePlayer.sprintToggleTimer = 7;
                 sprintKeyCheck = true;
-            } else {
-                mc.thePlayer.setSprinting(true);
-            }
+            } TODO: Investigate */
+            mc.thePlayer.setSprinting(true);
         }
     }
     
