@@ -5,6 +5,7 @@ import net.minecraftforge.oredict.RecipeSorter.Category;
 
 import org.apache.logging.log4j.Logger;
 
+import tonius.simplyjetpacks.client.audio.SJSoundEvent;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.crafting.UpgradingRecipe;
 import tonius.simplyjetpacks.handler.SyncHandler;
@@ -49,6 +50,7 @@ public class SimplyJetpacks {
         Packs.preInit();
         Config.preInit(evt);
         ModItems.preInit();
+        SJSoundEvent.registerSounds();
     }
     
     @EventHandler

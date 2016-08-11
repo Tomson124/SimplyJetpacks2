@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSound;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -26,7 +27,7 @@ public class SoundJetpack extends MovingSound {
     private int fadeOut = -1;
     
     public SoundJetpack(EntityLivingBase target) {
-        super(target == mc.thePlayer ? SOUND : SOUND_OTHER);
+        super(target == mc.thePlayer ? SJSoundEvents.JETPACK : SJSoundEvents.JETPACK_OTHER, target == mc.thePlayer ? SoundCategory.PLAYERS : SoundCategory.NEUTRAL);
         this.repeat = true;
         this.user = target;
         playingFor.put(target.getEntityId(), this);

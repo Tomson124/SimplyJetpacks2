@@ -6,11 +6,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EntityDamageSource;
-import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.client.audio.SoundRegistry;
+import net.minecraft.util.SoundCategory;
+import tonius.simplyjetpacks.client.audio.SJSoundEvents;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.item.ItemPack;
@@ -38,12 +39,12 @@ public class JetpackPotato extends Jetpack {
     }
     
     @Override
-    public void flyUser(EntityLivingBase user, ItemStack stack, ItemPack item, boolean force) {
+    public void flyUser(EntityPlayer user, ItemStack stack, ItemPack item, boolean force) {
         if (this.isFired(stack)) {
             super.flyUser(user, stack, item, true);
             user.rotationYawHead += 37.5F;
             if (item.getFuelStored(stack) <= 0) {
-                user.setCurrentItemOrArmor(3, null);
+                user.setItemStackToSlot(EntityEquipmentSlot.CHEST, null);
                 if (!user.worldObj.isRemote) {
                     user.worldObj.createExplosion(user, user.posX, user.posY, user.posZ, 4.0F, false);
                     for (int i = 0; i <= MathHelper.RANDOM.nextInt(3) + 4; i++) {
@@ -125,13 +126,13 @@ public class JetpackPotato extends Jetpack {
         return NBTHelper.getNBT(itemStack).getBoolean(TAG_ROCKET_TIMER_SET);
     }
     
-    protected void decrementTimer(ItemStack itemStack, EntityLivingBase user) {
+    protected void decrementTimer(ItemStack itemStack, EntityPlayer user) {
         int timer = NBTHelper.getNBT(itemStack).getInteger(TAG_ROCKET_TIMER);
         timer = timer > 0 ? timer - 1 : 0;
         NBTHelper.getNBT(itemStack).setInteger(TAG_ROCKET_TIMER, timer);
         if (timer == 0) {
             this.setFired(itemStack);
-            user.worldObj.playSound(user, user.getPosition(),  + "rocket", 1.0F, 1.0F);
+            user.worldObj.playSound(user, user.getPosition(), SJSoundEvents.ROCKET, SoundCategory.PLAYERS, 1.0F, 1.0F);
         }
     }
     

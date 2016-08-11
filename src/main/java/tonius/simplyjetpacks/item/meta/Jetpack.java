@@ -64,7 +64,7 @@ public class Jetpack extends PackBase {
         this.flyUser(player, stack, item, false);
     }
     
-    public void flyUser(EntityLivingBase user, ItemStack stack, ItemPack item, boolean force) {
+    public void flyUser(EntityPlayer user, ItemStack stack, ItemPack item, boolean force) {
         if (this.isOn(stack)) {
             boolean hoverMode = this.isHoverModeOn(stack);
             double hoverSpeed = Config.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(user) ? this.speedVerticalHoverSlow : this.speedVerticalHover;
