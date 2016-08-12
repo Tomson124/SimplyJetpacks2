@@ -10,7 +10,7 @@ import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.item.meta.PackBase;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
-public class GuiHandler implements IGuiHandler {
+public abstract class GuiHandler implements IGuiHandler {
     
     public static final int PACK = 0;
     
@@ -30,7 +30,7 @@ public class GuiHandler implements IGuiHandler {
         return null;
     }
     
-    @Override
+    /*@Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         switch (ID) {
         case PACK:
@@ -44,6 +44,6 @@ public class GuiHandler implements IGuiHandler {
             }
         }
         return null;
-    }
+    } TODO: Readd GUIs */
     
 }

@@ -1,5 +1,7 @@
 package tonius.simplyjetpacks.util;
 
+import org.lwjgl.input.Keyboard;
+
 public final class StringHelper {
 
     public static final String BLACK = "§0";
@@ -29,5 +31,13 @@ public final class StringHelper {
     public static boolean displayStackCount = false;
 
     private StringHelper() {
+    }
+
+    public static boolean isControlKeyDown() {
+        return Keyboard.isKeyDown(29) || Keyboard.isKeyDown(157);
+    }
+
+    public static boolean isShiftKeyDown() {
+        return Keyboard.isKeyDown(42) || Keyboard.isKeyDown(54);
     }
 }

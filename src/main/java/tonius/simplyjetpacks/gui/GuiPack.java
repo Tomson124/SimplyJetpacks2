@@ -8,12 +8,10 @@ import tonius.simplyjetpacks.network.PacketHandler;
 import tonius.simplyjetpacks.network.message.MessageModKey;
 import tonius.simplyjetpacks.setup.ModKey;
 import tonius.simplyjetpacks.util.SJStringHelper;
-import cofh.lib.gui.GuiBase;
-import cofh.lib.gui.element.ElementButton;
 
-public class GuiPack extends GuiBase {
+public class GuiPack /*extends GuiBase*/ {
     
-    private final ContainerPack container;
+    /*private final ContainerPack container;  TODO: Readd GUIs
     
     public GuiPack(ContainerPack container) {
         super(container, new ResourceLocation(SimplyJetpacks.RESOURCE_PREFIX + "textures/gui/pack.png"));
@@ -64,6 +62,6 @@ public class GuiPack extends GuiBase {
             PacketHandler.instance.sendToServer(new MessageModKey(ModKey.MODE_SECONDARY, true));
             this.container.pack.switchModeSecondary(this.container.chestplate, this.mc.thePlayer, false);
         }
-    }
+    }*/
     
 }

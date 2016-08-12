@@ -8,7 +8,6 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.setup.ParticleType;
-import cofh.lib.util.helpers.StringHelper;
 
 import static net.minecraft.util.text.translation.I18n.translateToLocal;
 import static net.minecraft.util.text.translation.I18n.translateToLocalFormatted;

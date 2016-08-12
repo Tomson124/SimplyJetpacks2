@@ -26,9 +26,9 @@ import tonius.simplyjetpacks.util.EquipmentSlotHelper;
 import tonius.simplyjetpacks.util.NBTHelper;
 import tonius.simplyjetpacks.util.SJStringHelper;
 import cofh.api.energy.IEnergyContainerItem;
-import cofh.lib.util.helpers.StringHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import tonius.simplyjetpacks.util.StringHelper;
 
 public class PackBase {
     

@@ -13,9 +13,9 @@ import net.minecraftforge.oredict.OreDictionary;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.setup.ModCreativeTab;
 import tonius.simplyjetpacks.util.SJStringHelper;
-import cofh.lib.util.helpers.StringHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import tonius.simplyjetpacks.util.StringHelper;
 
 public class ItemMeta extends ItemRegistered {
     

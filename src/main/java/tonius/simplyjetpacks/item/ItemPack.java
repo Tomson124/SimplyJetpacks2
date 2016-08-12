@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import cofh.lib.util.helpers.MathHelper;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -36,6 +35,7 @@ import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.setup.ModCreativeTab;
 import tonius.simplyjetpacks.setup.ModEnchantments;
 import tonius.simplyjetpacks.setup.ModKey;
+import tonius.simplyjetpacks.util.MathHelper;
 import tonius.simplyjetpacks.util.NBTHelper;
 import tonius.simplyjetpacks.util.SJStringHelper;
 import cofh.api.energy.IEnergyContainerItem;
@@ -219,9 +219,9 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
             case MODE_SECONDARY:
                 pack.switchModeSecondary(stack, player, showInChat);
                 break;
-            case OPEN_PACK_GUI:
+            /*case OPEN_PACK_GUI: TODO: Readd GUIs
                 player.openGui(SimplyJetpacks.instance, GuiHandler.PACK, player.worldObj, 0, 0, 0);
-                break;
+                break;*/
             default:
             }
         }

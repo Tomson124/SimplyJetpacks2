@@ -15,7 +15,6 @@ import tonius.simplyjetpacks.item.meta.JetpackPotato;
 import tonius.simplyjetpacks.network.PacketHandler;
 import tonius.simplyjetpacks.network.message.MessageJetpackSync;
 import tonius.simplyjetpacks.setup.ParticleType;
-import cofh.lib.util.helpers.MathHelper;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 

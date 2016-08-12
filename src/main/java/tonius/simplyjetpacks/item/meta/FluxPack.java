@@ -11,9 +11,9 @@ import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.util.SJStringHelper;
-import cofh.lib.util.helpers.StringHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import tonius.simplyjetpacks.util.StringHelper;
 
 public class FluxPack extends PackBase {
     

@@ -21,7 +21,7 @@ import tonius.simplyjetpacks.item.ItemMeta.MetaItem;
 import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.item.ItemPack.ItemFluxPack;
 import tonius.simplyjetpacks.item.ItemPack.ItemJetpack;
-import cofh.lib.util.helpers.ItemHelper;
+import tonius.simplyjetpacks.util.ItemHelper;
 
 public abstract class ModItems {
 
