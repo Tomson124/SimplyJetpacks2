@@ -2,9 +2,6 @@ package tonius.simplyjetpacks.item.meta;
 
 import java.util.List;
 
-import cofh.lib.util.helpers.FireworksHelper;
-import cofh.lib.util.helpers.MathHelper;
-import cofh.lib.util.helpers.StringHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.entity.player.EntityPlayer;
