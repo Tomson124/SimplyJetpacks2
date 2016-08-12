@@ -3,7 +3,8 @@ package tonius.simplyjetpacks.client.particle;
 import java.awt.Color;
 
 import net.minecraft.world.World;
-import cofh.lib.util.helpers.MathHelper;
+import tonius.simplyjetpacks.util.MathHelper;
+
 
 public class EntityColoredSmokeFX extends EntityCustomSmokeFX {
     

@@ -106,17 +106,17 @@ public abstract class ModItems {
             BCItems.init();
         }
         
-        registerRecipes();
+        //registerRecipes();
         doIMC();
     }
 
     public static void initTest() {
 
         jetpacksCommon = register(new ItemJetpack(ModType.SIMPLY_JETPACKS, "jetpacksCommon"));
-        jetpackPotato = jetpacksCommon.putPack(0, Packs.jetpackPotato, true);
-        jetpackCreative = jetpacksCommon.putPack(9001, Packs.jetpackCreative);
+//        jetpackPotato = jetpacksCommon.putPack(0, Packs.jetpackPotato, true);
+//        jetpackCreative = jetpacksCommon.putPack(9001, Packs.jetpackCreative);
         fluxPacksCommon = register(new ItemFluxPack(ModType.SIMPLY_JETPACKS, "fluxpacksCommon"));
-        fluxPackCreative = fluxPacksCommon.putPack(9001, Packs.fluxPackCreative);
+//        fluxPackCreative = fluxPacksCommon.putPack(9001, Packs.fluxPackCreative);
     }
 
     private static <T extends Item> T register(T item) {
