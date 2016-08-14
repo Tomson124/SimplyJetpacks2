@@ -105,29 +105,29 @@ public class JetpackPotato extends Jetpack {
         list.add(StringHelper.LIGHT_RED + StringHelper.ITALIC + SJStringHelper.localize("tooltip.jetpackPotato.warning"));
     }
     
-    protected boolean isFired(ItemStack itemStack) {
-        return NBTHelper.getNBT(itemStack).getBoolean(TAG_FIRED);
+    protected boolean isFired(ItemStack stack) {
+        return NBTHelper.getBoolean(stack, TAG_FIRED);
     }
     
-    protected void setFired(ItemStack itemStack) {
-        NBTHelper.getNBT(itemStack).setBoolean(TAG_FIRED, true);
+    protected void setFired(ItemStack stack) {
+        NBTHelper.setBoolean(stack, TAG_FIRED, true);
     }
     
-    protected void setTimer(ItemStack itemStack, int timer) {
-        NBTHelper.getNBT(itemStack).setInteger(TAG_ROCKET_TIMER, timer);
-        NBTHelper.getNBT(itemStack).setBoolean(TAG_ROCKET_TIMER_SET, true);
+    protected void setTimer(ItemStack stack, int timer) {
+        NBTHelper.setInt(stack, TAG_ROCKET_TIMER, timer);
+        NBTHelper.setBoolean(stack, TAG_ROCKET_TIMER_SET, true);
     }
     
-    protected boolean isTimerSet(ItemStack itemStack) {
-        return NBTHelper.getNBT(itemStack).getBoolean(TAG_ROCKET_TIMER_SET);
+    protected boolean isTimerSet(ItemStack stack) {
+        return NBTHelper.getBoolean(stack, TAG_ROCKET_TIMER_SET);
     }
     
-    protected void decrementTimer(ItemStack itemStack, EntityPlayer user) {
-        int timer = NBTHelper.getNBT(itemStack).getInteger(TAG_ROCKET_TIMER);
+    protected void decrementTimer(ItemStack stack, EntityPlayer user) {
+        int timer = NBTHelper.getInt(stack, TAG_ROCKET_TIMER);
         timer = timer > 0 ? timer - 1 : 0;
-        NBTHelper.getNBT(itemStack).setInteger(TAG_ROCKET_TIMER, timer);
+        NBTHelper.setInt(stack, TAG_ROCKET_TIMER, timer);
         if (timer == 0) {
-            this.setFired(itemStack);
+            this.setFired(stack);
             user.worldObj.playSound(user, user.getPosition(), SJSoundEvents.ROCKET, SoundCategory.PLAYERS, 1.0F, 1.0F);
         }
     }

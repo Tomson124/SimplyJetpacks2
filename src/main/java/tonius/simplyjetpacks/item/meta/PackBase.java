@@ -205,7 +205,7 @@ public class PackBase {
     }
     
     public boolean isOn(ItemStack stack) {
-        return NBTHelper.getNBTBoolean(stack, TAG_ON, true);
+        return NBTHelper.getBooleanFallback(stack, TAG_ON, true);
     }
     
     public void togglePrimary(ItemStack stack, EntityPlayer player, boolean showInChat) {

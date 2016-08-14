@@ -27,7 +27,8 @@ public class SoundJetpack extends MovingSound {
     private int fadeOut = -1;
     
     public SoundJetpack(EntityLivingBase target) {
-        super(target == mc.thePlayer ? SJSoundEvents.JETPACK : SJSoundEvents.JETPACK_OTHER, target == mc.thePlayer ? SoundCategory.PLAYERS : SoundCategory.NEUTRAL);
+        //super(target == mc.thePlayer ? SJSoundEvents.JETPACK : SJSoundEvents.JETPACK_OTHER, target == mc.thePlayer ? SoundCategory.PLAYERS : SoundCategory.NEUTRAL);
+        super(SJSoundEvents.JETPACK, SoundCategory.PLAYERS);
         this.repeat = true;
         this.user = target;
         playingFor.put(target.getEntityId(), this);

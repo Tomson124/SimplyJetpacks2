@@ -46,7 +46,7 @@ public class JetPlate extends Jetpack {
     }
     
     public boolean isChargerOn(ItemStack stack) {
-        return NBTHelper.getNBTBoolean(stack, TAG_CHARGER_ON, true);
+        return NBTHelper.getBoolean(stack, TAG_CHARGER_ON);
     }
     
     public void toggleCharger(ItemStack stack, EntityPlayer player, boolean showInChat) {
@@ -54,11 +54,11 @@ public class JetPlate extends Jetpack {
     }
     
     public boolean hasEnderiumUpgrade(ItemStack stack) {
-        return NBTHelper.getNBTBoolean(stack, TAG_ENDERIUM_UPGRADE, false);
+        return NBTHelper.getBoolean(stack, TAG_ENDERIUM_UPGRADE);
     }
     
     public void setEnderiumUpgrade(ItemStack stack, boolean enderUpgrade) {
-        NBTHelper.getNBT(stack).setBoolean(TAG_ENDERIUM_UPGRADE, enderUpgrade);
+        NBTHelper.setBoolean(stack, TAG_ENDERIUM_UPGRADE, enderUpgrade);
     }
     
     @Override

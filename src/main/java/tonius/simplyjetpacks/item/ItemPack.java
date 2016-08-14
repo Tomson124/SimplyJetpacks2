@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
@@ -310,7 +311,7 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
             int energyReceived = Math.min(this.getMaxEnergyStored(stack) - energy, maxAdd);
             if (!simulate) {
                 energy += energyReceived;
-                NBTHelper.getNBT(stack).setInteger(TAG_ENERGY, energy);
+                NBTHelper.setInt(stack, TAG_ENERGY, energy);
             }
             return energyReceived;
         case FLUID:
@@ -322,7 +323,7 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
             int fluidReceived = Math.min(this.getCapacity(stack) - amount, maxAdd);
             if (!simulate) {
                 amount += fluidReceived;
-                NBTHelper.getNBT(stack).setInteger(TAG_FLUID, amount);
+                NBTHelper.setInt(stack, TAG_FLUID, amount);
             }
             return fluidReceived;
         }
@@ -337,7 +338,7 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
             int energyExtracted = Math.min(energy, maxUse);
             if (!simulate) {
                 energy -= energyExtracted;
-                NBTHelper.getNBT(stack).setInteger(TAG_ENERGY, energy);
+                NBTHelper.setInt(stack, TAG_ENERGY, energy);
             }
             return energyExtracted;
         case FLUID:
@@ -349,7 +350,7 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
             int fluidExtracted = Math.min(amount, maxUse);
             if (!simulate) {
                 amount -= fluidExtracted;
-                NBTHelper.getNBT(stack).setInteger(TAG_FLUID, amount);
+                NBTHelper.setInt(stack, TAG_FLUID, amount);
             }
             return fluidExtracted;
         }
@@ -365,7 +366,7 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
         int energyReceived = Math.min(this.getMaxEnergyStored(container) - energy, Math.min(maxReceive, pack.fuelPerTickIn));
         if (!simulate) {
             energy += energyReceived;
-            NBTHelper.getNBT(container).setInteger(TAG_ENERGY, energy);
+            NBTHelper.setInt(container, TAG_ENERGY, energy);
         }
         return energyReceived;
     }
@@ -380,7 +381,7 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
         int energyExtracted = Math.min(energy, Math.min(maxExtract, pack.fuelPerTickOut));
         if (!simulate) {
             energy -= energyExtracted;
-            NBTHelper.getNBT(container).setInteger(TAG_ENERGY, energy);
+            NBTHelper.setInt(container, TAG_ENERGY, energy);
         }
         return energyExtracted;
     }
@@ -391,7 +392,7 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
         if (pack == null || pack.fuelType != FuelType.ENERGY) {
             return 0;
         }
-        return NBTHelper.getNBT(container).getInteger(TAG_ENERGY);
+        return NBTHelper.getInt(container, TAG_ENERGY);
     }
     
     @Override
@@ -409,7 +410,7 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
         if (pack == null || pack.fuelType != FuelType.FLUID || pack.fuelFluid == null) {
             return null;
         }
-        int amount = NBTHelper.getNBT(container).getInteger(TAG_FLUID);
+        int amount = NBTHelper.getInt(container, TAG_FLUID);
         return amount > 0 ? new FluidStack(FluidRegistry.getFluid(pack.fuelFluid), amount) : null;
     }
     
@@ -436,7 +437,7 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
         int fluidReceived = Math.min(this.getCapacity(container) - amount, Math.min(resource.amount, pack.fuelPerTickIn));
         if (doFill) {
             amount += fluidReceived;
-            NBTHelper.getNBT(container).setInteger(TAG_FLUID, amount);
+            NBTHelper.setInt(container, TAG_FLUID, amount);
         }
         return fluidReceived;
     }
@@ -452,7 +453,7 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
         int fluidExtracted = Math.min(amount, Math.min(maxDrain, pack.fuelPerTickOut));
         if (doDrain) {
             amount -= fluidExtracted;
-            NBTHelper.getNBT(container).setInteger(TAG_FLUID, amount);
+            NBTHelper.setInt(container, TAG_FLUID, amount);
         }
         return fluidExtracted > 0 ? new FluidStack(FluidRegistry.getFluid(pack.fuelFluid), fluidExtracted) : null;
     }

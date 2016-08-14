@@ -168,8 +168,8 @@ public class Jetpack extends PackBase {
     }
     
     public void doEHover(ItemStack armor, EntityLivingBase user) {
-        NBTHelper.getNBT(armor).setBoolean(TAG_ON, true);
-        NBTHelper.getNBT(armor).setBoolean(TAG_HOVERMODE_ON, true);
+        NBTHelper.setBoolean(armor, TAG_ON, true);
+        NBTHelper.setBoolean(armor, TAG_HOVERMODE_ON, true);
         if (user instanceof EntityPlayer) {
             ((EntityPlayer) user).addChatMessage(new TextComponentString(StringHelper.LIGHT_RED + SJStringHelper.localize("chat.jetpack.emergencyHoverMode.msg")));
         }
@@ -181,11 +181,11 @@ public class Jetpack extends PackBase {
     }
     
     public boolean isHoverModeOn(ItemStack stack) {
-        return NBTHelper.getNBTBoolean(stack, TAG_HOVERMODE_ON, false);
+        return NBTHelper.getBoolean(stack, TAG_HOVERMODE_ON);
     }
     
     public boolean isEHoverOn(ItemStack stack) {
-        return NBTHelper.getNBTBoolean(stack, TAG_EHOVER_ON, true);
+        return NBTHelper.getBoolean(stack, TAG_EHOVER_ON);
     }
     
     @Override
@@ -209,18 +209,18 @@ public class Jetpack extends PackBase {
     }
     
     public void setParticleType(ItemStack stack, ParticleType particle) {
-        NBTHelper.getNBT(stack).setInteger(TAG_PARTICLE, particle.ordinal());
+        NBTHelper.setInt(stack, TAG_PARTICLE, particle.ordinal());
     }
     
     protected ParticleType getParticleType(ItemStack stack) {
         if (stack.getTagCompound() != null && stack.getTagCompound().hasKey(TAG_PARTICLE)) {
-            int particle = NBTHelper.getNBT(stack).getInteger(TAG_PARTICLE);
+            int particle = NBTHelper.getInt(stack, TAG_PARTICLE);
             ParticleType particleType = ParticleType.values()[particle];
             if (particleType != null) {
                 return particleType;
             }
         }
-        NBTHelper.getNBT(stack).setInteger(TAG_PARTICLE, this.defaultParticleType.ordinal());
+        NBTHelper.setInt(stack, TAG_PARTICLE, this.defaultParticleType.ordinal());
         return this.defaultParticleType;
     }
     

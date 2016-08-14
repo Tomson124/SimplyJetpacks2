@@ -114,7 +114,7 @@ public abstract class ModItems {
 
         jetpacksCommon = register(new ItemJetpack(ModType.SIMPLY_JETPACKS, "jetpacksCommon"));
 //        jetpackPotato = jetpacksCommon.putPack(0, Packs.jetpackPotato, true);
-//        jetpackCreative = jetpacksCommon.putPack(9001, Packs.jetpackCreative);
+        jetpackCreative = jetpacksCommon.putPack(9001, Packs.jetpackCreative);
         fluxPacksCommon = register(new ItemFluxPack(ModType.SIMPLY_JETPACKS, "fluxpacksCommon"));
 //        fluxPackCreative = fluxPacksCommon.putPack(9001, Packs.fluxPackCreative);
     }
