@@ -55,11 +55,6 @@ public abstract class ModItems {
     public static ItemStack fluxPackEIO4 ;
     public static ItemStack fluxPackEIO4Armored;
 
-    public static ItemStack jetpackBC1;
-    public static ItemStack jetpackBC1Armored;
-    public static ItemStack jetpackBC2;
-    public static ItemStack jetpackBC2Armored;
-
     public static ItemStack leatherStrap;
     public static ItemStack jetpackIcon;
     public static ItemStack thrusterEIO1;
@@ -67,8 +62,6 @@ public abstract class ModItems {
     public static ItemStack thrusterEIO3;
     public static ItemStack thrusterEIO4;
     public static ItemStack thrusterEIO5;
-    public static ItemStack thrusterBC1;
-    public static ItemStack thrusterBC2;
     public static ItemStack enderiumUpgrade;
     public static ItemStack ingotDarkSoularium;
     public static ItemStack reinforcedGliderWing;
@@ -79,8 +72,6 @@ public abstract class ModItems {
     public static ItemStack armorPlatingEIO2;
     public static ItemStack armorPlatingEIO3;
     public static ItemStack armorPlatingEIO4;
-    public static ItemStack armorPlatingBC1;
-    public static ItemStack armorPlatingBC2;
 
     public static ItemStack particleDefault;
     public static ItemStack particleNone;
@@ -88,11 +79,9 @@ public abstract class ModItems {
     public static ItemStack particleRainbowSmoke;
 
     private static boolean integrateEIO = false;
-    private static boolean integrateBC = false;
     
     public static void preInit() {
         integrateEIO = ModType.ENDER_IO.loaded && Config.enableIntegrationEIO;
-        integrateBC = ModType.BUILDCRAFT.loaded && Config.enableIntegrationBC;
         
         //registerItems();
         initTest();
@@ -102,9 +91,6 @@ public abstract class ModItems {
         if (integrateEIO) {
             EIOItems.init();
         }
-        if (integrateBC) {
-            BCItems.init();
-        }
         
         //registerRecipes();
         doIMC();
@@ -113,9 +99,10 @@ public abstract class ModItems {
     public static void initTest() {
 
         jetpacksCommon = register(new ItemJetpack(ModType.SIMPLY_JETPACKS, "jetpacksCommon"));
+//        jetpacksCommon = register(new ItemJetpack(ModType.SIMPLY_JETPACKS, "jetpacksCommon"));
 //        jetpackPotato = jetpacksCommon.putPack(0, Packs.jetpackPotato, true);
         jetpackCreative = jetpacksCommon.putPack(9001, Packs.jetpackCreative);
-        fluxPacksCommon = register(new ItemFluxPack(ModType.SIMPLY_JETPACKS, "fluxpacksCommon"));
+//        fluxPacksCommon = register(new ItemFluxPack(ModType.SIMPLY_JETPACKS, "fluxpacksCommon"));
 //        fluxPackCreative = fluxPacksCommon.putPack(9001, Packs.fluxPackCreative);
     }
 
@@ -164,15 +151,6 @@ public abstract class ModItems {
             fluxPackEIO4 = fluxPacksEIO.putPack(4, Packs.fluxPackEIO4);
             fluxPackEIO4Armored = fluxPacksEIO.putPack(104, Packs.fluxPackEIO4Armored);
         }
-        if (integrateBC) {
-            jetpacksBC = new ItemJetpack(ModType.BUILDCRAFT, "jetpacksBC");
-            if (Loader.isModLoaded("BuildCraft|Energy") && Loader.isModLoaded("BuildCraft|Factory")) {
-                jetpackBC1 = jetpacksBC.putPack(1, Packs.jetpackBC1);
-                jetpackBC1Armored = jetpacksBC.putPack(101, Packs.jetpackBC1Armored);
-            }
-            jetpackBC2 = jetpacksBC.putPack(2, Packs.jetpackBC2);
-            jetpackBC2Armored = jetpacksBC.putPack(102, Packs.jetpackBC2Armored);
-        }
         
         components = new ItemMeta("components");
         armorPlatings = new ItemMeta("armorPlatings");
@@ -196,15 +174,6 @@ public abstract class ModItems {
             armorPlatingEIO3 = armorPlatings.addMetaItem(13, new MetaItem("armorPlating.eio.3", null, EnumRarity.COMMON), false);
             armorPlatingEIO4 = armorPlatings.addMetaItem(14, new MetaItem("armorPlating.eio.4", null, EnumRarity.COMMON), false);
         }
-        if (integrateBC) {
-            if (Loader.isModLoaded("BuildCraft|Energy") && Loader.isModLoaded("BuildCraft|Factory")) {
-                thrusterBC1 = components.addMetaItem(31, new MetaItem("thruster.bc.1", null, EnumRarity.COMMON), false);
-            }
-            thrusterBC2 = components.addMetaItem(32, new MetaItem("thruster.bc.2", null, EnumRarity.UNCOMMON), false);
-            
-            armorPlatingBC1 = armorPlatings.addMetaItem(21, new MetaItem("armorPlating.bc.1", null, EnumRarity.COMMON), false);
-            armorPlatingBC2 = armorPlatings.addMetaItem(22, new MetaItem("armorPlating.bc.2", null, EnumRarity.UNCOMMON), false);
-        }
         
         particleDefault = particleCustomizers.addMetaItem(0, new MetaItem("particle.0", "particleCustomizers", EnumRarity.COMMON), false);
         particleNone = particleCustomizers.addMetaItem(1, new MetaItem("particle.1", "particleCustomizers", EnumRarity.COMMON), false);
@@ -214,27 +183,27 @@ public abstract class ModItems {
     
     private static void registerRecipes() {
         SimplyJetpacks.logger.info("Registering recipes");
-        
+
         ItemHelper.addShapedOreRecipe(jetpackPotato, "S S", "NPN", "R R", 'S', Items.STRING, 'N', "nuggetGold", 'P', Items.POTATO, 'R', "dustRedstone");
         ItemHelper.addShapedOreRecipe(jetpackPotato, "S S", "NPN", "R R", 'S', Items.STRING, 'N', "nuggetGold", 'P', Items.POISONOUS_POTATO, 'R', "dustRedstone");
         GameRegistry.addRecipe(new UpgradingRecipe(jetpackCreative, "J", "P", 'J', jetpackCreative, 'P', new ItemStack(particleCustomizers, 1, OreDictionary.WILDCARD_VALUE)));
-        
+
         ItemHelper.addShapedOreRecipe(leatherStrap, "LIL", "LIL", 'L', Items.LEATHER, 'I', "ingotIron");
-        
+
         Object dustCoal = OreDictionary.getOres("dustCoal").size() > 0 ? "dustCoal" : new ItemStack(Items.COAL);
         ItemHelper.addShapedOreRecipe(particleDefault, " D ", "DCD", " D ", 'C', dustCoal, 'D', Blocks.TORCH);
         ItemHelper.addShapedOreRecipe(particleNone, " D ", "DCD", " D ", 'C', dustCoal, 'D', "blockGlass");
         ItemHelper.addShapedOreRecipe(particleSmoke, " C ", "CCC", " C ", 'C', dustCoal);
         ItemHelper.addShapedOreRecipe(particleRainbowSmoke, " R ", " C ", "G B", 'C', dustCoal, 'R', "dyeRed", 'G', "dyeLime", 'B', "dyeBlue");
-        
+
         if (integrateEIO) {
             ItemHelper.addShapedOreRecipe(thrusterEIO1, "ICI", "PCP", "DSD", 'I', "ingotConductiveIron", 'P', EIOItems.redstoneConduit, 'C', EIOItems.basicCapacitor, 'D', EIOItems.basicGear, 'S', "dustRedstone");
             ItemHelper.addShapedOreRecipe(thrusterEIO2, "ICI", "PCP", "DSD", 'I', "ingotElectricalSteel", 'P', EIOItems.energyConduit1, 'C', EIOItems.basicCapacitor, 'D', EIOItems.machineChassis, 'S', "dustRedstone");
             ItemHelper.addShapedOreRecipe(thrusterEIO3, "ICI", "PCP", "DSD", 'I', "ingotEnergeticAlloy", 'P', EIOItems.energyConduit2, 'C', EIOItems.doubleCapacitor, 'D', EIOItems.pulsatingCrystal, 'S', "ingotRedstoneAlloy");
             ItemHelper.addShapedOreRecipe(thrusterEIO4, "ICI", "PCP", "DSD", 'I', "ingotPhasedGold", 'P', EIOItems.energyConduit3, 'C', EIOItems.octadicCapacitor, 'D', EIOItems.vibrantCrystal, 'S', "ingotRedstoneAlloy");
-            
+
             ItemHelper.addShapedOreRecipe(armorPlatingEIO1, "SIS", "ISI", "SIS", 'I', "ingotIron", 'S', "itemSilicon");
-            
+
             GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO1, "CIC", "ISI", "IPI", 'S', leatherStrap, 'C', EIOItems.basicCapacitor, 'I', "ingotConductiveIron", 'P', "dustCoal"));
             GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO2, "DCD", "ISI", "IPI", 'S', fluxPackEIO1, 'C', EIOItems.basicCapacitor, 'D', EIOItems.doubleCapacitor, 'I', "ingotElectricalSteel", 'P', "dustGold"));
             if (EIOItems.capacitorBank != null && EIOItems.capacitorBank.getItem() != null) {
@@ -246,19 +215,18 @@ public abstract class ModItems {
             }
 
 
-
             GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO2Armored, "P", "J", 'J', fluxPackEIO2, 'P', armorPlatingEIO1));
             GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO2, "J", 'J', fluxPackEIO2Armored));
             GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO3Armored, "P", "J", 'J', fluxPackEIO3, 'P', armorPlatingEIO2));
             GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO3, "J", 'J', fluxPackEIO3Armored));
             GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO4Armored, "P", "J", 'J', fluxPackEIO4, 'P', armorPlatingEIO3));
             GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO4, "J", 'J', fluxPackEIO4Armored));
-            
+
             GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO1, "IBI", "IJI", "T T", 'I', "ingotConductiveIron", 'B', EIOItems.basicCapacitor, 'T', thrusterEIO1, 'J', leatherStrap));
             GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO2, "IBI", "IJI", "T T", 'I', "ingotElectricalSteel", 'B', EIOItems.basicCapacitor, 'T', thrusterEIO2, 'J', jetpackEIO1));
             GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO3, "IBI", "IJI", "T T", 'I', "ingotEnergeticAlloy", 'B', EIOItems.doubleCapacitor, 'T', thrusterEIO3, 'J', jetpackEIO2));
             GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4, "IBI", "IJI", "T T", 'I', "ingotPhasedGold", 'B', EIOItems.octadicCapacitor, 'T', thrusterEIO4, 'J', jetpackEIO3));
-            
+
             GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO1Armored, "P", "J", 'J', jetpackEIO1, 'P', armorPlatingEIO1));
             GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO1, "J", 'J', jetpackEIO1Armored));
             GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO2Armored, "P", "J", 'J', jetpackEIO2, 'P', armorPlatingEIO2));
@@ -267,50 +235,18 @@ public abstract class ModItems {
             GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO3, "J", 'J', jetpackEIO3Armored));
             GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4Armored, "P", "J", 'J', jetpackEIO4, 'P', armorPlatingEIO4));
             GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4, "J", 'J', jetpackEIO4Armored));
-            
+
             GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO1, "J", "P", 'J', jetpackEIO1, 'P', new ItemStack(particleCustomizers, 1, OreDictionary.WILDCARD_VALUE)));
             GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO2, "J", "P", 'J', jetpackEIO2, 'P', new ItemStack(particleCustomizers, 1, OreDictionary.WILDCARD_VALUE)));
             GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO3, "J", "P", 'J', jetpackEIO3, 'P', new ItemStack(particleCustomizers, 1, OreDictionary.WILDCARD_VALUE)));
             GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4, "J", "P", 'J', jetpackEIO4, 'P', new ItemStack(particleCustomizers, 1, OreDictionary.WILDCARD_VALUE)));
-            
+
             ItemHelper.addShapedOreRecipe(unitFlightControlEmpty, "FLF", "LHL", "FLF", 'L', "ingotElectricalSteel", 'F', "ingotDarkSoularium", 'H', "blockGlassHardened");
             ItemHelper.addShapedOreRecipe(thrusterEIO5, "SES", "CTC", 'T', thrusterEIO4, 'S', "ingotDarkSoularium", 'E', unitFlightControl, 'C', EIOItems.octadicCapacitor);
             ItemHelper.addShapedOreRecipe(reinforcedGliderWing, "  S", " SP", "SPP", 'S', "ingotDarkSoularium", 'P', armorPlatingEIO2);
             GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO5, "OAO", "PJP", "TCT", 'A', EIOItems.enderCrystal, 'J', jetpackEIO4Armored, 'O', "ingotDarkSoularium", 'C', fluxPackEIO4Armored, 'T', thrusterEIO5, 'P', reinforcedGliderWing));
-            
+
             GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO5, "J", "P", 'J', jetpackEIO5, 'P', new ItemStack(particleCustomizers, 1, OreDictionary.WILDCARD_VALUE)));
-        }
-        
-        if (integrateBC) {
-            ItemHelper.addShapedOreRecipe(armorPlatingBC1, /* listen here u */"LIL"/* shit */, "ILI", "LIL", 'I', "ingotIron", 'L', Items.LEATHER);
-            ItemHelper.addSurroundRecipe(armorPlatingBC2, armorPlatingBC1, "gemDiamond");
-            
-            if (jetpackBC1 != null) {
-                ItemHelper.addShapedOreRecipe(thrusterBC1, "IGI", "PEP", "IBI", 'I', "ingotIron", 'G', "gearIron", 'P', BCItems.pipeFluidStone, 'E', BCItems.engineCombustion, 'B', Blocks.IRON_BARS);
-                
-                GameRegistry.addRecipe(new UpgradingRecipe(jetpackBC1, "IBI", "IJI", "T T", 'I', "ingotIron", 'B', BCItems.tank, 'T', thrusterBC1, 'J', leatherStrap));
-                
-                GameRegistry.addRecipe(new UpgradingRecipe(jetpackBC1Armored, "P", "J", 'J', jetpackBC1, 'P', armorPlatingBC1));
-                GameRegistry.addRecipe(new UpgradingRecipe(jetpackBC1, "J", 'J', jetpackBC1Armored));
-                
-                GameRegistry.addRecipe(new UpgradingRecipe(jetpackBC1, "J", "P", 'J', jetpackBC1, 'P', new ItemStack(particleCustomizers, 1, OreDictionary.WILDCARD_VALUE)));
-            }
-            
-            Object jetpack = jetpackBC1 != null ? jetpackBC1 : leatherStrap;
-            Object thruster = thrusterBC1 != null ? thrusterBC1 : "gearIron";
-            if (Loader.isModLoaded("BuildCraft|Silicon")) {
-                GameRegistry.addRecipe(new UpgradingRecipe(jetpackBC2, "IBI", "IJI", "T T", 'I', "ingotGold", 'B', "crystalRedstone" /* BC7 */, 'T', thrusterBC2, 'J', jetpack));
-                GameRegistry.addRecipe(new UpgradingRecipe(jetpackBC2, "IBI", "IJI", "T T", 'I', "ingotGold", 'B', "redstoneCrystal" /* BC6 */, 'T', thrusterBC2, 'J', jetpack));
-            } else {
-                ItemHelper.addShapedOreRecipe(thrusterBC2, "IGI", "PEP", "IBI", 'I', "ingotGold", 'G', "gearGold", 'P', BCItems.pipeEnergyGold, 'E', thruster, 'B', Blocks.IRON_BARS);
-                
-                GameRegistry.addRecipe(new UpgradingRecipe(jetpackBC2, "IBI", "IJI", "T T", 'I', "ingotGold", 'B', "gearDiamond", 'T', thrusterBC2, 'J', jetpack));
-            }
-            
-            GameRegistry.addRecipe(new UpgradingRecipe(jetpackBC2Armored, "P", "J", 'J', jetpackBC2, 'P', armorPlatingBC2));
-            GameRegistry.addRecipe(new UpgradingRecipe(jetpackBC2, "J", 'J', jetpackBC2Armored));
-            
-            GameRegistry.addRecipe(new UpgradingRecipe(jetpackBC2, "J", "P", 'J', jetpackBC2, 'P', new ItemStack(particleCustomizers, 1, OreDictionary.WILDCARD_VALUE)));
         }
     }
     
@@ -335,17 +271,6 @@ public abstract class ModItems {
             EIORecipes.addAlloySmelterRecipe("Enriched Soularium Alloy", 32000, ingotDarkSteel, ingotSoularium, EIOItems.pulsatingCrystal, ingotDarkSoularium);
             
             EIORecipes.addSoulBinderRecipe("Flight Control Unit", 75000, 8, "Bat", unitFlightControlEmpty, unitFlightControl);
-        }
-        if (integrateBC && Loader.isModLoaded("BuildCraft|Silicon")) {
-            ItemStack pipeEnergyGold = BCItems.getStack(BCItems.pipeEnergyGold);
-            pipeEnergyGold.stackSize = 2;
-            ItemStack[] inputs;
-            if (thrusterBC1 != null) {
-                inputs = new ItemStack[] { thrusterBC1.copy(), new ItemStack(Items.GOLD_INGOT, 4), pipeEnergyGold, BCItems.getStack(BCItems.chipsetGold) };
-            } else {
-                inputs = new ItemStack[] { BCItems.getStack(BCItems.engineCombustion), new ItemStack(Items.GOLD_INGOT, 4), pipeEnergyGold, BCItems.getStack(BCItems.chipsetGold), new ItemStack(Blocks.IRON_BARS) };
-            }
-            BCRecipes.addAssemblyRecipe("kineticThruster", 1200000, inputs, thrusterBC2.copy());
         }
     }
 }
