@@ -3,6 +3,7 @@ eclipse/
 .classpath
 .project
 .gradle/
+.idea/
 .settings/
 bin/
 repo/
