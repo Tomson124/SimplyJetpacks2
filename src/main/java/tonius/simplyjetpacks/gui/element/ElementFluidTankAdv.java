@@ -1,13 +1,9 @@
 package tonius.simplyjetpacks.gui.element;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.IFluidTank;
-import tonius.simplyjetpacks.SimplyJetpacks;
-
-public class ElementFluidTankAdv /*extends ElementFluidTank TODO: Readd GUIs*/ {
-    
-    /*public ElementFluidTankAdv(GuiBase gui, int posX, int posY, IFluidTank tank) {
-        super(gui, posX, posY, tank);
+public class ElementFluidTankAdv /*extends ElementFluidTank TODO: Readd GUIs*/
+{
+	/*public ElementFluidTankAdv(GuiBase gui, int posX, int posY, IFluidTank tank) {
+		super(gui, posX, posY, tank);
         this.texture = new ResourceLocation(SimplyJetpacks.RESOURCE_PREFIX + "textures/gui/elements/fluidTank.png");
     }
     
@@ -17,5 +13,4 @@ public class ElementFluidTankAdv /*extends ElementFluidTank TODO: Readd GUIs*/ {
         this.drawTexturedModalRect(this.posX - 1, this.posY - 1, 0, 0, this.sizeX + 2, this.sizeY + 2);
         super.drawBackground(mouseX, mouseY, gameTicks);
     }*/
-    
 }

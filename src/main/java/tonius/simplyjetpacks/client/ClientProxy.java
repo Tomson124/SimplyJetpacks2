@@ -1,46 +1,39 @@
 package tonius.simplyjetpacks.client;
 
-import java.util.Random;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiErrorScreen;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
-import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import tonius.simplyjetpacks.CommonProxy;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.handler.ClientTickHandler;
 import tonius.simplyjetpacks.client.handler.HUDTickHandler;
 import tonius.simplyjetpacks.client.handler.KeyHandler;
-import tonius.simplyjetpacks.client.util.ParticleUtils;
-import tonius.simplyjetpacks.setup.ParticleType;
-import net.minecraftforge.fml.client.CustomModLoadingErrorDisplayException;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 
-public class ClientProxy extends CommonProxy {
-    
-    private static final Minecraft mc = Minecraft.getMinecraft();
-    
-    @Override
-    public void registerHandlers() {
-        super.registerHandlers();
-        
-        FMLCommonHandler.instance().bus().register(new ClientTickHandler());
-        FMLCommonHandler.instance().bus().register(new KeyHandler());
-        FMLCommonHandler.instance().bus().register(new HUDTickHandler());
-    }
+public class ClientProxy extends CommonProxy
+{
+	private static final Minecraft mc = Minecraft.getMinecraft();
 
-    @Override
-    public void registerItemRenderer(Item item, int meta, String id) {
-        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(SimplyJetpacks.MODID + ":" + id, "inventory"));
-    }
-    
+	@Override
+	public void registerHandlers()
+	{
+		super.registerHandlers();
+
+		FMLCommonHandler.instance().bus().register(new ClientTickHandler());
+		FMLCommonHandler.instance().bus().register(new KeyHandler());
+		FMLCommonHandler.instance().bus().register(new HUDTickHandler());
+	}
+
+	@Override
+	public void registerItemRenderer(Item item, int meta, String id)
+	{
+		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(SimplyJetpacks.MODID + ":" + id, "inventory"));
+	}
+
     /*@Override
-    public void showJetpackParticles(World world, EntityLivingBase wearer, ParticleType particle) {
+	public void showJetpackParticles(World world, EntityLivingBase wearer, ParticleType particle) {
         if (mc.gameSettings.particleSetting == 0 || mc.gameSettings.particleSetting == 1 && mc.theWorld.getTotalWorldTime() % 4L == 0) {
             Vec3d userPos = Vec4b.createVectorHelper(wearer.posX, wearer.posY, wearer.posZ);
             
@@ -73,19 +66,21 @@ public class ClientProxy extends CommonProxy {
             ParticleUtils.spawnParticle(particle, world, v.xCoord, v.yCoord, v.zCoord, rand.nextDouble() * 0.05D - 0.025D, -0.2D, rand.nextDouble() * 0.05D - 0.025D);
         }
     }*/
-    
-    @Override
-    public void updateCustomKeybinds(String flyKeyName, String descendKeyName) {
-        KeyHandler.updateCustomKeybinds(flyKeyName, descendKeyName);
-    }
-    
-    @Override
-    public String getPackGUIKey() {
-        int keyCode = KeyHandler.keyOpenPackGUI.getKeyCode();
-        if (keyCode == 0) {
-            return null;
-        }
-        return GameSettings.getKeyDisplayString(keyCode);
-    }
-    
+
+	@Override
+	public void updateCustomKeybinds(String flyKeyName, String descendKeyName)
+	{
+		KeyHandler.updateCustomKeybinds(flyKeyName, descendKeyName);
+	}
+
+	@Override
+	public String getPackGUIKey()
+	{
+		int keyCode = KeyHandler.keyOpenPackGUI.getKeyCode();
+		if(keyCode == 0)
+		{
+			return null;
+		}
+		return GameSettings.getKeyDisplayString(keyCode);
+	}
 }

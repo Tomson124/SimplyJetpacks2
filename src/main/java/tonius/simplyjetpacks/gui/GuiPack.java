@@ -1,18 +1,9 @@
 package tonius.simplyjetpacks.gui;
 
-import net.minecraft.util.ResourceLocation;
-import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.gui.element.ElementEnergyStoredAdv;
-import tonius.simplyjetpacks.gui.element.ElementFluidTankAdv;
-import tonius.simplyjetpacks.network.PacketHandler;
-import tonius.simplyjetpacks.network.message.MessageModKey;
-import tonius.simplyjetpacks.setup.ModKey;
-import tonius.simplyjetpacks.util.SJStringHelper;
+public class GuiPack /*extends GuiBase*/
+{
+	/*private final ContainerPack container;  TODO: Readd GUIs
 
-public class GuiPack /*extends GuiBase*/ {
-    
-    /*private final ContainerPack container;  TODO: Readd GUIs
-    
     public GuiPack(ContainerPack container) {
         super(container, new ResourceLocation(SimplyJetpacks.RESOURCE_PREFIX + "textures/gui/pack.png"));
         this.container = container;
@@ -63,5 +54,4 @@ public class GuiPack /*extends GuiBase*/ {
             this.container.pack.switchModeSecondary(this.container.chestplate, this.mc.thePlayer, false);
         }
     }*/
-    
 }

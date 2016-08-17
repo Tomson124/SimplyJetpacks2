@@ -1,8 +1,11 @@
+1.6.0 - TBD
+----------------------------------
+- Updated to 1.9.4 by Cyberdyne Coders Coalition
+
+
 1.5.3 - 2015-11-19
 ----------------------------------
 - FIXED: Errors / log spam during startup when using newer versions of Forge
-
-
 
 1.5.2 - 2015-11-02
 ----------------------------------
@@ -11,7 +14,6 @@
 - CHANGED: Renamed Enriched Soularium Alloy to Dark Soularium Ingot. Now also registered in the Ore Dictionary as `ingotDarkSoularium`
 - FIXED: Pack GUI key not showing in jetpack/flux pack tooltips if the control is bound to a mouse button
 - FIXED: Config files being (over)written on disk every time the game starts; now only done when their contents are actually changed.
-
 
 1.5.1 - 2015-05-23
 ----------------------------------
@@ -33,6 +35,7 @@
 - CHANGED: Using a jetpack underwater is now a bit slower, and makes it produce bubbles.
 - CHANGED: It is now possible to enable sprinting in the air while wearing a jetpack by double-tapping the forward key. This can be disabled in the client config if it gets annoying.
 - FIXED: Not being able to turn off only part of the HUD
+
 
 1.4.1 - 2015-02-20
 ----------------------------------
@@ -58,11 +61,9 @@
 - Fixed major bug in armor that could negate armor values
 - Fixed energy HUD scale affecting other mod HUDs
 
-
 1.3.1 - 2014-12-16
 ----------------------------------
 - Updated Capacitor Pack recipes for the new version of Ender IO
-
 
 1.3.0 - 2014-12-06
 ----------------------------------
@@ -97,16 +98,13 @@
 - Fixed Leadstone Jetpack recipe not taking power from used Leadstone Flux Capacitors
 - Recipes that use glass blocks now use Ore Dictionary glass
 
-
 1.1.3 - 2014-09-25
 ----------------------------------
 - Fixed the Flux-Infused JetPlate not being craftable with a (partially) charged Flux-Infused Chestplate
 
-
 1.1.2 - 2014-09-24
 ----------------------------------
 - Fixed spamming isue in the client console
-
 
 1.1.1 - 2014-09-14
 ----------------------------------
@@ -118,7 +116,6 @@
 - Fly and descend keys can now be changed using the configs, to be something else than the vanilla jump and sneak keys.
 - Fixed potential memory leak in single player
 - Various code cleanups
-
 
 1.1.0 - 2014-08-16
 ----------------------------------
@@ -134,7 +131,6 @@
 1.0.1 - 2014-08-02
 ----------------------------------
 - Fixed a bug in jetpack upgrading recipes
-
 
 1.0.0 - 2014-07-30
 ----------------------------------
@@ -155,10 +151,10 @@
 - Also a lot of changes to what the texture file names are called. Sorry, texture pack users!
 
 
+
 0.3.1.1 - 2014-06-30
 ----------------------------------
 - Fixed a crash when using a Creative Jetpack and taking damage
-
 
 0.3.1 - 2014-06-27
 ----------------------------------
@@ -186,7 +182,6 @@
 ----------------------------------
 - Fixed a small yet annoying bug with the energy HUD
 
-
 0.2 - 2014-05-24
 ----------------------------------
 - Added a way to put armor on jetpacks. Refer to the jetpacks' tooltips for more info
@@ -205,7 +200,6 @@
 0.1.4.1 - 2014-05-03
 ----------------------------------
 - Attempt to fix crashes with jetpack upgrading recipes in mod workbenches
-
 
 0.1.4 - 2014-05-02
 ----------------------------------
