@@ -35,6 +35,8 @@ public class PackBase
 	protected static final Set<PackBase> ALL_PACKS = new LinkedHashSet<PackBase>();
 	protected static final String TAG_ON = "PackOn";
 
+    public final String registryName;
+
 	public final String name;
 	public final int tier;
 	public final EnumRarity rarity;
@@ -68,6 +70,7 @@ public class PackBase
 		this.tier = tier;
 		this.rarity = rarity;
 		this.defaults = PackDefaults.get(defaultConfigKey);
+        this.registryName = defaultConfigKey;
 		if(this.defaults == null)
 		{
 			throw new IllegalArgumentException("No PackDefaults instance found for key " + defaultConfigKey);
@@ -225,7 +228,11 @@ public class PackBase
 		return this.name + "." + this.tier + (armoredInfo && this.isArmored && this.showArmored ? ".armored" : "");
 	}
 
-	protected void toggleState(boolean on, ItemStack stack, String type, String tag, EntityPlayer player, boolean showInChat)
+    public String getRegistryName() {
+        return this.registryName;
+    }
+
+    protected void toggleState(boolean on, ItemStack stack, String type, String tag, EntityPlayer player, boolean showInChat)
 	{
 		stack.getTagCompound().setBoolean(tag, !on);
 

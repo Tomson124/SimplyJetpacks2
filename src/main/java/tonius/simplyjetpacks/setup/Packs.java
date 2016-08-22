@@ -40,18 +40,6 @@ public class Packs
 			fluxPackEIO4 = new FluxPack(4, EnumRarity.RARE, "fluxPackEIO4");
 			fluxPackEIO4Armored = (FluxPack) new FluxPack(4, EnumRarity.RARE, "fluxPackEIO4").setIsArmored(true).setPlatingMeta(13);
 		}
-
-		if(ModType.BUILDCRAFT.loaded)
-		{
-			boolean energyFactoryLoaded = Loader.isModLoaded("BuildCraft|Energy") && Loader.isModLoaded("BuildCraft|Factory");
-			if(energyFactoryLoaded)
-			{
-				jetpackBC1 = (Jetpack) new Jetpack(1, EnumRarity.COMMON, "jetpackBC1").setFuelFluid("fuel");
-				jetpackBC1Armored = (Jetpack) new Jetpack(1, EnumRarity.COMMON, "jetpackBC1").setFuelFluid("fuel").setIsArmored(true).setPlatingMeta(21);
-			}
-			jetpackBC2 = (Jetpack) new Jetpack(2, EnumRarity.UNCOMMON, "jetpackBC2").setShowTier(energyFactoryLoaded);
-			jetpackBC2Armored = (Jetpack) new Jetpack(2, EnumRarity.UNCOMMON, "jetpackBC2").setIsArmored(true).setPlatingMeta(22).setShowTier(energyFactoryLoaded);
-		}
 	}
 
 	public static Jetpack jetpackPotato;
@@ -74,9 +62,4 @@ public class Packs
 	public static FluxPack fluxPackEIO3Armored;
 	public static FluxPack fluxPackEIO4;
 	public static FluxPack fluxPackEIO4Armored;
-
-	public static Jetpack jetpackBC1;
-	public static Jetpack jetpackBC1Armored;
-	public static Jetpack jetpackBC2;
-	public static Jetpack jetpackBC2Armored;
 }

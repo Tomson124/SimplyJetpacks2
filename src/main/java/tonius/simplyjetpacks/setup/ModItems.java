@@ -18,10 +18,15 @@ import tonius.simplyjetpacks.item.ItemMeta.MetaItem;
 import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.item.ItemPack.ItemFluxPack;
 import tonius.simplyjetpacks.item.ItemPack.ItemJetpack;
+import tonius.simplyjetpacks.item.meta.PackBase;
 import tonius.simplyjetpacks.util.ItemHelper;
 
 public abstract class ModItems
 {
+	public static tonius.simplyjetpacks.item.rewrite.ItemJetpack itemJetpack;
+
+
+
 	public static ItemJetpack jetpacksCommon;
 	public static ItemFluxPack fluxPacksCommon;
 	public static ItemJetpack jetpacksEIO;
@@ -98,11 +103,12 @@ public abstract class ModItems
 
 	public static void initTest()
 	{
+		itemJetpack = register(new tonius.simplyjetpacks.item.rewrite.ItemJetpack("itemJetpack"));
 
-		jetpacksCommon = register(new ItemJetpack(ModType.SIMPLY_JETPACKS, "jetpacksCommon"));
+		//jetpacksCommon = register(new ItemJetpack(ModType.SIMPLY_JETPACKS, "jetpacksCommon"));
 		//        jetpacksCommon = register(new ItemJetpack(ModType.SIMPLY_JETPACKS, "jetpacksCommon"));
-		//        jetpackPotato = jetpacksCommon.putPack(0, Packs.jetpackPotato, true);
-		jetpackCreative = jetpacksCommon.putPack(9001, Packs.jetpackCreative);
+		        //jetpackPotato = jetpacksCommon.putPack(0, Packs.jetpackPotato, true);
+		//jetpackCreative = jetpacksCommon.putPack(9001, Packs.jetpackCreative);
 		//        fluxPacksCommon = register(new ItemFluxPack(ModType.SIMPLY_JETPACKS, "fluxpacksCommon"));
 		//        fluxPackCreative = fluxPacksCommon.putPack(9001, Packs.fluxPackCreative);
 	}
@@ -110,6 +116,10 @@ public abstract class ModItems
 	private static <T extends Item> T register(T item)
 	{
 		GameRegistry.register(item);
+
+		if (item instanceof tonius.simplyjetpacks.item.rewrite.ItemJetpack) {
+			((tonius.simplyjetpacks.item.rewrite.ItemJetpack) item).registerItemModel();
+		}
 
 		if(item instanceof ItemPack)
 		{

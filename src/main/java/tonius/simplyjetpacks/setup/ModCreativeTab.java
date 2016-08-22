@@ -2,7 +2,6 @@ package tonius.simplyjetpacks.setup;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -20,13 +19,6 @@ public class ModCreativeTab extends CreativeTabs
 	@SideOnly(Side.CLIENT)
 	public Item getTabIconItem()
 	{
-		return ModItems.components;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public ItemStack getIconItemStack()
-	{
-		return ModItems.jetpackIcon;
+		return ModItems.itemJetpack;
 	}
 }
