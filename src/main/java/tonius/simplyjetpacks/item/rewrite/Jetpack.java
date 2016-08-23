@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Locale;
 
 public enum Jetpack implements IStringSerializable {
-	CREATIVE_JETPACK("jetpackCreative", 5, 90000),
-	POTATO_JETPACK("jetpackPotato", 1, 500);
+	CREATIVE_JETPACK("jetpackCreative", 5, 90000, 500, 500),
+	POTATO_JETPACK("jetpackPotato", 1, 500, 50, 50);
 
 	public final @Nonnull
 	String baseName;
@@ -19,12 +19,16 @@ public enum Jetpack implements IStringSerializable {
 	public final @Nonnull String iconKey;
 	public final int tier;
 	public final int fuelCapacity;
+	public final int fuelPerTickIn;
+	public final int fuelPerTickOut;
 	private final @Nonnull List<String> jetpacks = new ArrayList<String>();
 
-	private Jetpack(@Nonnull String baseName, int tier, int fuelCapacity) {
+	private Jetpack(@Nonnull String baseName, int tier, int fuelCapacity, int fuelPerTickIn, int fuelPerTickOut) {
 		this.baseName = baseName;
 		this.tier = tier;
 		this.fuelCapacity = fuelCapacity;
+		this.fuelPerTickIn = fuelPerTickIn;
+		this.fuelPerTickOut = fuelPerTickOut;
 		this.unlocalisedName = "simplyjetpacks." + baseName;
 		this.iconKey = "simplyjetpacks:" + baseName;
 		this.jetpacks.add(baseName);
@@ -42,11 +46,19 @@ public enum Jetpack implements IStringSerializable {
 		return tier;
 	}
 
-	public @Nonnull ItemStack getStackIngot() {
-		return getStackIngot(1);
+	public int getFuelPerTickIn() {
+		return fuelPerTickIn;
 	}
 
-	public @Nonnull ItemStack getStackIngot(int size) {
+	public int getFuelPerTickOut() {
+		return fuelPerTickOut;
+	}
+
+	public @Nonnull ItemStack getStackJetpack() {
+		return getStackJetpack(1);
+	}
+
+	public @Nonnull ItemStack getStackJetpack(int size) {
 		return new ItemStack(ModItems.itemJetpack, size, ordinal());
 	}
 

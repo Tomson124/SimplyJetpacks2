@@ -3,7 +3,7 @@ package tonius.simplyjetpacks.setup;
 public enum FuelType
 {
 	ENERGY(" RF"),
-	FLUID(" mB");
+	FLUID(" mB"); //TODO: Remove
 
 	public final String suffix;
 
