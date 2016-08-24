@@ -2,6 +2,8 @@ package tonius.simplyjetpacks.item.rewrite;
 
 import cofh.api.energy.IEnergyContainerItem;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -11,6 +13,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -21,20 +25,25 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.item.IControllableArmor;
 import tonius.simplyjetpacks.item.IHUDInfoProvider;
 import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.setup.ModCreativeTab;
+import tonius.simplyjetpacks.setup.ModEnchantments;
+import tonius.simplyjetpacks.setup.ModKey;
 import tonius.simplyjetpacks.util.NBTHelper;
 import tonius.simplyjetpacks.util.SJStringHelper;
+import tonius.simplyjetpacks.util.StringHelper;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider {
+public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider, IControllableArmor {
 
 	private static final String TAG_ENERGY = "Energy";
 	protected static final String TAG_ON = "PackOn";
+	protected static final String TAG_HOVERMODE_ON = "JetpackHoverModeOn";
 
 	public String name;
 	public boolean showTier = true;
@@ -42,8 +51,10 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public boolean hasStateIndicators = true;
 	public FuelType fuelType = FuelType.ENERGY;
 	public boolean usesFuel = true;
+	public boolean isFluxBased = false;
 
 	private final int numItems;
+	private boolean isArmored = true;
 
 	public ItemJetpack(String name) {
 		super(ArmorMaterial.IRON, 2, EntityEquipmentSlot.CHEST);
@@ -62,6 +73,55 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		for (int j = 0; j < numItems; ++j) {
 			List.add(new ItemStack(item, 1, j));
 		}
+	}
+
+	@Override
+	public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
+	}
+
+	@Override
+	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+	}
+
+	protected void toggleState(boolean on, ItemStack stack, String type, String tag, EntityPlayer player, boolean showInChat) {
+		stack.getTagCompound().setBoolean(tag, !on);
+
+		if(player != null && showInChat) {
+			String color = on ? StringHelper.LIGHT_RED : StringHelper.BRIGHT_GREEN;
+			type = type != null && !type.equals("") ? "chat." + this.name + "." + type + ".on" : "chat." + this.name + ".on";
+			String msg = SJStringHelper.localize(type) + " " + color + SJStringHelper.localize("chat." + (on ? "disabled" : "enabled"));
+			player.addChatMessage(new TextComponentString(msg));
+		}
+	}
+
+	// control
+	@Override
+	public void onKeyPressed(ItemStack stack, EntityPlayer player, ModKey key, boolean showInChat) {
+		switch(key) {
+			case TOGGLE_PRIMARY:
+				this.toggleState(this.isOn(stack), stack, null, TAG_ON, player, showInChat);
+				break;
+			case TOGGLE_SECONDARY:
+				break;
+			case MODE_PRIMARY:
+				this.switchHoverMode(stack, player, showInChat);
+				break;
+			case MODE_SECONDARY:
+				break;
+			default:
+		}
+	}
+
+	@Override
+	public boolean showDurabilityBar(ItemStack stack) {
+		return this.hasFuelIndicator;
+	}
+
+	@Override
+	public double getDurabilityForDisplay(ItemStack stack) {
+		double stored = this.getMaxFuelStored(stack) - this.getFuelStored(stack) + 1;
+		double max = this.getMaxFuelStored(stack) + 1;
+		return stored / max;
 	}
 
 	@Override
@@ -94,9 +154,19 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings("unchecked")
 	public void shiftInformation(ItemStack stack, List list) {
+		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+
 		list.add(SJStringHelper.getStateText(this.isOn(stack)));
+		list.add(SJStringHelper.getHoverModeText(this.isHoverModeOn(stack)));
+		if(Jetpack.values()[i].getFuelUsage() > 0)
+		{
+			list.add(SJStringHelper.getFuelUsageText(this.fuelType, Jetpack.values()[i].getFuelUsage()));
+		}
+		//list.add(SJStringHelper.getParticlesText(this.getParticleType(stack))); TODO: Add Particle info
+		SJStringHelper.addDescriptionLines(list, "jetpack", StringHelper.BRIGHT_GREEN);
 		String key = SimplyJetpacks.proxy.getPackGUIKey();
-		if(key != null) {
+		if(key != null)
+		{
 			list.add(SJStringHelper.getPackGUIText(key));
 		}
 	}
@@ -177,37 +247,98 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			list.add(this.getHUDFuelInfo(stack, this));
 		}
 		if(showState && this.hasStateIndicators) {
-			list.add(this.getHUDStatesInfo(stack, this));
+			list.add(this.getHUDStatesInfo(stack));
 		}
 	}
 
 	@SideOnly(Side.CLIENT)
-	public String getHUDFuelInfo(ItemStack stack, ItemJetpack item)
-	{
+	public String getHUDFuelInfo(ItemStack stack, ItemJetpack item) {
 		int fuel = item.getFuelStored(stack);
 		int maxFuel = item.getMaxFuelStored(stack);
 		int percent = (int) Math.ceil((double) fuel / (double) maxFuel * 100D);
 		return SJStringHelper.getHUDFuelText(this.name, percent, this.fuelType, fuel);
 	}
 
+	public boolean isHoverModeOn(ItemStack stack) {
+		return NBTHelper.getBoolean(stack, TAG_HOVERMODE_ON);
+	}
+
 	@SideOnly(Side.CLIENT)
-	public String getHUDStatesInfo(ItemStack stack, ItemJetpack item)
-	{
-		return null;
+	public String getHUDStatesInfo(ItemStack stack) {
+		Boolean engine = this.isOn(stack);
+		Boolean hover = this.isHoverModeOn(stack);
+		return SJStringHelper.getHUDStateText(engine, hover, null);
 	}
 
 	@Override
 	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
+		int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
+		if(/*pack.isArmored && */ !source.isUnblockable()) {
+			if(this.isFluxBased && source.damageType.equals("flux")) {
+				return new ArmorProperties(0, 0.5D, Integer.MAX_VALUE);
+			}
+			int energyPerDamage = this.getFuelPerDamage(armor);
+			int maxAbsorbed = energyPerDamage > 0 ? 25 * (this.getFuelStored(armor) / energyPerDamage) : 0;
+			return new ArmorProperties(0, 0.85D * (Jetpack.values()[i].getArmorReduction() / 20.0D), maxAbsorbed);
+		}
 		return new ArmorProperties(0, 1, 0);
 	}
 
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
+		int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
+		if(this.isArmored) {
+			if(this.getFuelStored(armor) >= Jetpack.values()[i].getArmorFuelPerHit()) {
+				return Jetpack.values()[i].getArmorReduction();
+			}
+		}
 		return 0;
 	}
 
 	@Override
-	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
+	public void damageArmor(EntityLivingBase entity, ItemStack armor, DamageSource source, int damage, int slot) {
+		int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
+		if(/*pack.isArmored && */ usesFuel) {
+			if(this.fuelType == FuelType.ENERGY && this.isFluxBased && source.damageType.equals("flux")) {
+				this.addFuel(armor, damage * (source.getEntity() == null ? Jetpack.values()[i].getArmorFuelPerHit() / 2 : this.getFuelPerDamage(armor)), false);
+			}
+			else {
+				this.useFuel(armor, damage * this.getFuelPerDamage(armor), false);
+			}
+		}
+	}
+
+	/*public void switchModeSecondary(ItemStack stack, EntityPlayer player, boolean showInChat) TODO: Add Jetplates
+	{
+		if(this.emergencyHoverMode)
+		{
+			this.switchEHover(stack, player, showInChat);
+		}
+	}*/
+
+	protected void switchHoverMode(ItemStack stack, EntityPlayer player, boolean showInChat) {
+		this.toggleState(this.isHoverModeOn(stack), stack, "hoverMode", TAG_HOVERMODE_ON, player, showInChat);
+	}
+
+	public ModKey[] getGuiControls()
+	{
+		/*if(this.emergencyHoverMode) { TODO: Add Jetplates
+			return new ModKey[] {ModKey.TOGGLE_PRIMARY, ModKey.MODE_PRIMARY, ModKey.MODE_SECONDARY};
+		}
+		else {*/
+			return new ModKey[] {ModKey.TOGGLE_PRIMARY, ModKey.MODE_PRIMARY};
+		//}
+	}
+
+	// armor
+	protected int getFuelPerDamage(ItemStack stack) {
+		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+		if(ModEnchantments.fuelEffeciency == null) {
+			return Jetpack.values()[i].getArmorFuelPerHit();
+		}
+
+		int fuelEfficiencyLevel = MathHelper.clamp_int(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
+		return (int) Math.round(Jetpack.values()[i].getArmorFuelPerHit() * (5 - fuelEfficiencyLevel) / 5.0D);
 	}
 
 	public void registerItemModel() {
