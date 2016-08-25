@@ -12,6 +12,8 @@ import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import org.lwjgl.input.Keyboard;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
+import tonius.simplyjetpacks.network.PacketHandler;
+import tonius.simplyjetpacks.network.message.MessageKeyBind;
 import tonius.simplyjetpacks.util.StackUtil;
 
 public class KeyTracker {
@@ -51,33 +53,14 @@ public class KeyTracker {
 				ItemJetpack jetpack = (ItemJetpack)chestItem;
 
 				jetpack.toggleState(jetpack.isOn(chestStack), chestStack, null, jetpack.TAG_ON, player, true);
+				PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.ENGINE));
 			}
 			if(hoverKey.isPressed()) {
 				ItemJetpack jetpack = (ItemJetpack)chestItem;
 
 				jetpack.toggleState(jetpack.isHoverModeOn(chestStack), chestStack, "hoverMode", jetpack.TAG_HOVERMODE_ON, player, true);
+				PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.HOVER));
 			}
 		}
 	}
-
-	/*private void handleCharger() {
-		if(!JumpUpgrade.isEquipped(Minecraft.getMinecraft().thePlayer)) {
-			return;
-		}
-		if(stepAssistKey.isPressed()) {
-			toggleDarkSteelController(Type.STEP_ASSIST, "darksteel.upgrade.stepAssist");
-		}
-	}
-
-	private void handleEHover() {
-		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-		if(!GogglesOfRevealingUpgrade.isUpgradeEquipped(player)){
-			return;
-		}
-		if(gogglesKey.isPressed()) {
-			boolean isActive = !DarkSteelItems.itemDarkSteelHelmet.isGogglesUgradeActive();
-			sendEnabledChatMessage("darksteel.upgrade.goggles", isActive);
-			DarkSteelItems.itemDarkSteelHelmet.setGogglesUgradeActive(isActive);
-		}
-	}*/
 }
