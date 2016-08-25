@@ -24,7 +24,7 @@ public class ClientProxy extends CommonProxy
 
 		FMLCommonHandler.instance().bus().register(KeyTracker.instance);
 		FMLCommonHandler.instance().bus().register(new ClientTickHandler());
-		//FMLCommonHandler.instance().bus().register(new KeyHandler());
+		//FMLCommonHandler.instance().bus().register(new KeyHandler()); TODO Remove
 		FMLCommonHandler.instance().bus().register(new HUDTickHandler());
 	}
 
@@ -72,7 +72,8 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void updateCustomKeybinds(String flyKeyName, String descendKeyName)
 	{
-		KeyHandler.updateCustomKeybinds(flyKeyName, descendKeyName);
+		//KeyHandler.updateCustomKeybinds(flyKeyName, descendKeyName);
+		KeyTracker.updateCustomKeybinds(flyKeyName, descendKeyName);
 	}
 
 	@Override

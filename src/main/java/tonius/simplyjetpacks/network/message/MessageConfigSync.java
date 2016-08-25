@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.item.meta.PackBase;
+import tonius.simplyjetpacks.item.rewrite.Jetpack;
 
 public class MessageConfigSync implements IMessage, IMessageHandler<MessageConfigSync, IMessage>
 {
@@ -17,7 +18,8 @@ public class MessageConfigSync implements IMessage, IMessageHandler<MessageConfi
 	public void toBytes(ByteBuf buf)
 	{
 		NBTTagCompound toSend = new NBTTagCompound();
-		PackBase.writeAllConfigsToNBT(toSend);
+		//PackBase.writeAllConfigsToNBT(toSend);
+		Jetpack.writeAllConfigsToNBT(toSend);
 		ByteBufUtils.writeTag(buf, toSend);
 	}
 
@@ -30,7 +32,8 @@ public class MessageConfigSync implements IMessage, IMessageHandler<MessageConfi
 	@Override
 	public IMessage onMessage(MessageConfigSync msg, MessageContext ctx)
 	{
-		PackBase.readAllConfigsFromNBT(msg.recv);
+		//PackBase.readAllConfigsFromNBT(msg.recv);
+		Jetpack.readAllConfigsFromNBT(msg.recv);
 		SimplyJetpacks.logger.info("Received server configuration");
 		return null;
 	}

@@ -12,6 +12,7 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
@@ -26,6 +27,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.config.Config;
+import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.item.IControllableArmor;
 import tonius.simplyjetpacks.item.IHUDInfoProvider;
 import tonius.simplyjetpacks.item.ItemPack;
@@ -35,6 +38,7 @@ import tonius.simplyjetpacks.setup.ModEnchantments;
 import tonius.simplyjetpacks.setup.ModKey;
 import tonius.simplyjetpacks.util.NBTHelper;
 import tonius.simplyjetpacks.util.SJStringHelper;
+import tonius.simplyjetpacks.util.StackUtil;
 import tonius.simplyjetpacks.util.StringHelper;
 
 import javax.annotation.Nullable;
@@ -82,6 +86,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+		flyUser(player, stack, this, false);
 	}
 
 	public void toggleState(boolean on, ItemStack stack, String type, String tag, EntityPlayer player, boolean showInChat) {
@@ -165,6 +170,16 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 
 	public int getMaxFuelStored(ItemStack stack) {
 		return this.getMaxEnergyStored(stack);
+	}
+
+	protected int getFuelUsage(ItemStack stack) {
+		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+		//if(ModEnchantments.fuelEffeciency == null) {
+			return Jetpack.values()[i].getFuelUsage();
+		//}
+
+		//int fuelEfficiencyLevel = tonius.simplyjetpacks.util.MathHelper.clampI(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
+		//return (int) Math.round(this.fuelUsage * (20 - fuelEfficiencyLevel) / 20.0D);
 	}
 
 	public int addFuel(ItemStack stack, int maxAdd, boolean simulate) {
@@ -308,6 +323,130 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 
 		int fuelEfficiencyLevel = MathHelper.clamp_int(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
 		return (int) Math.round(Jetpack.values()[i].getArmorFuelPerHit() * (5 - fuelEfficiencyLevel) / 5.0D);
+	}
+
+	public void flyUser(EntityPlayer user, ItemStack stack, ItemJetpack item, boolean force)
+	{
+		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+		Item chestItem = StackUtil.getItem(stack);
+		ItemJetpack jetpack = (ItemJetpack)chestItem;
+		if(jetpack.isOn(stack))
+		{
+			boolean hoverMode = jetpack.isHoverModeOn(stack);
+			double hoverSpeed = Config.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(user) ? Jetpack.values()[i].speedVerticalHoverSlow : Jetpack.values()[i].speedVerticalHover;
+			boolean flyKeyDown = force || SyncHandler.isFlyKeyDown(user);
+			boolean descendKeyDown = SyncHandler.isDescendKeyDown(user);
+			double currentAccel = Jetpack.values()[i].accelVertical * (user.motionY < 0.3D ? 2.5D : 1.0D);
+			double currentSpeedVertical = Jetpack.values()[i].speedVertical * (user.isInWater() ? 0.4D : 1.0D);
+
+			if(flyKeyDown || hoverMode && !user.onGround)
+			{
+				if(this.usesFuel)
+				{
+					item.useFuel(stack, (int) (user.isSprinting() ? Math.round(this.getFuelUsage(stack) * Jetpack.values()[i].sprintFuelModifier) : this.getFuelUsage(stack)), false);
+				}
+
+				if(item.getFuelStored(stack) > 0)
+				{
+					if(flyKeyDown)
+					{
+						if(!hoverMode)
+						{
+							user.motionY = Math.min(user.motionY + currentAccel, currentSpeedVertical);
+						}
+						else
+						{
+							if(descendKeyDown)
+							{
+								user.motionY = Math.min(user.motionY + currentAccel, -Jetpack.values()[i].speedVerticalHoverSlow);
+							}
+							else
+							{
+								user.motionY = Math.min(user.motionY + currentAccel, Jetpack.values()[i].speedVerticalHover);
+							}
+						}
+					}
+					else
+					{
+						user.motionY = Math.min(user.motionY + currentAccel, -hoverSpeed);
+					}
+
+					float speedSideways = (float) (user.isSneaking() ? Jetpack.values()[i].speedSideways * 0.5F : Jetpack.values()[i].speedSideways);
+					float speedForward = (float) (user.isSprinting() ? speedSideways * Jetpack.values()[i].sprintSpeedModifier : speedSideways);
+					if(SyncHandler.isForwardKeyDown(user))
+					{
+						user.moveRelative(0, speedForward, speedForward);
+					}
+					if(SyncHandler.isBackwardKeyDown(user))
+					{
+						user.moveRelative(0, -speedSideways, speedSideways * 0.8F);
+					}
+					if(SyncHandler.isLeftKeyDown(user))
+					{
+						user.moveRelative(speedSideways, 0, speedSideways);
+					}
+					if(SyncHandler.isRightKeyDown(user))
+					{
+						user.moveRelative(-speedSideways, 0, speedSideways);
+					}
+
+					if(!user.worldObj.isRemote)
+					{
+						user.fallDistance = 0.0F;
+
+                        /*
+						TODO: Check what this is for and how to update this
+                        if (user instanceof EntityPlayerMP) {
+                            ((EntityPlayerMP) user).connection.floatingTickCount = 0;
+                        }*/
+
+                        /*
+						TODO: Reimplement explosions
+                        if (Config.flammableFluidsExplode) {
+                            if (!(user instanceof EntityPlayer) || !((EntityPlayer) user).capabilities.isCreativeMode) {
+                                int x = Math.round((float) user.posX - 0.5F);
+                                int y = Math.round((float) user.posY);
+                                int z = Math.round((float) user.posZ - 0.5F);
+                                Block fluidBlock = user.worldObj.getBlock(x, y, z);
+                                if (fluidBlock instanceof IFluidBlock && fluidBlock.isFlammable(user.worldObj, x, y, z, ForgeDirection.UNKNOWN)) {
+                                    user.worldObj.playSoundAtEntity(user, "mob.ghast.fireball", 2.0F, 1.0F);
+                                    user.worldObj.createExplosion(user, user.posX, user.posY, user.posZ, 3.5F, false);
+                                    user.attackEntityFrom(new EntityDamageSource("jetpackexplode", user), 100.0F);
+                                }
+                            }
+                        }*/
+					}
+				}
+			}
+		}
+
+		/*if(!user.worldObj.isRemote && this.emergencyHoverMode && this.isEHoverOn(stack)) TODO Add Jetplates
+		{
+			if(item.getEnergyStored(stack) > 0 && (!this.isHoverModeOn(stack) || !this.isOn(stack)))
+			{
+				if(user.posY < -5)
+				{
+					this.doEHover(stack, user);
+				}
+				else if(user instanceof EntityPlayer)
+				{
+					if(!((EntityPlayer) user).capabilities.isCreativeMode && user.fallDistance - 1.2F >= user.getHealth())
+					{
+						for(int i = 0; i <= 16; i++)
+						{
+							int x = Math.round((float) user.posX - 0.5F);
+							int y = Math.round((float) user.posY) - i;
+							int z = Math.round((float) user.posZ - 0.5F);
+							if(!user.worldObj.isAirBlock(new BlockPos(x, y, z)))
+							{
+								this.doEHover(stack, user);
+								break;
+							}
+						}
+					}
+				}
+			}
+		}*/
 	}
 
 	public void registerItemModel() {

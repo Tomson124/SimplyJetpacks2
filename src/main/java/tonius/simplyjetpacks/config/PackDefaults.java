@@ -52,6 +52,18 @@ public class PackDefaults
 		d.speedVertical = 0.9D;
 		d.accelVertical = 0.5D;
 
+		d = new PackDefaults("jetpackTest", "Test Jetpack");
+		d.fuelCapacity = 12000;
+		d.fuelPerTickIn = 500;
+		d.fuelPerTickOut = 500;
+		d.fuelUsage = 50;
+		d.speedVertical = 0.9D;
+		d.accelVertical = 0.15D;
+		d.speedVerticalHover = 0.45D;
+		d.speedVerticalHoverSlow = 0.0D;
+		d.speedSideways = 0.21D;
+		d.sprintSpeedModifier = 2.5D;
+
 		d = new PackDefaults("jetpackCreative", "Creative Jetpack");
 		d.fuelPerTickOut = 32000;
 		d.armorReduction = 12;
