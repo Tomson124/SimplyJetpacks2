@@ -11,6 +11,7 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.handler.ClientTickHandler;
 import tonius.simplyjetpacks.client.handler.HUDTickHandler;
 import tonius.simplyjetpacks.client.handler.KeyHandler;
+import tonius.simplyjetpacks.client.handler.rewrite.KeyTracker;
 
 public class ClientProxy extends CommonProxy
 {
@@ -21,8 +22,9 @@ public class ClientProxy extends CommonProxy
 	{
 		super.registerHandlers();
 
+		FMLCommonHandler.instance().bus().register(KeyTracker.instance);
 		FMLCommonHandler.instance().bus().register(new ClientTickHandler());
-		FMLCommonHandler.instance().bus().register(new KeyHandler());
+		//FMLCommonHandler.instance().bus().register(new KeyHandler());
 		FMLCommonHandler.instance().bus().register(new HUDTickHandler());
 	}
 

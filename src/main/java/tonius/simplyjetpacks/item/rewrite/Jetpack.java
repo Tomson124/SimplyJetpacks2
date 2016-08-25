@@ -96,4 +96,6 @@ public enum Jetpack implements IStringSerializable {
 	public static int getMetaFromType(Jetpack value) {
 		return value.ordinal();
 	}
+
+
 }

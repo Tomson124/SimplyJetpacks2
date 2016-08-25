@@ -24,6 +24,7 @@ import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.item.IControllableArmor;
 import tonius.simplyjetpacks.item.IHUDInfoProvider;
@@ -39,11 +40,11 @@ import tonius.simplyjetpacks.util.StringHelper;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider, IControllableArmor {
+public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider {
 
 	private static final String TAG_ENERGY = "Energy";
-	protected static final String TAG_ON = "PackOn";
-	protected static final String TAG_HOVERMODE_ON = "JetpackHoverModeOn";
+	public static final String TAG_ON = "PackOn";
+	public static final String TAG_HOVERMODE_ON = "JetpackHoverModeOn";
 
 	public String name;
 	public boolean showTier = true;
@@ -83,32 +84,14 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
 	}
 
-	protected void toggleState(boolean on, ItemStack stack, String type, String tag, EntityPlayer player, boolean showInChat) {
-		stack.getTagCompound().setBoolean(tag, !on);
+	public void toggleState(boolean on, ItemStack stack, String type, String tag, EntityPlayer player, boolean showInChat) {
+		NBTHelper.setBoolean(stack, tag, !on);
 
-		if(player != null && showInChat) {
+		if (player != null && showInChat) {
 			String color = on ? StringHelper.LIGHT_RED : StringHelper.BRIGHT_GREEN;
 			type = type != null && !type.equals("") ? "chat." + this.name + "." + type + ".on" : "chat." + this.name + ".on";
 			String msg = SJStringHelper.localize(type) + " " + color + SJStringHelper.localize("chat." + (on ? "disabled" : "enabled"));
 			player.addChatMessage(new TextComponentString(msg));
-		}
-	}
-
-	// control
-	@Override
-	public void onKeyPressed(ItemStack stack, EntityPlayer player, ModKey key, boolean showInChat) {
-		switch(key) {
-			case TOGGLE_PRIMARY:
-				this.toggleState(this.isOn(stack), stack, null, TAG_ON, player, showInChat);
-				break;
-			case TOGGLE_SECONDARY:
-				break;
-			case MODE_PRIMARY:
-				this.switchHoverMode(stack, player, showInChat);
-				break;
-			case MODE_SECONDARY:
-				break;
-			default:
 		}
 	}
 
@@ -315,20 +298,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			this.switchEHover(stack, player, showInChat);
 		}
 	}*/
-
-	protected void switchHoverMode(ItemStack stack, EntityPlayer player, boolean showInChat) {
-		this.toggleState(this.isHoverModeOn(stack), stack, "hoverMode", TAG_HOVERMODE_ON, player, showInChat);
-	}
-
-	public ModKey[] getGuiControls()
-	{
-		/*if(this.emergencyHoverMode) { TODO: Add Jetplates
-			return new ModKey[] {ModKey.TOGGLE_PRIMARY, ModKey.MODE_PRIMARY, ModKey.MODE_SECONDARY};
-		}
-		else {*/
-			return new ModKey[] {ModKey.TOGGLE_PRIMARY, ModKey.MODE_PRIMARY};
-		//}
-	}
 
 	// armor
 	protected int getFuelPerDamage(ItemStack stack) {
