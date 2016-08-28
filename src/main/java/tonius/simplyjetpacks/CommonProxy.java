@@ -12,6 +12,7 @@ import tonius.simplyjetpacks.handler.EntityInteractHandler;
 import tonius.simplyjetpacks.handler.LivingTickHandler;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.setup.ParticleType;
+import tonius.simplyjetpacks.sound.SJSoundRegistry;
 
 public class CommonProxy
 {
@@ -38,6 +39,11 @@ public class CommonProxy
 
 	public void registerItemRenderer(Item item, int meta, String id)
 	{}
+
+	public void init() {
+		SimplyJetpacks.logger.info("Registering Sounds...");
+		SJSoundRegistry.init();
+	}
 
 	public EntityPlayer getPlayer(MessageContext context) {
 		return context.getServerHandler().playerEntity;

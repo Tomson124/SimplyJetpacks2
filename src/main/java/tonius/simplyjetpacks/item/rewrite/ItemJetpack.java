@@ -1,5 +1,16 @@
 package tonius.simplyjetpacks.item.rewrite;
 
+import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.config.Config;
+import tonius.simplyjetpacks.handler.SyncHandler;
+import tonius.simplyjetpacks.item.IHUDInfoProvider;
+import tonius.simplyjetpacks.setup.FuelType;
+import tonius.simplyjetpacks.setup.ModCreativeTab;
+import tonius.simplyjetpacks.setup.ModEnchantments;
+import tonius.simplyjetpacks.util.NBTHelper;
+import tonius.simplyjetpacks.util.SJStringHelper;
+import tonius.simplyjetpacks.util.StackUtil;
+import tonius.simplyjetpacks.util.StringHelper;
 import cofh.api.energy.IEnergyContainerItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -11,37 +22,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidContainerItem;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import tonius.simplyjetpacks.Log;
-import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.config.Config;
-import tonius.simplyjetpacks.handler.SyncHandler;
-import tonius.simplyjetpacks.item.IControllableArmor;
-import tonius.simplyjetpacks.item.IHUDInfoProvider;
-import tonius.simplyjetpacks.item.ItemPack;
-import tonius.simplyjetpacks.setup.FuelType;
-import tonius.simplyjetpacks.setup.ModCreativeTab;
-import tonius.simplyjetpacks.setup.ModEnchantments;
-import tonius.simplyjetpacks.setup.ModKey;
-import tonius.simplyjetpacks.util.NBTHelper;
-import tonius.simplyjetpacks.util.SJStringHelper;
-import tonius.simplyjetpacks.util.StackUtil;
-import tonius.simplyjetpacks.util.StringHelper;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider {

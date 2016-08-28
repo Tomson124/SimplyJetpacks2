@@ -9,8 +9,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import tonius.simplyjetpacks.client.audio.SJSoundEvent;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.crafting.UpgradingRecipe;
 import tonius.simplyjetpacks.handler.SyncHandler;
@@ -33,13 +33,12 @@ public class SimplyJetpacks
 	public static SimplyJetpacks instance;
 	@SidedProxy(clientSide = "tonius.simplyjetpacks.client.ClientProxy", serverSide = "tonius.simplyjetpacks.CommonProxy")
 	public static CommonProxy proxy;
-	public static Logger logger;
+	public static Logger logger = LogManager.getLogger("SimplyJetpacks");
 	public static SyncHandler keyboard;
 
 	@EventHandler
 	public static void preInit(FMLPreInitializationEvent evt)
 	{
-		logger = evt.getModLog();
 		logger.info("Starting Simply Jetpacks");
 
 		//checkCoFHLib(); TODO: Clean up! See bottom
@@ -47,7 +46,6 @@ public class SimplyJetpacks
 		Packs.preInit();
 		Config.preInit(evt);
 		ModItems.preInit();
-		SJSoundEvent.registerSounds();
 	}
 
 	@EventHandler
@@ -58,6 +56,8 @@ public class SimplyJetpacks
 		PacketHandler.init();
 		ModItems.init();
 		ModEnchantments.init();
+
+		proxy.init();
 	}
 
 	@EventHandler

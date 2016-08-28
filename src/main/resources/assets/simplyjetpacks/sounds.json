@@ -2,19 +2,19 @@
   "jetpack": {
     "category": "player",
     "sounds": [
-      "jetpack"
+      "simplyjetpacks:jetpack"
     ]
   },
   "jetpack_other": {
     "category": "player",
     "sounds": [
-      "jetpack_other"
+      "simplyjetpacks:jetpack_other"
     ]
   },
   "rocket": {
     "category": "player",
     "sounds": [
-      "rocket"
+      "simplyjetpacks:rocket"
     ]
   }
 }

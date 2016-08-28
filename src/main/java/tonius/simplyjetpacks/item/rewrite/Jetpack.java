@@ -11,9 +11,9 @@ import javax.annotation.Nonnull;
 import java.util.*;
 
 public enum Jetpack implements IStringSerializable {
-	CREATIVE_JETPACK("jetpackCreative", 5, 90000, 500, 500, 50, 10, 100, "jetpackCreative"),
-	POTATO_JETPACK("jetpackPotato", 1, 500, 50, 50, 20, 10, 10, "jetpackPotato"),
-	TEST_JETPACK("jetpackTest", 2, 500, 50, 50, 20, 10, 10, "jetpackTest");
+	CREATIVE_JETPACK("jetpackCreative", 5, "jetpackCreative"),
+	POTATO_JETPACK("jetpackPotato", 1, "jetpackPotato"),
+	TEST_JETPACK("jetpackTest", 2, "jetpackTest");
 
 	protected final PackDefaults defaults;
 	protected static final EnumSet<Jetpack> ALL_PACKS = EnumSet.allOf(Jetpack.class);
@@ -41,15 +41,9 @@ public enum Jetpack implements IStringSerializable {
 
 	private final @Nonnull List<String> jetpacks = new ArrayList<String>();
 
-	private Jetpack(@Nonnull String baseName, int tier, int fuelCapacity, int fuelPerTickIn, int fuelPerTickOut, int armorFuelPerHit, int armorReduction, int fuelUsage, String defaultConfigKey) {
+	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey) {
 		this.baseName = baseName;
 		this.tier = tier;
-//		this.fuelCapacity = fuelCapacity;
-//		this.fuelPerTickIn = fuelPerTickIn;
-//		this.fuelPerTickOut = fuelPerTickOut;
-//		this.armorFuelPerHit = armorFuelPerHit;
-//		this.armorReduction = armorReduction;
-//		this.fuelUsage = fuelUsage;
 		this.defaults = PackDefaults.get(defaultConfigKey);
 		this.unlocalisedName = "simplyjetpacks." + baseName;
 		this.iconKey = "simplyjetpacks:" + baseName;

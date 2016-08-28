@@ -11,12 +11,12 @@ import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import tonius.simplyjetpacks.client.audio.SJSoundEvents;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.setup.ModKey;
 import tonius.simplyjetpacks.setup.ParticleType;
+import tonius.simplyjetpacks.sound.SJSoundRegistry;
 import tonius.simplyjetpacks.util.*;
 
 import java.util.List;
@@ -157,7 +157,7 @@ public class JetpackPotato extends Jetpack
 		if(timer == 0)
 		{
 			this.setFired(stack);
-			user.worldObj.playSound(user, user.getPosition(), SJSoundEvents.ROCKET, SoundCategory.PLAYERS, 1.0F, 1.0F);
+			user.worldObj.playSound(user, user.getPosition(), SJSoundRegistry.ROCKET.getSoundEvent(), SoundCategory.PLAYERS, 1.0F, 1.0F);
 		}
 	}
 }

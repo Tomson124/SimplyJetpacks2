@@ -9,6 +9,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.handler.SyncHandler;
+import tonius.simplyjetpacks.sound.SJSoundRegistry;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -29,7 +30,7 @@ public class SoundJetpack extends MovingSound
 	public SoundJetpack(EntityLivingBase target)
 	{
 		//super(target == mc.thePlayer ? SJSoundEvents.JETPACK : SJSoundEvents.JETPACK_OTHER, target == mc.thePlayer ? SoundCategory.PLAYERS : SoundCategory.NEUTRAL);
-		super(SJSoundEvents.JETPACK, SoundCategory.PLAYERS);
+		super(SJSoundRegistry.JETPACK.getSoundEvent(), SoundCategory.PLAYERS);
 		this.repeat = true;
 		this.user = target;
 		playingFor.put(target.getEntityId(), this);

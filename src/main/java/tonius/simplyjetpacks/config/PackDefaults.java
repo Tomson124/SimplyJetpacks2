@@ -53,16 +53,20 @@ public class PackDefaults
 		d.accelVertical = 0.5D;
 
 		d = new PackDefaults("jetpackTest", "Test Jetpack");
-		d.fuelCapacity = 12000;
-		d.fuelPerTickIn = 500;
-		d.fuelPerTickOut = 500;
-		d.fuelUsage = 50;
-		d.speedVertical = 0.9D;
-		d.accelVertical = 0.15D;
-		d.speedVerticalHover = 0.45D;
-		d.speedVerticalHoverSlow = 0.0D;
-		d.speedSideways = 0.21D;
-		d.sprintSpeedModifier = 2.5D;
+		d.fuelCapacity = 20000000;
+		d.fuelUsage = 450;
+		d.fuelPerTickIn = 50000;
+		d.armorReduction = 8;
+		d.armorFuelPerHit = 160;
+		d.enchantability = 17;
+		d.speedVertical = 0.8D;
+		d.accelVertical = 0.14D;
+		d.speedVerticalHover = 0.4D;
+		d.speedVerticalHoverSlow = 0.005D;
+		d.speedSideways = 0.19D;
+		d.sprintSpeedModifier = 1.8D;
+		d.sprintFuelModifier = 4.0D;
+		d.emergencyHoverMode = true;
 
 		d = new PackDefaults("jetpackCreative", "Creative Jetpack");
 		d.fuelPerTickOut = 32000;
