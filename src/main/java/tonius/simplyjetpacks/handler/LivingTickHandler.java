@@ -1,15 +1,16 @@
 package tonius.simplyjetpacks.handler;
 
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
-import tonius.simplyjetpacks.item.ItemPack.ItemJetpack;
-import tonius.simplyjetpacks.item.meta.Jetpack;
+import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
+import tonius.simplyjetpacks.item.rewrite.Jetpack;
 import tonius.simplyjetpacks.network.PacketHandler;
 import tonius.simplyjetpacks.network.message.MessageJetpackSync;
 import tonius.simplyjetpacks.setup.ParticleType;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -18,6 +19,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LivingTickHandler
 {
 	private static final Map<Integer, ParticleType> lastJetpackState = new ConcurrentHashMap<Integer, ParticleType>();
+
+	private final int numItems = Jetpack.values().length;
 
 	@SubscribeEvent
 	public void onLivingTick(LivingUpdateEvent evt)
@@ -29,7 +32,8 @@ public class LivingTickHandler
 			Jetpack jetpack = null;
 			if(armor != null && armor.getItem() instanceof ItemJetpack)
 			{
-				jetpack = ((ItemJetpack) armor.getItem()).getPack(armor);
+				int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
+				jetpack = Jetpack.getTypeFromMeta(i);
 				if(jetpack != null)
 				{
 					jetpackState = jetpack.getDisplayParticleType(armor, (ItemJetpack) armor.getItem(), evt.getEntityLiving());

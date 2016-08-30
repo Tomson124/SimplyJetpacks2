@@ -1,22 +1,26 @@
 package tonius.simplyjetpacks.client.handler;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.audio.SoundJetpack;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.handler.SyncHandler;
-import tonius.simplyjetpacks.item.ItemPack.ItemJetpack;
-import tonius.simplyjetpacks.item.meta.Jetpack;
+import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
+import tonius.simplyjetpacks.item.rewrite.Jetpack;
 import tonius.simplyjetpacks.setup.ParticleType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
+import java.lang.reflect.Field;
 import java.util.Iterator;
 
 public class ClientTickHandler
@@ -25,6 +29,21 @@ public class ClientTickHandler
 	private static ParticleType lastJetpackState = null;
 	private static boolean wearingJetpack = false;
 	private static boolean sprintKeyCheck = false;
+
+	private static Field sprintToggleTimer = null;
+
+	private static final int numItems = Jetpack.values().length;
+
+	public ClientTickHandler() {
+		try {
+			sprintToggleTimer = ReflectionHelper.findField(EntityPlayerSP.class,  "sprintToggleTimer", "field_71156_d");
+		}
+
+		catch (Exception e) {
+			SimplyJetpacks.logger.error("Unable to find field \"sprintToggleTimer\"");
+			e.printStackTrace();
+		}
+	}
 
 	private static void tickStart()
 	{
@@ -37,7 +56,8 @@ public class ClientTickHandler
 		ItemStack armor = mc.thePlayer.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		if(armor != null && armor.getItem() instanceof ItemJetpack)
 		{
-			Jetpack jetpack = ((ItemJetpack) armor.getItem()).getPack(armor);
+			int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
+			Jetpack jetpack = Jetpack.getTypeFromMeta(i);
 			if(jetpack != null)
 			{
 				jetpackState = jetpack.getDisplayParticleType(armor, (ItemJetpack) armor.getItem(), mc.thePlayer);
@@ -56,8 +76,7 @@ public class ClientTickHandler
 		}
 	}
 
-	private static void tickEnd()
-	{
+	private static void tickEnd() throws IllegalAccessException {
 		if(mc.thePlayer == null || mc.theWorld == null)
 		{
 			return;
@@ -103,20 +122,24 @@ public class ClientTickHandler
 			sprintKeyCheck = false;
 		}
 
-		if(!Config.doubleTapSprintInAir || !wearingJetpack || mc.thePlayer.onGround || mc.thePlayer.isSprinting() /* || mc.thePlayer.isUsingItem() TODO: Investigate */ || mc.thePlayer.isPotionActive(Potion.getPotionFromResourceLocation("poison")))
+		if(!Config.doubleTapSprintInAir || !wearingJetpack || mc.thePlayer.onGround || mc.thePlayer.isSprinting() || mc.thePlayer.isHandActive() || mc.thePlayer.isPotionActive(MobEffects.POISON))
 		{
 			return;
 		}
 
-		if(!sprintKeyCheck && mc.thePlayer.movementInput.moveForward >= 1.0F && !mc.thePlayer.isCollidedHorizontally && (mc.thePlayer.getFoodStats().getFoodLevel() > 6.0F || mc.thePlayer.capabilities.allowFlying))
+		if(!sprintKeyCheck && sprintToggleTimer != null && mc.thePlayer.movementInput.moveForward >= 1.0F && !mc.thePlayer.isCollidedHorizontally && (mc.thePlayer.getFoodStats().getFoodLevel() > 6.0F || mc.thePlayer.capabilities.allowFlying))
 		{
-			/*if (mc.thePlayer.sprintToggleTimer <= 0 && !mc.gameSettings.keyBindSprint.getIsKeyPressed()) {
-				mc.thePlayer.sprintToggleTimer = 7;
+			if (sprintToggleTimer.getInt(mc.thePlayer) <= 0 && !mc.gameSettings.keyBindSprint.isKeyDown()) {
+				sprintToggleTimer.setInt(mc.thePlayer, 7);
                 sprintKeyCheck = true;
-            } TODO: Investigate */
-			mc.thePlayer.setSprinting(true);
+            }
+            else {
+				mc.thePlayer.setSprinting(true);
+			}
 		}
 	}
+
+
 
 	@SubscribeEvent
 	public void onClientTick(ClientTickEvent evt)
@@ -127,7 +150,12 @@ public class ClientTickHandler
 		}
 		else
 		{
-			tickEnd();
+			try {
+				tickEnd();
+			}
+			catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
