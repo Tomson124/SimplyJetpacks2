@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Locale;
 
 public enum Jetpack implements IStringSerializable {
-	CREATIVE_JETPACK("jetpackCreative", 5, "jetpackCreative"),
+	CREATIVE_JETPACK("jetpackCreative", 5, "jetpackCreative", ParticleType.RAINBOW_SMOKE),
 	POTATO_JETPACK("jetpackPotato", 1, "jetpackPotato"),
 	TEST_JETPACK("jetpackTest", 2, "jetpackTest");
 
@@ -51,10 +51,21 @@ public enum Jetpack implements IStringSerializable {
 
 	private final @Nonnull List<String> jetpacks = new ArrayList<String>();
 
+	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, ParticleType defaultParticleType) {
+		this.baseName = baseName;
+		this.tier = tier;
+		this.defaults = PackDefaults.get(defaultConfigKey);
+		this.defaultParticleType = defaultParticleType;
+		this.unlocalisedName = "simplyjetpacks." + baseName;
+		this.iconKey = "simplyjetpacks:" + baseName;
+		this.jetpacks.add(baseName);
+	}
+
 	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey) {
 		this.baseName = baseName;
 		this.tier = tier;
 		this.defaults = PackDefaults.get(defaultConfigKey);
+		this.defaultParticleType = ParticleType.DEFAULT;
 		this.unlocalisedName = "simplyjetpacks." + baseName;
 		this.iconKey = "simplyjetpacks:" + baseName;
 		this.jetpacks.add(baseName);

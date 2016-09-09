@@ -1,5 +1,6 @@
 package tonius.simplyjetpacks.item.rewrite;
 
+import net.minecraft.entity.player.EntityPlayerMP;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.handler.SyncHandler;
@@ -7,6 +8,7 @@ import tonius.simplyjetpacks.item.IHUDInfoProvider;
 import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.setup.ModCreativeTab;
 import tonius.simplyjetpacks.setup.ModEnchantments;
+import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.NBTHelper;
 import tonius.simplyjetpacks.util.SJStringHelper;
 import tonius.simplyjetpacks.util.StackUtil;
@@ -30,6 +32,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
+
+import static tonius.simplyjetpacks.handler.LivingTickHandler.floatingTickCount;
 
 public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider {
 
@@ -381,11 +385,14 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 					{
 						user.fallDistance = 0.0F;
 
-                        /*
-						TODO: Check what this is for and how to update this
                         if (user instanceof EntityPlayerMP) {
-                            ((EntityPlayerMP) user).connection.floatingTickCount = 0;
-                        }*/
+							try {
+								floatingTickCount.setInt(((EntityPlayerMP) user).connection, 0);
+							}
+							catch (IllegalAccessException e) {
+								e.printStackTrace();
+							}
+						}
 
                         /*
 						TODO: Reimplement explosions

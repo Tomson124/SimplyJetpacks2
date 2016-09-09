@@ -17,18 +17,13 @@ import tonius.simplyjetpacks.item.ItemMeta;
 import tonius.simplyjetpacks.item.ItemMeta.MetaItem;
 import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.item.ItemPack.ItemFluxPack;
-import tonius.simplyjetpacks.item.ItemPack.ItemJetpack;
-import tonius.simplyjetpacks.item.meta.PackBase;
+import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
 import tonius.simplyjetpacks.util.ItemHelper;
 
 public abstract class ModItems
 {
-	public static tonius.simplyjetpacks.item.rewrite.ItemJetpack itemJetpack;
+	public static ItemJetpack itemJetpack;
 
-
-
-	public static ItemJetpack jetpacksCommon;
-	public static ItemFluxPack fluxPacksCommon;
 	public static ItemJetpack jetpacksEIO;
 	public static ItemFluxPack fluxPacksEIO;
 	public static ItemJetpack jetpacksBC;
@@ -103,7 +98,7 @@ public abstract class ModItems
 
 	public static void initTest()
 	{
-		itemJetpack = register(new tonius.simplyjetpacks.item.rewrite.ItemJetpack("itemJetpack"));
+		itemJetpack = register(new ItemJetpack("itemJetpack"));
 
 		//jetpacksCommon = register(new ItemJetpack(ModType.SIMPLY_JETPACKS, "jetpacksCommon"));
 		//        jetpacksCommon = register(new ItemJetpack(ModType.SIMPLY_JETPACKS, "jetpacksCommon"));
@@ -117,8 +112,8 @@ public abstract class ModItems
 	{
 		GameRegistry.register(item);
 
-		if (item instanceof tonius.simplyjetpacks.item.rewrite.ItemJetpack) {
-			((tonius.simplyjetpacks.item.rewrite.ItemJetpack) item).registerItemModel();
+		if (item instanceof ItemJetpack) {
+			((ItemJetpack) item).registerItemModel();
 		}
 
 		if(item instanceof ItemPack)
@@ -148,16 +143,16 @@ public abstract class ModItems
 
 		if(integrateEIO)
 		{
-			jetpacksEIO = new ItemJetpack(ModType.ENDER_IO, "jetpacksEIO");
-			jetpackEIO1 = jetpacksEIO.putPack(1, Packs.jetpackEIO1);
-			jetpackEIO1Armored = jetpacksEIO.putPack(101, Packs.jetpackEIO1Armored);
-			jetpackEIO2 = jetpacksEIO.putPack(2, Packs.jetpackEIO2);
-			jetpackEIO2Armored = jetpacksEIO.putPack(102, Packs.jetpackEIO2Armored);
-			jetpackEIO3 = jetpacksEIO.putPack(3, Packs.jetpackEIO3);
-			jetpackEIO3Armored = jetpacksEIO.putPack(103, Packs.jetpackEIO3Armored);
-			jetpackEIO4 = jetpacksEIO.putPack(4, Packs.jetpackEIO4);
-			jetpackEIO4Armored = jetpacksEIO.putPack(104, Packs.jetpackEIO4Armored);
-			jetpackEIO5 = jetpacksEIO.putPack(5, Packs.jetpackEIO5);
+//			jetpacksEIO = new ItemJetpack(ModType.ENDER_IO, "jetpacksEIO");
+//			jetpackEIO1 = jetpacksEIO.putPack(1, Packs.jetpackEIO1);
+//			jetpackEIO1Armored = jetpacksEIO.putPack(101, Packs.jetpackEIO1Armored);
+//			jetpackEIO2 = jetpacksEIO.putPack(2, Packs.jetpackEIO2);
+//			jetpackEIO2Armored = jetpacksEIO.putPack(102, Packs.jetpackEIO2Armored);
+//			jetpackEIO3 = jetpacksEIO.putPack(3, Packs.jetpackEIO3);
+//			jetpackEIO3Armored = jetpacksEIO.putPack(103, Packs.jetpackEIO3Armored);
+//			jetpackEIO4 = jetpacksEIO.putPack(4, Packs.jetpackEIO4);
+//			jetpackEIO4Armored = jetpacksEIO.putPack(104, Packs.jetpackEIO4Armored);
+//			jetpackEIO5 = jetpacksEIO.putPack(5, Packs.jetpackEIO5);
 			fluxPacksEIO = new ItemFluxPack(ModType.ENDER_IO, "fluxpacksEIO");
 			fluxPackEIO1 = fluxPacksEIO.putPack(1, Packs.fluxPackEIO1);
 			fluxPackEIO2 = fluxPacksEIO.putPack(2, Packs.fluxPackEIO2);
