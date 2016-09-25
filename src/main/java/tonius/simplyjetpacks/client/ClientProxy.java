@@ -8,7 +8,7 @@ import tonius.simplyjetpacks.client.handler.KeyHandler;
 import tonius.simplyjetpacks.client.handler.rewrite.KeyTracker;
 import tonius.simplyjetpacks.client.util.ParticleUtils;
 import tonius.simplyjetpacks.setup.ParticleType;
-import tonius.simplyjetpacks.util.Pos3D;
+import tonius.simplyjetpacks.util.math.Pos3D;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.settings.GameSettings;

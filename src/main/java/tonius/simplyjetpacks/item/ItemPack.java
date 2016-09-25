@@ -31,7 +31,7 @@ import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.setup.ModCreativeTab;
 import tonius.simplyjetpacks.setup.ModEnchantments;
 import tonius.simplyjetpacks.setup.ModKey;
-import tonius.simplyjetpacks.util.MathHelper;
+import tonius.simplyjetpacks.util.math.MathHelper;
 import tonius.simplyjetpacks.util.NBTHelper;
 import tonius.simplyjetpacks.util.SJStringHelper;
 

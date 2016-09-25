@@ -1,24 +1,27 @@
 package tonius.simplyjetpacks.item.rewrite;
 
-import net.minecraft.entity.player.EntityPlayerMP;
+import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.client.model.PackModelType;
+import tonius.simplyjetpacks.client.util.RenderUtils;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.item.IHUDInfoProvider;
 import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.setup.ModCreativeTab;
 import tonius.simplyjetpacks.setup.ModEnchantments;
-import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.NBTHelper;
 import tonius.simplyjetpacks.util.SJStringHelper;
 import tonius.simplyjetpacks.util.StackUtil;
 import tonius.simplyjetpacks.util.StringHelper;
 import cofh.api.energy.IEnergyContainerItem;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
@@ -37,362 +40,358 @@ import static tonius.simplyjetpacks.handler.LivingTickHandler.floatingTickCount;
 
 public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider {
 
-	private static final String TAG_ENERGY = "Energy";
-	public static final String TAG_ON = "PackOn";
-	public static final String TAG_HOVERMODE_ON = "JetpackHoverModeOn";
+    private static final String TAG_ENERGY = "Energy";
+    public static final String TAG_ON = "PackOn";
+    public static final String TAG_HOVERMODE_ON = "JetpackHoverModeOn";
 
-	public String name;
-	public boolean showTier = true;
-	public boolean hasFuelIndicator = true;
-	public boolean hasStateIndicators = true;
-	public FuelType fuelType = FuelType.ENERGY;
-	public boolean usesFuel = true;
-	public boolean isFluxBased = false;
+    public String name;
+    public boolean showTier = true;
+    public boolean hasFuelIndicator = true;
+    public boolean hasStateIndicators = true;
+    public FuelType fuelType = FuelType.ENERGY;
+    public boolean usesFuel = true;
+    public boolean isFluxBased = false;
 
-	private final int numItems;
-	private boolean isArmored = true;
+    private final int numItems;
+    private boolean isArmored = true;
 
-	public ItemJetpack(String name) {
-		super(ArmorMaterial.IRON, 2, EntityEquipmentSlot.CHEST);
-		this.name = name;
-		this.setHasSubtypes(true);
-		this.setMaxDamage(0);
-		this.setCreativeTab(ModCreativeTab.instance);
-		this.setRegistryName(name);
+    public ItemJetpack(String name) {
+        super(ArmorMaterial.IRON, 2, EntityEquipmentSlot.CHEST);
+        this.name = name;
+        this.setHasSubtypes(true);
+        this.setMaxDamage(0);
+        this.setCreativeTab(ModCreativeTab.instance);
+        this.setRegistryName(name);
 
-		numItems = Jetpack.values().length;
-	}
+        numItems = Jetpack.values().length;
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> List) {
-		for (int j = 0; j < numItems; ++j) {
-			List.add(new ItemStack(item, 1, j));
-		}
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> List) {
+        for (int j = 0; j < numItems; ++j) {
+            List.add(new ItemStack(item, 1, j));
+        }
+    }
 
-	@Override
-	public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
-	}
+    @Override
+    public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
+    }
 
-	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-		flyUser(player, stack, this, false);
-	}
+    @Override
+    public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+        flyUser(player, stack, this, false);
+    }
 
-	public void toggleState(boolean on, ItemStack stack, String type, String tag, EntityPlayer player, boolean showInChat) {
-		NBTHelper.setBoolean(stack, tag, !on);
+    public void toggleState(boolean on, ItemStack stack, String type, String tag, EntityPlayer player, boolean showInChat) {
+        NBTHelper.setBoolean(stack, tag, !on);
 
-		if (player != null && showInChat) {
-			String color = on ? StringHelper.LIGHT_RED : StringHelper.BRIGHT_GREEN;
-			type = type != null && !type.equals("") ? "chat." + this.name + "." + type + ".on" : "chat." + this.name + ".on";
-			String msg = SJStringHelper.localize(type) + " " + color + SJStringHelper.localize("chat." + (on ? "disabled" : "enabled"));
-			player.addChatMessage(new TextComponentString(msg));
-		}
-	}
+        if (player != null && showInChat) {
+            String color = on ? StringHelper.LIGHT_RED : StringHelper.BRIGHT_GREEN;
+            type = type != null && !type.equals("") ? "chat." + this.name + "." + type + ".on" : "chat." + this.name + ".on";
+            String msg = SJStringHelper.localize(type) + " " + color + SJStringHelper.localize("chat." + (on ? "disabled" : "enabled"));
+            player.addChatMessage(new TextComponentString(msg));
+        }
+    }
 
-	@Override
-	public boolean showDurabilityBar(ItemStack stack) {
-		return this.hasFuelIndicator;
-	}
+    @Override
+    public boolean showDurabilityBar(ItemStack stack) {
+        return this.hasFuelIndicator;
+    }
 
-	@Override
-	public double getDurabilityForDisplay(ItemStack stack) {
-		double stored = this.getMaxFuelStored(stack) - this.getFuelStored(stack) + 1;
-		double max = this.getMaxFuelStored(stack) + 1;
-		return stored / max;
-	}
+    @Override
+    public double getDurabilityForDisplay(ItemStack stack) {
+        double stored = this.getMaxFuelStored(stack) - this.getFuelStored(stack) + 1;
+        double max = this.getMaxFuelStored(stack) + 1;
+        return stored / max;
+    }
 
-	@Override
-	public String getUnlocalizedName(ItemStack itemStack) {
-		int i = MathHelper.clamp_int(itemStack.getItemDamage(), 0, numItems - 1);
-		return Jetpack.values()[i].unlocalisedName;
-	}
+    @Override
+    public String getUnlocalizedName(ItemStack itemStack) {
+        int i = MathHelper.clamp_int(itemStack.getItemDamage(), 0, numItems - 1);
+        return Jetpack.values()[i].unlocalisedName;
+    }
 
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		information(stack, this, tooltip);
-		if(SJStringHelper.canShowDetails()) {
-			shiftInformation(stack, tooltip);
-		}
-		else {
-			tooltip.add(SJStringHelper.getShiftText());
-		}
-	}
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+        information(stack, this, tooltip);
+        if (SJStringHelper.canShowDetails()) {
+            shiftInformation(stack, tooltip);
+        } else {
+            tooltip.add(SJStringHelper.getShiftText());
+        }
+    }
 
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings("unchecked")
-	public void information(ItemStack stack, ItemJetpack item, List list) {
-		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
-		if(this.showTier) {
-			list.add(SJStringHelper.getTierText(Jetpack.values()[i].getTier()));
-		}
-		list.add(SJStringHelper.getFuelText(this.fuelType, item.getFuelStored(stack), Jetpack.values()[i].getFuelCapacity(), !this.usesFuel));
-	}
+    @SideOnly(Side.CLIENT)
+    @SuppressWarnings("unchecked")
+    public void information(ItemStack stack, ItemJetpack item, List list) {
+        int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+        if (this.showTier) {
+            list.add(SJStringHelper.getTierText(Jetpack.values()[i].getTier()));
+        }
+        list.add(SJStringHelper.getFuelText(this.fuelType, item.getFuelStored(stack), Jetpack.values()[i].getFuelCapacity(), !this.usesFuel));
+    }
 
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings("unchecked")
-	public void shiftInformation(ItemStack stack, List list) {
-		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+    @SideOnly(Side.CLIENT)
+    @SuppressWarnings("unchecked")
+    public void shiftInformation(ItemStack stack, List list) {
+        int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
 
-		list.add(SJStringHelper.getStateText(this.isOn(stack)));
-		list.add(SJStringHelper.getHoverModeText(this.isHoverModeOn(stack)));
-		if(Jetpack.values()[i].getFuelUsage() > 0)
-		{
-			list.add(SJStringHelper.getFuelUsageText(this.fuelType, Jetpack.values()[i].getFuelUsage()));
-		}
-		//list.add(SJStringHelper.getParticlesText(this.getParticleType(stack))); TODO: Add Particle info
-		SJStringHelper.addDescriptionLines(list, "jetpack", StringHelper.BRIGHT_GREEN);
-		String key = SimplyJetpacks.proxy.getPackGUIKey();
-		if(key != null)
-		{
-			list.add(SJStringHelper.getPackGUIText(key));
-		}
-	}
+        list.add(SJStringHelper.getStateText(this.isOn(stack)));
+        list.add(SJStringHelper.getHoverModeText(this.isHoverModeOn(stack)));
+        if (Jetpack.values()[i].getFuelUsage() > 0) {
+            list.add(SJStringHelper.getFuelUsageText(this.fuelType, Jetpack.values()[i].getFuelUsage()));
+        }
+        list.add(SJStringHelper.getParticlesText(Jetpack.values()[i].getParticleType(stack)));
+        SJStringHelper.addDescriptionLines(list, "jetpack", StringHelper.BRIGHT_GREEN);
+        String key = SimplyJetpacks.proxy.getPackGUIKey();
+        if (key != null) {
+            list.add(SJStringHelper.getPackGUIText(key));
+        }
+    }
 
-	public boolean isOn(ItemStack stack) {
-		return NBTHelper.getBooleanFallback(stack, TAG_ON, true);
-	}
+    public boolean isOn(ItemStack stack) {
+        return NBTHelper.getBooleanFallback(stack, TAG_ON, true);
+    }
 
-	// fuel
-	public int getFuelStored(ItemStack stack) {
-		return this.getEnergyStored(stack);
-	}
+    // fuel
+    public int getFuelStored(ItemStack stack) {
+        return this.getEnergyStored(stack);
+    }
 
-	public int getMaxFuelStored(ItemStack stack) {
-		return this.getMaxEnergyStored(stack);
-	}
+    public int getMaxFuelStored(ItemStack stack) {
+        return this.getMaxEnergyStored(stack);
+    }
 
-	protected int getFuelUsage(ItemStack stack) {
-		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
-		//if(ModEnchantments.fuelEffeciency == null) {
-			return Jetpack.values()[i].getFuelUsage();
-		//}
+    protected int getFuelUsage(ItemStack stack) {
+        int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+        //if(ModEnchantments.fuelEffeciency == null) {
+        return Jetpack.values()[i].getFuelUsage();
+        //}
 
-		//int fuelEfficiencyLevel = tonius.simplyjetpacks.util.MathHelper.clampI(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
-		//return (int) Math.round(this.fuelUsage * (20 - fuelEfficiencyLevel) / 20.0D);
-	}
+        //int fuelEfficiencyLevel = tonius.simplyjetpacks.util.math.MathHelper.clampI(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
+        //return (int) Math.round(this.fuelUsage * (20 - fuelEfficiencyLevel) / 20.0D);
+    }
 
-	public int addFuel(ItemStack stack, int maxAdd, boolean simulate) {
-		int energy = this.getEnergyStored(stack);
-		int energyReceived = Math.min(this.getMaxEnergyStored(stack) - energy, maxAdd);
-		if(!simulate) {
-			energy += energyReceived;
-			NBTHelper.setInt(stack, TAG_ENERGY, energy);
-		}
-		return energyReceived;
-	}
+    public int addFuel(ItemStack stack, int maxAdd, boolean simulate) {
+        int energy = this.getEnergyStored(stack);
+        int energyReceived = Math.min(this.getMaxEnergyStored(stack) - energy, maxAdd);
+        if (!simulate) {
+            energy += energyReceived;
+            NBTHelper.setInt(stack, TAG_ENERGY, energy);
+        }
+        return energyReceived;
+    }
 
-	public int useFuel(ItemStack stack, int maxUse, boolean simulate) {
-		int energy = this.getEnergyStored(stack);
-		int energyExtracted = Math.min(energy, maxUse);
-		if(!simulate) {
-			energy -= energyExtracted;
-			NBTHelper.setInt(stack, TAG_ENERGY, energy);
-		}
-		return energyExtracted;
-	}
+    public int useFuel(ItemStack stack, int maxUse, boolean simulate) {
+        int energy = this.getEnergyStored(stack);
+        int energyExtracted = Math.min(energy, maxUse);
+        if (!simulate) {
+            energy -= energyExtracted;
+            NBTHelper.setInt(stack, TAG_ENERGY, energy);
+        }
+        return energyExtracted;
+    }
 
-	@Override
-	public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
-		int i = MathHelper.clamp_int(container.getItemDamage(), 0, numItems - 1);
-		int energy = this.getEnergyStored(container);
-		int energyReceived = Math.min(this.getMaxEnergyStored(container) - energy, Math.min(maxReceive, Jetpack.values()[i].getFuelPerTickIn()));
-		if(!simulate) {
-			energy += energyReceived;
-			NBTHelper.setInt(container, TAG_ENERGY, energy);
-		}
-		return energyReceived;
-	}
+    @Override
+    public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
+        int i = MathHelper.clamp_int(container.getItemDamage(), 0, numItems - 1);
+        int energy = this.getEnergyStored(container);
+        int energyReceived = Math.min(this.getMaxEnergyStored(container) - energy, Math.min(maxReceive, Jetpack.values()[i].getFuelPerTickIn()));
+        if (!simulate) {
+            energy += energyReceived;
+            NBTHelper.setInt(container, TAG_ENERGY, energy);
+        }
+        return energyReceived;
+    }
 
-	@Override
-	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
-		int i = MathHelper.clamp_int(container.getItemDamage(), 0, numItems - 1);
-		int energy = this.getEnergyStored(container);
-		int energyExtracted = Math.min(energy, Math.min(maxExtract, Jetpack.values()[i].getFuelPerTickOut()));
-		if(!simulate) {
-			energy -= energyExtracted;
-			NBTHelper.setInt(container, TAG_ENERGY, energy);
-		}
-		return energyExtracted;
-	}
+    @Override
+    public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
+        int i = MathHelper.clamp_int(container.getItemDamage(), 0, numItems - 1);
+        int energy = this.getEnergyStored(container);
+        int energyExtracted = Math.min(energy, Math.min(maxExtract, Jetpack.values()[i].getFuelPerTickOut()));
+        if (!simulate) {
+            energy -= energyExtracted;
+            NBTHelper.setInt(container, TAG_ENERGY, energy);
+        }
+        return energyExtracted;
+    }
 
-	@Override
-	public int getEnergyStored(ItemStack container) {
-		return NBTHelper.getInt(container, TAG_ENERGY);
-	}
+    @Override
+    public int getEnergyStored(ItemStack container) {
+        return NBTHelper.getInt(container, TAG_ENERGY);
+    }
 
-	@Override
-	public int getMaxEnergyStored(ItemStack container) {
-		int i = MathHelper.clamp_int(container.getItemDamage(), 0, numItems - 1);
-		return Jetpack.values()[i].getFuelCapacity();
-	}
+    @Override
+    public int getMaxEnergyStored(ItemStack container) {
+        int i = MathHelper.clamp_int(container.getItemDamage(), 0, numItems - 1);
+        return Jetpack.values()[i].getFuelCapacity();
+    }
 
-	// HUD info
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void addHUDInfo(List<String> list, ItemStack stack, boolean showFuel, boolean showState) {
-		if(showFuel && this.hasFuelIndicator) {
-			list.add(this.getHUDFuelInfo(stack, this));
-		}
-		if(showState && this.hasStateIndicators) {
-			list.add(this.getHUDStatesInfo(stack));
-		}
-	}
+    // HUD info
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addHUDInfo(List<String> list, ItemStack stack, boolean showFuel, boolean showState) {
+        if (showFuel && this.hasFuelIndicator) {
+            list.add(this.getHUDFuelInfo(stack, this));
+        }
+        if (showState && this.hasStateIndicators) {
+            list.add(this.getHUDStatesInfo(stack));
+        }
+    }
 
-	@SideOnly(Side.CLIENT)
-	public String getHUDFuelInfo(ItemStack stack, ItemJetpack item) {
-		int fuel = item.getFuelStored(stack);
-		int maxFuel = item.getMaxFuelStored(stack);
-		int percent = (int) Math.ceil((double) fuel / (double) maxFuel * 100D);
-		return SJStringHelper.getHUDFuelText(this.name, percent, this.fuelType, fuel);
-	}
+    @SideOnly(Side.CLIENT)
+    public String getHUDFuelInfo(ItemStack stack, ItemJetpack item) {
+        int fuel = item.getFuelStored(stack);
+        int maxFuel = item.getMaxFuelStored(stack);
+        int percent = (int) Math.ceil((double) fuel / (double) maxFuel * 100D);
+        return SJStringHelper.getHUDFuelText(this.name, percent, this.fuelType, fuel);
+    }
 
-	public boolean isHoverModeOn(ItemStack stack) {
-		return NBTHelper.getBoolean(stack, TAG_HOVERMODE_ON);
-	}
+    public boolean isHoverModeOn(ItemStack stack) {
+        return NBTHelper.getBoolean(stack, TAG_HOVERMODE_ON);
+    }
 
-	@SideOnly(Side.CLIENT)
-	public String getHUDStatesInfo(ItemStack stack) {
-		Boolean engine = this.isOn(stack);
-		Boolean hover = this.isHoverModeOn(stack);
-		return SJStringHelper.getHUDStateText(engine, hover, null);
-	}
+    @SideOnly(Side.CLIENT)
+    public String getHUDStatesInfo(ItemStack stack) {
+        Boolean engine = this.isOn(stack);
+        Boolean hover = this.isHoverModeOn(stack);
+        return SJStringHelper.getHUDStateText(engine, hover, null);
+    }
 
-	@Override
-	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
-		int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
-		if(/*pack.isArmored && */ !source.isUnblockable()) {
-			if(this.isFluxBased && source.damageType.equals("flux")) {
-				return new ArmorProperties(0, 0.5D, Integer.MAX_VALUE);
-			}
-			int energyPerDamage = this.getFuelPerDamage(armor);
-			int maxAbsorbed = energyPerDamage > 0 ? 25 * (this.getFuelStored(armor) / energyPerDamage) : 0;
-			return new ArmorProperties(0, 0.85D * (Jetpack.values()[i].getArmorReduction() / 20.0D), maxAbsorbed);
-		}
-		return new ArmorProperties(0, 1, 0);
-	}
+    @Override
+    public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
+        int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
+        if (/*pack.isArmored && */ !source.isUnblockable()) {
+            if (this.isFluxBased && source.damageType.equals("flux")) {
+                return new ArmorProperties(0, 0.5D, Integer.MAX_VALUE);
+            }
+            int energyPerDamage = this.getFuelPerDamage(armor);
+            int maxAbsorbed = energyPerDamage > 0 ? 25 * (this.getFuelStored(armor) / energyPerDamage) : 0;
+            return new ArmorProperties(0, 0.85D * (Jetpack.values()[i].getArmorReduction() / 20.0D), maxAbsorbed);
+        }
+        return new ArmorProperties(0, 1, 0);
+    }
 
-	@Override
-	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
-		int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
-		if(this.isArmored) {
-			if(this.getFuelStored(armor) >= Jetpack.values()[i].getArmorFuelPerHit()) {
-				return Jetpack.values()[i].getArmorReduction();
-			}
-		}
-		return 0;
-	}
+    @Override
+    public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
+        int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
+        if (this.isArmored) {
+            if (this.getFuelStored(armor) >= Jetpack.values()[i].getArmorFuelPerHit()) {
+                return Jetpack.values()[i].getArmorReduction();
+            }
+        }
+        return 0;
+    }
 
-	@Override
-	public void damageArmor(EntityLivingBase entity, ItemStack armor, DamageSource source, int damage, int slot) {
-		int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
-		if(/*pack.isArmored && */ usesFuel) {
-			if(this.fuelType == FuelType.ENERGY && this.isFluxBased && source.damageType.equals("flux")) {
-				this.addFuel(armor, damage * (source.getEntity() == null ? Jetpack.values()[i].getArmorFuelPerHit() / 2 : this.getFuelPerDamage(armor)), false);
-			}
-			else {
-				this.useFuel(armor, damage * this.getFuelPerDamage(armor), false);
-			}
-		}
-	}
+    @Override
+    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
+        int i = MathHelper.clamp_int(itemStack.getItemDamage(), 0, numItems - 1);
+        if (Config.enableArmor3DModels) {
+            ModelBiped model = RenderUtils.getArmorModel(Jetpack.values()[i], entityLiving);
+            Log.info("Model: " + model);
+            if (model != null) {
+                return model;
+            }
+        }
+        return super.getArmorModel(entityLiving, itemStack, armorSlot, _default);
+    }
+
+    @Override
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+        int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+        String flat = Config.enableArmor3DModels || Jetpack.values()[i].armorModel == PackModelType.FLAT ? "" : ".flat";
+        return SimplyJetpacks.RESOURCE_PREFIX + "textures/armor/" + Jetpack.values()[i].getBaseName() + flat + ".png";
+    }
+
+    @Override
+    public void damageArmor(EntityLivingBase entity, ItemStack armor, DamageSource source, int damage, int slot) {
+        int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
+        if (/*pack.isArmored && */ usesFuel) {
+            if (this.fuelType == FuelType.ENERGY && this.isFluxBased && source.damageType.equals("flux")) {
+                this.addFuel(armor, damage * (source.getEntity() == null ? Jetpack.values()[i].getArmorFuelPerHit() / 2 : this.getFuelPerDamage(armor)), false);
+            } else {
+                this.useFuel(armor, damage * this.getFuelPerDamage(armor), false);
+            }
+        }
+    }
 
 	/*public void switchModeSecondary(ItemStack stack, EntityPlayer player, boolean showInChat) TODO: Add Jetplates
-	{
+    {
 		if(this.emergencyHoverMode)
 		{
 			this.switchEHover(stack, player, showInChat);
 		}
 	}*/
 
-	// armor
-	protected int getFuelPerDamage(ItemStack stack) {
-		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
-		if(ModEnchantments.fuelEffeciency == null) {
-			return Jetpack.values()[i].getArmorFuelPerHit();
-		}
+    // armor
+    protected int getFuelPerDamage(ItemStack stack) {
+        int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+        if (ModEnchantments.fuelEffeciency == null) {
+            return Jetpack.values()[i].getArmorFuelPerHit();
+        }
 
-		int fuelEfficiencyLevel = MathHelper.clamp_int(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
-		return (int) Math.round(Jetpack.values()[i].getArmorFuelPerHit() * (5 - fuelEfficiencyLevel) / 5.0D);
-	}
+        int fuelEfficiencyLevel = MathHelper.clamp_int(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
+        return (int) Math.round(Jetpack.values()[i].getArmorFuelPerHit() * (5 - fuelEfficiencyLevel) / 5.0D);
+    }
 
-	public void flyUser(EntityPlayer user, ItemStack stack, ItemJetpack item, boolean force)
-	{
-		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
-		Item chestItem = StackUtil.getItem(stack);
-		ItemJetpack jetpack = (ItemJetpack)chestItem;
-		if(jetpack.isOn(stack))
-		{
-			boolean hoverMode = jetpack.isHoverModeOn(stack);
-			double hoverSpeed = Config.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(user) ? Jetpack.values()[i].speedVerticalHoverSlow : Jetpack.values()[i].speedVerticalHover;
-			boolean flyKeyDown = force || SyncHandler.isFlyKeyDown(user);
-			boolean descendKeyDown = SyncHandler.isDescendKeyDown(user);
-			double currentAccel = Jetpack.values()[i].accelVertical * (user.motionY < 0.3D ? 2.5D : 1.0D);
-			double currentSpeedVertical = Jetpack.values()[i].speedVertical * (user.isInWater() ? 0.4D : 1.0D);
+    public void flyUser(EntityPlayer user, ItemStack stack, ItemJetpack item, boolean force) {
+        int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+        Item chestItem = StackUtil.getItem(stack);
+        ItemJetpack jetpack = (ItemJetpack) chestItem;
+        if (jetpack.isOn(stack)) {
+            boolean hoverMode = jetpack.isHoverModeOn(stack);
+            double hoverSpeed = Config.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(user) ? Jetpack.values()[i].speedVerticalHoverSlow : Jetpack.values()[i].speedVerticalHover;
+            boolean flyKeyDown = force || SyncHandler.isFlyKeyDown(user);
+            boolean descendKeyDown = SyncHandler.isDescendKeyDown(user);
+            double currentAccel = Jetpack.values()[i].accelVertical * (user.motionY < 0.3D ? 2.5D : 1.0D);
+            double currentSpeedVertical = Jetpack.values()[i].speedVertical * (user.isInWater() ? 0.4D : 1.0D);
 
-			if(flyKeyDown || hoverMode && !user.onGround)
-			{
-				if(this.usesFuel)
-				{
-					item.useFuel(stack, (int) (user.isSprinting() ? Math.round(this.getFuelUsage(stack) * Jetpack.values()[i].sprintFuelModifier) : this.getFuelUsage(stack)), false);
-				}
+            if (flyKeyDown || hoverMode && !user.onGround) {
+                if (this.usesFuel) {
+                    item.useFuel(stack, (int) (user.isSprinting() ? Math.round(this.getFuelUsage(stack) * Jetpack.values()[i].sprintFuelModifier) : this.getFuelUsage(stack)), false);
+                }
 
-				if(item.getFuelStored(stack) > 0)
-				{
-					if(flyKeyDown)
-					{
-						if(!hoverMode)
-						{
-							user.motionY = Math.min(user.motionY + currentAccel, currentSpeedVertical);
-						}
-						else
-						{
-							if(descendKeyDown)
-							{
-								user.motionY = Math.min(user.motionY + currentAccel, -Jetpack.values()[i].speedVerticalHoverSlow);
-							}
-							else
-							{
-								user.motionY = Math.min(user.motionY + currentAccel, Jetpack.values()[i].speedVerticalHover);
-							}
-						}
-					}
-					else
-					{
-						user.motionY = Math.min(user.motionY + currentAccel, -hoverSpeed);
-					}
+                if (item.getFuelStored(stack) > 0) {
+                    if (flyKeyDown) {
+                        if (!hoverMode) {
+                            user.motionY = Math.min(user.motionY + currentAccel, currentSpeedVertical);
+                        } else {
+                            if (descendKeyDown) {
+                                user.motionY = Math.min(user.motionY + currentAccel, -Jetpack.values()[i].speedVerticalHoverSlow);
+                            } else {
+                                user.motionY = Math.min(user.motionY + currentAccel, Jetpack.values()[i].speedVerticalHover);
+                            }
+                        }
+                    } else {
+                        user.motionY = Math.min(user.motionY + currentAccel, -hoverSpeed);
+                    }
 
-					float speedSideways = (float) (user.isSneaking() ? Jetpack.values()[i].speedSideways * 0.5F : Jetpack.values()[i].speedSideways);
-					float speedForward = (float) (user.isSprinting() ? speedSideways * Jetpack.values()[i].sprintSpeedModifier : speedSideways);
-					if(SyncHandler.isForwardKeyDown(user))
-					{
-						user.moveRelative(0, speedForward, speedForward);
-					}
-					if(SyncHandler.isBackwardKeyDown(user))
-					{
-						user.moveRelative(0, -speedSideways, speedSideways * 0.8F);
-					}
-					if(SyncHandler.isLeftKeyDown(user))
-					{
-						user.moveRelative(speedSideways, 0, speedSideways);
-					}
-					if(SyncHandler.isRightKeyDown(user))
-					{
-						user.moveRelative(-speedSideways, 0, speedSideways);
-					}
+                    float speedSideways = (float) (user.isSneaking() ? Jetpack.values()[i].speedSideways * 0.5F : Jetpack.values()[i].speedSideways);
+                    float speedForward = (float) (user.isSprinting() ? speedSideways * Jetpack.values()[i].sprintSpeedModifier : speedSideways);
+                    if (SyncHandler.isForwardKeyDown(user)) {
+                        user.moveRelative(0, speedForward, speedForward);
+                    }
+                    if (SyncHandler.isBackwardKeyDown(user)) {
+                        user.moveRelative(0, -speedSideways, speedSideways * 0.8F);
+                    }
+                    if (SyncHandler.isLeftKeyDown(user)) {
+                        user.moveRelative(speedSideways, 0, speedSideways);
+                    }
+                    if (SyncHandler.isRightKeyDown(user)) {
+                        user.moveRelative(-speedSideways, 0, speedSideways);
+                    }
 
-					if(!user.worldObj.isRemote)
-					{
-						user.fallDistance = 0.0F;
+                    if (!user.worldObj.isRemote) {
+                        user.fallDistance = 0.0F;
 
                         if (user instanceof EntityPlayerMP) {
-							try {
-								floatingTickCount.setInt(((EntityPlayerMP) user).connection, 0);
-							}
-							catch (IllegalAccessException e) {
-								e.printStackTrace();
-							}
-						}
+                            try {
+                                floatingTickCount.setInt(((EntityPlayerMP) user).connection, 0);
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            }
+                        }
 
                         /*
 						TODO: Reimplement explosions
@@ -409,10 +408,10 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
                                 }
                             }
                         }*/
-					}
-				}
-			}
-		}
+                    }
+                }
+            }
+        }
 
 		/*if(!user.worldObj.isRemote && this.emergencyHoverMode && this.isEHoverOn(stack)) TODO Add Jetplates
 		{
@@ -441,11 +440,11 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 				}
 			}
 		}*/
-	}
+    }
 
-	public void registerItemModel() {
-		for(int i = 0; i < numItems; i++) {
-			SimplyJetpacks.proxy.registerItemRenderer(this, i, Jetpack.getTypeFromMeta(i).getBaseName());
-		}
-	}
+    public void registerItemModel() {
+        for (int i = 0; i < numItems; i++) {
+            SimplyJetpacks.proxy.registerItemRenderer(this, i, Jetpack.getTypeFromMeta(i).getBaseName());
+        }
+    }
 }

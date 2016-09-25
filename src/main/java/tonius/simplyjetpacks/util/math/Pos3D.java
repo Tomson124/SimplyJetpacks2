@@ -1,4 +1,4 @@
-package tonius.simplyjetpacks.util;
+package tonius.simplyjetpacks.util.math;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;

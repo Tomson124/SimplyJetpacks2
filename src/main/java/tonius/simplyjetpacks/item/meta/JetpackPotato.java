@@ -18,6 +18,7 @@ import tonius.simplyjetpacks.setup.ModKey;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.sound.SJSoundRegistry;
 import tonius.simplyjetpacks.util.*;
+import tonius.simplyjetpacks.util.math.MathHelper;
 
 import java.util.List;
 

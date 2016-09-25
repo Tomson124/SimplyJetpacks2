@@ -1,7 +1,7 @@
 package tonius.simplyjetpacks.client.particle;
 
 import net.minecraft.world.World;
-import tonius.simplyjetpacks.util.MathHelper;
+import tonius.simplyjetpacks.util.math.MathHelper;
 
 import java.awt.*;
 

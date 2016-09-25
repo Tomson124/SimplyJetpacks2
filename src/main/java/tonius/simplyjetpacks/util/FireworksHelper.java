@@ -1,5 +1,6 @@
 package tonius.simplyjetpacks.util;
 
+import tonius.simplyjetpacks.util.math.MathHelper;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
