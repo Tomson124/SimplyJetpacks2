@@ -1,16 +1,16 @@
 package tonius.simplyjetpacks.client.handler;
 
+import tonius.simplyjetpacks.config.Config;
+import tonius.simplyjetpacks.handler.SyncHandler;
+import tonius.simplyjetpacks.network.PacketHandler;
+import tonius.simplyjetpacks.network.message.MessageKeyboardSync;
+import tonius.simplyjetpacks.setup.ModKey;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import org.lwjgl.input.Keyboard;
-import tonius.simplyjetpacks.config.Config;
-import tonius.simplyjetpacks.handler.SyncHandler;
-import tonius.simplyjetpacks.network.PacketHandler;
-import tonius.simplyjetpacks.network.message.MessageKeyboardSync;
-import tonius.simplyjetpacks.setup.ModKey;
 
 import java.util.ArrayList;
 import java.util.List;
