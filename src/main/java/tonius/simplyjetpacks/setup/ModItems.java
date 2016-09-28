@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.crafting.UpgradingRecipe;
@@ -23,6 +24,8 @@ import tonius.simplyjetpacks.util.ItemHelper;
 public abstract class ModItems
 {
 	public static ItemJetpack itemJetpack;
+
+	public static tonius.simplyjetpacks.item.rewrite.ItemMeta metaItem;
 
 	public static ItemJetpack jetpacksEIO;
 	public static ItemFluxPack fluxPacksEIO;
@@ -81,8 +84,8 @@ public abstract class ModItems
 	{
 		integrateEIO = ModType.ENDER_IO.loaded && Config.enableIntegrationEIO;
 
-		//registerItems();
-		initTest();
+		registerItems();
+		//initTest();
 	}
 
 	public static void init()
@@ -121,28 +124,46 @@ public abstract class ModItems
 			((ItemPack) item).registerItemModel();
 		}
 
-		if(item instanceof ItemMeta)
+		if(item instanceof tonius.simplyjetpacks.item.rewrite.ItemMeta)
 		{
-			((ItemMeta) item).registerItemModel();
+			((tonius.simplyjetpacks.item.rewrite.ItemMeta) item).registerItemModel();
 		}
 
 		return item;
 	}
 
-	private static void registerItems()
-	{
-		SimplyJetpacks.logger.info("Registering items");
+	private static void registerItems() {
+		Log.info("Registering items...");
 
-		// For compatibility, do not change item IDs until 1.8+
+		//Jetpacks
+		itemJetpack = register(new ItemJetpack("itemJetpack"));
 
-		//        jetpacksCommon = new ItemJetpack(ModType.SIMPLY_JETPACKS, "jetpacksCommon");
-		//        jetpackPotato = jetpacksCommon.putPack(0, Packs.jetpackPotato, true);
-		//        jetpackCreative = jetpacksCommon.putPack(9001, Packs.jetpackCreative);
-		//        fluxPacksCommon = new ItemFluxPack(ModType.SIMPLY_JETPACKS, "fluxpacksCommon");
-		//        fluxPackCreative = fluxPacksCommon.putPack(9001, Packs.fluxPackCreative);
+		metaItem = register(new tonius.simplyjetpacks.item.rewrite.ItemMeta("metaItem"));
 
-		if(integrateEIO)
-		{
+//		components = register(new ItemMeta("components"));
+//		leatherStrap = components.addMetaItem(0, new MetaItem("leatherStrap", null, EnumRarity.COMMON), false);
+//
+//		particleCustomizers = register(new ItemMeta("particleCustomizers"));
+//		particleDefault = particleCustomizers.addMetaItem(0, new MetaItem("particle.0", "particleCustomizers", EnumRarity.COMMON), false);
+//		particleNone = particleCustomizers.addMetaItem(1, new MetaItem("particle.1", "particleCustomizers", EnumRarity.COMMON), false);
+//		particleSmoke = particleCustomizers.addMetaItem(2, new MetaItem("particle.2", "particleCustomizers", EnumRarity.COMMON), false);
+//		particleRainbowSmoke = particleCustomizers.addMetaItem(3, new MetaItem("particle.3", "particleCustomizers", EnumRarity.COMMON), false);
+	}
+
+//	private static void registerItems()
+//	{
+//		SimplyJetpacks.logger.info("Registering items");
+//
+//		// For compatibility, do not change item IDs until 1.8+
+//
+//		//        jetpacksCommon = new ItemJetpack(ModType.SIMPLY_JETPACKS, "jetpacksCommon");
+//		//        jetpackPotato = jetpacksCommon.putPack(0, Packs.jetpackPotato, true);
+//		//        jetpackCreative = jetpacksCommon.putPack(9001, Packs.jetpackCreative);
+//		//        fluxPacksCommon = new ItemFluxPack(ModType.SIMPLY_JETPACKS, "fluxpacksCommon");
+//		//        fluxPackCreative = fluxPacksCommon.putPack(9001, Packs.fluxPackCreative);
+//
+//		if(integrateEIO)
+//		{
 //			jetpacksEIO = new ItemJetpack(ModType.ENDER_IO, "jetpacksEIO");
 //			jetpackEIO1 = jetpacksEIO.putPack(1, Packs.jetpackEIO1);
 //			jetpackEIO1Armored = jetpacksEIO.putPack(101, Packs.jetpackEIO1Armored);
@@ -153,45 +174,45 @@ public abstract class ModItems
 //			jetpackEIO4 = jetpacksEIO.putPack(4, Packs.jetpackEIO4);
 //			jetpackEIO4Armored = jetpacksEIO.putPack(104, Packs.jetpackEIO4Armored);
 //			jetpackEIO5 = jetpacksEIO.putPack(5, Packs.jetpackEIO5);
-			fluxPacksEIO = new ItemFluxPack(ModType.ENDER_IO, "fluxpacksEIO");
-			fluxPackEIO1 = fluxPacksEIO.putPack(1, Packs.fluxPackEIO1);
-			fluxPackEIO2 = fluxPacksEIO.putPack(2, Packs.fluxPackEIO2);
-			fluxPackEIO2Armored = fluxPacksEIO.putPack(102, Packs.fluxPackEIO2Armored);
-			fluxPackEIO3 = fluxPacksEIO.putPack(3, Packs.fluxPackEIO3);
-			fluxPackEIO3Armored = fluxPacksEIO.putPack(103, Packs.fluxPackEIO3Armored);
-			fluxPackEIO4 = fluxPacksEIO.putPack(4, Packs.fluxPackEIO4);
-			fluxPackEIO4Armored = fluxPacksEIO.putPack(104, Packs.fluxPackEIO4Armored);
-		}
-
-		components = new ItemMeta("components");
-		armorPlatings = new ItemMeta("armorPlatings");
-		particleCustomizers = new ItemMeta("particleCustomizers");
-
-		leatherStrap = components.addMetaItem(0, new MetaItem("leatherStrap", null, EnumRarity.COMMON), false);
-
-		if(integrateEIO)
-		{
-			thrusterEIO1 = components.addMetaItem(21, new MetaItem("thruster.eio.1", null, EnumRarity.COMMON), false);
-			thrusterEIO2 = components.addMetaItem(22, new MetaItem("thruster.eio.2", null, EnumRarity.COMMON), false);
-			thrusterEIO3 = components.addMetaItem(23, new MetaItem("thruster.eio.3", null, EnumRarity.UNCOMMON), false);
-			thrusterEIO4 = components.addMetaItem(24, new MetaItem("thruster.eio.4", null, EnumRarity.RARE), false);
-			thrusterEIO5 = components.addMetaItem(25, new MetaItem("thruster.eio.5", null, EnumRarity.EPIC), false);
-			ingotDarkSoularium = components.addMetaItem(70, new MetaItem("ingotDarkSoularium", null, EnumRarity.UNCOMMON, true, false), true);
-			reinforcedGliderWing = components.addMetaItem(71, new MetaItem("reinforcedGliderWing", null, EnumRarity.UNCOMMON), false);
-			unitFlightControlEmpty = components.addMetaItem(72, new MetaItem("unitFlightControl.empty", null, EnumRarity.COMMON), false);
-			unitFlightControl = components.addMetaItem(73, new MetaItem("unitFlightControl", null, EnumRarity.UNCOMMON), false);
-
-			armorPlatingEIO1 = armorPlatings.addMetaItem(11, new MetaItem("armorPlating.eio.1", null, EnumRarity.COMMON), false);
-			armorPlatingEIO2 = armorPlatings.addMetaItem(12, new MetaItem("armorPlating.eio.2", null, EnumRarity.COMMON), false);
-			armorPlatingEIO3 = armorPlatings.addMetaItem(13, new MetaItem("armorPlating.eio.3", null, EnumRarity.COMMON), false);
-			armorPlatingEIO4 = armorPlatings.addMetaItem(14, new MetaItem("armorPlating.eio.4", null, EnumRarity.COMMON), false);
-		}
-
-		particleDefault = particleCustomizers.addMetaItem(0, new MetaItem("particle.0", "particleCustomizers", EnumRarity.COMMON), false);
-		particleNone = particleCustomizers.addMetaItem(1, new MetaItem("particle.1", "particleCustomizers", EnumRarity.COMMON), false);
-		particleSmoke = particleCustomizers.addMetaItem(2, new MetaItem("particle.2", "particleCustomizers", EnumRarity.COMMON), false);
-		particleRainbowSmoke = particleCustomizers.addMetaItem(3, new MetaItem("particle.3", "particleCustomizers", EnumRarity.COMMON), false);
-	}
+//			fluxPacksEIO = new ItemFluxPack(ModType.ENDER_IO, "fluxpacksEIO");
+//			fluxPackEIO1 = fluxPacksEIO.putPack(1, Packs.fluxPackEIO1);
+//			fluxPackEIO2 = fluxPacksEIO.putPack(2, Packs.fluxPackEIO2);
+//			fluxPackEIO2Armored = fluxPacksEIO.putPack(102, Packs.fluxPackEIO2Armored);
+//			fluxPackEIO3 = fluxPacksEIO.putPack(3, Packs.fluxPackEIO3);
+//			fluxPackEIO3Armored = fluxPacksEIO.putPack(103, Packs.fluxPackEIO3Armored);
+//			fluxPackEIO4 = fluxPacksEIO.putPack(4, Packs.fluxPackEIO4);
+//			fluxPackEIO4Armored = fluxPacksEIO.putPack(104, Packs.fluxPackEIO4Armored);
+//		}
+//
+//		components = new ItemMeta("components");
+//		armorPlatings = new ItemMeta("armorPlatings");
+//		particleCustomizers = new ItemMeta("particleCustomizers");
+//
+//		leatherStrap = components.addMetaItem(0, new MetaItem("leatherStrap", null, EnumRarity.COMMON), false);
+//
+//		if(integrateEIO)
+//		{
+//			thrusterEIO1 = components.addMetaItem(21, new MetaItem("thruster.eio.1", null, EnumRarity.COMMON), false);
+//			thrusterEIO2 = components.addMetaItem(22, new MetaItem("thruster.eio.2", null, EnumRarity.COMMON), false);
+//			thrusterEIO3 = components.addMetaItem(23, new MetaItem("thruster.eio.3", null, EnumRarity.UNCOMMON), false);
+//			thrusterEIO4 = components.addMetaItem(24, new MetaItem("thruster.eio.4", null, EnumRarity.RARE), false);
+//			thrusterEIO5 = components.addMetaItem(25, new MetaItem("thruster.eio.5", null, EnumRarity.EPIC), false);
+//			ingotDarkSoularium = components.addMetaItem(70, new MetaItem("ingotDarkSoularium", null, EnumRarity.UNCOMMON, true, false), true);
+//			reinforcedGliderWing = components.addMetaItem(71, new MetaItem("reinforcedGliderWing", null, EnumRarity.UNCOMMON), false);
+//			unitFlightControlEmpty = components.addMetaItem(72, new MetaItem("unitFlightControl.empty", null, EnumRarity.COMMON), false);
+//			unitFlightControl = components.addMetaItem(73, new MetaItem("unitFlightControl", null, EnumRarity.UNCOMMON), false);
+//
+//			armorPlatingEIO1 = armorPlatings.addMetaItem(11, new MetaItem("armorPlating.eio.1", null, EnumRarity.COMMON), false);
+//			armorPlatingEIO2 = armorPlatings.addMetaItem(12, new MetaItem("armorPlating.eio.2", null, EnumRarity.COMMON), false);
+//			armorPlatingEIO3 = armorPlatings.addMetaItem(13, new MetaItem("armorPlating.eio.3", null, EnumRarity.COMMON), false);
+//			armorPlatingEIO4 = armorPlatings.addMetaItem(14, new MetaItem("armorPlating.eio.4", null, EnumRarity.COMMON), false);
+//		}
+//
+//		particleDefault = particleCustomizers.addMetaItem(0, new MetaItem("particle.0", "particleCustomizers", EnumRarity.COMMON), false);
+//		particleNone = particleCustomizers.addMetaItem(1, new MetaItem("particle.1", "particleCustomizers", EnumRarity.COMMON), false);
+//		particleSmoke = particleCustomizers.addMetaItem(2, new MetaItem("particle.2", "particleCustomizers", EnumRarity.COMMON), false);
+//		particleRainbowSmoke = particleCustomizers.addMetaItem(3, new MetaItem("particle.3", "particleCustomizers", EnumRarity.COMMON), false);
+//	}
 
 	private static void registerRecipes()
 	{

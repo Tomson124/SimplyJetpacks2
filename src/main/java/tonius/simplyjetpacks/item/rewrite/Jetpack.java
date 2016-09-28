@@ -30,15 +30,9 @@ public enum Jetpack implements IStringSerializable {
     public ParticleType defaultParticleType = ParticleType.DEFAULT;
     public PackModelType armorModel = PackModelType.FLAT;
 
-    public final
-    @Nonnull
-    String baseName;
-    public final
-    @Nonnull
-    String unlocalisedName;
-    public final
-    @Nonnull
-    String iconKey;
+    public final @Nonnull String baseName;
+    public final @Nonnull String unlocalisedName;
+    public final @Nonnull String iconKey;
     public final int tier;
     public int fuelCapacity;
     public int fuelPerTickIn;
@@ -139,9 +133,7 @@ public enum Jetpack implements IStringSerializable {
         return baseName.toLowerCase(Locale.ENGLISH);
     }
 
-    public static
-    @Nonnull
-    Jetpack getTypeFromMeta(int meta) {
+    public static @Nonnull Jetpack getTypeFromMeta(int meta) {
         return values()[meta >= 0 && meta < values().length ? meta : 0];
     }
 

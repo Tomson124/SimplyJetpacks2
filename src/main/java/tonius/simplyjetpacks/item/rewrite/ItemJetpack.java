@@ -1,6 +1,5 @@
 package tonius.simplyjetpacks.item.rewrite;
 
-import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.client.util.RenderUtils;
@@ -289,7 +288,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
         int i = MathHelper.clamp_int(itemStack.getItemDamage(), 0, numItems - 1);
         if (Config.enableArmor3DModels) {
             ModelBiped model = RenderUtils.getArmorModel(Jetpack.values()[i], entityLiving);
-            Log.info("Model: " + model);
             if (model != null) {
                 return model;
             }
