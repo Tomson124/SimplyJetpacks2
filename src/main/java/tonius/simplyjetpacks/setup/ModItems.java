@@ -1,8 +1,6 @@
 package tonius.simplyjetpacks.setup;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -10,15 +8,15 @@ import net.minecraftforge.oredict.OreDictionary;
 import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
-import tonius.simplyjetpacks.crafting.UpgradingRecipe;
 import tonius.simplyjetpacks.integration.EIOItems;
 import tonius.simplyjetpacks.integration.EIORecipes;
 import tonius.simplyjetpacks.integration.ModType;
-import tonius.simplyjetpacks.item.ItemMeta;
-import tonius.simplyjetpacks.item.ItemMeta.MetaItem;
+//import tonius.simplyjetpacks.item.ItemMeta;
 import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.item.ItemPack.ItemFluxPack;
 import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
+import tonius.simplyjetpacks.item.rewrite.MetaItems;
+import tonius.simplyjetpacks.item.rewrite.ItemMeta;
 import tonius.simplyjetpacks.util.ItemHelper;
 
 public abstract class ModItems
@@ -33,6 +31,12 @@ public abstract class ModItems
 	public static ItemMeta components;
 	public static ItemMeta armorPlatings;
 	public static ItemMeta particleCustomizers;
+
+	public static String leatherStrap;
+	public static String particleDefault;
+	public static String particleNone;
+	public static String particleSmoke;
+	public static String particleRainbowSmoke;
 
 	public static ItemStack jetpackPotato;
 	public static ItemStack jetpackCreative;
@@ -55,7 +59,7 @@ public abstract class ModItems
 	public static ItemStack fluxPackEIO4;
 	public static ItemStack fluxPackEIO4Armored;
 
-	public static ItemStack leatherStrap;
+	//public static ItemStack leatherStrap;
 	public static ItemStack jetpackIcon;
 	public static ItemStack thrusterEIO1;
 	public static ItemStack thrusterEIO2;
@@ -72,11 +76,6 @@ public abstract class ModItems
 	public static ItemStack armorPlatingEIO2;
 	public static ItemStack armorPlatingEIO3;
 	public static ItemStack armorPlatingEIO4;
-
-	public static ItemStack particleDefault;
-	public static ItemStack particleNone;
-	public static ItemStack particleSmoke;
-	public static ItemStack particleRainbowSmoke;
 
 	private static boolean integrateEIO = false;
 
@@ -95,7 +94,7 @@ public abstract class ModItems
 			EIOItems.init();
 		}
 
-		//registerRecipes();
+		registerRecipes();
 		doIMC();
 	}
 
@@ -139,15 +138,22 @@ public abstract class ModItems
 		itemJetpack = register(new ItemJetpack("itemJetpack"));
 
 		metaItem = register(new tonius.simplyjetpacks.item.rewrite.ItemMeta("metaItem"));
+		leatherStrap = MetaItems.LEATHER_STRAP.getName();
+		particleDefault = MetaItems.PARTICLE_DEFAULT.getName();
+		particleNone = MetaItems.PARTICLE_NONE.getName();
+		particleSmoke = MetaItems.PARTICLE_SMOKE.getName();
+		particleRainbowSmoke = MetaItems.PARTICLE_RAINBOWSMOKE.getName();
 
-//		components = register(new ItemMeta("components"));
-//		leatherStrap = components.addMetaItem(0, new MetaItem("leatherStrap", null, EnumRarity.COMMON), false);
-//
 //		particleCustomizers = register(new ItemMeta("particleCustomizers"));
 //		particleDefault = particleCustomizers.addMetaItem(0, new MetaItem("particle.0", "particleCustomizers", EnumRarity.COMMON), false);
 //		particleNone = particleCustomizers.addMetaItem(1, new MetaItem("particle.1", "particleCustomizers", EnumRarity.COMMON), false);
 //		particleSmoke = particleCustomizers.addMetaItem(2, new MetaItem("particle.2", "particleCustomizers", EnumRarity.COMMON), false);
 //		particleRainbowSmoke = particleCustomizers.addMetaItem(3, new MetaItem("particle.3", "particleCustomizers", EnumRarity.COMMON), false);
+	}
+
+	private static void registerRecipes() {
+
+		ItemHelper.addShapedOreRecipe(new tonius.simplyjetpacks.item.rewrite.ItemMeta(leatherStrap), "LIL", "LIL", 'L', Items.LEATHER, 'I', "ingotIron");
 	}
 
 //	private static void registerItems()
@@ -214,7 +220,7 @@ public abstract class ModItems
 //		particleRainbowSmoke = particleCustomizers.addMetaItem(3, new MetaItem("particle.3", "particleCustomizers", EnumRarity.COMMON), false);
 //	}
 
-	private static void registerRecipes()
+	/*private static void registerRecipes()
 	{
 		SimplyJetpacks.logger.info("Registering recipes");
 
@@ -285,7 +291,7 @@ public abstract class ModItems
 
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO5, "J", "P", 'J', jetpackEIO5, 'P', new ItemStack(particleCustomizers, 1, OreDictionary.WILDCARD_VALUE)));
 		}
-	}
+	}*/
 
 	private static void doIMC()
 	{

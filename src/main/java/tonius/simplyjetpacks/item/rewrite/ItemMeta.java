@@ -36,7 +36,7 @@ public class ItemMeta extends ItemRegistered {
 	public String getUnlocalizedName(ItemStack itemStack)
 	{
 		int i = MathHelper.clamp_int(itemStack.getItemDamage(), 0, numItems - 1);
-		return "item.simplyjetpacks." + MetaItems.values()[i].getName().toLowerCase();
+		return "item.simplyjetpacks." + MetaItems.values()[i].getName();
 	}
 
 	@Override

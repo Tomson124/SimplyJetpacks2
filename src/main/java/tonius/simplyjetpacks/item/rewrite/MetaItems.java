@@ -1,13 +1,16 @@
 package tonius.simplyjetpacks.item.rewrite;
 
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.EnumRarity;
 
 import javax.annotation.Nonnull;
 
 public enum MetaItems {
 
-	LEATHER_STRAP("leatherStrap", "particleCustomizers", EnumRarity.COMMON);
+	LEATHER_STRAP("leatherStrap", null, EnumRarity.COMMON),
+	PARTICLE_DEFAULT("particleDefault", "particleCustomizers", EnumRarity.COMMON),
+	PARTICLE_RAINBOWSMOKE("particleRainbowSmoke", "particleCustomizers", EnumRarity.COMMON),
+	PARTICLE_NONE("particleNone", "particleCustomizers", EnumRarity.COMMON),
+	PARTICLE_SMOKE("particleSmoke", "particleCustomizers", EnumRarity.COMMON);
 
 	private String name;
 	private String keyTooltip;

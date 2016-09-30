@@ -1,7 +1,7 @@
 itemGroup.tabSimplyJetpacks=Simply Jetpacks
 
-item.simplyjetpacks.jetpack.0.name=Tuberous Jetpack
-item.simplyjetpacks.jetpack.9001.name=Creative Jetpack
+item.simplyjetpacks.jetpackPotato.name=Tuberous Jetpack
+item.simplyjetpacks.jetpackCreative.name=Creative Jetpack
 item.simplyjetpacks.jetpack.1.eio.name=Conductive Iron Jetpack
 item.simplyjetpacks.jetpack.2.eio.name=Electrical Steel Jetpack
 item.simplyjetpacks.jetpack.3.eio.name=Energetic Jetpack
@@ -49,12 +49,11 @@ item.simplyjetpacks.armorPlating.eio.2.name=Conductive Iron Armor Plating
 item.simplyjetpacks.armorPlating.eio.3.name=Electrical Steel Armor Plating
 item.simplyjetpacks.armorPlating.eio.4.name=Dark Steel Armor Plating
 
-item.simplyjetpacks.particle.0.name=Particle Customizer (Default)
-item.simplyjetpacks.particle.1.name=Particle Customizer (None)
-item.simplyjetpacks.particle.2.name=Particle Customizer (Smoke Only)
-item.simplyjetpacks.particle.3.name=Particle Customizer (Rainbow Smoke)
+item.simplyjetpacks.particleDefault.name=Particle Customizer (Default)
+item.simplyjetpacks.particleNone.name=Particle Customizer (None)
+item.simplyjetpacks.particleSmoke.name=Particle Customizer (Smoke Only)
+item.simplyjetpacks.particleRainbowSmoke.name=Particle Customizer (Rainbow Smoke)
 
-item.simplyjetpacks.jetpackFueller.name=Jetpack Fueller
 item.simplyjetpacks.mysteriousPotato.name=Mysterious Potato
 
 simplyjetpacks.chat.enabled=enabled
@@ -116,7 +115,7 @@ simplyjetpacks.tooltip.raReplacement.description.3=of one if its items.
 simplyjetpacks.tooltip.enderiumUpgrade.description.1=Makes a Flux-Infused JetPlate look like
 simplyjetpacks.tooltip.enderiumUpgrade.description.2=an Enderium Flux armor piece.
 
-simplyjetpacks.gui.hud.jetpack.fuel=Jetpack fuel
+simplyjetpacks.gui.hud.itemJetpack.fuel=Jetpack fuel
 simplyjetpacks.gui.hud.fluxpack.fuel=Flux Pack energy
 simplyjetpacks.gui.hud.fuel.depleted=Depleted
 simplyjetpacks.gui.hud.state.engine=Engine
