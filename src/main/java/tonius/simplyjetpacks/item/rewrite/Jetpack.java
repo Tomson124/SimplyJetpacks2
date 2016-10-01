@@ -7,6 +7,7 @@ import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.NBTHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IStringSerializable;
@@ -19,9 +20,14 @@ import java.util.List;
 import java.util.Locale;
 
 public enum Jetpack implements IStringSerializable {
-	CREATIVE_JETPACK("jetpackCreative", 5, "jetpackCreative", ParticleType.RAINBOW_SMOKE),
-	POTATO_JETPACK("jetpackPotato", 1, "jetpackPotato"),
-	TEST_JETPACK("jetpackTest", 2, "jetpackTest");
+	CREATIVE_JETPACK("jetpackCreative", 6, "jetpackCreative", EnumRarity.EPIC, ParticleType.RAINBOW_SMOKE, false),
+	POTATO_JETPACK("jetpackPotato", 1, "jetpackPotato", EnumRarity.COMMON, ParticleType.DEFAULT, false),
+	TEST_JETPACK("jetpackTest", 2, "jetpackTest", EnumRarity.EPIC),
+
+	JETPACK_EIO_1("jetpackEIO1", 1, "jetpackEIO1", EnumRarity.COMMON),
+	JETPACK_EIO_2("jetpackEIO2", 1, "jetpackEIO2", EnumRarity.COMMON),
+	JETPACK_EIO_3("jetpackEIO3", 1, "jetpackEIO3", EnumRarity.UNCOMMON),
+	JETPACK_EIO_4("jetpackEIO4", 1, "jetpackEIO4", EnumRarity.RARE);
 
 	protected final PackDefaults defaults;
 	protected static final EnumSet<Jetpack> ALL_PACKS = EnumSet.allOf(Jetpack.class);
@@ -44,6 +50,9 @@ public enum Jetpack implements IStringSerializable {
 	public int armorReduction;
 	public int fuelUsage;
 
+	public boolean usesFuel;
+	public EnumRarity rarity;
+
 	public double speedVertical;
 	public double accelVertical;
 	public double speedVerticalHover;
@@ -57,18 +66,21 @@ public enum Jetpack implements IStringSerializable {
 	@Nonnull
 	List<String> jetpacks = new ArrayList<String>();
 
-	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, ParticleType defaultParticleType) {
-		this(baseName, tier, defaultConfigKey);
+	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, ParticleType defaultParticleType, boolean usesFuel) {
+		this(baseName, tier, defaultConfigKey, rarity);
 		this.defaultParticleType = defaultParticleType;
+		this.usesFuel = usesFuel;
 	}
 
-	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey) {
+	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity) {
 		this.baseName = baseName;
 		this.tier = tier;
 		this.defaults = PackDefaults.get(defaultConfigKey);
 		this.defaultParticleType = ParticleType.DEFAULT;
 		this.unlocalisedName = "item.simplyjetpacks." + baseName;
 		this.jetpacks.add(baseName);
+		this.usesFuel = true;
+		this.rarity = rarity;
 		this.setArmorModel(PackModelType.JETPACK);
 	}
 
@@ -127,6 +139,10 @@ public enum Jetpack implements IStringSerializable {
 	@Override
 	public String getName() {
 		return baseName.toLowerCase(Locale.ENGLISH);
+	}
+
+	public EnumRarity getRarity() {
+		return rarity;
 	}
 
 	public static
