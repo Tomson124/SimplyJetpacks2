@@ -1,13 +1,12 @@
 package tonius.simplyjetpacks.integration;
 
+import tonius.simplyjetpacks.SimplyJetpacks;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import tonius.simplyjetpacks.SimplyJetpacks;
+import net.minecraft.util.ResourceLocation;
 
-public abstract class EIOItems
-{
+public abstract class EIOItems {
 	public static ItemStack capacitorBankOld;
 	public static ItemStack capacitorBank;
 	public static ItemStack capacitorBankVibrant;
@@ -24,35 +23,45 @@ public abstract class EIOItems
 	public static ItemStack vibrantCrystal;
 	public static ItemStack enderCrystal;
 
-	public static void init()
-	{
+	public static void init() {
 		SimplyJetpacks.logger.info("Stealing Ender IO's items");
 
-		capacitorBankOld = new ItemStack(GameRegistry.findBlock("EnderIO", "blockCapacitorBank"));
+		capacitorBankOld = new ItemStack(Block.REGISTRY.getObject(new ResourceLocation("enderio", "blockCapacitorBank")));
 
-		Block capBankBlock = GameRegistry.findBlock("EnderIO", "blockCapBank");
+		Block capBankBlock = Block.REGISTRY.getObject(new ResourceLocation("enderio", "blockCapBank"));
 		capacitorBank = new ItemStack(capBankBlock, 1, 2);
 		capacitorBankVibrant = new ItemStack(capBankBlock, 1, 3);
 
-		redstoneConduit = new ItemStack(GameRegistry.findItem("EnderIO", "itemRedstoneConduit"), 1, 2);
+		Item redstoneConduitItem = Item.REGISTRY.getObject(new ResourceLocation("enderio", "itemRedstoneConduit"));
+		if (redstoneConduitItem != null) {
+			redstoneConduit = new ItemStack(redstoneConduitItem, 1, 0);
+		}
 
-		Item energyConduitItem = GameRegistry.findItem("EnderIO", "itemPowerConduit");
-		energyConduit1 = new ItemStack(energyConduitItem, 1, 0);
-		energyConduit2 = new ItemStack(energyConduitItem, 1, 1);
-		energyConduit3 = new ItemStack(energyConduitItem, 1, 2);
+		Item energyConduitItem = Item.REGISTRY.getObject(new ResourceLocation("enderio", "itemPowerConduit"));
+		if (energyConduitItem != null) {
+			energyConduit1 = new ItemStack(energyConduitItem, 1, 0);
+			energyConduit2 = new ItemStack(energyConduitItem, 1, 1);
+			energyConduit3 = new ItemStack(energyConduitItem, 1, 2);
+		}
 
-		Item capacitorItem = GameRegistry.findItem("EnderIO", "itemBasicCapacitor");
-		basicCapacitor = new ItemStack(capacitorItem, 1, 0);
-		doubleCapacitor = new ItemStack(capacitorItem, 1, 1);
-		octadicCapacitor = new ItemStack(capacitorItem, 1, 2);
+		Item capacitorItem = Item.REGISTRY.getObject(new ResourceLocation("enderio", "itemBasicCapacitor"));
+		if (capacitorItem != null) {
+			basicCapacitor = new ItemStack(capacitorItem, 1, 0);
+			doubleCapacitor = new ItemStack(capacitorItem, 1, 1);
+			octadicCapacitor = new ItemStack(capacitorItem, 1, 2);
+		}
 
-		Item machinePartItem = GameRegistry.findItem("EnderIO", "itemMachinePart");
-		machineChassis = new ItemStack(machinePartItem, 1, 0);
-		basicGear = new ItemStack(machinePartItem, 1, 1);
+		Item machinePartItem = Item.REGISTRY.getObject(new ResourceLocation("enderio", "itemMachinePart"));
+		if (machinePartItem != null) {
+			machineChassis = new ItemStack(machinePartItem, 1, 0);
+			basicGear = new ItemStack(machinePartItem, 1, 1);
+		}
 
-		Item materialsItem = GameRegistry.findItem("EnderIO", "itemMaterial");
-		pulsatingCrystal = new ItemStack(materialsItem, 1, 5);
-		vibrantCrystal = new ItemStack(materialsItem, 1, 6);
-		enderCrystal = new ItemStack(materialsItem, 1, 8);
+		Item materialsItem = Item.REGISTRY.getObject(new ResourceLocation("enderio", "itemMaterial"));
+		if (materialsItem != null) {
+			pulsatingCrystal = new ItemStack(materialsItem, 1, 5);
+			vibrantCrystal = new ItemStack(materialsItem, 1, 6);
+			enderCrystal = new ItemStack(materialsItem, 1, 8);
+		}
 	}
 }
