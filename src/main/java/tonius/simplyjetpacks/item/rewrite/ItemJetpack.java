@@ -86,19 +86,20 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 				}
 			}
 		}
-		int EIOItems = 1; //Ammount of EnderIO Jetpacks
-		for (int j = 0; j < numItems - EIOItems; ++j) {
-			ItemStack stack;
-			if(Jetpack.values()[j].usesFuel)
-			{
-				List.add(new ItemStack(item, 1, j));
-			}
-			else {
-				stack = new ItemStack(item, 1, j);
-				if (item instanceof ItemJetpack) {
-					((ItemJetpack) item).addFuel(stack, ((ItemJetpack) item).getMaxEnergyStored(stack), false);
+		else {
+			int EIOItems = 1; //Ammount of EnderIO Jetpacks
+
+			for (int j = 0; j < numItems - EIOItems; ++j) {
+				ItemStack stack;
+				if (Jetpack.values()[j].usesFuel) {
+					List.add(new ItemStack(item, 1, j));
+				} else {
+					stack = new ItemStack(item, 1, j);
+					if (item instanceof ItemJetpack) {
+						((ItemJetpack) item).addFuel(stack, ((ItemJetpack) item).getMaxEnergyStored(stack), false);
+					}
+					List.add(stack);
 				}
-				List.add(stack);
 			}
 		}
 	}
