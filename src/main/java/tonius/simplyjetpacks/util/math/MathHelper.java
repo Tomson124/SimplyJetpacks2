@@ -1,4 +1,4 @@
-package tonius.simplyjetpacks.util;
+package tonius.simplyjetpacks.util.math;
 
 import java.util.Random;
 

@@ -1,23 +1,30 @@
 package tonius.simplyjetpacks.item.rewrite;
 
+import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.client.model.PackModelType;
+import tonius.simplyjetpacks.client.util.RenderUtils;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.item.IHUDInfoProvider;
 import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.setup.ModCreativeTab;
 import tonius.simplyjetpacks.setup.ModEnchantments;
+import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.util.NBTHelper;
 import tonius.simplyjetpacks.util.SJStringHelper;
 import tonius.simplyjetpacks.util.StackUtil;
 import tonius.simplyjetpacks.util.StringHelper;
 import cofh.api.energy.IEnergyContainerItem;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
@@ -31,6 +38,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import static tonius.simplyjetpacks.handler.LivingTickHandler.floatingTickCount;
+
 public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider {
 
 	private static final String TAG_ENERGY = "Energy";
@@ -42,7 +51,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public boolean hasFuelIndicator = true;
 	public boolean hasStateIndicators = true;
 	public FuelType fuelType = FuelType.ENERGY;
-	public boolean usesFuel = true;
 	public boolean isFluxBased = false;
 
 	private final int numItems;
@@ -62,8 +70,37 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> List) {
-		for (int j = 0; j < numItems; ++j) {
-			List.add(new ItemStack(item, 1, j));
+		if (ModItems.integrateEIO) {
+			for (int j = 0; j < numItems; ++j) {
+				ItemStack stack;
+				if(Jetpack.values()[j].usesFuel)
+				{
+					List.add(new ItemStack(item, 1, j));
+				}
+				else {
+					stack = new ItemStack(item, 1, j);
+					if (item instanceof ItemJetpack) {
+						((ItemJetpack) item).addFuel(stack, ((ItemJetpack) item).getMaxEnergyStored(stack), false);
+					}
+					List.add(stack);
+				}
+			}
+		}
+		else {
+			int EIOItems = 1; //Ammount of EnderIO Jetpacks
+
+			for (int j = 0; j < numItems - EIOItems; ++j) {
+				ItemStack stack;
+				if (Jetpack.values()[j].usesFuel) {
+					List.add(new ItemStack(item, 1, j));
+				} else {
+					stack = new ItemStack(item, 1, j);
+					if (item instanceof ItemJetpack) {
+						((ItemJetpack) item).addFuel(stack, ((ItemJetpack) item).getMaxEnergyStored(stack), false);
+					}
+					List.add(stack);
+				}
+			}
 		}
 	}
 
@@ -88,12 +125,26 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	}
 
 	@Override
+	public EnumRarity getRarity(ItemStack stack) {
+		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+		if (Jetpack.values()[i].getRarity() != null) {
+			return Jetpack.values()[i].getRarity();
+		}
+		return super.getRarity(stack);
+	}
+
+	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
+		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+		if (!Jetpack.values()[i].usesFuel) {
+			return false;
+		}
 		return this.hasFuelIndicator;
 	}
 
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
+		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
 		double stored = this.getMaxFuelStored(stack) - this.getFuelStored(stack) + 1;
 		double max = this.getMaxFuelStored(stack) + 1;
 		return stored / max;
@@ -108,10 +159,9 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
 		information(stack, this, tooltip);
-		if(SJStringHelper.canShowDetails()) {
+		if (SJStringHelper.canShowDetails()) {
 			shiftInformation(stack, tooltip);
-		}
-		else {
+		} else {
 			tooltip.add(SJStringHelper.getShiftText());
 		}
 	}
@@ -120,10 +170,10 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@SuppressWarnings("unchecked")
 	public void information(ItemStack stack, ItemJetpack item, List list) {
 		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
-		if(this.showTier) {
+		if (this.showTier) {
 			list.add(SJStringHelper.getTierText(Jetpack.values()[i].getTier()));
 		}
-		list.add(SJStringHelper.getFuelText(this.fuelType, item.getFuelStored(stack), Jetpack.values()[i].getFuelCapacity(), !this.usesFuel));
+		list.add(SJStringHelper.getFuelText(this.fuelType, item.getFuelStored(stack), Jetpack.values()[i].getFuelCapacity(), !Jetpack.values()[i].usesFuel));
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -133,15 +183,13 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 
 		list.add(SJStringHelper.getStateText(this.isOn(stack)));
 		list.add(SJStringHelper.getHoverModeText(this.isHoverModeOn(stack)));
-		if(Jetpack.values()[i].getFuelUsage() > 0)
-		{
+		if (Jetpack.values()[i].getFuelUsage() > 0) {
 			list.add(SJStringHelper.getFuelUsageText(this.fuelType, Jetpack.values()[i].getFuelUsage()));
 		}
-		//list.add(SJStringHelper.getParticlesText(this.getParticleType(stack))); TODO: Add Particle info
+		list.add(SJStringHelper.getParticlesText(Jetpack.values()[i].getParticleType(stack)));
 		SJStringHelper.addDescriptionLines(list, "jetpack", StringHelper.BRIGHT_GREEN);
 		String key = SimplyJetpacks.proxy.getPackGUIKey();
-		if(key != null)
-		{
+		if (key != null) {
 			list.add(SJStringHelper.getPackGUIText(key));
 		}
 	}
@@ -162,17 +210,17 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	protected int getFuelUsage(ItemStack stack) {
 		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
 		//if(ModEnchantments.fuelEffeciency == null) {
-			return Jetpack.values()[i].getFuelUsage();
+		return Jetpack.values()[i].getFuelUsage();
 		//}
 
-		//int fuelEfficiencyLevel = tonius.simplyjetpacks.util.MathHelper.clampI(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
+		//int fuelEfficiencyLevel = tonius.simplyjetpacks.util.math.MathHelper.clampI(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
 		//return (int) Math.round(this.fuelUsage * (20 - fuelEfficiencyLevel) / 20.0D);
 	}
 
 	public int addFuel(ItemStack stack, int maxAdd, boolean simulate) {
 		int energy = this.getEnergyStored(stack);
 		int energyReceived = Math.min(this.getMaxEnergyStored(stack) - energy, maxAdd);
-		if(!simulate) {
+		if (!simulate) {
 			energy += energyReceived;
 			NBTHelper.setInt(stack, TAG_ENERGY, energy);
 		}
@@ -182,7 +230,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public int useFuel(ItemStack stack, int maxUse, boolean simulate) {
 		int energy = this.getEnergyStored(stack);
 		int energyExtracted = Math.min(energy, maxUse);
-		if(!simulate) {
+		if (!simulate) {
 			energy -= energyExtracted;
 			NBTHelper.setInt(stack, TAG_ENERGY, energy);
 		}
@@ -194,7 +242,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		int i = MathHelper.clamp_int(container.getItemDamage(), 0, numItems - 1);
 		int energy = this.getEnergyStored(container);
 		int energyReceived = Math.min(this.getMaxEnergyStored(container) - energy, Math.min(maxReceive, Jetpack.values()[i].getFuelPerTickIn()));
-		if(!simulate) {
+		if (!simulate) {
 			energy += energyReceived;
 			NBTHelper.setInt(container, TAG_ENERGY, energy);
 		}
@@ -206,7 +254,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		int i = MathHelper.clamp_int(container.getItemDamage(), 0, numItems - 1);
 		int energy = this.getEnergyStored(container);
 		int energyExtracted = Math.min(energy, Math.min(maxExtract, Jetpack.values()[i].getFuelPerTickOut()));
-		if(!simulate) {
+		if (!simulate) {
 			energy -= energyExtracted;
 			NBTHelper.setInt(container, TAG_ENERGY, energy);
 		}
@@ -228,10 +276,10 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addHUDInfo(List<String> list, ItemStack stack, boolean showFuel, boolean showState) {
-		if(showFuel && this.hasFuelIndicator) {
+		if (showFuel && this.hasFuelIndicator) {
 			list.add(this.getHUDFuelInfo(stack, this));
 		}
-		if(showState && this.hasStateIndicators) {
+		if (showState && this.hasStateIndicators) {
 			list.add(this.getHUDStatesInfo(stack));
 		}
 	}
@@ -258,8 +306,8 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@Override
 	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
 		int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
-		if(/*pack.isArmored && */ !source.isUnblockable()) {
-			if(this.isFluxBased && source.damageType.equals("flux")) {
+		if (/*pack.isArmored && */ !source.isUnblockable()) {
+			if (this.isFluxBased && source.damageType.equals("flux")) {
 				return new ArmorProperties(0, 0.5D, Integer.MAX_VALUE);
 			}
 			int energyPerDamage = this.getFuelPerDamage(armor);
@@ -272,8 +320,8 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
 		int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
-		if(this.isArmored) {
-			if(this.getFuelStored(armor) >= Jetpack.values()[i].getArmorFuelPerHit()) {
+		if (this.isArmored) {
+			if (this.getFuelStored(armor) >= Jetpack.values()[i].getArmorFuelPerHit()) {
 				return Jetpack.values()[i].getArmorReduction();
 			}
 		}
@@ -281,13 +329,31 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	}
 
 	@Override
+	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
+		int i = MathHelper.clamp_int(itemStack.getItemDamage(), 0, numItems - 1);
+		if (Config.enableArmor3DModels) {
+			ModelBiped model = RenderUtils.getArmorModel(Jetpack.values()[i], entityLiving);
+			if (model != null) {
+				return model;
+			}
+		}
+		return super.getArmorModel(entityLiving, itemStack, armorSlot, _default);
+	}
+
+	@Override
+	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+		String flat = Config.enableArmor3DModels || Jetpack.values()[i].armorModel == PackModelType.FLAT ? "" : ".flat";
+		return SimplyJetpacks.RESOURCE_PREFIX + "textures/armor/" + Jetpack.values()[i].getBaseName() + flat + ".png";
+	}
+
+	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack armor, DamageSource source, int damage, int slot) {
 		int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
-		if(/*pack.isArmored && */ usesFuel) {
-			if(this.fuelType == FuelType.ENERGY && this.isFluxBased && source.damageType.equals("flux")) {
+		if (/*pack.isArmored && */ Jetpack.values()[i].usesFuel) {
+			if (this.fuelType == FuelType.ENERGY && this.isFluxBased && source.damageType.equals("flux")) {
 				this.addFuel(armor, damage * (source.getEntity() == null ? Jetpack.values()[i].getArmorFuelPerHit() / 2 : this.getFuelPerDamage(armor)), false);
-			}
-			else {
+			} else {
 				this.useFuel(armor, damage * this.getFuelPerDamage(armor), false);
 			}
 		}
@@ -304,7 +370,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	// armor
 	protected int getFuelPerDamage(ItemStack stack) {
 		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
-		if(ModEnchantments.fuelEffeciency == null) {
+		if (ModEnchantments.fuelEffeciency == null) {
 			return Jetpack.values()[i].getArmorFuelPerHit();
 		}
 
@@ -312,13 +378,11 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		return (int) Math.round(Jetpack.values()[i].getArmorFuelPerHit() * (5 - fuelEfficiencyLevel) / 5.0D);
 	}
 
-	public void flyUser(EntityPlayer user, ItemStack stack, ItemJetpack item, boolean force)
-	{
+	public void flyUser(EntityPlayer user, ItemStack stack, ItemJetpack item, boolean force) {
 		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
 		Item chestItem = StackUtil.getItem(stack);
-		ItemJetpack jetpack = (ItemJetpack)chestItem;
-		if(jetpack.isOn(stack))
-		{
+		ItemJetpack jetpack = (ItemJetpack) chestItem;
+		if (jetpack.isOn(stack)) {
 			boolean hoverMode = jetpack.isHoverModeOn(stack);
 			double hoverSpeed = Config.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(user) ? Jetpack.values()[i].speedVerticalHoverSlow : Jetpack.values()[i].speedVerticalHover;
 			boolean flyKeyDown = force || SyncHandler.isFlyKeyDown(user);
@@ -326,66 +390,51 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			double currentAccel = Jetpack.values()[i].accelVertical * (user.motionY < 0.3D ? 2.5D : 1.0D);
 			double currentSpeedVertical = Jetpack.values()[i].speedVertical * (user.isInWater() ? 0.4D : 1.0D);
 
-			if(flyKeyDown || hoverMode && !user.onGround)
-			{
-				if(this.usesFuel)
-				{
+			if (flyKeyDown || hoverMode && !user.onGround) {
+				if (Jetpack.values()[i].usesFuel) {
 					item.useFuel(stack, (int) (user.isSprinting() ? Math.round(this.getFuelUsage(stack) * Jetpack.values()[i].sprintFuelModifier) : this.getFuelUsage(stack)), false);
 				}
 
-				if(item.getFuelStored(stack) > 0)
-				{
-					if(flyKeyDown)
-					{
-						if(!hoverMode)
-						{
+				if (item.getFuelStored(stack) > 0) {
+					if (flyKeyDown) {
+						if (!hoverMode) {
 							user.motionY = Math.min(user.motionY + currentAccel, currentSpeedVertical);
-						}
-						else
-						{
-							if(descendKeyDown)
-							{
+						} else {
+							if (descendKeyDown) {
 								user.motionY = Math.min(user.motionY + currentAccel, -Jetpack.values()[i].speedVerticalHoverSlow);
-							}
-							else
-							{
+							} else {
 								user.motionY = Math.min(user.motionY + currentAccel, Jetpack.values()[i].speedVerticalHover);
 							}
 						}
-					}
-					else
-					{
+					} else {
 						user.motionY = Math.min(user.motionY + currentAccel, -hoverSpeed);
 					}
 
 					float speedSideways = (float) (user.isSneaking() ? Jetpack.values()[i].speedSideways * 0.5F : Jetpack.values()[i].speedSideways);
 					float speedForward = (float) (user.isSprinting() ? speedSideways * Jetpack.values()[i].sprintSpeedModifier : speedSideways);
-					if(SyncHandler.isForwardKeyDown(user))
-					{
+					if (SyncHandler.isForwardKeyDown(user)) {
 						user.moveRelative(0, speedForward, speedForward);
 					}
-					if(SyncHandler.isBackwardKeyDown(user))
-					{
+					if (SyncHandler.isBackwardKeyDown(user)) {
 						user.moveRelative(0, -speedSideways, speedSideways * 0.8F);
 					}
-					if(SyncHandler.isLeftKeyDown(user))
-					{
+					if (SyncHandler.isLeftKeyDown(user)) {
 						user.moveRelative(speedSideways, 0, speedSideways);
 					}
-					if(SyncHandler.isRightKeyDown(user))
-					{
+					if (SyncHandler.isRightKeyDown(user)) {
 						user.moveRelative(-speedSideways, 0, speedSideways);
 					}
 
-					if(!user.worldObj.isRemote)
-					{
+					if (!user.worldObj.isRemote) {
 						user.fallDistance = 0.0F;
 
-                        /*
-						TODO: Check what this is for and how to update this
-                        if (user instanceof EntityPlayerMP) {
-                            ((EntityPlayerMP) user).connection.floatingTickCount = 0;
-                        }*/
+						if (user instanceof EntityPlayerMP) {
+							try {
+								floatingTickCount.setInt(((EntityPlayerMP) user).connection, 0);
+							} catch (IllegalAccessException e) {
+								e.printStackTrace();
+							}
+						}
 
                         /*
 						TODO: Reimplement explosions
@@ -437,7 +486,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	}
 
 	public void registerItemModel() {
-		for(int i = 0; i < numItems; i++) {
+		for (int i = 0; i < numItems; i++) {
 			SimplyJetpacks.proxy.registerItemRenderer(this, i, Jetpack.getTypeFromMeta(i).getBaseName());
 		}
 	}

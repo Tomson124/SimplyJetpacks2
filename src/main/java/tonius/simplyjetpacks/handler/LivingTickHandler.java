@@ -1,5 +1,8 @@
 package tonius.simplyjetpacks.handler;
 
+import net.minecraft.network.NetHandlerPlayServer;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
 import tonius.simplyjetpacks.item.rewrite.Jetpack;
 import tonius.simplyjetpacks.network.PacketHandler;
@@ -12,6 +15,7 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 
+import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,6 +25,19 @@ public class LivingTickHandler
 	private static final Map<Integer, ParticleType> lastJetpackState = new ConcurrentHashMap<Integer, ParticleType>();
 
 	private final int numItems = Jetpack.values().length;
+
+	public static Field floatingTickCount = null;
+
+	public LivingTickHandler() {
+		try {
+			floatingTickCount = ReflectionHelper.findField(NetHandlerPlayServer.class,  "floatingTickCount", "field_147365_f");
+		}
+
+		catch (Exception e) {
+			SimplyJetpacks.logger.error("Unable to find field \"floatingTickCount\"");
+			e.printStackTrace();
+		}
+	}
 
 	@SubscribeEvent
 	public void onLivingTick(LivingUpdateEvent evt)

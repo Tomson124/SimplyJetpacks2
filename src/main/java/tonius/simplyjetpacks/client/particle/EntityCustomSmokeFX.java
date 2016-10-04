@@ -10,9 +10,9 @@ public class EntityCustomSmokeFX extends ParticleSmokeNormal
 {
 	private static final Minecraft mc = Minecraft.getMinecraft();
 
-	public EntityCustomSmokeFX(World world, double posX, double posY, double posZ, double velX, double velY, double velZ, float particleAge)
+	public EntityCustomSmokeFX(World world, double posX, double posY, double posZ, double velX, double velY, double velZ)
 	{
-		super(world, posX, posY, posZ, velX, velY, velZ, particleAge);
+		super(world, posX, posY, posZ, velX, velY, velZ, 1.0F);
 	}
 
 	@Override

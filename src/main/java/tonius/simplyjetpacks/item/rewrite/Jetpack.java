@@ -1,11 +1,13 @@
 package tonius.simplyjetpacks.item.rewrite;
 
+import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.config.PackDefaults;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.NBTHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IStringSerializable;
@@ -18,20 +20,28 @@ import java.util.List;
 import java.util.Locale;
 
 public enum Jetpack implements IStringSerializable {
-	CREATIVE_JETPACK("jetpackCreative", 5, "jetpackCreative"),
-	POTATO_JETPACK("jetpackPotato", 1, "jetpackPotato"),
-	TEST_JETPACK("jetpackTest", 2, "jetpackTest");
+	CREATIVE_JETPACK("jetpackCreative", 6, "jetpackCreative", EnumRarity.EPIC, ParticleType.RAINBOW_SMOKE, false),
+	POTATO_JETPACK("jetpackPotato", 1, "jetpackPotato", EnumRarity.COMMON, ParticleType.DEFAULT, false),
+	TEST_JETPACK("jetpackTest", 2, "jetpackTest", EnumRarity.EPIC),
+
+	JETPACK_EIO_1("jetpackEIO1", 1, "jetpackEIO1", EnumRarity.COMMON),
+	JETPACK_EIO_2("jetpackEIO2", 1, "jetpackEIO2", EnumRarity.COMMON),
+	JETPACK_EIO_3("jetpackEIO3", 1, "jetpackEIO3", EnumRarity.UNCOMMON),
+	JETPACK_EIO_4("jetpackEIO4", 1, "jetpackEIO4", EnumRarity.RARE);
 
 	protected final PackDefaults defaults;
 	protected static final EnumSet<Jetpack> ALL_PACKS = EnumSet.allOf(Jetpack.class);
 
 	protected static final String TAG_PARTICLE = "JetpackParticleType";
 	public ParticleType defaultParticleType = ParticleType.DEFAULT;
+	public PackModelType armorModel = PackModelType.FLAT;
 
-	public final @Nonnull
+	public final
+	@Nonnull
 	String baseName;
-	public final @Nonnull String unlocalisedName;
-	public final @Nonnull String iconKey;
+	public final
+	@Nonnull
+	String unlocalisedName;
 	public final int tier;
 	public int fuelCapacity;
 	public int fuelPerTickIn;
@@ -39,6 +49,9 @@ public enum Jetpack implements IStringSerializable {
 	public int armorFuelPerHit;
 	public int armorReduction;
 	public int fuelUsage;
+
+	public boolean usesFuel;
+	public EnumRarity rarity;
 
 	public double speedVertical;
 	public double accelVertical;
@@ -49,15 +62,26 @@ public enum Jetpack implements IStringSerializable {
 	public double sprintFuelModifier;
 	public boolean emergencyHoverMode;
 
-	private final @Nonnull List<String> jetpacks = new ArrayList<String>();
+	private final
+	@Nonnull
+	List<String> jetpacks = new ArrayList<String>();
 
-	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey) {
+	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, ParticleType defaultParticleType, boolean usesFuel) {
+		this(baseName, tier, defaultConfigKey, rarity);
+		this.defaultParticleType = defaultParticleType;
+		this.usesFuel = usesFuel;
+	}
+
+	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity) {
 		this.baseName = baseName;
 		this.tier = tier;
 		this.defaults = PackDefaults.get(defaultConfigKey);
-		this.unlocalisedName = "simplyjetpacks." + baseName;
-		this.iconKey = "simplyjetpacks:" + baseName;
+		this.defaultParticleType = ParticleType.DEFAULT;
+		this.unlocalisedName = "item.simplyjetpacks." + baseName;
 		this.jetpacks.add(baseName);
+		this.usesFuel = true;
+		this.rarity = rarity;
+		this.setArmorModel(PackModelType.JETPACK);
 	}
 
 	public
@@ -117,6 +141,10 @@ public enum Jetpack implements IStringSerializable {
 		return baseName.toLowerCase(Locale.ENGLISH);
 	}
 
+	public EnumRarity getRarity() {
+		return rarity;
+	}
+
 	public static
 	@Nonnull
 	Jetpack getTypeFromMeta(int meta) {
@@ -137,6 +165,11 @@ public enum Jetpack implements IStringSerializable {
 		}
 		NBTHelper.setInt(stack, TAG_PARTICLE, this.defaultParticleType.ordinal());
 		return this.defaultParticleType;
+	}
+
+	public Jetpack setArmorModel(PackModelType armorModel) {
+		this.armorModel = armorModel;
+		return this;
 	}
 
 	public ParticleType getDisplayParticleType(ItemStack stack, ItemJetpack item, EntityLivingBase user) {

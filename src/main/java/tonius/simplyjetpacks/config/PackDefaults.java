@@ -69,6 +69,7 @@ public class PackDefaults
 		d.emergencyHoverMode = true;
 
 		d = new PackDefaults("jetpackCreative", "Creative Jetpack");
+		d.fuelCapacity = 20000;
 		d.fuelPerTickOut = 32000;
 		d.armorReduction = 12;
 		d.enchantability = 20;

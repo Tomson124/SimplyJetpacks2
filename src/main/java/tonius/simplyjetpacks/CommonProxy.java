@@ -11,6 +11,7 @@ import tonius.simplyjetpacks.crafting.PlatingReturnHandler;
 import tonius.simplyjetpacks.handler.EntityInteractHandler;
 import tonius.simplyjetpacks.handler.LivingTickHandler;
 import tonius.simplyjetpacks.handler.SyncHandler;
+import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.sound.SJSoundRegistry;
 

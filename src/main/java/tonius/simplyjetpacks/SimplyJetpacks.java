@@ -1,5 +1,12 @@
 package tonius.simplyjetpacks;
 
+import tonius.simplyjetpacks.config.Config;
+import tonius.simplyjetpacks.crafting.UpgradingRecipe;
+import tonius.simplyjetpacks.handler.SyncHandler;
+import tonius.simplyjetpacks.network.PacketHandler;
+import tonius.simplyjetpacks.setup.ModEnchantments;
+import tonius.simplyjetpacks.setup.ModItems;
+import tonius.simplyjetpacks.setup.Packs;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -11,22 +18,15 @@ import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import tonius.simplyjetpacks.config.Config;
-import tonius.simplyjetpacks.crafting.UpgradingRecipe;
-import tonius.simplyjetpacks.handler.SyncHandler;
-import tonius.simplyjetpacks.network.PacketHandler;
-import tonius.simplyjetpacks.setup.ModEnchantments;
-import tonius.simplyjetpacks.setup.ModItems;
-import tonius.simplyjetpacks.setup.Packs;
 
-@Mod(modid = SimplyJetpacks.MODID, version = SimplyJetpacks.VERSION, dependencies = SimplyJetpacks.DEPENDENCIES, guiFactory = SimplyJetpacks.GUI_FACTORY)
-public class SimplyJetpacks
-{
+@Mod(modid = SimplyJetpacks.MODID, name = SimplyJetpacks.MOD_NAME, version = SimplyJetpacks.VERSION, dependencies = SimplyJetpacks.DEPENDENCIES, guiFactory = SimplyJetpacks.GUI_FACTORY)
+public class SimplyJetpacks {
 	public static final String MODID = "simplyjetpacks";
+	public static final String MOD_NAME = "Simply Jetpacks 2";
 	public static final String VERSION = "@VERSION@";
 	public static final String PREFIX = MODID + ".";
 	public static final String RESOURCE_PREFIX = MODID + ":";
-	public static final String DEPENDENCIES = "required-after:Forge@[12.17.0.1976,)"; //";after:ThermalExpansion;after:RedstoneArsenal;after:RArm;after:EnderIO@[1.7.10-2.1.3.243,);after:BuildCraft|Core@[6.4.15,7.0.0),[7.0.4,)"
+	public static final String DEPENDENCIES = "required-after:Forge@[12.17.0.1976,);" /*after:EnderIO@[1.7.10-2.1.3.243,) */;
 	public static final String GUI_FACTORY = "tonius.simplyjetpacks.config.ConfigGuiFactory";
 
 	@Instance(MODID)
@@ -37,11 +37,8 @@ public class SimplyJetpacks
 	public static SyncHandler keyboard;
 
 	@EventHandler
-	public static void preInit(FMLPreInitializationEvent evt)
-	{
+	public static void preInit(FMLPreInitializationEvent evt) {
 		logger.info("Starting Simply Jetpacks");
-
-		//checkCoFHLib(); TODO: Clean up! See bottom
 
 		Packs.preInit();
 		Config.preInit(evt);
@@ -49,8 +46,7 @@ public class SimplyJetpacks
 	}
 
 	@EventHandler
-	public static void init(FMLInitializationEvent evt)
-	{
+	public static void init(FMLInitializationEvent evt) {
 		RecipeSorter.register(SimplyJetpacks.MODID + ":upgrading", UpgradingRecipe.class, Category.SHAPED, "after:minecraft:shaped");
 		proxy.registerHandlers();
 		PacketHandler.init();
@@ -61,25 +57,7 @@ public class SimplyJetpacks
 	}
 
 	@EventHandler
-	public static void serverStopping(FMLServerStoppingEvent evt)
-	{
+	public static void serverStopping(FMLServerStoppingEvent evt) {
 		SyncHandler.clearAll();
 	}
-
-    /*
-    private static void checkCoFHLib()
-    {
-		try
-		{
-            Class.forName("cofh.lib.util.helpers.FireworksHelper$Explosion");
-            logger.info("Successfully found CoFHLib");
-            return;
-        }
-        catch (ClassNotFoundException e)
-        {
-            logger.error("Could not find CoFHLib!");
-            proxy.throwCoFHLibException();
-        }
-    }
-    */
 }
