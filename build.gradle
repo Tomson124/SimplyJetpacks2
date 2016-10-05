@@ -17,7 +17,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "2.0.0"
+version = "2.0.1"
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
@@ -27,8 +27,22 @@ if (ENV.BUILD_NUMBER) {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+repositories {
+    maven {
+        // location of the maven that hosts JEI files
+        url "http://dvs1.progwml6.com/files/maven"
+    }
+}
+
+dependencies {
+    // compile against the JEI API
+    deobfCompile "mezz.jei:jei_1.10.2:3.12.4.295:api"
+    // at runtime, use the full JEI jar
+    runtime "mezz.jei:jei_1.10.2:3.12.4.295"
+}
+
 minecraft {
-    version = "1.9.4-12.17.0.1976"
+    version = "1.10.2-12.18.1.2095"
     runDir = "run"
 
     // the mappings can be changed at any time, and must be in the following format.

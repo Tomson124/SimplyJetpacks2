@@ -34,15 +34,15 @@ public abstract class ModItems
 	public static ItemStack jetpackCreative;
 	public static ItemStack fluxPackCreative;
 
-	public static ItemStack particleDefault = new ItemStack(metaItem, 1, MetaItems.PARTICLE_DEFAULT.ordinal());
-	public static ItemStack particleSmoke = new ItemStack(metaItem, 1, MetaItems.PARTICLE_SMOKE.ordinal());
-	public static ItemStack particleNone = new ItemStack(metaItem, 1, MetaItems.PARTICLE_NONE.ordinal());
-	public static ItemStack particleRainbowSmoke = new ItemStack(metaItem, 1, MetaItems.PARTICLE_RAINBOWSMOKE.ordinal());
+	public static ItemStack particleDefault;
+	public static ItemStack particleSmoke;
+	public static ItemStack particleNone;
+	public static ItemStack particleRainbowSmoke;
 
-	public static ItemStack leatherStrap = new ItemStack(metaItem, 1, MetaItems.LEATHER_STRAP.ordinal());
-	public static ItemStack unitFlightControlEmpty = new ItemStack(metaItemEIO, 1, MetaItemsEIO.UNIT_FLIGHT_CONTROL_EMPTY.ordinal());
-	public static ItemStack reinforcedGliderWings = new ItemStack(metaItemEIO, 1, MetaItemsEIO.REINFORCED_GLIDERWINGS.ordinal());
-	public static ItemStack unitFlightControl = new ItemStack(metaItemEIO, 1, MetaItemsEIO.UNIT_FLIGHT_CONTROL.ordinal());
+	public static ItemStack leatherStrap;
+	public static ItemStack unitFlightControlEmpty;
+	public static ItemStack reinforcedGliderWings;
+	public static ItemStack unitFlightControl;
 
 	public static ItemStack ingotDarkSoularium;
 
@@ -84,6 +84,7 @@ public abstract class ModItems
 		integrateEIO = ModType.ENDER_IO.loaded && Config.enableIntegrationEIO;
 
 		registerItems();
+		registerOreDicts();
 	}
 
 	public static void init()
@@ -113,6 +114,10 @@ public abstract class ModItems
 		return item;
 	}
 
+	private static void registerOreDicts() {
+		OreDictionary.registerOre(MetaItemsEIO.INGOT_DARK_SOULARIUM.getName(), ingotDarkSoularium);
+	}
+
 	private static void registerItems() {
 		Log.info("Registering items...");
 
@@ -123,8 +128,19 @@ public abstract class ModItems
 		metaItem = register(new ItemMeta("metaItem"));
 		metaItemEIO = register(new ItemMetaEIO("metaItemEIO"));
 
+		particleDefault = new ItemStack(metaItem, 1, MetaItems.PARTICLE_DEFAULT.ordinal());
+		particleSmoke = new ItemStack(metaItem, 1, MetaItems.PARTICLE_SMOKE.ordinal());
+		particleNone = new ItemStack(metaItem, 1, MetaItems.PARTICLE_NONE.ordinal());
+		particleRainbowSmoke = new ItemStack(metaItem, 1, MetaItems.PARTICLE_RAINBOWSMOKE.ordinal());
+
+		leatherStrap = new ItemStack(metaItem, 1, MetaItems.LEATHER_STRAP.ordinal());
+
+
 		if (integrateEIO) {
 			ingotDarkSoularium = new ItemStack(metaItemEIO, 1, MetaItemsEIO.INGOT_DARK_SOULARIUM.ordinal());
+			unitFlightControlEmpty = new ItemStack(metaItemEIO, 1, MetaItemsEIO.UNIT_FLIGHT_CONTROL_EMPTY.ordinal());
+			reinforcedGliderWings = new ItemStack(metaItemEIO, 1, MetaItemsEIO.REINFORCED_GLIDERWINGS.ordinal());
+			unitFlightControl = new ItemStack(metaItemEIO, 1, MetaItemsEIO.UNIT_FLIGHT_CONTROL.ordinal());
 
 			thrusterEIO1 = new ItemStack(metaItemEIO, 1, MetaItemsEIO.THRUSTER_EIO_1.ordinal());
 			thrusterEIO2 = new ItemStack(metaItemEIO, 1, MetaItemsEIO.THRUSTER_EIO_2.ordinal());
@@ -161,7 +177,7 @@ public abstract class ModItems
 			ItemHelper.addShapedOreRecipe(thrusterEIO1, "ICI", "PCP", "DSD", 'I', "ingotConductiveIron", 'P', EIOItems.redstoneConduit, 'C', EIOItems.basicCapacitor, 'D', EIOItems.basicGear, 'S', "dustRedstone");
 			ItemHelper.addShapedOreRecipe(thrusterEIO2, "ICI", "PCP", "DSD", 'I', "ingotElectricalSteel", 'P', EIOItems.energyConduit1, 'C', EIOItems.basicCapacitor, 'D', EIOItems.machineChassis, 'S', "dustRedstone");
 			ItemHelper.addShapedOreRecipe(thrusterEIO3, "ICI", "PCP", "DSD", 'I', "ingotEnergeticAlloy", 'P', EIOItems.energyConduit2, 'C', EIOItems.doubleCapacitor, 'D', EIOItems.pulsatingCrystal, 'S', "ingotRedstoneAlloy");
-			ItemHelper.addShapedOreRecipe(thrusterEIO4, "ICI", "PCP", "DSD", 'I', "ingotPhasedGold", 'P', EIOItems.energyConduit3, 'C', EIOItems.octadicCapacitor, 'D', EIOItems.vibrantCrystal, 'S', "ingotRedstoneAlloy");
+			ItemHelper.addShapedOreRecipe(thrusterEIO4, "ICI", "PCP", "DSD", 'I', "ingotVibrantAlloy", 'P', EIOItems.energyConduit3, 'C', EIOItems.octadicCapacitor, 'D', EIOItems.vibrantCrystal, 'S', "ingotRedstoneAlloy");
 			ItemHelper.addShapedOreRecipe(thrusterEIO5, "SES", "CTC", 'T', thrusterEIO4, 'S', "ingotDarkSoularium", 'E', unitFlightControl, 'C', EIOItems.octadicCapacitor);
 
 			ItemHelper.addShapedOreRecipe(reinforcedGliderWings, "  S", " SP", "SPP", 'S', "ingotDarkSoularium", 'P', armorPlatingEIO2);
@@ -173,7 +189,7 @@ public abstract class ModItems
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO1, "IBI", "IJI", "T T", 'I', "ingotConductiveIron", 'B', EIOItems.basicCapacitor, 'T', thrusterEIO1, 'J', leatherStrap));
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO2, "IBI", "IJI", "T T", 'I', "ingotElectricalSteel", 'B', EIOItems.basicCapacitor, 'T', thrusterEIO2, 'J', jetpackEIO1));
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO3, "IBI", "IJI", "T T", 'I', "ingotEnergeticAlloy", 'B', EIOItems.doubleCapacitor, 'T', thrusterEIO3, 'J', jetpackEIO2));
-			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4, "IBI", "IJI", "T T", 'I', "ingotPhasedGold", 'B', EIOItems.octadicCapacitor, 'T', thrusterEIO4, 'J', jetpackEIO3));
+			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4, "IBI", "IJI", "T T", 'I', "ingotVibrantAlloy", 'B', EIOItems.octadicCapacitor, 'T', thrusterEIO4, 'J', jetpackEIO3));
 		}
 	}
 

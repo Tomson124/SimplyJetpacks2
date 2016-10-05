@@ -15,11 +15,18 @@ public enum MetaItems {
 	private String name;
 	private String keyTooltip;
 	private EnumRarity rarity;
+	private boolean oreDict;
 
 	private MetaItems(String name, String keyTooltip, EnumRarity rarity) {
 		this.name = name;
 		this.keyTooltip = keyTooltip;
 		this.rarity = rarity;
+		this.oreDict = false;
+	}
+
+	private MetaItems(String name, String keyTooltip, EnumRarity rarity, boolean oreDict) {
+		this(name, keyTooltip, rarity);
+		this.oreDict = oreDict;
 	}
 
 	public static MetaItems getFromName(String s)
