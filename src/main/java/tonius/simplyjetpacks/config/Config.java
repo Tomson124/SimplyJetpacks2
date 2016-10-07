@@ -1,14 +1,21 @@
 package tonius.simplyjetpacks.config;
 
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.util.RenderUtils.HUDPositions;
 import tonius.simplyjetpacks.item.meta.PackBase;
 import tonius.simplyjetpacks.item.rewrite.Jetpack;
+import tonius.simplyjetpacks.item.rewrite.JetpackEIO;
+import tonius.simplyjetpacks.network.PacketHandler;
+import tonius.simplyjetpacks.network.message.MessageConfigSync;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -33,7 +40,6 @@ public class Config
 
 	// integration
 	public static boolean enableIntegrationEIO = Defaults.enableIntegrationEIO;
-	public static boolean enableIntegrationBC = Defaults.enableIntegrationBC;
 
 	// controls
 	public static boolean customControls = Defaults.customControls;
@@ -68,15 +74,18 @@ public class Config
 		config = new Configuration(new File(evt.getModConfigurationDirectory(), SimplyJetpacks.MODID + ".cfg"));
 		configClient = new Configuration(new File(evt.getModConfigurationDirectory(), SimplyJetpacks.MODID + "-client.cfg"));
 
-		syncConfig();
+		syncConfig(false);
 		SimplyJetpacks.proxy.updateCustomKeybinds(flyKey, descendKey);
 	}
 
-	private static void syncConfig()
+	private static void syncConfig(boolean load)
 	{
 		SimplyJetpacks.logger.info("Loading configuration files");
 		try
 		{
+			if (load) {
+				config.load();
+			}
 			processConfig();
 		}
 		catch (Exception e)
@@ -100,7 +109,7 @@ public class Config
 	{
 		if(modid.equals(SimplyJetpacks.MODID))
 		{
-			syncConfig();
+			syncConfig(false);
 			SimplyJetpacks.proxy.updateCustomKeybinds(flyKey, descendKey);
 		}
 	}
@@ -112,7 +121,6 @@ public class Config
 		addRAItemsIfNotInstalled = config.get(sectionItem.name, "Add Redstone Arsenal items if not installed", Defaults.addRAItemsIfNotInstalled, "When enabled, Simply Jetpacks will register some crafting components from Redstone Arsenal to make the Flux-Infused JetPlate craftable if Redstone Arsenal is not installed.").setRequiresMcRestart(true).getBoolean(Defaults.addRAItemsIfNotInstalled);
 
 		enableIntegrationEIO = config.get(sectionIntegration.name, "Ender IO integration", Defaults.enableIntegrationEIO, "When enabled, Simply Jetpacks will register its Ender IO-based jetpacks and flux packs.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationEIO);
-		enableIntegrationBC = config.get(sectionIntegration.name, "BuildCraft integration", Defaults.enableIntegrationBC, "When enabled, Simply Jetpacks will register its BuildCraft-based jetpacks.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationBC);
 
 		customControls = configClient.get(sectionControls.name, "Custom controls", Defaults.customControls, "When enabled, the key codes specified here will be used for the fly and descend keys. Otherwise, the vanilla jump and sneak keys will be used.").getBoolean(Defaults.customControls);
 		flyKey = configClient.get(sectionControls.name, "Custom Fly key", Defaults.flyKey, "The name of the Fly key when custom controls are enabled.").getString();
@@ -138,11 +146,25 @@ public class Config
 
 		//PackBase.loadAllConfigs(config);
 		Jetpack.loadAllConfigs(config);
+		JetpackEIO.loadAllConfigs(config);
 	}
 
 	@SubscribeEvent
 	public void onConfigChanged(OnConfigChangedEvent evt)
 	{
 		onConfigChanged(evt.getModID());
+	}
+
+	@SubscribeEvent
+	public void ConfigFileChanged(ConfigChangedEvent evt) {
+		if (evt.getModID().equals(SimplyJetpacks.MODID)) {
+			Log.info("Updating config...");
+			syncConfig(true);
+		}
+	}
+
+	@SubscribeEvent
+	public void onPlayerLoggon(PlayerLoggedInEvent evt) {
+		PacketHandler.instance.sendTo(new MessageConfigSync(), (EntityPlayerMP) evt.player);
 	}
 }

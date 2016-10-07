@@ -20,6 +20,7 @@ import tonius.simplyjetpacks.util.ItemHelper;
 public abstract class ModItems
 {
 	public static ItemJetpack itemJetpack;
+	public static ItemJetpackEIO itemJetpackEIO;
 
 	public static ItemMeta metaItem;
 	public static ItemMetaEIO metaItemEIO;
@@ -85,6 +86,9 @@ public abstract class ModItems
 
 		registerItems();
 		registerOreDicts();
+
+		Log.info("Mod loaded: " + ModType.ENDER_IO.loaded);
+		Log.info("Cnfig option loaded: " + Config.enableIntegrationEIO);
 	}
 
 	public static void init()
@@ -115,7 +119,9 @@ public abstract class ModItems
 	}
 
 	private static void registerOreDicts() {
-		OreDictionary.registerOre(MetaItemsEIO.INGOT_DARK_SOULARIUM.getName(), ingotDarkSoularium);
+		if (integrateEIO) {
+			OreDictionary.registerOre(MetaItemsEIO.INGOT_DARK_SOULARIUM.name(), ingotDarkSoularium);
+		}
 	}
 
 	private static void registerItems() {
@@ -126,7 +132,6 @@ public abstract class ModItems
 
 		//Meta Items
 		metaItem = register(new ItemMeta("metaItem"));
-		metaItemEIO = register(new ItemMetaEIO("metaItemEIO"));
 
 		particleDefault = new ItemStack(metaItem, 1, MetaItems.PARTICLE_DEFAULT.ordinal());
 		particleSmoke = new ItemStack(metaItem, 1, MetaItems.PARTICLE_SMOKE.ordinal());
@@ -137,6 +142,10 @@ public abstract class ModItems
 
 
 		if (integrateEIO) {
+			itemJetpackEIO = register(new ItemJetpackEIO("itemJetpackEIO"));
+
+			metaItemEIO = register(new ItemMetaEIO("metaItemEIO"));
+
 			ingotDarkSoularium = new ItemStack(metaItemEIO, 1, MetaItemsEIO.INGOT_DARK_SOULARIUM.ordinal());
 			unitFlightControlEmpty = new ItemStack(metaItemEIO, 1, MetaItemsEIO.UNIT_FLIGHT_CONTROL_EMPTY.ordinal());
 			reinforcedGliderWings = new ItemStack(metaItemEIO, 1, MetaItemsEIO.REINFORCED_GLIDERWINGS.ordinal());
@@ -153,10 +162,10 @@ public abstract class ModItems
 			armorPlatingEIO3 = new ItemStack(metaItemEIO, 1, MetaItemsEIO.ARMOR_PLATING_EIO_3.ordinal());
 			armorPlatingEIO4 = new ItemStack(metaItemEIO, 1, MetaItemsEIO.ARMOR_PLATING_EIO_4.ordinal());
 
-			jetpackEIO1 = new ItemStack(itemJetpack, 1, Jetpack.JETPACK_EIO_1.ordinal());
-			jetpackEIO2 = new ItemStack(itemJetpack, 1, Jetpack.JETPACK_EIO_2.ordinal());
-			jetpackEIO3 = new ItemStack(itemJetpack, 1, Jetpack.JETPACK_EIO_3.ordinal());
-			jetpackEIO4 = new ItemStack(itemJetpack, 1, Jetpack.JETPACK_EIO_4.ordinal());
+			jetpackEIO1 = new ItemStack(itemJetpackEIO, 1, JetpackEIO.JETPACK_EIO_1.ordinal());
+			jetpackEIO2 = new ItemStack(itemJetpackEIO, 1, JetpackEIO.JETPACK_EIO_2.ordinal());
+			jetpackEIO3 = new ItemStack(itemJetpackEIO, 1, JetpackEIO.JETPACK_EIO_3.ordinal());
+			jetpackEIO4 = new ItemStack(itemJetpackEIO, 1, JetpackEIO.JETPACK_EIO_4.ordinal());
 		}
 	}
 

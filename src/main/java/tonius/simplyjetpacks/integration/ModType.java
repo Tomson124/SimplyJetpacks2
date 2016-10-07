@@ -6,8 +6,7 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 public enum ModType
 {
 	SIMPLY_JETPACKS("", SimplyJetpacks.MODID),
-	ENDER_IO(".eio", "EnderIO"),
-	BUILDCRAFT(".bc", "BuildCraft|Core");
+	ENDER_IO(".eio", "EnderIO");
 
 	public final String suffix;
 	public final String[] modids;

@@ -2,10 +2,10 @@ itemGroup.tabSimplyJetpacks=Simply Jetpacks
 
 item.simplyjetpacks.jetpackPotato.name=Tuberous Jetpack
 item.simplyjetpacks.jetpackCreative.name=Creative Jetpack
-item.simplyjetpacks.jetpack.1.eio.name=Conductive Iron Jetpack
-item.simplyjetpacks.jetpack.2.eio.name=Electrical Steel Jetpack
-item.simplyjetpacks.jetpack.3.eio.name=Energetic Jetpack
-item.simplyjetpacks.jetpack.4.eio.name=Vibrant Jetpack
+item.simplyjetpacks.jetpackEIO1.name=Conductive Iron Jetpack
+item.simplyjetpacks.jetpackEIO2.name=Electrical Steel Jetpack
+item.simplyjetpacks.jetpackEIO3.name=Energetic Jetpack
+item.simplyjetpacks.jetpackEIO4.name=Vibrant Jetpack
 item.simplyjetpacks.jetpack.5.eio.name=Dark Soularium JetPlate
 item.simplyjetpacks.jetpack.1.armored.eio.name=Conductive Iron Jetpack (Armored)
 item.simplyjetpacks.jetpack.2.armored.eio.name=Electrical Steel Jetpack (Armored)
@@ -22,11 +22,11 @@ item.simplyjetpacks.fluxpack.3.armored.eio.name=Quadruple-Layer Capacitor Pack (
 item.simplyjetpacks.fluxpack.4.armored.eio.name=Octadic Capacitor Pack (Armored)
 
 item.simplyjetpacks.leatherStrap.name=Leather Strap
-item.simplyjetpacks.thruster.eio.1.name=Conductive Iron Thruster
-item.simplyjetpacks.thruster.eio.2.name=Electrical Steel Thruster
-item.simplyjetpacks.thruster.eio.3.name=Energetic Thruster
-item.simplyjetpacks.thruster.eio.4.name=Vibrant Thruster
-item.simplyjetpacks.thruster.eio.5.name=Dark Soularium Thruster
+item.simplyjetpacks.thrusterEIO1.name=Conductive Iron Thruster
+item.simplyjetpacks.thrusterEIO2.name=Electrical Steel Thruster
+item.simplyjetpacks.thrusterEIO3.name=Energetic Thruster
+item.simplyjetpacks.thrusterEIO4.name=Vibrant Thruster
+item.simplyjetpacks.thrusterEIO5.name=Dark Soularium Thruster
 item.simplyjetpacks.unitCryotheum.empty.name=Cryotheum Coolant Unit (Empty)
 item.simplyjetpacks.unitCryotheum.name=Cryotheum Coolant Unit
 item.simplyjetpacks.unitGlowstone.empty.name=Glowstone Elevation Unit (Empty)
@@ -116,6 +116,7 @@ simplyjetpacks.tooltip.enderiumUpgrade.description.1=Makes a Flux-Infused JetPla
 simplyjetpacks.tooltip.enderiumUpgrade.description.2=an Enderium Flux armor piece.
 
 simplyjetpacks.gui.hud.itemJetpack.fuel=Jetpack fuel
+simplyjetpacks.gui.hud.itemJetpackEIO.fuel=Jetpack fuel
 simplyjetpacks.gui.hud.fluxpack.fuel=Flux Pack energy
 simplyjetpacks.gui.hud.fuel.depleted=Depleted
 simplyjetpacks.gui.hud.state.engine=Engine
@@ -148,6 +149,7 @@ simplyjetpacks.command.switch.noJetpack=No jetpack equipped.
 simplyjetpacks.command.switch.noEmergencyHover=Jetpack does not support emergency hover mode.
 simplyjetpacks.command.switch.noCharger=No charger equipped.
 
+simplyjetpacks.category.simplyjetpacks=Simply Jetpacks 2
 simplyjetpacks.keybind.toggle.primary=Toggle Engine / Flux Pack
 simplyjetpacks.keybind.toggle.secondary=Toggle JetPlate Charger
 simplyjetpacks.keybind.mode.primary=Toggle Hover Mode

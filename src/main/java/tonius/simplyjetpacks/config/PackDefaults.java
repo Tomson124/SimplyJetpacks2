@@ -1,6 +1,5 @@
 package tonius.simplyjetpacks.config;
 
-import net.minecraftforge.fml.common.Loader;
 import tonius.simplyjetpacks.integration.ModType;
 
 import java.util.HashMap;
@@ -51,22 +50,6 @@ public class PackDefaults
 		d.fuelUsage = 45;
 		d.speedVertical = 0.9D;
 		d.accelVertical = 0.5D;
-
-		d = new PackDefaults("jetpackTest", "Test Jetpack");
-		d.fuelCapacity = 20000000;
-		d.fuelUsage = 450;
-		d.fuelPerTickIn = 50000;
-		d.armorReduction = 8;
-		d.armorFuelPerHit = 160;
-		d.enchantability = 17;
-		d.speedVertical = 0.8D;
-		d.accelVertical = 0.14D;
-		d.speedVerticalHover = 0.4D;
-		d.speedVerticalHoverSlow = 0.005D;
-		d.speedSideways = 0.19D;
-		d.sprintSpeedModifier = 1.8D;
-		d.sprintFuelModifier = 4.0D;
-		d.emergencyHoverMode = true;
 
 		d = new PackDefaults("jetpackCreative", "Creative Jetpack");
 		d.fuelCapacity = 20000;
@@ -198,44 +181,6 @@ public class PackDefaults
 			d.armorReduction = 7;
 			d.armorFuelPerHit = 160;
 			d.enchantability = 10;
-		}
-
-		if(ModType.BUILDCRAFT.loaded)
-		{
-			if(Loader.isModLoaded("BuildCraft|Energy") && Loader.isModLoaded("BuildCraft|Factory"))
-			{
-				d = new PackDefaults("jetpackBC1", "Combustion Jetpack (BC 1)");
-				d.fuelCapacity = 20000;
-				d.fuelUsage = 2;
-				d.fuelPerTickIn = 400;
-				d.armorReduction = 5;
-				d.armorFuelPerHit = 60;
-				d.enchantability = 8;
-				d.speedVertical = 0.4D;
-				d.accelVertical = 0.12D;
-				d.speedVerticalHover = 0.34D;
-				d.speedVerticalHoverSlow = 0.03D;
-				d.speedSideways = 0.14D;
-				d.sprintSpeedModifier = 1.2D;
-				d.sprintFuelModifier = 2.0D;
-				d.emergencyHoverMode = false;
-			}
-
-			d = new PackDefaults("jetpackBC2", "Kinetic Jetpack (BC 2)");
-			d.fuelCapacity = 5000000;
-			d.fuelUsage = 200;
-			d.fuelPerTickIn = 12500;
-			d.armorReduction = 7;
-			d.armorFuelPerHit = 150;
-			d.enchantability = 15;
-			d.speedVertical = 0.55D;
-			d.accelVertical = 0.15D;
-			d.speedVerticalHover = 0.4D;
-			d.speedVerticalHoverSlow = 0.005D;
-			d.speedSideways = 0.18D;
-			d.sprintSpeedModifier = 1.4D;
-			d.sprintFuelModifier = 2.5D;
-			d.emergencyHoverMode = true;
 		}
 	}
 }

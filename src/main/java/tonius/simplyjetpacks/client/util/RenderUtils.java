@@ -9,6 +9,7 @@ import tonius.simplyjetpacks.client.model.ModelFluxPack;
 import tonius.simplyjetpacks.client.model.ModelJetpack;
 import tonius.simplyjetpacks.item.meta.PackBase;
 import tonius.simplyjetpacks.item.rewrite.Jetpack;
+import tonius.simplyjetpacks.item.rewrite.JetpackEIO;
 
 public abstract class RenderUtils
 {
@@ -104,6 +105,29 @@ public abstract class RenderUtils
 	}
 
 	public static ModelBiped getArmorModel(Jetpack pack, EntityLivingBase entity)
+	{
+		ModelBiped model = null;
+		switch(pack.armorModel)
+		{
+			case JETPACK:
+				model = ModelJetpack.INSTANCE;
+				break;
+			case FLUX_PACK:
+				model = ModelFluxPack.INSTANCE;
+			default:
+		}
+		if(model == null)
+		{
+			return null;
+		}
+		model.isSneak = entity.isSneaking();
+		model.isRiding = entity.isRiding();
+		model.isChild = entity.isChild();
+
+		return model;
+	}
+
+	public static ModelBiped getArmorModel(JetpackEIO pack, EntityLivingBase entity)
 	{
 		ModelBiped model = null;
 		switch(pack.armorModel)

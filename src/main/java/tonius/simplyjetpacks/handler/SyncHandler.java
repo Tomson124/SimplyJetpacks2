@@ -107,12 +107,6 @@ public class SyncHandler
 	}
 
 	@SubscribeEvent
-	public void onPlayerLoggedIn(PlayerLoggedInEvent evt)
-	{
-		PacketHandler.instance.sendTo(new MessageConfigSync(), (EntityPlayerMP) evt.player);
-	}
-
-	@SubscribeEvent
 	public void onPlayerLoggedOut(PlayerLoggedOutEvent evt)
 	{
 		removeFromAll(evt.player);

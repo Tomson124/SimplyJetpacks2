@@ -19,9 +19,11 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Locale;
 
-public enum Jetpack implements IStringSerializable {
-	CREATIVE_JETPACK("jetpackCreative", 6, "jetpackCreative", EnumRarity.EPIC, ParticleType.RAINBOW_SMOKE, false),
-	POTATO_JETPACK("jetpackPotato", 1, "jetpackPotato", EnumRarity.COMMON, ParticleType.DEFAULT, false);
+public enum JetpackEIO implements IStringSerializable {
+	JETPACK_EIO_1("jetpackEIO1", 1, "jetpackEIO1", EnumRarity.COMMON),
+	JETPACK_EIO_2("jetpackEIO2", 1, "jetpackEIO2", EnumRarity.COMMON),
+	JETPACK_EIO_3("jetpackEIO3", 1, "jetpackEIO3", EnumRarity.UNCOMMON),
+	JETPACK_EIO_4("jetpackEIO4", 1, "jetpackEIO4", EnumRarity.RARE);
 
 	protected final PackDefaults defaults;
 	protected static final EnumSet<Jetpack> ALL_PACKS = EnumSet.allOf(Jetpack.class);
@@ -60,13 +62,13 @@ public enum Jetpack implements IStringSerializable {
 	@Nonnull
 	List<String> jetpacks = new ArrayList<String>();
 
-	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, ParticleType defaultParticleType, boolean usesFuel) {
+	private JetpackEIO(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, ParticleType defaultParticleType, boolean usesFuel) {
 		this(baseName, tier, defaultConfigKey, rarity);
 		this.defaultParticleType = defaultParticleType;
 		this.usesFuel = usesFuel;
 	}
 
-	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity) {
+	private JetpackEIO(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity) {
 		this.baseName = baseName;
 		this.tier = tier;
 		this.defaults = PackDefaults.get(defaultConfigKey);
@@ -139,9 +141,7 @@ public enum Jetpack implements IStringSerializable {
 		return rarity;
 	}
 
-	public static
-	@Nonnull
-	Jetpack getTypeFromMeta(int meta) {
+	public static @Nonnull JetpackEIO getTypeFromMeta(int meta) {
 		return values()[meta >= 0 && meta < values().length ? meta : 0];
 	}
 
@@ -161,7 +161,7 @@ public enum Jetpack implements IStringSerializable {
 		return this.defaultParticleType;
 	}
 
-	public Jetpack setArmorModel(PackModelType armorModel) {
+	public JetpackEIO setArmorModel(PackModelType armorModel) {
 		this.armorModel = armorModel;
 		return this;
 	}
