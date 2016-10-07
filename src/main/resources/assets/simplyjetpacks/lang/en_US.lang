@@ -150,9 +150,11 @@ simplyjetpacks.command.switch.noEmergencyHover=Jetpack does not support emergenc
 simplyjetpacks.command.switch.noCharger=No charger equipped.
 
 simplyjetpacks.category.simplyjetpacks=Simply Jetpacks 2
+simplyjetpacks.keybind.hover=Toggle Hover Mode
+simplyjetpacks.keybind.engine=Toggle Engine
+
 simplyjetpacks.keybind.toggle.primary=Toggle Engine / Flux Pack
 simplyjetpacks.keybind.toggle.secondary=Toggle JetPlate Charger
-simplyjetpacks.keybind.mode.primary=Toggle Hover Mode
 simplyjetpacks.keybind.mode.secondary=Toggle Emergency Hover Mode
 simplyjetpacks.keybind.openPackGUI=Open Pack GUI
 

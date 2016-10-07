@@ -10,6 +10,7 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
@@ -53,7 +54,7 @@ public class ItemMetaEIO extends ItemMeta {
 		{
 			if(SJStringHelper.canShowDetails())
 			{
-				SJStringHelper.addDescriptionLines(list, MetaItemsEIO.values()[i].getKeyTooltip(), StringHelper.LIGHT_GRAY);
+				SJStringHelper.addDescriptionLines(list, MetaItemsEIO.values()[i].getKeyTooltip(), TextFormatting.GRAY.toString());
 			}
 			else
 			{

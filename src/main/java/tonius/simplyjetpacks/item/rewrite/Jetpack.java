@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -21,10 +22,17 @@ import java.util.Locale;
 
 public enum Jetpack implements IStringSerializable {
 	CREATIVE_JETPACK("jetpackCreative", 6, "jetpackCreative", EnumRarity.EPIC, ParticleType.RAINBOW_SMOKE, false),
-	POTATO_JETPACK("jetpackPotato", 1, "jetpackPotato", EnumRarity.COMMON, ParticleType.DEFAULT, false);
+	POTATO_JETPACK("jetpackPotato", 1, "jetpackPotato", EnumRarity.COMMON, ParticleType.DEFAULT, false),
+
+	JETPACK_EIO_1("jetpackEIO1", 1, "jetpackEIO1", EnumRarity.COMMON),
+	JETPACK_EIO_2("jetpackEIO2", 2, "jetpackEIO2", EnumRarity.COMMON),
+	JETPACK_EIO_3("jetpackEIO3", 3, "jetpackEIO3", EnumRarity.UNCOMMON),
+	JETPACK_EIO_4("jetpackEIO4", 4, "jetpackEIO4", EnumRarity.RARE);
 
 	protected final PackDefaults defaults;
 	protected static final EnumSet<Jetpack> ALL_PACKS = EnumSet.allOf(Jetpack.class);
+	protected static final EnumSet<Jetpack> PACKS_SJ = EnumSet.of(CREATIVE_JETPACK, POTATO_JETPACK);
+	protected static final EnumSet<Jetpack> PACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPACK_EIO_4);
 
 	protected static final String TAG_PARTICLE = "JetpackParticleType";
 	public ParticleType defaultParticleType = ParticleType.DEFAULT;
@@ -175,8 +183,15 @@ public enum Jetpack implements IStringSerializable {
 	}
 
 	public static void loadAllConfigs(Configuration config) {
-		for (Jetpack pack : ALL_PACKS) {
-			pack.loadConfig(config);
+		if (ModItems.integrateEIO) {
+			for (Jetpack pack : ALL_PACKS) {
+				pack.loadConfig(config);
+			}
+		}
+		else {
+			for (Jetpack pack : PACKS_SJ) {
+				pack.loadConfig(config);
+			}
 		}
 	}
 
@@ -189,7 +204,7 @@ public enum Jetpack implements IStringSerializable {
 			}
 		}
 		else {
-			for (Jetpack pack : ALL_PACKS) {
+			for (Jetpack pack : PACKS_SJ) {
 				NBTTagCompound packTag = new NBTTagCompound();
 				pack.writeConfigToNBT(packTag);
 				tag.setTag(pack.defaults.section.id, packTag);
@@ -198,9 +213,16 @@ public enum Jetpack implements IStringSerializable {
 	}
 
 	public static void readAllConfigsFromNBT(NBTTagCompound tag) {
-		for (Jetpack pack : ALL_PACKS) {
-			NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
-			pack.readConfigFromNBT(packTag);
+		if (ModItems.integrateEIO) {
+			for (Jetpack pack : ALL_PACKS) {
+				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
+				pack.readConfigFromNBT(packTag);
+			}
+		} else {
+			for (Jetpack pack : PACKS_SJ) {
+				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
+				pack.readConfigFromNBT(packTag);
+			}
 		}
 	}
 

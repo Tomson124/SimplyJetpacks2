@@ -11,9 +11,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.util.RenderUtils.HUDPositions;
-import tonius.simplyjetpacks.item.meta.PackBase;
 import tonius.simplyjetpacks.item.rewrite.Jetpack;
-import tonius.simplyjetpacks.item.rewrite.JetpackEIO;
 import tonius.simplyjetpacks.network.PacketHandler;
 import tonius.simplyjetpacks.network.message.MessageConfigSync;
 
@@ -146,7 +144,6 @@ public class Config
 
 		//PackBase.loadAllConfigs(config);
 		Jetpack.loadAllConfigs(config);
-		JetpackEIO.loadAllConfigs(config);
 	}
 
 	@SubscribeEvent

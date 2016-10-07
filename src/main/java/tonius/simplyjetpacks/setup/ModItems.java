@@ -20,7 +20,6 @@ import tonius.simplyjetpacks.util.ItemHelper;
 public abstract class ModItems
 {
 	public static ItemJetpack itemJetpack;
-	public static ItemJetpackEIO itemJetpackEIO;
 
 	public static ItemMeta metaItem;
 	public static ItemMetaEIO metaItemEIO;
@@ -142,8 +141,6 @@ public abstract class ModItems
 
 
 		if (integrateEIO) {
-			itemJetpackEIO = register(new ItemJetpackEIO("itemJetpackEIO"));
-
 			metaItemEIO = register(new ItemMetaEIO("metaItemEIO"));
 
 			ingotDarkSoularium = new ItemStack(metaItemEIO, 1, MetaItemsEIO.INGOT_DARK_SOULARIUM.ordinal());
@@ -162,10 +159,10 @@ public abstract class ModItems
 			armorPlatingEIO3 = new ItemStack(metaItemEIO, 1, MetaItemsEIO.ARMOR_PLATING_EIO_3.ordinal());
 			armorPlatingEIO4 = new ItemStack(metaItemEIO, 1, MetaItemsEIO.ARMOR_PLATING_EIO_4.ordinal());
 
-			jetpackEIO1 = new ItemStack(itemJetpackEIO, 1, JetpackEIO.JETPACK_EIO_1.ordinal());
-			jetpackEIO2 = new ItemStack(itemJetpackEIO, 1, JetpackEIO.JETPACK_EIO_2.ordinal());
-			jetpackEIO3 = new ItemStack(itemJetpackEIO, 1, JetpackEIO.JETPACK_EIO_3.ordinal());
-			jetpackEIO4 = new ItemStack(itemJetpackEIO, 1, JetpackEIO.JETPACK_EIO_4.ordinal());
+			jetpackEIO1 = new ItemStack(itemJetpack, 1, Jetpack.JETPACK_EIO_1.ordinal());
+			jetpackEIO2 = new ItemStack(itemJetpack, 1, Jetpack.JETPACK_EIO_2.ordinal());
+			jetpackEIO3 = new ItemStack(itemJetpack, 1, Jetpack.JETPACK_EIO_3.ordinal());
+			jetpackEIO4 = new ItemStack(itemJetpack, 1, Jetpack.JETPACK_EIO_4.ordinal());
 		}
 	}
 
