@@ -8,6 +8,6 @@
 	    "version": "${version}",
 	    "mcversion": "${mcversion}",
 	    "logoFile": "assets/simplyjetpacks/logo.png",
-	    "url": "http://www.curse.com/mc-mods/minecraft/simply-jetpacks"
+	    "url": "https://minecraft.curseforge.com/projects/simply-jetpacks-2"
 	}
 ]
