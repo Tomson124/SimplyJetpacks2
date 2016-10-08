@@ -7,7 +7,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.item.meta.PackBase;
 import tonius.simplyjetpacks.item.rewrite.Jetpack;
 
 public class MessageConfigSync implements IMessage, IMessageHandler<MessageConfigSync, IMessage>

@@ -1,5 +1,13 @@
 package tonius.simplyjetpacks.client.handler.rewrite;
 
+import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.config.Config;
+import tonius.simplyjetpacks.handler.SyncHandler;
+import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
+import tonius.simplyjetpacks.network.PacketHandler;
+import tonius.simplyjetpacks.network.message.MessageKeyBind;
+import tonius.simplyjetpacks.network.message.MessageKeyboardSync;
+import tonius.simplyjetpacks.util.StackUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,14 +20,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
-import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.config.Config;
-import tonius.simplyjetpacks.handler.SyncHandler;
-import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
-import tonius.simplyjetpacks.network.PacketHandler;
-import tonius.simplyjetpacks.network.message.MessageKeyBind;
-import tonius.simplyjetpacks.network.message.MessageKeyboardSync;
-import tonius.simplyjetpacks.util.StackUtil;
 
 public class KeyTracker {
 
@@ -63,15 +63,15 @@ public class KeyTracker {
 		ItemStack chestStack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		Item chestItem = StackUtil.getItem(chestStack);
 
-		if(chestItem instanceof ItemJetpack) {
-			if(engineKey.isPressed()) {
-				ItemJetpack jetpack = (ItemJetpack)chestItem;
+		if (chestItem instanceof ItemJetpack) {
+			if (engineKey.isPressed()) {
+				ItemJetpack jetpack = (ItemJetpack) chestItem;
 
 				jetpack.toggleState(jetpack.isOn(chestStack), chestStack, null, jetpack.TAG_ON, player, true);
 				PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.ENGINE));
 			}
-			if(hoverKey.isPressed()) {
-				ItemJetpack jetpack = (ItemJetpack)chestItem;
+			if (hoverKey.isPressed()) {
+				ItemJetpack jetpack = (ItemJetpack) chestItem;
 
 				jetpack.toggleState(jetpack.isHoverModeOn(chestStack), chestStack, "hoverMode", jetpack.TAG_HOVERMODE_ON, player, true);
 				PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.HOVER));
@@ -79,25 +79,19 @@ public class KeyTracker {
 		}
 	}
 
-	public static void updateCustomKeybinds(String flyKeyName, String descendKeyName)
-	{
+	public static void updateCustomKeybinds(String flyKeyName, String descendKeyName) {
 		flyKey = Keyboard.getKeyIndex(flyKeyName);
 		descendKey = Keyboard.getKeyIndex(descendKeyName);
 	}
 
-	private static void tickStart()
-	{
-		if(mc.thePlayer != null)
-		{
+	private static void tickStart() {
+		if (mc.thePlayer != null) {
 			boolean flyState;
 			boolean descendState;
-			if(Config.customControls)
-			{
+			if (Config.customControls) {
 				flyState = mc.inGameHasFocus && Keyboard.isKeyDown(flyKey);
 				descendState = mc.inGameHasFocus && Keyboard.isKeyDown(descendKey);
-			}
-			else
-			{
+			} else {
 				flyState = mc.gameSettings.keyBindJump.isKeyDown();
 				descendState = mc.gameSettings.keyBindSneak.isKeyDown();
 			}
@@ -107,8 +101,7 @@ public class KeyTracker {
 			boolean leftState = mc.gameSettings.keyBindLeft.isKeyDown();
 			boolean rightState = mc.gameSettings.keyBindRight.isKeyDown();
 
-			if(flyState != lastFlyState || descendState != lastDescendState || forwardState != lastForwardState || backwardState != lastBackwardState || leftState != lastLeftState || rightState != lastRightState)
-			{
+			if (flyState != lastFlyState || descendState != lastDescendState || forwardState != lastForwardState || backwardState != lastBackwardState || leftState != lastLeftState || rightState != lastRightState) {
 				lastFlyState = flyState;
 				lastDescendState = descendState;
 
@@ -123,10 +116,8 @@ public class KeyTracker {
 	}
 
 	@SubscribeEvent
-	public void onClientTick(TickEvent.ClientTickEvent evt)
-	{
-		if(evt.phase == TickEvent.Phase.START)
-		{
+	public void onClientTick(TickEvent.ClientTickEvent evt) {
+		if (evt.phase == TickEvent.Phase.START) {
 			tickStart();
 		}
 	}

@@ -1,6 +1,5 @@
 package tonius.simplyjetpacks.item.rewrite;
 
-import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.client.util.RenderUtils;
@@ -14,7 +13,6 @@ import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.util.NBTHelper;
 import tonius.simplyjetpacks.util.SJStringHelper;
 import tonius.simplyjetpacks.util.StackUtil;
-import tonius.simplyjetpacks.util.StringHelper;
 import cofh.api.energy.IEnergyContainerItem;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.creativetab.CreativeTabs;
@@ -31,6 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.fml.relauncher.Side;
@@ -42,7 +41,7 @@ import static tonius.simplyjetpacks.handler.LivingTickHandler.floatingTickCount;
 
 public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider {
 
-	private static final String TAG_ENERGY = "Energy";
+	public static final String TAG_ENERGY = "Energy";
 	public static final String TAG_ON = "PackOn";
 	public static final String TAG_HOVERMODE_ON = "JetpackHoverModeOn";
 
@@ -71,30 +70,25 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> List) {
 		if (ModItems.integrateEIO) {
-			for (int j = 0; j < numItems; ++j) {
+			for (Jetpack pack : Jetpack.ALL_PACKS) {
 				ItemStack stack;
-				if(Jetpack.values()[j].usesFuel)
-				{
-					List.add(new ItemStack(item, 1, j));
-				}
-				else {
-					stack = new ItemStack(item, 1, j);
+				if (pack.usesFuel) {
+					List.add(new ItemStack(item, 1, pack.ordinal()));
+				} else {
+					stack = new ItemStack(item, 1, pack.ordinal());
 					if (item instanceof ItemJetpack) {
 						((ItemJetpack) item).addFuel(stack, ((ItemJetpack) item).getMaxEnergyStored(stack), false);
 					}
 					List.add(stack);
 				}
 			}
-		}
-		else {
-			int EIOItems = 1; //Ammount of EnderIO Jetpacks
-
-			for (int j = 0; j < numItems - EIOItems; ++j) {
+		} else {
+			for (Jetpack pack : Jetpack.PACKS_SJ) {
 				ItemStack stack;
-				if (Jetpack.values()[j].usesFuel) {
-					List.add(new ItemStack(item, 1, j));
+				if (pack.usesFuel) {
+					List.add(new ItemStack(item, 1, pack.ordinal()));
 				} else {
-					stack = new ItemStack(item, 1, j);
+					stack = new ItemStack(item, 1, pack.ordinal());
 					if (item instanceof ItemJetpack) {
 						((ItemJetpack) item).addFuel(stack, ((ItemJetpack) item).getMaxEnergyStored(stack), false);
 					}
@@ -117,7 +111,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		NBTHelper.setBoolean(stack, tag, !on);
 
 		if (player != null && showInChat) {
-			String color = on ? StringHelper.LIGHT_RED : StringHelper.BRIGHT_GREEN;
+			String color = on ? TextFormatting.RED.toString() : TextFormatting.GREEN.toString();
 			type = type != null && !type.equals("") ? "chat." + this.name + "." + type + ".on" : "chat." + this.name + ".on";
 			String msg = SJStringHelper.localize(type) + " " + color + SJStringHelper.localize("chat." + (on ? "disabled" : "enabled"));
 			player.addChatMessage(new TextComponentString(msg));
@@ -144,7 +138,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
-		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
 		double stored = this.getMaxFuelStored(stack) - this.getFuelStored(stack) + 1;
 		double max = this.getMaxFuelStored(stack) + 1;
 		return stored / max;
@@ -187,7 +180,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			list.add(SJStringHelper.getFuelUsageText(this.fuelType, Jetpack.values()[i].getFuelUsage()));
 		}
 		list.add(SJStringHelper.getParticlesText(Jetpack.values()[i].getParticleType(stack)));
-		SJStringHelper.addDescriptionLines(list, "jetpack", StringHelper.BRIGHT_GREEN);
+		SJStringHelper.addDescriptionLines(list, "jetpack", TextFormatting.GREEN.toString());
 		String key = SimplyJetpacks.proxy.getPackGUIKey();
 		if (key != null) {
 			list.add(SJStringHelper.getPackGUIText(key));
