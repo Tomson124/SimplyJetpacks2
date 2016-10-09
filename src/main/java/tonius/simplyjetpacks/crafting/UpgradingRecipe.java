@@ -5,11 +5,14 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import tonius.simplyjetpacks.CommonProxy;
+import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.item.ItemPack;
-import tonius.simplyjetpacks.item.ItemPack.ItemJetpack;
 import tonius.simplyjetpacks.item.meta.JetPlate;
 import tonius.simplyjetpacks.item.meta.PackBase;
+import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
 import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.NBTHelper;
@@ -39,9 +42,10 @@ public class UpgradingRecipe extends ShapedOreRecipe
 		for(int i = 0; i < inventoryCrafting.getSizeInventory(); i++)
 		{
 			slotStack = inventoryCrafting.getStackInSlot(i);
+			Log.info("Particle: " + OreDictionary.containsMatch(true, CommonProxy.oresListParticles, slotStack));
 			if(slotStack != null && slotStack.getItem() != null)
 			{
-				if(slotStack.getItem() instanceof ItemPack)
+				if(slotStack.getItem() instanceof ItemJetpack)
 				{
 					tags = (NBTTagCompound) NBTHelper.getDataMap(slotStack).copy();
 				}
@@ -49,9 +53,9 @@ public class UpgradingRecipe extends ShapedOreRecipe
 				{
 					addedEnergy += ((IEnergyContainerItem) slotStack.getItem()).getEnergyStored(slotStack);
 				}
-				else if(slotStack.getItem() == ModItems.particleCustomizers)
+				else if(OreDictionary.containsMatch(false, CommonProxy.oresListParticles, slotStack))
 				{
-					particleType = ParticleType.values()[slotStack.getItemDamage()];
+					particleType = ParticleType.values()[slotStack.getItemDamage() - 1];
 				}
 				else if(ModItems.enderiumUpgrade != null && slotStack.getItem() == ModItems.enderiumUpgrade.getItem() && slotStack.getItemDamage() == ModItems.enderiumUpgrade.getItemDamage())
 				{
@@ -71,7 +75,7 @@ public class UpgradingRecipe extends ShapedOreRecipe
 
 		if(this.resultItem instanceof ItemJetpack && particleType != null)
 		{
-			((ItemJetpack) this.resultItem).getPack(result).setParticleType(result, particleType);
+			((ItemJetpack) this.resultItem).setParticleType(result, particleType);
 		}
 
 		if(enderiumUpgrade && this.resultItem instanceof ItemPack)

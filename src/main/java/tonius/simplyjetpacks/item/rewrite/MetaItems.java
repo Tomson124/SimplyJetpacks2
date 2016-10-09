@@ -3,19 +3,23 @@ package tonius.simplyjetpacks.item.rewrite;
 import net.minecraft.item.EnumRarity;
 
 import javax.annotation.Nonnull;
+import java.util.EnumSet;
 
 public enum MetaItems {
 
 	LEATHER_STRAP("leatherStrap", null, EnumRarity.COMMON),
+
 	PARTICLE_DEFAULT("particleDefault", "particleCustomizers", EnumRarity.COMMON),
-	PARTICLE_RAINBOWSMOKE("particleRainbowSmoke", "particleCustomizers", EnumRarity.COMMON),
 	PARTICLE_NONE("particleNone", "particleCustomizers", EnumRarity.COMMON),
-	PARTICLE_SMOKE("particleSmoke", "particleCustomizers", EnumRarity.COMMON);
+	PARTICLE_SMOKE("particleSmoke", "particleCustomizers", EnumRarity.COMMON),
+	PARTICLE_RAINBOWSMOKE("particleRainbowSmoke", "particleCustomizers", EnumRarity.COMMON);
 
 	private String name;
 	private String keyTooltip;
 	private EnumRarity rarity;
 	private boolean oreDict;
+
+	public static final EnumSet<MetaItems> PARTICLE_CUSTOMIZERS = EnumSet.range(PARTICLE_DEFAULT, PARTICLE_SMOKE);
 
 	private MetaItems(String name, String keyTooltip, EnumRarity rarity) {
 		this.name = name;

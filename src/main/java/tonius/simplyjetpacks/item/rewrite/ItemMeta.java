@@ -15,6 +15,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.EnumSet;
 import java.util.List;
 
 public class ItemMeta extends ItemRegistered {

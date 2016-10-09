@@ -4,6 +4,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import tonius.simplyjetpacks.Log;
@@ -85,9 +86,6 @@ public abstract class ModItems
 
 		registerItems();
 		registerOreDicts();
-
-		Log.info("Mod loaded: " + ModType.ENDER_IO.loaded);
-		Log.info("Cnfig option loaded: " + Config.enableIntegrationEIO);
 	}
 
 	public static void init()
@@ -118,9 +116,14 @@ public abstract class ModItems
 	}
 
 	private static void registerOreDicts() {
+		for (MetaItems item : MetaItems.PARTICLE_CUSTOMIZERS) {
+			OreDictionary.registerOre("particleCustomizer", new ItemStack(metaItem, 1, item.ordinal()));
+
+		}
 		if (integrateEIO) {
 			OreDictionary.registerOre(MetaItemsEIO.INGOT_DARK_SOULARIUM.name(), ingotDarkSoularium);
 		}
+		Log.info("OReDict: " + OreDictionary.getOres("particleCustomizer").isEmpty());
 	}
 
 	private static void registerItems() {
@@ -178,6 +181,11 @@ public abstract class ModItems
 		ItemHelper.addShapedOreRecipe(particleNone, " D ", "DCD", " D ", 'C', dustCoal, 'D', "blockGlass");
 		ItemHelper.addShapedOreRecipe(particleSmoke, " C ", "CCC", " C ", 'C', dustCoal);
 		ItemHelper.addShapedOreRecipe(particleRainbowSmoke, " R ", " C ", "G B", 'C', dustCoal, 'R', "dyeRed", 'G', "dyeLime", 'B', "dyeBlue");
+
+		GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO1, "J", "P", 'J', jetpackEIO1, 'P', "particleCustomizer"));
+		GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO2, "J", "P", 'J', jetpackEIO2, 'P', "particleCustomizer"));
+		GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO3, "J", "P", 'J', jetpackEIO3, 'P', "particleCustomizer"));
+		GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4, "J", "P", 'J', jetpackEIO4, 'P', "particleCustomizer"));
 
 		if (integrateEIO) {
 			ItemHelper.addShapedOreRecipe(thrusterEIO1, "ICI", "PCP", "DSD", 'I', "ingotConductiveIron", 'P', EIOItems.redstoneConduit, 'C', EIOItems.basicCapacitor, 'D', EIOItems.basicGear, 'S', "dustRedstone");
@@ -258,11 +266,6 @@ public abstract class ModItems
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO3, "J", 'J', jetpackEIO3Armored));
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4Armored, "P", "J", 'J', jetpackEIO4, 'P', armorPlatingEIO4));
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4, "J", 'J', jetpackEIO4Armored));
-
-			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO1, "J", "P", 'J', jetpackEIO1, 'P', new ItemStack(particleCustomizers, 1, OreDictionary.WILDCARD_VALUE)));
-			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO2, "J", "P", 'J', jetpackEIO2, 'P', new ItemStack(particleCustomizers, 1, OreDictionary.WILDCARD_VALUE)));
-			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO3, "J", "P", 'J', jetpackEIO3, 'P', new ItemStack(particleCustomizers, 1, OreDictionary.WILDCARD_VALUE)));
-			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4, "J", "P", 'J', jetpackEIO4, 'P', new ItemStack(particleCustomizers, 1, OreDictionary.WILDCARD_VALUE)));
 
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO5, "OAO", "PJP", "TCT", 'A', EIOItems.enderCrystal, 'J', jetpackEIO4Armored, 'O', "ingotDarkSoularium", 'C', fluxPackEIO4Armored, 'T', thrusterEIO5, 'P', reinforcedGliderWing));
 

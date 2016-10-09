@@ -6,10 +6,7 @@ import tonius.simplyjetpacks.client.util.RenderUtils;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.item.IHUDInfoProvider;
-import tonius.simplyjetpacks.setup.FuelType;
-import tonius.simplyjetpacks.setup.ModCreativeTab;
-import tonius.simplyjetpacks.setup.ModEnchantments;
-import tonius.simplyjetpacks.setup.ModItems;
+import tonius.simplyjetpacks.setup.*;
 import tonius.simplyjetpacks.util.NBTHelper;
 import tonius.simplyjetpacks.util.SJStringHelper;
 import tonius.simplyjetpacks.util.StackUtil;
@@ -116,6 +113,11 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			String msg = SJStringHelper.localize(type) + " " + color + SJStringHelper.localize("chat." + (on ? "disabled" : "enabled"));
 			player.addChatMessage(new TextComponentString(msg));
 		}
+	}
+
+	public void setParticleType(ItemStack stack, ParticleType particle)
+	{
+		NBTHelper.setInt(stack, Jetpack.TAG_PARTICLE, particle.ordinal());
 	}
 
 	@Override
