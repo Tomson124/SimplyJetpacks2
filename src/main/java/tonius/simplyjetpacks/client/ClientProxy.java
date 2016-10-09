@@ -47,9 +47,9 @@ public class ClientProxy extends CommonProxy {
 
 			float random = (rand.nextFloat() - 0.5F) * 0.1F;
 
-			Pos3D vLeft = new Pos3D(-0.28D, -0.95D, -038D).rotatePitch(0).rotateYaw(wearer.renderYawOffset);
-			Pos3D vRight = new Pos3D(0.28D, -0.95D, -038D).rotatePitch(0).rotateYaw(wearer.renderYawOffset);
-			Pos3D vCenter = new Pos3D((rand.nextFloat() - 0.5F) * 0.25F, -0.95D, -0.38D).rotatePitch(0).rotateYaw(wearer.renderYawOffset);
+			Pos3D vLeft = new Pos3D(-0.28, -0.95, -0.38).rotatePitch(0).rotateYaw(wearer.renderYawOffset);
+			Pos3D vRight = new Pos3D(0.28, -0.95, -0.38).rotatePitch(0).rotateYaw(wearer.renderYawOffset);
+			Pos3D vCenter = new Pos3D((rand.nextFloat() - 0.5F) * 0.25F, -0.95, -0.38).rotatePitch(0).rotateYaw(wearer.renderYawOffset);
 
 			Pos3D rLeft = vLeft.scale(random);
 			Pos3D rRight = vRight.scale(random);
