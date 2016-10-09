@@ -19,7 +19,7 @@ public abstract class SJStringHelper {
 	}
 
 	public static String getTierText(int tier) {
-		return String.format(localize("tooltip.tier"), tier);
+		return localize("tooltip.tier", tier);
 	}
 
 	public static String getFuelText(FuelType fuelType, int amount, int max, boolean infinite) {
@@ -125,7 +125,7 @@ public abstract class SJStringHelper {
 	}
 
 	public static String getShiftText() {
-		return TextFormatting.GRAY + String.format(localize("tooltip.holdShift"), TextFormatting.YELLOW.toString() + TextFormatting.ITALIC + localize("tooltip.holdShift.shift") + TextFormatting.RESET + TextFormatting.GRAY);
+		return TextFormatting.GRAY + localize("tooltip.holdShift", TextFormatting.YELLOW.toString() + TextFormatting.ITALIC + localize("tooltip.holdShift.shift") + TextFormatting.RESET + TextFormatting.GRAY);
 	}
 
 	public static boolean canShowDetails() {
