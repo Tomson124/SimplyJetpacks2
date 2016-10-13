@@ -19,7 +19,7 @@ public enum MetaItems {
 	private EnumRarity rarity;
 	private boolean oreDict;
 
-	public static final EnumSet<MetaItems> PARTICLE_CUSTOMIZERS = EnumSet.range(PARTICLE_DEFAULT, PARTICLE_SMOKE);
+	public static final EnumSet<MetaItems> PARTICLE_CUSTOMIZERS = EnumSet.range(PARTICLE_DEFAULT, PARTICLE_RAINBOWSMOKE);
 
 	private MetaItems(String name, String keyTooltip, EnumRarity rarity) {
 		this.name = name;
