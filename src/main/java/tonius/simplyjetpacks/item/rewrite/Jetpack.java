@@ -27,12 +27,16 @@ public enum Jetpack implements IStringSerializable {
 	JETPACK_EIO_1("jetpackEIO1", 1, "jetpackEIO1", EnumRarity.COMMON),
 	JETPACK_EIO_2("jetpackEIO2", 2, "jetpackEIO2", EnumRarity.COMMON),
 	JETPACK_EIO_3("jetpackEIO3", 3, "jetpackEIO3", EnumRarity.UNCOMMON),
-	JETPACK_EIO_4("jetpackEIO4", 4, "jetpackEIO4", EnumRarity.RARE);
+	JETPACK_EIO_4("jetpackEIO4", 4, "jetpackEIO4", EnumRarity.RARE),
+	JETPACK_EIO_1_ARMORED("jetpackEIO1Armored", 1, "jetpackEIO1", EnumRarity.COMMON, true),
+	JETPACK_EIO_2_ARMORED("jetpackEIO2Armored", 2, "jetpackEIO2", EnumRarity.COMMON, true),
+	JETPACK_EIO_3_ARMORED("jetpackEIO3Armored", 3, "jetpackEIO3", EnumRarity.UNCOMMON, true),
+	JETPACK_EIO_4_ARMORED("jetpackEIO4Armored", 4, "jetpackEIO4", EnumRarity.RARE, true);
 
 	protected final PackDefaults defaults;
 	protected static final EnumSet<Jetpack> ALL_PACKS = EnumSet.allOf(Jetpack.class);
 	protected static final EnumSet<Jetpack> PACKS_SJ = EnumSet.of(CREATIVE_JETPACK, POTATO_JETPACK);
-	protected static final EnumSet<Jetpack> PACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPACK_EIO_4);
+	protected static final EnumSet<Jetpack> PACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPACK_EIO_4_ARMORED);
 
 	protected static final String TAG_PARTICLE = "JetpackParticleType";
 	public ParticleType defaultParticleType = ParticleType.DEFAULT;
@@ -51,6 +55,8 @@ public enum Jetpack implements IStringSerializable {
 	public int armorFuelPerHit;
 	public int armorReduction;
 	public int fuelUsage;
+
+	public boolean isArmored;
 
 	public boolean usesFuel;
 	public EnumRarity rarity;
@@ -72,6 +78,11 @@ public enum Jetpack implements IStringSerializable {
 		this(baseName, tier, defaultConfigKey, rarity);
 		this.defaultParticleType = defaultParticleType;
 		this.usesFuel = usesFuel;
+	}
+
+	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, boolean isArmored) {
+		this(baseName, tier, defaultConfigKey, rarity);
+		this.isArmored = isArmored;
 	}
 
 	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity) {
@@ -145,6 +156,10 @@ public enum Jetpack implements IStringSerializable {
 
 	public EnumRarity getRarity() {
 		return rarity;
+	}
+
+	public boolean getIsArmored() {
+		return isArmored;
 	}
 
 	public static

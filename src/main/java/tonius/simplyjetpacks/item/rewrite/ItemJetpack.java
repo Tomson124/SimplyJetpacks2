@@ -301,7 +301,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@Override
 	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
 		int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
-		if (/*pack.isArmored && */ !source.isUnblockable()) {
+		if (Jetpack.values()[i].getIsArmored() && !source.isUnblockable()) {
 			if (this.isFluxBased && source.damageType.equals("flux")) {
 				return new ArmorProperties(0, 0.5D, Integer.MAX_VALUE);
 			}
@@ -315,7 +315,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
 		int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
-		if (this.isArmored) {
+		if (Jetpack.values()[i].getIsArmored()) {
 			if (this.getFuelStored(armor) >= Jetpack.values()[i].getArmorFuelPerHit()) {
 				return Jetpack.values()[i].getArmorReduction();
 			}
@@ -345,7 +345,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack armor, DamageSource source, int damage, int slot) {
 		int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
-		if (/*pack.isArmored && */ Jetpack.values()[i].usesFuel) {
+		if (Jetpack.values()[i].getIsArmored() && Jetpack.values()[i].usesFuel) {
 			if (this.fuelType == FuelType.ENERGY && this.isFluxBased && source.damageType.equals("flux")) {
 				this.addFuel(armor, damage * (source.getEntity() == null ? Jetpack.values()[i].getArmorFuelPerHit() / 2 : this.getFuelPerDamage(armor)), false);
 			} else {
