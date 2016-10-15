@@ -1,4 +1,4 @@
-package tonius.simplyjetpacks.client.handler;
+package tonius.simplyjetpacks.client.handler.deprecated;
 
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.handler.SyncHandler;
@@ -15,6 +15,7 @@ import org.lwjgl.input.Keyboard;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class KeyHandler
 {
 	static final Minecraft mc = Minecraft.getMinecraft();

@@ -57,10 +57,10 @@ public class UpgradingRecipe extends ShapedOreRecipe
 				{
 					particleType = ParticleType.values()[slotStack.getItemDamage() - 1];
 				}
-				else if(ModItems.enderiumUpgrade != null && slotStack.getItem() == ModItems.enderiumUpgrade.getItem() && slotStack.getItemDamage() == ModItems.enderiumUpgrade.getItemDamage())
+				/*else if(ModItems.enderiumUpgrade != null && slotStack.getItem() == ModItems.enderiumUpgrade.getItem() && slotStack.getItemDamage() == ModItems.enderiumUpgrade.getItemDamage())
 				{
-					enderiumUpgrade = true;
-				}
+					enderiumUpgrade = true; //TODO: Jetplates
+				}*/
 			}
 		}
 

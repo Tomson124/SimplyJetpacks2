@@ -1,11 +1,5 @@
 package tonius.simplyjetpacks.setup;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
@@ -16,9 +10,14 @@ import tonius.simplyjetpacks.integration.ModType;
 import tonius.simplyjetpacks.item.ItemPack.ItemFluxPack;
 import tonius.simplyjetpacks.item.rewrite.*;
 import tonius.simplyjetpacks.util.ItemHelper;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
-public abstract class ModItems
-{
+public abstract class ModItems {
 	public static ItemJetpack itemJetpack;
 
 	public static ItemMeta metaItem;
@@ -79,18 +78,15 @@ public abstract class ModItems
 
 	public static boolean integrateEIO = false;
 
-	public static void preInit()
-	{
+	public static void preInit() {
 		integrateEIO = ModType.ENDER_IO.loaded && Config.enableIntegrationEIO;
 
 		registerItems();
 		registerOreDicts();
 	}
 
-	public static void init()
-	{
-		if(integrateEIO)
-		{
+	public static void init() {
+		if (integrateEIO) {
 			EIOItems.init();
 		}
 
@@ -98,16 +94,14 @@ public abstract class ModItems
 		doIMC();
 	}
 
-	private static <T extends Item> T register(T item)
-	{
+	private static <T extends Item> T register(T item) {
 		GameRegistry.register(item);
 
 		if (item instanceof ItemJetpack) {
 			((ItemJetpack) item).registerItemModel();
 		}
 
-		if(item instanceof ItemMeta)
-		{
+		if (item instanceof ItemMeta) {
 			((ItemMeta) item).registerItemModel();
 		}
 
@@ -122,7 +116,6 @@ public abstract class ModItems
 		if (integrateEIO) {
 			OreDictionary.registerOre(MetaItemsEIO.INGOT_DARK_SOULARIUM.name(), ingotDarkSoularium);
 		}
-		Log.info("OReDict: " + OreDictionary.getOres("particleCustomizer").isEmpty());
 	}
 
 	private static void registerItems() {
@@ -272,12 +265,10 @@ public abstract class ModItems
 		}
 	}*/
 
-	private static void doIMC()
-	{
+	private static void doIMC() {
 		SimplyJetpacks.logger.info("Doing intermod communication");
 
-		if(integrateEIO)
-		{
+		if (integrateEIO) {
 			ItemStack ingotConductiveIron = OreDictionary.getOres("ingotConductiveIron").get(0).copy();
 			ingotConductiveIron.stackSize = 10;
 			EIORecipes.addAlloySmelterRecipe("Conductive Iron Armor Plating", 3200, armorPlatingEIO1, ingotConductiveIron, null, armorPlatingEIO2);

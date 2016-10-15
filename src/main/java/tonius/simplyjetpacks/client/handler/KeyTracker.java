@@ -1,4 +1,4 @@
-package tonius.simplyjetpacks.client.handler.rewrite;
+package tonius.simplyjetpacks.client.handler;
 
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
