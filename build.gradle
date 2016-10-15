@@ -36,13 +36,13 @@ repositories {
 
 dependencies {
     // compile against the JEI API
-    deobfCompile "mezz.jei:jei_1.10.2:3.12.4.295:api"
+    deobfCompile "mezz.jei:jei_1.10.2:3.12.7.312:api"
     // at runtime, use the full JEI jar
-    runtime "mezz.jei:jei_1.10.2:3.12.4.295"
+    runtime "mezz.jei:jei_1.10.2:3.12.7.312"
 }
 
 minecraft {
-    version = "1.10.2-12.18.1.2095"
+    version = "1.10.2-12.18.2.2099"
     runDir = "run"
 
     // the mappings can be changed at any time, and must be in the following format.
