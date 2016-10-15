@@ -4,7 +4,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import tonius.simplyjetpacks.Log;
@@ -66,6 +65,7 @@ public abstract class ModItems
 	public static ItemStack jetpackEIO3Armored;
 	public static ItemStack jetpackEIO4;
 	public static ItemStack jetpackEIO4Armored;
+
 	public static ItemStack jetpackEIO5;
 	public static ItemStack fluxPackEIO1;
 	public static ItemStack fluxPackEIO2;
@@ -75,7 +75,6 @@ public abstract class ModItems
 	public static ItemStack fluxPackEIO4;
 	public static ItemStack fluxPackEIO4Armored;
 
-	public static ItemStack jetpackIcon;
 	public static ItemStack enderiumUpgrade;
 
 	public static boolean integrateEIO = false;
@@ -162,17 +161,21 @@ public abstract class ModItems
 			armorPlatingEIO3 = new ItemStack(metaItemEIO, 1, MetaItemsEIO.ARMOR_PLATING_EIO_3.ordinal());
 			armorPlatingEIO4 = new ItemStack(metaItemEIO, 1, MetaItemsEIO.ARMOR_PLATING_EIO_4.ordinal());
 
-			jetpackEIO1 = new ItemStack(itemJetpack, 1, Jetpack.JETPACK_EIO_1.ordinal());
-			jetpackEIO2 = new ItemStack(itemJetpack, 1, Jetpack.JETPACK_EIO_2.ordinal());
-			jetpackEIO3 = new ItemStack(itemJetpack, 1, Jetpack.JETPACK_EIO_3.ordinal());
-			jetpackEIO4 = new ItemStack(itemJetpack, 1, Jetpack.JETPACK_EIO_4.ordinal());
+			jetpackEIO1 = Jetpack.JETPACK_EIO_1.getStackJetpack();
+			jetpackEIO2 = Jetpack.JETPACK_EIO_2.getStackJetpack();
+			jetpackEIO3 = Jetpack.JETPACK_EIO_3.getStackJetpack();
+			jetpackEIO4 = Jetpack.JETPACK_EIO_4.getStackJetpack();
+			jetpackEIO1Armored = Jetpack.JETPACK_EIO_1_ARMORED.getStackJetpack();
+			jetpackEIO2Armored = Jetpack.JETPACK_EIO_2_ARMORED.getStackJetpack();
+			jetpackEIO3Armored = Jetpack.JETPACK_EIO_3_ARMORED.getStackJetpack();
+			jetpackEIO4Armored = Jetpack.JETPACK_EIO_4_ARMORED.getStackJetpack();
 		}
 	}
 
 	private static void registerRecipes() {
 
-		ItemHelper.addShapedOreRecipe(new ItemStack(itemJetpack, 1, Jetpack.POTATO_JETPACK.ordinal()), "S S", "NPN", "R R", 'S', Items.STRING, 'N', "nuggetGold", 'P', Items.POTATO, 'R', "dustRedstone");
-		ItemHelper.addShapedOreRecipe(new ItemStack(itemJetpack, 1, Jetpack.POTATO_JETPACK.ordinal()), "S S", "NPN", "R R", 'S', Items.STRING, 'N', "nuggetGold", 'P', Items.POISONOUS_POTATO, 'R', "dustRedstone");
+		ItemHelper.addShapedOreRecipe(Jetpack.POTATO_JETPACK.getStackJetpack(), "S S", "NPN", "R R", 'S', Items.STRING, 'N', "nuggetGold", 'P', Items.POTATO, 'R', "dustRedstone");
+		ItemHelper.addShapedOreRecipe(Jetpack.POTATO_JETPACK.getStackJetpack(), "S S", "NPN", "R R", 'S', Items.STRING, 'N', "nuggetGold", 'P', Items.POISONOUS_POTATO, 'R', "dustRedstone");
 
 		ItemHelper.addShapedOreRecipe(leatherStrap, "LIL", "LIL", 'L', Items.LEATHER, 'I', "ingotIron");
 
@@ -204,6 +207,15 @@ public abstract class ModItems
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO2, "IBI", "IJI", "T T", 'I', "ingotElectricalSteel", 'B', EIOItems.basicCapacitor, 'T', thrusterEIO2, 'J', jetpackEIO1));
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO3, "IBI", "IJI", "T T", 'I', "ingotEnergeticAlloy", 'B', EIOItems.doubleCapacitor, 'T', thrusterEIO3, 'J', jetpackEIO2));
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4, "IBI", "IJI", "T T", 'I', "ingotVibrantAlloy", 'B', EIOItems.octadicCapacitor, 'T', thrusterEIO4, 'J', jetpackEIO3));
+
+			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO1Armored, "P", "J", 'J', jetpackEIO1, 'P', armorPlatingEIO1));
+			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO1, "J", 'J', jetpackEIO1Armored));
+			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO2Armored, "P", "J", 'J', jetpackEIO2, 'P', armorPlatingEIO2));
+			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO2, "J", 'J', jetpackEIO2Armored));
+			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO3Armored, "P", "J", 'J', jetpackEIO3, 'P', armorPlatingEIO3));
+			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO3, "J", 'J', jetpackEIO3Armored));
+			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4Armored, "P", "J", 'J', jetpackEIO4, 'P', armorPlatingEIO4));
+			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4, "J", 'J', jetpackEIO4Armored));
 		}
 	}
 
@@ -214,10 +226,6 @@ public abstract class ModItems
 //
 //		if(integrateEIO)
 //		{
-//			jetpackEIO1Armored = jetpacksEIO.putPack(101, Packs.jetpackEIO1Armored);
-//			jetpackEIO2Armored = jetpacksEIO.putPack(102, Packs.jetpackEIO2Armored);
-//			jetpackEIO3Armored = jetpacksEIO.putPack(103, Packs.jetpackEIO3Armored);
-//			jetpackEIO4Armored = jetpacksEIO.putPack(104, Packs.jetpackEIO4Armored);
 //			jetpackEIO5 = jetpacksEIO.putPack(5, Packs.jetpackEIO5);
 //			fluxPacksEIO = new ItemFluxPack(ModType.ENDER_IO, "fluxpacksEIO");
 //			fluxPackEIO1 = fluxPacksEIO.putPack(1, Packs.fluxPackEIO1);
@@ -257,15 +265,6 @@ public abstract class ModItems
 			GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO3, "J", 'J', fluxPackEIO3Armored));
 			GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO4Armored, "P", "J", 'J', fluxPackEIO4, 'P', armorPlatingEIO3));
 			GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO4, "J", 'J', fluxPackEIO4Armored));
-
-			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO1Armored, "P", "J", 'J', jetpackEIO1, 'P', armorPlatingEIO1));
-			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO1, "J", 'J', jetpackEIO1Armored));
-			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO2Armored, "P", "J", 'J', jetpackEIO2, 'P', armorPlatingEIO2));
-			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO2, "J", 'J', jetpackEIO2Armored));
-			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO3Armored, "P", "J", 'J', jetpackEIO3, 'P', armorPlatingEIO3));
-			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO3, "J", 'J', jetpackEIO3Armored));
-			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4Armored, "P", "J", 'J', jetpackEIO4, 'P', armorPlatingEIO4));
-			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4, "J", 'J', jetpackEIO4Armored));
 
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO5, "OAO", "PJP", "TCT", 'A', EIOItems.enderCrystal, 'J', jetpackEIO4Armored, 'O', "ingotDarkSoularium", 'C', fluxPackEIO4Armored, 'T', thrusterEIO5, 'P', reinforcedGliderWing));
 

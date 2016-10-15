@@ -183,10 +183,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		}
 		list.add(SJStringHelper.getParticlesText(Jetpack.values()[i].getParticleType(stack)));
 		SJStringHelper.addDescriptionLines(list, "jetpack", TextFormatting.GREEN.toString());
-		String key = SimplyJetpacks.proxy.getPackGUIKey();
-		if (key != null) {
-			list.add(SJStringHelper.getPackGUIText(key));
-		}
 	}
 
 	public boolean isOn(ItemStack stack) {
