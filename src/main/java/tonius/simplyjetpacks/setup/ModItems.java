@@ -134,32 +134,32 @@ public abstract class ModItems
 		//Meta Items
 		metaItem = register(new ItemMeta("metaItem"));
 
-		particleDefault = new ItemStack(metaItem, 1, MetaItems.PARTICLE_DEFAULT.ordinal());
-		particleSmoke = new ItemStack(metaItem, 1, MetaItems.PARTICLE_SMOKE.ordinal());
-		particleNone = new ItemStack(metaItem, 1, MetaItems.PARTICLE_NONE.ordinal());
-		particleRainbowSmoke = new ItemStack(metaItem, 1, MetaItems.PARTICLE_RAINBOWSMOKE.ordinal());
+		particleDefault = MetaItems.PARTICLE_DEFAULT.getStackMetaItem();
+		particleSmoke = MetaItems.PARTICLE_SMOKE.getStackMetaItem();
+		particleNone = MetaItems.PARTICLE_NONE.getStackMetaItem();
+		particleRainbowSmoke = MetaItems.PARTICLE_RAINBOWSMOKE.getStackMetaItem();
 
-		leatherStrap = new ItemStack(metaItem, 1, MetaItems.LEATHER_STRAP.ordinal());
+		leatherStrap = MetaItems.LEATHER_STRAP.getStackMetaItem();
 
 
 		if (integrateEIO) {
 			metaItemEIO = register(new ItemMetaEIO("metaItemEIO"));
 
-			ingotDarkSoularium = new ItemStack(metaItemEIO, 1, MetaItemsEIO.INGOT_DARK_SOULARIUM.ordinal());
-			unitFlightControlEmpty = new ItemStack(metaItemEIO, 1, MetaItemsEIO.UNIT_FLIGHT_CONTROL_EMPTY.ordinal());
-			reinforcedGliderWings = new ItemStack(metaItemEIO, 1, MetaItemsEIO.REINFORCED_GLIDERWINGS.ordinal());
-			unitFlightControl = new ItemStack(metaItemEIO, 1, MetaItemsEIO.UNIT_FLIGHT_CONTROL.ordinal());
+			ingotDarkSoularium = MetaItemsEIO.INGOT_DARK_SOULARIUM.getStackMetaItemEIO();
+			unitFlightControlEmpty = MetaItemsEIO.UNIT_FLIGHT_CONTROL_EMPTY.getStackMetaItemEIO();
+			reinforcedGliderWings = MetaItemsEIO.REINFORCED_GLIDERWINGS.getStackMetaItemEIO();
+			unitFlightControl = MetaItemsEIO.UNIT_FLIGHT_CONTROL.getStackMetaItemEIO();
 
-			thrusterEIO1 = new ItemStack(metaItemEIO, 1, MetaItemsEIO.THRUSTER_EIO_1.ordinal());
-			thrusterEIO2 = new ItemStack(metaItemEIO, 1, MetaItemsEIO.THRUSTER_EIO_2.ordinal());
-			thrusterEIO3 = new ItemStack(metaItemEIO, 1, MetaItemsEIO.THRUSTER_EIO_3.ordinal());
-			thrusterEIO4 = new ItemStack(metaItemEIO, 1, MetaItemsEIO.THRUSTER_EIO_4.ordinal());
-			thrusterEIO5 = new ItemStack(metaItemEIO, 1, MetaItemsEIO.THRUSTER_EIO_5.ordinal());
+			thrusterEIO1 = MetaItemsEIO.THRUSTER_EIO_1.getStackMetaItemEIO();
+			thrusterEIO2 = MetaItemsEIO.THRUSTER_EIO_2.getStackMetaItemEIO();
+			thrusterEIO3 = MetaItemsEIO.THRUSTER_EIO_3.getStackMetaItemEIO();
+			thrusterEIO4 = MetaItemsEIO.THRUSTER_EIO_4.getStackMetaItemEIO();
+			thrusterEIO5 = MetaItemsEIO.THRUSTER_EIO_5.getStackMetaItemEIO();
 
-			armorPlatingEIO1 = new ItemStack(metaItemEIO, 1, MetaItemsEIO.ARMOR_PLATING_EIO_1.ordinal());
-			armorPlatingEIO2 = new ItemStack(metaItemEIO, 1, MetaItemsEIO.ARMOR_PLATING_EIO_2.ordinal());
-			armorPlatingEIO3 = new ItemStack(metaItemEIO, 1, MetaItemsEIO.ARMOR_PLATING_EIO_3.ordinal());
-			armorPlatingEIO4 = new ItemStack(metaItemEIO, 1, MetaItemsEIO.ARMOR_PLATING_EIO_4.ordinal());
+			armorPlatingEIO1 = MetaItemsEIO.ARMOR_PLATING_EIO_1.getStackMetaItemEIO();
+			armorPlatingEIO2 = MetaItemsEIO.ARMOR_PLATING_EIO_2.getStackMetaItemEIO();
+			armorPlatingEIO3 = MetaItemsEIO.ARMOR_PLATING_EIO_3.getStackMetaItemEIO();
+			armorPlatingEIO4 = MetaItemsEIO.ARMOR_PLATING_EIO_4.getStackMetaItemEIO();
 
 			jetpackEIO1 = Jetpack.JETPACK_EIO_1.getStackJetpack();
 			jetpackEIO2 = Jetpack.JETPACK_EIO_2.getStackJetpack();

@@ -1,8 +1,11 @@
 package tonius.simplyjetpacks.item.rewrite;
 
+import tonius.simplyjetpacks.setup.ModItems;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
+import java.util.EnumSet;
 
 public enum MetaItemsEIO {
 
@@ -51,6 +54,18 @@ public enum MetaItemsEIO {
 
 	public static @Nonnull MetaItemsEIO getTypeFromMeta(int meta) {
 		return values()[meta >= 0 && meta < values().length + MetaItems.values().length ? meta : 0];
+	}
+
+	public
+	@Nonnull
+	ItemStack getStackMetaItemEIO() {
+		return getStackMetaItemEIO(1);
+	}
+
+	public
+	@Nonnull
+	ItemStack getStackMetaItemEIO(int size) {
+		return new ItemStack(ModItems.metaItemEIO, size, ordinal());
 	}
 
 	public String getName()
