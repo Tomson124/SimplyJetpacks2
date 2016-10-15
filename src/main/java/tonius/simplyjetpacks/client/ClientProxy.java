@@ -52,7 +52,7 @@ public class ClientProxy extends CommonProxy {
 			Pos3D vRight = new Pos3D(0.28, -0.95, -0.38).rotatePitch(0).rotateYaw(wearer.renderYawOffset);
 			Pos3D vCenter = new Pos3D((rand.nextFloat() - 0.5F) * 0.25F, -0.95, -0.38).rotatePitch(0).rotateYaw(wearer.renderYawOffset);
 
-			Pos3D mLeft = vLeft.scale(0.4).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ));
+			/*Pos3D mLeft = vLeft.scale(0.4).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ));
 			Pos3D mRight = vRight.scale(0.4).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ));
 			Pos3D mCenter = vCenter.scale(0.4).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ));
 
@@ -65,17 +65,15 @@ public class ClientProxy extends CommonProxy {
 
 				v = playerPos.translate(vCenter).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ).scale(0.5));
 				ParticleUtils.spawnParticle(particle, world, v.xCoord, v.yCoord, v.zCoord, mCenter.xCoord, -0.2D, mCenter.zCoord);
-			}
-			else {
-				Pos3D v = playerPos.translate(vLeft).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ).scale(0.5));
-				ParticleUtils.spawnParticle(particle, world, v.xCoord, v.yCoord, v.zCoord, random, -0.2D, random);
+			}*/
+			Pos3D v = playerPos.translate(vLeft).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ).scale(0.5));
+			ParticleUtils.spawnParticle(particle, world, v.xCoord, v.yCoord, v.zCoord, random, -0.2D, random);
 
-				v = playerPos.translate(vRight).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ).scale(0.5));
-				ParticleUtils.spawnParticle(particle, world, v.xCoord, v.yCoord, v.zCoord, random, -0.2D, random);
+			v = playerPos.translate(vRight).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ).scale(0.5));
+			ParticleUtils.spawnParticle(particle, world, v.xCoord, v.yCoord, v.zCoord, random, -0.2D, random);
 
-				v = playerPos.translate(vCenter).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ).scale(0.5));
-				ParticleUtils.spawnParticle(particle, world, v.xCoord, v.yCoord, v.zCoord, random, -0.2D, random);
-			}
+			v = playerPos.translate(vCenter).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ).scale(0.5));
+			ParticleUtils.spawnParticle(particle, world, v.xCoord, v.yCoord, v.zCoord, random, -0.2D, random);
 		}
 	}
 
