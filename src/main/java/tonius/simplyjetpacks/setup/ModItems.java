@@ -124,6 +124,8 @@ public abstract class ModItems {
 		//Meta Items
 		metaItem = register(new ItemMeta("metaItem"));
 
+		jetpackCreative = Jetpack.CREATIVE_JETPACK.getStackJetpack();
+
 		particleDefault = MetaItems.PARTICLE_DEFAULT.getStackMetaItem();
 		particleSmoke = MetaItems.PARTICLE_SMOKE.getStackMetaItem();
 		particleNone = MetaItems.PARTICLE_NONE.getStackMetaItem();

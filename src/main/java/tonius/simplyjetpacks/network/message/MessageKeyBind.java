@@ -47,11 +47,18 @@ public class MessageKeyBind implements IMessage, IMessageHandler<MessageKeyBind,
 				((ItemJetpack)stack.getItem()).toggleState(jetpack.isHoverModeOn(stack), stack, null, jetpack.TAG_HOVERMODE_ON, player, false);
 			}
 		}
+		if (message.packetType == JetpackPacket.E_HOVER) {
+			if(stack != null && stack.getItem() instanceof ItemJetpack) {
+				ItemJetpack jetpack = (ItemJetpack)stack.getItem();
+				((ItemJetpack)stack.getItem()).toggleState(jetpack.isEHoverModeOn(stack), stack, null, jetpack.TAG_EHOVER_ON, player, false);
+			}
+		}
 		return null;
 	}
 
 	public static enum JetpackPacket {
 		ENGINE,
-		HOVER
+		HOVER,
+		E_HOVER;
 	}
 }
