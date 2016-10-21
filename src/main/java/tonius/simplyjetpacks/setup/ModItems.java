@@ -25,10 +25,7 @@ public abstract class ModItems {
 
 	public static ItemJetpack jetpacksEIO;
 	public static ItemFluxPack fluxPacksEIO;
-	public static ItemJetpack jetpacksBC;
-	public static ItemMeta components;
 	public static ItemMeta armorPlatings;
-	public static ItemMeta particleCustomizers;
 
 	public static ItemStack jetpackCreative;
 	public static ItemStack fluxPackCreative;
@@ -64,8 +61,8 @@ public abstract class ModItems {
 	public static ItemStack jetpackEIO3Armored;
 	public static ItemStack jetpackEIO4;
 	public static ItemStack jetpackEIO4Armored;
-
 	public static ItemStack jetpackEIO5;
+
 	public static ItemStack fluxPackEIO1;
 	public static ItemStack fluxPackEIO2;
 	public static ItemStack fluxPackEIO2Armored;
@@ -158,6 +155,7 @@ public abstract class ModItems {
 			jetpackEIO2 = Jetpack.JETPACK_EIO_2.getStackJetpack();
 			jetpackEIO3 = Jetpack.JETPACK_EIO_3.getStackJetpack();
 			jetpackEIO4 = Jetpack.JETPACK_EIO_4.getStackJetpack();
+			jetpackEIO5 = Jetpack.JETPLATE_EIO_5.getStackJetpack();
 			jetpackEIO1Armored = Jetpack.JETPACK_EIO_1_ARMORED.getStackJetpack();
 			jetpackEIO2Armored = Jetpack.JETPACK_EIO_2_ARMORED.getStackJetpack();
 			jetpackEIO3Armored = Jetpack.JETPACK_EIO_3_ARMORED.getStackJetpack();
@@ -171,6 +169,8 @@ public abstract class ModItems {
 		ItemHelper.addShapedOreRecipe(Jetpack.POTATO_JETPACK.getStackJetpack(), "S S", "NPN", "R R", 'S', Items.STRING, 'N', "nuggetGold", 'P', Items.POISONOUS_POTATO, 'R', "dustRedstone");
 
 		ItemHelper.addShapedOreRecipe(leatherStrap, "LIL", "LIL", 'L', Items.LEATHER, 'I', "ingotIron");
+
+		GameRegistry.addRecipe(new UpgradingRecipe(jetpackCreative, "J", "P", 'J', jetpackCreative, 'P', "particleCustomizer"));
 
 		Object dustCoal = OreDictionary.getOres("dustCoal").size() > 0 ? "dustCoal" : new ItemStack(Items.COAL);
 		ItemHelper.addShapedOreRecipe(particleDefault, " D ", "DCD", " D ", 'C', dustCoal, 'D', Blocks.TORCH);
@@ -200,6 +200,7 @@ public abstract class ModItems {
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO2, "J", "P", 'J', jetpackEIO2, 'P', "particleCustomizer"));
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO3, "J", "P", 'J', jetpackEIO3, 'P', "particleCustomizer"));
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4, "J", "P", 'J', jetpackEIO4, 'P', "particleCustomizer"));
+			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO5, "J", "P", 'J', jetpackEIO5, 'P', "particleCustomizers"));
 
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO1Armored, "P", "J", 'J', jetpackEIO1, 'P', armorPlatingEIO1));
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO1, "J", 'J', jetpackEIO1Armored));
@@ -235,8 +236,6 @@ public abstract class ModItems {
 	{
 		SimplyJetpacks.logger.info("Registering recipes");
 
-		GameRegistry.addRecipe(new UpgradingRecipe(jetpackCreative, "J", "P", 'J', jetpackCreative, 'P', new ItemStack(particleCustomizers, 1, OreDictionary.WILDCARD_VALUE)));
-
 		if(integrateEIO)
 		{
 			GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO1, "CIC", "ISI", "IPI", 'S', leatherStrap, 'C', EIOItems.basicCapacitor, 'I', "ingotConductiveIron", 'P', "dustCoal"));
@@ -260,8 +259,6 @@ public abstract class ModItems {
 			GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO4, "J", 'J', fluxPackEIO4Armored));
 
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO5, "OAO", "PJP", "TCT", 'A', EIOItems.enderCrystal, 'J', jetpackEIO4Armored, 'O', "ingotDarkSoularium", 'C', fluxPackEIO4Armored, 'T', thrusterEIO5, 'P', reinforcedGliderWing));
-
-			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO5, "J", "P", 'J', jetpackEIO5, 'P', new ItemStack(particleCustomizers, 1, OreDictionary.WILDCARD_VALUE)));
 		}
 	}*/
 
