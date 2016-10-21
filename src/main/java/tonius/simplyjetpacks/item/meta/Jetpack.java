@@ -3,6 +3,7 @@ package tonius.simplyjetpacks.item.meta;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,6 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import tonius.simplyjetpacks.CommonProxy;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.config.Config;
@@ -129,11 +131,13 @@ public class Jetpack extends PackBase
 					{
 						user.fallDistance = 0.0F;
 
-                        /*
-						TODO: Check what this is for and how to update this
                         if (user instanceof EntityPlayerMP) {
-                            ((EntityPlayerMP) user).connection.floatingTickCount = 0;
-                        }*/
+	                        try {
+		                        CommonProxy.floatingTickCount.setInt(user, 0);
+	                        } catch (IllegalAccessException e) {
+		                        e.printStackTrace();
+	                        }
+                        }
 
                         /*
 						TODO: Reimplement explosions
