@@ -1,6 +1,5 @@
 package tonius.simplyjetpacks;
 
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -9,7 +8,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.oredict.OreDictionary;
 import tonius.simplyjetpacks.crafting.PlatingReturnHandler;
 import tonius.simplyjetpacks.handler.EntityInteractHandler;
@@ -25,17 +23,6 @@ import java.util.List;
 public class CommonProxy
 {
 	public static List<ItemStack> oresListParticles = null;
-
-	public static Field floatingTickCount = null;
-
-	public CommonProxy() {
-		try {
-			floatingTickCount = ReflectionHelper.findField(EntityPlayerSP.class, "floatingTickCount", "field_147365_f");
-		} catch (Exception e) {
-			Log.error("Unable to find field \"floatingTickCount\"");
-			e.printStackTrace();
-		}
-	}
 
 	public void registerHandlers()
 	{
