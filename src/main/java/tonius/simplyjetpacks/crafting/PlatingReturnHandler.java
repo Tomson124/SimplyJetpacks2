@@ -4,8 +4,11 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
+import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.item.meta.PackBase;
+import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
+import tonius.simplyjetpacks.item.rewrite.Jetpack;
 import tonius.simplyjetpacks.setup.ModItems;
 
 public class PlatingReturnHandler
@@ -13,13 +16,13 @@ public class PlatingReturnHandler
 	@SubscribeEvent
 	public void onItemCrafted(ItemCraftedEvent evt)
 	{
-		if(evt.player.worldObj.isRemote || !(evt.crafting.getItem() instanceof ItemPack))
+		if(evt.player.worldObj.isRemote || !(evt.crafting.getItem() instanceof ItemJetpack))
 		{
 			return;
 		}
 
-		PackBase outputPack = ((ItemPack) evt.crafting.getItem()).getPack(evt.crafting);
-		if(outputPack.isArmored)
+		Jetpack outputPack = Jetpack.getTypeFromMeta(evt.crafting.getItem().getMetadata(evt.crafting));
+		if(outputPack.getIsArmored())
 		{
 			return;
 		}
@@ -27,14 +30,15 @@ public class PlatingReturnHandler
 		for(int i = 0; i < evt.craftMatrix.getSizeInventory(); i++)
 		{
 			ItemStack input = evt.craftMatrix.getStackInSlot(i);
-			if(input == null || !(input.getItem() instanceof ItemPack))
+			if(input == null || !(input.getItem() instanceof ItemJetpack))
 			{
 				continue;
 			}
-			PackBase inputPack = ((ItemPack) input.getItem()).getPack(input);
-			if(inputPack != null && inputPack.isArmored && inputPack.platingMeta != null)
+			Jetpack inputPack = Jetpack.getTypeFromMeta(evt.crafting.getItem().getMetadata(input));
+			if(inputPack != null && inputPack.isArmored && Jetpack.PACKS_EIO.contains(inputPack))
 			{
-				EntityItem item = evt.player.entityDropItem(new ItemStack(ModItems.armorPlatings, 1, inputPack.platingMeta), 0.0F);
+
+				EntityItem item = evt.player.entityDropItem(new ItemStack(ModItems.metaItemEIO, 1, inputPack.getPlatingMeta()), 0.0F);
 				item.setNoPickupDelay();
 				break;
 			}

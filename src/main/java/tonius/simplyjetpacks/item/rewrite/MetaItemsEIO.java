@@ -53,7 +53,7 @@ public enum MetaItemsEIO {
 	}
 
 	public static @Nonnull MetaItemsEIO getTypeFromMeta(int meta) {
-		return values()[meta >= 0 && meta < values().length + MetaItems.values().length ? meta : 0];
+		return values()[meta >= 0 && meta < values().length + MetaItemsEIO.values().length ? meta : 0];
 	}
 
 	public
