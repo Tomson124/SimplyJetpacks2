@@ -123,7 +123,7 @@ public class ClientTickHandler {
 	public void onClientTick(ClientTickEvent evt) {
 		if (evt.phase == Phase.START) {
 			tickStart();
-		} else {
+		} else if (evt.phase == Phase.END) {
 			tickEnd();
 		}
 	}

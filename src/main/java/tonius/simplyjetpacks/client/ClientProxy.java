@@ -8,6 +8,7 @@ import tonius.simplyjetpacks.client.handler.KeyTracker;
 import tonius.simplyjetpacks.client.handler.deprecated.KeyHandler;
 import tonius.simplyjetpacks.client.util.ParticleUtils;
 import tonius.simplyjetpacks.handler.SyncHandler;
+import tonius.simplyjetpacks.network.message.MessageAbstract;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.math.Pos3D;
 import net.minecraft.client.Minecraft;
@@ -18,6 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 import java.util.Random;
 
@@ -89,5 +91,14 @@ public class ClientProxy extends CommonProxy {
 			return null;
 		}
 		return GameSettings.getKeyDisplayString(keyCode);
+	}
+
+	@Override
+	public <T extends MessageAbstract<T>> void handleMessage(T message, MessageContext messageContext) {
+		if (messageContext.side.isServer()) {
+			super.handleMessage(message, messageContext);
+		} else {
+			ClientProxy.mc.addScheduledTask(() -> message.onClientReceived(ClientProxy.mc, message, ClientProxy.mc.thePlayer, messageContext));
+		}
 	}
 }

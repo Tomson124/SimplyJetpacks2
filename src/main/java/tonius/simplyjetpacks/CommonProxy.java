@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -14,6 +15,7 @@ import tonius.simplyjetpacks.handler.EntityInteractHandler;
 import tonius.simplyjetpacks.handler.LivingTickHandler;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
+import tonius.simplyjetpacks.network.message.MessageAbstract;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.sound.SJSoundRegistry;
 
@@ -57,5 +59,10 @@ public class CommonProxy
 
 	public EntityPlayer getPlayer(MessageContext context) {
 		return context.getServerHandler().playerEntity;
+	}
+
+	public <T extends MessageAbstract<T>> void handleMessage(final T message, final MessageContext messageContext) {
+		WorldServer world = (WorldServer) messageContext.getServerHandler().playerEntity.worldObj;
+		world.addScheduledTask(() -> message.onServerReceived(FMLCommonHandler.instance().getMinecraftServerInstance(), message, messageContext.getServerHandler().playerEntity, messageContext));
 	}
 }
