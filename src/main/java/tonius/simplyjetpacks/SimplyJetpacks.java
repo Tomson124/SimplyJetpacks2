@@ -26,7 +26,7 @@ public class SimplyJetpacks {
 	public static final String VERSION = "@VERSION@";
 	public static final String PREFIX = MODID + ".";
 	public static final String RESOURCE_PREFIX = MODID + ":";
-	public static final String DEPENDENCIES = "required-after:Forge@[12.18.2.2099,);" /*after:EnderIO@[1.7.10-2.1.3.243,) */;
+	public static final String DEPENDENCIES = "after:EnderIO";
 	public static final String GUI_FACTORY = "tonius.simplyjetpacks.config.ConfigGuiFactory";
 
 	@Instance(MODID)
