@@ -57,6 +57,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public ItemJetpack(String name) {
 		super(ArmorMaterial.IRON, 2, EntityEquipmentSlot.CHEST);
 		this.name = name;
+		this.setUnlocalizedName(SimplyJetpacks.PREFIX + name);
 		this.setHasSubtypes(true);
 		this.setMaxDamage(0);
 		this.setCreativeTab(ModCreativeTab.instance);
@@ -78,6 +79,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 					if (item instanceof ItemJetpack) {
 						((ItemJetpack) item).addFuel(stack, ((ItemJetpack) item).getMaxEnergyStored(stack), false);
 					}
+
 					List.add(stack);
 				}
 			}
@@ -96,6 +98,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			}
 		}
 	}
+
 
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {

@@ -5,6 +5,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import tonius.simplyjetpacks.CommonProxy;
@@ -13,6 +14,7 @@ import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.item.meta.JetPlate;
 import tonius.simplyjetpacks.item.meta.PackBase;
 import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
+import tonius.simplyjetpacks.item.rewrite.Jetpack;
 import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.NBTHelper;
@@ -42,7 +44,6 @@ public class UpgradingRecipe extends ShapedOreRecipe
 		for(int i = 0; i < inventoryCrafting.getSizeInventory(); i++)
 		{
 			slotStack = inventoryCrafting.getStackInSlot(i);
-			Log.info("Particle: " + OreDictionary.containsMatch(true, CommonProxy.oresListParticles, slotStack));
 			if(slotStack != null && slotStack.getItem() != null)
 			{
 				if(slotStack.getItem() instanceof ItemJetpack)
@@ -55,7 +56,7 @@ public class UpgradingRecipe extends ShapedOreRecipe
 				}
 				else if(OreDictionary.containsMatch(false, CommonProxy.oresListParticles, slotStack))
 				{
-					particleType = ParticleType.values()[slotStack.getItemDamage() - 1];
+					particleType = ParticleType.values()[slotStack.getItemDamage()];
 				}
 				/*else if(ModItems.enderiumUpgrade != null && slotStack.getItem() == ModItems.enderiumUpgrade.getItem() && slotStack.getItemDamage() == ModItems.enderiumUpgrade.getItemDamage())
 				{
@@ -78,14 +79,14 @@ public class UpgradingRecipe extends ShapedOreRecipe
 			((ItemJetpack) this.resultItem).setParticleType(result, particleType);
 		}
 
-		if(enderiumUpgrade && this.resultItem instanceof ItemPack)
+		/*if(enderiumUpgrade && this.resultItem instanceof ItemPack)
 		{
 			PackBase pack = ((ItemPack) this.resultItem).getPack(result);
 			if(pack instanceof JetPlate)
 			{
 				((JetPlate) pack).setEnderiumUpgrade(result, true);
 			}
-		}
+		}*/
 
 		return result;
 	}

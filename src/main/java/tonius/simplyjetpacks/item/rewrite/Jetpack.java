@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -184,8 +183,8 @@ public enum Jetpack implements IStringSerializable {
 		return value.ordinal();
 	}
 
-	protected ParticleType getParticleType(ItemStack stack) {
-		if (stack.getTagCompound() != null && stack.getTagCompound().hasKey(TAG_PARTICLE)) {
+	public ParticleType getParticleType(ItemStack stack) {
+		if (stack.getTagCompound() != null && /*stack.getTagCompound().hasKey(TAG_PARTICLE)*/ NBTHelper.hasData(stack, TAG_PARTICLE)) {
 			int particle = NBTHelper.getInt(stack, TAG_PARTICLE);
 			ParticleType particleType = ParticleType.values()[particle];
 			if (particleType != null) {
@@ -214,8 +213,7 @@ public enum Jetpack implements IStringSerializable {
 			for (Jetpack pack : ALL_PACKS) {
 				pack.loadConfig(config);
 			}
-		}
-		else {
+		} else {
 			for (Jetpack pack : PACKS_SJ) {
 				pack.loadConfig(config);
 			}
@@ -229,8 +227,7 @@ public enum Jetpack implements IStringSerializable {
 				pack.writeConfigToNBT(packTag);
 				tag.setTag(pack.defaults.section.id, packTag);
 			}
-		}
-		else {
+		} else {
 			for (Jetpack pack : PACKS_SJ) {
 				NBTTagCompound packTag = new NBTTagCompound();
 				pack.writeConfigToNBT(packTag);
