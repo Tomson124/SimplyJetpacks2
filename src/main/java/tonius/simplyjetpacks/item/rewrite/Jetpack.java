@@ -27,11 +27,11 @@ public enum Jetpack implements IStringSerializable {
 	JETPACK_EIO_2("jetpackEIO2", 2, "jetpackEIO2", EnumRarity.COMMON),
 	JETPACK_EIO_3("jetpackEIO3", 3, "jetpackEIO3", EnumRarity.UNCOMMON),
 	JETPACK_EIO_4("jetpackEIO4", 4, "jetpackEIO4", EnumRarity.RARE),
-	JETPLATE_EIO_5("jetpackEIO5", 5, "jetpackEIO5", EnumRarity.EPIC, true),
 	JETPACK_EIO_1_ARMORED("jetpackEIO1Armored", 1, "jetpackEIO1", EnumRarity.COMMON, true, MetaItemsEIO.ARMOR_PLATING_EIO_1.ordinal()),
 	JETPACK_EIO_2_ARMORED("jetpackEIO2Armored", 2, "jetpackEIO2", EnumRarity.COMMON, true, MetaItemsEIO.ARMOR_PLATING_EIO_2.ordinal()),
 	JETPACK_EIO_3_ARMORED("jetpackEIO3Armored", 3, "jetpackEIO3", EnumRarity.UNCOMMON, true, MetaItemsEIO.ARMOR_PLATING_EIO_3.ordinal()),
-	JETPACK_EIO_4_ARMORED("jetpackEIO4Armored", 4, "jetpackEIO4", EnumRarity.RARE, true, MetaItemsEIO.ARMOR_PLATING_EIO_4.ordinal());
+	JETPACK_EIO_4_ARMORED("jetpackEIO4Armored", 4, "jetpackEIO4", EnumRarity.RARE, true, MetaItemsEIO.ARMOR_PLATING_EIO_4.ordinal()),
+	JETPLATE_EIO_5("jetpackEIO5", 5, "jetpackEIO5", EnumRarity.EPIC, true);
 
 	protected final PackDefaults defaults;
 	protected static final EnumSet<Jetpack> ALL_PACKS = EnumSet.allOf(Jetpack.class);

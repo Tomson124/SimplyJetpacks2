@@ -54,6 +54,9 @@ public class UpgradingRecipe extends ShapedOreRecipe
 				{
 					addedEnergy += ((IEnergyContainerItem) slotStack.getItem()).getEnergyStored(slotStack);
 				}
+				if (slotStack.getItem() instanceof ItemJetpack && (Jetpack.values()[slotStack.getItemDamage()].isArmored || !Jetpack.values()[slotStack.getItemDamage()].isArmored) && !OreDictionary.containsMatch(false, CommonProxy.oresListParticles, slotStack)) {
+					particleType = Jetpack.values()[slotStack.getItemDamage()].getParticleType(slotStack);
+				}
 				else if(OreDictionary.containsMatch(false, CommonProxy.oresListParticles, slotStack))
 				{
 					particleType = ParticleType.values()[slotStack.getItemDamage()];
