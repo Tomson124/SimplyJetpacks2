@@ -462,9 +462,9 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			if (item.getEnergyStored(stack) > 0 && (!this.isHoverModeOn(stack) || !this.isOn(stack))) {
 				if (user.posY < -5) {
 					this.doEHover(stack, user);
-				} else if (user instanceof EntityPlayer) {
-					if (!((EntityPlayer) user).capabilities.isCreativeMode && user.fallDistance - 1.2F >= user.getHealth()) {
-						for (int j = 0; i <= 16; j++) {
+				} else {
+					if (!user.capabilities.isCreativeMode && user.fallDistance - 1.2F >= user.getHealth()) {
+						for (int j = 0; j <= 16; j++) {
 							int x = Math.round((float) user.posX - 0.5F);
 							int y = Math.round((float) user.posY) - j;
 							int z = Math.round((float) user.posZ - 0.5F);
