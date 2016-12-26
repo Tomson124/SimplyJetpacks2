@@ -1,22 +1,30 @@
 package tonius.simplyjetpacks;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.oredict.OreDictionary;
 import tonius.simplyjetpacks.crafting.PlatingReturnHandler;
 import tonius.simplyjetpacks.handler.EntityInteractHandler;
 import tonius.simplyjetpacks.handler.LivingTickHandler;
 import tonius.simplyjetpacks.handler.SyncHandler;
-import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.sound.SJSoundRegistry;
 
+import java.util.List;
+
 public class CommonProxy
 {
+	public static List<ItemStack> oresListParticles = null;
+
 	public void registerHandlers()
 	{
 		SimplyJetpacks.logger.info("Registering handlers");
@@ -44,9 +52,22 @@ public class CommonProxy
 	public void init() {
 		SimplyJetpacks.logger.info("Registering Sounds...");
 		SJSoundRegistry.init();
+
+		oresListParticles = OreDictionary.getOres("particleCustomizer");
 	}
 
 	public EntityPlayer getPlayer(MessageContext context) {
 		return context.getServerHandler().playerEntity;
+	}
+
+	public void handlePacket(Runnable runnable, EntityPlayer player)
+	{
+		if(player instanceof EntityPlayerMP)
+		{
+			((WorldServer)player.worldObj).addScheduledTask(runnable);
+		}
+		else {
+			Minecraft.getMinecraft().addScheduledTask(runnable);
+		}
 	}
 }

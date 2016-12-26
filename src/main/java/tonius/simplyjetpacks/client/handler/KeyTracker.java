@@ -1,4 +1,4 @@
-package tonius.simplyjetpacks.client.handler.rewrite;
+package tonius.simplyjetpacks.client.handler;
 
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
@@ -75,6 +75,12 @@ public class KeyTracker {
 
 				jetpack.toggleState(jetpack.isHoverModeOn(chestStack), chestStack, "hoverMode", jetpack.TAG_HOVERMODE_ON, player, true);
 				PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.HOVER));
+			}
+			if (emergencyHoverKey.isPressed()) {
+				ItemJetpack jetpack = (ItemJetpack) chestItem;
+
+				jetpack.toggleState(jetpack.isEHoverModeOn(chestStack), chestStack, "emergencyHoverMode", jetpack.TAG_EHOVER_ON, player, true);
+				PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.E_HOVER));
 			}
 		}
 	}

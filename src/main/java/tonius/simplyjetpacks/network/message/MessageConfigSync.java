@@ -1,6 +1,7 @@
 package tonius.simplyjetpacks.network.message;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -31,9 +32,22 @@ public class MessageConfigSync implements IMessage, IMessageHandler<MessageConfi
 	@Override
 	public IMessage onMessage(MessageConfigSync msg, MessageContext ctx)
 	{
-		//PackBase.readAllConfigsFromNBT(msg.recv);
+		/*//PackBase.readAllConfigsFromNBT(msg.recv);
+		Jetpack.readAllConfigsFromNBT(msg.recv);
+		SimplyJetpacks.logger.info("Received server configuration");*/
+
+		Minecraft.getMinecraft().addScheduledTask(new Runnable() {
+			@Override
+			public void run() {
+				handleMessage(msg, ctx);
+			}
+		});
+
+		return null;
+	}
+
+	public void handleMessage(MessageConfigSync msg, MessageContext ctx) {
 		Jetpack.readAllConfigsFromNBT(msg.recv);
 		SimplyJetpacks.logger.info("Received server configuration");
-		return null;
 	}
 }

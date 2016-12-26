@@ -11,6 +11,9 @@ import net.minecraftforge.fluids.FluidRegistry;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import static net.minecraft.util.text.translation.I18n.translateToLocal;
+import static net.minecraft.util.text.translation.I18n.translateToLocalFormatted;
+
 public abstract class SJStringHelper {
 	private static final DecimalFormat formatter = new DecimalFormat("###,###");
 
@@ -19,7 +22,7 @@ public abstract class SJStringHelper {
 	}
 
 	public static String getTierText(int tier) {
-		return String.format(localize("tooltip.tier"), tier);
+		return localize("tooltip.tier", tier);
 	}
 
 	public static String getFuelText(FuelType fuelType, int amount, int max, boolean infinite) {
@@ -125,7 +128,7 @@ public abstract class SJStringHelper {
 	}
 
 	public static String getShiftText() {
-		return TextFormatting.GRAY + String.format(localize("tooltip.holdShift"), TextFormatting.YELLOW.toString() + TextFormatting.ITALIC + localize("tooltip.holdShift.shift") + TextFormatting.RESET + TextFormatting.GRAY);
+		return TextFormatting.GRAY + localize("tooltip.holdShift", TextFormatting.YELLOW.toString() + TextFormatting.ITALIC + localize("tooltip.holdShift.shift") + TextFormatting.RESET + TextFormatting.GRAY);
 	}
 
 	public static boolean canShowDetails() {
@@ -138,15 +141,21 @@ public abstract class SJStringHelper {
 
 	public static String localize(String unlocalized, boolean prefix, Object... args) {
 		String toLocalize = (prefix ? SimplyJetpacks.PREFIX : "") + unlocalized;
-
-		return I18n.format(toLocalize, args);
+		if(args != null && args.length > 0)
+		{
+			return translateToLocalFormatted(toLocalize, args);
+		}
+		else
+		{
+			return translateToLocal(toLocalize);
+		}
 	}
 
 	public static void addDescriptionLines(List<String> list, String base, String color) {
 		int i = 1;
 		while (true) {
 			String unlocalized = SimplyJetpacks.PREFIX + "tooltip." + base + ".description." + i;
-			String localized = I18n.format(unlocalized);
+			String localized = translateToLocal(unlocalized);
 			if (unlocalized.equals(localized)) {
 				break;
 			}

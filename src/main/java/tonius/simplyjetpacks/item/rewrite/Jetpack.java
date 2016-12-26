@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -27,12 +26,17 @@ public enum Jetpack implements IStringSerializable {
 	JETPACK_EIO_1("jetpackEIO1", 1, "jetpackEIO1", EnumRarity.COMMON),
 	JETPACK_EIO_2("jetpackEIO2", 2, "jetpackEIO2", EnumRarity.COMMON),
 	JETPACK_EIO_3("jetpackEIO3", 3, "jetpackEIO3", EnumRarity.UNCOMMON),
-	JETPACK_EIO_4("jetpackEIO4", 4, "jetpackEIO4", EnumRarity.RARE);
+	JETPACK_EIO_4("jetpackEIO4", 4, "jetpackEIO4", EnumRarity.RARE),
+	JETPACK_EIO_1_ARMORED("jetpackEIO1Armored", 1, "jetpackEIO1", EnumRarity.COMMON, true, MetaItemsEIO.ARMOR_PLATING_EIO_1.ordinal()),
+	JETPACK_EIO_2_ARMORED("jetpackEIO2Armored", 2, "jetpackEIO2", EnumRarity.COMMON, true, MetaItemsEIO.ARMOR_PLATING_EIO_2.ordinal()),
+	JETPACK_EIO_3_ARMORED("jetpackEIO3Armored", 3, "jetpackEIO3", EnumRarity.UNCOMMON, true, MetaItemsEIO.ARMOR_PLATING_EIO_3.ordinal()),
+	JETPACK_EIO_4_ARMORED("jetpackEIO4Armored", 4, "jetpackEIO4", EnumRarity.RARE, true, MetaItemsEIO.ARMOR_PLATING_EIO_4.ordinal()),
+	JETPLATE_EIO_5("jetpackEIO5", 5, "jetpackEIO5", EnumRarity.EPIC, true);
 
 	protected final PackDefaults defaults;
 	protected static final EnumSet<Jetpack> ALL_PACKS = EnumSet.allOf(Jetpack.class);
 	protected static final EnumSet<Jetpack> PACKS_SJ = EnumSet.of(CREATIVE_JETPACK, POTATO_JETPACK);
-	protected static final EnumSet<Jetpack> PACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPACK_EIO_4);
+	public static final EnumSet<Jetpack> PACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPACK_EIO_4_ARMORED);
 
 	protected static final String TAG_PARTICLE = "JetpackParticleType";
 	public ParticleType defaultParticleType = ParticleType.DEFAULT;
@@ -51,6 +55,9 @@ public enum Jetpack implements IStringSerializable {
 	public int armorFuelPerHit;
 	public int armorReduction;
 	public int fuelUsage;
+
+	public boolean isArmored;
+	public int platingMeta;
 
 	public boolean usesFuel;
 	public EnumRarity rarity;
@@ -72,6 +79,17 @@ public enum Jetpack implements IStringSerializable {
 		this(baseName, tier, defaultConfigKey, rarity);
 		this.defaultParticleType = defaultParticleType;
 		this.usesFuel = usesFuel;
+	}
+
+	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, boolean isArmored) {
+		this(baseName, tier, defaultConfigKey, rarity);
+		this.isArmored = isArmored;
+	}
+
+	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, boolean isArmored, int platingMeta) {
+		this(baseName, tier, defaultConfigKey, rarity);
+		this.isArmored = isArmored;
+		this.platingMeta = platingMeta;
 	}
 
 	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity) {
@@ -147,6 +165,14 @@ public enum Jetpack implements IStringSerializable {
 		return rarity;
 	}
 
+	public boolean getIsArmored() {
+		return isArmored;
+	}
+
+	public int getPlatingMeta() {
+		return platingMeta;
+	}
+
 	public static
 	@Nonnull
 	Jetpack getTypeFromMeta(int meta) {
@@ -157,8 +183,8 @@ public enum Jetpack implements IStringSerializable {
 		return value.ordinal();
 	}
 
-	protected ParticleType getParticleType(ItemStack stack) {
-		if (stack.getTagCompound() != null && stack.getTagCompound().hasKey(TAG_PARTICLE)) {
+	public ParticleType getParticleType(ItemStack stack) {
+		if (stack.getTagCompound() != null && /*stack.getTagCompound().hasKey(TAG_PARTICLE)*/ NBTHelper.hasData(stack, TAG_PARTICLE)) {
 			int particle = NBTHelper.getInt(stack, TAG_PARTICLE);
 			ParticleType particleType = ParticleType.values()[particle];
 			if (particleType != null) {
@@ -187,8 +213,7 @@ public enum Jetpack implements IStringSerializable {
 			for (Jetpack pack : ALL_PACKS) {
 				pack.loadConfig(config);
 			}
-		}
-		else {
+		} else {
 			for (Jetpack pack : PACKS_SJ) {
 				pack.loadConfig(config);
 			}
@@ -202,8 +227,7 @@ public enum Jetpack implements IStringSerializable {
 				pack.writeConfigToNBT(packTag);
 				tag.setTag(pack.defaults.section.id, packTag);
 			}
-		}
-		else {
+		} else {
 			for (Jetpack pack : PACKS_SJ) {
 				NBTTagCompound packTag = new NBTTagCompound();
 				pack.writeConfigToNBT(packTag);

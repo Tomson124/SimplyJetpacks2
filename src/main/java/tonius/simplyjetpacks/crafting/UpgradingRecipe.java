@@ -5,11 +5,16 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import tonius.simplyjetpacks.CommonProxy;
+import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.item.ItemPack;
-import tonius.simplyjetpacks.item.ItemPack.ItemJetpack;
 import tonius.simplyjetpacks.item.meta.JetPlate;
 import tonius.simplyjetpacks.item.meta.PackBase;
+import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
+import tonius.simplyjetpacks.item.rewrite.Jetpack;
 import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.NBTHelper;
@@ -41,7 +46,7 @@ public class UpgradingRecipe extends ShapedOreRecipe
 			slotStack = inventoryCrafting.getStackInSlot(i);
 			if(slotStack != null && slotStack.getItem() != null)
 			{
-				if(slotStack.getItem() instanceof ItemPack)
+				if(slotStack.getItem() instanceof ItemJetpack)
 				{
 					tags = (NBTTagCompound) NBTHelper.getDataMap(slotStack).copy();
 				}
@@ -49,14 +54,17 @@ public class UpgradingRecipe extends ShapedOreRecipe
 				{
 					addedEnergy += ((IEnergyContainerItem) slotStack.getItem()).getEnergyStored(slotStack);
 				}
-				else if(slotStack.getItem() == ModItems.particleCustomizers)
+				if (slotStack.getItem() instanceof ItemJetpack && (Jetpack.values()[slotStack.getItemDamage()].isArmored || !Jetpack.values()[slotStack.getItemDamage()].isArmored) && !OreDictionary.containsMatch(false, CommonProxy.oresListParticles, slotStack)) {
+					particleType = Jetpack.values()[slotStack.getItemDamage()].getParticleType(slotStack);
+				}
+				else if(OreDictionary.containsMatch(false, CommonProxy.oresListParticles, slotStack))
 				{
 					particleType = ParticleType.values()[slotStack.getItemDamage()];
 				}
-				else if(ModItems.enderiumUpgrade != null && slotStack.getItem() == ModItems.enderiumUpgrade.getItem() && slotStack.getItemDamage() == ModItems.enderiumUpgrade.getItemDamage())
+				/*else if(ModItems.enderiumUpgrade != null && slotStack.getItem() == ModItems.enderiumUpgrade.getItem() && slotStack.getItemDamage() == ModItems.enderiumUpgrade.getItemDamage())
 				{
-					enderiumUpgrade = true;
-				}
+					enderiumUpgrade = true; //TODO: Jetplates
+				}*/
 			}
 		}
 
@@ -71,17 +79,17 @@ public class UpgradingRecipe extends ShapedOreRecipe
 
 		if(this.resultItem instanceof ItemJetpack && particleType != null)
 		{
-			((ItemJetpack) this.resultItem).getPack(result).setParticleType(result, particleType);
+			((ItemJetpack) this.resultItem).setParticleType(result, particleType);
 		}
 
-		if(enderiumUpgrade && this.resultItem instanceof ItemPack)
+		/*if(enderiumUpgrade && this.resultItem instanceof ItemPack)
 		{
 			PackBase pack = ((ItemPack) this.resultItem).getPack(result);
 			if(pack instanceof JetPlate)
 			{
 				((JetPlate) pack).setEnderiumUpgrade(result, true);
 			}
-		}
+		}*/
 
 		return result;
 	}

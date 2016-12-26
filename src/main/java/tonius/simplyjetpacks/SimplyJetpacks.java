@@ -26,7 +26,7 @@ public class SimplyJetpacks {
 	public static final String VERSION = "@VERSION@";
 	public static final String PREFIX = MODID + ".";
 	public static final String RESOURCE_PREFIX = MODID + ":";
-	public static final String DEPENDENCIES = "required-after:Forge@[12.17.0.1976,);" /*after:EnderIO@[1.7.10-2.1.3.243,) */;
+	public static final String DEPENDENCIES = "after:EnderIO";
 	public static final String GUI_FACTORY = "tonius.simplyjetpacks.config.ConfigGuiFactory";
 
 	@Instance(MODID)
@@ -38,9 +38,9 @@ public class SimplyJetpacks {
 
 	@EventHandler
 	public static void preInit(FMLPreInitializationEvent evt) {
-		logger.info("Starting Simply Jetpacks");
+		logger.info("Starting Simply Jetpacks 2");
 
-		Packs.preInit();
+		//Packs.preInit();
 		Config.preInit(evt);
 		ModItems.preInit();
 	}

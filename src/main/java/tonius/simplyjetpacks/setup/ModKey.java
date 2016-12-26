@@ -1,5 +1,6 @@
 package tonius.simplyjetpacks.setup;
 
+@Deprecated
 public enum ModKey
 {
 	TOGGLE_PRIMARY("toggle.primary", false, 176, 0, 176, 20, 176, 40),

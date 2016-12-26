@@ -1,4 +1,4 @@
-package tonius.simplyjetpacks.client.handler;
+package tonius.simplyjetpacks.client.handler.deprecated;
 
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -11,6 +11,7 @@ import tonius.simplyjetpacks.network.PacketHandler;
 import tonius.simplyjetpacks.network.message.MessageModKey;
 import tonius.simplyjetpacks.setup.ModKey;
 
+@Deprecated
 public class SJKeyBinding extends KeyBinding
 {
 	private ModKey keyType;

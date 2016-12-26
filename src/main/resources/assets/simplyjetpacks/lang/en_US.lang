@@ -6,11 +6,11 @@ item.simplyjetpacks.jetpackEIO1.name=Conductive Iron Jetpack
 item.simplyjetpacks.jetpackEIO2.name=Electrical Steel Jetpack
 item.simplyjetpacks.jetpackEIO3.name=Energetic Jetpack
 item.simplyjetpacks.jetpackEIO4.name=Vibrant Jetpack
-item.simplyjetpacks.jetpack.5.eio.name=Dark Soularium JetPlate
-item.simplyjetpacks.jetpack.1.armored.eio.name=Conductive Iron Jetpack (Armored)
-item.simplyjetpacks.jetpack.2.armored.eio.name=Electrical Steel Jetpack (Armored)
-item.simplyjetpacks.jetpack.3.armored.eio.name=Energetic Jetpack (Armored)
-item.simplyjetpacks.jetpack.4.armored.eio.name=Vibrant Jetpack (Armored)
+item.simplyjetpacks.jetpackEIO5.name=Dark Soularium JetPlate
+item.simplyjetpacks.jetpackEIO1Armored.name=Conductive Iron Jetpack (Armored)
+item.simplyjetpacks.jetpackEIO2Armored.name=Electrical Steel Jetpack (Armored)
+item.simplyjetpacks.jetpackEIO3Armored.name=Energetic Jetpack (Armored)
+item.simplyjetpacks.jetpackEIO4Armored.name=Vibrant Jetpack (Armored)
 
 item.simplyjetpacks.fluxpack.1.eio.name=Basic Capacitor Pack
 item.simplyjetpacks.fluxpack.2.eio.name=Double-Layer Capacitor Pack
@@ -63,8 +63,8 @@ simplyjetpacks.chat.itemJetpack.hoverMode.on=Hover Mode
 
 simplyjetpacks.chat.jetpack.on=Jetpack engine
 simplyjetpacks.chat.jetpack.hoverMode.on=Hover Mode
-simplyjetpacks.chat.jetpack.emergencyHoverMode.on=Emergency Hover Mode
-simplyjetpacks.chat.jetpack.emergencyHoverMode.msg=User is about to die! Activating hover mode
+simplyjetpacks.chat.itemJetpack.emergencyHoverMode.on=Emergency Hover Mode
+simplyjetpacks.chat.jetpack.emergencyHoverMode.msg=User is about to die! Activating Hover Mode
 simplyjetpacks.chat.jetpack.jetplate.charger.on=JetPlate charger
 simplyjetpacks.chat.fluxpack.on=Flux Pack charger
 
@@ -94,7 +94,7 @@ simplyjetpacks.tooltip.particles.0=Default
 simplyjetpacks.tooltip.particles.1=None
 simplyjetpacks.tooltip.particles.2=Smoke Only
 simplyjetpacks.tooltip.particles.3=Rainbow Smoke
-simplyjetpacks.tooltip.packGUIKey=Press %s while wearing to open GUI.
+
 simplyjetpacks.tooltip.jetpack.description.1=Allows flight when active.
 simplyjetpacks.tooltip.jetpack.description.2=Must be worn as a chestplate.
 simplyjetpacks.tooltip.jetpackPotato.warning=Clever! But not survivable.

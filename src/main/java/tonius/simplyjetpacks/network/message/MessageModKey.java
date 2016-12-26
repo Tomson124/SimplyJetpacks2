@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import tonius.simplyjetpacks.item.IControllableArmor;
 import tonius.simplyjetpacks.setup.ModKey;
 
+@Deprecated
 public class MessageModKey implements IMessage, IMessageHandler<MessageModKey, IMessage>
 {
 	public int keyId;
