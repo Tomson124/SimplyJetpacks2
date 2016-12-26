@@ -1,7 +1,10 @@
 package tonius.simplyjetpacks.network.message;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -56,13 +59,30 @@ public class MessageKeyboardSync implements IMessage, IMessageHandler<MessageKey
 	}
 
 	@Override
-	public IMessage onMessage(MessageKeyboardSync msg, MessageContext ctx)
-	{
+	public IMessage onMessage(MessageKeyboardSync msg, MessageContext ctx) {
+		EntityPlayerMP entityPlayerMP = ctx.getServerHandler().playerEntity;
+		WorldServer worldServer = entityPlayerMP.getServerWorld();
+
+		/*if(entityPlayer != null)
+		{
+			SyncHandler.processKeyUpdate(entityPlayer, msg.flyState, msg.descendState, msg.forwardState, msg.backwardState, msg.leftState, msg.rightState);
+		}*/
+
+		worldServer.addScheduledTask(new Runnable() {
+			@Override
+			public void run() {
+				handleMessage(msg, ctx);
+			}
+		});
+
+		return null;
+	}
+
+	public void handleMessage(MessageKeyboardSync msg, MessageContext ctx) {
 		EntityPlayer entityPlayer = ctx.getServerHandler().playerEntity;
 		if(entityPlayer != null)
 		{
 			SyncHandler.processKeyUpdate(entityPlayer, msg.flyState, msg.descendState, msg.forwardState, msg.backwardState, msg.leftState, msg.rightState);
 		}
-		return null;
 	}
 }

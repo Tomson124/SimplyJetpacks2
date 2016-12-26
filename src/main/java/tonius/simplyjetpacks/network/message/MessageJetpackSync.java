@@ -1,6 +1,7 @@
 package tonius.simplyjetpacks.network.message;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.fml.client.FMLClientHandler;
@@ -43,7 +44,7 @@ public class MessageJetpackSync implements IMessage, IMessageHandler<MessageJetp
 	public IMessage onMessage(MessageJetpackSync msg, MessageContext ctx)
 	{
 
-				Entity entity = FMLClientHandler.instance().getClient().theWorld.getEntityByID(msg.entityId);
+				/*Entity entity = FMLClientHandler.instance().getClient().theWorld.getEntityByID(msg.entityId);
 				if(entity != null && entity instanceof EntityLivingBase && entity != FMLClientHandler.instance().getClient().thePlayer)
 				{
 					if(msg.particleId >= 0)
@@ -55,8 +56,31 @@ public class MessageJetpackSync implements IMessage, IMessageHandler<MessageJetp
 					{
 						SyncHandler.processJetpackUpdate(msg.entityId, null);
 					}
-				}
+				}*/
+		Minecraft.getMinecraft().addScheduledTask(new Runnable() {
+			@Override
+			public void run() {
+				handleMessage(msg, ctx);
+			}
+		});
 
 		return null;
+	}
+
+	public void handleMessage(MessageJetpackSync msg, MessageContext ctx) {
+
+		Entity entity = FMLClientHandler.instance().getClient().theWorld.getEntityByID(msg.entityId);
+		if(entity != null && entity instanceof EntityLivingBase && entity != FMLClientHandler.instance().getClient().thePlayer)
+		{
+			if(msg.particleId >= 0)
+			{
+				ParticleType particle = ParticleType.values()[msg.particleId];
+				SyncHandler.processJetpackUpdate(msg.entityId, particle);
+			}
+			else
+			{
+				SyncHandler.processJetpackUpdate(msg.entityId, null);
+			}
+		}
 	}
 }
