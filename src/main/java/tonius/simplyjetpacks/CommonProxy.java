@@ -59,15 +59,4 @@ public class CommonProxy
 	public EntityPlayer getPlayer(MessageContext context) {
 		return context.getServerHandler().playerEntity;
 	}
-
-	public void handlePacket(Runnable runnable, EntityPlayer player)
-	{
-		if(player instanceof EntityPlayerMP)
-		{
-			((WorldServer)player.worldObj).addScheduledTask(runnable);
-		}
-		else {
-			Minecraft.getMinecraft().addScheduledTask(runnable);
-		}
-	}
 }
