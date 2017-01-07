@@ -15,8 +15,7 @@ import java.util.Locale;
 
 public enum Fluxpack implements IStringSerializable {
 
-	CREATIVE_FLUXPACK("fluxPackCreative", "fluxPackCreative", 6, EnumRarity.EPIC, false),
-	TEST_FLUX("testFlux", "testFlux", 1, EnumRarity.COMMON);
+	CREATIVE_FLUXPACK("fluxPackCreative", "fluxPackCreative", 6, EnumRarity.EPIC, false);
 
 	public final @Nonnull String baseName;
 	public final @Nonnull String unlocalisedName;

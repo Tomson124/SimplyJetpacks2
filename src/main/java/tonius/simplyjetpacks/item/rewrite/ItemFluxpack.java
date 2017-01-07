@@ -26,6 +26,7 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
@@ -76,8 +77,10 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 					List.add(stack);
 				}
 			}
-		} /*else {
-			for (Jetpack pack : Jetpack.PACKS_SJ) {
+		}
+		/*else {
+			Fluxpack pack = Fluxpack.CREATIVE_FLUXPACK;
+
 				ItemStack stack;
 				if (pack.usesFuel) {
 					List.add(new ItemStack(item, 1, pack.ordinal()));
@@ -88,7 +91,6 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 					}
 					List.add(stack);
 				}
-			}
 		}*/
 	}
 
@@ -100,6 +102,17 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
 		if(this.isOn(stack)) {
 			this.chargeInventory(player, stack, this);
+		}
+	}
+
+	public void toggleState(boolean on, ItemStack stack, String type, String tag, EntityPlayer player, boolean showInChat) {
+		NBTHelper.setBoolean(stack, tag, !on);
+
+		if (player != null && showInChat) {
+			String color = on ? TextFormatting.RED.toString() : TextFormatting.GREEN.toString();
+			type = type != null && !type.equals("") ? "chat." + this.name + "." + type + ".on" : "chat." + this.name + ".on";
+			String msg = SJStringHelper.localize(type) + " " + color + SJStringHelper.localize("chat." + (on ? "disabled" : "enabled"));
+			player.addChatMessage(new TextComponentString(msg));
 		}
 	}
 
@@ -230,16 +243,6 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	public int getMaxFuelStored(ItemStack stack) {
 		return this.getMaxEnergyStored(stack);
-	}
-
-	protected int getFuelUsage(ItemStack stack) {
-		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
-		//if(ModEnchantments.fuelEffeciency == null) {
-		return Fluxpack.values()[i].getFuelUsage();
-		//}
-
-		//int fuelEfficiencyLevel = tonius.simplyjetpacks.util.math.MathHelper.clampI(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
-		//return (int) Math.round(this.fuelUsage * (20 - fuelEfficiencyLevel) / 20.0D);
 	}
 
 	public int addFuel(ItemStack stack, int maxAdd, boolean simulate) {

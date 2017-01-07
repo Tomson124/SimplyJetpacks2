@@ -3,6 +3,8 @@ package tonius.simplyjetpacks.client.handler;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.handler.SyncHandler;
+import tonius.simplyjetpacks.item.ItemPack;
+import tonius.simplyjetpacks.item.rewrite.ItemFluxpack;
 import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
 import tonius.simplyjetpacks.network.PacketHandler;
 import tonius.simplyjetpacks.network.message.MessageKeyBind;
@@ -81,6 +83,15 @@ public class KeyTracker {
 
 				jetpack.toggleState(jetpack.isEHoverModeOn(chestStack), chestStack, "emergencyHoverMode", jetpack.TAG_EHOVER_ON, player, true);
 				PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.E_HOVER));
+			}
+		}
+
+		if (chestItem instanceof ItemFluxpack) {
+			if (engineKey.isPressed()) {
+				ItemFluxpack fluxpack = (ItemFluxpack) chestItem;
+
+				fluxpack.toggleState(fluxpack.isOn(chestStack), chestStack, null, fluxpack.TAG_ON, player, true);
+				PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.ENGINE));
 			}
 		}
 	}
