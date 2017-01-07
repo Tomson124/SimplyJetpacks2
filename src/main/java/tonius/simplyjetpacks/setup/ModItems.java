@@ -20,6 +20,8 @@ import net.minecraftforge.oredict.OreDictionary;
 public abstract class ModItems {
 	public static ItemJetpack itemJetpack;
 
+	public static ItemFluxpack itemFluxPack;
+
 	public static ItemMeta metaItem;
 	public static ItemMetaEIO metaItemEIO;
 
@@ -98,6 +100,10 @@ public abstract class ModItems {
 			((ItemJetpack) item).registerItemModel();
 		}
 
+		if (item instanceof ItemFluxpack) {
+			((ItemFluxpack) item).registerItemModel();
+		}
+
 		if (item instanceof ItemMeta) {
 			((ItemMeta) item).registerItemModel();
 		}
@@ -124,7 +130,11 @@ public abstract class ModItems {
 		//Meta Items
 		metaItem = register(new ItemMeta("metaItem"));
 
+		//FluxPacks
+		itemFluxPack = register(new ItemFluxpack("itemFluxpack"));
+
 		jetpackCreative = Jetpack.CREATIVE_JETPACK.getStackJetpack();
+		fluxPackCreative = Fluxpack.CREATIVE_FLUXPACK.getStackFluxpack();
 
 		particleDefault = MetaItems.PARTICLE_DEFAULT.getStackMetaItem();
 		particleSmoke = MetaItems.PARTICLE_SMOKE.getStackMetaItem();
