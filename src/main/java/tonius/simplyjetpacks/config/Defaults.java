@@ -12,6 +12,7 @@ public abstract class Defaults
 
 	// integration
 	public static final boolean enableIntegrationEIO = ModType.ENDER_IO.loaded;
+	public static final boolean enableIntegrationVanilla = true;
 
 	// controls
 	public static final boolean customControls = false;

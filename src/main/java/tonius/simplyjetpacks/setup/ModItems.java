@@ -22,6 +22,7 @@ public abstract class ModItems {
 
 	public static ItemMeta metaItem;
 	public static ItemMetaEIO metaItemEIO;
+	public static ItemMetaVanilla metaItemVanilla;
 
 	public static ItemJetpack jetpacksEIO;
 	public static ItemFluxPack fluxPacksEIO;
@@ -47,6 +48,10 @@ public abstract class ModItems {
 	public static ItemStack thrusterEIO3;
 	public static ItemStack thrusterEIO4;
 	public static ItemStack thrusterEIO5;
+	
+	public static ItemStack thrusterVanilla1;
+	public static ItemStack thrusterVanilla2;
+	public static ItemStack thrusterVanilla3;
 
 	public static ItemStack armorPlatingEIO1;
 	public static ItemStack armorPlatingEIO2;
@@ -70,14 +75,17 @@ public abstract class ModItems {
 	public static ItemStack fluxPackEIO3Armored;
 	public static ItemStack fluxPackEIO4;
 	public static ItemStack fluxPackEIO4Armored;
+	
+	public static ItemStack jetpackVanilla1;
+	public static ItemStack jetpackVanilla2;
+	public static ItemStack jetpackVanilla3;
 
 	public static ItemStack enderiumUpgrade;
 
-	public static boolean integrateEIO = false;
+	public static boolean integrateEIO = ModType.ENDER_IO.loaded && Config.enableIntegrationEIO;
+	public static boolean integrateVanilla = Config.enableIntegrationVanilla;
 
 	public static void preInit() {
-		integrateEIO = ModType.ENDER_IO.loaded && Config.enableIntegrationEIO;
-
 		registerItems();
 		registerOreDicts();
 	}
@@ -100,6 +108,14 @@ public abstract class ModItems {
 
 		if (item instanceof ItemMeta) {
 			((ItemMeta) item).registerItemModel();
+		}
+		
+		if (item instanceof ItemMetaEIO) {
+			((ItemMetaEIO) item).registerItemModel();
+		}
+		
+		if (item instanceof ItemMetaVanilla) {
+			((ItemMetaVanilla) item).registerItemModel();
 		}
 
 		return item;
@@ -163,6 +179,18 @@ public abstract class ModItems {
 			jetpackEIO3Armored = Jetpack.JETPACK_EIO_3_ARMORED.getStackJetpack();
 			jetpackEIO4Armored = Jetpack.JETPACK_EIO_4_ARMORED.getStackJetpack();
 		}
+		
+		if (integrateVanilla) {
+			metaItemVanilla = register(new ItemMetaVanilla("metaItemVanilla"));
+			
+			jetpackVanilla1 = Jetpack.JETPACK_VANILLA_1.getStackJetpack();
+			jetpackVanilla2 = Jetpack.JETPACK_VANILLA_2.getStackJetpack();
+			jetpackVanilla3 = Jetpack.JETPACK_VANILLA_3.getStackJetpack();
+			
+			thrusterVanilla1 = MetaItemsVanilla.THRUSTER_VANILLA_1.getStackMetaItemVanilla();
+			thrusterVanilla2 = MetaItemsVanilla.THRUSTER_VANILLA_2.getStackMetaItemVanilla();
+			thrusterVanilla3 = MetaItemsVanilla.THRUSTER_VANILLA_3.getStackMetaItemVanilla();
+		}
 	}
 
 	private static void registerRecipes() {
@@ -211,6 +239,21 @@ public abstract class ModItems {
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO3, "J", 'J', jetpackEIO3Armored));
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4Armored, "P", "J", 'J', jetpackEIO4, 'P', armorPlatingEIO4));
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4, "J", 'J', jetpackEIO4Armored));
+		}
+		
+		if (integrateVanilla) {
+			ItemHelper.addShapedOreRecipe(thrusterVanilla1, " I ", "IFI", "IBI", 'I', Items.IRON_INGOT, 'F', Blocks.FURNACE, 'B', Items.BLAZE_POWDER);
+			ItemHelper.addShapedOreRecipe(thrusterVanilla2, " I ", "IFI", "IBI", 'I', Items.GOLD_INGOT, 'F', Blocks.FURNACE, 'B', Items.BLAZE_POWDER);
+			ItemHelper.addShapedOreRecipe(thrusterVanilla3, " I ", "IFI", "IBI", 'I', Items.DIAMOND, 'F', Blocks.FURNACE, 'B', Items.BLAZE_POWDER);
+			
+			//Jetpacks
+			GameRegistry.addRecipe(new UpgradingRecipe(jetpackVanilla1, "IBI", "IJI", "T T", 'I', Items.IRON_INGOT, 'B', Items.COMPARATOR, 'T', thrusterVanilla1, 'J', leatherStrap));
+			GameRegistry.addRecipe(new UpgradingRecipe(jetpackVanilla2, "IBI", "IJI", "T T", 'I', Items.GOLD_INGOT, 'B', Blocks.REDSTONE_BLOCK, 'T', thrusterVanilla2, 'J', jetpackVanilla1));
+			GameRegistry.addRecipe(new UpgradingRecipe(jetpackVanilla3, "IBI", "IJI", "T T", 'I', Items.DIAMOND, 'B', Blocks.REDSTONE_BLOCK, 'T', thrusterVanilla3, 'J', jetpackVanilla2));
+
+			for (Jetpack jetpack : Jetpack.PACKS_VANILLA) {
+				GameRegistry.addRecipe(new UpgradingRecipe(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particleCustomizer"));
+			}
 		}
 	}
 

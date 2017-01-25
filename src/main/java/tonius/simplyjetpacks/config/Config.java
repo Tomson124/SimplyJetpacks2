@@ -38,6 +38,7 @@ public class Config
 
 	// integration
 	public static boolean enableIntegrationEIO = Defaults.enableIntegrationEIO;
+	public static boolean enableIntegrationVanilla = Defaults.enableIntegrationVanilla;
 
 	// controls
 	public static boolean customControls = Defaults.customControls;
@@ -119,6 +120,7 @@ public class Config
 		addRAItemsIfNotInstalled = config.get(sectionItem.name, "Add Redstone Arsenal items if not installed", Defaults.addRAItemsIfNotInstalled, "When enabled, Simply Jetpacks will register some crafting components from Redstone Arsenal to make the Flux-Infused JetPlate craftable if Redstone Arsenal is not installed.").setRequiresMcRestart(true).getBoolean(Defaults.addRAItemsIfNotInstalled);
 
 		enableIntegrationEIO = config.get(sectionIntegration.name, "Ender IO integration", Defaults.enableIntegrationEIO, "When enabled, Simply Jetpacks will register its Ender IO-based jetpacks and flux packs.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationEIO);
+		enableIntegrationVanilla = config.get(sectionIntegration.name, "Vanilla integration", Defaults.enableIntegrationVanilla, "When enabled, Simply Jetpacks will register its Vanilla-based jetpacks.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationVanilla);
 
 		customControls = configClient.get(sectionControls.name, "Custom controls", Defaults.customControls, "When enabled, the key codes specified here will be used for the fly and descend keys. Otherwise, the vanilla jump and sneak keys will be used.").getBoolean(Defaults.customControls);
 		flyKey = configClient.get(sectionControls.name, "Custom Fly key", Defaults.flyKey, "The name of the Fly key when custom controls are enabled.").getString();

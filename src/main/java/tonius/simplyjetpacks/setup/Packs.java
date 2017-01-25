@@ -2,6 +2,7 @@ package tonius.simplyjetpacks.setup;
 
 import net.minecraft.item.EnumRarity;
 import net.minecraftforge.fml.common.Loader;
+import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.config.PackDefaults;
 import tonius.simplyjetpacks.integration.ModType;
 import tonius.simplyjetpacks.item.meta.FluxPack;
@@ -40,6 +41,13 @@ public class Packs
 			fluxPackEIO4 = new FluxPack(4, EnumRarity.RARE, "fluxPackEIO4");
 			fluxPackEIO4Armored = (FluxPack) new FluxPack(4, EnumRarity.RARE, "fluxPackEIO4").setIsArmored(true).setPlatingMeta(13);
 		}
+		
+		if(Config.enableIntegrationVanilla)
+		{
+			jetpackVanilla1 = new Jetpack(1, EnumRarity.COMMON, "jetpackVanilla1");
+			jetpackVanilla2 = new Jetpack(2, EnumRarity.UNCOMMON, "jetpackVanilla2");
+			jetpackVanilla3 = new Jetpack(3, EnumRarity.RARE, "jetpackVanilla3");
+		}
 	}
 
 	public static Jetpack jetpackPotato;
@@ -62,4 +70,8 @@ public class Packs
 	public static FluxPack fluxPackEIO3Armored;
 	public static FluxPack fluxPackEIO4;
 	public static FluxPack fluxPackEIO4Armored;
+	
+	public static Jetpack jetpackVanilla1;
+	public static Jetpack jetpackVanilla2;
+	public static Jetpack jetpackVanilla3;
 }
