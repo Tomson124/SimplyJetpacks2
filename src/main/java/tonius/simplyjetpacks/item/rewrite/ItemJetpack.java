@@ -70,7 +70,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> List) {
 		if (ModItems.integrateEIO) {
-			for (Jetpack pack : Jetpack.ALL_PACKS) {
+			for (Jetpack pack : Jetpack.PACKS_EIO) {
 				ItemStack stack;
 				if (pack.usesFuel) {
 					List.add(new ItemStack(item, 1, pack.ordinal()));
@@ -83,8 +83,9 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 					List.add(stack);
 				}
 			}
-		} else {
-			for (Jetpack pack : Jetpack.PACKS_SJ) {
+		}
+		if (ModItems.integrateVanilla) {
+			for (Jetpack pack : Jetpack.PACKS_VANILLA) {
 				ItemStack stack;
 				if (pack.usesFuel) {
 					List.add(new ItemStack(item, 1, pack.ordinal()));
@@ -93,8 +94,21 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 					if (item instanceof ItemJetpack) {
 						((ItemJetpack) item).addFuel(stack, ((ItemJetpack) item).getMaxEnergyStored(stack), false);
 					}
+
 					List.add(stack);
 				}
+			}
+		}
+		for (Jetpack pack : Jetpack.PACKS_SJ) {
+			ItemStack stack;
+			if (pack.usesFuel) {
+				List.add(new ItemStack(item, 1, pack.ordinal()));
+			} else {
+				stack = new ItemStack(item, 1, pack.ordinal());
+				if (item instanceof ItemJetpack) {
+					((ItemJetpack) item).addFuel(stack, ((ItemJetpack) item).getMaxEnergyStored(stack), false);
+				}
+				List.add(stack);
 			}
 		}
 	}
