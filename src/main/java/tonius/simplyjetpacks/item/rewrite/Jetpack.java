@@ -31,12 +31,17 @@ public enum Jetpack implements IStringSerializable {
 	JETPACK_EIO_2_ARMORED("jetpackEIO2Armored", 2, "jetpackEIO2", EnumRarity.COMMON, true, MetaItemsEIO.ARMOR_PLATING_EIO_2.ordinal()),
 	JETPACK_EIO_3_ARMORED("jetpackEIO3Armored", 3, "jetpackEIO3", EnumRarity.UNCOMMON, true, MetaItemsEIO.ARMOR_PLATING_EIO_3.ordinal()),
 	JETPACK_EIO_4_ARMORED("jetpackEIO4Armored", 4, "jetpackEIO4", EnumRarity.RARE, true, MetaItemsEIO.ARMOR_PLATING_EIO_4.ordinal()),
-	JETPLATE_EIO_5("jetpackEIO5", 5, "jetpackEIO5", EnumRarity.EPIC, true);
+	JETPLATE_EIO_5("jetpackEIO5", 5, "jetpackEIO5", EnumRarity.EPIC, true),
+	
+	JETPACK_VANILLA_1("jetpackVanilla1", 1, "jetpackVanilla1", EnumRarity.COMMON),
+	JETPACK_VANILLA_2("jetpackVanilla2", 2, "jetpackVanilla2", EnumRarity.UNCOMMON),
+	JETPACK_VANILLA_3("jetpackVanilla3", 3, "jetpackVanilla3", EnumRarity.RARE);
 
 	protected final PackDefaults defaults;
 	protected static final EnumSet<Jetpack> ALL_PACKS = EnumSet.allOf(Jetpack.class);
 	protected static final EnumSet<Jetpack> PACKS_SJ = EnumSet.of(CREATIVE_JETPACK, POTATO_JETPACK);
 	public static final EnumSet<Jetpack> PACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPACK_EIO_4_ARMORED);
+	public static final EnumSet<Jetpack> PACKS_VANILLA = EnumSet.range(JETPACK_VANILLA_1, JETPACK_VANILLA_3);
 
 	protected static final String TAG_PARTICLE = "JetpackParticleType";
 	public ParticleType defaultParticleType = ParticleType.DEFAULT;
@@ -208,45 +213,102 @@ public enum Jetpack implements IStringSerializable {
 		return null;
 	}
 
+//	public static void loadAllConfigs(Configuration config) {
+//		if (ModItems.integrateEIO || ModItems.integrateVanilla) {
+//			for (Jetpack pack : ALL_PACKS) {
+//				pack.loadConfig(config);
+//			}
+//		} else {
+//			for (Jetpack pack : PACKS_SJ) {
+//				pack.loadConfig(config);
+//			}
+//		}
+//	}
+//
+//	public static void writeAllConfigsToNBT(NBTTagCompound tag) {
+//		if (ModItems.integrateEIO || ModItems.integrateVanilla) {
+//			for (Jetpack pack : ALL_PACKS) {
+//				NBTTagCompound packTag = new NBTTagCompound();
+//				pack.writeConfigToNBT(packTag);
+//				tag.setTag(pack.defaults.section.id, packTag);
+//			}
+//		} else {
+//			for (Jetpack pack : PACKS_SJ) {
+//				NBTTagCompound packTag = new NBTTagCompound();
+//				pack.writeConfigToNBT(packTag);
+//				tag.setTag(pack.defaults.section.id, packTag);
+//			}
+//		}
+//	}
+//
+//	public static void readAllConfigsFromNBT(NBTTagCompound tag) {
+//		if (ModItems.integrateEIO || ModItems.integrateVanilla) {
+//			for (Jetpack pack : ALL_PACKS) {
+//				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
+//				pack.readConfigFromNBT(packTag);
+//			}
+//		} else {
+//			for (Jetpack pack : PACKS_SJ) {
+//				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
+//				pack.readConfigFromNBT(packTag);
+//			}
+//		}
+//	}
+	
 	public static void loadAllConfigs(Configuration config) {
-		if (ModItems.integrateEIO) {
-			for (Jetpack pack : ALL_PACKS) {
+		if (ModItems.integrateEIO){
+			for (Jetpack pack : PACKS_EIO) {
 				pack.loadConfig(config);
 			}
-		} else {
-			for (Jetpack pack : PACKS_SJ) {
+		}
+		if (ModItems.integrateVanilla){
+			for (Jetpack pack : PACKS_VANILLA) {
 				pack.loadConfig(config);
 			}
+		}
+		for (Jetpack pack : PACKS_SJ) {
+			pack.loadConfig(config);
 		}
 	}
 
 	public static void writeAllConfigsToNBT(NBTTagCompound tag) {
-		if (ModItems.integrateEIO) {
-			for (Jetpack pack : ALL_PACKS) {
-				NBTTagCompound packTag = new NBTTagCompound();
-				pack.writeConfigToNBT(packTag);
-				tag.setTag(pack.defaults.section.id, packTag);
-			}
-		} else {
-			for (Jetpack pack : PACKS_SJ) {
+		if (ModItems.integrateEIO){
+			for (Jetpack pack : PACKS_EIO) {
 				NBTTagCompound packTag = new NBTTagCompound();
 				pack.writeConfigToNBT(packTag);
 				tag.setTag(pack.defaults.section.id, packTag);
 			}
 		}
+		if (ModItems.integrateVanilla){
+			for (Jetpack pack : PACKS_VANILLA) {
+				NBTTagCompound packTag = new NBTTagCompound();
+				pack.writeConfigToNBT(packTag);
+				tag.setTag(pack.defaults.section.id, packTag);
+			}
+		}
+		for (Jetpack pack : PACKS_SJ) {
+			NBTTagCompound packTag = new NBTTagCompound();
+			pack.writeConfigToNBT(packTag);
+			tag.setTag(pack.defaults.section.id, packTag);
+		}
 	}
 
 	public static void readAllConfigsFromNBT(NBTTagCompound tag) {
-		if (ModItems.integrateEIO) {
-			for (Jetpack pack : ALL_PACKS) {
+		if (ModItems.integrateEIO){
+			for (Jetpack pack : PACKS_EIO) {
 				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
 				pack.readConfigFromNBT(packTag);
 			}
-		} else {
-			for (Jetpack pack : PACKS_SJ) {
+		}
+		if (ModItems.integrateVanilla){
+			for (Jetpack pack : PACKS_VANILLA) {
 				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
 				pack.readConfigFromNBT(packTag);
 			}
+		}
+		for (Jetpack pack : PACKS_SJ) {
+			NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
+			pack.readConfigFromNBT(packTag);
 		}
 	}
 

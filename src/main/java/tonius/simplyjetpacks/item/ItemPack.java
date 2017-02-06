@@ -60,7 +60,6 @@ public class ItemPack<T extends PackBase> extends ItemArmor implements IControll
 		this.setHasSubtypes(true);
 		this.setMaxDamage(0);
 		this.setCreativeTab(ModCreativeTab.instance);
-
 		this.setRegistryName(registryName);
 	}
 

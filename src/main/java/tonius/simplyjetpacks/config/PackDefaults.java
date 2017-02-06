@@ -182,5 +182,56 @@ public class PackDefaults
 			d.armorFuelPerHit = 160;
 			d.enchantability = 10;
 		}
+		
+		if(Config.enableIntegrationVanilla)
+		{
+			d = new PackDefaults("jetpackVanilla1", "Iron Jetpack (Vanilla 1)");
+			d.fuelCapacity = 80000;
+			d.fuelUsage = 32;
+			d.fuelPerTickIn = 400;
+			d.armorReduction = 5;
+			d.armorFuelPerHit = 80;
+			d.enchantability = 4;
+			d.speedVertical = 0.22D;
+			d.accelVertical = 0.1D;
+			d.speedVerticalHover = 0.18D;
+			d.speedVerticalHoverSlow = 0.14D;
+			d.speedSideways = 0.0D;
+			d.sprintSpeedModifier = 1.0D;
+			d.sprintFuelModifier = 1.0D;
+			d.emergencyHoverMode = false;
+
+			d = new PackDefaults("jetpackVanilla2", "Gold Jetpack (Vanilla 2)");
+			d.fuelCapacity = 400000;
+			d.fuelUsage = 50;
+			d.fuelPerTickIn = 2000;
+			d.armorReduction = 6;
+			d.armorFuelPerHit = 80;
+			d.enchantability = 8;
+			d.speedVertical = 0.4D;
+			d.accelVertical = 0.12D;
+			d.speedVerticalHover = 0.2D;
+			d.speedVerticalHoverSlow = 0.1D;
+			d.speedSideways = 0.1D;
+			d.sprintSpeedModifier = 1.0D;
+			d.sprintFuelModifier = 1.0D;
+			d.emergencyHoverMode = false;
+
+			d = new PackDefaults("jetpackVanilla3", "Diamond Jetpack (Vanilla 3)");
+			d.fuelCapacity = 20000000;
+			d.fuelUsage = 450;
+			d.fuelPerTickIn = 50000;
+			d.armorReduction = 8;
+			d.armorFuelPerHit = 160;
+			d.enchantability = 17;
+			d.speedVertical = 0.8D;
+			d.accelVertical = 0.14D;
+			d.speedVerticalHover = 0.4D;
+			d.speedVerticalHoverSlow = 0.005D;
+			d.speedSideways = 0.19D;
+			d.sprintSpeedModifier = 1.8D;
+			d.sprintFuelModifier = 4.0D;
+			d.emergencyHoverMode = true;
+		}
 	}
 }
