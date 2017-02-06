@@ -66,7 +66,7 @@ simplyjetpacks.chat.jetpack.hoverMode.on=Hover Mode
 simplyjetpacks.chat.itemJetpack.emergencyHoverMode.on=Emergency Hover Mode
 simplyjetpacks.chat.jetpack.emergencyHoverMode.msg=User is about to die! Activating Hover Mode
 simplyjetpacks.chat.jetpack.jetplate.charger.on=JetPlate charger
-simplyjetpacks.chat.fluxpack.on=Flux Pack charger
+simplyjetpacks.chat.itemFluxpack.on=Flux Pack charger
 
 simplyjetpacks.tooltip.holdShift=Hold %s for Details
 simplyjetpacks.tooltip.holdShift.shift=Shift
@@ -117,7 +117,7 @@ simplyjetpacks.tooltip.enderiumUpgrade.description.2=an Enderium Flux armor piec
 
 simplyjetpacks.gui.hud.itemJetpack.fuel=Jetpack fuel
 simplyjetpacks.gui.hud.itemJetpackEIO.fuel=Jetpack fuel
-simplyjetpacks.gui.hud.fluxpack.fuel=Flux Pack energy
+simplyjetpacks.gui.hud.itemFluxpack.fuel=Flux Pack energy
 simplyjetpacks.gui.hud.fuel.depleted=Depleted
 simplyjetpacks.gui.hud.state.engine=Engine
 simplyjetpacks.gui.hud.state.hover=Hover

@@ -10,8 +10,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import tonius.simplyjetpacks.handler.SyncHandler;
 
-public class MessageKeyboardSync implements IMessage, IMessageHandler<MessageKeyboardSync, IMessage>
-{
+public class MessageKeyboardSync implements IMessage, IMessageHandler<MessageKeyboardSync, IMessage> {
 	public boolean flyState;
 	public boolean descendState;
 
@@ -20,12 +19,10 @@ public class MessageKeyboardSync implements IMessage, IMessageHandler<MessageKey
 	public boolean leftState;
 	public boolean rightState;
 
-	public MessageKeyboardSync()
-	{
+	public MessageKeyboardSync() {
 	}
 
-	public MessageKeyboardSync(boolean flyState, boolean descendState, boolean forwardState, boolean backwardState, boolean leftState, boolean rightState)
-	{
+	public MessageKeyboardSync(boolean flyState, boolean descendState, boolean forwardState, boolean backwardState, boolean leftState, boolean rightState) {
 		this.flyState = flyState;
 		this.descendState = descendState;
 		this.forwardState = forwardState;
@@ -35,8 +32,7 @@ public class MessageKeyboardSync implements IMessage, IMessageHandler<MessageKey
 	}
 
 	@Override
-	public void fromBytes(ByteBuf buf)
-	{
+	public void fromBytes(ByteBuf buf) {
 		this.flyState = buf.readBoolean();
 		this.descendState = buf.readBoolean();
 
@@ -47,8 +43,7 @@ public class MessageKeyboardSync implements IMessage, IMessageHandler<MessageKey
 	}
 
 	@Override
-	public void toBytes(ByteBuf buf)
-	{
+	public void toBytes(ByteBuf buf) {
 		buf.writeBoolean(this.flyState);
 		buf.writeBoolean(this.descendState);
 
@@ -63,11 +58,6 @@ public class MessageKeyboardSync implements IMessage, IMessageHandler<MessageKey
 		EntityPlayerMP entityPlayerMP = ctx.getServerHandler().playerEntity;
 		WorldServer worldServer = entityPlayerMP.getServerWorld();
 
-		/*if(entityPlayer != null)
-		{
-			SyncHandler.processKeyUpdate(entityPlayer, msg.flyState, msg.descendState, msg.forwardState, msg.backwardState, msg.leftState, msg.rightState);
-		}*/
-
 		worldServer.addScheduledTask(new Runnable() {
 			@Override
 			public void run() {
@@ -80,8 +70,7 @@ public class MessageKeyboardSync implements IMessage, IMessageHandler<MessageKey
 
 	public void handleMessage(MessageKeyboardSync msg, MessageContext ctx) {
 		EntityPlayer entityPlayer = ctx.getServerHandler().playerEntity;
-		if(entityPlayer != null)
-		{
+		if (entityPlayer != null) {
 			SyncHandler.processKeyUpdate(entityPlayer, msg.flyState, msg.descendState, msg.forwardState, msg.backwardState, msg.leftState, msg.rightState);
 		}
 	}

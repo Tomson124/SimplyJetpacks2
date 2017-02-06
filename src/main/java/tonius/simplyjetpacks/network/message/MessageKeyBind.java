@@ -10,6 +10,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import tonius.simplyjetpacks.item.rewrite.ItemFluxpack;
 import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
 import tonius.simplyjetpacks.network.PacketHandler;
 
@@ -38,28 +39,6 @@ public class MessageKeyBind implements IMessage, IMessageHandler<MessageKeyBind,
 		EntityPlayerMP entityPlayerMP = ctx.getServerHandler().playerEntity;
 		WorldServer worldServer = entityPlayerMP.getServerWorld();
 
-		/*EntityPlayer player = PacketHandler.getPlayer(context);
-		ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-
-		if(message.packetType == JetpackPacket.ENGINE) {
-			if(stack != null && stack.getItem() instanceof ItemJetpack) {
-				ItemJetpack jetpack = (ItemJetpack)stack.getItem();
-				((ItemJetpack)stack.getItem()).toggleState(jetpack.isOn(stack), stack, null, jetpack.TAG_ON, player, false);
-			}
-		}
-		if(message.packetType == JetpackPacket.HOVER) {
-			if(stack != null && stack.getItem() instanceof ItemJetpack) {
-				ItemJetpack jetpack = (ItemJetpack)stack.getItem();
-				((ItemJetpack)stack.getItem()).toggleState(jetpack.isHoverModeOn(stack), stack, null, jetpack.TAG_HOVERMODE_ON, player, false);
-			}
-		}
-		if (message.packetType == JetpackPacket.E_HOVER) {
-			if(stack != null && stack.getItem() instanceof ItemJetpack) {
-				ItemJetpack jetpack = (ItemJetpack)stack.getItem();
-				((ItemJetpack)stack.getItem()).toggleState(jetpack.isEHoverModeOn(stack), stack, null, jetpack.TAG_EHOVER_ON, player, false);
-			}
-		}*/
-
 		worldServer.addScheduledTask(new Runnable() {
 			@Override
 			public void run() {
@@ -78,6 +57,10 @@ public class MessageKeyBind implements IMessage, IMessageHandler<MessageKeyBind,
 			if(stack != null && stack.getItem() instanceof ItemJetpack) {
 				ItemJetpack jetpack = (ItemJetpack)stack.getItem();
 				((ItemJetpack)stack.getItem()).toggleState(jetpack.isOn(stack), stack, null, ItemJetpack.TAG_ON, player, false);
+			}
+			if(stack != null && stack.getItem() instanceof ItemFluxpack) {
+				ItemFluxpack fluxpack = (ItemFluxpack) stack.getItem();
+				((ItemFluxpack)stack.getItem()).toggleState(fluxpack.isOn(stack), stack, null, ItemFluxpack.TAG_ON, player, false);
 			}
 		}
 		if(msg.packetType == JetpackPacket.HOVER) {

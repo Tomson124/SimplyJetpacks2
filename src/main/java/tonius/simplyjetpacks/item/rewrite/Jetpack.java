@@ -150,7 +150,7 @@ public enum Jetpack implements IStringSerializable {
 		return new ItemStack(ModItems.itemJetpack, size, ordinal());
 	}
 
-	public
+	public //TODO: INVESTIGATE!!
 	@Nonnull
 	List<String> getJetpacks() {
 		return jetpacks;
