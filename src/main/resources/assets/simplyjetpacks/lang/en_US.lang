@@ -15,6 +15,7 @@ item.simplyjetpacks.jetpackVanilla1.name=Iron Jetpack
 item.simplyjetpacks.jetpackVanilla2.name=Gold Jetpack
 item.simplyjetpacks.jetpackVanilla3.name=Diamond Jetpack
 
+item.simplyjetpacks.fluxPackCreative.name=Creative Fluxpack
 item.simplyjetpacks.fluxpack.1.eio.name=Basic Capacitor Pack
 item.simplyjetpacks.fluxpack.2.eio.name=Double-Layer Capacitor Pack
 item.simplyjetpacks.fluxpack.3.eio.name=Quadruple-Layer Capacitor Pack
