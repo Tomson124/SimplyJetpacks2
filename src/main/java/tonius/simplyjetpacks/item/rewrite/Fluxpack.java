@@ -17,7 +17,12 @@ import static tonius.simplyjetpacks.item.rewrite.Jetpack.PACKS_SJ;
 
 public enum Fluxpack implements IStringSerializable {
 
-	CREATIVE_FLUXPACK("fluxPackCreative", "fluxPackCreative", 6, EnumRarity.EPIC, false);
+	CREATIVE_FLUXPACK("fluxPackCreative", "fluxPackCreative", 6, EnumRarity.EPIC, false),
+
+	FLUXPACK_EIO1("fluxPackEIO1", "fluxPackEIO1", 1, EnumRarity.COMMON),
+	FLUXPACK_EIO2("fluxPackEIO2", "fluxPackEIO2", 2, EnumRarity.COMMON),
+	FLUXPACK_EIO3("fluxPAckEIO3", "fluxPackEIO3", 3, EnumRarity.UNCOMMON),
+	FLUXPACK_EIO4("fluxPAckEIO4", "fluxPackEIO4", 4, EnumRarity.RARE);
 
 	public final @Nonnull String baseName;
 	public final @Nonnull String unlocalisedName;

@@ -24,7 +24,6 @@ public abstract class ModItems {
 
 	public static ItemMeta metaItem;
 	public static ItemMetaEIO metaItemEIO;
-	public static ItemMetaVanilla metaItemVanilla;
 
 	public static ItemJetpack jetpacksEIO;
 	public static ItemFluxPack fluxPacksEIO;
@@ -119,10 +118,6 @@ public abstract class ModItems {
 		if (item instanceof ItemMetaEIO) {
 			((ItemMetaEIO) item).registerItemModel();
 		}
-		
-		if (item instanceof ItemMetaVanilla) {
-			((ItemMetaVanilla) item).registerItemModel();
-		}
 
 		return item;
 	}
@@ -191,15 +186,13 @@ public abstract class ModItems {
 		}
 		
 		if (integrateVanilla) {
-			metaItemVanilla = register(new ItemMetaVanilla("metaItemVanilla"));
-			
 			jetpackVanilla1 = Jetpack.JETPACK_VANILLA_1.getStackJetpack();
 			jetpackVanilla2 = Jetpack.JETPACK_VANILLA_2.getStackJetpack();
 			jetpackVanilla3 = Jetpack.JETPACK_VANILLA_3.getStackJetpack();
 			
-			thrusterVanilla1 = MetaItemsVanilla.THRUSTER_VANILLA_1.getStackMetaItemVanilla();
-			thrusterVanilla2 = MetaItemsVanilla.THRUSTER_VANILLA_2.getStackMetaItemVanilla();
-			thrusterVanilla3 = MetaItemsVanilla.THRUSTER_VANILLA_3.getStackMetaItemVanilla();
+			thrusterVanilla1 = MetaItems.THRUSTER_VANILLA_1.getStackMetaItem();
+			thrusterVanilla2 = MetaItems.THRUSTER_VANILLA_2.getStackMetaItem();
+			thrusterVanilla3 = MetaItems.THRUSTER_VANILLA_3.getStackMetaItem();
 		}
 	}
 
