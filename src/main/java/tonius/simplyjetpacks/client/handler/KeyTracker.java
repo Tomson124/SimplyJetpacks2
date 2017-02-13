@@ -87,11 +87,11 @@ public class KeyTracker {
 		}
 
 		if (chestItem instanceof ItemFluxpack) {
-			if (engineKey.isPressed()) {
+			if (chargerKey.isPressed()) {
 				ItemFluxpack fluxpack = (ItemFluxpack) chestItem;
 
 				fluxpack.toggleState(fluxpack.isOn(chestStack), chestStack, null, fluxpack.TAG_ON, player, true);
-				PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.ENGINE));
+				PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.CHARGER));
 			}
 		}
 	}

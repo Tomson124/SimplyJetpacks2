@@ -78,7 +78,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 				}
 			}
 		}
-		/*else {
+		else {
 			Fluxpack pack = Fluxpack.CREATIVE_FLUXPACK;
 
 				ItemStack stack;
@@ -86,12 +86,12 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 					List.add(new ItemStack(item, 1, pack.ordinal()));
 				} else {
 					stack = new ItemStack(item, 1, pack.ordinal());
-					if (item instanceof ItemJetpack) {
-						((ItemJetpack) item).addFuel(stack, ((ItemJetpack) item).getMaxEnergyStored(stack), false);
+					if (item instanceof ItemFluxpack) {
+						((ItemFluxpack) item).addFuel(stack, ((ItemFluxpack) item).getMaxEnergyStored(stack), false);
 					}
 					List.add(stack);
 				}
-		}*/
+		}
 	}
 
 	@Override

@@ -13,6 +13,8 @@ import javax.annotation.Nonnull;
 import java.util.EnumSet;
 import java.util.Locale;
 
+import static tonius.simplyjetpacks.item.rewrite.Jetpack.PACKS_SJ;
+
 public enum Fluxpack implements IStringSerializable {
 
 	CREATIVE_FLUXPACK("fluxPackCreative", "fluxPackCreative", 6, EnumRarity.EPIC, false);
@@ -36,6 +38,7 @@ public enum Fluxpack implements IStringSerializable {
 	public boolean isArmored;
 
 	protected static final EnumSet<Fluxpack> ALL_FLUXPACKS = EnumSet.allOf(Fluxpack.class);
+	protected static final EnumSet<Fluxpack> SJ_FLUXPACKS = EnumSet.of(CREATIVE_FLUXPACK);
 	//public static final EnumSet<Jetpack> PACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPACK_EIO_4_ARMORED);
 
 	private Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity, boolean usesFuel) {
@@ -132,11 +135,11 @@ public enum Fluxpack implements IStringSerializable {
 			for (Fluxpack pack : ALL_FLUXPACKS) {
 				pack.loadConfig(config);
 			}
-		} /*else {
-			for (Fluxpack pack : FLUXPACKS_SJ) {
+		} else {
+			for (Fluxpack pack : SJ_FLUXPACKS) {
 				pack.loadConfig(config);
 			}
-		}*/
+		}
 	}
 
 	public static void writeAllConfigsToNBT(NBTTagCompound tag) {
@@ -146,13 +149,13 @@ public enum Fluxpack implements IStringSerializable {
 				pack.writeConfigToNBT(packTag);
 				tag.setTag(pack.defaults.section.id, packTag);
 			}
-		} /*else {
-			for (Fluxpack pack : FLUXPACKS_SJ) {
+		} else {
+			for (Fluxpack pack : SJ_FLUXPACKS) {
 				NBTTagCompound packTag = new NBTTagCompound();
 				pack.writeConfigToNBT(packTag);
 				tag.setTag(pack.defaults.section.id, packTag);
 			}
-		}*/
+		}
 	}
 
 	public static void readAllConfigsFromNBT(NBTTagCompound tag) {
@@ -161,12 +164,12 @@ public enum Fluxpack implements IStringSerializable {
 				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
 				pack.readConfigFromNBT(packTag);
 			}
-		} /*else {
-			for (Jetpack pack : PACKS_SJ) {
+		} else {
+			for (Fluxpack pack : SJ_FLUXPACKS) {
 				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
 				pack.readConfigFromNBT(packTag);
 			}
-		}*/
+		}
 	}
 
 	protected void loadConfig(Configuration config)
