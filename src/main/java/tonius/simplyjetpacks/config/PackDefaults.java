@@ -93,7 +93,7 @@ public class PackDefaults
 			d.fuelUsage = 50;
 			d.fuelPerTickIn = 2000;
 			d.armorReduction = 6;
-			d.armorFuelPerHit = 80;
+			d.armorFuelPerHit = 100;
 			d.enchantability = 8;
 			d.speedVertical = 0.3D;
 			d.accelVertical = 0.12D;
@@ -154,25 +154,25 @@ public class PackDefaults
 			d.emergencyHoverMode = true;
 
 			d = new PackDefaults("fluxPackEIO1", "Basic Capacitor Pack (EIO 1)");
-			d.fuelCapacity = 400000;
-			d.fuelPerTickIn = 200;
-			d.fuelPerTickOut = 200;
+			d.fuelCapacity = 800000;
+			d.fuelPerTickIn = 600;
+			d.fuelPerTickOut = 600;
 			d.enchantability = 4;
 
-			d = new PackDefaults("fluxPackEIO2", "Double-Layer Capacitor Pack (EIO 2)");
-			d.fuelCapacity = 2000000;
-			d.fuelPerTickIn = 800;
-			d.fuelPerTickOut = 800;
-			d.armorReduction = 5;
-			d.armorFuelPerHit = 80;
+			d = new PackDefaults("fluxPackEIO2", "Capacitor Pack (EIO 2)");
+			d.fuelCapacity = 4000000;
+			d.fuelPerTickIn = 3000;
+			d.fuelPerTickOut = 3000;
+			d.armorReduction = 6;
+			d.armorFuelPerHit = 100;
 			d.enchantability = 6;
 
-			d = new PackDefaults("fluxPackEIO3", "Quadruple-Layer Capacitor Pack (EIO 3)");
+			d = new PackDefaults("fluxPackEIO3", "Vibrant Capacitor Pack (EIO 3)");
 			d.fuelCapacity = 20000000;
-			d.fuelPerTickIn = 8000;
-			d.fuelPerTickOut = 8000;
-			d.armorReduction = 6;
-			d.armorFuelPerHit = 120;
+			d.fuelPerTickIn = 18000;
+			d.fuelPerTickOut = 18000;
+			d.armorReduction = 7;
+			d.armorFuelPerHit = 140;
 			d.enchantability = 8;
 
 			d = new PackDefaults("fluxPackEIO4", "Octadic Capacitor Pack (EIO 4)");

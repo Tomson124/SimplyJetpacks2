@@ -8,6 +8,7 @@ import net.minecraft.util.ResourceLocation;
 
 public abstract class EIOItems {
 	public static ItemStack capacitorBankOld;
+	public static ItemStack capacitorBankBasic;
 	public static ItemStack capacitorBank;
 	public static ItemStack capacitorBankVibrant;
 	public static ItemStack redstoneConduit;
@@ -29,6 +30,7 @@ public abstract class EIOItems {
 		capacitorBankOld = new ItemStack(Block.REGISTRY.getObject(new ResourceLocation("enderio", "blockCapacitorBank")));
 
 		Block capBankBlock = Block.REGISTRY.getObject(new ResourceLocation("enderio", "blockCapBank"));
+		capacitorBankBasic = new ItemStack(capBankBlock, 1, 1);
 		capacitorBank = new ItemStack(capBankBlock, 1, 2);
 		capacitorBankVibrant = new ItemStack(capBankBlock, 1, 3);
 
