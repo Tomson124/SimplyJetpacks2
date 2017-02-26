@@ -19,8 +19,8 @@ public enum Fluxpack implements IStringSerializable {
 
 	FLUXPACK_EIO1("fluxPackEIO1", "fluxPackEIO1", 1, EnumRarity.COMMON),
 	FLUXPACK_EIO2("fluxPackEIO2", "fluxPackEIO2", 2, EnumRarity.UNCOMMON),
-	FLUXPACK_EIO3("fluxPackEIO3", "fluxPackEIO3", 3, EnumRarity.RARE),
-	FLUXPACK_EIO4("fluxPackEIO4", "fluxPackEIO4", 4, EnumRarity.RARE);
+	FLUXPACK_EIO3("fluxPackEIO3", "fluxPackEIO3", 3, EnumRarity.RARE);
+	//FLUXPACK_EIO4("fluxPackEIO4", "fluxPackEIO4", 4, EnumRarity.RARE);
 
 	public final @Nonnull String baseName;
 	public final @Nonnull String unlocalisedName;
