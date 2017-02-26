@@ -15,11 +15,14 @@ import java.util.Locale;
 
 public enum Fluxpack implements IStringSerializable {
 
-	CREATIVE_FLUXPACK("fluxPackCreative", "fluxPackCreative", 6, EnumRarity.EPIC, false),
+	CREATIVE_FLUXPACK("fluxPackCreative", "fluxPackCreative", 6, EnumRarity.EPIC, false, true),
 
 	FLUXPACK_EIO1("fluxPackEIO1", "fluxPackEIO1", 1, EnumRarity.COMMON),
 	FLUXPACK_EIO2("fluxPackEIO2", "fluxPackEIO2", 2, EnumRarity.UNCOMMON),
-	FLUXPACK_EIO3("fluxPackEIO3", "fluxPackEIO3", 3, EnumRarity.RARE);
+	FLUXPACK_EIO3("fluxPackEIO3", "fluxPackEIO3", 3, EnumRarity.RARE),
+
+	FLUXPACK_EIO2_ARMORED("fluxPackEIO2Armored", "fluxPackEIO2", 2, EnumRarity.UNCOMMON, true, true),
+	FLUXPACK_EIO3_ARMORED("fluxPackEIO3Armored", "fluxPackEIO3", 3, EnumRarity.RARE, true, true);
 	//FLUXPACK_EIO4("fluxPackEIO4", "fluxPackEIO4", 4, EnumRarity.RARE);
 
 	public final @Nonnull String baseName;
@@ -47,6 +50,11 @@ public enum Fluxpack implements IStringSerializable {
 	private Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity, boolean usesFuel) {
 		this(baseName, defaultConfigKey, tier, rarity);
 		this.usesFuel = usesFuel;
+	}
+
+	private Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity,boolean usesFuel, boolean isArmored) {
+		this(baseName, defaultConfigKey, tier, rarity, usesFuel);
+		this.isArmored = isArmored;
 	}
 
 	private Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity) {
