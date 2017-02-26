@@ -58,10 +58,10 @@ public class MessageKeyBind implements IMessage, IMessageHandler<MessageKeyBind,
 				ItemJetpack jetpack = (ItemJetpack)stack.getItem();
 				((ItemJetpack)stack.getItem()).toggleState(jetpack.isOn(stack), stack, null, ItemJetpack.TAG_ON, player, false);
 			}
-			if(stack != null && stack.getItem() instanceof ItemFluxpack) {
-				ItemFluxpack fluxpack = (ItemFluxpack) stack.getItem();
-				((ItemFluxpack)stack.getItem()).toggleState(fluxpack.isOn(stack), stack, null, ItemFluxpack.TAG_ON, player, false);
-			}
+		}
+		if (msg.packetType == JetpackPacket.CHARGER){
+			ItemFluxpack fluxpack = (ItemFluxpack) stack.getItem();
+			((ItemFluxpack)stack.getItem()).toggleState(fluxpack.isOn(stack), stack, null, ItemFluxpack.TAG_ON, player, false);
 		}
 		if(msg.packetType == JetpackPacket.HOVER) {
 			if(stack != null && stack.getItem() instanceof ItemJetpack) {
@@ -80,6 +80,7 @@ public class MessageKeyBind implements IMessage, IMessageHandler<MessageKeyBind,
 	public static enum JetpackPacket {
 		ENGINE,
 		HOVER,
+		CHARGER,
 		E_HOVER;
 	}
 }

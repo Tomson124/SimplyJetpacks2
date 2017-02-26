@@ -6,7 +6,6 @@ import net.minecraftforge.fml.common.Loader;
 public enum ModType
 {
 	SIMPLY_JETPACKS("", SimplyJetpacks.MODID),
-	VANILLA("", SimplyJetpacks.MODID),
 	ENDER_IO(".eio", "EnderIO");
 
 	public final String suffix;

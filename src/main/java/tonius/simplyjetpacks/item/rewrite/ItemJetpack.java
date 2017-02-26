@@ -87,16 +87,8 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		if (ModItems.integrateVanilla) {
 			for (Jetpack pack : Jetpack.PACKS_VANILLA) {
 				ItemStack stack;
-				if (pack.usesFuel) {
-					List.add(new ItemStack(item, 1, pack.ordinal()));
-				} else {
-					stack = new ItemStack(item, 1, pack.ordinal());
-					if (item instanceof ItemJetpack) {
-						((ItemJetpack) item).addFuel(stack, ((ItemJetpack) item).getMaxEnergyStored(stack), false);
-					}
-
-					List.add(stack);
-				}
+				stack = new ItemStack(item, 1, pack.ordinal());
+				List.add(stack);
 			}
 		}
 		for (Jetpack pack : Jetpack.PACKS_SJ) {

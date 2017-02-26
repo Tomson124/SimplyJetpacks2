@@ -24,7 +24,6 @@ public abstract class ModItems {
 
 	public static ItemMeta metaItem;
 	public static ItemMetaEIO metaItemEIO;
-	public static ItemMetaVanilla metaItemVanilla;
 
 	public static ItemJetpack jetpacksEIO;
 	public static ItemFluxPack fluxPacksEIO;
@@ -50,7 +49,7 @@ public abstract class ModItems {
 	public static ItemStack thrusterEIO3;
 	public static ItemStack thrusterEIO4;
 	public static ItemStack thrusterEIO5;
-	
+
 	public static ItemStack thrusterVanilla1;
 	public static ItemStack thrusterVanilla2;
 	public static ItemStack thrusterVanilla3;
@@ -77,7 +76,7 @@ public abstract class ModItems {
 	public static ItemStack fluxPackEIO3Armored;
 	public static ItemStack fluxPackEIO4;
 	public static ItemStack fluxPackEIO4Armored;
-	
+
 	public static ItemStack jetpackVanilla1;
 	public static ItemStack jetpackVanilla2;
 	public static ItemStack jetpackVanilla3;
@@ -90,6 +89,7 @@ public abstract class ModItems {
 	public static void preInit() {
 		registerItems();
 		registerOreDicts();
+
 	}
 
 	public static void init() {
@@ -115,13 +115,9 @@ public abstract class ModItems {
 		if (item instanceof ItemMeta) {
 			((ItemMeta) item).registerItemModel();
 		}
-		
+
 		if (item instanceof ItemMetaEIO) {
 			((ItemMetaEIO) item).registerItemModel();
-		}
-		
-		if (item instanceof ItemMetaVanilla) {
-			((ItemMetaVanilla) item).registerItemModel();
 		}
 
 		return item;
@@ -188,18 +184,21 @@ public abstract class ModItems {
 			jetpackEIO2Armored = Jetpack.JETPACK_EIO_2_ARMORED.getStackJetpack();
 			jetpackEIO3Armored = Jetpack.JETPACK_EIO_3_ARMORED.getStackJetpack();
 			jetpackEIO4Armored = Jetpack.JETPACK_EIO_4_ARMORED.getStackJetpack();
+
+			fluxPackEIO1 = Fluxpack.FLUXPACK_EIO1.getStackFluxpack();
+			fluxPackEIO2 = Fluxpack.FLUXPACK_EIO2.getStackFluxpack();
+			fluxPackEIO3 = Fluxpack.FLUXPACK_EIO3.getStackFluxpack();
+			fluxPackEIO4 = Fluxpack.FLUXPACK_EIO4.getStackFluxpack();
 		}
-		
+
 		if (integrateVanilla) {
-			metaItemVanilla = register(new ItemMetaVanilla("metaItemVanilla"));
-			
 			jetpackVanilla1 = Jetpack.JETPACK_VANILLA_1.getStackJetpack();
 			jetpackVanilla2 = Jetpack.JETPACK_VANILLA_2.getStackJetpack();
 			jetpackVanilla3 = Jetpack.JETPACK_VANILLA_3.getStackJetpack();
-			
-			thrusterVanilla1 = MetaItemsVanilla.THRUSTER_VANILLA_1.getStackMetaItemVanilla();
-			thrusterVanilla2 = MetaItemsVanilla.THRUSTER_VANILLA_2.getStackMetaItemVanilla();
-			thrusterVanilla3 = MetaItemsVanilla.THRUSTER_VANILLA_3.getStackMetaItemVanilla();
+
+			thrusterVanilla1 = MetaItems.THRUSTER_VANILLA_1.getStackMetaItem();
+			thrusterVanilla2 = MetaItems.THRUSTER_VANILLA_2.getStackMetaItem();
+			thrusterVanilla3 = MetaItems.THRUSTER_VANILLA_3.getStackMetaItem();
 		}
 	}
 
@@ -249,13 +248,24 @@ public abstract class ModItems {
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO3, "J", 'J', jetpackEIO3Armored));
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4Armored, "P", "J", 'J', jetpackEIO4, 'P', armorPlatingEIO4));
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4, "J", 'J', jetpackEIO4Armored));
+
+			GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO1, "CUC", "ISI", "IPI", 'S', leatherStrap, 'C', EIOItems.basicCapacitor, 'U', EIOItems.capacitorBankBasic, 'I', "ingotConductiveIron", 'P', "dustCoal"));
+			GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO2, "CBC", "ISI", "IPI", 'S', fluxPackEIO1, 'C', EIOItems.doubleCapacitor, 'B', EIOItems.capacitorBank, 'I', "ingotEnergeticAlloy", 'P', EIOItems.pulsatingCrystal));
+			GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO3, "BCB", "ISI", "CPC", 'S', fluxPackEIO2, 'C', EIOItems.octadicCapacitor, 'B', EIOItems.capacitorBankVibrant, 'I', "ingotPhasedGold", 'P', EIOItems.vibrantCrystal));
+			/*if (EIOItems.capacitorBank != null && EIOItems.capacitorBank.getItem() != null) {
+				GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO3, "CBC", "ISI", "IPI", 'S', fluxPackEIO2, 'C', EIOItems.doubleCapacitor, 'B', EIOItems.capacitorBank, 'I', "ingotEnergeticAlloy", 'P', EIOItems.pulsatingCrystal));
+				GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO4, "BCB", "ISI", "CPC", 'S', fluxPackEIO3, 'C', EIOItems.octadicCapacitor, 'B', EIOItems.capacitorBankVibrant, 'I', "ingotPhasedGold", 'P', EIOItems.vibrantCrystal));
+			} else {
+				GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO3, "CBC", "ISI", "IPI", 'S', fluxPackEIO2, 'C', EIOItems.doubleCapacitor, 'B', EIOItems.capacitorBankOld, 'I', "ingotEnergeticAlloy", 'P', EIOItems.pulsatingCrystal));
+				GameRegistry.addRecipe(new UpgradingRecipe(fluxPackEIO4, "CBC", "ISI", "BPB", 'S', fluxPackEIO3, 'C', EIOItems.octadicCapacitor, 'B', EIOItems.capacitorBankOld, 'I', "ingotPhasedGold", 'P', EIOItems.vibrantCrystal));
+			}*/
 		}
-		
+
 		if (integrateVanilla) {
 			ItemHelper.addShapedOreRecipe(thrusterVanilla1, " I ", "IFI", "IBI", 'I', Items.IRON_INGOT, 'F', Blocks.FURNACE, 'B', Items.BLAZE_POWDER);
 			ItemHelper.addShapedOreRecipe(thrusterVanilla2, " I ", "IFI", "IBI", 'I', Items.GOLD_INGOT, 'F', Blocks.FURNACE, 'B', Items.BLAZE_POWDER);
 			ItemHelper.addShapedOreRecipe(thrusterVanilla3, " I ", "IFI", "IBI", 'I', Items.DIAMOND, 'F', Blocks.FURNACE, 'B', Items.BLAZE_POWDER);
-			
+
 			//Jetpacks
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackVanilla1, "IBI", "IJI", "T T", 'I', Items.IRON_INGOT, 'B', Items.COMPARATOR, 'T', thrusterVanilla1, 'J', leatherStrap));
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackVanilla2, "IBI", "IJI", "T T", 'I', Items.GOLD_INGOT, 'B', Blocks.REDSTONE_BLOCK, 'T', thrusterVanilla2, 'J', jetpackVanilla1));
