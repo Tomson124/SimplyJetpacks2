@@ -236,7 +236,7 @@ public abstract class ModItems {
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO2, "IBI", "IJI", "T T", 'I', "ingotElectricalSteel", 'B', EIOItems.basicCapacitor, 'T', thrusterEIO2, 'J', jetpackEIO1));
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO3, "IBI", "IJI", "T T", 'I', "ingotEnergeticAlloy", 'B', EIOItems.doubleCapacitor, 'T', thrusterEIO3, 'J', jetpackEIO2));
 			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO4, "IBI", "IJI", "T T", 'I', "ingotVibrantAlloy", 'B', EIOItems.octadicCapacitor, 'T', thrusterEIO4, 'J', jetpackEIO3));
-			//GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO5, "OAO", "PJP", "TCT", 'A', EIOItems.enderCrystal, 'J', jetpackEIO4Armored, 'O', "ingotDarkSoularium", 'C', fluxPackEIO4Armored, 'T', thrusterEIO5, 'P', reinforcedGliderWings));
+			GameRegistry.addRecipe(new UpgradingRecipe(jetpackEIO5, "OAO", "PJP", "TCT", 'A', EIOItems.enderCrystal, 'J', jetpackEIO4Armored, 'O', "ingotDarkSoularium", 'C', fluxPackEIO3Armored, 'T', thrusterEIO5, 'P', reinforcedGliderWings));
 
 			for (Jetpack jetpack : Jetpack.PACKS_EIO) {
 				GameRegistry.addRecipe(new UpgradingRecipe(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particleCustomizer"));
@@ -279,24 +279,10 @@ public abstract class ModItems {
 		}
 	}
 
-//	private static void registerItems()
-//	{
-//		       fluxPacksCommon = new ItemFluxPack(ModType.SIMPLY_JETPACKS, "fluxpacksCommon");
-//		       fluxPackCreative = fluxPacksCommon.putPack(9001, Packs.fluxPackCreative);
-//
-//		if(integrateEIO)
-//		{
-//			jetpackEIO5 = jetpacksEIO.putPack(5, Packs.jetpackEIO5);
-//			fluxPacksEIO = new ItemFluxPack(ModType.ENDER_IO, "fluxpacksEIO");
-//			fluxPackEIO1 = fluxPacksEIO.putPack(1, Packs.fluxPackEIO1);
-//			fluxPackEIO2 = fluxPacksEIO.putPack(2, Packs.fluxPackEIO2);
 //			fluxPackEIO2Armored = fluxPacksEIO.putPack(102, Packs.fluxPackEIO2Armored);
-//			fluxPackEIO3 = fluxPacksEIO.putPack(3, Packs.fluxPackEIO3);
 //			fluxPackEIO3Armored = fluxPacksEIO.putPack(103, Packs.fluxPackEIO3Armored);
 //			fluxPackEIO4 = fluxPacksEIO.putPack(4, Packs.fluxPackEIO4);
 //			fluxPackEIO4Armored = fluxPacksEIO.putPack(104, Packs.fluxPackEIO4Armored);
-//		}
-//	}
 
 	/*private static void registerRecipes()
 	{
