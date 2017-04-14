@@ -4,13 +4,12 @@ import net.minecraft.item.ItemStack;
 
 /**
  * Implement this interface on Item classes that support external manipulation of their internal energy storages.
- * <p/>
+ *
  * A reference implementation is provided {@link ItemEnergyContainer}.
  *
  * @author King Lemming
  */
-public interface IEnergyContainerItem
-{
+public interface IEnergyContainerItem {
 
 	/**
 	 * Adds energy to a container item. Returns the quantity of energy that was accepted. This should always return 0 if the item cannot be externally charged.
@@ -42,4 +41,5 @@ public interface IEnergyContainerItem
 	 * Get the max amount of energy that can be stored in the container item.
 	 */
 	int getMaxEnergyStored(ItemStack container);
+
 }

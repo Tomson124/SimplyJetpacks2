@@ -3,13 +3,12 @@ package cofh.api.energy;
 /**
  * An energy storage is the unit of interaction with Energy inventories.<br>
  * This is not to be implemented on TileEntities. This is for internal use only.
- * <p/>
+ *
  * A reference implementation can be found at {@link EnergyStorage}.
  *
  * @author King Lemming
  */
-public interface IEnergyStorage
-{
+public interface IEnergyStorage {
 
 	/**
 	 * Adds energy to the storage. Returns quantity of energy that was accepted.
@@ -38,4 +37,5 @@ public interface IEnergyStorage
 	 * Returns the maximum amount of energy that can be stored.
 	 */
 	int getMaxEnergyStored();
+
 }
