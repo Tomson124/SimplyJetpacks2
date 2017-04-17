@@ -5,17 +5,11 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import tonius.simplyjetpacks.CommonProxy;
-import tonius.simplyjetpacks.Log;
-import tonius.simplyjetpacks.item.ItemPack;
-import tonius.simplyjetpacks.item.meta.JetPlate;
-import tonius.simplyjetpacks.item.meta.PackBase;
 import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
 import tonius.simplyjetpacks.item.rewrite.Jetpack;
-import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.NBTHelper;
 

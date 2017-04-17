@@ -1,6 +1,8 @@
 package tonius.simplyjetpacks.item.rewrite;
 
 import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.capability.CapabilityProviderEnergy;
+import tonius.simplyjetpacks.capability.EnergyConversionStorage;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.client.util.RenderUtils;
 import tonius.simplyjetpacks.config.Config;
@@ -24,12 +26,16 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -125,7 +131,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 			for(int j = 0; j <= 5; j++)
 			{
 				ItemStack currentStack = user.getItemStackFromSlot(EquipmentSlotHelper.fromSlot(j));
-				if(currentStack != null && currentStack != stack && currentStack.getItem() instanceof IEnergyContainerItem)
+				/*if(currentStack != null && currentStack != stack && currentStack.getItem() instanceof IEnergyContainerItem)
 				{
 					IEnergyContainerItem heldEnergyItem = (IEnergyContainerItem) currentStack.getItem();
 					if(Fluxpack.values()[i].usesFuel)
@@ -137,6 +143,16 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 					else
 					{
 						heldEnergyItem.receiveEnergy(currentStack, Fluxpack.values()[i].getFuelPerTickOut(), false);
+					}
+				}*/
+				if (currentStack != null && currentStack != stack && currentStack.hasCapability(CapabilityEnergy.ENERGY, null)) {
+					if (Fluxpack.values()[i].usesFuel) {
+						int energyToAdd = Math.min(item.useFuel(stack, Fluxpack.values()[i].getFuelPerTickOut(), true), getIEnergyStorage(currentStack).receiveEnergy(Fluxpack.values()[i].getFuelPerTickOut(), true));
+						item.useFuel(stack, energyToAdd, false);
+						getIEnergyStorage(currentStack).receiveEnergy(energyToAdd, false);
+					}
+					else {
+						getIEnergyStorage(currentStack).receiveEnergy(Fluxpack.values()[i].getFuelPerTickOut(), false);
 					}
 				}
 			}
@@ -246,23 +262,25 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	}
 
 	public int addFuel(ItemStack stack, int maxAdd, boolean simulate) {
-		int energy = this.getEnergyStored(stack);
+		/*int energy = this.getEnergyStored(stack);
 		int energyReceived = Math.min(this.getMaxEnergyStored(stack) - energy, maxAdd);
 		if (!simulate) {
 			energy += energyReceived;
 			NBTHelper.setInt(stack, TAG_ENERGY, energy);
 		}
-		return energyReceived;
+		return energyReceived;*/
+		return this.receiveEnergy(stack, maxAdd, simulate);
 	}
 
 	public int useFuel(ItemStack stack, int maxUse, boolean simulate) {
-		int energy = this.getEnergyStored(stack);
+		/*int energy = this.getEnergyStored(stack);
 		int energyExtracted = Math.min(energy, maxUse);
 		if (!simulate) {
 			energy -= energyExtracted;
 			NBTHelper.setInt(stack, TAG_ENERGY, energy);
 		}
-		return energyExtracted;
+		return energyExtracted;*/
+		return this.extractEnergy(stack, maxUse, simulate);
 	}
 
 	@Override
@@ -290,14 +308,14 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	}
 
 	@Override
-	public int getEnergyStored(ItemStack container) {
-		return NBTHelper.getInt(container, TAG_ENERGY);
-	}
-
-	@Override
 	public int getMaxEnergyStored(ItemStack container) {
 		int i = MathHelper.clamp_int(container.getItemDamage(), 0, numItems - 1);
 		return Fluxpack.values()[i].getFuelCapacity();
+	}
+
+	@Override
+	public int getEnergyStored(ItemStack container) {
+		return NBTHelper.getInt(container, TAG_ENERGY);
 	}
 
 	@Override
@@ -365,6 +383,23 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 		int fuelEfficiencyLevel = MathHelper.clamp_int(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
 		return (int) Math.round(Fluxpack.values()[i].getArmorFuelPerHit() * (5 - fuelEfficiencyLevel) / 5.0D);
+	}
+
+	public IEnergyStorage getIEnergyStorage(ItemStack chargeItem) {
+
+		if (chargeItem.hasCapability(CapabilityEnergy.ENERGY, null)) {
+			return chargeItem.getCapability(CapabilityEnergy.ENERGY, null);
+		}
+		else if (chargeItem.getItem() instanceof IEnergyContainerItem) {
+			return new EnergyConversionStorage((IEnergyContainerItem) chargeItem.getItem(), chargeItem);
+		}
+
+		return null;
+	}
+
+	@Override
+	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+		return new CapabilityProviderEnergy<>(new EnergyConversionStorage(this, stack), CapabilityEnergy.ENERGY, null);
 	}
 
 	public void registerItemModel() {
