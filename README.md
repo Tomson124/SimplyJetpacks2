@@ -22,6 +22,6 @@ If you want to help and don't know how to code, donations are always a good way 
 Patreon:    https://www.patreon.com/Tomson124
 PayPal.me:  https://www.paypal.me/Tomson124
 
-## Knokn Issues:
+## Known Issues:
 
 It seems that the mod "Levels" is incompatible to my mod, it causes the Jetpacks to turn into Creative Jetpacks as soon as you get XP for the armor.
