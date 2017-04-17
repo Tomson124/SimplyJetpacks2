@@ -131,21 +131,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 			for(int j = 0; j <= 5; j++)
 			{
 				ItemStack currentStack = user.getItemStackFromSlot(EquipmentSlotHelper.fromSlot(j));
-				/*if(currentStack != null && currentStack != stack && currentStack.getItem() instanceof IEnergyContainerItem)
-				{
-					IEnergyContainerItem heldEnergyItem = (IEnergyContainerItem) currentStack.getItem();
-					if(Fluxpack.values()[i].usesFuel)
-					{
-						int energyToAdd = Math.min(item.useFuel(stack, Fluxpack.values()[i].getFuelPerTickOut(), true), heldEnergyItem.receiveEnergy(currentStack, Fluxpack.values()[i].getFuelPerTickOut(), true));
-						item.useFuel(stack, energyToAdd, false);
-						heldEnergyItem.receiveEnergy(currentStack, energyToAdd, false);
-					}
-					else
-					{
-						heldEnergyItem.receiveEnergy(currentStack, Fluxpack.values()[i].getFuelPerTickOut(), false);
-					}
-				}*/
-				if (currentStack != null && currentStack != stack && currentStack.hasCapability(CapabilityEnergy.ENERGY, null)) {
+				if (currentStack != null && currentStack != stack && (currentStack.hasCapability(CapabilityEnergy.ENERGY, null) || currentStack.getItem() instanceof IEnergyContainerItem)) {
 					if (Fluxpack.values()[i].usesFuel) {
 						int energyToAdd = Math.min(item.useFuel(stack, Fluxpack.values()[i].getFuelPerTickOut(), true), getIEnergyStorage(currentStack).receiveEnergy(Fluxpack.values()[i].getFuelPerTickOut(), true));
 						item.useFuel(stack, energyToAdd, false);
@@ -262,24 +248,10 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	}
 
 	public int addFuel(ItemStack stack, int maxAdd, boolean simulate) {
-		/*int energy = this.getEnergyStored(stack);
-		int energyReceived = Math.min(this.getMaxEnergyStored(stack) - energy, maxAdd);
-		if (!simulate) {
-			energy += energyReceived;
-			NBTHelper.setInt(stack, TAG_ENERGY, energy);
-		}
-		return energyReceived;*/
 		return this.receiveEnergy(stack, maxAdd, simulate);
 	}
 
 	public int useFuel(ItemStack stack, int maxUse, boolean simulate) {
-		/*int energy = this.getEnergyStored(stack);
-		int energyExtracted = Math.min(energy, maxUse);
-		if (!simulate) {
-			energy -= energyExtracted;
-			NBTHelper.setInt(stack, TAG_ENERGY, energy);
-		}
-		return energyExtracted;*/
 		return this.extractEnergy(stack, maxUse, simulate);
 	}
 
