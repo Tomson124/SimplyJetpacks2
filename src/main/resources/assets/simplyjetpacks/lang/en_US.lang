@@ -15,7 +15,7 @@ item.simplyjetpacks.jetpackVanilla1.name=Iron Jetpack
 item.simplyjetpacks.jetpackVanilla2.name=Gold Jetpack
 item.simplyjetpacks.jetpackVanilla3.name=Diamond Jetpack
 
-item.simplyjetpacks.fluxPackCreative.name=Creative Fluxpack
+item.simplyjetpacks.fluxPackCreative.name=Creative Flux Pack
 item.simplyjetpacks.fluxPackEIO1.name=Basic Capacitor Pack
 item.simplyjetpacks.fluxPackEIO2.name=Capacitor Pack
 item.simplyjetpacks.fluxPackEIO3.name=Vibrant Capacitor Pack
@@ -67,13 +67,11 @@ simplyjetpacks.chat.enabled=enabled
 simplyjetpacks.chat.disabled=disabled
 simplyjetpacks.chat.itemJetpack.on=Jetpack engine
 simplyjetpacks.chat.itemJetpack.hoverMode.on=Hover Mode
-
-simplyjetpacks.chat.jetpack.on=Jetpack engine
-simplyjetpacks.chat.jetpack.hoverMode.on=Hover Mode
+simplyjetpacks.chat.itemJetpack.chargerMode.on=JetPlate Charger
+simplyjetpacks.chat.itemFluxpack.on=Flux Pack Charger
 simplyjetpacks.chat.itemJetpack.emergencyHoverMode.on=Emergency Hover Mode
-simplyjetpacks.chat.jetpack.emergencyHoverMode.msg=User is about to die! Activating Hover Mode
-simplyjetpacks.chat.jetpack.jetplate.charger.on=JetPlate charger
-simplyjetpacks.chat.itemFluxpack.on=Flux Pack charger
+
+simplyjetpacks.chat.itemJetpack.emergencyHoverMode.msg=User is about to die! Activating Hover Mode
 
 simplyjetpacks.tooltip.holdShift=Hold %s for Details
 simplyjetpacks.tooltip.holdShift.shift=Shift
@@ -158,11 +156,10 @@ simplyjetpacks.command.switch.noCharger=No charger equipped.
 
 simplyjetpacks.category.simplyjetpacks=Simply Jetpacks 2
 simplyjetpacks.keybind.hover=Toggle Hover Mode
-simplyjetpacks.keybind.engine=Toggle Engine
+simplyjetpacks.keybind.engine=Toggle Engine or Flux Pack
+simplyjetpacks.keybind.charger=Toggle JetPlate Charger
+simplyjetpacks.keybind.emergencyhover=Toggle Emergency Hover Mode
 
-simplyjetpacks.keybind.toggle.primary=Toggle Engine / Flux Pack
-simplyjetpacks.keybind.toggle.secondary=Toggle JetPlate Charger
-simplyjetpacks.keybind.mode.secondary=Toggle Emergency Hover Mode
 simplyjetpacks.keybind.openPackGUI=Open Pack GUI
 
 simplyjetpacks.config.title=Simply Jetpacks Configuration
