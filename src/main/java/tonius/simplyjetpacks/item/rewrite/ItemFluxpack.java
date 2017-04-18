@@ -200,7 +200,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	@SideOnly(Side.CLIENT)
 	public String getHUDStatesInfo(ItemStack stack) {
-		return SJStringHelper.getHUDStateText(null, null, this.isOn(stack));
+		return SJStringHelper.getHUDStateText(this.isOn(stack), null, null);
 	}
 
 	public boolean isOn(ItemStack stack) {

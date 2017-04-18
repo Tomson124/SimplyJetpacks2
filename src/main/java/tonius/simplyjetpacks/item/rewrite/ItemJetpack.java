@@ -1,16 +1,15 @@
 package tonius.simplyjetpacks.item.rewrite;
 
 import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.capability.CapabilityProviderEnergy;
+import tonius.simplyjetpacks.capability.EnergyConversionStorage;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.client.util.RenderUtils;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.item.IHUDInfoProvider;
 import tonius.simplyjetpacks.setup.*;
-import tonius.simplyjetpacks.util.NBTHelper;
-import tonius.simplyjetpacks.util.SJStringHelper;
-import tonius.simplyjetpacks.util.StackUtil;
-import tonius.simplyjetpacks.util.StringHelper;
+import tonius.simplyjetpacks.util.*;
 import cofh.api.energy.IEnergyContainerItem;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.creativetab.CreativeTabs;
@@ -24,6 +23,7 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -31,6 +31,9 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -44,6 +47,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public static final String TAG_ON = "PackOn";
 	public static final String TAG_HOVERMODE_ON = "JetpackHoverModeOn";
 	public static final String TAG_EHOVER_ON = "JetpackEHoverOn";
+	public static final String TAG_CHARGER_ON = "JetpackChargerOn";
 
 	public String name;
 	public boolean showTier = true;
@@ -113,6 +117,9 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
 		flyUser(player, stack, this, false);
+		if (this.isJetplate(stack) && this.isChargerOn(stack)) {
+			chargeInventory(player, stack, this);
+		}
 	}
 
 	public void toggleState(boolean on, ItemStack stack, String type, String tag, EntityPlayer player, boolean showInChat) {
@@ -124,6 +131,15 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			String msg = SJStringHelper.localize(type) + " " + color + SJStringHelper.localize("chat." + (on ? "disabled" : "enabled"));
 			player.addChatMessage(new TextComponentString(msg));
 		}
+	}
+
+	public boolean isJetplate(ItemStack stack) {
+		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+		return Jetpack.values()[i].getTier() == 5;
+	}
+
+	public boolean isChargerOn(ItemStack stack) {
+		return NBTHelper.getBooleanFallback(stack, TAG_CHARGER_ON, true);
 	}
 
 	public void setParticleType(ItemStack stack, ParticleType particle) {
@@ -219,23 +235,11 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	}
 
 	public int addFuel(ItemStack stack, int maxAdd, boolean simulate) {
-		int energy = this.getEnergyStored(stack);
-		int energyReceived = Math.min(this.getMaxEnergyStored(stack) - energy, maxAdd);
-		if (!simulate) {
-			energy += energyReceived;
-			NBTHelper.setInt(stack, TAG_ENERGY, energy);
-		}
-		return energyReceived;
+		return this.receiveEnergy(stack, maxAdd, simulate);
 	}
 
 	public int useFuel(ItemStack stack, int maxUse, boolean simulate) {
-		int energy = this.getEnergyStored(stack);
-		int energyExtracted = Math.min(energy, maxUse);
-		if (!simulate) {
-			energy -= energyExtracted;
-			NBTHelper.setInt(stack, TAG_ENERGY, energy);
-		}
-		return energyExtracted;
+		return this.extractEnergy(stack, maxUse, simulate);
 	}
 
 	@Override
@@ -307,7 +311,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 
 		if (user instanceof EntityPlayer) {
 
-			((EntityPlayer) user).addChatMessage(new TextComponentString(StringHelper.LIGHT_RED + SJStringHelper.localize("chat.jetpack.emergencyHoverMode.msg")));
+			((EntityPlayer) user).addChatMessage(new TextComponentString(StringHelper.LIGHT_RED + SJStringHelper.localize("chat.itemJetpack.emergencyHoverMode.msg")));
 		}
 	}
 
@@ -315,7 +319,8 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public String getHUDStatesInfo(ItemStack stack) {
 		Boolean engine = this.isOn(stack);
 		Boolean hover = this.isHoverModeOn(stack);
-		return SJStringHelper.getHUDStateText(engine, hover, null);
+		Boolean charger = this.isChargerOn(stack);
+		return SJStringHelper.getHUDStateText(engine, hover, charger);
 	}
 
 	@Override
@@ -483,6 +488,46 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 				}
 			}
 		}
+	}
+
+	protected void chargeInventory(EntityLivingBase user, ItemStack stack, ItemJetpack item)
+	{
+		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+
+		if(this.fuelType == FuelType.ENERGY)
+		{
+			for(int j = 0; j <= 5; j++)
+			{
+				ItemStack currentStack = user.getItemStackFromSlot(EquipmentSlotHelper.fromSlot(j));
+				if (currentStack != null && currentStack != stack && (currentStack.hasCapability(CapabilityEnergy.ENERGY, null) || currentStack.getItem() instanceof IEnergyContainerItem)) {
+					if (Jetpack.values()[i].usesFuel) {
+						int energyToAdd = Math.min(item.useFuel(stack, Jetpack.values()[i].getFuelPerTickOut(), true), getIEnergyStorage(currentStack).receiveEnergy(Jetpack.values()[i].getFuelPerTickOut(), true));
+						item.useFuel(stack, energyToAdd, false);
+						getIEnergyStorage(currentStack).receiveEnergy(energyToAdd, false);
+					}
+					else {
+						getIEnergyStorage(currentStack).receiveEnergy(Jetpack.values()[i].getFuelPerTickOut(), false);
+					}
+				}
+			}
+		}
+	}
+
+	public IEnergyStorage getIEnergyStorage(ItemStack chargeItem) {
+
+		if (chargeItem.hasCapability(CapabilityEnergy.ENERGY, null)) {
+			return chargeItem.getCapability(CapabilityEnergy.ENERGY, null);
+		}
+		else if (chargeItem.getItem() instanceof IEnergyContainerItem) {
+			return new EnergyConversionStorage((IEnergyContainerItem) chargeItem.getItem(), chargeItem);
+		}
+
+		return null;
+	}
+
+	@Override
+	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+		return new CapabilityProviderEnergy<>(new EnergyConversionStorage(this, stack), CapabilityEnergy.ENERGY, null);
 	}
 
 	public void registerItemModel() {

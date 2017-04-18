@@ -84,14 +84,22 @@ public class KeyTracker {
 				jetpack.toggleState(jetpack.isEHoverModeOn(chestStack), chestStack, "emergencyHoverMode", jetpack.TAG_EHOVER_ON, player, true);
 				PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.E_HOVER));
 			}
+			if (((ItemJetpack) chestItem).isJetplate(chestStack)) {
+				if (chargerKey.isPressed()) {
+					ItemJetpack jetpack = (ItemJetpack) chestItem;
+
+					jetpack.toggleState(jetpack.isChargerOn(chestStack), chestStack, "chargerMode", jetpack.TAG_CHARGER_ON, player, true);
+					PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.CHARGER));
+				}
+			}
 		}
 
 		if (chestItem instanceof ItemFluxpack) {
-			if (chargerKey.isPressed()) {
+			if (engineKey.isPressed()) {
 				ItemFluxpack fluxpack = (ItemFluxpack) chestItem;
 
 				fluxpack.toggleState(fluxpack.isOn(chestStack), chestStack, null, fluxpack.TAG_ON, player, true);
-				PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.CHARGER));
+				PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.ENGINE));
 			}
 		}
 	}
