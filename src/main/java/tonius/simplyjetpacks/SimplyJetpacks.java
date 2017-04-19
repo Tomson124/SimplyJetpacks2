@@ -28,7 +28,7 @@ public class SimplyJetpacks {
 	public static final String RESOURCE_PREFIX = MODID + ":";
 	public static final String DEPENDENCIES = "after:EnderIO";
 	public static final String GUI_FACTORY = "tonius.simplyjetpacks.config.ConfigGuiFactory";
-	public static final String UPDATE_JSON = "https://raw.githubusercontent.com/CyberdyneCC/SimplyJetpacks-2/TomsonDev/update/update_template.json";
+	public static final String UPDATE_JSON = "http://modmuss50.me:8080/job/SimplyJetpacks-2/job/SimplyJetpacks-2-1.10.2/ws/update/update.json";
 
 	@Instance(MODID)
 	public static SimplyJetpacks instance;
