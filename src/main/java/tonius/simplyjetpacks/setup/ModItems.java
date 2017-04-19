@@ -97,7 +97,7 @@ public abstract class ModItems {
 			EIOItems.init();
 		}
 
-		//registerRecipes();
+		registerRecipes();
 		doIMC();
 	}
 
