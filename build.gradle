@@ -74,6 +74,22 @@ processResources {
     }
 }
 
+task setUpdateVersion(type: Copy) {
+    description 'Creates or updates the version numbers in the update.json'
+    onlyIf{
+        !tasks.build.state.failure
+    }
+    from 'update'
+    into "update"
+    include 'update_template.json'
+    rename { file -> 'update.json' }
+    expand 'version':project.version, 'mcversion':project.minecraft.version
+
+    duplicatesStrategy = 'include'
+}
+
+tasks.build.finalizedBy(setUpdateVersion)
+
 idea {
     module {
         inheritOutputDirs = true

@@ -19,7 +19,7 @@ import net.minecraftforge.oredict.RecipeSorter.Category;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = SimplyJetpacks.MODID, name = SimplyJetpacks.MOD_NAME, version = SimplyJetpacks.VERSION, dependencies = SimplyJetpacks.DEPENDENCIES, guiFactory = SimplyJetpacks.GUI_FACTORY)
+@Mod(modid = SimplyJetpacks.MODID, name = SimplyJetpacks.MOD_NAME, version = SimplyJetpacks.VERSION, dependencies = SimplyJetpacks.DEPENDENCIES, guiFactory = SimplyJetpacks.GUI_FACTORY, updateJSON = SimplyJetpacks.UPDATE_JSON)
 public class SimplyJetpacks {
 	public static final String MODID = "simplyjetpacks";
 	public static final String MOD_NAME = "Simply Jetpacks 2";
@@ -28,6 +28,7 @@ public class SimplyJetpacks {
 	public static final String RESOURCE_PREFIX = MODID + ":";
 	public static final String DEPENDENCIES = "after:EnderIO";
 	public static final String GUI_FACTORY = "tonius.simplyjetpacks.config.ConfigGuiFactory";
+	public static final String UPDATE_JSON = "https://raw.githubusercontent.com/CyberdyneCC/SimplyJetpacks-2/TomsonDev/update/update_template.json";
 
 	@Instance(MODID)
 	public static SimplyJetpacks instance;
