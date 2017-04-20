@@ -78,7 +78,8 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 				ItemStack stack;
 				if (pack.usesFuel) {
 					List.add(new ItemStack(item, 1, pack.ordinal()));
-				} else {
+				}
+				else {
 					stack = new ItemStack(item, 1, pack.ordinal());
 					if (item instanceof ItemJetpack) {
 						((ItemJetpack) item).addFuel(stack, ((ItemJetpack) item).getMaxEnergyStored(stack), false);
@@ -99,7 +100,8 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			ItemStack stack;
 			if (pack.usesFuel) {
 				List.add(new ItemStack(item, 1, pack.ordinal()));
-			} else {
+			}
+			else {
 				stack = new ItemStack(item, 1, pack.ordinal());
 				if (item instanceof ItemJetpack) {
 					((ItemJetpack) item).addFuel(stack, ((ItemJetpack) item).getMaxEnergyStored(stack), false);
@@ -182,7 +184,8 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		information(stack, this, tooltip);
 		if (SJStringHelper.canShowDetails()) {
 			shiftInformation(stack, tooltip);
-		} else {
+		}
+		else {
 			tooltip.add(SJStringHelper.getShiftText());
 		}
 	}
@@ -235,11 +238,23 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	}
 
 	public int addFuel(ItemStack stack, int maxAdd, boolean simulate) {
-		return this.receiveEnergy(stack, maxAdd, simulate);
+		int energy = this.getEnergyStored(stack);
+		int energyReceived = Math.min(this.getMaxEnergyStored(stack) - energy, maxAdd);
+		if (!simulate) {
+			energy += energyReceived;
+			NBTHelper.setInt(stack, TAG_ENERGY, energy);
+		}
+		return energyReceived;
 	}
 
 	public int useFuel(ItemStack stack, int maxUse, boolean simulate) {
-		return this.extractEnergy(stack, maxUse, simulate);
+		int energy = this.getEnergyStored(stack);
+		int energyExtracted = Math.min(energy, maxUse);
+		if (!simulate) {
+			energy -= energyExtracted;
+			NBTHelper.setInt(stack, TAG_ENERGY, energy);
+		}
+		return energyExtracted;
 	}
 
 	@Override
@@ -320,7 +335,12 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		Boolean engine = this.isOn(stack);
 		Boolean hover = this.isHoverModeOn(stack);
 		Boolean charger = this.isChargerOn(stack);
-		return SJStringHelper.getHUDStateText(engine, hover, charger);
+		if (isJetplate(stack)) {
+			return SJStringHelper.getHUDStateText(engine, hover, charger);
+		}
+		else {
+			return SJStringHelper.getHUDStateText(engine, hover, null);
+		}
 	}
 
 	@Override
@@ -373,7 +393,8 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		if (Jetpack.values()[i].getIsArmored() && Jetpack.values()[i].usesFuel) {
 			if (this.fuelType == FuelType.ENERGY && this.isFluxBased && source.damageType.equals("flux")) {
 				this.addFuel(armor, damage * (source.getEntity() == null ? Jetpack.values()[i].getArmorFuelPerHit() / 2 : this.getFuelPerDamage(armor)), false);
-			} else {
+			}
+			else {
 				this.useFuel(armor, damage * this.getFuelPerDamage(armor), false);
 			}
 		}
@@ -411,14 +432,17 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 					if (flyKeyDown) {
 						if (!hoverMode) {
 							user.motionY = Math.min(user.motionY + currentAccel, currentSpeedVertical);
-						} else {
+						}
+						else {
 							if (descendKeyDown) {
 								user.motionY = Math.min(user.motionY + currentAccel, -Jetpack.values()[i].speedVerticalHoverSlow);
-							} else {
+							}
+							else {
 								user.motionY = Math.min(user.motionY + currentAccel, Jetpack.values()[i].speedVerticalHover);
 							}
 						}
-					} else {
+					}
+					else {
 						user.motionY = Math.min(user.motionY + currentAccel, -hoverSpeed);
 					}
 
@@ -473,7 +497,8 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			if (item.getEnergyStored(stack) > 0 && (!this.isHoverModeOn(stack) || !this.isOn(stack))) {
 				if (user.posY < -5) {
 					this.doEHover(stack, user);
-				} else {
+				}
+				else {
 					if (!user.capabilities.isCreativeMode && user.fallDistance - 1.2F >= user.getHealth()) {
 						for (int j = 0; j <= 16; j++) {
 							int x = Math.round((float) user.posX - 0.5F);
@@ -490,14 +515,11 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		}
 	}
 
-	protected void chargeInventory(EntityLivingBase user, ItemStack stack, ItemJetpack item)
-	{
+	protected void chargeInventory(EntityLivingBase user, ItemStack stack, ItemJetpack item) {
 		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
 
-		if(this.fuelType == FuelType.ENERGY)
-		{
-			for(int j = 0; j <= 5; j++)
-			{
+		if (this.fuelType == FuelType.ENERGY) {
+			for (int j = 0; j <= 5; j++) {
 				ItemStack currentStack = user.getItemStackFromSlot(EquipmentSlotHelper.fromSlot(j));
 				if (currentStack != null && currentStack != stack && (currentStack.hasCapability(CapabilityEnergy.ENERGY, null) || currentStack.getItem() instanceof IEnergyContainerItem)) {
 					if (Jetpack.values()[i].usesFuel) {
