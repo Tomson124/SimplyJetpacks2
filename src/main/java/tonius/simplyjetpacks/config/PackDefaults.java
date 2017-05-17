@@ -155,22 +155,22 @@ public class PackDefaults
 
 			d = new PackDefaults("fluxPackEIO1", "Basic Capacitor Pack (EIO 1)");
 			d.fuelCapacity = 800000;
-			d.fuelPerTickIn = 600;
-			d.fuelPerTickOut = 600;
+			d.fuelPerTickIn = 800;
+			d.fuelPerTickOut = 800;
 			d.enchantability = 4;
 
 			d = new PackDefaults("fluxPackEIO2", "Capacitor Pack (EIO 2)");
 			d.fuelCapacity = 4000000;
-			d.fuelPerTickIn = 3000;
-			d.fuelPerTickOut = 3000;
+			d.fuelPerTickIn = 4000;
+			d.fuelPerTickOut = 4000;
 			d.armorReduction = 6;
 			d.armorFuelPerHit = 100;
 			d.enchantability = 6;
 
 			d = new PackDefaults("fluxPackEIO3", "Vibrant Capacitor Pack (EIO 3)");
 			d.fuelCapacity = 20000000;
-			d.fuelPerTickIn = 18000;
-			d.fuelPerTickOut = 18000;
+			d.fuelPerTickIn = 20000;
+			d.fuelPerTickOut = 20000;
 			d.armorReduction = 7;
 			d.armorFuelPerHit = 140;
 			d.enchantability = 8;
