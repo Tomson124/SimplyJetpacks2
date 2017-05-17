@@ -131,7 +131,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 			for(int j = 0; j <= 5; j++)
 			{
 				ItemStack currentStack = user.getItemStackFromSlot(EquipmentSlotHelper.fromSlot(j));
-				if (currentStack != null && currentStack != stack && (currentStack.hasCapability(CapabilityEnergy.ENERGY, null) || currentStack.getItem() instanceof IEnergyContainerItem)) {
+				if (currentStack != null && currentStack != stack && getIEnergyStorage(currentStack) != null && (currentStack.hasCapability(CapabilityEnergy.ENERGY, null) || currentStack.getItem() instanceof IEnergyContainerItem)) {
 					if (Fluxpack.values()[i].usesFuel) {
 						int energyToAdd = Math.min(item.useFuel(stack, Fluxpack.values()[i].getFuelPerTickOut(), true), getIEnergyStorage(currentStack).receiveEnergy(Fluxpack.values()[i].getFuelPerTickOut(), true));
 						item.useFuel(stack, energyToAdd, false);
