@@ -4,6 +4,7 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.item.ItemPack;
+import tonius.simplyjetpacks.item.rewrite.Fluxpack;
 import tonius.simplyjetpacks.item.rewrite.ItemFluxpack;
 import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
 import tonius.simplyjetpacks.network.PacketHandler;
@@ -19,9 +20,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+
+import java.util.ArrayList;
+import java.util.EnumSet;
 
 public class KeyTracker {
 
@@ -45,6 +51,8 @@ public class KeyTracker {
 
 	private final KeyBinding emergencyHoverKey;
 
+	private static ArrayList<KeyBinding> keys = new ArrayList<>();
+
 	public KeyTracker() {
 		engineKey = new KeyBinding(SimplyJetpacks.PREFIX + "keybind.engine", Keyboard.KEY_G, SimplyJetpacks.PREFIX + "category.simplyjetpacks");
 		ClientRegistry.registerKeyBinding(engineKey);
@@ -59,7 +67,7 @@ public class KeyTracker {
 		ClientRegistry.registerKeyBinding(emergencyHoverKey);
 	}
 
-	@SubscribeEvent
+	/*@SubscribeEvent
 	public void onKeyInput(KeyInputEvent event) {
 		EntityPlayer player = FMLClientHandler.instance().getClient().thePlayer;
 		ItemStack chestStack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
@@ -102,6 +110,102 @@ public class KeyTracker {
 				PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.ENGINE));
 			}
 		}
+	}*/
+
+	@SubscribeEvent
+	public void onKeyInput(KeyInputEvent event) {
+		EntityPlayer player = FMLClientHandler.instance().getClient().thePlayer;
+		ItemStack chestStack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+		Item chestItem = StackUtil.getItem(chestStack);
+
+		keys.add(engineKey);
+		keys.add(hoverKey);
+		keys.add(chargerKey);
+		keys.add(emergencyHoverKey);
+
+		for (KeyBinding keyBindings : keys) {
+			int button = keyBindings.getKeyCode();
+			if (button > 0 && keyBindings.isPressed()) {
+				if (chestItem instanceof ItemJetpack) {
+					ItemJetpack jetpack = (ItemJetpack) chestItem;
+
+					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.engine")) {
+						jetpack.toggleState(jetpack.isOn(chestStack), chestStack, null, jetpack.TAG_ON, player, true);
+						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.ENGINE));
+					}
+					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.hover")) {
+						jetpack.toggleState(jetpack.isHoverModeOn(chestStack), chestStack, "hoverMode", jetpack.TAG_HOVERMODE_ON, player, true);
+						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.HOVER));
+					}
+					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.charger") && ((ItemJetpack) chestItem).isJetplate(chestStack)) {
+						jetpack.toggleState(jetpack.isChargerOn(chestStack), chestStack, "chargerMode", jetpack.TAG_CHARGER_ON, player, true);
+						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.CHARGER));
+					}
+					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.emergencyhover")) {
+						jetpack.toggleState(jetpack.isEHoverModeOn(chestStack), chestStack, "emergencyHoverMode", jetpack.TAG_EHOVER_ON, player, true);
+						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.E_HOVER));
+					}
+				}
+
+				if (chestItem instanceof ItemFluxpack) {
+					ItemFluxpack fluxpack = (ItemFluxpack) chestItem;
+
+					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.engine")) {
+						fluxpack.toggleState(fluxpack.isOn(chestStack), chestStack, null, fluxpack.TAG_ON, player, true);
+						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.ENGINE));
+					}
+				}
+			}
+		}
+
+	}
+
+	@SubscribeEvent
+	public void onMouseInput(InputEvent.MouseInputEvent event) {
+		EntityPlayer player = FMLClientHandler.instance().getClient().thePlayer;
+		ItemStack chestStack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+		Item chestItem = StackUtil.getItem(chestStack);
+
+		keys.add(engineKey);
+		keys.add(hoverKey);
+		keys.add(chargerKey);
+		keys.add(emergencyHoverKey);
+
+		for (KeyBinding keyBindings : keys) {
+			int button = keyBindings.getKeyCode();
+			if (button < 0 && Mouse.isButtonDown(button + 100)) {
+				if (chestItem instanceof ItemJetpack) {
+					ItemJetpack jetpack = (ItemJetpack) chestItem;
+
+					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.engine")) {
+						jetpack.toggleState(jetpack.isOn(chestStack), chestStack, null, jetpack.TAG_ON, player, true);
+						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.ENGINE));
+					}
+					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.hover")) {
+						jetpack.toggleState(jetpack.isHoverModeOn(chestStack), chestStack, "hoverMode", jetpack.TAG_HOVERMODE_ON, player, true);
+						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.HOVER));
+					}
+					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.charger") && ((ItemJetpack) chestItem).isJetplate(chestStack)) {
+						jetpack.toggleState(jetpack.isChargerOn(chestStack), chestStack, "chargerMode", jetpack.TAG_CHARGER_ON, player, true);
+						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.CHARGER));
+					}
+					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.emergencyhover")) {
+						jetpack.toggleState(jetpack.isEHoverModeOn(chestStack), chestStack, "emergencyHoverMode", jetpack.TAG_EHOVER_ON, player, true);
+						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.E_HOVER));
+					}
+				}
+
+				if (chestItem instanceof ItemFluxpack) {
+					ItemFluxpack fluxpack = (ItemFluxpack) chestItem;
+
+					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.engine")) {
+						fluxpack.toggleState(fluxpack.isOn(chestStack), chestStack, null, fluxpack.TAG_ON, player, true);
+						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.ENGINE));
+					}
+				}
+			}
+		}
+
 	}
 
 	public static void updateCustomKeybinds(String flyKeyName, String descendKeyName) {
