@@ -1,5 +1,6 @@
 package tonius.simplyjetpacks;
 
+import tonius.simplyjetpacks.client.handler.KeyTracker;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.crafting.UpgradingRecipe;
 import tonius.simplyjetpacks.handler.SyncHandler;
@@ -50,6 +51,7 @@ public class SimplyJetpacks {
 	public static void init(FMLInitializationEvent evt) {
 		RecipeSorter.register(SimplyJetpacks.MODID + ":upgrading", UpgradingRecipe.class, Category.SHAPED, "after:minecraft:shaped");
 		proxy.registerHandlers();
+		proxy.initKeys();
 		PacketHandler.init();
 		ModItems.init();
 		ModEnchantments.init();

@@ -84,6 +84,11 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
+	public void initKeys() {
+		KeyTracker.addKeys();
+	}
+
+	@Override
 	public String getPackGUIKey() {
 		int keyCode = KeyHandler.keyOpenPackGUI.getKeyCode();
 		if (keyCode == 0) {

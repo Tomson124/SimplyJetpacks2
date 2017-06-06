@@ -3,8 +3,6 @@ package tonius.simplyjetpacks.client.handler;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.handler.SyncHandler;
-import tonius.simplyjetpacks.item.ItemPack;
-import tonius.simplyjetpacks.item.rewrite.Fluxpack;
 import tonius.simplyjetpacks.item.rewrite.ItemFluxpack;
 import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
 import tonius.simplyjetpacks.network.PacketHandler;
@@ -24,10 +22,8 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 
 import java.util.ArrayList;
-import java.util.EnumSet;
 
 public class KeyTracker {
 
@@ -43,13 +39,13 @@ public class KeyTracker {
 	private static boolean lastLeftState = false;
 	private static boolean lastRightState = false;
 
-	private final KeyBinding engineKey;
+	private static KeyBinding engineKey;
 
-	private final KeyBinding hoverKey;
+	private static KeyBinding hoverKey;
 
-	private final KeyBinding chargerKey;
+	private static KeyBinding chargerKey;
 
-	private final KeyBinding emergencyHoverKey;
+	private static KeyBinding emergencyHoverKey;
 
 	private static ArrayList<KeyBinding> keys = new ArrayList<>();
 
@@ -67,61 +63,11 @@ public class KeyTracker {
 		ClientRegistry.registerKeyBinding(emergencyHoverKey);
 	}
 
-	/*@SubscribeEvent
-	public void onKeyInput(KeyInputEvent event) {
-		EntityPlayer player = FMLClientHandler.instance().getClient().thePlayer;
-		ItemStack chestStack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-		Item chestItem = StackUtil.getItem(chestStack);
-
-		if (chestItem instanceof ItemJetpack) {
-			if (engineKey.isPressed()) {
-				ItemJetpack jetpack = (ItemJetpack) chestItem;
-
-				jetpack.toggleState(jetpack.isOn(chestStack), chestStack, null, jetpack.TAG_ON, player, true);
-				PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.ENGINE));
-			}
-			if (hoverKey.isPressed()) {
-				ItemJetpack jetpack = (ItemJetpack) chestItem;
-
-				jetpack.toggleState(jetpack.isHoverModeOn(chestStack), chestStack, "hoverMode", jetpack.TAG_HOVERMODE_ON, player, true);
-				PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.HOVER));
-			}
-			if (emergencyHoverKey.isPressed()) {
-				ItemJetpack jetpack = (ItemJetpack) chestItem;
-
-				jetpack.toggleState(jetpack.isEHoverModeOn(chestStack), chestStack, "emergencyHoverMode", jetpack.TAG_EHOVER_ON, player, true);
-				PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.E_HOVER));
-			}
-			if (((ItemJetpack) chestItem).isJetplate(chestStack)) {
-				if (chargerKey.isPressed()) {
-					ItemJetpack jetpack = (ItemJetpack) chestItem;
-
-					jetpack.toggleState(jetpack.isChargerOn(chestStack), chestStack, "chargerMode", jetpack.TAG_CHARGER_ON, player, true);
-					PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.CHARGER));
-				}
-			}
-		}
-
-		if (chestItem instanceof ItemFluxpack) {
-			if (engineKey.isPressed()) {
-				ItemFluxpack fluxpack = (ItemFluxpack) chestItem;
-
-				fluxpack.toggleState(fluxpack.isOn(chestStack), chestStack, null, fluxpack.TAG_ON, player, true);
-				PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.ENGINE));
-			}
-		}
-	}*/
-
 	@SubscribeEvent
 	public void onKeyInput(KeyInputEvent event) {
 		EntityPlayer player = FMLClientHandler.instance().getClient().thePlayer;
 		ItemStack chestStack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		Item chestItem = StackUtil.getItem(chestStack);
-
-		keys.add(engineKey);
-		keys.add(hoverKey);
-		keys.add(chargerKey);
-		keys.add(emergencyHoverKey);
 
 		for (KeyBinding keyBindings : keys) {
 			int button = keyBindings.getKeyCode();
@@ -166,14 +112,9 @@ public class KeyTracker {
 		ItemStack chestStack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		Item chestItem = StackUtil.getItem(chestStack);
 
-		keys.add(engineKey);
-		keys.add(hoverKey);
-		keys.add(chargerKey);
-		keys.add(emergencyHoverKey);
-
 		for (KeyBinding keyBindings : keys) {
 			int button = keyBindings.getKeyCode();
-			if (button < 0 && Mouse.isButtonDown(button + 100)) {
+			if (button < 0 && keyBindings.isPressed()) {
 				if (chestItem instanceof ItemJetpack) {
 					ItemJetpack jetpack = (ItemJetpack) chestItem;
 
@@ -206,6 +147,13 @@ public class KeyTracker {
 			}
 		}
 
+	}
+
+	public static void addKeys() {
+		keys.add(engineKey);
+		keys.add(hoverKey);
+		keys.add(chargerKey);
+		keys.add(emergencyHoverKey);
 	}
 
 	public static void updateCustomKeybinds(String flyKeyName, String descendKeyName) {
