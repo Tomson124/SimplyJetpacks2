@@ -261,7 +261,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
 		int i = MathHelper.clamp_int(container.getItemDamage(), 0, numItems - 1);
 		int energy = this.getEnergyStored(container);
-		int energyReceived = Math.min(this.getMaxEnergyStored(container) - energy, Math.min(maxReceive, Jetpack.values()[i].getFuelPerTickIn()));
+		int energyReceived = Math.min(this.getMaxEnergyStored(container) - energy, Math.min(maxReceive, Jetpack.values()[i].getFuelPerTickOut()));
 		if (!simulate) {
 			energy += energyReceived;
 			NBTHelper.setInt(container, TAG_ENERGY, energy);
@@ -273,7 +273,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
 		int i = MathHelper.clamp_int(container.getItemDamage(), 0, numItems - 1);
 		int energy = this.getEnergyStored(container);
-		int energyExtracted = Math.min(energy, Math.min(maxExtract, Jetpack.values()[i].getFuelPerTickOut()));
+		int energyExtracted = Math.min(energy, Math.min(maxExtract, Jetpack.values()[i].getFuelPerTickIn()));
 		if (!simulate) {
 			energy -= energyExtracted;
 			NBTHelper.setInt(container, TAG_ENERGY, energy);
@@ -521,7 +521,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		if (this.fuelType == FuelType.ENERGY) {
 			for (int j = 0; j <= 5; j++) {
 				ItemStack currentStack = user.getItemStackFromSlot(EquipmentSlotHelper.fromSlot(j));
-				if (currentStack != null && currentStack != stack && (currentStack.hasCapability(CapabilityEnergy.ENERGY, null) || currentStack.getItem() instanceof IEnergyContainerItem)) {
+				if (currentStack != null && currentStack != stack && getIEnergyStorage(currentStack) != null) {
 					if (Jetpack.values()[i].usesFuel) {
 						int energyToAdd = Math.min(item.useFuel(stack, Jetpack.values()[i].getFuelPerTickOut(), true), getIEnergyStorage(currentStack).receiveEnergy(Jetpack.values()[i].getFuelPerTickOut(), true));
 						item.useFuel(stack, energyToAdd, false);
