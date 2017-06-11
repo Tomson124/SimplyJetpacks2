@@ -1,9 +1,7 @@
 package tonius.simplyjetpacks.item.rewrite;
 
-import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.util.SJStringHelper;
-import tonius.simplyjetpacks.util.StringHelper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
@@ -13,33 +11,32 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
 
-public class ItemMetaEIO extends ItemMeta {
+public class ItemMetaMods extends ItemMeta {
 
 	private final int numItems;
 
-	public ItemMetaEIO(String registryName) {
+	public ItemMetaMods(String registryName) {
 		super(registryName);
 
-		numItems = MetaItemsEIO.values().length;
+		numItems = MetaItemsMods.values().length;
 	}
 
 	@Override
 	public String getUnlocalizedName(ItemStack itemStack)
 	{
 		int i = MathHelper.clamp_int(itemStack.getItemDamage(), 0, numItems - 1);
-		return "item.simplyjetpacks." + MetaItemsEIO.values()[i].getName();
+		return "item.simplyjetpacks." + MetaItemsMods.values()[i].getName();
 	}
 
 	@Override
 	public EnumRarity getRarity(ItemStack itemStack)
 	{
 		int i = MathHelper.clamp_int(itemStack.getItemDamage(), 0, numItems - 1);
-		if (MetaItemsEIO.values()[i].getRarity() != null) {
-			return MetaItemsEIO.values()[i].getRarity();
+		if (MetaItemsMods.values()[i].getRarity() != null) {
+			return MetaItemsMods.values()[i].getRarity();
 		}
 		return super.getRarity(itemStack);
 	}
@@ -50,11 +47,11 @@ public class ItemMetaEIO extends ItemMeta {
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean par4)
 	{
 		int i = MathHelper.clamp_int(itemStack.getItemDamage(), 0, numItems - 1);
-		if(MetaItemsEIO.values()[i].getKeyTooltip() != null)
+		if(MetaItemsMods.values()[i].getKeyTooltip() != null)
 		{
 			if(SJStringHelper.canShowDetails())
 			{
-				SJStringHelper.addDescriptionLines(list, MetaItemsEIO.values()[i].getKeyTooltip(), TextFormatting.GRAY.toString());
+				SJStringHelper.addDescriptionLines(list, MetaItemsMods.values()[i].getKeyTooltip(), TextFormatting.GRAY.toString());
 			}
 			else
 			{
@@ -68,7 +65,7 @@ public class ItemMetaEIO extends ItemMeta {
 	public boolean hasEffect(ItemStack itemStack)
 	{
 		int i = MathHelper.clamp_int(itemStack.getItemDamage(), 0, numItems - 1);
-		if (MetaItemsEIO.values()[i].getGlow())
+		if (MetaItemsMods.values()[i].getGlow())
 		{
 			return true;
 		}
@@ -90,7 +87,7 @@ public class ItemMetaEIO extends ItemMeta {
 	{
 		for(int i = 0; i < numItems; i++)
 		{
-			SimplyJetpacks.proxy.registerItemRenderer(this, i, MetaItemsEIO.getTypeFromMeta(i).getName());
+			SimplyJetpacks.proxy.registerItemRenderer(this, i, MetaItemsMods.getTypeFromMeta(i).getName());
 		}
 	}
 }
