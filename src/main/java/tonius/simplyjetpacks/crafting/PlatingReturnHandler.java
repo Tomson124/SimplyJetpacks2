@@ -4,9 +4,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
-import tonius.simplyjetpacks.Log;
-import tonius.simplyjetpacks.item.ItemPack;
-import tonius.simplyjetpacks.item.meta.PackBase;
 import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
 import tonius.simplyjetpacks.item.rewrite.Jetpack;
 import tonius.simplyjetpacks.setup.ModItems;
@@ -38,7 +35,7 @@ public class PlatingReturnHandler
 			if(inputPack != null && inputPack.isArmored && Jetpack.PACKS_EIO.contains(inputPack))
 			{
 
-				EntityItem item = evt.player.entityDropItem(new ItemStack(ModItems.metaItemEIO, 1, inputPack.getPlatingMeta()), 0.0F);
+				EntityItem item = evt.player.entityDropItem(new ItemStack(ModItems.metaItemMods, 1, inputPack.getPlatingMeta()), 0.0F);
 				item.setNoPickupDelay();
 				break;
 			}

@@ -39,6 +39,8 @@ public class Config
 
 	// integration
 	public static boolean enableIntegrationEIO = Defaults.enableIntegrationEIO;
+	public static boolean enableIntegrationTE = Defaults.enableIntegrationTE;
+	public static boolean enableIntegrationTD = Defaults.enableIntegrationTD;
 	public static boolean enableIntegrationVanilla = Defaults.enableIntegrationVanilla;
 
 	// controls
