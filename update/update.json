@@ -1,11 +1,11 @@
 {
   "homepage": "https://minecraft.curseforge.com/projects/simply-jetpacks-2/files",
   "promos": {
-    "1.10.2-latest" : "2.1.2.47",
-    "1.10.2-recomended" : "2.1.2.47"
+    "1.10.2-latest" : "2.1.2",
+    "1.10.2-recomended" : "2.1.2"
   },
   "1.10.2" : {
-    "2.1.2.47" : "Fixed jetpacks not draining power, finish Forge Version Checker",
+    "2.1.1.47" : "Fixed jetpacks not draining power, finish Forge Version Checker",
     "2.1.1.46" : "Fixed recipes not working",
     "2.1.1.43" : "Localization updates, added ForgeEnery support",
     "2.1.0.39" : "Balancing, starting retexture and Jetplates",
