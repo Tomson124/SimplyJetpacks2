@@ -23,15 +23,23 @@ public enum Jetpack implements IStringSerializable {
 	CREATIVE_JETPACK("jetpackCreative", 6, "jetpackCreative", EnumRarity.EPIC, ParticleType.RAINBOW_SMOKE, false),
 	POTATO_JETPACK("jetpackPotato", 1, "jetpackPotato", EnumRarity.COMMON, ParticleType.DEFAULT, false),
 
+	//EnderIO
 	JETPACK_EIO_1("jetpackEIO1", 1, "jetpackEIO1", EnumRarity.COMMON),
 	JETPACK_EIO_2("jetpackEIO2", 2, "jetpackEIO2", EnumRarity.COMMON),
 	JETPACK_EIO_3("jetpackEIO3", 3, "jetpackEIO3", EnumRarity.UNCOMMON),
 	JETPACK_EIO_4("jetpackEIO4", 4, "jetpackEIO4", EnumRarity.RARE),
-	JETPACK_EIO_1_ARMORED("jetpackEIO1Armored", 1, "jetpackEIO1", EnumRarity.COMMON, true, MetaItemsEIO.ARMOR_PLATING_EIO_1.ordinal()),
-	JETPACK_EIO_2_ARMORED("jetpackEIO2Armored", 2, "jetpackEIO2", EnumRarity.COMMON, true, MetaItemsEIO.ARMOR_PLATING_EIO_2.ordinal()),
-	JETPACK_EIO_3_ARMORED("jetpackEIO3Armored", 3, "jetpackEIO3", EnumRarity.UNCOMMON, true, MetaItemsEIO.ARMOR_PLATING_EIO_3.ordinal()),
-	JETPACK_EIO_4_ARMORED("jetpackEIO4Armored", 4, "jetpackEIO4", EnumRarity.RARE, true, MetaItemsEIO.ARMOR_PLATING_EIO_4.ordinal()),
+	JETPACK_EIO_1_ARMORED("jetpackEIO1Armored", 1, "jetpackEIO1", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_EIO_1.ordinal()),
+	JETPACK_EIO_2_ARMORED("jetpackEIO2Armored", 2, "jetpackEIO2", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_EIO_2.ordinal()),
+	JETPACK_EIO_3_ARMORED("jetpackEIO3Armored", 3, "jetpackEIO3", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_EIO_3.ordinal()),
+	JETPACK_EIO_4_ARMORED("jetpackEIO4Armored", 4, "jetpackEIO4", EnumRarity.RARE, true, MetaItemsMods.ARMOR_PLATING_EIO_4.ordinal()),
 	JETPLATE_EIO_5("jetpackEIO5", 5, "jetpackEIO5", EnumRarity.EPIC, true),
+
+	//ThermalExpansion
+	JETPACK_TE_1("jetpackTE1", 1, "jetpackTE1", EnumRarity.COMMON),
+	JETPACK_TE_2("jetpackTE2", 2, "jetpackTE2", EnumRarity.COMMON),
+	JETPACK_TE_3("jetpackTE3", 3, "jetpackTE3", EnumRarity.UNCOMMON),
+	JETPACK_TE_4("jetpackTE4", 4, "jetpackTE4", EnumRarity.RARE),
+	JETPLATE_TE_5("jetpackTE5", 5, "jetpackTE5", EnumRarity.EPIC, true),
 	
 	JETPACK_VANILLA_1("jetpackVanilla1", 1, "jetpackVanilla1", EnumRarity.COMMON),
 	JETPACK_VANILLA_2("jetpackVanilla2", 2, "jetpackVanilla2", EnumRarity.UNCOMMON),
@@ -41,6 +49,7 @@ public enum Jetpack implements IStringSerializable {
 	protected static final EnumSet<Jetpack> ALL_PACKS = EnumSet.allOf(Jetpack.class);
 	protected static final EnumSet<Jetpack> PACKS_SJ = EnumSet.of(CREATIVE_JETPACK, POTATO_JETPACK);
 	public static final EnumSet<Jetpack> PACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPLATE_EIO_5);
+	public static final EnumSet<Jetpack> PACKS_TE = EnumSet.range(JETPACK_TE_1, JETPLATE_TE_5);
 	public static final EnumSet<Jetpack> PACKS_VANILLA = EnumSet.range(JETPACK_VANILLA_1, JETPACK_VANILLA_3);
 
 	protected static final String TAG_PARTICLE = "JetpackParticleType";
@@ -212,52 +221,15 @@ public enum Jetpack implements IStringSerializable {
 		}
 		return null;
 	}
-
-//	public static void loadAllConfigs(Configuration config) {
-//		if (ModItems.integrateEIO || ModItems.integrateVanilla) {
-//			for (Jetpack pack : ALL_PACKS) {
-//				pack.loadConfig(config);
-//			}
-//		} else {
-//			for (Jetpack pack : PACKS_SJ) {
-//				pack.loadConfig(config);
-//			}
-//		}
-//	}
-//
-//	public static void writeAllConfigsToNBT(NBTTagCompound tag) {
-//		if (ModItems.integrateEIO || ModItems.integrateVanilla) {
-//			for (Jetpack pack : ALL_PACKS) {
-//				NBTTagCompound packTag = new NBTTagCompound();
-//				pack.writeConfigToNBT(packTag);
-//				tag.setTag(pack.defaults.section.id, packTag);
-//			}
-//		} else {
-//			for (Jetpack pack : PACKS_SJ) {
-//				NBTTagCompound packTag = new NBTTagCompound();
-//				pack.writeConfigToNBT(packTag);
-//				tag.setTag(pack.defaults.section.id, packTag);
-//			}
-//		}
-//	}
-//
-//	public static void readAllConfigsFromNBT(NBTTagCompound tag) {
-//		if (ModItems.integrateEIO || ModItems.integrateVanilla) {
-//			for (Jetpack pack : ALL_PACKS) {
-//				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
-//				pack.readConfigFromNBT(packTag);
-//			}
-//		} else {
-//			for (Jetpack pack : PACKS_SJ) {
-//				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
-//				pack.readConfigFromNBT(packTag);
-//			}
-//		}
-//	}
 	
 	public static void loadAllConfigs(Configuration config) {
 		if (ModItems.integrateEIO){
 			for (Jetpack pack : PACKS_EIO) {
+				pack.loadConfig(config);
+			}
+		}
+		if (ModItems.integrateTE) {
+			for (Jetpack pack : PACKS_TE) {
 				pack.loadConfig(config);
 			}
 		}
@@ -274,6 +246,13 @@ public enum Jetpack implements IStringSerializable {
 	public static void writeAllConfigsToNBT(NBTTagCompound tag) {
 		if (ModItems.integrateEIO){
 			for (Jetpack pack : PACKS_EIO) {
+				NBTTagCompound packTag = new NBTTagCompound();
+				pack.writeConfigToNBT(packTag);
+				tag.setTag(pack.defaults.section.id, packTag);
+			}
+		}
+		if (ModItems.integrateTE){
+			for (Jetpack pack : PACKS_TE) {
 				NBTTagCompound packTag = new NBTTagCompound();
 				pack.writeConfigToNBT(packTag);
 				tag.setTag(pack.defaults.section.id, packTag);
@@ -296,6 +275,12 @@ public enum Jetpack implements IStringSerializable {
 	public static void readAllConfigsFromNBT(NBTTagCompound tag) {
 		if (ModItems.integrateEIO){
 			for (Jetpack pack : PACKS_EIO) {
+				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
+				pack.readConfigFromNBT(packTag);
+			}
+		}
+		if (ModItems.integrateTE){
+			for (Jetpack pack : PACKS_TE) {
 				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
 				pack.readConfigFromNBT(packTag);
 			}

@@ -73,8 +73,37 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> List) {
+		for (Jetpack pack : Jetpack.PACKS_SJ) {
+			ItemStack stack;
+			if (pack.usesFuel) {
+				List.add(new ItemStack(item, 1, pack.ordinal()));
+			}
+			else {
+				stack = new ItemStack(item, 1, pack.ordinal());
+				if (item instanceof ItemJetpack) {
+					((ItemJetpack) item).addFuel(stack, ((ItemJetpack) item).getMaxEnergyStored(stack), false);
+				}
+				List.add(stack);
+			}
+		}
 		if (ModItems.integrateEIO) {
 			for (Jetpack pack : Jetpack.PACKS_EIO) {
+				ItemStack stack;
+				if (pack.usesFuel) {
+					List.add(new ItemStack(item, 1, pack.ordinal()));
+				}
+				else {
+					stack = new ItemStack(item, 1, pack.ordinal());
+					if (item instanceof ItemJetpack) {
+						((ItemJetpack) item).addFuel(stack, ((ItemJetpack) item).getMaxEnergyStored(stack), false);
+					}
+
+					List.add(stack);
+				}
+			}
+		}
+		if (ModItems.integrateTE) {
+			for (Jetpack pack : Jetpack.PACKS_TE) {
 				ItemStack stack;
 				if (pack.usesFuel) {
 					List.add(new ItemStack(item, 1, pack.ordinal()));
@@ -93,19 +122,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			for (Jetpack pack : Jetpack.PACKS_VANILLA) {
 				ItemStack stack;
 				stack = new ItemStack(item, 1, pack.ordinal());
-				List.add(stack);
-			}
-		}
-		for (Jetpack pack : Jetpack.PACKS_SJ) {
-			ItemStack stack;
-			if (pack.usesFuel) {
-				List.add(new ItemStack(item, 1, pack.ordinal()));
-			}
-			else {
-				stack = new ItemStack(item, 1, pack.ordinal());
-				if (item instanceof ItemJetpack) {
-					((ItemJetpack) item).addFuel(stack, ((ItemJetpack) item).getMaxEnergyStored(stack), false);
-				}
 				List.add(stack);
 			}
 		}
@@ -237,7 +253,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		//return (int) Math.round(this.fuelUsage * (20 - fuelEfficiencyLevel) / 20.0D);
 	}
 
-	public int addFuel(ItemStack stack, int maxAdd, boolean simulate) {
+	/*public int addFuel(ItemStack stack, int maxAdd, boolean simulate) {
 		int energy = this.getEnergyStored(stack);
 		int energyReceived = Math.min(this.getMaxEnergyStored(stack) - energy, maxAdd);
 		if (!simulate) {
@@ -255,13 +271,21 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			NBTHelper.setInt(stack, TAG_ENERGY, energy);
 		}
 		return energyExtracted;
+	}*/
+
+	public int addFuel(ItemStack stack, int maxAdd, boolean simulate) {
+		return this.receiveEnergy(stack, maxAdd, simulate);
+	}
+
+	public int useFuel(ItemStack stack, int maxUse, boolean simulate) {
+		return this.extractEnergy(stack, maxUse, simulate);
 	}
 
 	@Override
 	public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
 		int i = MathHelper.clamp_int(container.getItemDamage(), 0, numItems - 1);
 		int energy = this.getEnergyStored(container);
-		int energyReceived = Math.min(this.getMaxEnergyStored(container) - energy, Math.min(maxReceive, Jetpack.values()[i].getFuelPerTickOut()));
+		int energyReceived = Math.min(this.getMaxEnergyStored(container) - energy, Math.min(maxReceive, Jetpack.values()[i].getFuelPerTickIn()));
 		if (!simulate) {
 			energy += energyReceived;
 			NBTHelper.setInt(container, TAG_ENERGY, energy);
@@ -273,7 +297,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
 		int i = MathHelper.clamp_int(container.getItemDamage(), 0, numItems - 1);
 		int energy = this.getEnergyStored(container);
-		int energyExtracted = Math.min(energy, Math.min(maxExtract, Jetpack.values()[i].getFuelPerTickIn()));
+		int energyExtracted = Math.min(energy, Math.min(maxExtract, Jetpack.values()[i].getFuelPerTickOut()));
 		if (!simulate) {
 			energy -= energyExtracted;
 			NBTHelper.setInt(container, TAG_ENERGY, energy);
