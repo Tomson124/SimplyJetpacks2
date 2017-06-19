@@ -297,7 +297,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
 		int i = MathHelper.clamp_int(container.getItemDamage(), 0, numItems - 1);
 		int energy = this.getEnergyStored(container);
-		int energyExtracted = Math.min(energy, Math.min(maxExtract, Jetpack.values()[i].getFuelPerTickOut()));
+		int energyExtracted = Math.min(energy, Math.min(maxExtract, Jetpack.values()[i].getFuelPerTickOut() == 0 ? Jetpack.values()[i].getFuelUsage() : Jetpack.values()[i].getFuelPerTickOut()));
 		if (!simulate) {
 			energy -= energyExtracted;
 			NBTHelper.setInt(container, TAG_ENERGY, energy);

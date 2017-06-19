@@ -1,3 +1,7 @@
+# 2.1.3  -  19-06-2017
+* **Fixed**
+    * Jetpacks not using energy while flying
+
 # 2.1.2  -  18-06-2017
 * **General**
     * Tweaked config values for Fluxpacks a little bit
