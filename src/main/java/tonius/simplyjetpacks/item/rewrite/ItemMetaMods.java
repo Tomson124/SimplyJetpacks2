@@ -1,6 +1,7 @@
 package tonius.simplyjetpacks.item.rewrite;
 
 import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.util.SJStringHelper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -77,9 +78,15 @@ public class ItemMetaMods extends ItemMeta {
 	@SuppressWarnings("unchecked")
 	public void getSubItems(Item item, CreativeTabs tab, List list)
 	{
-		for(int i = 0; i < numItems; i++)
-		{
-			list.add(new ItemStack(item, 1, i));
+		if (ModItems.integrateEIO) {
+			for (MetaItemsMods itemsMods : MetaItemsMods.ITEMS_EIO) {
+				list.add(new ItemStack(item, 1, itemsMods.ordinal()));
+			}
+		}
+		if (ModItems.integrateTE) {
+			for (MetaItemsMods itemsMods : MetaItemsMods.ITEMS_TE) {
+				list.add(new ItemStack(item, 1, itemsMods.ordinal()));
+			}
 		}
 	}
 

@@ -25,6 +25,9 @@ public enum MetaItemsMods {
 	ARMOR_PLATING_EIO_4("armorPlating.eio.4", null, EnumRarity.COMMON),
 
 	//ThermalExpansion
+	UNIT_GLOWSTONE_EMPTY("unitGlowstone.empty", null, EnumRarity.COMMON),
+	UNIT_CRYOTHEUM_EMPTY("unitCryotheum.empty", null, EnumRarity.COMMON),
+
 	THRUSTER_TE_1("thrusterTE1", null, EnumRarity.COMMON),
 	THRUSTER_TE_2("thrusterTE2", null, EnumRarity.COMMON),
 	THRUSTER_TE_3("thrusterTE3", null, EnumRarity.UNCOMMON),
@@ -37,7 +40,7 @@ public enum MetaItemsMods {
 	private boolean glow;
 
 	public static final EnumSet<MetaItemsMods> ITEMS_EIO = EnumSet.range(INGOT_DARK_SOULARIUM, ARMOR_PLATING_EIO_4);
-	public static final EnumSet<MetaItemsMods> ITEMS_TE = EnumSet.range(THRUSTER_EIO_1, THRUSTER_EIO_5);
+	public static final EnumSet<MetaItemsMods> ITEMS_TE = EnumSet.range(UNIT_GLOWSTONE_EMPTY, THRUSTER_TE_5);
 
 	private MetaItemsMods(String name, String keyTooltip, EnumRarity rarity) {
 		this.name = name;
@@ -70,13 +73,13 @@ public enum MetaItemsMods {
 
 	public
 	@Nonnull
-	ItemStack getStackMetaItemEIO() {
-		return getStackMetaItemEIO(1);
+	ItemStack getStackMetaItem() {
+		return getStackMetaItem(1);
 	}
 
 	public
 	@Nonnull
-	ItemStack getStackMetaItemEIO(int size) {
+	ItemStack getStackMetaItem(int size) {
 		return new ItemStack(ModItems.metaItemMods, size, ordinal());
 	}
 

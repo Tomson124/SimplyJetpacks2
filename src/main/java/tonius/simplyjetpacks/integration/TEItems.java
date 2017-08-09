@@ -1,6 +1,7 @@
 package tonius.simplyjetpacks.integration;
 
 import tonius.simplyjetpacks.SimplyJetpacks;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
@@ -16,6 +17,7 @@ public abstract class TEItems {
 	public static Item capacitor = null;
 	public static Item dynamo = null;
 	public static Item material = null;
+	public static Block glassAlloy = null;
 	public static ItemStack capacitorBasic = null;
 	public static ItemStack capacitorHardened = null;
 	public static ItemStack capacitorReinforced = null;
@@ -27,7 +29,7 @@ public abstract class TEItems {
 	public static ItemStack dynamoEnervation = null;
 	public static ItemStack dynamoSteam = null;
 	public static ItemStack frameCellReinforcedFull = null;
-	public static ItemStack frameIlluminator = null;
+	public static ItemStack constantanGlass = null;
 	public static ItemStack pneumaticServo = null;
 	public static ItemStack powerCoilElectrum = null;
 	public static ItemStack powerCoilGold = null;
@@ -55,6 +57,11 @@ public abstract class TEItems {
 		if (material != null) {
 			powerCoilGold = new ItemStack(material, 1, 513);
 			powerCoilElectrum = new ItemStack(material, 1, 515);
+		}
+
+		glassAlloy = Block.REGISTRY.getObject(new ResourceLocation("ThermalFoundation", "glass_alloy"));
+		if (glassAlloy != null) {
+			constantanGlass = new ItemStack(glassAlloy, 1, 4);
 		}
 
 		Fluid redstone = FluidRegistry.getFluid("redstone");
