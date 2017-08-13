@@ -34,7 +34,12 @@ public enum MetaItemsMods {
 	THRUSTER_TE_2("thrusterTE2", null, EnumRarity.COMMON),
 	THRUSTER_TE_3("thrusterTE3", null, EnumRarity.UNCOMMON),
 	THRUSTER_TE_4("thrusterTE4", null, EnumRarity.RARE),
-	THRUSTER_TE_5("thrusterTE5", null, EnumRarity.EPIC);
+	THRUSTER_TE_5("thrusterTE5", null, EnumRarity.EPIC),
+
+	ARMOR_PLATING_TE_1("armorPlating.te.1", null, EnumRarity.COMMON),
+	ARMOR_PLATING_TE_2("armorPlating.te.2", null, EnumRarity.COMMON),
+	ARMOR_PLATING_TE_3("armorPlating.te.3", null, EnumRarity.COMMON),
+	ARMOR_PLATING_TE_4("armorPlating.te.4", null, EnumRarity.COMMON);
 
 	private String name;
 	private String keyTooltip;
@@ -42,7 +47,7 @@ public enum MetaItemsMods {
 	private boolean glow;
 
 	public static final EnumSet<MetaItemsMods> ITEMS_EIO = EnumSet.range(INGOT_DARK_SOULARIUM, ARMOR_PLATING_EIO_4);
-	public static final EnumSet<MetaItemsMods> ITEMS_TE = EnumSet.range(UNIT_GLOWSTONE_EMPTY, THRUSTER_TE_5);
+	public static final EnumSet<MetaItemsMods> ITEMS_TE = EnumSet.range(UNIT_GLOWSTONE_EMPTY, ARMOR_PLATING_TE_4);
 
 	private MetaItemsMods(String name, String keyTooltip, EnumRarity rarity) {
 		this.name = name;

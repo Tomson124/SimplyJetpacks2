@@ -27,7 +27,7 @@ public abstract class TERecipes {
 			toSend.setInteger("secondaryChance", secondaryChance);
 		}
 
-		FMLInterModComms.sendMessage("ThermalExpansion", "SmelterRecipe", toSend);
+		FMLInterModComms.sendMessage("thermalexpansion", "AddSmelterRecipe", toSend);
 	}
 
 	public static void addTransposerFill(int energy, ItemStack input, ItemStack output, FluidStack fluid, boolean reversible) {
