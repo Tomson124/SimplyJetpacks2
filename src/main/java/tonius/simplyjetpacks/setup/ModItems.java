@@ -12,6 +12,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -75,6 +77,8 @@ public abstract class ModItems {
 	//ThermalExpansion Packs
 	public static ItemStack unitGlowstoneEmpty;
 	public static ItemStack unitCryotheumEmpty;
+	public static ItemStack unitGlowstone;
+	public static ItemStack unitCryotheum;
 
 	public static ItemStack thrusterTE1;
 	public static ItemStack thrusterTE2;
@@ -212,6 +216,8 @@ public abstract class ModItems {
 		if (integrateTE) {
 			unitGlowstoneEmpty = MetaItemsMods.UNIT_GLOWSTONE_EMPTY.getStackMetaItem();
 			unitCryotheumEmpty = MetaItemsMods.UNIT_CRYOTHEUM_EMPTY.getStackMetaItem();
+			unitGlowstone = MetaItemsMods.UNIT_GLOWSTONE.getStackMetaItem();
+			unitCryotheum = MetaItemsMods.UNIT_CRYOTHEUM.getStackMetaItem();
 
 			thrusterTE1 = MetaItemsMods.THRUSTER_TE_1.getStackMetaItem();
 			thrusterTE2 = MetaItemsMods.THRUSTER_TE_2.getStackMetaItem();
@@ -360,8 +366,8 @@ public abstract class ModItems {
 			EIORecipes.addSoulBinderRecipe("Flight Control Unit", 75000, 8, "Bat", unitFlightControlEmpty, unitFlightControl);
 		}
 
-		/*if (integrateTE) {
-			if (!integrateRA && Config.addRAItemsIfNotInstalled) {
+		if (integrateTE) {
+			/*if (!integrateRA && Config.addRAItemsIfNotInstalled) {
 				TERecipes.addTransposerFill(8000, new ItemStack(Items.diamond), gemCrystalFlux, new FluidStack(FluidRegistry.getFluid("redstone"), 200), false);
 				TERecipes.addTransposerFill(4000, OreDictionary.getOres("dustElectrum").get(0), dustElectrumFlux, new FluidStack(FluidRegistry.getFluid("redstone"), 200), false);
 				TERecipes.addSmelterBlastOre("ElectrumFlux");
@@ -378,11 +384,9 @@ public abstract class ModItems {
 			i = OreDictionary.getOres("ingotEnderium").get(0).copy();
 			i.stackSize = 10;
 			TERecipes.addSmelterRecipe(6400, armorPlatingTE3, i, armorPlatingTE4, null, 0);
-
-			if (integrateRA || Config.addRAItemsIfNotInstalled) {
-				TERecipes.addTransposerFill(6400, unitGlowstoneEmpty, unitGlowstone, new FluidStack(FluidRegistry.getFluid("glowstone"), 4000), false);
-				TERecipes.addTransposerFill(6400, unitCryotheumEmpty, unitCryotheum, new FluidStack(FluidRegistry.getFluid("cryotheum"), 4000), false);
-			}
-		}*/
+*/
+			TERecipes.addTransposerFill(6400, unitGlowstoneEmpty, unitGlowstone, new FluidStack(FluidRegistry.getFluid("glowstone"), 4000), false);
+			TERecipes.addTransposerFill(6400, unitCryotheumEmpty, unitCryotheum, new FluidStack(FluidRegistry.getFluid("cryotheum"), 4000), false);
+		}
 	}
 }
