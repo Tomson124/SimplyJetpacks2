@@ -29,6 +29,8 @@ public enum MetaItemsMods {
 	UNIT_CRYOTHEUM_EMPTY("unitCryotheum.empty", null, EnumRarity.COMMON),
 	UNIT_GLOWSTONE("unitGlowstone", null, EnumRarity.RARE),
 	UNIT_CRYOTHEUM("unitCryotheum", null, EnumRarity.UNCOMMON),
+	PLATE_FLUX("plateFlux", null, EnumRarity.UNCOMMON),
+	ARMOR_FLUX_PLATE("armorFluxPlate", null, EnumRarity.UNCOMMON),
 
 	THRUSTER_TE_1("thrusterTE1", null, EnumRarity.COMMON),
 	THRUSTER_TE_2("thrusterTE2", null, EnumRarity.COMMON),

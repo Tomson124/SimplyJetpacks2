@@ -20,10 +20,15 @@ public enum Fluxpack implements IStringSerializable {
 	FLUXPACK_EIO1("fluxPackEIO1", "fluxPackEIO1", 1, EnumRarity.COMMON),
 	FLUXPACK_EIO2("fluxPackEIO2", "fluxPackEIO2", 2, EnumRarity.UNCOMMON),
 	FLUXPACK_EIO3("fluxPackEIO3", "fluxPackEIO3", 3, EnumRarity.RARE),
-
 	FLUXPACK_EIO2_ARMORED("fluxPackEIO2Armored", "fluxPackEIO2", 2, EnumRarity.UNCOMMON, true, true),
-	FLUXPACK_EIO3_ARMORED("fluxPackEIO3Armored", "fluxPackEIO3", 3, EnumRarity.RARE, true, true);
+	FLUXPACK_EIO3_ARMORED("fluxPackEIO3Armored", "fluxPackEIO3", 3, EnumRarity.RARE, true, true),
 	//FLUXPACK_EIO4("fluxPackEIO4", "fluxPackEIO4", 4, EnumRarity.RARE);
+
+	FLUXPACK_TE1("fluxPackTE1", "fluxPackTE1", 1, EnumRarity.COMMON),
+	FLUXPACK_TE2("fluxPackTE2", "fluxPackTE2", 2, EnumRarity.UNCOMMON),
+	FLUXPACK_TE3("fluxPackTE3", "fluxPackTE3", 3, EnumRarity.RARE),
+	FLUXPACK_TE2_ARMORED("fluxPackTE2Armored", "fluxPackTE2", 2, EnumRarity.UNCOMMON, true, true),
+	FLUXPACK_TE3_ARMORED("fluxPackTE3Armored", "fluxPackTE3", 3, EnumRarity.RARE, true, true);
 
 	public final @Nonnull String baseName;
 	public final @Nonnull String unlocalisedName;
@@ -45,7 +50,8 @@ public enum Fluxpack implements IStringSerializable {
 
 	protected static final EnumSet<Fluxpack> ALL_FLUXPACKS = EnumSet.allOf(Fluxpack.class);
 	protected static final EnumSet<Fluxpack> SJ_FLUXPACKS = EnumSet.of(CREATIVE_FLUXPACK);
-	//public static final EnumSet<Jetpack> PACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPACK_EIO_4_ARMORED);
+	//public static final EnumSet<Jetpack> PACKS_EIO = EnumSet.range(FLUXPACK_EIO1, FLUXPACK_EIO_3_ARMORED);
+	//public static final EnumSet<Jetpack> PACKS_TE = EnumSet.range(FLUXPACK_TE1, FLUXPACK_TE3_ARMORED);
 
 	private Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity, boolean usesFuel) {
 		this(baseName, defaultConfigKey, tier, rarity);

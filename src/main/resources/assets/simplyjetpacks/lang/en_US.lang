@@ -33,6 +33,11 @@ item.simplyjetpacks.fluxpack.1.armored.eio.name=Basic Capacitor Pack (Armored)
 item.simplyjetpacks.fluxPackEIO2Armored.name=Capacitor Pack (Armored)
 item.simplyjetpacks.fluxPackEIO3Armored.name=Vibrant Capacitor Pack (Armored)
 item.simplyjetpacks.fluxpack.4.armored.eio.name=Octadic Capacitor Pack (Armored)
+item.simplyjetpacks.fluxPackTE1.name=Leadstone Flux Pack
+item.simplyjetpacks.fluxPackTE2.name=Hardened Flux Pack
+item.simplyjetpacks.fluxPackTE3.name=Redstone Flux Pack
+item.simplyjetpacks.fluxPackTE2Armored.name=Hardened Flux Pack (Armored)
+item.simplyjetpacks.fluxPackTE3Armored.name=Redstone Flux Pack (Armored)
 
 item.simplyjetpacks.leatherStrap.name=Leather Strap
 item.simplyjetpacks.thrusterEIO1.name=Conductive Iron Thruster
@@ -56,7 +61,6 @@ item.simplyjetpacks.ingotDarkSoularium.name=Dark Soularium Ingot
 item.simplyjetpacks.reinforcedGliderWing.name=Reinforced Glider Wing
 item.simplyjetpacks.unitFlightControl.empty.name=Flight Control Unit (Empty)
 item.simplyjetpacks.unitFlightControl.name=Flight Control Unit
-item.simplyjetpacks.enderiumUpgrade.name=Enderium Flux Overlay
 
 item.simplyjetpacks.dustElectrumFlux.name=Fluxed Electrum Blend
 item.simplyjetpacks.ingotElectrumFlux.name=Fluxed Electrum Ingot
