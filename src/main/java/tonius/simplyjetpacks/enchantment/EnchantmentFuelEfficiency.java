@@ -4,7 +4,6 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.setup.ModEnchantments;
 
 public class EnchantmentFuelEfficiency extends Enchantment

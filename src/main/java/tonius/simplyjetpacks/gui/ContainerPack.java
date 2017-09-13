@@ -11,8 +11,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import tonius.simplyjetpacks.item.ItemPack;
-import tonius.simplyjetpacks.item.meta.PackBase;
 
 public class ContainerPack extends Container
 {

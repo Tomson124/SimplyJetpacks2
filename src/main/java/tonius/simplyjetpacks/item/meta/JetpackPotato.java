@@ -13,7 +13,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.handler.SyncHandler;
-import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.setup.ModKey;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.sound.SJSoundRegistry;

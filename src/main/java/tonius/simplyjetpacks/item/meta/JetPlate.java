@@ -12,7 +12,6 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.integration.ModType;
-import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.setup.ModKey;
 import tonius.simplyjetpacks.util.NBTHelper;
 import tonius.simplyjetpacks.util.SJStringHelper;

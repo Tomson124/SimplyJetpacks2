@@ -6,8 +6,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import tonius.simplyjetpacks.gui.ContainerPack;
-import tonius.simplyjetpacks.item.ItemPack;
-import tonius.simplyjetpacks.item.meta.PackBase;
 
 public abstract class GuiHandler implements IGuiHandler
 {

@@ -16,7 +16,6 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.handler.SyncHandler;
-import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.setup.ModEnchantments;
 import tonius.simplyjetpacks.setup.ModKey;

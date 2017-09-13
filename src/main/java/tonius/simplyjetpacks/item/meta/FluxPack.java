@@ -8,7 +8,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.model.PackModelType;
-import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.util.SJStringHelper;
 import tonius.simplyjetpacks.util.StringHelper;

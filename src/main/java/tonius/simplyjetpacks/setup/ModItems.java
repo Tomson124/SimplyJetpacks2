@@ -5,7 +5,6 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.crafting.UpgradingRecipe;
 import tonius.simplyjetpacks.integration.*;
-import tonius.simplyjetpacks.item.ItemPack.ItemFluxPack;
 import tonius.simplyjetpacks.item.rewrite.*;
 import tonius.simplyjetpacks.util.ItemHelper;
 import net.minecraft.init.Blocks;

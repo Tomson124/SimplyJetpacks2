@@ -7,7 +7,6 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;
 import tonius.simplyjetpacks.client.model.ModelFluxPack;
 import tonius.simplyjetpacks.client.model.ModelJetpack;
-import tonius.simplyjetpacks.item.meta.PackBase;
 import tonius.simplyjetpacks.item.rewrite.Fluxpack;
 import tonius.simplyjetpacks.item.rewrite.Jetpack;
 
