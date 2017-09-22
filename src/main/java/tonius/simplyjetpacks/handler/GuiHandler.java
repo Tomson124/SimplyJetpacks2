@@ -5,7 +5,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-import tonius.simplyjetpacks.gui.ContainerPack;
 
 public abstract class GuiHandler implements IGuiHandler
 {

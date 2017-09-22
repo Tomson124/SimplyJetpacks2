@@ -42,7 +42,7 @@ public class MessageModKey implements IMessage, IMessageHandler<MessageModKey, I
 	@Override
 	public IMessage onMessage(MessageModKey msg, MessageContext ctx)
 	{
-		EntityPlayer entityPlayer = ctx.getServerHandler().playerEntity;
+		EntityPlayer entityPlayer = ctx.getServerHandler().player;
 
 		if(entityPlayer != null)
 		{
