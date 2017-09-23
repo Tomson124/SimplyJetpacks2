@@ -1,11 +1,6 @@
 package tonius.simplyjetpacks;
 
-import tonius.simplyjetpacks.config.Config;
-import tonius.simplyjetpacks.crafting.UpgradingRecipe;
-import tonius.simplyjetpacks.handler.SyncHandler;
-import tonius.simplyjetpacks.network.PacketHandler;
-import tonius.simplyjetpacks.setup.ModEnchantments;
-import tonius.simplyjetpacks.setup.ModItems;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -13,10 +8,13 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
-import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.RecipeSorter.Category;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import tonius.simplyjetpacks.config.Config;
+import tonius.simplyjetpacks.handler.SyncHandler;
+import tonius.simplyjetpacks.network.PacketHandler;
+import tonius.simplyjetpacks.setup.ModEnchantments;
+import tonius.simplyjetpacks.setup.ModItems;
 
 @Mod(modid = SimplyJetpacks.MODID, name = SimplyJetpacks.MOD_NAME, version = SimplyJetpacks.VERSION, dependencies = SimplyJetpacks.DEPENDENCIES, guiFactory = SimplyJetpacks.GUI_FACTORY, updateJSON = SimplyJetpacks.UPDATE_JSON)
 public class SimplyJetpacks {
@@ -40,14 +38,16 @@ public class SimplyJetpacks {
 	public static void preInit(FMLPreInitializationEvent evt) {
 		logger.info("Starting Simply Jetpacks 2");
 
-		//Packs.preInit();
+		MinecraftForge.EVENT_BUS.register(new RegistryHandler());
+
 		Config.preInit(evt);
 		ModItems.preInit();
+		//Log.info("ListRecipes: " + RECIPES_TO_REGISTER);
 	}
 
 	@EventHandler
 	public static void init(FMLInitializationEvent evt) {
-		RecipeSorter.register(SimplyJetpacks.MODID + ":upgrading", UpgradingRecipe.class, Category.SHAPED, "after:minecraft:shaped");
+		//RecipeSorter.register(SimplyJetpacks.MODID + ":upgrading", UpgradingRecipe.class, Category.SHAPED, "after:minecraft:shaped");
 		proxy.registerHandlers();
 		proxy.initKeys();
 		PacketHandler.init();

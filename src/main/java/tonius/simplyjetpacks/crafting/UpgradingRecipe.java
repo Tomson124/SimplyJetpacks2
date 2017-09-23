@@ -4,25 +4,33 @@ import cofh.api.energy.IEnergyContainerItem;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import tonius.simplyjetpacks.CommonProxy;
+import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
 import tonius.simplyjetpacks.item.rewrite.Jetpack;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.NBTHelper;
+import tonius.simplyjetpacks.util.crafting.RecipeHelper;
 
 public class UpgradingRecipe extends ShapedOreRecipe {
 	private final IEnergyContainerItem resultItem;
 	private final int resultMeta;
 
-	public UpgradingRecipe(ResourceLocation resourceLocation, ItemStack result, Object... recipe) {
-		super(resourceLocation, result, recipe);
+	private static int j = 0;
+
+	public UpgradingRecipe(ItemStack result, Object... recipe) {
+		super(null, result, recipe);
+		setRegistryName(SimplyJetpacks.MODID, "upgradeRecipe" + j);
+		j++;
 		this.resultItem = (IEnergyContainerItem) result.getItem();
 		this.resultMeta = result.getItemDamage();
 		result.getEnchantmentTagList();
+		//RecipeHelper.RECIPE_LIST.add(this);
 	}
 
 	@Override

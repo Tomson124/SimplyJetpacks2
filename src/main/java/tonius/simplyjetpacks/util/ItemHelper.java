@@ -4,15 +4,13 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import tonius.simplyjetpacks.SimplyJetpacks;
+
+import java.util.List;
 
 public class ItemHelper
 {
@@ -72,37 +70,6 @@ public class ItemHelper
 		return retStack;
 	}
 
-	/* CREATING ItemStacks */
-	public static final ItemStack stack(Item t)
-	{
-		return new ItemStack(t);
-	}
-
-	public static final ItemStack stack(Item t, int s)
-	{
-		return new ItemStack(t, s);
-	}
-
-	public static final ItemStack stack(Item t, int s, int m)
-	{
-		return new ItemStack(t, s, m);
-	}
-
-	public static final ItemStack stack(Block t)
-	{
-		return new ItemStack(t);
-	}
-
-	public static final ItemStack stack(Block t, int s)
-	{
-		return new ItemStack(t, s);
-	}
-
-	public static final ItemStack stack(Block t, int s, int m)
-	{
-		return new ItemStack(t, s, m);
-	}
-
 	/* CREATING OreRecipes */
 	public static final IRecipe ShapedRecipe(Block result, Object... recipe)
 	{
@@ -114,19 +81,19 @@ public class ItemHelper
 		return new ShapedOreRecipe(resourceLocation, result, recipe);
 	}
 
-	public static final IRecipe ShapedRecipe(ItemStack result, Object... recipe)
+	public static final IRecipe ShapedRecipe(String name, ItemStack result, Object... recipe)
 	{
-		return new ShapedOreRecipe(resourceLocation, result, recipe);
+		return new ShapedOreRecipe(new ResourceLocation(SimplyJetpacks.MODID, name), result, recipe);
 	}
 
 	public static final IRecipe ShapedRecipe(Block result, int s, Object... recipe)
 	{
-		return new ShapedOreRecipe(resourceLocation, stack(result, s), recipe);
+		return new ShapedOreRecipe(resourceLocation, new ItemStack(result, s), recipe);
 	}
 
 	public static final IRecipe ShapedRecipe(Item result, int s, Object... recipe)
 	{
-		return new ShapedOreRecipe(resourceLocation, stack(result, s), recipe);
+		return new ShapedOreRecipe(resourceLocation, new ItemStack(result, s), recipe);
 	}
 
 	public static final IRecipe ShapedRecipe(ItemStack result, int s, Object... recipe)
@@ -151,12 +118,12 @@ public class ItemHelper
 
 	public static final IRecipe ShapelessRecipe(Block result, int s, Object... recipe)
 	{
-		return new ShapelessOreRecipe(resourceLocation, stack(result, s), recipe);
+		return new ShapelessOreRecipe(resourceLocation, new ItemStack(result, s), recipe);
 	}
 
 	public static final IRecipe ShapelessRecipe(Item result, int s, Object... recipe)
 	{
-		return new ShapelessOreRecipe(resourceLocation, stack(result, s), recipe);
+		return new ShapelessOreRecipe(resourceLocation, new ItemStack(result, s), recipe);
 	}
 
 	public static final IRecipe ShapelessRecipe(ItemStack result, int s, Object... recipe)
@@ -166,19 +133,19 @@ public class ItemHelper
 
 	//RECIPE
 
-	public static void addShapedRecipe(ItemStack out, Object... recipe)
+	public static void addShapedRecipe(String name, ItemStack out, Object... recipe)
 	{
-		ForgeRegistries.RECIPES.register(ShapedRecipe(out, recipe));
+		ForgeRegistries.RECIPES.register(ShapedRecipe(name, out, recipe));
 	}
 
-	public static void addShapedRecipe(Item out, Object... recipe)
+	public static void addShapedRecipe(String name, Item out, Object... recipe)
 	{
-		addShapedRecipe(new ItemStack(out), recipe);
+		addShapedRecipe(name, new ItemStack(out), recipe);
 	}
 
-	public static void addShapedRecipe(Block out, Object... recipe)
+	public static void addShapedRecipe(String name, Block out, Object... recipe)
 	{
-		addShapedRecipe(new ItemStack(out), recipe);
+		addShapedRecipe(name, new ItemStack(out), recipe);
 	}
 
 	public static void addShapelessRecipe(ItemStack out, Object... recipe)
@@ -196,9 +163,9 @@ public class ItemHelper
 		addShapelessRecipe(new ItemStack(out), recipe);
 	}
 
-	public static void addShapedOreRecipe(ItemStack out, Object... recipe)
+	public static void addShapedOreRecipe(String name, ItemStack out, Object... recipe)
 	{
-		ForgeRegistries.RECIPES.register(ShapedRecipe(out, recipe));
+		ForgeRegistries.RECIPES.register(ShapedRecipe(name, out, recipe));
 	}
 
 	public static void addShapedOreRecipe(Item out, Object... recipe)
@@ -211,9 +178,9 @@ public class ItemHelper
 		ForgeRegistries.RECIPES.register(ShapedRecipe(out, recipe));
 	}
 
-	public static void addShapelessOreRecipe(ItemStack out, Object... recipe)
+	public static void addShapelessOreRecipe(String name, ItemStack out, Object... recipe)
 	{
-		ForgeRegistries.RECIPES.register(ShapedRecipe(out, recipe));
+		ForgeRegistries.RECIPES.register(ShapedRecipe(name, out, recipe));
 	}
 
 	public static void addShapelessOreRecipe(Item out, Object... recipe)
