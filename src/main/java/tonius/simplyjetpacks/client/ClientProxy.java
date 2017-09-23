@@ -37,7 +37,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void showJetpackParticles(World world, EntityLivingBase wearer, ParticleType particle) {
-		if (mc.gameSettings.particleSetting == 0 || mc.gameSettings.particleSetting == 1 && mc.theWorld.getTotalWorldTime() % 4L == 0) {
+		if (mc.gameSettings.particleSetting == 0 || mc.gameSettings.particleSetting == 1 && mc.world.getTotalWorldTime() % 4L == 0) {
 
 			Random rand = new Random();
 
@@ -49,28 +49,14 @@ public class ClientProxy extends CommonProxy {
 			Pos3D vRight = new Pos3D(0.28, -0.95, -0.38).rotatePitch(0).rotateYaw(wearer.renderYawOffset);
 			Pos3D vCenter = new Pos3D((rand.nextFloat() - 0.5F) * 0.25F, -0.95, -0.38).rotatePitch(0).rotateYaw(wearer.renderYawOffset);
 
-			/*Pos3D mLeft = vLeft.scale(0.4).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ));
-			Pos3D mRight = vRight.scale(0.4).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ));
-			Pos3D mCenter = vCenter.scale(0.4).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ));
-
-			if (SyncHandler.isFlyKeyDown(wearer)) {
-				Pos3D v = playerPos.translate(vLeft).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ).scale(0.5));
-				ParticleUtils.spawnParticle(particle, world, v.xCoord, v.yCoord, v.zCoord, mLeft.xCoord, -0.2D, mLeft.zCoord);
-
-				v = playerPos.translate(vRight).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ).scale(0.5));
-				ParticleUtils.spawnParticle(particle, world, v.xCoord, v.yCoord, v.zCoord, mRight.xCoord, -0.2D, mRight.zCoord);
-
-				v = playerPos.translate(vCenter).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ).scale(0.5));
-				ParticleUtils.spawnParticle(particle, world, v.xCoord, v.yCoord, v.zCoord, mCenter.xCoord, -0.2D, mCenter.zCoord);
-			}*/
 			Pos3D v = playerPos.translate(vLeft).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ).scale(0.5));
-			ParticleUtils.spawnParticle(particle, world, v.xCoord, v.yCoord, v.zCoord, random, -0.2D, random);
+			ParticleUtils.spawnParticle(particle, world, v.x, v.y, v.z, random, -0.2D, random);
 
 			v = playerPos.translate(vRight).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ).scale(0.5));
-			ParticleUtils.spawnParticle(particle, world, v.xCoord, v.yCoord, v.zCoord, random, -0.2D, random);
+			ParticleUtils.spawnParticle(particle, world, v.x, v.y, v.z, random, -0.2D, random);
 
 			v = playerPos.translate(vCenter).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ).scale(0.5));
-			ParticleUtils.spawnParticle(particle, world, v.xCoord, v.yCoord, v.zCoord, random, -0.2D, random);
+			ParticleUtils.spawnParticle(particle, world, v.x, v.y, v.z, random, -0.2D, random);
 		}
 	}
 

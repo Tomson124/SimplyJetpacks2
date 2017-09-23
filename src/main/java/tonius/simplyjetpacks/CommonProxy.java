@@ -54,7 +54,7 @@ public class CommonProxy
 	}
 
 	public EntityPlayer getPlayer(MessageContext context) {
-		return context.getServerHandler().playerEntity;
+		return context.getServerHandler().player;
 	}
 
 	public void initKeys() {

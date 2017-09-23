@@ -65,7 +65,7 @@ public class KeyTracker {
 
 	@SubscribeEvent
 	public void onKeyInput(KeyInputEvent event) {
-		EntityPlayer player = FMLClientHandler.instance().getClient().thePlayer;
+		EntityPlayer player = FMLClientHandler.instance().getClient().player;
 		ItemStack chestStack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		Item chestItem = StackUtil.getItem(chestStack);
 
@@ -108,7 +108,7 @@ public class KeyTracker {
 
 	@SubscribeEvent
 	public void onMouseInput(InputEvent.MouseInputEvent event) {
-		EntityPlayer player = FMLClientHandler.instance().getClient().thePlayer;
+		EntityPlayer player = FMLClientHandler.instance().getClient().player;
 		ItemStack chestStack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		Item chestItem = StackUtil.getItem(chestStack);
 
@@ -162,7 +162,7 @@ public class KeyTracker {
 	}
 
 	private static void tickStart() {
-		if (mc.thePlayer != null) {
+		if (mc.player != null) {
 			boolean flyState;
 			boolean descendState;
 			if (Config.customControls) {
@@ -187,7 +187,7 @@ public class KeyTracker {
 				lastLeftState = leftState;
 				lastRightState = rightState;
 				PacketHandler.instance.sendToServer(new MessageKeyboardSync(flyState, descendState, forwardState, backwardState, leftState, rightState));
-				SyncHandler.processKeyUpdate(mc.thePlayer, flyState, descendState, forwardState, backwardState, leftState, rightState);
+				SyncHandler.processKeyUpdate(mc.player, flyState, descendState, forwardState, backwardState, leftState, rightState);
 			}
 		}
 	}

@@ -13,7 +13,7 @@ public class PlatingReturnHandler
 	@SubscribeEvent
 	public void onItemCrafted(ItemCraftedEvent evt)
 	{
-		if(evt.player.worldObj.isRemote || !(evt.crafting.getItem() instanceof ItemJetpack))
+		if(evt.player.world.isRemote || !(evt.crafting.getItem() instanceof ItemJetpack))
 		{
 			return;
 		}

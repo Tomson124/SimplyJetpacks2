@@ -42,14 +42,14 @@ public class LivingTickHandler
 	@SubscribeEvent
 	public void onLivingTick(LivingUpdateEvent evt)
 	{
-		if(!evt.getEntityLiving().worldObj.isRemote)
+		if(!evt.getEntityLiving().world.isRemote)
 		{
 			ParticleType jetpackState = null;
 			ItemStack armor = evt.getEntityLiving().getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 			Jetpack jetpack = null;
 			if(armor != null && armor.getItem() instanceof ItemJetpack)
 			{
-				int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
+				int i = MathHelper.clamp(armor.getItemDamage(), 0, numItems - 1);
 				jetpack = Jetpack.getTypeFromMeta(i);
 				if(jetpack != null)
 				{
@@ -69,18 +69,18 @@ public class LivingTickHandler
 				}
 				PacketHandler.instance.sendToAllAround(new MessageJetpackSync(evt.getEntityLiving().getEntityId(), jetpackState != null ? jetpackState.ordinal() : -1), new TargetPoint(evt.getEntityLiving().dimension, evt.getEntityLiving().posX, evt.getEntityLiving().posY, evt.getEntityLiving().posZ, 256));
 			}
-			else if(jetpack != null && evt.getEntityLiving().worldObj.getTotalWorldTime() % 160L == 0)
+			else if(jetpack != null && evt.getEntityLiving().world.getTotalWorldTime() % 160L == 0)
 			{
 				PacketHandler.instance.sendToAllAround(new MessageJetpackSync(evt.getEntityLiving().getEntityId(), jetpackState != null ? jetpackState.ordinal() : -1), new TargetPoint(evt.getEntityLiving().dimension, evt.getEntityLiving().posX, evt.getEntityLiving().posY, evt.getEntityLiving().posZ, 256));
 			}
 
-			if(evt.getEntityLiving().worldObj.getTotalWorldTime() % 200L == 0)
+			if(evt.getEntityLiving().world.getTotalWorldTime() % 200L == 0)
 			{
 				Iterator<Integer> itr = lastJetpackState.keySet().iterator();
 				while(itr.hasNext())
 				{
 					int entityId = itr.next();
-					if(evt.getEntityLiving().worldObj.getEntityByID(entityId) == null)
+					if(evt.getEntityLiving().world.getEntityByID(entityId) == null)
 					{
 						itr.remove();
 					}

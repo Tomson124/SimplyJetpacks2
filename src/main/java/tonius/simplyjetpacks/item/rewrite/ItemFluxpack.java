@@ -1,5 +1,7 @@
 package tonius.simplyjetpacks.item.rewrite;
 
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.util.NonNullList;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.capability.CapabilityProviderEnergy;
 import tonius.simplyjetpacks.capability.EnergyConversionStorage;
@@ -39,6 +41,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider {
@@ -68,16 +71,16 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> List) {
+	public void getSubItems(CreativeTabs creativeTabs, NonNullList<ItemStack> List) {
 		if (ModItems.integrateEIO) {
 			for (Fluxpack pack : Fluxpack.ALL_FLUXPACKS) {
 				ItemStack stack;
 				if (pack.usesFuel) {
-					List.add(new ItemStack(item, 1, pack.ordinal()));
+					List.add(new ItemStack(this, 1, pack.ordinal()));
 				} else {
-					stack = new ItemStack(item, 1, pack.ordinal());
-					if (item instanceof ItemFluxpack) {
-						((ItemFluxpack) item).addFuel(stack, ((ItemFluxpack) item).getMaxEnergyStored(stack), false);
+					stack = new ItemStack(this, 1, pack.ordinal());
+					if (this instanceof ItemFluxpack) {
+						((ItemFluxpack) this).addFuel(stack, ((ItemFluxpack) this).getMaxEnergyStored(stack), false);
 					}
 
 					List.add(stack);
@@ -89,11 +92,11 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 				ItemStack stack;
 				if (pack.usesFuel) {
-					List.add(new ItemStack(item, 1, pack.ordinal()));
+					List.add(new ItemStack(this, 1, pack.ordinal()));
 				} else {
-					stack = new ItemStack(item, 1, pack.ordinal());
-					if (item instanceof ItemFluxpack) {
-						((ItemFluxpack) item).addFuel(stack, ((ItemFluxpack) item).getMaxEnergyStored(stack), false);
+					stack = new ItemStack(this, 1, pack.ordinal());
+					if (this instanceof ItemFluxpack) {
+						((ItemFluxpack) this).addFuel(stack, ((ItemFluxpack) this).getMaxEnergyStored(stack), false);
 					}
 					List.add(stack);
 				}
@@ -118,13 +121,13 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 			String color = on ? TextFormatting.RED.toString() : TextFormatting.GREEN.toString();
 			type = type != null && !type.equals("") ? "chat." + this.name + "." + type + ".on" : "chat." + this.name + ".on";
 			String msg = SJStringHelper.localize(type) + " " + color + SJStringHelper.localize("chat." + (on ? "disabled" : "enabled"));
-			player.addChatMessage(new TextComponentString(msg));
+			player.sendMessage(new TextComponentString(msg));
 		}
 	}
 
 	protected void chargeInventory(EntityLivingBase user, ItemStack stack, ItemFluxpack item)
 	{
-		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 
 		if(this.fuelType == FuelType.ENERGY)
 		{
@@ -146,7 +149,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		information(stack, this, tooltip);
 		if (SJStringHelper.canShowDetails()) {
 			shiftInformation(stack, tooltip);
@@ -158,7 +161,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings("unchecked")
 	public void information(ItemStack stack, ItemFluxpack item, List list) {
-		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		if (this.showTier) {
 			list.add(SJStringHelper.getTierText(Fluxpack.values()[i].getTier()));
 		}
@@ -168,7 +171,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings("unchecked")
 	public void shiftInformation(ItemStack stack, List list) {
-		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 
 		list.add(SJStringHelper.getStateText(this.isOn(stack)));
 		list.add(SJStringHelper.getEnergySendText(Fluxpack.values()[i].getFuelPerTickOut()));
@@ -209,7 +212,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	@Override
 	public EnumRarity getRarity(ItemStack stack) {
-		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		if (Fluxpack.values()[i].getRarity() != null) {
 			return Fluxpack.values()[i].getRarity();
 		}
@@ -218,7 +221,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
-		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		if (!Fluxpack.values()[i].usesFuel) {
 			return false;
 		}
@@ -234,7 +237,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	@Override
 	public String getUnlocalizedName(ItemStack itemStack) {
-		int i = MathHelper.clamp_int(itemStack.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
 		return Fluxpack.values()[i].unlocalisedName;
 	}
 
@@ -257,7 +260,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	@Override
 	public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
-		int i = MathHelper.clamp_int(container.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(container.getItemDamage(), 0, numItems - 1);
 		int energy = this.getEnergyStored(container);
 		int energyReceived = Math.min(this.getMaxEnergyStored(container) - energy, Math.min(maxReceive, Fluxpack.values()[i].getFuelPerTickIn()));
 		if (!simulate) {
@@ -269,7 +272,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	@Override
 	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
-		int i = MathHelper.clamp_int(container.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(container.getItemDamage(), 0, numItems - 1);
 		int energy = this.getEnergyStored(container);
 		int energyExtracted = Math.min(energy, Math.min(maxExtract, Fluxpack.values()[i].getFuelPerTickOut()));
 		if (!simulate) {
@@ -281,7 +284,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	@Override
 	public int getMaxEnergyStored(ItemStack container) {
-		int i = MathHelper.clamp_int(container.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(container.getItemDamage(), 0, numItems - 1);
 		return Fluxpack.values()[i].getFuelCapacity();
 	}
 
@@ -292,7 +295,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	@Override
 	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
-		int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(armor.getItemDamage(), 0, numItems - 1);
 		if (Fluxpack.values()[i].getIsArmored() && !source.isUnblockable()) {
 			if (this.isFluxBased && source.damageType.equals("flux")) {
 				return new ArmorProperties(0, 0.5D, Integer.MAX_VALUE);
@@ -306,7 +309,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
-		int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(armor.getItemDamage(), 0, numItems - 1);
 		if (Fluxpack.values()[i].getIsArmored()) {
 			if (this.getFuelStored(armor) >= Fluxpack.values()[i].getArmorFuelPerHit()) {
 				return Fluxpack.values()[i].getArmorReduction();
@@ -317,7 +320,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	@Override
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
-		int i = MathHelper.clamp_int(itemStack.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
 		if (Config.enableArmor3DModels) {
 			ModelBiped model = RenderUtils.getArmorModel(Fluxpack.values()[i], entityLiving);
 			if (model != null) {
@@ -329,17 +332,17 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		String flat = Config.enableArmor3DModels || Fluxpack.values()[i].armorModel == PackModelType.FLAT ? "" : ".flat";
 		return SimplyJetpacks.RESOURCE_PREFIX + "textures/armor/" + Fluxpack.values()[i].getBaseName() + flat + ".png";
 	}
 
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack armor, DamageSource source, int damage, int slot) {
-		int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(armor.getItemDamage(), 0, numItems - 1);
 		if (Fluxpack.values()[i].getIsArmored() && Fluxpack.values()[i].usesFuel) {
 			if (this.fuelType == FuelType.ENERGY && this.isFluxBased && source.damageType.equals("flux")) {
-				this.addFuel(armor, damage * (source.getEntity() == null ? Fluxpack.values()[i].getArmorFuelPerHit() / 2 : this.getFuelPerDamage(armor)), false);
+				this.addFuel(armor, damage * (source.getImmediateSource() == null ? Fluxpack.values()[i].getArmorFuelPerHit() / 2 : this.getFuelPerDamage(armor)), false);
 			} else {
 				this.useFuel(armor, damage * this.getFuelPerDamage(armor), false);
 			}
@@ -348,12 +351,12 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	// armor
 	protected int getFuelPerDamage(ItemStack stack) {
-		int i = MathHelper.clamp_int(stack.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		if (ModEnchantments.fuelEffeciency == null) {
 			return Fluxpack.values()[i].getArmorFuelPerHit();
 		}
 
-		int fuelEfficiencyLevel = MathHelper.clamp_int(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
+		int fuelEfficiencyLevel = MathHelper.clamp(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
 		return (int) Math.round(Fluxpack.values()[i].getArmorFuelPerHit() * (5 - fuelEfficiencyLevel) / 5.0D);
 	}
 

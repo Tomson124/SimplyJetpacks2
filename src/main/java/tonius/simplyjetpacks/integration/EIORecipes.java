@@ -45,7 +45,7 @@ public abstract class EIORecipes
 		{
 			String itemName1 = Item.REGISTRY.getNameForObject(stack.getItem()).getResourceDomain();
 			String itemName2 = Item.REGISTRY.getNameForObject(stack.getItem()).getResourcePath();
-			sb.append("<itemStack modID=\"" + itemName1 + "\" itemName=\"" + itemName2 + "\" itemMeta=\"" + stack.getItemDamage() + "\" number=\"" + stack.stackSize + "\" />");
+			sb.append("<itemStack modID=\"" + itemName1 + "\" itemName=\"" + itemName2 + "\" itemMeta=\"" + stack.getItemDamage() + "\" number=\"" + stack.getCount() + "\" />");
 		}
 	}
 

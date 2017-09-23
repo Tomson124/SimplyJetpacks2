@@ -55,7 +55,7 @@ public class MessageKeyboardSync implements IMessage, IMessageHandler<MessageKey
 
 	@Override
 	public IMessage onMessage(MessageKeyboardSync msg, MessageContext ctx) {
-		EntityPlayerMP entityPlayerMP = ctx.getServerHandler().playerEntity;
+		EntityPlayerMP entityPlayerMP = ctx.getServerHandler().player;
 		WorldServer worldServer = entityPlayerMP.getServerWorld();
 
 		worldServer.addScheduledTask(new Runnable() {
@@ -69,7 +69,7 @@ public class MessageKeyboardSync implements IMessage, IMessageHandler<MessageKey
 	}
 
 	public void handleMessage(MessageKeyboardSync msg, MessageContext ctx) {
-		EntityPlayer entityPlayer = ctx.getServerHandler().playerEntity;
+		EntityPlayer entityPlayer = ctx.getServerHandler().player;
 		if (entityPlayer != null) {
 			SyncHandler.processKeyUpdate(entityPlayer, msg.flyState, msg.descendState, msg.forwardState, msg.backwardState, msg.leftState, msg.rightState);
 		}

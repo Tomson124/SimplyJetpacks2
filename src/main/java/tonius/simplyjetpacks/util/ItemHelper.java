@@ -4,13 +4,20 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import tonius.simplyjetpacks.SimplyJetpacks;
 
 public class ItemHelper
 {
 	public static OreDictionaryProxy oreProxy = new OreDictionaryProxy();
+	public static ResourceLocation resourceLocation = new ResourceLocation(SimplyJetpacks.MODID);
 
 	private ItemHelper()
 	{}
@@ -49,7 +56,7 @@ public class ItemHelper
 			return null;
 		}
 		ItemStack retStack = stack.copy();
-		retStack.stackSize = stackSize;
+		retStack.setCount(stackSize);
 
 		return retStack;
 	}
@@ -99,94 +106,84 @@ public class ItemHelper
 	/* CREATING OreRecipes */
 	public static final IRecipe ShapedRecipe(Block result, Object... recipe)
 	{
-		return new ShapedOreRecipe(result, recipe);
+		return new ShapedOreRecipe(resourceLocation, result, recipe);
 	}
 
 	public static final IRecipe ShapedRecipe(Item result, Object... recipe)
 	{
-		return new ShapedOreRecipe(result, recipe);
+		return new ShapedOreRecipe(resourceLocation, result, recipe);
 	}
 
 	public static final IRecipe ShapedRecipe(ItemStack result, Object... recipe)
 	{
-		return new ShapedOreRecipe(result, recipe);
+		return new ShapedOreRecipe(resourceLocation, result, recipe);
 	}
 
 	public static final IRecipe ShapedRecipe(Block result, int s, Object... recipe)
 	{
-		return new ShapedOreRecipe(stack(result, s), recipe);
+		return new ShapedOreRecipe(resourceLocation, stack(result, s), recipe);
 	}
 
 	public static final IRecipe ShapedRecipe(Item result, int s, Object... recipe)
 	{
-		return new ShapedOreRecipe(stack(result, s), recipe);
+		return new ShapedOreRecipe(resourceLocation, stack(result, s), recipe);
 	}
 
 	public static final IRecipe ShapedRecipe(ItemStack result, int s, Object... recipe)
 	{
-		return new ShapedOreRecipe(cloneStack(result, s), recipe);
+		return new ShapedOreRecipe(resourceLocation, cloneStack(result, s), recipe);
 	}
 
 	public static final IRecipe ShapelessRecipe(Block result, Object... recipe)
 	{
-		return new ShapelessOreRecipe(result, recipe);
+		return new ShapelessOreRecipe(resourceLocation, result, recipe);
 	}
 
 	public static final IRecipe ShapelessRecipe(Item result, Object... recipe)
 	{
-		return new ShapelessOreRecipe(result, recipe);
+		return new ShapelessOreRecipe(resourceLocation, result, recipe);
 	}
 
 	public static final IRecipe ShapelessRecipe(ItemStack result, Object... recipe)
 	{
-		return new ShapelessOreRecipe(result, recipe);
+		return new ShapelessOreRecipe(resourceLocation, result, recipe);
 	}
 
 	public static final IRecipe ShapelessRecipe(Block result, int s, Object... recipe)
 	{
-		return new ShapelessOreRecipe(stack(result, s), recipe);
+		return new ShapelessOreRecipe(resourceLocation, stack(result, s), recipe);
 	}
 
 	public static final IRecipe ShapelessRecipe(Item result, int s, Object... recipe)
 	{
-		return new ShapelessOreRecipe(stack(result, s), recipe);
+		return new ShapelessOreRecipe(resourceLocation, stack(result, s), recipe);
 	}
 
 	public static final IRecipe ShapelessRecipe(ItemStack result, int s, Object... recipe)
 	{
-		return new ShapelessOreRecipe(cloneStack(result, s), recipe);
+		return new ShapelessOreRecipe(resourceLocation, cloneStack(result, s), recipe);
 	}
 
 	//RECIPE
 
-	public static void addRecipe(IRecipe recipe)
-	{
-		GameRegistry.addRecipe(recipe);
-	}
-
-	public static void addRecipe(ItemStack out, Object... recipe)
-	{
-		GameRegistry.addRecipe(out, recipe);
-	}
-
 	public static void addShapedRecipe(ItemStack out, Object... recipe)
 	{
-		GameRegistry.addRecipe(out, recipe);
+		ForgeRegistries.RECIPES.register(ShapedRecipe(out, recipe));
 	}
 
 	public static void addShapedRecipe(Item out, Object... recipe)
 	{
-		addRecipe(new ItemStack(out), recipe);
+		addShapedRecipe(new ItemStack(out), recipe);
 	}
 
 	public static void addShapedRecipe(Block out, Object... recipe)
 	{
-		addRecipe(new ItemStack(out), recipe);
+		addShapedRecipe(new ItemStack(out), recipe);
 	}
 
 	public static void addShapelessRecipe(ItemStack out, Object... recipe)
 	{
-		GameRegistry.addShapelessRecipe(out, recipe);
+		ForgeRegistries.RECIPES.register(ShapelessRecipe(out, recipe));
 	}
 
 	public static void addShapelessRecipe(Item out, Object... recipe)
@@ -201,32 +198,32 @@ public class ItemHelper
 
 	public static void addShapedOreRecipe(ItemStack out, Object... recipe)
 	{
-		GameRegistry.addRecipe(ShapedRecipe(out, recipe));
+		ForgeRegistries.RECIPES.register(ShapedRecipe(out, recipe));
 	}
 
 	public static void addShapedOreRecipe(Item out, Object... recipe)
 	{
-		GameRegistry.addRecipe(ShapedRecipe(out, recipe));
+		ForgeRegistries.RECIPES.register(ShapedRecipe(out, recipe));
 	}
 
 	public static void addShapedOreRecipe(Block out, Object... recipe)
 	{
-		GameRegistry.addRecipe(ShapedRecipe(out, recipe));
+		ForgeRegistries.RECIPES.register(ShapedRecipe(out, recipe));
 	}
 
 	public static void addShapelessOreRecipe(ItemStack out, Object... recipe)
 	{
-		GameRegistry.addRecipe(ShapelessRecipe(out, recipe));
+		ForgeRegistries.RECIPES.register(ShapedRecipe(out, recipe));
 	}
 
 	public static void addShapelessOreRecipe(Item out, Object... recipe)
 	{
-		GameRegistry.addRecipe(ShapelessRecipe(out, recipe));
+		ForgeRegistries.RECIPES.register(ShapedRecipe(out, recipe));
 	}
 
 	public static void addShapelessOreRecipe(Block out, Object... recipe)
 	{
-		GameRegistry.addRecipe(ShapelessRecipe(out, recipe));
+		ForgeRegistries.RECIPES.register(ShapedRecipe(out, recipe));
 	}
 
 	//END RECIPE
@@ -239,7 +236,7 @@ public class ItemHelper
 		{
 			return false;
 		}
-		GameRegistry.addRecipe(cloneStack(out), "XXX", "XIX", "XXX", 'X', cloneStack(eight, 1), 'I', cloneStack(one, 1));
+		ForgeRegistries.RECIPES.register(new ShapedOreRecipe(resourceLocation, cloneStack(out), "XXX", "XIX", "XXX", 'X', cloneStack(eight, 1), 'I', cloneStack(one, 1)));
 		return true;
 	}
 
@@ -249,7 +246,7 @@ public class ItemHelper
 		{
 			return false;
 		}
-		GameRegistry.addRecipe(ShapedRecipe(out, "XXX", "XIX", "XXX", 'X', eight, 'I', one));
+		ForgeRegistries.RECIPES.register(new ShapedOreRecipe(resourceLocation, out, "XXX", "XIX", "XXX", 'X', eight, 'I', one));
 		return true;
 	}
 
@@ -259,7 +256,7 @@ public class ItemHelper
 		{
 			return false;
 		}
-		GameRegistry.addRecipe(ShapedRecipe(out, "XXX", "XIX", "XXX", 'X', eight, 'I', one));
+		ForgeRegistries.RECIPES.register(new ShapedOreRecipe(resourceLocation, out, "XXX", "XIX", "XXX", 'X', eight, 'I', one));
 		return true;
 	}
 
@@ -269,7 +266,7 @@ public class ItemHelper
 		{
 			return false;
 		}
-		GameRegistry.addRecipe(ShapedRecipe(out, "XXX", "XIX", "XXX", 'X', eight, 'I', one));
+		ForgeRegistries.RECIPES.register(new ShapedOreRecipe(resourceLocation, out, "XXX", "XIX", "XXX", 'X', eight, 'I', one));
 		return true;
 	}
 

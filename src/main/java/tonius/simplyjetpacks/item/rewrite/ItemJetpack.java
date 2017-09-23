@@ -475,19 +475,19 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 					float speedSideways = (float) (user.isSneaking() ? Jetpack.values()[i].speedSideways * 0.5F : Jetpack.values()[i].speedSideways);
 					float speedForward = (float) (user.isSprinting() ? speedSideways * Jetpack.values()[i].sprintSpeedModifier : speedSideways);
 					if (SyncHandler.isForwardKeyDown(user)) {
-						user.moveRelative(0, speedForward, speedForward);
+						user.moveRelative(0, 0,speedForward, speedForward);
 					}
 					if (SyncHandler.isBackwardKeyDown(user)) {
-						user.moveRelative(0, -speedSideways, speedSideways * 0.8F);
+						user.moveRelative(0, 0, -speedSideways, speedSideways * 0.8F);
 					}
 					if (SyncHandler.isLeftKeyDown(user)) {
-						user.moveRelative(speedSideways, 0, speedSideways);
+						user.moveRelative(speedSideways, 0, 0, speedSideways);
 					}
 					if (SyncHandler.isRightKeyDown(user)) {
-						user.moveRelative(-speedSideways, 0, speedSideways);
+						user.moveRelative(-speedSideways, 0, 0,speedSideways);
 					}
 
-					if (!user.worldObj.isRemote) {
+					if (!user.world.isRemote) {
 						user.fallDistance = 0.0F;
 
 						if (user instanceof EntityPlayerMP) {
@@ -519,7 +519,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		}
 
 		//Emergency Hover
-		if (!user.worldObj.isRemote && Jetpack.values()[i].emergencyHoverMode && this.isEHoverModeOn(stack)) {
+		if (!user.world.isRemote && Jetpack.values()[i].emergencyHoverMode && this.isEHoverModeOn(stack)) {
 			if (item.getEnergyStored(stack) > 0 && (!this.isHoverModeOn(stack) || !this.isOn(stack))) {
 				if (user.posY < -5) {
 					this.doEHover(stack, user);
@@ -530,7 +530,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 							int x = Math.round((float) user.posX - 0.5F);
 							int y = Math.round((float) user.posY) - j;
 							int z = Math.round((float) user.posZ - 0.5F);
-							if (!user.worldObj.isAirBlock(new BlockPos(x, y, z))) {
+							if (!user.world.isAirBlock(new BlockPos(x, y, z))) {
 								this.doEHover(stack, user);
 								break;
 							}

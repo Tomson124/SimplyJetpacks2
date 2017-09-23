@@ -1,5 +1,8 @@
 package tonius.simplyjetpacks.item.rewrite;
 
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.util.SJStringHelper;
 import net.minecraft.creativetab.CreativeTabs;
@@ -12,6 +15,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemMetaMods extends ItemMeta {
@@ -27,14 +31,14 @@ public class ItemMetaMods extends ItemMeta {
 	@Override
 	public String getUnlocalizedName(ItemStack itemStack)
 	{
-		int i = MathHelper.clamp_int(itemStack.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
 		return "item.simplyjetpacks." + MetaItemsMods.values()[i].getName();
 	}
 
 	@Override
 	public EnumRarity getRarity(ItemStack itemStack)
 	{
-		int i = MathHelper.clamp_int(itemStack.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
 		if (MetaItemsMods.values()[i].getRarity() != null) {
 			return MetaItemsMods.values()[i].getRarity();
 		}
@@ -44,18 +48,18 @@ public class ItemMetaMods extends ItemMeta {
 	@Override
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings("unchecked")
-	public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean par4)
+	public void addInformation(ItemStack itemStack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
-		int i = MathHelper.clamp_int(itemStack.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
 		if(MetaItemsMods.values()[i].getKeyTooltip() != null)
 		{
 			if(SJStringHelper.canShowDetails())
 			{
-				SJStringHelper.addDescriptionLines(list, MetaItemsMods.values()[i].getKeyTooltip(), TextFormatting.GRAY.toString());
+				SJStringHelper.addDescriptionLines(tooltip, MetaItemsMods.values()[i].getKeyTooltip(), TextFormatting.GRAY.toString());
 			}
 			else
 			{
-				list.add(SJStringHelper.getShiftText());
+				tooltip.add(SJStringHelper.getShiftText());
 			}
 		}
 	}
@@ -64,7 +68,7 @@ public class ItemMetaMods extends ItemMeta {
 	@SideOnly(Side.CLIENT)
 	public boolean hasEffect(ItemStack itemStack)
 	{
-		int i = MathHelper.clamp_int(itemStack.getItemDamage(), 0, numItems - 1);
+		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
 		if (MetaItemsMods.values()[i].getGlow())
 		{
 			return true;
@@ -75,11 +79,11 @@ public class ItemMetaMods extends ItemMeta {
 	@Override
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings("unchecked")
-	public void getSubItems(Item item, CreativeTabs tab, List list)
+	public void getSubItems(CreativeTabs tab, NonNullList list)
 	{
 		for(int i = 0; i < numItems; i++)
 		{
-			list.add(new ItemStack(item, 1, i));
+			list.add(new ItemStack(this, 1, i));
 		}
 	}
 

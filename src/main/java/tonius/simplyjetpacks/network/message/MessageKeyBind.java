@@ -36,7 +36,7 @@ public class MessageKeyBind implements IMessage, IMessageHandler<MessageKeyBind,
 
 	@Override
 	public IMessage onMessage(MessageKeyBind msg, MessageContext ctx) {
-		EntityPlayerMP entityPlayerMP = ctx.getServerHandler().playerEntity;
+		EntityPlayerMP entityPlayerMP = ctx.getServerHandler().player;
 		WorldServer worldServer = entityPlayerMP.getServerWorld();
 
 		worldServer.addScheduledTask(new Runnable() {

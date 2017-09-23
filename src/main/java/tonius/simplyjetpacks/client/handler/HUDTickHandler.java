@@ -22,11 +22,11 @@ public class HUDTickHandler
 
 	private static void tickEnd()
 	{
-		if(mc.thePlayer != null)
+		if(mc.player != null)
 		{
 			if((mc.currentScreen == null || Config.showHUDWhileChatting && mc.currentScreen instanceof GuiChat) && !mc.gameSettings.hideGUI && !mc.gameSettings.showDebugInfo)
 			{
-				ItemStack chestplate = mc.thePlayer.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+				ItemStack chestplate = mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 				if(chestplate != null && chestplate.getItem() instanceof IHUDInfoProvider)
 				{
 					IHUDInfoProvider provider = (IHUDInfoProvider) chestplate.getItem();
@@ -45,7 +45,7 @@ public class HUDTickHandler
 					int i = 0;
 					for(String s : info)
 					{
-						RenderUtils.drawStringAtHUDPosition(s, HUDPositions.values()[Config.HUDPosition], mc.fontRendererObj, Config.HUDOffsetX, Config.HUDOffsetY, Config.HUDScale, 0xeeeeee, true, i);
+						RenderUtils.drawStringAtHUDPosition(s, HUDPositions.values()[Config.HUDPosition], mc.fontRenderer, Config.HUDOffsetX, Config.HUDOffsetY, Config.HUDScale, 0xeeeeee, true, i);
 						i++;
 					}
 
