@@ -43,17 +43,17 @@ public class ClientTickHandler {
 	}
 
 	private static void tickStart() {
-		if (mc.thePlayer == null) {
+		if (mc.player == null) {
 			return;
 		}
 
 		ParticleType jetpackState = null;
-		ItemStack armor = mc.thePlayer.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+		ItemStack armor = mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		if (armor != null && armor.getItem() instanceof ItemJetpack) {
-			int i = MathHelper.clamp_int(armor.getItemDamage(), 0, numItems - 1);
+			int i = MathHelper.clamp(armor.getItemDamage(), 0, numItems - 1);
 			Jetpack jetpack = Jetpack.getTypeFromMeta(i);
 			if (jetpack != null) {
-				jetpackState = jetpack.getDisplayParticleType(armor, (ItemJetpack) armor.getItem(), mc.thePlayer);
+				jetpackState = jetpack.getDisplayParticleType(armor, (ItemJetpack) armor.getItem(), mc.player);
 			}
 			wearingJetpack = true;
 		} else {
@@ -62,12 +62,12 @@ public class ClientTickHandler {
 
 		if (jetpackState != lastJetpackState) {
 			lastJetpackState = jetpackState;
-			SyncHandler.processJetpackUpdate(mc.thePlayer.getEntityId(), jetpackState);
+			SyncHandler.processJetpackUpdate(mc.player.getEntityId(), jetpackState);
 		}
 	}
 
 	private static void tickEnd() {
-		if (mc.thePlayer == null || mc.theWorld == null) {
+		if (mc.player == null || mc.world == null) {
 			return;
 		}
 
@@ -76,8 +76,8 @@ public class ClientTickHandler {
 			int currentEntity;
 			while (itr.hasNext()) {
 				currentEntity = itr.next();
-				Entity entity = mc.theWorld.getEntityByID(currentEntity);
-				if (entity == null || !(entity instanceof EntityLivingBase) || entity.dimension != mc.thePlayer.dimension) {
+				Entity entity = mc.world.getEntityByID(currentEntity);
+				if (entity == null || !(entity instanceof EntityLivingBase) || entity.dimension != mc.player.dimension) {
 					itr.remove();
 				} else {
 					ParticleType particle = SyncHandler.getJetpackStates().get(currentEntity);
@@ -85,7 +85,7 @@ public class ClientTickHandler {
 						if (entity.isInWater() && particle != ParticleType.NONE) {
 							particle = ParticleType.BUBBLE;
 						}
-						SimplyJetpacks.proxy.showJetpackParticles(mc.theWorld, (EntityLivingBase) entity, particle);
+						SimplyJetpacks.proxy.showJetpackParticles(mc.world, (EntityLivingBase) entity, particle);
 						if (Config.jetpackSounds && !SoundJetpack.isPlayingFor(entity.getEntityId())) {
 							Minecraft.getMinecraft().getSoundHandler().playSound(new SoundJetpack((EntityLivingBase) entity));
 						}
@@ -96,21 +96,21 @@ public class ClientTickHandler {
 			}
 		}
 
-		if (sprintKeyCheck && mc.thePlayer.movementInput.moveForward < 1.0F) {
+		if (sprintKeyCheck && mc.player.movementInput.moveForward < 1.0F) {
 			sprintKeyCheck = false;
 		}
 
-		if (!Config.doubleTapSprintInAir || !wearingJetpack || mc.thePlayer.onGround || mc.thePlayer.isSprinting() || mc.thePlayer.isHandActive() || mc.thePlayer.isPotionActive(MobEffects.POISON)) {
+		if (!Config.doubleTapSprintInAir || !wearingJetpack || mc.player.onGround || mc.player.isSprinting() || mc.player.isHandActive() || mc.player.isPotionActive(MobEffects.POISON)) {
 			return;
 		}
 
-		if (!sprintKeyCheck && sprintToggleTimer != null && mc.thePlayer.movementInput.moveForward >= 1.0F && !mc.thePlayer.isCollidedHorizontally && (mc.thePlayer.getFoodStats().getFoodLevel() > 6.0F || mc.thePlayer.capabilities.allowFlying)) {
+		if (!sprintKeyCheck && sprintToggleTimer != null && mc.player.movementInput.moveForward >= 1.0F && !mc.player.isCollidedHorizontally && (mc.player.getFoodStats().getFoodLevel() > 6.0F || mc.player.capabilities.allowFlying)) {
 			try {
-				if (sprintToggleTimer.getInt(mc.thePlayer) <= 0 && !mc.gameSettings.keyBindSprint.isKeyDown()) {
-					sprintToggleTimer.setInt(mc.thePlayer, 7);
+				if (sprintToggleTimer.getInt(mc.player) <= 0 && !mc.gameSettings.keyBindSprint.isKeyDown()) {
+					sprintToggleTimer.setInt(mc.player, 7);
 					sprintKeyCheck = true;
 				} else {
-					mc.thePlayer.setSprinting(true);
+					mc.player.setSprinting(true);
 				}
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();

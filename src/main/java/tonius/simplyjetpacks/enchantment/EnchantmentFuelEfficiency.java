@@ -1,6 +1,7 @@
 package tonius.simplyjetpacks.enchantment;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import tonius.simplyjetpacks.SimplyJetpacks;
@@ -41,6 +42,8 @@ public class EnchantmentFuelEfficiency extends Enchantment
 	@Override
 	public boolean canApply(ItemStack stack)
 	{
+		ModEnchantments.canEnchantItem(stack.getItem());
 		return stack.getItem() instanceof ItemJetpack;
 	}
+
 }

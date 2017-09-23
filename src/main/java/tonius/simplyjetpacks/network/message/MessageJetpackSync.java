@@ -50,8 +50,8 @@ public class MessageJetpackSync implements IMessage, IMessageHandler<MessageJetp
 
 	public void handleMessage(MessageJetpackSync msg, MessageContext ctx) {
 
-		Entity entity = FMLClientHandler.instance().getClient().theWorld.getEntityByID(msg.entityId);
-		if (entity != null && entity instanceof EntityLivingBase && entity != FMLClientHandler.instance().getClient().thePlayer) {
+		Entity entity = FMLClientHandler.instance().getClient().world.getEntityByID(msg.entityId);
+		if (entity != null && entity instanceof EntityLivingBase && entity != FMLClientHandler.instance().getClient().player) {
 			if (msg.particleId >= 0) {
 				ParticleType particle = ParticleType.values()[msg.particleId];
 				SyncHandler.processJetpackUpdate(msg.entityId, particle);

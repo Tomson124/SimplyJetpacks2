@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class CommonProxy
 {
-	public static List<ItemStack> oresListParticles = null;
+	public static NonNullList<ItemStack> oresListParticles = null;
 
 	public void registerHandlers()
 	{
