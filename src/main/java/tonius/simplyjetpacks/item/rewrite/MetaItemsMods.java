@@ -10,26 +10,26 @@ import java.util.EnumSet;
 public enum MetaItemsMods {
 
 	//EnderIO
-	INGOT_DARK_SOULARIUM("ingotDarkSoularium", null, EnumRarity.UNCOMMON, true),
-	REINFORCED_GLIDERWINGS("reinforcedGliderWing", null, EnumRarity.UNCOMMON),
-	UNIT_FLIGHT_CONTROL_EMPTY("unitFlightControl.empty", null, EnumRarity.COMMON),
-	UNIT_FLIGHT_CONTROL("unitFlightControl", null, EnumRarity.UNCOMMON),
-	THRUSTER_EIO_1("thrusterEIO1", null, EnumRarity.COMMON),
-	THRUSTER_EIO_2("thrusterEIO2", null, EnumRarity.COMMON),
-	THRUSTER_EIO_3("thrusterEIO3", null, EnumRarity.UNCOMMON),
-	THRUSTER_EIO_4("thrusterEIO4", null, EnumRarity.RARE),
-	THRUSTER_EIO_5("thrusterEIO5", null, EnumRarity.EPIC),
-	ARMOR_PLATING_EIO_1("armorPlating.eio.1", null, EnumRarity.COMMON),
-	ARMOR_PLATING_EIO_2("armorPlating.eio.2", null, EnumRarity.COMMON),
-	ARMOR_PLATING_EIO_3("armorPlating.eio.3", null, EnumRarity.COMMON),
-	ARMOR_PLATING_EIO_4("armorPlating.eio.4", null, EnumRarity.COMMON),
+	INGOT_DARK_SOULARIUM("ingot_Dark_Soularium", null, EnumRarity.UNCOMMON, true),
+	REINFORCED_GLIDERWINGS("reinforced_Gliderwing", null, EnumRarity.UNCOMMON),
+	UNIT_FLIGHT_CONTROL_EMPTY("unit_Flight_Control_Empty", null, EnumRarity.COMMON),
+	UNIT_FLIGHT_CONTROL("unit_Flight_Control", null, EnumRarity.UNCOMMON),
+	THRUSTER_EIO_1("thruster_EIO1", null, EnumRarity.COMMON),
+	THRUSTER_EIO_2("thruster_EIO2", null, EnumRarity.COMMON),
+	THRUSTER_EIO_3("thruster_EIO3", null, EnumRarity.UNCOMMON),
+	THRUSTER_EIO_4("thruster_EIO4", null, EnumRarity.RARE),
+	THRUSTER_EIO_5("thruster_EIO5", null, EnumRarity.EPIC),
+	ARMOR_PLATING_EIO_1("armor_Plating_EIO1", null, EnumRarity.COMMON),
+	ARMOR_PLATING_EIO_2("armor_Plating_EIO2", null, EnumRarity.COMMON),
+	ARMOR_PLATING_EIO_3("armor_Plating_EIO3", null, EnumRarity.COMMON),
+	ARMOR_PLATING_EIO_4("armor_Plating_EIO4", null, EnumRarity.COMMON),
 
 	//ThermalExpansion
-	THRUSTER_TE_1("thrusterTE1", null, EnumRarity.COMMON),
-	THRUSTER_TE_2("thrusterTE2", null, EnumRarity.COMMON),
-	THRUSTER_TE_3("thrusterTE3", null, EnumRarity.UNCOMMON),
-	THRUSTER_TE_4("thrusterTE4", null, EnumRarity.RARE),
-	THRUSTER_TE_5("thrusterTE5", null, EnumRarity.EPIC);
+	THRUSTER_TE_1("thruster_TE1", null, EnumRarity.COMMON),
+	THRUSTER_TE_2("thruster_TE2", null, EnumRarity.COMMON),
+	THRUSTER_TE_3("thruster_TE3", null, EnumRarity.UNCOMMON),
+	THRUSTER_TE_4("thruster_TE4", null, EnumRarity.RARE),
+	THRUSTER_TE_5("thruster_TE5", null, EnumRarity.EPIC);
 
 	private String name;
 	private String keyTooltip;

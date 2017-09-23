@@ -20,30 +20,30 @@ import java.util.List;
 import java.util.Locale;
 
 public enum Jetpack implements IStringSerializable {
-	CREATIVE_JETPACK("jetpackCreative", 6, "jetpackCreative", EnumRarity.EPIC, ParticleType.RAINBOW_SMOKE, false),
-	POTATO_JETPACK("jetpackPotato", 1, "jetpackPotato", EnumRarity.COMMON, ParticleType.DEFAULT, false),
+	CREATIVE_JETPACK("jetpack_Creative", 6, "jetpackCreative", EnumRarity.EPIC, ParticleType.RAINBOW_SMOKE, false),
+	POTATO_JETPACK("jetpack_Potato", 1, "jetpackPotato", EnumRarity.COMMON, ParticleType.DEFAULT, false),
 
 	//EnderIO
-	JETPACK_EIO_1("jetpackEIO1", 1, "jetpackEIO1", EnumRarity.COMMON),
-	JETPACK_EIO_2("jetpackEIO2", 2, "jetpackEIO2", EnumRarity.COMMON),
-	JETPACK_EIO_3("jetpackEIO3", 3, "jetpackEIO3", EnumRarity.UNCOMMON),
-	JETPACK_EIO_4("jetpackEIO4", 4, "jetpackEIO4", EnumRarity.RARE),
-	JETPACK_EIO_1_ARMORED("jetpackEIO1Armored", 1, "jetpackEIO1", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_EIO_1.ordinal()),
-	JETPACK_EIO_2_ARMORED("jetpackEIO2Armored", 2, "jetpackEIO2", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_EIO_2.ordinal()),
-	JETPACK_EIO_3_ARMORED("jetpackEIO3Armored", 3, "jetpackEIO3", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_EIO_3.ordinal()),
-	JETPACK_EIO_4_ARMORED("jetpackEIO4Armored", 4, "jetpackEIO4", EnumRarity.RARE, true, MetaItemsMods.ARMOR_PLATING_EIO_4.ordinal()),
-	JETPLATE_EIO_5("jetpackEIO5", 5, "jetpackEIO5", EnumRarity.EPIC, true),
+	JETPACK_EIO_1("jetpack_EIO1", 1, "jetpackEIO1", EnumRarity.COMMON),
+	JETPACK_EIO_2("jetpack_EIO2", 2, "jetpackEIO2", EnumRarity.COMMON),
+	JETPACK_EIO_3("jetpack_EIO3", 3, "jetpackEIO3", EnumRarity.UNCOMMON),
+	JETPACK_EIO_4("jetpack_EIO4", 4, "jetpackEIO4", EnumRarity.RARE),
+	JETPACK_EIO_1_ARMORED("jetpack_EIO1_Armored", 1, "jetpackEIO1", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_EIO_1.ordinal()),
+	JETPACK_EIO_2_ARMORED("jetpack_EIO2_Armored", 2, "jetpackEIO2", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_EIO_2.ordinal()),
+	JETPACK_EIO_3_ARMORED("jetpack_EIO3_Armored", 3, "jetpackEIO3", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_EIO_3.ordinal()),
+	JETPACK_EIO_4_ARMORED("jetpack_EIO4_Armored", 4, "jetpackEIO4", EnumRarity.RARE, true, MetaItemsMods.ARMOR_PLATING_EIO_4.ordinal()),
+	JETPLATE_EIO_5("jetpack_EIO5", 5, "jetpackEIO5", EnumRarity.EPIC, true),
 
 	//ThermalExpansion
-	JETPACK_TE_1("jetpackTE1", 1, "jetpackTE1", EnumRarity.COMMON),
-	JETPACK_TE_2("jetpackTE2", 2, "jetpackTE2", EnumRarity.COMMON),
-	JETPACK_TE_3("jetpackTE3", 3, "jetpackTE3", EnumRarity.UNCOMMON),
-	JETPACK_TE_4("jetpackTE4", 4, "jetpackTE4", EnumRarity.RARE),
-	JETPLATE_TE_5("jetpackTE5", 5, "jetpackTE5", EnumRarity.EPIC, true),
+	JETPACK_TE_1("jetpack_TE1", 1, "jetpackTE1", EnumRarity.COMMON),
+	JETPACK_TE_2("jetpack_TE2", 2, "jetpackTE2", EnumRarity.COMMON),
+	JETPACK_TE_3("jetpack_TE3", 3, "jetpackTE3", EnumRarity.UNCOMMON),
+	JETPACK_TE_4("jetpack_TE4", 4, "jetpackTE4", EnumRarity.RARE),
+	JETPLATE_TE_5("jetpack_TE5", 5, "jetpackTE5", EnumRarity.EPIC, true),
 	
-	JETPACK_VANILLA_1("jetpackVanilla1", 1, "jetpackVanilla1", EnumRarity.COMMON),
-	JETPACK_VANILLA_2("jetpackVanilla2", 2, "jetpackVanilla2", EnumRarity.UNCOMMON),
-	JETPACK_VANILLA_3("jetpackVanilla3", 3, "jetpackVanilla3", EnumRarity.RARE);
+	JETPACK_VANILLA_1("jetpack_Vanilla1", 1, "jetpackVanilla1", EnumRarity.COMMON),
+	JETPACK_VANILLA_2("jetpack_Vanilla2", 2, "jetpackVanilla2", EnumRarity.UNCOMMON),
+	JETPACK_VANILLA_3("jetpack_Vanilla3", 3, "jetpackVanilla3", EnumRarity.RARE);
 
 	protected final PackDefaults defaults;
 	protected static final EnumSet<Jetpack> ALL_PACKS = EnumSet.allOf(Jetpack.class);

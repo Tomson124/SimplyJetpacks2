@@ -9,16 +9,16 @@ import java.util.EnumSet;
 
 public enum MetaItems {
 
-	PARTICLE_DEFAULT("particleDefault", "particleCustomizers", EnumRarity.COMMON),
-	PARTICLE_NONE("particleNone", "particleCustomizers", EnumRarity.COMMON),
-	PARTICLE_SMOKE("particleSmoke", "particleCustomizers", EnumRarity.COMMON),
-	PARTICLE_RAINBOWSMOKE("particleRainbowSmoke", "particleCustomizers", EnumRarity.COMMON),
+	PARTICLE_DEFAULT("particle_Default", "particleCustomizers", EnumRarity.COMMON),
+	PARTICLE_NONE("particle_None", "particleCustomizers", EnumRarity.COMMON),
+	PARTICLE_SMOKE("particle_Smoke", "particleCustomizers", EnumRarity.COMMON),
+	PARTICLE_RAINBOWSMOKE("particle_Rainbow_Smoke", "particleCustomizers", EnumRarity.COMMON),
 
-	THRUSTER_VANILLA_1("thrusterVanilla1", null, EnumRarity.COMMON),
-	THRUSTER_VANILLA_2("thrusterVanilla2", null, EnumRarity.UNCOMMON),
-	THRUSTER_VANILLA_3("thrusterVanilla3", null, EnumRarity.RARE),
+	THRUSTER_VANILLA_1("thruster_Vanilla1", null, EnumRarity.COMMON),
+	THRUSTER_VANILLA_2("thruster_Vanilla2", null, EnumRarity.UNCOMMON),
+	THRUSTER_VANILLA_3("thruster_Vanilla3", null, EnumRarity.RARE),
 
-	LEATHER_STRAP("leatherStrap", null, EnumRarity.COMMON);
+	LEATHER_STRAP("leather_Strap", null, EnumRarity.COMMON);
 
 	private String name;
 	private String keyTooltip;
