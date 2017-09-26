@@ -1,12 +1,10 @@
 package tonius.simplyjetpacks.crafting;
 
-import cofh.api.energy.IEnergyContainerItem;
+import cofh.redstoneflux.api.IEnergyContainerItem;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import tonius.simplyjetpacks.CommonProxy;
@@ -15,7 +13,6 @@ import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
 import tonius.simplyjetpacks.item.rewrite.Jetpack;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.NBTHelper;
-import tonius.simplyjetpacks.util.crafting.RecipeHelper;
 
 public class UpgradingRecipe extends ShapedOreRecipe {
 	private final IEnergyContainerItem resultItem;

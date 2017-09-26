@@ -1,5 +1,6 @@
 package tonius.simplyjetpacks.item.rewrite;
 
+import cofh.redstoneflux.api.IEnergyContainerItem;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.util.NonNullList;
 import tonius.simplyjetpacks.SimplyJetpacks;
@@ -12,7 +13,6 @@ import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.item.IHUDInfoProvider;
 import tonius.simplyjetpacks.setup.*;
 import tonius.simplyjetpacks.util.*;
-import cofh.api.energy.IEnergyContainerItem;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;

@@ -1,6 +1,6 @@
 package tonius.simplyjetpacks.capability;
 
-import cofh.api.energy.IEnergyContainerItem;
+import cofh.redstoneflux.api.IEnergyContainerItem;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.energy.IEnergyStorage;
 
