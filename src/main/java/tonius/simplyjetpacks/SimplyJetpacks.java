@@ -1,6 +1,9 @@
 package tonius.simplyjetpacks;
 
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -23,7 +26,7 @@ public class SimplyJetpacks {
 	public static final String VERSION = "@VERSION@";
 	public static final String PREFIX = MODID + ".";
 	public static final String RESOURCE_PREFIX = MODID + ":";
-	public static final String DEPENDENCIES = "after:EnderIO";
+	public static final String DEPENDENCIES = "after:thermalexpansion;" + "after:thermalfoundation";
 	public static final String GUI_FACTORY = "tonius.simplyjetpacks.config.ConfigGuiFactory";
 	public static final String UPDATE_JSON = "https://raw.githubusercontent.com/CyberdyneCC/SimplyJetpacks-2/TomsonDev/update/update.json";
 
@@ -33,6 +36,10 @@ public class SimplyJetpacks {
 	public static CommonProxy proxy;
 	public static Logger logger = LogManager.getLogger("SimplyJetpacks");
 	public static SyncHandler keyboard;
+
+	public SimplyJetpacks() {
+		FluidRegistry.enableUniversalBucket();
+	}
 
 	@EventHandler
 	public static void preInit(FMLPreInitializationEvent evt) {

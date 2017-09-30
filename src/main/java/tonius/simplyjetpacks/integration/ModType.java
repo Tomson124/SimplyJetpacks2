@@ -8,7 +8,7 @@ public enum ModType
 	SIMPLY_JETPACKS("", SimplyJetpacks.MODID),
 	ENDER_IO(".eio", "EnderIO"),
 	THERMAL_EXPANSION(".te", "thermalexpansion"),
-	THERMAL_DYNAMICS(null, "thermaldynamics");
+	THERMAL_DYNAMICS(null, "Thermal Dynamics");
 
 	public final String suffix;
 	public final String[] modids;
