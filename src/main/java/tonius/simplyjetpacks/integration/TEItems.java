@@ -1,6 +1,5 @@
 package tonius.simplyjetpacks.integration;
 
-import cofh.thermalfoundation.fluid.BlockFluidRedstone;
 import net.minecraft.block.Block;
 import net.minecraftforge.fluids.*;
 import tonius.simplyjetpacks.Log;
@@ -62,17 +61,7 @@ public abstract class TEItems {
 		//Fluid redstone = FluidRegistry.getFluid("redstone");
 		//FluidRegistry.getFluidName(new BlockFluidRedstone.);
 		//bucketRedstone = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, redstone);
-		//bucketRedstone = FluidUtil.getFilledBucket(new FluidStack(redstone, 1000));
-
-		/*fluid = Block.REGISTRY.getObject(new ResourceLocation("thermalfoundation", "redstone"));
-		if (fluid != null) {
-			if (FluidRegistry.isFluidRegistered("redstone")) {
-				//Fluid redstone = FluidRegistry.lookupFluidForBlock(fluid);
-				Log.info("redstone fluid: " + FluidRegistry.getFluid("redstone"));
-				Log.info("fluidstack: " + new FluidStack(FluidRegistry.getFluid("redstone"), 1000));
-				bucketRedstone = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, FluidRegistry.getFluid("redstone"));
-			}
-		}*/
+		//cketRedstone = FluidUtil.getFilledBucket(new FluidStack(redstone, 1000));
 
 		/*
 		cellBasic = GameRegistry.findItemStack("ThermalExpansion", "cellBasic", 1);
@@ -86,7 +75,7 @@ public abstract class TEItems {
 		Fluid redstone = FluidRegistry.getFluid("redstone");
 		//FluidRegistry.getFluidName(new BlockFluidRedstone.);
 		//bucketRedstone = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, redstone);
-		bucketRedstone = FluidUtil.getFilledBucket(new FluidStack(redstone, 1000));
+		bucketRedstone = FluidUtil.getFilledBucket(new FluidStack(redstone, Fluid.BUCKET_VOLUME));
 
 	}
 }
