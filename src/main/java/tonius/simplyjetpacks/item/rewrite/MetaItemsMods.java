@@ -10,26 +10,26 @@ import java.util.EnumSet;
 public enum MetaItemsMods {
 
 	//EnderIO
-	INGOT_DARK_SOULARIUM("ingot_Dark_Soularium", null, EnumRarity.UNCOMMON, true),
-	REINFORCED_GLIDERWINGS("reinforced_Gliderwing", null, EnumRarity.UNCOMMON),
-	UNIT_FLIGHT_CONTROL_EMPTY("unit_Flight_Control_Empty", null, EnumRarity.COMMON),
+	INGOT_DARK_SOULARIUM("ingot_dark_doularium", null, EnumRarity.UNCOMMON, true),
+	REINFORCED_GLIDERWINGS("reinforced_gliderwing", null, EnumRarity.UNCOMMON),
+	UNIT_FLIGHT_CONTROL_EMPTY("unit_flight_control_empty", null, EnumRarity.COMMON),
 	UNIT_FLIGHT_CONTROL("unit_Flight_Control", null, EnumRarity.UNCOMMON),
-	THRUSTER_EIO_1("thruster_EIO1", null, EnumRarity.COMMON),
-	THRUSTER_EIO_2("thruster_EIO2", null, EnumRarity.COMMON),
-	THRUSTER_EIO_3("thruster_EIO3", null, EnumRarity.UNCOMMON),
-	THRUSTER_EIO_4("thruster_EIO4", null, EnumRarity.RARE),
-	THRUSTER_EIO_5("thruster_EIO5", null, EnumRarity.EPIC),
-	ARMOR_PLATING_EIO_1("armor_Plating_EIO1", null, EnumRarity.COMMON),
-	ARMOR_PLATING_EIO_2("armor_Plating_EIO2", null, EnumRarity.COMMON),
-	ARMOR_PLATING_EIO_3("armor_Plating_EIO3", null, EnumRarity.COMMON),
-	ARMOR_PLATING_EIO_4("armor_Plating_EIO4", null, EnumRarity.COMMON),
+	THRUSTER_EIO_1("thruster_eio1", null, EnumRarity.COMMON),
+	THRUSTER_EIO_2("thruster_eio2", null, EnumRarity.COMMON),
+	THRUSTER_EIO_3("thruster_eio3", null, EnumRarity.UNCOMMON),
+	THRUSTER_EIO_4("thruster_eio4", null, EnumRarity.RARE),
+	THRUSTER_EIO_5("thruster_eio5", null, EnumRarity.EPIC),
+	ARMOR_PLATING_EIO_1("armor_Plating_eio1", null, EnumRarity.COMMON),
+	ARMOR_PLATING_EIO_2("armor_Plating_eio2", null, EnumRarity.COMMON),
+	ARMOR_PLATING_EIO_3("armor_Plating_eio3", null, EnumRarity.COMMON),
+	ARMOR_PLATING_EIO_4("armor_Plating_eio4", null, EnumRarity.COMMON),
 
 	//ThermalExpansion
-	THRUSTER_TE_1("thruster_TE1", null, EnumRarity.COMMON),
-	THRUSTER_TE_2("thruster_TE2", null, EnumRarity.COMMON),
-	THRUSTER_TE_3("thruster_TE3", null, EnumRarity.UNCOMMON),
-	THRUSTER_TE_4("thruster_TE4", null, EnumRarity.RARE),
-	THRUSTER_TE_5("thruster_TE5", null, EnumRarity.EPIC);
+	THRUSTER_TE_1("thruster_te1", null, EnumRarity.COMMON),
+	THRUSTER_TE_2("thruster_te2", null, EnumRarity.COMMON),
+	THRUSTER_TE_3("thruster_te3", null, EnumRarity.UNCOMMON),
+	THRUSTER_TE_4("thruster_te4", null, EnumRarity.RARE),
+	THRUSTER_TE_5("thruster_te5", null, EnumRarity.EPIC);
 
 	private String name;
 	private String keyTooltip;
@@ -37,7 +37,7 @@ public enum MetaItemsMods {
 	private boolean glow;
 
 	public static final EnumSet<MetaItemsMods> ITEMS_EIO = EnumSet.range(INGOT_DARK_SOULARIUM, ARMOR_PLATING_EIO_4);
-	public static final EnumSet<MetaItemsMods> ITEMS_TE = EnumSet.range(THRUSTER_EIO_1, THRUSTER_EIO_5);
+	public static final EnumSet<MetaItemsMods> ITEMS_TE = EnumSet.range(THRUSTER_TE_1, THRUSTER_TE_5);
 
 	private MetaItemsMods(String name, String keyTooltip, EnumRarity rarity) {
 		this.name = name;
@@ -70,13 +70,13 @@ public enum MetaItemsMods {
 
 	public
 	@Nonnull
-	ItemStack getStackMetaItemEIO() {
-		return getStackMetaItemEIO(1);
+	ItemStack getStackMetaItem() {
+		return getStackMetaItem(1);
 	}
 
 	public
 	@Nonnull
-	ItemStack getStackMetaItemEIO(int size) {
+	ItemStack getStackMetaItem(int size) {
 		return new ItemStack(ModItems.metaItemMods, size, ordinal());
 	}
 
