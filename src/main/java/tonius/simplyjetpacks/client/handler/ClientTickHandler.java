@@ -1,12 +1,5 @@
 package tonius.simplyjetpacks.client.handler;
 
-import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.client.audio.SoundJetpack;
-import tonius.simplyjetpacks.config.Config;
-import tonius.simplyjetpacks.handler.SyncHandler;
-import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
-import tonius.simplyjetpacks.item.rewrite.Jetpack;
-import tonius.simplyjetpacks.setup.ParticleType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
@@ -19,6 +12,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.client.audio.SoundJetpack;
+import tonius.simplyjetpacks.config.Config;
+import tonius.simplyjetpacks.handler.SyncHandler;
+import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
+import tonius.simplyjetpacks.item.rewrite.Jetpack;
+import tonius.simplyjetpacks.setup.ParticleType;
 
 import java.lang.reflect.Field;
 import java.util.Iterator;
