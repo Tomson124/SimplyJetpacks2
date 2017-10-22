@@ -1,8 +1,38 @@
 package tonius.simplyjetpacks.item.rewrite;
 
 import cofh.redstoneflux.api.IEnergyContainerItem;
+import com.google.common.collect.Multimap;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ISpecialArmor;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.capability.CapabilityProviderEnergy;
 import tonius.simplyjetpacks.capability.EnergyConversionStorage;
@@ -13,34 +43,11 @@ import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.item.IHUDInfoProvider;
 import tonius.simplyjetpacks.setup.*;
 import tonius.simplyjetpacks.util.*;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ISpecialArmor;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.UUID;
 
 import static tonius.simplyjetpacks.handler.LivingTickHandler.floatingTickCount;
 
@@ -52,6 +59,8 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public static final String TAG_EHOVER_ON = "JetpackEHoverOn";
 	public static final String TAG_CHARGER_ON = "JetpackChargerOn";
 
+	private static final UUID ARMOR_MODIFIER = UUID.fromString("0819e549-a0f9-49d3-a199-53662799c67b");
+
 	public String name;
 	public boolean showTier = true;
 	public boolean hasFuelIndicator = true;
@@ -62,7 +71,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	private final int numItems;
 
 	public ItemJetpack(String name) {
-		super(ArmorMaterial.IRON, 2, EntityEquipmentSlot.CHEST);
+		super(EnumHelper.addArmorMaterial("JETPACK_SJ", "jetpack", 0, new int[]{0, 0, 0, 0}, 0, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0), 2, EntityEquipmentSlot.CHEST);
 		this.name = name;
 		this.setUnlocalizedName(SimplyJetpacks.PREFIX + name);
 		this.setHasSubtypes(true);
@@ -80,8 +89,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			ItemStack stack;
 			if (pack.usesFuel) {
 				List.add(new ItemStack(this, 1, pack.ordinal()));
-			}
-			else {
+			} else {
 				stack = new ItemStack(this, 1, pack.ordinal());
 				if (this instanceof ItemJetpack) {
 					((ItemJetpack) this).addFuel(stack, ((ItemJetpack) this).getMaxEnergyStored(stack), false);
@@ -94,8 +102,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 				ItemStack stack;
 				if (pack.usesFuel) {
 					List.add(new ItemStack(this, 1, pack.ordinal()));
-				}
-				else {
+				} else {
 					stack = new ItemStack(this, 1, pack.ordinal());
 					if (this instanceof ItemJetpack) {
 						((ItemJetpack) this).addFuel(stack, ((ItemJetpack) this).getMaxEnergyStored(stack), false);
@@ -110,8 +117,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 				ItemStack stack;
 				if (pack.usesFuel) {
 					List.add(new ItemStack(this, 1, pack.ordinal()));
-				}
-				else {
+				} else {
 					stack = new ItemStack(this, 1, pack.ordinal());
 					if (this instanceof ItemJetpack) {
 						((ItemJetpack) this).addFuel(stack, ((ItemJetpack) this).getMaxEnergyStored(stack), false);
@@ -203,8 +209,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		information(stack, this, tooltip);
 		if (SJStringHelper.canShowDetails()) {
 			shiftInformation(stack, tooltip);
-		}
-		else {
+		} else {
 			tooltip.add(SJStringHelper.getShiftText());
 		}
 	}
@@ -363,8 +368,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		Boolean charger = this.isChargerOn(stack);
 		if (isJetplate(stack)) {
 			return SJStringHelper.getHUDStateText(engine, hover, charger);
-		}
-		else {
+		} else {
 			return SJStringHelper.getHUDStateText(engine, hover, null);
 		}
 	}
@@ -384,7 +388,26 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	}
 
 	@Override
-	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
+	public int getArmorDisplay(EntityPlayer player, @Nonnull ItemStack armor, int slot) {
+		return 0;
+	}
+
+	@Override
+	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
+		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(slot);
+		if (!Jetpack.values()[i].getIsArmored()) {
+			multimap.clear();
+			return multimap;
+		}
+		if (slot == EntityEquipmentSlot.CHEST) {
+			multimap.clear();
+			multimap.put(SharedMonsterAttributes.ARMOR.getName(), new AttributeModifier(ARMOR_MODIFIER, "Armor modifier", (double) Jetpack.values()[i].getArmorReduction(), 0));
+		}
+		return multimap;
+	}
+
+	/*public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
 		int i = MathHelper.clamp(armor.getItemDamage(), 0, numItems - 1);
 		if (Jetpack.values()[i].getIsArmored()) {
 			if (this.getFuelStored(armor) >= Jetpack.values()[i].getArmorFuelPerHit()) {
@@ -392,7 +415,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			}
 		}
 		return 0;
-	}
+	}*/
 
 	@Override
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
@@ -419,8 +442,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		if (Jetpack.values()[i].getIsArmored() && Jetpack.values()[i].usesFuel) {
 			if (this.fuelType == FuelType.ENERGY && this.isFluxBased && source.damageType.equals("flux")) {
 				this.addFuel(armor, damage * (source.getImmediateSource() == null ? Jetpack.values()[i].getArmorFuelPerHit() / 2 : this.getFuelPerDamage(armor)), false);
-			}
-			else {
+			} else {
 				this.useFuel(armor, damage * this.getFuelPerDamage(armor), false);
 			}
 		}
@@ -458,24 +480,21 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 					if (flyKeyDown) {
 						if (!hoverMode) {
 							user.motionY = Math.min(user.motionY + currentAccel, currentSpeedVertical);
-						}
-						else {
+						} else {
 							if (descendKeyDown) {
 								user.motionY = Math.min(user.motionY + currentAccel, -Jetpack.values()[i].speedVerticalHoverSlow);
-							}
-							else {
+							} else {
 								user.motionY = Math.min(user.motionY + currentAccel, Jetpack.values()[i].speedVerticalHover);
 							}
 						}
-					}
-					else {
+					} else {
 						user.motionY = Math.min(user.motionY + currentAccel, -hoverSpeed);
 					}
 
 					float speedSideways = (float) (user.isSneaking() ? Jetpack.values()[i].speedSideways * 0.5F : Jetpack.values()[i].speedSideways);
 					float speedForward = (float) (user.isSprinting() ? speedSideways * Jetpack.values()[i].sprintSpeedModifier : speedSideways);
 					if (SyncHandler.isForwardKeyDown(user)) {
-						user.moveRelative(0, 0,speedForward, speedForward);
+						user.moveRelative(0, 0, speedForward, speedForward);
 					}
 					if (SyncHandler.isBackwardKeyDown(user)) {
 						user.moveRelative(0, 0, -speedSideways, speedSideways * 0.8F);
@@ -484,7 +503,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 						user.moveRelative(speedSideways, 0, 0, speedSideways);
 					}
 					if (SyncHandler.isRightKeyDown(user)) {
-						user.moveRelative(-speedSideways, 0, 0,speedSideways);
+						user.moveRelative(-speedSideways, 0, 0, speedSideways);
 					}
 
 					if (!user.world.isRemote) {
@@ -523,8 +542,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			if (item.getEnergyStored(stack) > 0 && (!this.isHoverModeOn(stack) || !this.isOn(stack))) {
 				if (user.posY < -5) {
 					this.doEHover(stack, user);
-				}
-				else {
+				} else {
 					if (!user.capabilities.isCreativeMode && user.fallDistance - 1.2F >= user.getHealth()) {
 						for (int j = 0; j <= 16; j++) {
 							int x = Math.round((float) user.posX - 0.5F);
@@ -552,8 +570,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 						int energyToAdd = Math.min(item.useFuel(stack, Jetpack.values()[i].getFuelPerTickOut(), true), getIEnergyStorage(currentStack).receiveEnergy(Jetpack.values()[i].getFuelPerTickOut(), true));
 						item.useFuel(stack, energyToAdd, false);
 						getIEnergyStorage(currentStack).receiveEnergy(energyToAdd, false);
-					}
-					else {
+					} else {
 						getIEnergyStorage(currentStack).receiveEnergy(Jetpack.values()[i].getFuelPerTickOut(), false);
 					}
 				}
@@ -565,8 +582,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 
 		if (chargeItem.hasCapability(CapabilityEnergy.ENERGY, null)) {
 			return chargeItem.getCapability(CapabilityEnergy.ENERGY, null);
-		}
-		else if (chargeItem.getItem() instanceof IEnergyContainerItem) {
+		} else if (chargeItem.getItem() instanceof IEnergyContainerItem) {
 			return new EnergyConversionStorage((IEnergyContainerItem) chargeItem.getItem(), chargeItem);
 		}
 

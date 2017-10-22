@@ -104,8 +104,6 @@ public abstract class ModItems {
 	public static boolean integrateTD = ModType.THERMAL_DYNAMICS.loaded && Config.enableIntegrationTD;
 	public static boolean integrateVanilla = Config.enableIntegrationVanilla;
 
-	private static ResourceLocation resourceLocation = new ResourceLocation(SimplyJetpacks.MODID);
-
 	public static void preInit() {
 		if (integrateEIO) {
 			EIOItems.init();
@@ -119,16 +117,9 @@ public abstract class ModItems {
 
 		registerItems();
 		registerOreDicts();
-		//registerRecipes();
-
 	}
 
 	public static void init() {
-		//registerRecipes();
-		/*if (integrateTE) {
-			TEItems.initFluids();
-			test();
-		}*/
 		doIMC();
 	}
 

@@ -114,6 +114,7 @@ public enum Jetpack implements IStringSerializable {
 		this.unlocalisedName = "item.simplyjetpacks." + baseName;
 		this.jetpacks.add(baseName);
 		this.usesFuel = true;
+		this.isArmored = false;
 		this.rarity = rarity;
 		this.setArmorModel(PackModelType.JETPACK);
 	}
