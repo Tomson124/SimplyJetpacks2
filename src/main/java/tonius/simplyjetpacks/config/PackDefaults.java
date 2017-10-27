@@ -267,25 +267,25 @@ public class PackDefaults
 			d.emergencyHoverMode = true;
 
 			d = new PackDefaults("fluxPackTE1", "Leadstone Flux Pack (TE 1)");
-			d.fuelCapacity = 400000;
-			d.fuelPerTickIn = 200;
-			d.fuelPerTickOut = 200;
+			d.fuelCapacity = 800000;
+			d.fuelPerTickIn = 800;
+			d.fuelPerTickOut = 800;
 			d.enchantability = 4;
 
 			d = new PackDefaults("fluxPackTE2", "Hardened Flux Pack (TE 2)");
-			d.fuelCapacity = 2000000;
-			d.fuelPerTickIn = 800;
-			d.fuelPerTickOut = 800;
-			d.armorReduction = 5;
-			d.armorFuelPerHit = 80;
+			d.fuelCapacity = 4000000;
+			d.fuelPerTickIn = 4000;
+			d.fuelPerTickOut = 4000;
+			d.armorReduction = 6;
+			d.armorFuelPerHit = 100;
 			d.enchantability = 6;
 
 			d = new PackDefaults("fluxPackTE3", "Redstone Flux Pack (TE 3)");
 			d.fuelCapacity = 20000000;
-			d.fuelPerTickIn = 8000;
-			d.fuelPerTickOut = 8000;
-			d.armorReduction = 6;
-			d.armorFuelPerHit = 120;
+			d.fuelPerTickIn = 20000;
+			d.fuelPerTickOut = 20000;
+			d.armorReduction = 7;
+			d.armorFuelPerHit = 140;
 			d.enchantability = 8;
 
 			d = new PackDefaults("fluxPackTE4", "Resonant Flux Pack (TE 4)");
