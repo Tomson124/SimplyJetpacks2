@@ -59,7 +59,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public static final String TAG_EHOVER_ON = "JetpackEHoverOn";
 	public static final String TAG_CHARGER_ON = "JetpackChargerOn";
 
-	private static final UUID ARMOR_MODIFIER = UUID.fromString("0819e549-a0f9-49d3-a199-53662799c67b");
+	protected static final UUID ARMOR_MODIFIER = UUID.fromString("0819e549-a0f9-49d3-a199-53662799c67b");
 
 	public String name;
 	public boolean showTier = true;
@@ -91,9 +91,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 				List.add(new ItemStack(this, 1, pack.ordinal()));
 			} else {
 				stack = new ItemStack(this, 1, pack.ordinal());
-				if (this instanceof ItemJetpack) {
-					((ItemJetpack) this).addFuel(stack, ((ItemJetpack) this).getMaxEnergyStored(stack), false);
-				}
+				this.addFuel(stack, this.getMaxEnergyStored(stack), false);
 				List.add(stack);
 			}
 		}

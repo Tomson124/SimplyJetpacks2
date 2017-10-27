@@ -25,6 +25,15 @@ public enum MetaItemsMods {
 	ARMOR_PLATING_EIO_4("armor_Plating_EIO4", null, EnumRarity.COMMON),
 
 	//ThermalExpansion
+	PLATE_FLUX("plate_flux", null, EnumRarity.UNCOMMON),
+	ARMOR_PLATE_FLUX("armor_plate_flux", null, EnumRarity.RARE),
+	UNIT_GLOWSTONE_EMTPY("unit_glowstone_empty", null, EnumRarity.COMMON),
+	UNIT_GLOWSTONE("unit_glowstone", null, EnumRarity.UNCOMMON),
+	UNIT_CRYOTHEUM_EMTPY("unit_cryotheum_empty", null, EnumRarity.COMMON),
+	UNIT_CRYOTHEUM("unit_cryotheum", null, EnumRarity.UNCOMMON),
+
+	ARMOR_PLATING_TE_1("armor_Plating_TE1", null, EnumRarity.COMMON),
+
 	THRUSTER_TE_1("thruster_TE1", null, EnumRarity.COMMON),
 	THRUSTER_TE_2("thruster_TE2", null, EnumRarity.COMMON),
 	THRUSTER_TE_3("thruster_TE3", null, EnumRarity.UNCOMMON),
@@ -37,7 +46,7 @@ public enum MetaItemsMods {
 	private boolean glow;
 
 	public static final EnumSet<MetaItemsMods> ITEMS_EIO = EnumSet.range(INGOT_DARK_SOULARIUM, ARMOR_PLATING_EIO_4);
-	public static final EnumSet<MetaItemsMods> ITEMS_TE = EnumSet.range(THRUSTER_TE_1, THRUSTER_TE_5);
+	public static final EnumSet<MetaItemsMods> ITEMS_TE = EnumSet.range(PLATE_FLUX, THRUSTER_TE_5);
 
 	private MetaItemsMods(String name, String keyTooltip, EnumRarity rarity) {
 		this.name = name;

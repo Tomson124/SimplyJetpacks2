@@ -15,15 +15,21 @@ import java.util.Locale;
 
 public enum Fluxpack implements IStringSerializable {
 
-	CREATIVE_FLUXPACK("fluxPackCreative", "fluxPackCreative", 6, EnumRarity.EPIC, false, true),
+	CREATIVE_FLUXPACK("fluxpack_creative", "fluxPackCreative", 6, EnumRarity.EPIC, false, true),
 
-	FLUXPACK_EIO1("fluxPackEIO1", "fluxPackEIO1", 1, EnumRarity.COMMON),
-	FLUXPACK_EIO2("fluxPackEIO2", "fluxPackEIO2", 2, EnumRarity.UNCOMMON),
-	FLUXPACK_EIO3("fluxPackEIO3", "fluxPackEIO3", 3, EnumRarity.RARE),
+	//EnderIO
+	FLUXPACK_EIO1("fluxPack_EIO1", "fluxPackEIO1", 1, EnumRarity.COMMON),
+	FLUXPACK_EIO2("fluxPack_EIO2", "fluxPackEIO2", 2, EnumRarity.UNCOMMON),
+	FLUXPACK_EIO3("fluxPack_EIO3", "fluxPackEIO3", 3, EnumRarity.RARE),
+	FLUXPACK_EIO2_ARMORED("fluxPack_EIO2_Armored", "fluxPackEIO2", 2, EnumRarity.UNCOMMON, true, true),
+	FLUXPACK_EIO3_ARMORED("fluxPack_EIO3_Armored", "fluxPackEIO3", 3, EnumRarity.RARE, true, true),
 
-	FLUXPACK_EIO2_ARMORED("fluxPackEIO2Armored", "fluxPackEIO2", 2, EnumRarity.UNCOMMON, true, true),
-	FLUXPACK_EIO3_ARMORED("fluxPackEIO3Armored", "fluxPackEIO3", 3, EnumRarity.RARE, true, true);
-	//FLUXPACK_EIO4("fluxPackEIO4", "fluxPackEIO4", 4, EnumRarity.RARE);
+	//Thermal Expansioin
+	FLUXPACK_TE1("fluxPack_TE1", "fluxPackTE1", 1, EnumRarity.COMMON),
+	FLUXPACK_TE2("fluxPack_TE2", "fluxPackTE2", 2, EnumRarity.UNCOMMON),
+	FLUXPACK_TE3("fluxPack_TE3", "fluxPackTE3", 3, EnumRarity.RARE),
+	FLUXPACK_TE2_ARMORED("fluxPack_TE2_Armored", "fluxPackTE2", 2, EnumRarity.UNCOMMON, true, true),
+	FLUXPACK_TE3_ARMORED("fluxPack_TE3_Armored", "fluxPackTE3", 3, EnumRarity.RARE, true, true);
 
 	public final @Nonnull String baseName;
 	public final @Nonnull String unlocalisedName;
@@ -43,9 +49,9 @@ public enum Fluxpack implements IStringSerializable {
 
 	public boolean isArmored;
 
-	protected static final EnumSet<Fluxpack> ALL_FLUXPACKS = EnumSet.allOf(Fluxpack.class);
 	protected static final EnumSet<Fluxpack> SJ_FLUXPACKS = EnumSet.of(CREATIVE_FLUXPACK);
-	//public static final EnumSet<Jetpack> PACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPACK_EIO_4_ARMORED);
+	public static final EnumSet<Fluxpack> EIO_FLUXPACKS = EnumSet.range(FLUXPACK_EIO1, FLUXPACK_EIO3_ARMORED);
+	public static final EnumSet<Fluxpack> TE_FLUXPACKS = EnumSet.range(FLUXPACK_TE1, FLUXPACK_TE3_ARMORED);
 
 	private Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity, boolean usesFuel) {
 		this(baseName, defaultConfigKey, tier, rarity);
@@ -143,10 +149,16 @@ public enum Fluxpack implements IStringSerializable {
 
 	public static void loadAllConfigs(Configuration config) {
 		if (ModItems.integrateEIO) {
-			for (Fluxpack pack : ALL_FLUXPACKS) {
+			for (Fluxpack pack : EIO_FLUXPACKS) {
 				pack.loadConfig(config);
 			}
-		} else {
+		}
+		if (ModItems.integrateTE) {
+			for (Fluxpack pack : TE_FLUXPACKS) {
+				pack.loadConfig(config);
+			}
+		}
+		else {
 			for (Fluxpack pack : SJ_FLUXPACKS) {
 				pack.loadConfig(config);
 			}
@@ -155,12 +167,20 @@ public enum Fluxpack implements IStringSerializable {
 
 	public static void writeAllConfigsToNBT(NBTTagCompound tag) {
 		if (ModItems.integrateEIO) {
-			for (Fluxpack pack : ALL_FLUXPACKS) {
+			for (Fluxpack pack : EIO_FLUXPACKS) {
 				NBTTagCompound packTag = new NBTTagCompound();
 				pack.writeConfigToNBT(packTag);
 				tag.setTag(pack.defaults.section.id, packTag);
 			}
-		} else {
+		}
+		if (ModItems.integrateTE) {
+			for (Fluxpack pack : TE_FLUXPACKS) {
+				NBTTagCompound packTag = new NBTTagCompound();
+				pack.writeConfigToNBT(packTag);
+				tag.setTag(pack.defaults.section.id, packTag);
+			}
+		}
+		else {
 			for (Fluxpack pack : SJ_FLUXPACKS) {
 				NBTTagCompound packTag = new NBTTagCompound();
 				pack.writeConfigToNBT(packTag);
@@ -171,11 +191,18 @@ public enum Fluxpack implements IStringSerializable {
 
 	public static void readAllConfigsFromNBT(NBTTagCompound tag) {
 		if (ModItems.integrateEIO) {
-			for (Fluxpack pack : ALL_FLUXPACKS) {
+			for (Fluxpack pack : EIO_FLUXPACKS) {
 				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
 				pack.readConfigFromNBT(packTag);
 			}
-		} else {
+		}
+		if (ModItems.integrateTE) {
+			for (Fluxpack pack : TE_FLUXPACKS) {
+				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
+				pack.readConfigFromNBT(packTag);
+			}
+		}
+		else {
 			for (Fluxpack pack : SJ_FLUXPACKS) {
 				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
 				pack.readConfigFromNBT(packTag);

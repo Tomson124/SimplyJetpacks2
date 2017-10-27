@@ -39,6 +39,7 @@ public enum Jetpack implements IStringSerializable {
 	JETPACK_TE_2("jetpack_TE2", 2, "jetpackTE2", EnumRarity.COMMON),
 	JETPACK_TE_3("jetpack_TE3", 3, "jetpackTE3", EnumRarity.UNCOMMON),
 	JETPACK_TE_4("jetpack_TE4", 4, "jetpackTE4", EnumRarity.RARE),
+	JETPACK_TE_1_ARMORED("jetpack_TE1_Armored", 1, "jetpackTE1", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_TE_1.ordinal()),
 	JETPLATE_TE_5("jetpack_TE5", 5, "jetpackTE5", EnumRarity.EPIC, true),
 	
 	JETPACK_VANILLA_1("jetpack_Vanilla1", 1, "jetpackVanilla1", EnumRarity.COMMON),

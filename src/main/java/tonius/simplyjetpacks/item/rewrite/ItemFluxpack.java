@@ -1,12 +1,15 @@
 package tonius.simplyjetpacks.item.rewrite;
 
 import cofh.redstoneflux.api.IEnergyContainerItem;
+import com.google.common.collect.Multimap;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
@@ -72,33 +75,28 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs creativeTabs, NonNullList<ItemStack> List) {
 		if (ModItems.integrateEIO) {
-			for (Fluxpack pack : Fluxpack.ALL_FLUXPACKS) {
-				ItemStack stack;
-				if (pack.usesFuel) {
-					List.add(new ItemStack(this, 1, pack.ordinal()));
-				} else {
-					stack = new ItemStack(this, 1, pack.ordinal());
-					if (this instanceof ItemFluxpack) {
-						((ItemFluxpack) this).addFuel(stack, ((ItemFluxpack) this).getMaxEnergyStored(stack), false);
-					}
-
-					List.add(stack);
+			for (Fluxpack packMod : Fluxpack.EIO_FLUXPACKS) {
+				if (packMod.usesFuel) {
+					List.add(new ItemStack(this, 1, packMod.ordinal()));
 				}
 			}
 		}
-		else {
-			Fluxpack pack = Fluxpack.CREATIVE_FLUXPACK;
-
-				ItemStack stack;
-				if (pack.usesFuel) {
-					List.add(new ItemStack(this, 1, pack.ordinal()));
-				} else {
-					stack = new ItemStack(this, 1, pack.ordinal());
-					if (this instanceof ItemFluxpack) {
-						((ItemFluxpack) this).addFuel(stack, ((ItemFluxpack) this).getMaxEnergyStored(stack), false);
-					}
-					List.add(stack);
+		if (ModItems.integrateTE) {
+			for (Fluxpack packMod : Fluxpack.TE_FLUXPACKS) {
+				if (packMod.usesFuel) {
+					List.add(new ItemStack(this, 1, packMod.ordinal()));
 				}
+			}
+		}
+		Fluxpack pack = Fluxpack.CREATIVE_FLUXPACK;
+		ItemStack stack;
+		if (pack.usesFuel) {
+			List.add(new ItemStack(this, 1, pack.ordinal()));
+		}
+		else {
+			stack = new ItemStack(this, 1, pack.ordinal());
+			this.addFuel(stack, this.getMaxEnergyStored(stack), false);
+			List.add(stack);
 		}
 	}
 
@@ -296,24 +294,36 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
 		int i = MathHelper.clamp(armor.getItemDamage(), 0, numItems - 1);
 		if (Fluxpack.values()[i].getIsArmored() && !source.isUnblockable()) {
+			int energyPerDamage = this.getFuelPerDamage(armor);
+			int maxAbsorbed = energyPerDamage > 0 ? 25 * (this.getFuelStored(armor) / energyPerDamage) : 0;
+			if (this.getFuelStored(armor) < energyPerDamage) {
+				return new ArmorProperties(0, 0.65D * (Fluxpack.values()[i].getArmorReduction() / 20.0D), Integer.MAX_VALUE);
+			}
 			if (this.isFluxBased && source.damageType.equals("flux")) {
 				return new ArmorProperties(0, 0.5D, Integer.MAX_VALUE);
 			}
-			int energyPerDamage = this.getFuelPerDamage(armor);
-			int maxAbsorbed = energyPerDamage > 0 ? 25 * (this.getFuelStored(armor) / energyPerDamage) : 0;
 			return new ArmorProperties(0, 0.85D * (Fluxpack.values()[i].getArmorReduction() / 20.0D), maxAbsorbed);
 		}
 		return new ArmorProperties(0, 1, 0);
 	}
 
 	@Override
-	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
-		int i = MathHelper.clamp(armor.getItemDamage(), 0, numItems - 1);
-		if (Fluxpack.values()[i].getIsArmored()) {
-			if (this.getFuelStored(armor) >= Fluxpack.values()[i].getArmorFuelPerHit()) {
-				return Fluxpack.values()[i].getArmorReduction();
-			}
+	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
+		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(slot);
+		if (!Fluxpack.values()[i].getIsArmored()) {
+			multimap.clear();
+			return multimap;
 		}
+		if (slot == EntityEquipmentSlot.CHEST) {
+			multimap.clear();
+			multimap.put(SharedMonsterAttributes.ARMOR.getName(), new AttributeModifier(ItemJetpack.ARMOR_MODIFIER, "Armor modifier", (double) Fluxpack.values()[i].getArmorReduction(), 0));
+		}
+		return multimap;
+	}
+
+	@Override
+	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
 		return 0;
 	}
 
