@@ -8,6 +8,7 @@ public enum ModType
 	SIMPLY_JETPACKS("", SimplyJetpacks.MODID),
 	ENDER_IO(".eio", "EnderIO"),
 	THERMAL_EXPANSION(".te", "thermalexpansion"),
+	REDSTONE_ARSENAL("redstonearsenal"),
 	THERMAL_DYNAMICS(null, "Thermal Dynamics");
 
 	public final String suffix;

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "simplyjetpacks:items/plateFlux"
+    "layer0": "simplyjetpacks:items/plate_flux"
   }
 }

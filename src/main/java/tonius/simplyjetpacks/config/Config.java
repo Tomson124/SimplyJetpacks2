@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import scala.tools.nsc.doc.model.Def;
 import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.util.RenderUtils.HUDPositions;
@@ -41,6 +42,7 @@ public class Config
 	public static boolean enableIntegrationEIO = Defaults.enableIntegrationEIO;
 	public static boolean enableIntegrationTE = Defaults.enableIntegrationTE;
 	public static boolean enableIntegrationTD = Defaults.enableIntegrationTD;
+	public static boolean enableIntegrationRA = Defaults.enableIntegrationRA;
 	public static boolean enableIntegrationVanilla = Defaults.enableIntegrationVanilla;
 
 	// controls
@@ -124,6 +126,7 @@ public class Config
 
 		enableIntegrationEIO = config.get(sectionIntegration.name, "Ender IO integration", Defaults.enableIntegrationEIO, "When enabled, Simply Jetpacks will register its Ender IO-based jetpacks and flux packs.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationEIO);
 		enableIntegrationTE = config.get(sectionIntegration.name, "ThermalExpansion integration", Defaults.enableIntegrationTE, "When enabled, Simply Jetpacks will register its Thermal Expansion-based jetpacks and flux packs.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationTE);
+		enableIntegrationRA = config.get(sectionIntegration.name, "RedstoneArsenal integration", Defaults.enableIntegrationRA, "When enabled, Simply Jetpacks will register its RedstoneArsenal tier5 jetpack recipes.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationRA);
 		enableIntegrationVanilla = config.get(sectionIntegration.name, "Vanilla integration", Defaults.enableIntegrationVanilla, "When enabled, Simply Jetpacks will register its Vanilla-based jetpacks.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationVanilla);
 
 		customControls = configClient.get(sectionControls.name, "Custom controls", Defaults.customControls, "When enabled, the key codes specified here will be used for the fly and descend keys. Otherwise, the vanilla jump and sneak keys will be used.").getBoolean(Defaults.customControls);
