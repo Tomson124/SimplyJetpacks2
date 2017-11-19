@@ -53,6 +53,7 @@ dependencies {
     compile "cofh:ThermalFoundation:1.12-2.3.+:deobf"
     compile "cofh:ThermalDynamics:1.12-2.3.+:deobf"
     compile "cofh:ThermalExpansion:1.12-5.3.+:deobf"
+    compile "cofh:RedstoneArsenal:1.12-2.3.+:deobf"
 }
 
 minecraft {
