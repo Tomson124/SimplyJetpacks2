@@ -38,19 +38,19 @@ public class GuiPack /*extends GuiBase*/
     public void handleElementButtonClick(String buttonName, int mouseButton) {
         GuiBase.playSound("random.click", 0.5F, 1.0F);
         if (buttonName.equals(ModKey.TOGGLE_PRIMARY.name)) {
-            PacketHandler.instance.sendToServer(new MessageModKey(ModKey.TOGGLE_PRIMARY, true));
+            PacketHandler.INSTANCE.sendToServer(new MessageModKey(ModKey.TOGGLE_PRIMARY, true));
             this.container.pack.togglePrimary(this.container.chestplate, this.mc.thePlayer, false);
             
         } else if (buttonName.equals(ModKey.TOGGLE_SECONDARY.name)) {
-            PacketHandler.instance.sendToServer(new MessageModKey(ModKey.TOGGLE_SECONDARY, true));
+            PacketHandler.INSTANCE.sendToServer(new MessageModKey(ModKey.TOGGLE_SECONDARY, true));
             this.container.pack.toggleSecondary(this.container.chestplate, this.mc.thePlayer, false);
             
         } else if (buttonName.equals(ModKey.MODE_PRIMARY.name)) {
-            PacketHandler.instance.sendToServer(new MessageModKey(ModKey.MODE_PRIMARY, true));
+            PacketHandler.INSTANCE.sendToServer(new MessageModKey(ModKey.MODE_PRIMARY, true));
             this.container.pack.switchModePrimary(this.container.chestplate, this.mc.thePlayer, false);
             
         } else if (buttonName.equals(ModKey.MODE_SECONDARY.name)) {
-            PacketHandler.instance.sendToServer(new MessageModKey(ModKey.MODE_SECONDARY, true));
+            PacketHandler.INSTANCE.sendToServer(new MessageModKey(ModKey.MODE_SECONDARY, true));
             this.container.pack.switchModeSecondary(this.container.chestplate, this.mc.thePlayer, false);
         }
     }*/

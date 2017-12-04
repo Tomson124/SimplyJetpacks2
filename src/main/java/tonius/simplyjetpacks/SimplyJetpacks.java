@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.network.PacketHandler;
+import tonius.simplyjetpacks.setup.ModCreativeTab;
 import tonius.simplyjetpacks.setup.ModEnchantments;
 import tonius.simplyjetpacks.setup.ModItems;
 
@@ -35,6 +36,8 @@ public class SimplyJetpacks {
 	public static Logger logger = LogManager.getLogger("SimplyJetpacks");
 	public static SyncHandler keyboard;
 
+	public static final ModCreativeTab creativeTab = new ModCreativeTab();
+
 	public SimplyJetpacks() {
 		FluidRegistry.enableUniversalBucket();
 	}
@@ -47,12 +50,10 @@ public class SimplyJetpacks {
 
 		Config.preInit(evt);
 		ModItems.preInit();
-		//Log.info("ListRecipes: " + RECIPES_TO_REGISTER);
 	}
 
 	@EventHandler
 	public static void init(FMLInitializationEvent evt) {
-		//RecipeSorter.register(SimplyJetpacks.MODID + ":upgrading", UpgradingRecipe.class, Category.SHAPED, "after:minecraft:shaped");
 		proxy.registerHandlers();
 		proxy.initKeys();
 		PacketHandler.init();

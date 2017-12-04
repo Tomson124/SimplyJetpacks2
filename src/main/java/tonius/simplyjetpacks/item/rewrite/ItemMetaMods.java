@@ -69,19 +69,21 @@ public class ItemMetaMods extends ItemMeta {
 	@Override
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings("unchecked")
-	public void getSubItems(CreativeTabs tab, NonNullList list) {
-		if (ModItems.integrateEIO) {
-			for (MetaItemsMods item : MetaItemsMods.ITEMS_EIO) {
-				ItemStack stack;
-				stack = new ItemStack(this, 1, item.ordinal());
-				list.add(stack);
+	public void getSubItems(CreativeTabs creativeTabs, NonNullList list) {
+		if (isInCreativeTab(creativeTabs)) {
+			if (ModItems.integrateEIO) {
+				for (MetaItemsMods item : MetaItemsMods.ITEMS_EIO) {
+					ItemStack stack;
+					stack = new ItemStack(this, 1, item.ordinal());
+					list.add(stack);
+				}
 			}
-		}
-		if (ModItems.integrateTE) {
-			for (MetaItemsMods item : MetaItemsMods.ITEMS_TE) {
-				ItemStack stack;
-				stack = new ItemStack(this, 1, item.ordinal());
-				list.add(stack);
+			if (ModItems.integrateTE) {
+				for (MetaItemsMods item : MetaItemsMods.ITEMS_TE) {
+					ItemStack stack;
+					stack = new ItemStack(this, 1, item.ordinal());
+					list.add(stack);
+				}
 			}
 		}
 	}

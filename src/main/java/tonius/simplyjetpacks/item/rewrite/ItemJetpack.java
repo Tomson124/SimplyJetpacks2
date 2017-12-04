@@ -76,7 +76,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		this.setUnlocalizedName(SimplyJetpacks.PREFIX + name);
 		this.setHasSubtypes(true);
 		this.setMaxDamage(0);
-		this.setCreativeTab(ModCreativeTab.instance);
+		this.setCreativeTab(SimplyJetpacks.creativeTab);
 		this.setRegistryName(name);
 
 		numItems = Jetpack.values().length;
@@ -85,51 +85,53 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs creativeTabs, NonNullList<ItemStack> List) {
-		for (Jetpack pack : Jetpack.PACKS_SJ) {
-			ItemStack stack;
-			if (pack.usesFuel) {
-				List.add(new ItemStack(this, 1, pack.ordinal()));
-			} else {
-				stack = new ItemStack(this, 1, pack.ordinal());
-				this.addFuel(stack, this.getMaxEnergyStored(stack), false);
-				List.add(stack);
-			}
-		}
-		if (ModItems.integrateEIO) {
-			for (Jetpack pack : Jetpack.PACKS_EIO) {
+		if (isInCreativeTab(creativeTabs)) {
+			for (Jetpack pack : Jetpack.PACKS_SJ) {
 				ItemStack stack;
 				if (pack.usesFuel) {
 					List.add(new ItemStack(this, 1, pack.ordinal()));
 				} else {
 					stack = new ItemStack(this, 1, pack.ordinal());
-					if (this instanceof ItemJetpack) {
-						((ItemJetpack) this).addFuel(stack, ((ItemJetpack) this).getMaxEnergyStored(stack), false);
-					}
-
+					this.addFuel(stack, this.getMaxEnergyStored(stack), false);
 					List.add(stack);
 				}
 			}
-		}
-		if (ModItems.integrateTE) {
-			for (Jetpack pack : Jetpack.PACKS_TE) {
-				ItemStack stack;
-				if (pack.usesFuel) {
-					List.add(new ItemStack(this, 1, pack.ordinal()));
-				} else {
+			if (ModItems.integrateEIO) {
+				for (Jetpack pack : Jetpack.PACKS_EIO) {
+					ItemStack stack;
+					if (pack.usesFuel) {
+						List.add(new ItemStack(this, 1, pack.ordinal()));
+					} else {
+						stack = new ItemStack(this, 1, pack.ordinal());
+						if (this instanceof ItemJetpack) {
+							((ItemJetpack) this).addFuel(stack, ((ItemJetpack) this).getMaxEnergyStored(stack), false);
+						}
+
+						List.add(stack);
+					}
+				}
+			}
+			if (ModItems.integrateTE) {
+				for (Jetpack pack : Jetpack.PACKS_TE) {
+					ItemStack stack;
+					if (pack.usesFuel) {
+						List.add(new ItemStack(this, 1, pack.ordinal()));
+					} else {
+						stack = new ItemStack(this, 1, pack.ordinal());
+						if (this instanceof ItemJetpack) {
+							((ItemJetpack) this).addFuel(stack, ((ItemJetpack) this).getMaxEnergyStored(stack), false);
+						}
+
+						List.add(stack);
+					}
+				}
+			}
+			if (ModItems.integrateVanilla) {
+				for (Jetpack pack : Jetpack.PACKS_VANILLA) {
+					ItemStack stack;
 					stack = new ItemStack(this, 1, pack.ordinal());
-					if (this instanceof ItemJetpack) {
-						((ItemJetpack) this).addFuel(stack, ((ItemJetpack) this).getMaxEnergyStored(stack), false);
-					}
-
 					List.add(stack);
 				}
-			}
-		}
-		if (ModItems.integrateVanilla) {
-			for (Jetpack pack : Jetpack.PACKS_VANILLA) {
-				ItemStack stack;
-				stack = new ItemStack(this, 1, pack.ordinal());
-				List.add(stack);
 			}
 		}
 	}

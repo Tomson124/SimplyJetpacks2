@@ -65,7 +65,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		this.setUnlocalizedName(SimplyJetpacks.PREFIX + name);
 		this.setHasSubtypes(true);
 		this.setMaxDamage(0);
-		this.setCreativeTab(ModCreativeTab.instance);
+		this.setCreativeTab(SimplyJetpacks.creativeTab);
 		this.setRegistryName(name);
 
 		numItems = Fluxpack.values().length;
@@ -74,29 +74,30 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs creativeTabs, NonNullList<ItemStack> List) {
-		if (ModItems.integrateEIO) {
-			for (Fluxpack packMod : Fluxpack.EIO_FLUXPACKS) {
-				if (packMod.usesFuel) {
-					List.add(new ItemStack(this, 1, packMod.ordinal()));
+		if (isInCreativeTab(creativeTabs)) {
+			if (ModItems.integrateEIO) {
+				for (Fluxpack packMod : Fluxpack.EIO_FLUXPACKS) {
+					if (packMod.usesFuel) {
+						List.add(new ItemStack(this, 1, packMod.ordinal()));
+					}
 				}
 			}
-		}
-		if (ModItems.integrateTE) {
-			for (Fluxpack packMod : Fluxpack.TE_FLUXPACKS) {
-				if (packMod.usesFuel) {
-					List.add(new ItemStack(this, 1, packMod.ordinal()));
+			if (ModItems.integrateTE) {
+				for (Fluxpack packMod : Fluxpack.TE_FLUXPACKS) {
+					if (packMod.usesFuel) {
+						List.add(new ItemStack(this, 1, packMod.ordinal()));
+					}
 				}
 			}
-		}
-		Fluxpack pack = Fluxpack.CREATIVE_FLUXPACK;
-		ItemStack stack;
-		if (pack.usesFuel) {
-			List.add(new ItemStack(this, 1, pack.ordinal()));
-		}
-		else {
-			stack = new ItemStack(this, 1, pack.ordinal());
-			this.addFuel(stack, this.getMaxEnergyStored(stack), false);
-			List.add(stack);
+			Fluxpack pack = Fluxpack.CREATIVE_FLUXPACK;
+			ItemStack stack;
+			if (pack.usesFuel) {
+				List.add(new ItemStack(this, 1, pack.ordinal()));
+			} else {
+				stack = new ItemStack(this, 1, pack.ordinal());
+				this.addFuel(stack, this.getMaxEnergyStored(stack), false);
+				List.add(stack);
+			}
 		}
 	}
 
