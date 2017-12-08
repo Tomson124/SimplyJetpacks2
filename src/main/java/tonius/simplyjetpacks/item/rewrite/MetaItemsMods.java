@@ -33,6 +33,9 @@ public enum MetaItemsMods {
 	UNIT_CRYOTHEUM("unit_cryotheum", null, EnumRarity.UNCOMMON),
 
 	ARMOR_PLATING_TE_1("armor_Plating_TE1", null, EnumRarity.COMMON),
+	ARMOR_PLATING_TE_2("armor_Plating_TE2", null, EnumRarity.COMMON),
+	ARMOR_PLATING_TE_3("armor_Plating_TE3", null, EnumRarity.COMMON),
+	ARMOR_PLATING_TE_4("armor_Plating_TE4", null, EnumRarity.COMMON),
 
 	THRUSTER_TE_1("thruster_TE1", null, EnumRarity.COMMON),
 	THRUSTER_TE_2("thruster_TE2", null, EnumRarity.COMMON),

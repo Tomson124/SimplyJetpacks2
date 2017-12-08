@@ -15,7 +15,7 @@ import java.util.Locale;
 
 public enum Fluxpack implements IStringSerializable {
 
-	CREATIVE_FLUXPACK("fluxpack_creative", "fluxPackCreative", 6, EnumRarity.EPIC, false, true),
+	CREATIVE_FLUXPACK("fluxPack_creative", "fluxPackCreative", 6, EnumRarity.EPIC, false, true),
 
 	//EnderIO
 	FLUXPACK_EIO1("fluxPack_EIO1", "fluxPackEIO1", 1, EnumRarity.COMMON),

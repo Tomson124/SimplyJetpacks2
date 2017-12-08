@@ -20,6 +20,7 @@ public abstract class TEItems {
 	public static Block dynamo = null;
 	public static Item material = null;
 	public static Item cell = null;
+	public static Item glass_alloy = null;
 	public static ItemStack capacitorBasic = null;
 	public static ItemStack capacitorHardened = null;
 	public static ItemStack capacitorReinforced = null;
@@ -31,6 +32,7 @@ public abstract class TEItems {
 	public static ItemStack dynamoMagmatic = null;
 	public static ItemStack dynamoEnervation = null;
 	public static ItemStack dynamoSteam = null;
+	public static ItemStack signalumGlass = null;
 	public static ItemStack frameIlluminator = null;
 	public static ItemStack pneumaticServo = null;
 	public static ItemStack powerCoilElectrum = null;
@@ -75,6 +77,11 @@ public abstract class TEItems {
 			cellResonant = new ItemStack(cell);
 			cellResonant.setTagCompound(new NBTTagCompound());
 			cellResonant.getTagCompound().setByte("Level", (byte) 4);
+		}
+
+		glass_alloy = Item.REGISTRY.getObject(new ResourceLocation("thermalfoundation", "glass_alloy"));
+		if (glass_alloy != null) {
+			signalumGlass = new ItemStack(glass_alloy, 1, 5);
 		}
 
 		/*
