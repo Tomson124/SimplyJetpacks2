@@ -41,21 +41,22 @@ public class ClientProxy extends CommonProxy {
 
 			Random rand = new Random();
 
-			Pos3D playerPos = new Pos3D(wearer).translate(0, 1.7, 0);
+			Pos3D playerPos = new Pos3D(wearer).translate(0, 1.5, 0);
 
-			double random = (rand.nextDouble() - 0.5D) * 0.01D;
+			float random = (rand.nextFloat() - 0.5F) * 0.1F;
 
-			Pos3D vLeft = new Pos3D(-0.28, -0.95, -0.38).rotatePitch(0).rotateYaw(wearer.renderYawOffset);
-			Pos3D vRight = new Pos3D(0.28, -0.95, -0.38).rotatePitch(0).rotateYaw(wearer.renderYawOffset);
+			//TODO: Maybe only two "fire streams"?
+			Pos3D vLeft = new Pos3D(-0.28, -0.95, -0.35).rotatePitch(0).rotateYaw(wearer.renderYawOffset);
+			Pos3D vRight = new Pos3D(0.28, -0.95, -0.35).rotatePitch(0).rotateYaw(wearer.renderYawOffset);
 			Pos3D vCenter = new Pos3D((rand.nextFloat() - 0.5F) * 0.25F, -0.95, -0.38).rotatePitch(0).rotateYaw(wearer.renderYawOffset);
 
-			Pos3D v = playerPos.translate(vLeft).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ).scale(0.5));
+			Pos3D v = playerPos.translate(vLeft).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ));
 			ParticleUtils.spawnParticle(particle, world, v.x, v.y, v.z, random, -0.2D, random);
 
-			v = playerPos.translate(vRight).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ).scale(0.5));
+			v = playerPos.translate(vRight).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ));
 			ParticleUtils.spawnParticle(particle, world, v.x, v.y, v.z, random, -0.2D, random);
 
-			v = playerPos.translate(vCenter).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ).scale(0.5));
+			v = playerPos.translate(vCenter).translate(new Pos3D(wearer.motionX, wearer.motionY, wearer.motionZ));
 			ParticleUtils.spawnParticle(particle, world, v.x, v.y, v.z, random, -0.2D, random);
 		}
 	}
