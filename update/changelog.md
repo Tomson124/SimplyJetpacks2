@@ -1,3 +1,10 @@
+# 2.2.0  -  30-12-2017
+* **General**
+    * Update to MC 1.12.2
+
+* **Fixed**
+    * Armor values for jetpacks
+
 # 2.1.3  -  19-06-2017
 * **Fixed**
     * Jetpacks not using energy while flying
