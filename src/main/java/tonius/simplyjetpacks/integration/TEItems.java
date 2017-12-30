@@ -83,11 +83,6 @@ public abstract class TEItems {
 		if (glass_alloy != null) {
 			signalumGlass = new ItemStack(glass_alloy, 1, 5);
 		}
-
-		/*
-		frameIlluminator = GameRegistry.findItemStack("ThermalExpansion", "frameIlluminator", 1);
-		pneumaticServo = GameRegistry.findItemStack("ThermalExpansion", "pneumaticServo", 1);
-		*/
 	}
 
 	public static void initFluids() {

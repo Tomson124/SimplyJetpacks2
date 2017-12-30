@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.event.FMLInterModComms;
 
 public abstract class TERecipes {
 
-	public static void addSmelterRecipe(int energy, ItemStack primaryInput, ItemStack secondaryInput, ItemStack primaryOutput, ItemStack secondaryOutput, int secondaryChance) {
+	public static void addSmelterRecipe(int energy, ItemStack primaryInput, ItemStack secondaryInput, ItemStack primaryOutput, ItemStack secondaryOutput, int chance) {
 		SimplyJetpacks.logger.info("Registering TE Induction Smelter recipe");
 
 		NBTTagCompound toSend = new NBTTagCompound();
@@ -24,7 +24,7 @@ public abstract class TERecipes {
 		primaryOutput.writeToNBT(toSend.getCompoundTag("primaryOutput"));
 		if (secondaryOutput != null) {
 			secondaryOutput.writeToNBT(toSend.getCompoundTag("secondaryOutput"));
-			toSend.setInteger("secondaryChance", secondaryChance);
+			toSend.setInteger("chance", chance);
 		}
 
 		FMLInterModComms.sendMessage("thermalexpansion", "AddSmelterRecipe", toSend);
@@ -46,11 +46,5 @@ public abstract class TERecipes {
 		fluid.writeToNBT(toSend.getCompoundTag("fluid"));
 
 		FMLInterModComms.sendMessage("thermalexpansion", "AddTransposerFillRecipe", toSend);
-	}
-
-	public static void addSmelterBlastOre(String oreType) {
-		NBTTagCompound toSend = new NBTTagCompound();
-		toSend.setString("oreType", oreType);
-		FMLInterModComms.sendMessage("ThermalExpansion", "SmelterBlastOreType", toSend);
 	}
 }
