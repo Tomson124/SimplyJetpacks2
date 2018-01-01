@@ -1,3 +1,9 @@
+# 2.2.1  -  02-01-2018
+* **Fixed**
+    * Recipe for tier 5 Jetpack
+    * Name of tier 2 Fluxpack
+    * Recipe for tier 2 Fluxpack
+
 # 2.2.0  -  30-12-2017
 * **General**
     * Update to MC 1.12.2
