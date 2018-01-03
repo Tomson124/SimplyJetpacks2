@@ -52,6 +52,7 @@ public enum Fluxpack implements IStringSerializable {
 	protected static final EnumSet<Fluxpack> SJ_FLUXPACKS = EnumSet.of(CREATIVE_FLUXPACK);
 	public static final EnumSet<Fluxpack> EIO_FLUXPACKS = EnumSet.range(FLUXPACK_EIO1, FLUXPACK_EIO3_ARMORED);
 	public static final EnumSet<Fluxpack> TE_FLUXPACKS = EnumSet.range(FLUXPACK_TE1, FLUXPACK_TE3_ARMORED);
+	public static final EnumSet<Fluxpack> TE_FLUXPACKS_ARMORED = EnumSet.of(FLUXPACK_TE2_ARMORED, FLUXPACK_TE3_ARMORED);
 
 	private Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity, boolean usesFuel) {
 		this(baseName, defaultConfigKey, tier, rarity);

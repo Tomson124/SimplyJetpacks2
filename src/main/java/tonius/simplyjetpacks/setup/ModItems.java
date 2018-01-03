@@ -4,16 +4,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
@@ -22,8 +16,6 @@ import tonius.simplyjetpacks.integration.*;
 import tonius.simplyjetpacks.item.rewrite.*;
 import tonius.simplyjetpacks.util.crafting.RecipeHandler;
 import tonius.simplyjetpacks.util.crafting.RecipeHelper;
-
-import static tonius.simplyjetpacks.integration.TDItems.ductFluxRedstoneEnergy;
 
 public abstract class ModItems {
 	public static ItemJetpack itemJetpack;
@@ -375,6 +367,11 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE1, "ICI", "ISI", 'I', "ingotLead", 'C', TEItems.cellBasic, 'S', leatherStrap));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE2, " C ", "ISI", "LOL", 'I', "ingotElectrum", 'L', "ingotLead", 'C', TEItems.cellReinforced, 'S', fluxPackTE1, 'O', TEItems.powerCoilElectrum));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE3, " C ", "ISI", "LOL", 'I', "ingotEnderium", 'L', "ingotLead", 'C', TEItems.cellResonant, 'S', fluxPackTE2, 'O', TEItems.powerCoilElectrum));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE2Armored, "P", "J", 'J', fluxPackTE2, 'P', armorPlatingTE2));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE3Armored, "P", "J", 'J', fluxPackTE3, 'P', armorPlatingTE4));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE3, "J", 'J', fluxPackTE3Armored));
+
+			RecipeHelper.addArmoredReverseRecipe(Jetpack.PACKS_TE, Jetpack.PACKS_TE_ARMORED, Fluxpack.TE_FLUXPACKS, Fluxpack.TE_FLUXPACKS_ARMORED);
 
 			for (Jetpack jetpack : Jetpack.PACKS_TE) {
 				ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particleCustomizer"));

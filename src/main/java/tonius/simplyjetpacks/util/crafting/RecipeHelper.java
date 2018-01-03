@@ -11,10 +11,16 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.CraftingHelper.ShapedPrimer;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreIngredient;
 import tonius.simplyjetpacks.RegistryHandler;
 import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.crafting.UpgradingRecipe;
+import tonius.simplyjetpacks.item.rewrite.Fluxpack;
+import tonius.simplyjetpacks.item.rewrite.Jetpack;
 
+import java.util.EnumSet;
+import java.util.Iterator;
 import java.util.List;
 
 public final class RecipeHelper {
@@ -232,5 +238,40 @@ public final class RecipeHelper {
 			}
 		}
 		return inputL;
+	}
+
+	public static void addArmoredReverseRecipe(EnumSet setJ, EnumSet setArmorJ, EnumSet setF, EnumSet setArmorF) {
+		Iterator i = setJ.iterator();
+		Iterator t = setArmorJ.iterator();
+		EnumSet fluxpacks = setF.clone();
+		fluxpacks.remove(setF.toArray()[0]);
+		Iterator i2 = fluxpacks.iterator();
+		Iterator t2 = setArmorF.iterator();
+		while (i.hasNext() && t.hasNext()) {
+			ItemStack jetpack = ((Jetpack) i.next()).getStackJetpack();
+			ItemStack jetpackArmored = ((Jetpack) t.next()).getStackJetpack();
+			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpack, "J", 'J', jetpackArmored));
+		}
+		while (i2.hasNext() && t2.hasNext()) {
+			ItemStack fluxpack = ((Fluxpack) i2.next()).getStackFluxpack();
+			ItemStack fluxpackArmored = ((Fluxpack) t2.next()).getStackFluxpack();
+			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxpack, "J", 'J', fluxpackArmored));
+		}
+	}
+
+	public static void addArmoredReverseRecipe(EnumSet set, EnumSet setArmor, Enum pack) {
+		Iterator i = set.iterator();
+		Iterator t = setArmor.iterator();
+		while (i.hasNext() && t.hasNext()) {
+			if (pack instanceof Jetpack) {
+				ItemStack jetpack = ((Jetpack) i.next()).getStackJetpack();
+				ItemStack jetpackArmored = ((Jetpack) t.next()).getStackJetpack();
+				ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpack, "J", 'J', jetpackArmored));
+			} else {
+				ItemStack fluxpack = ((Fluxpack) i.next()).getStackFluxpack();
+				ItemStack fluxpackArmored = ((Fluxpack) t.next()).getStackFluxpack();
+				ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxpack, "J", 'J', fluxpackArmored));
+			}
+		}
 	}
 }

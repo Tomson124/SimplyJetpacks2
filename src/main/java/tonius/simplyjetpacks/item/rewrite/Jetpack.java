@@ -14,10 +14,7 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.common.config.Configuration;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public enum Jetpack implements IStringSerializable {
 	CREATIVE_JETPACK("jetpack_Creative", 6, "jetpackCreative", EnumRarity.EPIC, ParticleType.RAINBOW_SMOKE, false),
@@ -54,6 +51,7 @@ public enum Jetpack implements IStringSerializable {
 	protected static final EnumSet<Jetpack> PACKS_SJ = EnumSet.of(CREATIVE_JETPACK);
 	public static final EnumSet<Jetpack> PACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPLATE_EIO_5);
 	public static final EnumSet<Jetpack> PACKS_TE = EnumSet.range(JETPACK_TE_1, JETPLATE_TE_5);
+	public static final EnumSet<Jetpack> PACKS_TE_ARMORED = EnumSet.range(JETPACK_TE_1_ARMORED, JETPACK_TE_4_ARMORED);
 	public static final EnumSet<Jetpack> PACKS_VANILLA = EnumSet.range(JETPACK_VANILLA_1, JETPACK_VANILLA_3);
 
 	protected static final String TAG_PARTICLE = "JetpackParticleType";
@@ -203,7 +201,7 @@ public enum Jetpack implements IStringSerializable {
 	}
 
 	public ParticleType getParticleType(ItemStack stack) {
-		if (stack.getTagCompound() != null && /*stack.getTagCompound().hasKey(TAG_PARTICLE)*/ NBTHelper.hasData(stack, TAG_PARTICLE)) {
+		if (stack.getTagCompound() != null && NBTHelper.hasData(stack, TAG_PARTICLE)) {
 			int particle = NBTHelper.getInt(stack, TAG_PARTICLE);
 			ParticleType particleType = ParticleType.values()[particle];
 			if (particleType != null) {

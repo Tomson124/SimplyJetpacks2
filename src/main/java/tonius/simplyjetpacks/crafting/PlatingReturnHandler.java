@@ -32,7 +32,7 @@ public class PlatingReturnHandler
 				continue;
 			}
 			Jetpack inputPack = Jetpack.getTypeFromMeta(evt.crafting.getItem().getMetadata(input));
-			if(inputPack != null && inputPack.isArmored && Jetpack.PACKS_EIO.contains(inputPack))
+			if(inputPack != null && inputPack.isArmored)
 			{
 
 				EntityItem item = evt.player.entityDropItem(new ItemStack(ModItems.metaItemMods, 1, inputPack.getPlatingMeta()), 0.0F);
