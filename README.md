@@ -1,7 +1,5 @@
-SimplyJetpacks
-==============
-1.12: [![Build Status](https://jenkins.modmuss50.me/buildStatus/icon?job=SimplyJetpacks-2/SimplyJetpacks-2-1.12)](https://jenkins.modmuss50.me/job/SimplyJetpacks-2/job/SimplyJetpacks-2-1.12/)
-
+[![CurseForge](http://cf.way2muchnoise.eu/251792.svg)](https://minecraft.curseforge.com/projects/simply-jetpacks-2) [![CurseForge](http://cf.way2muchnoise.eu/versions/251792.svg)](https://minecraft.curseforge.com/projects/simply-jetpacks-2) [![](https://img.shields.io/badge/Discord-Tomson124-738bd7.svg?style=flat-square)](https://discord.gg/CcbJjRh)
+# SimplyJetpacks for 1.12.2 [![Build Status](https://jenkins.modmuss50.me/buildStatus/icon?job=SimplyJetpacks-2/SimplyJetpacks-2-1.12)](https://jenkins.modmuss50.me/job/SimplyJetpacks-2/job/SimplyJetpacks-2-1.12/)
 An addon for ThermalExpansion that adds jetpacks and Fluxpacks.
 Support for more mods is soon to come, too.
 
