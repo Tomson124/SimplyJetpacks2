@@ -8,12 +8,11 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import scala.tools.nsc.doc.model.Def;
 import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.util.RenderUtils.HUDPositions;
-import tonius.simplyjetpacks.item.rewrite.Fluxpack;
-import tonius.simplyjetpacks.item.rewrite.Jetpack;
+import tonius.simplyjetpacks.item.Fluxpack;
+import tonius.simplyjetpacks.item.Jetpack;
 import tonius.simplyjetpacks.network.PacketHandler;
 import tonius.simplyjetpacks.network.message.MessageConfigSync;
 

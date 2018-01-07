@@ -7,8 +7,8 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;
 import tonius.simplyjetpacks.client.model.ModelFluxPack;
 import tonius.simplyjetpacks.client.model.ModelJetpack;
-import tonius.simplyjetpacks.item.rewrite.Fluxpack;
-import tonius.simplyjetpacks.item.rewrite.Jetpack;
+import tonius.simplyjetpacks.item.Fluxpack;
+import tonius.simplyjetpacks.item.Jetpack;
 
 public abstract class RenderUtils
 {

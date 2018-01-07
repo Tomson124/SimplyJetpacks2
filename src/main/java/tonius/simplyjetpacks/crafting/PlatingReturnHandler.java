@@ -4,8 +4,8 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
-import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
-import tonius.simplyjetpacks.item.rewrite.Jetpack;
+import tonius.simplyjetpacks.item.ItemJetpack;
+import tonius.simplyjetpacks.item.Jetpack;
 import tonius.simplyjetpacks.setup.ModItems;
 
 public class PlatingReturnHandler

@@ -16,8 +16,8 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.audio.SoundJetpack;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.handler.SyncHandler;
-import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
-import tonius.simplyjetpacks.item.rewrite.Jetpack;
+import tonius.simplyjetpacks.item.ItemJetpack;
+import tonius.simplyjetpacks.item.Jetpack;
 import tonius.simplyjetpacks.setup.ParticleType;
 
 import java.lang.reflect.Field;

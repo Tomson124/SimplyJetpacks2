@@ -16,8 +16,8 @@ import net.minecraftforge.oredict.OreIngredient;
 import tonius.simplyjetpacks.RegistryHandler;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.crafting.UpgradingRecipe;
-import tonius.simplyjetpacks.item.rewrite.Fluxpack;
-import tonius.simplyjetpacks.item.rewrite.Jetpack;
+import tonius.simplyjetpacks.item.Fluxpack;
+import tonius.simplyjetpacks.item.Jetpack;
 
 import java.util.EnumSet;
 import java.util.Iterator;

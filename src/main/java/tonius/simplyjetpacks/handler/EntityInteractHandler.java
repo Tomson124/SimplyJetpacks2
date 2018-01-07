@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import tonius.simplyjetpacks.item.rewrite.ItemJetpack;
+import tonius.simplyjetpacks.item.ItemJetpack;
 
 public class EntityInteractHandler
 {
