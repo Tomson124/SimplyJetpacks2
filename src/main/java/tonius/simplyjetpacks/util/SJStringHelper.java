@@ -1,5 +1,7 @@
 package tonius.simplyjetpacks.util;
 
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.setup.FuelType;
@@ -148,6 +150,18 @@ public abstract class SJStringHelper {
 		else
 		{
 			return translateToLocal(toLocalize);
+		}
+	}
+
+	public static ITextComponent localizeNew(String unlocalized, Object... args) {
+		String toLocalize = SimplyJetpacks.PREFIX + unlocalized;
+		if(args != null && args.length > 0)
+		{
+			return new TextComponentTranslation(toLocalize, args);
+		}
+		else
+		{
+			return new TextComponentTranslation(toLocalize);
 		}
 	}
 

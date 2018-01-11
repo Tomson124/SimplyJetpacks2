@@ -4,13 +4,17 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import tonius.simplyjetpacks.SimplyJetpacks;
-
-import java.util.List;
+import tonius.simplyjetpacks.item.Fluxpack;
+import tonius.simplyjetpacks.item.ItemFluxpack;
+import tonius.simplyjetpacks.item.ItemJetpack;
+import tonius.simplyjetpacks.item.Jetpack;
+import tonius.simplyjetpacks.setup.ModItems;
 
 public class ItemHelper
 {
@@ -238,4 +242,34 @@ public class ItemHelper
 	}
 
 	//END SURROUND
+
+	public static void addJetpacks(Jetpack pack, NonNullList<ItemStack> List) {
+		ItemStack stack;
+		Item jetpackItem = ModItems.itemJetpack;
+		if (pack.usesFuel) {
+			List.add(new ItemStack(jetpackItem, 1, pack.ordinal()));
+		} else {
+			stack = new ItemStack(jetpackItem, 1, pack.ordinal());
+			if (jetpackItem != null) {
+				((ItemJetpack) jetpackItem).addFuel(stack, ((ItemJetpack) jetpackItem).getMaxEnergyStored(stack), false);
+			}
+
+			List.add(stack);
+		}
+	}
+
+	public static void addFluxpacks(Fluxpack pack, NonNullList<ItemStack> List) {
+		ItemStack stack;
+		Item fluxpackItem = ModItems.itemFluxPack;
+		if (pack.usesFuel) {
+			List.add(new ItemStack(fluxpackItem, 1, pack.ordinal()));
+		} else {
+			stack = new ItemStack(fluxpackItem, 1, pack.ordinal());
+			if (fluxpackItem != null) {
+				((ItemFluxpack) fluxpackItem).addFuel(stack, ((ItemFluxpack) fluxpackItem).getMaxEnergyStored(stack), false);
+			}
+
+			List.add(stack);
+		}
+	}
 }
