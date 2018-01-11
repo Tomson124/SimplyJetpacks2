@@ -1,4 +1,4 @@
-package tonius.simplyjetpacks.item.rewrite;
+package tonius.simplyjetpacks.item;
 
 import tonius.simplyjetpacks.setup.ModItems;
 import net.minecraft.item.EnumRarity;

@@ -8,8 +8,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.item.rewrite.Fluxpack;
-import tonius.simplyjetpacks.item.rewrite.Jetpack;
+import tonius.simplyjetpacks.item.Fluxpack;
+import tonius.simplyjetpacks.item.Jetpack;
 
 public class MessageConfigSync implements IMessage, IMessageHandler<MessageConfigSync, IMessage> {
 	public NBTTagCompound recv;

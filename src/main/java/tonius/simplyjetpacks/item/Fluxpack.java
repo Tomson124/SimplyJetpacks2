@@ -1,4 +1,4 @@
-package tonius.simplyjetpacks.item.rewrite;
+package tonius.simplyjetpacks.item;
 
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.config.PackDefaults;
@@ -149,6 +149,9 @@ public enum Fluxpack implements IStringSerializable {
 	}
 
 	public static void loadAllConfigs(Configuration config) {
+		for (Fluxpack pack : SJ_FLUXPACKS) {
+			pack.loadConfig(config);
+		}
 		if (ModItems.integrateEIO) {
 			for (Fluxpack pack : EIO_FLUXPACKS) {
 				pack.loadConfig(config);
@@ -156,17 +159,17 @@ public enum Fluxpack implements IStringSerializable {
 		}
 		if (ModItems.integrateTE) {
 			for (Fluxpack pack : TE_FLUXPACKS) {
-				pack.loadConfig(config);
-			}
-		}
-		else {
-			for (Fluxpack pack : SJ_FLUXPACKS) {
 				pack.loadConfig(config);
 			}
 		}
 	}
 
 	public static void writeAllConfigsToNBT(NBTTagCompound tag) {
+		for (Fluxpack pack : SJ_FLUXPACKS) {
+			NBTTagCompound packTag = new NBTTagCompound();
+			pack.writeConfigToNBT(packTag);
+			tag.setTag(pack.defaults.section.id, packTag);
+		}
 		if (ModItems.integrateEIO) {
 			for (Fluxpack pack : EIO_FLUXPACKS) {
 				NBTTagCompound packTag = new NBTTagCompound();
@@ -176,13 +179,6 @@ public enum Fluxpack implements IStringSerializable {
 		}
 		if (ModItems.integrateTE) {
 			for (Fluxpack pack : TE_FLUXPACKS) {
-				NBTTagCompound packTag = new NBTTagCompound();
-				pack.writeConfigToNBT(packTag);
-				tag.setTag(pack.defaults.section.id, packTag);
-			}
-		}
-		else {
-			for (Fluxpack pack : SJ_FLUXPACKS) {
 				NBTTagCompound packTag = new NBTTagCompound();
 				pack.writeConfigToNBT(packTag);
 				tag.setTag(pack.defaults.section.id, packTag);
@@ -191,6 +187,10 @@ public enum Fluxpack implements IStringSerializable {
 	}
 
 	public static void readAllConfigsFromNBT(NBTTagCompound tag) {
+		for (Fluxpack pack : SJ_FLUXPACKS) {
+			NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
+			pack.readConfigFromNBT(packTag);
+		}
 		if (ModItems.integrateEIO) {
 			for (Fluxpack pack : EIO_FLUXPACKS) {
 				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
@@ -199,12 +199,6 @@ public enum Fluxpack implements IStringSerializable {
 		}
 		if (ModItems.integrateTE) {
 			for (Fluxpack pack : TE_FLUXPACKS) {
-				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
-				pack.readConfigFromNBT(packTag);
-			}
-		}
-		else {
-			for (Fluxpack pack : SJ_FLUXPACKS) {
 				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
 				pack.readConfigFromNBT(packTag);
 			}

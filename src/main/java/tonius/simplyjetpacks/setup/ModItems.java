@@ -13,7 +13,7 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.crafting.UpgradingRecipe;
 import tonius.simplyjetpacks.integration.*;
-import tonius.simplyjetpacks.item.rewrite.*;
+import tonius.simplyjetpacks.item.*;
 import tonius.simplyjetpacks.util.crafting.RecipeHandler;
 import tonius.simplyjetpacks.util.crafting.RecipeHelper;
 

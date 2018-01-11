@@ -1,4 +1,4 @@
-package tonius.simplyjetpacks.item.rewrite;
+package tonius.simplyjetpacks.item;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -11,7 +11,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.item.ItemRegistered;
 import tonius.simplyjetpacks.util.SJStringHelper;
 
 import javax.annotation.Nullable;

@@ -1,4 +1,4 @@
-package tonius.simplyjetpacks.item.rewrite;
+package tonius.simplyjetpacks.item;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;

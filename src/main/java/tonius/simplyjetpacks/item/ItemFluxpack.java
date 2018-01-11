@@ -1,4 +1,4 @@
-package tonius.simplyjetpacks.item.rewrite;
+package tonius.simplyjetpacks.item;
 
 import cofh.redstoneflux.api.IEnergyContainerItem;
 import com.google.common.collect.Multimap;
@@ -19,6 +19,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -34,12 +36,11 @@ import tonius.simplyjetpacks.capability.EnergyConversionStorage;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.client.util.RenderUtils;
 import tonius.simplyjetpacks.config.Config;
-import tonius.simplyjetpacks.item.IHUDInfoProvider;
 import tonius.simplyjetpacks.setup.FuelType;
-import tonius.simplyjetpacks.setup.ModCreativeTab;
 import tonius.simplyjetpacks.setup.ModEnchantments;
 import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.util.EquipmentSlotHelper;
+import tonius.simplyjetpacks.util.ItemHelper;
 import tonius.simplyjetpacks.util.NBTHelper;
 import tonius.simplyjetpacks.util.SJStringHelper;
 
@@ -75,28 +76,18 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs creativeTabs, NonNullList<ItemStack> List) {
 		if (isInCreativeTab(creativeTabs)) {
+			for (Fluxpack pack : Fluxpack.SJ_FLUXPACKS) {
+				ItemHelper.addFluxpacks(pack, List);
+			}
 			if (ModItems.integrateEIO) {
-				for (Fluxpack packMod : Fluxpack.EIO_FLUXPACKS) {
-					if (packMod.usesFuel) {
-						List.add(new ItemStack(this, 1, packMod.ordinal()));
-					}
+				for (Fluxpack pack : Fluxpack.EIO_FLUXPACKS) {
+					ItemHelper.addFluxpacks(pack, List);
 				}
 			}
 			if (ModItems.integrateTE) {
-				for (Fluxpack packMod : Fluxpack.TE_FLUXPACKS) {
-					if (packMod.usesFuel) {
-						List.add(new ItemStack(this, 1, packMod.ordinal()));
-					}
+				for (Fluxpack pack : Fluxpack.TE_FLUXPACKS) {
+					ItemHelper.addFluxpacks(pack, List);
 				}
-			}
-			Fluxpack pack = Fluxpack.CREATIVE_FLUXPACK;
-			ItemStack stack;
-			if (pack.usesFuel) {
-				List.add(new ItemStack(this, 1, pack.ordinal()));
-			} else {
-				stack = new ItemStack(this, 1, pack.ordinal());
-				this.addFuel(stack, this.getMaxEnergyStored(stack), false);
-				List.add(stack);
 			}
 		}
 	}
@@ -116,10 +107,16 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		NBTHelper.setBoolean(stack, tag, !on);
 
 		if (player != null && showInChat) {
-			String color = on ? TextFormatting.RED.toString() : TextFormatting.GREEN.toString();
-			type = type != null && !type.equals("") ? "chat." + this.name + "." + type + ".on" : "chat." + this.name + ".on";
-			String msg = SJStringHelper.localize(type) + " " + color + SJStringHelper.localize("chat." + (on ? "disabled" : "enabled"));
-			player.sendMessage(new TextComponentString(msg));
+			type = type != null && !type.equals("") ? "chat." + this.name + "." + type : "chat." + this.name + ".on";
+			ITextComponent state = SJStringHelper.localizeNew(on ? "chat.disabled" : "chat.enabled");
+			if (on) {
+				state.setStyle(new Style().setColor(TextFormatting.RED));
+			}
+			else {
+				state.setStyle(new Style().setColor(TextFormatting.GREEN));
+			}
+			ITextComponent msg = SJStringHelper.localizeNew(type, state);
+			player.sendMessage(msg);
 		}
 	}
 
@@ -261,6 +258,9 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		int i = MathHelper.clamp(container.getItemDamage(), 0, numItems - 1);
 		int energy = this.getEnergyStored(container);
 		int energyReceived = Math.min(this.getMaxEnergyStored(container) - energy, Math.min(maxReceive, Fluxpack.values()[i].getFuelPerTickIn()));
+		if (!Fluxpack.values()[i].usesFuel) {
+			energyReceived = this.getMaxEnergyStored(container);
+		}
 		if (!simulate) {
 			energy += energyReceived;
 			NBTHelper.setInt(container, TAG_ENERGY, energy);

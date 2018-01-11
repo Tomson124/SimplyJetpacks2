@@ -1,4 +1,4 @@
-package tonius.simplyjetpacks.item.rewrite;
+package tonius.simplyjetpacks.item;
 
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.config.PackDefaults;
@@ -226,6 +226,9 @@ public enum Jetpack implements IStringSerializable {
 	}
 	
 	public static void loadAllConfigs(Configuration config) {
+		for (Jetpack pack : PACKS_SJ) {
+			pack.loadConfig(config);
+		}
 		if (ModItems.integrateEIO){
 			for (Jetpack pack : PACKS_EIO) {
 				pack.loadConfig(config);
@@ -241,41 +244,42 @@ public enum Jetpack implements IStringSerializable {
 				pack.loadConfig(config);
 			}
 		}
-		for (Jetpack pack : PACKS_SJ) {
-			pack.loadConfig(config);
-		}
 	}
 
 	public static void writeAllConfigsToNBT(NBTTagCompound tag) {
-		if (ModItems.integrateEIO){
-			for (Jetpack pack : PACKS_EIO) {
-				NBTTagCompound packTag = new NBTTagCompound();
-				pack.writeConfigToNBT(packTag);
-				tag.setTag(pack.defaults.section.id, packTag);
-			}
-		}
-		if (ModItems.integrateTE){
-			for (Jetpack pack : PACKS_TE) {
-				NBTTagCompound packTag = new NBTTagCompound();
-				pack.writeConfigToNBT(packTag);
-				tag.setTag(pack.defaults.section.id, packTag);
-			}
-		}
-		if (ModItems.integrateVanilla){
-			for (Jetpack pack : PACKS_VANILLA) {
-				NBTTagCompound packTag = new NBTTagCompound();
-				pack.writeConfigToNBT(packTag);
-				tag.setTag(pack.defaults.section.id, packTag);
-			}
-		}
 		for (Jetpack pack : PACKS_SJ) {
 			NBTTagCompound packTag = new NBTTagCompound();
 			pack.writeConfigToNBT(packTag);
 			tag.setTag(pack.defaults.section.id, packTag);
 		}
+		if (ModItems.integrateEIO){
+			for (Jetpack pack : PACKS_EIO) {
+				NBTTagCompound packTag = new NBTTagCompound();
+				pack.writeConfigToNBT(packTag);
+				tag.setTag(pack.defaults.section.id, packTag);
+			}
+		}
+		if (ModItems.integrateTE){
+			for (Jetpack pack : PACKS_TE) {
+				NBTTagCompound packTag = new NBTTagCompound();
+				pack.writeConfigToNBT(packTag);
+				tag.setTag(pack.defaults.section.id, packTag);
+			}
+		}
+		if (ModItems.integrateVanilla){
+			for (Jetpack pack : PACKS_VANILLA) {
+				NBTTagCompound packTag = new NBTTagCompound();
+				pack.writeConfigToNBT(packTag);
+				tag.setTag(pack.defaults.section.id, packTag);
+			}
+		}
 	}
 
 	public static void readAllConfigsFromNBT(NBTTagCompound tag) {
+		for (Jetpack pack : PACKS_SJ) {
+			NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
+			pack.readConfigFromNBT(packTag);
+		}
 		if (ModItems.integrateEIO){
 			for (Jetpack pack : PACKS_EIO) {
 				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
@@ -293,10 +297,6 @@ public enum Jetpack implements IStringSerializable {
 				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
 				pack.readConfigFromNBT(packTag);
 			}
-		}
-		for (Jetpack pack : PACKS_SJ) {
-			NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
-			pack.readConfigFromNBT(packTag);
 		}
 	}
 

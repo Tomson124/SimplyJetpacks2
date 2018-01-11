@@ -1,4 +1,4 @@
-package tonius.simplyjetpacks.item.rewrite;
+package tonius.simplyjetpacks.item;
 
 import cofh.redstoneflux.api.IEnergyContainerItem;
 import com.google.common.collect.Multimap;
@@ -23,8 +23,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -40,7 +39,6 @@ import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.client.util.RenderUtils;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.handler.SyncHandler;
-import tonius.simplyjetpacks.item.IHUDInfoProvider;
 import tonius.simplyjetpacks.setup.*;
 import tonius.simplyjetpacks.util.*;
 
@@ -87,43 +85,16 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public void getSubItems(CreativeTabs creativeTabs, NonNullList<ItemStack> List) {
 		if (isInCreativeTab(creativeTabs)) {
 			for (Jetpack pack : Jetpack.PACKS_SJ) {
-				ItemStack stack;
-				if (pack.usesFuel) {
-					List.add(new ItemStack(this, 1, pack.ordinal()));
-				} else {
-					stack = new ItemStack(this, 1, pack.ordinal());
-					this.addFuel(stack, this.getMaxEnergyStored(stack), false);
-					List.add(stack);
-				}
+				ItemHelper.addJetpacks(pack, List);
 			}
 			if (ModItems.integrateEIO) {
 				for (Jetpack pack : Jetpack.PACKS_EIO) {
-					ItemStack stack;
-					if (pack.usesFuel) {
-						List.add(new ItemStack(this, 1, pack.ordinal()));
-					} else {
-						stack = new ItemStack(this, 1, pack.ordinal());
-						if (this instanceof ItemJetpack) {
-							((ItemJetpack) this).addFuel(stack, ((ItemJetpack) this).getMaxEnergyStored(stack), false);
-						}
-
-						List.add(stack);
-					}
+					ItemHelper.addJetpacks(pack, List);
 				}
 			}
 			if (ModItems.integrateTE) {
 				for (Jetpack pack : Jetpack.PACKS_TE) {
-					ItemStack stack;
-					if (pack.usesFuel) {
-						List.add(new ItemStack(this, 1, pack.ordinal()));
-					} else {
-						stack = new ItemStack(this, 1, pack.ordinal());
-						if (this instanceof ItemJetpack) {
-							((ItemJetpack) this).addFuel(stack, ((ItemJetpack) this).getMaxEnergyStored(stack), false);
-						}
-
-						List.add(stack);
-					}
+					ItemHelper.addJetpacks(pack, List);
 				}
 			}
 			if (ModItems.integrateVanilla) {
@@ -135,7 +106,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			}
 		}
 	}
-
 
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
@@ -153,10 +123,16 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		NBTHelper.setBoolean(stack, tag, !on);
 
 		if (player != null && showInChat) {
-			String color = on ? TextFormatting.RED.toString() : TextFormatting.GREEN.toString();
-			type = type != null && !type.equals("") ? "chat." + this.name + "." + type + ".on" : "chat." + this.name + ".on";
-			String msg = SJStringHelper.localize(type) + " " + color + SJStringHelper.localize("chat." + (on ? "disabled" : "enabled"));
-			player.sendMessage(new TextComponentString(msg));
+			type = type != null && !type.equals("") ? "chat." + this.name + "." + type : "chat." + this.name + ".on";
+			ITextComponent state = SJStringHelper.localizeNew(on ? "chat.disabled" : "chat.enabled");
+			if (on) {
+				state.setStyle(new Style().setColor(TextFormatting.RED));
+			}
+			else {
+				state.setStyle(new Style().setColor(TextFormatting.GREEN));
+			}
+			ITextComponent msg = SJStringHelper.localizeNew(type, state);
+			player.sendMessage(msg);
 		}
 	}
 
@@ -261,26 +237,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		//return (int) Math.round(this.fuelUsage * (20 - fuelEfficiencyLevel) / 20.0D);
 	}
 
-	/*public int addFuel(ItemStack stack, int maxAdd, boolean simulate) {
-		int energy = this.getEnergyStored(stack);
-		int energyReceived = Math.min(this.getMaxEnergyStored(stack) - energy, maxAdd);
-		if (!simulate) {
-			energy += energyReceived;
-			NBTHelper.setInt(stack, TAG_ENERGY, energy);
-		}
-		return energyReceived;
-	}
-
-	public int useFuel(ItemStack stack, int maxUse, boolean simulate) {
-		int energy = this.getEnergyStored(stack);
-		int energyExtracted = Math.min(energy, maxUse);
-		if (!simulate) {
-			energy -= energyExtracted;
-			NBTHelper.setInt(stack, TAG_ENERGY, energy);
-		}
-		return energyExtracted;
-	}*/
-
 	public int addFuel(ItemStack stack, int maxAdd, boolean simulate) {
 		return this.receiveEnergy(stack, maxAdd, simulate);
 	}
@@ -294,6 +250,9 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		int i = MathHelper.clamp(container.getItemDamage(), 0, numItems - 1);
 		int energy = this.getEnergyStored(container);
 		int energyReceived = Math.min(this.getMaxEnergyStored(container) - energy, Math.min(maxReceive, Jetpack.values()[i].getFuelPerTickIn()));
+		if (!Jetpack.values()[i].usesFuel) {
+			energyReceived = this.getMaxEnergyStored(container);
+		}
 		if (!simulate) {
 			energy += energyReceived;
 			NBTHelper.setInt(container, TAG_ENERGY, energy);
@@ -357,7 +316,9 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		NBTHelper.setBoolean(armor, TAG_HOVERMODE_ON, true);
 
 		if (user instanceof EntityPlayer) {
-			((EntityPlayer) user).sendMessage(new TextComponentString(StringHelper.LIGHT_RED + SJStringHelper.localize("chat.itemJetpack.emergencyHoverMode.msg")));
+			ITextComponent msg = SJStringHelper.localizeNew("chat.itemJetpack.emergencyHoverMode.msg");
+			msg.setStyle(new Style().setColor(TextFormatting.RED));
+			((EntityPlayer) user).sendMessage(msg);
 		}
 	}
 
