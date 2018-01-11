@@ -52,8 +52,8 @@ public class PackDefaults
 		d.accelVertical = 0.5D;
 
 		d = new PackDefaults("jetpackCreative", "Creative Jetpack");
-		d.fuelCapacity = 20000;
-		d.fuelPerTickOut = 32000;
+		d.fuelCapacity = 200000;
+		d.fuelPerTickOut = 50000;
 		d.armorReduction = 12;
 		d.enchantability = 20;
 		d.speedVertical = 0.9D;
@@ -65,8 +65,8 @@ public class PackDefaults
 		d.emergencyHoverMode = true;
 
 		d = new PackDefaults("fluxPackCreative", "Creative Flux Pack");
-		d.fuelCapacity = 20000;
-		d.fuelPerTickOut = 32000;
+		d.fuelCapacity = 200000;
+		d.fuelPerTickOut = 50000;
 		d.armorReduction = 8;
 		d.enchantability = 10;
 
@@ -186,9 +186,9 @@ public class PackDefaults
 
 		if (ModType.THERMAL_EXPANSION.loaded) {
 			d = new PackDefaults("jetpackTE1", "Leadstone Jetpack (TE 1)");
-			d.fuelCapacity = 80000;
+			d.fuelCapacity = 800000;
 			d.fuelUsage = 32;
-			d.fuelPerTickIn = 400;
+			d.fuelPerTickIn = 1500;
 			d.armorReduction = 5;
 			d.armorFuelPerHit = 80;
 			d.enchantability = 4;
@@ -202,9 +202,9 @@ public class PackDefaults
 			d.emergencyHoverMode = false;
 
 			d = new PackDefaults("jetpackTE2", "Hardened Jetpack (TE 2)");
-			d.fuelCapacity = 400000;
+			d.fuelCapacity = 3000000;
 			d.fuelUsage = 50;
-			d.fuelPerTickIn = 2000;
+			d.fuelPerTickIn = 8000;
 			d.armorReduction = 6;
 			d.armorFuelPerHit = 80;
 			d.enchantability = 8;
@@ -218,9 +218,9 @@ public class PackDefaults
 			d.emergencyHoverMode = false;
 
 			d = new PackDefaults("jetpackTE3", "Reinforced Jetpack (TE 3)");
-			d.fuelCapacity = 4000000;
+			d.fuelCapacity = 6000000;
 			d.fuelUsage = 200;
-			d.fuelPerTickIn = 20000;
+			d.fuelPerTickIn = 15000;
 			d.armorReduction = 7;
 			d.armorFuelPerHit = 120;
 			d.enchantability = 13;
@@ -234,9 +234,9 @@ public class PackDefaults
 			d.emergencyHoverMode = true;
 
 			d = new PackDefaults("jetpackTE4", "Resonant Jetpack (TE 4)");
-			d.fuelCapacity = 20000000;
+			d.fuelCapacity = 25000000;
 			d.fuelUsage = 450;
-			d.fuelPerTickIn = 50000;
+			d.fuelPerTickIn = 20000;
 			d.armorReduction = 8;
 			d.armorFuelPerHit = 160;
 			d.enchantability = 17;
@@ -250,10 +250,10 @@ public class PackDefaults
 			d.emergencyHoverMode = true;
 
 			d = new PackDefaults("jetpackTE5", "Flux-Infused JetPlate (TE 5)");
-			d.fuelCapacity = 60000000;
+			d.fuelCapacity = 50000000;
 			d.fuelUsage = 850;
-			d.fuelPerTickIn = 200000;
-			d.fuelPerTickOut = 32000;
+			d.fuelPerTickIn = 30000;
+			d.fuelPerTickOut = 30000;
 			d.armorReduction = 12;
 			d.armorFuelPerHit = 240;
 			d.enchantability = 20;
@@ -266,35 +266,27 @@ public class PackDefaults
 			d.sprintFuelModifier = 6.0D;
 			d.emergencyHoverMode = true;
 
-			d = new PackDefaults("fluxPackTE1", "Leadstone Flux Pack (TE 1)");
-			d.fuelCapacity = 800000;
+			d = new PackDefaults("fluxPackTE1", "Basic Flux Pack (TE 1)");
+			d.fuelCapacity = 1500000;
 			d.fuelPerTickIn = 800;
 			d.fuelPerTickOut = 800;
 			d.enchantability = 4;
 
-			d = new PackDefaults("fluxPackTE2", "Hardened Flux Pack (TE 2)");
-			d.fuelCapacity = 4000000;
-			d.fuelPerTickIn = 4000;
-			d.fuelPerTickOut = 4000;
+			d = new PackDefaults("fluxPackTE2", "Reinforced Flux Pack (TE 2)");
+			d.fuelCapacity = 12000000;
+			d.fuelPerTickIn = 6000;
+			d.fuelPerTickOut = 6000;
 			d.armorReduction = 6;
 			d.armorFuelPerHit = 100;
 			d.enchantability = 6;
 
-			d = new PackDefaults("fluxPackTE3", "Redstone Flux Pack (TE 3)");
-			d.fuelCapacity = 20000000;
+			d = new PackDefaults("fluxPackTE3", "Resonant Flux Pack (TE 3)");
+			d.fuelCapacity = 40000000;
 			d.fuelPerTickIn = 20000;
 			d.fuelPerTickOut = 20000;
 			d.armorReduction = 7;
 			d.armorFuelPerHit = 140;
 			d.enchantability = 8;
-
-			d = new PackDefaults("fluxPackTE4", "Resonant Flux Pack (TE 4)");
-			d.fuelCapacity = 80000000;
-			d.fuelPerTickIn = 32000;
-			d.fuelPerTickOut = 32000;
-			d.armorReduction = 7;
-			d.armorFuelPerHit = 160;
-			d.enchantability = 10;
 		}
 		
 		if(Config.enableIntegrationVanilla)
