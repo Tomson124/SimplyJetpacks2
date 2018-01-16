@@ -246,8 +246,10 @@ public class ItemHelper
 	public static void addJetpacks(Jetpack pack, NonNullList<ItemStack> List) {
 		ItemStack stack;
 		Item jetpackItem = ModItems.itemJetpack;
+		ItemStack jetpackStack = new ItemStack(jetpackItem, 1, pack.ordinal());
 		if (pack.usesFuel) {
-			List.add(new ItemStack(jetpackItem, 1, pack.ordinal()));
+			List.add(jetpackStack);
+			NBTHelper.initStack(jetpackStack);
 		} else {
 			stack = new ItemStack(jetpackItem, 1, pack.ordinal());
 			if (jetpackItem != null) {
@@ -261,8 +263,10 @@ public class ItemHelper
 	public static void addFluxpacks(Fluxpack pack, NonNullList<ItemStack> List) {
 		ItemStack stack;
 		Item fluxpackItem = ModItems.itemFluxPack;
+		ItemStack fluxpackStack = new ItemStack(fluxpackItem, 1, pack.ordinal());
 		if (pack.usesFuel) {
-			List.add(new ItemStack(fluxpackItem, 1, pack.ordinal()));
+			List.add(fluxpackStack);
+			NBTHelper.initStack(fluxpackStack);
 		} else {
 			stack = new ItemStack(fluxpackItem, 1, pack.ordinal());
 			if (fluxpackItem != null) {

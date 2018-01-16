@@ -9,6 +9,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import tonius.simplyjetpacks.CommonProxy;
 import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.item.ItemFluxpack;
 import tonius.simplyjetpacks.item.ItemJetpack;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.NBTHelper;
@@ -38,7 +39,7 @@ public class UpgradingRecipe extends ShapedOreRecipe {
 		for (int i = 0; i < inventoryCrafting.getSizeInventory(); i++) {
 			slotStack = inventoryCrafting.getStackInSlot(i);
 			if (slotStack != null && slotStack.getItem() != null) {
-				if (slotStack.getItem() instanceof ItemJetpack) {
+				if (slotStack.getItem() instanceof ItemJetpack || slotStack.getItem() instanceof ItemFluxpack) {
 					tags = (NBTTagCompound) NBTHelper.getDataMap(slotStack).copy();
 				}
 				if (slotStack.getItem() instanceof IEnergyContainerItem) {

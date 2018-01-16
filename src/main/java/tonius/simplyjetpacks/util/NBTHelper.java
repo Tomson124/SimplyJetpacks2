@@ -108,7 +108,7 @@ public abstract class NBTHelper {
 		getDataMap(stack).setTag(key, tag);
 	}
 
-	private static void initStack(ItemStack stack) {
+	public static void initStack(ItemStack stack) {
 		if (stack.getTagCompound() == null) {
 			stack.setTagCompound(new NBTTagCompound());
 		}
