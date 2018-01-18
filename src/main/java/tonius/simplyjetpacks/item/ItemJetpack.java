@@ -142,7 +142,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	}
 
 	public boolean isChargerOn(ItemStack stack) {
-		return NBTHelper.getBooleanFallback(stack, TAG_CHARGER_ON, true);
+		return NBTHelper.getBoolean(stack, TAG_CHARGER_ON, true);
 	}
 
 	public void setParticleType(ItemStack stack, ParticleType particle) {
@@ -215,7 +215,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	}
 
 	public boolean isOn(ItemStack stack) {
-		return NBTHelper.getBooleanFallback(stack, TAG_ON, true);
+		return NBTHelper.getBoolean(stack, TAG_ON, true);
 	}
 
 	// fuel
@@ -274,7 +274,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 
 	@Override
 	public int getEnergyStored(ItemStack container) {
-		return NBTHelper.getInt(container, TAG_ENERGY);
+		return NBTHelper.getInt(container, TAG_ENERGY, 0);
 	}
 
 	@Override
@@ -304,11 +304,11 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	}
 
 	public boolean isHoverModeOn(ItemStack stack) {
-		return NBTHelper.getBoolean(stack, TAG_HOVERMODE_ON);
+		return NBTHelper.getBoolean(stack, TAG_HOVERMODE_ON, false);
 	}
 
 	public boolean isEHoverModeOn(ItemStack stack) {
-		return NBTHelper.getBooleanFallback(stack, TAG_EHOVER_ON, true);
+		return NBTHelper.getBoolean(stack, TAG_EHOVER_ON, true);
 	}
 
 	public void doEHover(ItemStack armor, EntityLivingBase user) {

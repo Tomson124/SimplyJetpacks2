@@ -201,8 +201,8 @@ public enum Jetpack implements IStringSerializable {
 	}
 
 	public ParticleType getParticleType(ItemStack stack) {
-		if (stack.getTagCompound() != null && NBTHelper.hasData(stack, TAG_PARTICLE)) {
-			int particle = NBTHelper.getInt(stack, TAG_PARTICLE);
+		if (stack.getTagCompound() != null && NBTHelper.keyExists(stack, TAG_PARTICLE)) {
+			int particle = NBTHelper.getInt(stack, TAG_PARTICLE, this.defaultParticleType.ordinal());
 			ParticleType particleType = ParticleType.values()[particle];
 			if (particleType != null) {
 				return particleType;

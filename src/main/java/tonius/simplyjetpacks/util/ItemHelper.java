@@ -249,7 +249,7 @@ public class ItemHelper
 		ItemStack jetpackStack = new ItemStack(jetpackItem, 1, pack.ordinal());
 		if (pack.usesFuel) {
 			List.add(jetpackStack);
-			NBTHelper.initStack(jetpackStack);
+			NBTHelper.setInt(jetpackStack, ItemJetpack.TAG_ENERGY, 0);
 		} else {
 			stack = new ItemStack(jetpackItem, 1, pack.ordinal());
 			if (jetpackItem != null) {
@@ -266,7 +266,7 @@ public class ItemHelper
 		ItemStack fluxpackStack = new ItemStack(fluxpackItem, 1, pack.ordinal());
 		if (pack.usesFuel) {
 			List.add(fluxpackStack);
-			NBTHelper.initStack(fluxpackStack);
+			NBTHelper.setInt(fluxpackStack, ItemFluxpack.TAG_ENERGY, 0);
 		} else {
 			stack = new ItemStack(fluxpackItem, 1, pack.ordinal());
 			if (fluxpackItem != null) {

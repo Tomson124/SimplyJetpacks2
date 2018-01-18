@@ -202,7 +202,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	}
 
 	public boolean isOn(ItemStack stack) {
-		return NBTHelper.getBooleanFallback(stack, TAG_ON, true);
+		return NBTHelper.getBoolean(stack, TAG_ON, true);
 	}
 
 	@Override
@@ -288,7 +288,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	@Override
 	public int getEnergyStored(ItemStack container) {
-		return NBTHelper.getInt(container, TAG_ENERGY);
+		return NBTHelper.getInt(container, TAG_ENERGY, 0);
 	}
 
 	@Override
