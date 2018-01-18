@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import tonius.simplyjetpacks.CommonProxy;
+import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.item.ItemFluxpack;
 import tonius.simplyjetpacks.item.ItemJetpack;
@@ -40,23 +41,20 @@ public class UpgradingRecipe extends ShapedOreRecipe {
 			slotStack = inventoryCrafting.getStackInSlot(i);
 			if (slotStack != null && slotStack.getItem() != null) {
 				if (slotStack.getItem() instanceof ItemJetpack || slotStack.getItem() instanceof ItemFluxpack) {
-					tags = (NBTTagCompound) NBTHelper.getDataMap(slotStack).copy();
+					tags = NBTHelper.getTagCompound(slotStack).copy();
 				}
 				if (slotStack.getItem() instanceof IEnergyContainerItem) {
 					addedEnergy += ((IEnergyContainerItem) slotStack.getItem()).getEnergyStored(slotStack);
-				}
-				else if (OreDictionary.containsMatch(false, CommonProxy.oresListParticles, slotStack)) {
+				} else if (OreDictionary.containsMatch(false, CommonProxy.oresListParticles, slotStack)) {
 					particleType = ParticleType.values()[slotStack.getItemDamage()];
 				}
 			}
 		}
 
 		ItemStack result = new ItemStack((Item) this.resultItem, 1, this.resultMeta);
-
 		if (tags != null) {
 			result.setTagCompound(tags);
 		}
-
 		NBTHelper.setInt(result, "Energy", Math.min(addedEnergy, this.resultItem.getMaxEnergyStored(result)));
 
 		if (this.resultItem instanceof ItemJetpack && particleType != null) {
