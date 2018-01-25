@@ -360,16 +360,16 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackTE3, "IBI", "IJI", "T T", 'I', "ingotElectrum", 'B', TEItems.capacitorReinforced, 'T', thrusterTE3, 'J', jetpackTE2));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackTE4, "IBI", "IJI", "T T", 'I', "ingotEnderium", 'B', TEItems.capacitorResonant, 'T', thrusterTE4, 'J', jetpackTE3));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE1Armored, jetpackTE1, armorPlatingTE1));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE2Armored, "P", "J", 'J', jetpackTE2, 'P', armorPlatingTE2));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE3Armored, "P", "J", 'J', jetpackTE3, 'P', armorPlatingTE3));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE4Armored, "P", "J", 'J', jetpackTE4, 'P', armorPlatingTE4));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE2Armored, jetpackTE2, armorPlatingTE2));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE3Armored, jetpackTE3, armorPlatingTE3));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE4Armored, jetpackTE4, armorPlatingTE4));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackTE5, "PAP", "OJO", "TCT", 'A', armorFluxPlate, 'J', jetpackTE4Armored, 'O', unitCryotheum, 'C', fluxPackTE3Armored, 'T', thrusterTE5, 'P', plateFlux));
 
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE1, "ICI", "ISI", 'I', "ingotLead", 'C', TEItems.cellBasic, 'S', leatherStrap));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE2, " C ", "ISI", "LOL", 'I', "ingotElectrum", 'L', "ingotLead", 'C', TEItems.cellReinforced, 'S', fluxPackTE1, 'O', TEItems.powerCoilElectrum));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE3, " C ", "ISI", "LOL", 'I', "ingotEnderium", 'L', "ingotLead", 'C', TEItems.cellResonant, 'S', fluxPackTE2, 'O', TEItems.powerCoilElectrum));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxPackTE2Armored, "P", "J", 'J', fluxPackTE2, 'P', armorPlatingTE2));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxPackTE3Armored, "P", "J", 'J', fluxPackTE3, 'P', armorPlatingTE4));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxPackTE2Armored, fluxPackTE2, armorPlatingTE2));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxPackTE3Armored, fluxPackTE3, armorPlatingTE4));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE3, "J", 'J', fluxPackTE3Armored));
 
 			RecipeHelper.addArmoredReverseRecipe(Jetpack.PACKS_TE, Jetpack.PACKS_TE_ARMORED, Fluxpack.TE_FLUXPACKS, Fluxpack.TE_FLUXPACKS_ARMORED);
