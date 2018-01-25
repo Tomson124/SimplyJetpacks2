@@ -1,8 +1,14 @@
 # 2.2.1  -  02-01-2018
+* **Added**
+    * Recipes for crafting armored packs are now shapeless
+
 * **Fixed**
     * Recipe for tier 5 Jetpack
     * Name of tier 2 Fluxpack
     * Recipe for tier 2 Fluxpack
+    * Fix for Jetpacks not being autocraftable
+    * NBT values not being reset anymore when crafting higher tier ones
+    * Removing armor plating not working
 
 # 2.2.0  -  30-12-2017
 * **General**

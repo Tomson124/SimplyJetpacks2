@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import tonius.simplyjetpacks.CommonProxy;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.item.ItemFluxpack;
@@ -14,15 +14,16 @@ import tonius.simplyjetpacks.item.ItemJetpack;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.NBTHelper;
 
-public class UpgradingRecipe extends ShapedOreRecipe {
+public class UpgradingRecipeShapeless extends ShapelessOreRecipe {
+
 	private final IEnergyContainerItem resultItem;
 	private final int resultMeta;
 
 	private static int j = 0;
 
-	public UpgradingRecipe(ItemStack result, Object... recipe) {
+	public UpgradingRecipeShapeless(ItemStack result, Object... recipe) {
 		super(null, result, recipe);
-		setRegistryName(SimplyJetpacks.MODID, "upgradeRecipe" + j);
+		setRegistryName(SimplyJetpacks.MODID, "upgradeRecipeShapeless" + j);
 		j++;
 		this.resultItem = (IEnergyContainerItem) result.getItem();
 		this.resultMeta = result.getItemDamage();
