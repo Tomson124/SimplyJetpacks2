@@ -21,15 +21,15 @@ public enum Fluxpack implements IStringSerializable {
 	FLUXPACK_EIO1("fluxPack_EIO1", "fluxPackEIO1", 1, EnumRarity.COMMON),
 	FLUXPACK_EIO2("fluxPack_EIO2", "fluxPackEIO2", 2, EnumRarity.UNCOMMON),
 	FLUXPACK_EIO3("fluxPack_EIO3", "fluxPackEIO3", 3, EnumRarity.RARE),
-	FLUXPACK_EIO2_ARMORED("fluxPack_EIO2_Armored", "fluxPackEIO2", 2, EnumRarity.UNCOMMON, true, true),
-	FLUXPACK_EIO3_ARMORED("fluxPack_EIO3_Armored", "fluxPackEIO3", 3, EnumRarity.RARE, true, true),
+	FLUXPACK_EIO2_ARMORED("fluxPack_EIO2_Armored", "fluxPackEIO2", 2, EnumRarity.UNCOMMON, true, true, MetaItemsMods.ARMOR_PLATING_EIO_2.ordinal()),
+	FLUXPACK_EIO3_ARMORED("fluxPack_EIO3_Armored", "fluxPackEIO3", 3, EnumRarity.RARE, true, true, MetaItemsMods.ARMOR_PLATING_EIO_4.ordinal()),
 
 	//Thermal Expansioin
 	FLUXPACK_TE1("fluxPack_TE1", "fluxPackTE1", 1, EnumRarity.COMMON),
 	FLUXPACK_TE2("fluxPack_TE2", "fluxPackTE2", 2, EnumRarity.UNCOMMON),
 	FLUXPACK_TE3("fluxPack_TE3", "fluxPackTE3", 3, EnumRarity.RARE),
-	FLUXPACK_TE2_ARMORED("fluxPack_TE2_Armored", "fluxPackTE2", 2, EnumRarity.UNCOMMON, true, true),
-	FLUXPACK_TE3_ARMORED("fluxPack_TE3_Armored", "fluxPackTE3", 3, EnumRarity.RARE, true, true);
+	FLUXPACK_TE2_ARMORED("fluxPack_TE2_Armored", "fluxPackTE2", 2, EnumRarity.UNCOMMON, true, true, MetaItemsMods.ARMOR_PLATING_TE_2.ordinal()),
+	FLUXPACK_TE3_ARMORED("fluxPack_TE3_Armored", "fluxPackTE3", 3, EnumRarity.RARE, true, true, MetaItemsMods.ARMOR_PLATING_TE_4.ordinal());
 
 	public final @Nonnull String baseName;
 	public final @Nonnull String unlocalisedName;
@@ -40,6 +40,7 @@ public enum Fluxpack implements IStringSerializable {
 	public int armorFuelPerHit;
 	public int armorReduction;
 	public int fuelUsage;
+	public int platingMeta;
 
 	public boolean usesFuel;
 	public EnumRarity rarity;
@@ -59,9 +60,15 @@ public enum Fluxpack implements IStringSerializable {
 		this.usesFuel = usesFuel;
 	}
 
-	private Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity,boolean usesFuel, boolean isArmored) {
+	private Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity, boolean usesFuel, boolean isArmored) {
 		this(baseName, defaultConfigKey, tier, rarity, usesFuel);
 		this.isArmored = isArmored;
+	}
+
+	private Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity, boolean usesFuel, boolean isArmored, int platingMeta) {
+		this(baseName, defaultConfigKey, tier, rarity, usesFuel);
+		this.isArmored = isArmored;
+		this.platingMeta = platingMeta;
 	}
 
 	private Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity) {
@@ -119,6 +126,10 @@ public enum Fluxpack implements IStringSerializable {
 
 	public boolean getIsArmored() {
 		return isArmored;
+	}
+
+	public int getPlatingMeta() {
+		return platingMeta;
 	}
 
 	public

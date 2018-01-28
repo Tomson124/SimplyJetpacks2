@@ -255,7 +255,7 @@ public final class RecipeHelper {
 		while (i2.hasNext() && t2.hasNext()) {
 			ItemStack fluxpack = ((Fluxpack) i2.next()).getStackFluxpack();
 			ItemStack fluxpackArmored = ((Fluxpack) t2.next()).getStackFluxpack();
-			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxpack, "J", 'J', fluxpackArmored));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxpack, "F", 'F', fluxpackArmored));
 		}
 	}
 
