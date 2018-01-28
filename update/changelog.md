@@ -1,3 +1,21 @@
+# 2.2.2  -  28-01-2018
+* **General**
+    * Tweaking the default config values - DELETE CONFIG BEFORE UPDATING!
+
+* **Added**
+    * Recipes for crafting armored packs are now shapeless - Fix #57
+    * Recipes for removing armor plates from packs
+    * pt-BR translation
+
+* **Fixed**
+    * Recipe for armored Fluxpacks - Fix #49
+    * Creative Fluxpack and Creative Jetpack not working - Fix #51
+    * Chat messages from packs not translated - Fix #40
+    * Armor model of Creative Fluxpack
+    * Fix for Jetpacks not being autocraftable - Fix #52
+    * NBT values not being reset anymore when crafting higher tier ones
+    * Removing armor plating not working - Fix #53
+
 # 2.2.1  -  02-01-2018
 * **Added**
     * Recipes for crafting armored packs are now shapeless
@@ -6,9 +24,6 @@
     * Recipe for tier 5 Jetpack
     * Name of tier 2 Fluxpack
     * Recipe for tier 2 Fluxpack
-    * Fix for Jetpacks not being autocraftable
-    * NBT values not being reset anymore when crafting higher tier ones
-    * Removing armor plating not working
 
 # 2.2.0  -  30-12-2017
 * **General**
