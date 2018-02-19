@@ -246,7 +246,7 @@ public enum Jetpack implements IStringSerializable {
 		}
 	}
 
-	public static void writeAllConfigsToNBT(NBTTagCompound tag) {
+	/*public static void writeAllConfigsToNBT(NBTTagCompound tag) {
 		for (Jetpack pack : PACKS_SJ) {
 			NBTTagCompound packTag = new NBTTagCompound();
 			pack.writeConfigToNBT(packTag);
@@ -298,7 +298,7 @@ public enum Jetpack implements IStringSerializable {
 				pack.readConfigFromNBT(packTag);
 			}
 		}
-	}
+	}*/
 
 	protected void loadConfig(Configuration config) {
 		if (this.defaults.fuelCapacity != null) {

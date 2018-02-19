@@ -335,10 +335,11 @@ public abstract class ModItems {
 				RecipeHandler.addOreDictRecipe(unitGlowstoneEmpty, "FLF", "LHL", "FLF", 'L', "ingotLumium", 'F', "ingotSignalum", 'H', TEItems.glass_alloy); //TODO: Change Glowstone to lamp
 			}
 
-			Object ductFluxLeadstone = integrateTD ? TDItems.ductFluxLeadstone : "blockGlass";
-			Object ductFluxHardened = integrateTD ? TDItems.ductFluxHardened : "blockGlass";
-			Object ductFluxRedstoneEnergy = integrateTD ? TDItems.ductFluxRedstoneEnergy : "blockGlassHardened";
-			Object ductFluxResonant = integrateTD ? TDItems.ductFluxResonant : "blockGlassHardened";
+			//TODO: Fix thermaldynamics dependency
+			Object ductFluxLeadstone = /*integrateTD ? TDItems.ductFluxLeadstone :*/ "blockGlass";
+			Object ductFluxHardened = /*integrateTD ? TDItems.ductFluxHardened : */"blockGlass";
+			Object ductFluxRedstoneEnergy = /*integrateTD ? TDItems.ductFluxRedstoneEnergy : */"blockGlassHardened";
+			Object ductFluxResonant = /*integrateTD ? TDItems.ductFluxResonant : */"blockGlassHardened";
 
 			RecipeHandler.addOreDictRecipe(thrusterTE1, "ICI", "PDP", "IRI", 'I', "ingotLead", 'P', ductFluxLeadstone, 'C', TEItems.powerCoilGold, 'D', TEItems.dynamoSteam, 'R', "dustRedstone");
 			RecipeHandler.addOreDictRecipe(thrusterTE2, "ICI", "PDP", "IRI", 'I', "ingotInvar", 'P', ductFluxHardened, 'C', TEItems.powerCoilGold, 'D', TEItems.dynamoReactant, 'R', "dustRedstone");

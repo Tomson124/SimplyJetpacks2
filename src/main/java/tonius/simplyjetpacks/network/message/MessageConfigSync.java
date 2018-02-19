@@ -3,22 +3,28 @@ package tonius.simplyjetpacks.network.message;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.item.Fluxpack;
 import tonius.simplyjetpacks.item.Jetpack;
 
 public class MessageConfigSync implements IMessage, IMessageHandler<MessageConfigSync, IMessage> {
 	public NBTTagCompound recv;
+	public Configuration test;
 
 	@Override
 	public void toBytes(ByteBuf buf) {
 		NBTTagCompound toSend = new NBTTagCompound();
+
+		Configuration toSendTest = new Configuration();
+		Jetpack.loadAllConfigs(toSendTest);
 		//PackBase.writeAllConfigsToNBT(toSend);
-		Jetpack.writeAllConfigsToNBT(toSend);
+		//Jetpack.writeAllConfigsToNBT(toSend);
 		Fluxpack.writeAllConfigsToNBT(toSend);
 		ByteBufUtils.writeTag(buf, toSend);
 	}
@@ -41,7 +47,8 @@ public class MessageConfigSync implements IMessage, IMessageHandler<MessageConfi
 	}
 
 	public void handleMessage(MessageConfigSync msg, MessageContext ctx) {
-		Jetpack.readAllConfigsFromNBT(msg.recv);
+		//Jetpack.readAllConfigsFromNBT(msg.recv);
+		Jetpack.loadAllConfigs(msg.test);
 		Fluxpack.readAllConfigsFromNBT(msg.recv);
 		SimplyJetpacks.logger.info("Received server configuration");
 	}
