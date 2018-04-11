@@ -50,6 +50,7 @@ public enum MetaItemsMods {
 
 	public static final EnumSet<MetaItemsMods> ITEMS_EIO = EnumSet.range(INGOT_DARK_SOULARIUM, ARMOR_PLATING_EIO_4);
 	public static final EnumSet<MetaItemsMods> ITEMS_TE = EnumSet.range(PLATE_FLUX, THRUSTER_TE_5);
+	public static final EnumSet<MetaItemsMods> ITEMS_TE_RA = EnumSet.range(UNIT_GLOWSTONE_EMTPY, THRUSTER_TE_5);
 
 	private MetaItemsMods(String name, String keyTooltip, EnumRarity rarity) {
 		this.name = name;

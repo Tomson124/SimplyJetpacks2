@@ -79,10 +79,19 @@ public class ItemMetaMods extends ItemMeta {
 				}
 			}
 			if (ModItems.integrateTE) {
-				for (MetaItemsMods item : MetaItemsMods.ITEMS_TE) {
-					ItemStack stack;
-					stack = new ItemStack(this, 1, item.ordinal());
-					list.add(stack);
+				if (ModItems.integrateRA) {
+					for (MetaItemsMods item : MetaItemsMods.ITEMS_TE_RA) {
+						ItemStack stack;
+						stack = new ItemStack(this, 1, item.ordinal());
+						list.add(stack);
+					}
+				}
+				else {
+					for (MetaItemsMods item : MetaItemsMods.ITEMS_TE) {
+						ItemStack stack;
+						stack = new ItemStack(this, 1, item.ordinal());
+						list.add(stack);
+					}
 				}
 			}
 		}

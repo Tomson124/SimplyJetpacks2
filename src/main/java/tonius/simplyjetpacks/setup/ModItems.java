@@ -129,6 +129,9 @@ public abstract class ModItems {
 			if (integrateTD) {
 				TDItems.init();
 			}
+			if (integrateRA) {
+				RAItems.init();
+			}
 		}
 
 		registerItems();
@@ -237,8 +240,15 @@ public abstract class ModItems {
 			thrusterTE4 = MetaItemsMods.THRUSTER_TE_4.getStackMetaItem();
 			thrusterTE5 = MetaItemsMods.THRUSTER_TE_5.getStackMetaItem();
 
-			plateFlux = MetaItemsMods.PLATE_FLUX.getStackMetaItem();
-			armorFluxPlate = MetaItemsMods.ARMOR_PLATE_FLUX.getStackMetaItem();
+			if (!integrateRA && Config.addRAItemsIfNotInstalled) {
+				plateFlux = MetaItemsMods.PLATE_FLUX.getStackMetaItem();
+				armorFluxPlate = MetaItemsMods.ARMOR_PLATE_FLUX.getStackMetaItem();
+			}
+			else if (integrateRA) {
+				plateFlux = RAItems.fluxPlating;
+				armorFluxPlate = RAItems.armorChestPlate;
+			}
+
 			unitGlowstone = MetaItemsMods.UNIT_GLOWSTONE.getStackMetaItem();
 			unitGlowstoneEmpty = MetaItemsMods.UNIT_GLOWSTONE_EMTPY.getStackMetaItem();
 			unitCryotheum = MetaItemsMods.UNIT_CRYOTHEUM.getStackMetaItem();
@@ -348,8 +358,6 @@ public abstract class ModItems {
 			RecipeHandler.addOreDictRecipe(thrusterTE5, "FPF", "GRG", 'G', unitGlowstone, 'P', plateFlux, 'R', thrusterTE4, 'F', "ingotSignalum");
 
 			if (integrateRA) {
-				RecipeHandler.addOreDictRecipe(plateFlux, "NNN", "GIG", "NNN", 'G', "gemCrystalFlux", 'I', "ingotElectrumFlux", 'N', "nuggetElectrumFlux");
-				RecipeHandler.addOreDictRecipe(armorFluxPlate, "I I", "III", "III", 'I', plateFlux);
 				RecipeHandler.addOreDictRecipe(unitCryotheumEmpty, "FTF", "THT", "FTF", 'T', "ingotTin", 'F', "ingotElectrumFlux", 'H', "blockGlassHardened");
 				RecipeHandler.addOreDictRecipe(unitGlowstoneEmpty, "FLF", "LHL", "FLF", 'L', "ingotLumium", 'F', "ingotElectrumFlux", 'H', TEItems.signalumGlass);
 			}
