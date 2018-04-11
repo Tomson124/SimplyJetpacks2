@@ -1,29 +1,23 @@
 package tonius.simplyjetpacks.integration;
 
-import tonius.simplyjetpacks.SimplyJetpacks;
 import net.minecraftforge.fml.common.Loader;
+import tonius.simplyjetpacks.SimplyJetpacks;
 
-public enum ModType
-{
-	SIMPLY_JETPACKS("", SimplyJetpacks.MODID),
-	ENDER_IO(".eio", "EnderIO"),
-	THERMAL_EXPANSION(".te", "thermalexpansion"),
+public enum ModType {
+	SIMPLY_JETPACKS(SimplyJetpacks.MODID),
+	ENDER_IO("EnderIO"),
+	THERMAL_EXPANSION("thermalexpansion"),
 	REDSTONE_ARSENAL("redstonearsenal"),
-	THERMAL_DYNAMICS(null, "Thermal Dynamics");
+	THERMAL_DYNAMICS("thermaldynamics");
 
-	public final String suffix;
 	public final String[] modids;
 	public final boolean loaded;
 
-	private ModType(String suffix, String... modids)
-	{
-		this.suffix = suffix;
+	private ModType(String... modids) {
 		this.modids = modids;
 
-		for(String s : this.modids)
-		{
-			if(!Loader.isModLoaded(s))
-			{
+		for (String s : this.modids) {
+			if (!Loader.isModLoaded(s)) {
 				this.loaded = false;
 				return;
 			}
