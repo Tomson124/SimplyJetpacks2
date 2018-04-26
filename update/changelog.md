@@ -1,3 +1,9 @@
+# 2.2.3  -  26-04-2018
+* **Fixed**
+    * Not removing SJ2 Flux Plates when Redstone Arsenal is installed - Fix #68
+    * Plate return recipe showing twice for Fluxpacks
+    * SimplyJetpacks2 not loading with ThermalExpansion beyond version 5.3.x - Fixes #75
+
 # 2.2.2  -  28-01-2018
 * **General**
     * Tweaking the default config values - DELETE CONFIG BEFORE UPDATING!

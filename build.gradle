@@ -17,7 +17,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "2.2.2"
+version = "2.2.3"
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
@@ -48,16 +48,16 @@ dependencies {
     // at runtime, use the full JEI jar
     //runtime "mezz.jei:jei_1.10.2:3.14.7.420"
     //deobfCompile "cofh:RedstoneFlux:1.12-2.0.1.2:universal"
-    compile "codechicken:CodeChickenLib:1.12-3.1.4.+:deobf"
-    compile "cofh:CoFHCore:1.12-4.3.+:deobf"
-    compile "cofh:ThermalFoundation:1.12.2-2.3.+:deobf"
-    compile "cofh:ThermalDynamics:1.12.2-2.3.+:deobf"
-    compile "cofh:ThermalExpansion:1.12.2-5.3.+:deobf"
-    compile "cofh:RedstoneArsenal:1.12.2-2.3.+:deobf"
+    compile "codechicken:CodeChickenLib:1.12-3.1.7.+:deobf"
+    compile "cofh:CoFHCore:1.12-4.4.+:deobf"
+    compile "cofh:ThermalFoundation:1.12.2-2.4.+:deobf"
+    compile "cofh:ThermalDynamics:1.12.2-2.4.+:deobf"
+    compile "cofh:ThermalExpansion:1.12.2-5.4.+:deobf"
+    compile "cofh:RedstoneArsenal:1.12.2-2.4.+:deobf"
 }
 
 minecraft {
-    version = "1.12.2-14.23.2.2654"
+    version = "1.12.2-14.23.3.2655"
     runDir = "run"
 
     // the mappings can be changed at any time, and must be in the following format.
