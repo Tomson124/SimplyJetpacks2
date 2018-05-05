@@ -1,3 +1,7 @@
+# 2.2.4  -  05-05-2018
+* **Fixed**
+    * Fixed IMC with TE, so ArmorPlating recipes work again - #78
+
 # 2.2.3  -  26-04-2018
 * **Fixed**
     * Not removing SJ2 Flux Plates when Redstone Arsenal is installed - Fix #68
