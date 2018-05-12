@@ -1,10 +1,12 @@
 package tonius.simplyjetpacks.crafting;
 
 import cofh.redstoneflux.api.IEnergyContainerItem;
+import com.google.common.collect.Lists;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.RecipeMatcher;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import tonius.simplyjetpacks.CommonProxy;
@@ -12,55 +14,85 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.item.ItemFluxpack;
 import tonius.simplyjetpacks.item.ItemJetpack;
 import tonius.simplyjetpacks.setup.ParticleType;
+import tonius.simplyjetpacks.util.ItemHelper;
 import tonius.simplyjetpacks.util.NBTHelper;
 
-public class UpgradingRecipeShapeless extends ShapelessOreRecipe {
+import javax.annotation.Nonnull;
+import java.util.List;
 
-	private final IEnergyContainerItem resultItem;
-	private final int resultMeta;
+public class UpgradingRecipeShapeless extends ShapelessOreRecipe {
 
 	private static int j = 0;
 
 	public UpgradingRecipeShapeless(ItemStack result, Object... recipe) {
 		super(null, result, recipe);
-		setRegistryName(SimplyJetpacks.MODID, "upgradeRecipeShapeless" + j);
+		setRegistryName(new ResourceLocation(SimplyJetpacks.MODID, "upgradeRecipeShapeless" + j));
 		j++;
-		this.resultItem = (IEnergyContainerItem) result.getItem();
-		this.resultMeta = result.getItemDamage();
-		result.getEnchantmentTagList();
 	}
 
 	@Override
-	public ItemStack getCraftingResult(InventoryCrafting inventoryCrafting) {
+	public boolean matches(@Nonnull InventoryCrafting inv, @Nonnull World world) {
+
+		int ingredientCount = 0;
+		List<ItemStack> items = Lists.newArrayList();
+
+		for (int i = 0; i < inv.getSizeInventory(); ++i) {
+			ItemStack itemstack = inv.getStackInSlot(i);
+			if (!itemstack.isEmpty()) {
+				++ingredientCount;
+				items.add(itemstack);
+			}
+		}
+
+		if (ingredientCount != this.input.size()) {
+			return false;
+		}
+
+		return RecipeMatcher.findMatches(items, this.input) != null;
+	}
+
+	@Override
+	public ItemStack getCraftingResult(@Nonnull InventoryCrafting inv) {
+		ItemStack inputStack = ItemStack.EMPTY;
+		ItemStack outputStack = output.copy();
+		IEnergyContainerItem outputItem = (IEnergyContainerItem) outputStack.getItem();
+
 		int addedEnergy = 0;
 		ParticleType particleType = null;
-		NBTTagCompound tags = null;
 
-		ItemStack slotStack;
-		for (int i = 0; i < inventoryCrafting.getSizeInventory(); i++) {
-			slotStack = inventoryCrafting.getStackInSlot(i);
-			if (slotStack != null && slotStack.getItem() != null) {
-				if (slotStack.getItem() instanceof ItemJetpack || slotStack.getItem() instanceof ItemFluxpack) {
-					tags = NBTHelper.getTagCompound(slotStack).copy();
+		for (int i = 0; i < inv.getSizeInventory(); ++i) {
+			ItemStack stack = inv.getStackInSlot(i);
+
+			if (!stack.isEmpty()) {
+				inputStack = stack;
+				if (inputStack.getItem() instanceof IEnergyContainerItem) {
+					addedEnergy += ((IEnergyContainerItem) inputStack.getItem()).getEnergyStored(inputStack);
+				} else if (OreDictionary.containsMatch(false, CommonProxy.oresListParticles, inputStack)) {
+					particleType = ParticleType.values()[inputStack.getItemDamage()];
 				}
-				if (slotStack.getItem() instanceof IEnergyContainerItem) {
-					addedEnergy += ((IEnergyContainerItem) slotStack.getItem()).getEnergyStored(slotStack);
-				} else if (OreDictionary.containsMatch(false, CommonProxy.oresListParticles, slotStack)) {
-					particleType = ParticleType.values()[slotStack.getItemDamage()];
+
+				if (stack.getItem() instanceof ItemJetpack || stack.getItem() instanceof ItemFluxpack) {
+					outputStack = ItemHelper.copyTag(outputStack, inputStack);
 				}
 			}
 		}
 
-		ItemStack result = new ItemStack((Item) this.resultItem, 1, this.resultMeta);
-		if (tags != null) {
-			result.setTagCompound(tags);
-		}
-		NBTHelper.setInt(result, "Energy", Math.min(addedEnergy, this.resultItem.getMaxEnergyStored(result)));
-
-		if (this.resultItem instanceof ItemJetpack && particleType != null) {
-			((ItemJetpack) this.resultItem).setParticleType(result, particleType);
+		if (inputStack.isEmpty()) {
+			return ItemStack.EMPTY;
 		}
 
-		return result;
+		NBTHelper.setInt(outputStack, "Energy", Math.min(addedEnergy, outputItem.getMaxEnergyStored(outputStack)));
+
+		if (outputItem instanceof ItemJetpack && particleType != null) {
+			((ItemJetpack) outputItem).setParticleType(outputStack, particleType);
+		}
+
+		return outputStack;
+	}
+
+	@Override
+	public boolean isDynamic() {
+
+		return true;
 	}
 }

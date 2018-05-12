@@ -16,7 +16,7 @@ public final class NBTHelper {
 		if (stack.isEmpty()) {
 			return null;
 		}
-		if (stack.getTagCompound() == null) {
+		if (!stack.hasTagCompound()) {
 			stack.setTagCompound(new NBTTagCompound());
 		}
 		return stack.getTagCompound();
@@ -39,7 +39,6 @@ public final class NBTHelper {
 	}
 
 	public static void setInt(ItemStack stack, String key, int value) {
-
 		getTagCompound(stack).setInteger(key, value);
 	}
 
