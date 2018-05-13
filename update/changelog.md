@@ -1,3 +1,7 @@
+# 2.2.4  -  12-05-2018
+* **Fixed**
+    * Crafting with entchanted jetpacks not possible - #81
+
 # 2.2.4  -  05-05-2018
 * **Fixed**
     * Fixed IMC with TE, so ArmorPlating recipes work again - #78
