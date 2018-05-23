@@ -13,8 +13,6 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.util.RenderUtils.HUDPositions;
 import tonius.simplyjetpacks.item.Fluxpack;
 import tonius.simplyjetpacks.item.Jetpack;
-import tonius.simplyjetpacks.network.PacketHandler;
-import tonius.simplyjetpacks.network.message.MessageConfigSync;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -72,49 +70,12 @@ public class Config
 
 	public static void preInit(FMLPreInitializationEvent evt)
 	{
-		FMLCommonHandler.instance().bus().register(new Config());
-
 		config = new Configuration(new File(evt.getModConfigurationDirectory(), SimplyJetpacks.MODID + ".cfg"));
 		configClient = new Configuration(new File(evt.getModConfigurationDirectory(), SimplyJetpacks.MODID + "-client.cfg"));
-
-		syncConfig(false);
+		config.load();
+		configClient.load();
 		SimplyJetpacks.proxy.updateCustomKeybinds(flyKey, descendKey);
-	}
-
-	private static void syncConfig(boolean load)
-	{
-		SimplyJetpacks.logger.info("Loading configuration files");
-		try
-		{
-			if (load) {
-				config.load();
-			}
-			processConfig();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			if(config.hasChanged())
-			{
-				config.save();
-			}
-			if(configClient.hasChanged())
-			{
-				configClient.save();
-			}
-		}
-	}
-
-	public static void onConfigChanged(String modid)
-	{
-		if(modid.equals(SimplyJetpacks.MODID))
-		{
-			syncConfig(false);
-			SimplyJetpacks.proxy.updateCustomKeybinds(flyKey, descendKey);
-		}
+		processConfig();
 	}
 
 	private static void processConfig()
@@ -154,24 +115,5 @@ public class Config
 		//PackBase.loadAllConfigs(config);
 		Jetpack.loadAllConfigs(config);
 		Fluxpack.loadAllConfigs(config);
-	}
-
-	@SubscribeEvent
-	public void onConfigChanged(OnConfigChangedEvent evt)
-	{
-		onConfigChanged(evt.getModID());
-	}
-
-	@SubscribeEvent
-	public void ConfigFileChanged(ConfigChangedEvent evt) {
-		if (evt.getModID().equals(SimplyJetpacks.MODID)) {
-			Log.info("Updating config...");
-			syncConfig(true);
-		}
-	}
-
-	@SubscribeEvent
-	public void onPlayerLoggon(PlayerLoggedInEvent evt) {
-		PacketHandler.instance.sendTo(new MessageConfigSync(), (EntityPlayerMP) evt.player);
 	}
 }

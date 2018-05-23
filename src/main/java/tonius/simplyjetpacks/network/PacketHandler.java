@@ -15,7 +15,6 @@ public abstract class PacketHandler {
 	public static void init() {
 		SimplyJetpacks.logger.info("Registering network messages");
 		instance.registerMessage(MessageJetpackSync.class, MessageJetpackSync.class, 0, Side.CLIENT);
-		instance.registerMessage(MessageConfigSync.class, MessageConfigSync.class, 1, Side.CLIENT);
 		instance.registerMessage(MessageKeyboardSync.class, MessageKeyboardSync.class, 2, Side.SERVER);
 		instance.registerMessage(MessageKeyBind.class, MessageKeyBind.class, 4, Side.SERVER);
 	}
