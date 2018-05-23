@@ -1,10 +1,7 @@
 package tonius.simplyjetpacks.integration;
 
-import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import tonius.simplyjetpacks.Log;
 
 public abstract class TDItems {
 

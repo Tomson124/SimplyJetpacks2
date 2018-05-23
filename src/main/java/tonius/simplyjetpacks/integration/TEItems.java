@@ -1,18 +1,13 @@
 package tonius.simplyjetpacks.integration;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.fluids.*;
-import tonius.simplyjetpacks.Log;
-import tonius.simplyjetpacks.SimplyJetpacks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.ForgeModContainer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import tonius.simplyjetpacks.SimplyJetpacks;
 
 public abstract class TEItems {
 
@@ -66,7 +61,7 @@ public abstract class TEItems {
 			cellReinforced.setTagCompound(new NBTTagCompound());
 			cellReinforced.getTagCompound().setByte("Level", (byte) 2);
 		}
-		if (cellResonant != null){
+		if (cellResonant != null) {
 			cellResonant.setTagCompound(new NBTTagCompound());
 			cellResonant.getTagCompound().setByte("Level", (byte) 4);
 		}

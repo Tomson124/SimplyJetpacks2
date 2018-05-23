@@ -1,11 +1,7 @@
 package tonius.simplyjetpacks.integration;
 
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import tonius.simplyjetpacks.SimplyJetpacks;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public abstract class EIOItems {
 
