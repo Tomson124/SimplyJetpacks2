@@ -16,72 +16,61 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public abstract class TEItems {
 
-	public static Item capacitor = null;
-	public static Block dynamo = null;
-	public static Item material = null;
-	public static Item cell = null;
-	public static Item glass_alloy = null;
+	//capacitors
+	@GameRegistry.ItemStackHolder(value = "thermalexpansion:capacitor", meta = 0)
 	public static ItemStack capacitorBasic = null;
+	@GameRegistry.ItemStackHolder(value = "thermalexpansion:capacitor", meta = 1)
 	public static ItemStack capacitorHardened = null;
+	@GameRegistry.ItemStackHolder(value = "thermalexpansion:capacitor", meta = 2)
 	public static ItemStack capacitorReinforced = null;
+	@GameRegistry.ItemStackHolder(value = "thermalexpansion:capacitor", meta = 4)
 	public static ItemStack capacitorResonant = null;
+
+	//cells
+	@GameRegistry.ItemStackHolder("thermalexpansion:cell")
 	public static ItemStack cellBasic = null;
+	@GameRegistry.ItemStackHolder("thermalexpansion:cell")
 	public static ItemStack cellReinforced = null;
-	public static ItemStack bucketRedstone = null;
-	public static ItemStack dynamoReactant = null;
-	public static ItemStack dynamoMagmatic = null;
-	public static ItemStack dynamoEnervation = null;
-	public static ItemStack dynamoSteam = null;
-	public static ItemStack signalumGlass = null;
-	public static ItemStack frameIlluminator = null;
-	public static ItemStack pneumaticServo = null;
-	public static ItemStack powerCoilElectrum = null;
-	public static ItemStack powerCoilGold = null;
+	@GameRegistry.ItemStackHolder("thermalexpansion:cell")
 	public static ItemStack cellResonant;
+
+	//dynamos
+	@GameRegistry.ItemStackHolder(value = "thermalexpansion:dynamo", meta = 0)
+	public static ItemStack dynamoReactant = null;
+	@GameRegistry.ItemStackHolder(value = "thermalexpansion:dynamo", meta = 1)
+	public static ItemStack dynamoMagmatic = null;
+	@GameRegistry.ItemStackHolder(value = "thermalexpansion:dynamo", meta = 3)
+	public static ItemStack dynamoSteam = null;
+	@GameRegistry.ItemStackHolder(value = "thermalexpansion:dynamo", meta = 4)
+	public static ItemStack dynamoEnervation = null;
+
+	//materials
+	@GameRegistry.ItemStackHolder(value = "thermalfoundation:glass_alloy", meta = 5)
+	public static ItemStack signalumGlass = null;
+	@GameRegistry.ItemStackHolder(value = "thermalfoundation:material", meta = 513)
+	public static ItemStack powerCoilGold = null;
+	@GameRegistry.ItemStackHolder(value = "thermalfoundation:material", meta = 515)
+	public static ItemStack powerCoilElectrum = null;
+
+	public static ItemStack bucketRedstone = null;
+
 
 	public static void init() {
 		SimplyJetpacks.logger.info("Stealing Thermal Expansion's items");
-
-		capacitor = Item.REGISTRY.getObject(new ResourceLocation("thermalexpansion", "capacitor"));
-		if (capacitor != null) {
-			capacitorBasic = new ItemStack(capacitor, 1, 0);
-			capacitorHardened = new ItemStack(capacitor, 1, 1);
-			capacitorReinforced = new ItemStack(capacitor, 1, 2);
-			capacitorResonant = new ItemStack(capacitor, 1, 4);
-		}
-
-		dynamo = Block.REGISTRY.getObject(new ResourceLocation("thermalexpansion", "dynamo"));
-		if (dynamo != null) {
-			dynamoSteam = new ItemStack(dynamo, 1, 0);
-			dynamoMagmatic = new ItemStack(dynamo, 1, 1);
-			dynamoReactant = new ItemStack(dynamo, 1, 3);
-			dynamoEnervation = new ItemStack(dynamo, 1, 4);
-		}
-
-		material = Item.REGISTRY.getObject(new ResourceLocation("thermalfoundation", "material"));
-		if (material != null) {
-			powerCoilGold = new ItemStack(material, 1, 513);
-			powerCoilElectrum = new ItemStack(material, 1, 515);
-		}
-
-		cell = Item.REGISTRY.getObject(new ResourceLocation("thermalexpansion", "cell"));
-		if (cell != null) {
-			cellBasic = new ItemStack(cell);
+		boolean c = cellReinforced == null;
+		System.out.println(c + " null check boi");
+		if (cellBasic != null) {
 			cellBasic.setTagCompound(new NBTTagCompound());
 			cellBasic.getTagCompound().setByte("Level", (byte) 0);
-
-			cellReinforced = new ItemStack(cell);
+		}
+		if (cellReinforced != null) {
 			cellReinforced.setTagCompound(new NBTTagCompound());
 			cellReinforced.getTagCompound().setByte("Level", (byte) 2);
-
-			cellResonant = new ItemStack(cell);
+			System.out.println("nbt set boi");
+		}
+		if (cellResonant != null){
 			cellResonant.setTagCompound(new NBTTagCompound());
 			cellResonant.getTagCompound().setByte("Level", (byte) 4);
-		}
-
-		glass_alloy = Item.REGISTRY.getObject(new ResourceLocation("thermalfoundation", "glass_alloy"));
-		if (glass_alloy != null) {
-			signalumGlass = new ItemStack(glass_alloy, 1, 5);
 		}
 	}
 
