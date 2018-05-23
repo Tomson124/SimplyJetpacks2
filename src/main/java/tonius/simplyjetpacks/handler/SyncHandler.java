@@ -12,7 +12,6 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.audio.SoundJetpack;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.network.PacketHandler;
-import tonius.simplyjetpacks.network.message.MessageConfigSync;
 import tonius.simplyjetpacks.setup.ParticleType;
 
 import java.util.HashMap;
@@ -122,6 +121,5 @@ public class SyncHandler
 	public void onClientDisconnectedFromServer(ClientDisconnectionFromServerEvent evt)
 	{
 		SoundJetpack.clearPlayingFor();
-		Config.onConfigChanged(SimplyJetpacks.MODID);
 	}
 }

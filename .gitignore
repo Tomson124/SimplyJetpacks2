@@ -9,6 +9,7 @@ bin/
 repo/
 run/
 out/
+classes/
 *.ipr
 *.iml
 *.iws
