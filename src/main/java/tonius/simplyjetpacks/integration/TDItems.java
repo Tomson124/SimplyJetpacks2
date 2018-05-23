@@ -17,7 +17,4 @@ public abstract class TDItems {
 	@GameRegistry.ItemStackHolder(value = "thermaldynamics:duct_0", meta = 4)
 	public static ItemStack ductFluxResonant = null;
 
-	public static void init() {
-		Log.info("Stealing Thermal Dynamics's items");
-	}
 }

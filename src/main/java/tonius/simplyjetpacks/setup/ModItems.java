@@ -121,13 +121,6 @@ public abstract class ModItems {
 	public static boolean integrateVanilla = Config.enableIntegrationVanilla;
 
 	public static void preInit() {
-		if (integrateTE) {
-//			TEItems.init();
-			if (integrateTD) {
-				TDItems.init();
-			}
-		}
-
 		registerItems();
 		registerOreDicts();
 	}
