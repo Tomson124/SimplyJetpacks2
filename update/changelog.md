@@ -1,6 +1,11 @@
-# 2.2.4  -  12-05-2018
+# 2.2.5  -  23-05-2018
+* **General**
+    * Cleanup and rewrite of mod integrations. Huge thank you to @thundR
+
 * **Fixed**
     * Crafting with entchanted jetpacks not possible - #81
+    * ThermalDynamics integration
+    * Complete refactor of config system. Again huge thank you to @thundR - #82 #83 #85
 
 # 2.2.4  -  05-05-2018
 * **Fixed**
