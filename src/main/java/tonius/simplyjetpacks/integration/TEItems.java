@@ -57,8 +57,7 @@ public abstract class TEItems {
 
 	public static void init() {
 		SimplyJetpacks.logger.info("Stealing Thermal Expansion's items");
-		boolean c = cellReinforced == null;
-		System.out.println(c + " null check boi");
+
 		if (cellBasic != null) {
 			cellBasic.setTagCompound(new NBTTagCompound());
 			cellBasic.getTagCompound().setByte("Level", (byte) 0);
@@ -66,7 +65,6 @@ public abstract class TEItems {
 		if (cellReinforced != null) {
 			cellReinforced.setTagCompound(new NBTTagCompound());
 			cellReinforced.getTagCompound().setByte("Level", (byte) 2);
-			System.out.println("nbt set boi");
 		}
 		if (cellResonant != null){
 			cellResonant.setTagCompound(new NBTTagCompound());
