@@ -1,5 +1,6 @@
 package tonius.simplyjetpacks.integration;
 
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -7,63 +8,43 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 public abstract class EIOItems {
-	public static ItemStack capacitorBankOld;
+
+	//capacitor banks
+	@GameRegistry.ItemStackHolder(value = "enderio:block_cap_bank", meta = 1)
 	public static ItemStack capacitorBankBasic;
+	@GameRegistry.ItemStackHolder(value = "enderio:block_cap_bank", meta = 2)
 	public static ItemStack capacitorBank;
+	@GameRegistry.ItemStackHolder(value = "enderio:block_cap_bank", meta = 3)
 	public static ItemStack capacitorBankVibrant;
+
+	//conduits
+	@GameRegistry.ItemStackHolder("enderio:item_redstone_conduit")
 	public static ItemStack redstoneConduit;
+	@GameRegistry.ItemStackHolder(value = "enderio:item_power_conduit", meta = 0)
 	public static ItemStack energyConduit1;
+	@GameRegistry.ItemStackHolder(value = "enderio:item_power_conduit", meta = 1)
 	public static ItemStack energyConduit2;
+	@GameRegistry.ItemStackHolder(value = "enderio:item_power_conduit", meta = 2)
 	public static ItemStack energyConduit3;
+
+	//capacitor items
+	@GameRegistry.ItemStackHolder(value = "enderio:item_basic_capacitor", meta = 0)
 	public static ItemStack basicCapacitor;
+	@GameRegistry.ItemStackHolder(value = "enderio:item_basic_capacitor", meta = 1)
 	public static ItemStack doubleCapacitor;
+	@GameRegistry.ItemStackHolder(value = "enderio:item_basic_capacitor", meta = 2)
 	public static ItemStack octadicCapacitor;
+
+	//crafting materials
+	@GameRegistry.ItemStackHolder(value = "enderio:item_material", meta = 1)
 	public static ItemStack machineChassis;
+	@GameRegistry.ItemStackHolder(value = "enderio:item_material", meta = 9)
 	public static ItemStack basicGear;
+	@GameRegistry.ItemStackHolder(value = "enderio:item_material", meta = 14)
 	public static ItemStack pulsatingCrystal;
+	@GameRegistry.ItemStackHolder(value = "enderio:item_material", meta = 15)
 	public static ItemStack vibrantCrystal;
+	@GameRegistry.ItemStackHolder(value = "enderio:item_material", meta = 16)
 	public static ItemStack enderCrystal;
 
-	public static void init() {
-		SimplyJetpacks.logger.info("Stealing Ender IO's items");
-
-		capacitorBankOld = new ItemStack(Block.REGISTRY.getObject(new ResourceLocation("enderio", "blockCapacitorBank")));
-
-		Block capBankBlock = Block.REGISTRY.getObject(new ResourceLocation("enderio", "blockCapBank"));
-		capacitorBankBasic = new ItemStack(capBankBlock, 1, 1);
-		capacitorBank = new ItemStack(capBankBlock, 1, 2);
-		capacitorBankVibrant = new ItemStack(capBankBlock, 1, 3);
-
-		Item redstoneConduitItem = Item.REGISTRY.getObject(new ResourceLocation("enderio", "itemRedstoneConduit"));
-		if (redstoneConduitItem != null) {
-			redstoneConduit = new ItemStack(redstoneConduitItem, 1, 0);
-		}
-
-		Item energyConduitItem = Item.REGISTRY.getObject(new ResourceLocation("enderio", "itemPowerConduit"));
-		if (energyConduitItem != null) {
-			energyConduit1 = new ItemStack(energyConduitItem, 1, 0);
-			energyConduit2 = new ItemStack(energyConduitItem, 1, 1);
-			energyConduit3 = new ItemStack(energyConduitItem, 1, 2);
-		}
-
-		Item capacitorItem = Item.REGISTRY.getObject(new ResourceLocation("enderio", "itemBasicCapacitor"));
-		if (capacitorItem != null) {
-			basicCapacitor = new ItemStack(capacitorItem, 1, 0);
-			doubleCapacitor = new ItemStack(capacitorItem, 1, 1);
-			octadicCapacitor = new ItemStack(capacitorItem, 1, 2);
-		}
-
-		Item machinePartItem = Item.REGISTRY.getObject(new ResourceLocation("enderio", "itemMachinePart"));
-		if (machinePartItem != null) {
-			machineChassis = new ItemStack(machinePartItem, 1, 0);
-			basicGear = new ItemStack(machinePartItem, 1, 1);
-		}
-
-		Item materialsItem = Item.REGISTRY.getObject(new ResourceLocation("enderio", "itemMaterial"));
-		if (materialsItem != null) {
-			pulsatingCrystal = new ItemStack(materialsItem, 1, 5);
-			vibrantCrystal = new ItemStack(materialsItem, 1, 6);
-			enderCrystal = new ItemStack(materialsItem, 1, 8);
-		}
-	}
 }

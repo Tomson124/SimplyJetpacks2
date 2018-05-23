@@ -121,16 +121,10 @@ public abstract class ModItems {
 	public static boolean integrateVanilla = Config.enableIntegrationVanilla;
 
 	public static void preInit() {
-		if (integrateEIO) {
-			EIOItems.init();
-		}
 		if (integrateTE) {
 			TEItems.init();
 			if (integrateTD) {
 				TDItems.init();
-			}
-			if (integrateRA) {
-				RAItems.init();
 			}
 		}
 
@@ -198,6 +192,10 @@ public abstract class ModItems {
 
 		leatherStrap = MetaItems.LEATHER_STRAP.getStackMetaItem();
 
+
+	}
+
+	public static void gatherIngredients(){
 
 		if (integrateEIO) {
 			ingotDarkSoularium = MetaItemsMods.INGOT_DARK_SOULARIUM.getStackMetaItem();
@@ -288,6 +286,7 @@ public abstract class ModItems {
 	}
 
 	public static void registerRecipes() {
+		gatherIngredients();
 		RecipeHandler.addOreDictRecipe(leatherStrap, "LIL", "LIL", 'L', Items.LEATHER, 'I', "ingotIron");
 		ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackCreative, "J", "P", 'J', jetpackCreative, 'P', "particleCustomizer"));
 
