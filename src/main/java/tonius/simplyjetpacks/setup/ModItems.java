@@ -121,19 +121,6 @@ public abstract class ModItems {
 	public static boolean integrateVanilla = Config.enableIntegrationVanilla;
 
 	public static void preInit() {
-		if (integrateEIO) {
-			EIOItems.init();
-		}
-		if (integrateTE) {
-			TEItems.init();
-			if (integrateTD) {
-				TDItems.init();
-			}
-			if (integrateRA) {
-				RAItems.init();
-			}
-		}
-
 		registerItems();
 		registerOreDicts();
 	}
@@ -199,6 +186,10 @@ public abstract class ModItems {
 		leatherStrap = MetaItems.LEATHER_STRAP.getStackMetaItem();
 
 
+	}
+
+	public static void gatherIngredients(){
+
 		if (integrateEIO) {
 			ingotDarkSoularium = MetaItemsMods.INGOT_DARK_SOULARIUM.getStackMetaItem();
 			unitFlightControlEmpty = MetaItemsMods.UNIT_FLIGHT_CONTROL_EMPTY.getStackMetaItem();
@@ -234,6 +225,7 @@ public abstract class ModItems {
 		}
 
 		if (integrateTE) {
+				TEItems.init();
 			thrusterTE1 = MetaItemsMods.THRUSTER_TE_1.getStackMetaItem();
 			thrusterTE2 = MetaItemsMods.THRUSTER_TE_2.getStackMetaItem();
 			thrusterTE3 = MetaItemsMods.THRUSTER_TE_3.getStackMetaItem();
@@ -288,6 +280,7 @@ public abstract class ModItems {
 	}
 
 	public static void registerRecipes() {
+		gatherIngredients();
 		RecipeHandler.addOreDictRecipe(leatherStrap, "LIL", "LIL", 'L', Items.LEATHER, 'I', "ingotIron");
 		ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackCreative, "J", "P", 'J', jetpackCreative, 'P', "particleCustomizer"));
 
@@ -342,7 +335,7 @@ public abstract class ModItems {
 				RecipeHandler.addOreDictRecipe(plateFlux, "NNN", "GIG", "NNN", 'G', Items.DIAMOND, 'I', "ingotSignalum", 'N', "nuggetSignalum");
 				RecipeHandler.addOreDictRecipe(armorFluxPlate, "I I", "III", "III", 'I', plateFlux);
 				RecipeHandler.addOreDictRecipe(unitCryotheumEmpty, "FTF", "THT", "FTF", 'T', "ingotTin", 'F', "ingotSignalum", 'H', "blockGlassHardened");
-				RecipeHandler.addOreDictRecipe(unitGlowstoneEmpty, "FLF", "LHL", "FLF", 'L', "ingotLumium", 'F', "ingotSignalum", 'H', TEItems.glass_alloy); //TODO: Change Glowstone to lamp
+				RecipeHandler.addOreDictRecipe(unitGlowstoneEmpty, "FLF", "LHL", "FLF", 'L', "ingotLumium", 'F', "ingotSignalum", 'H', TEItems.signalumGlass); //TODO: Change Glowstone to lamp
 			}
 
 			Object ductFluxLeadstone = integrateTD ? TDItems.ductFluxLeadstone : "blockGlass";
@@ -372,6 +365,7 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE3Armored, jetpackTE3, armorPlatingTE3));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE4Armored, jetpackTE4, armorPlatingTE4));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackTE5, "PAP", "OJO", "TCT", 'A', armorFluxPlate, 'J', jetpackTE4Armored, 'O', unitCryotheum, 'C', fluxPackTE3Armored, 'T', thrusterTE5, 'P', plateFlux));
+
 
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE1, "ICI", "ISI", 'I', "ingotLead", 'C', TEItems.cellBasic, 'S', leatherStrap));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE2, " C ", "ISI", "LOL", 'I', "ingotElectrum", 'L', "ingotLead", 'C', TEItems.cellReinforced, 'S', fluxPackTE1, 'O', TEItems.powerCoilElectrum));
