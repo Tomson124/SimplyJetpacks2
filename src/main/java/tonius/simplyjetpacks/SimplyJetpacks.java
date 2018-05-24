@@ -26,7 +26,7 @@ public class SimplyJetpacks {
 	public static final String VERSION = "@VERSION@";
 	public static final String PREFIX = MODID + ".";
 	public static final String RESOURCE_PREFIX = MODID + ":";
-	public static final String DEPENDENCIES = "required-after:thermalexpansion@[5.4.0,);" + "after:redstonearsenal;" + "after:thermaldynamics;";
+	public static final String DEPENDENCIES = "required-after:redstoneflux@[2.0.1,);" + "after:thermalexpansion;" + "after:redstonearsenal;" + "after:thermaldynamics;";
 	public static final String GUI_FACTORY = "tonius.simplyjetpacks.config.ConfigGuiFactory";
 	public static final String UPDATE_JSON = "https://raw.githubusercontent.com/Tomson124/SimplyJetpacks-2/1.12/update/update.json";
 

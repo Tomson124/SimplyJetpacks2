@@ -46,14 +46,15 @@ dependencies {
     // compile against the JEI API
     //deobfCompile "mezz.jei:jei_1.10.2:3.14.7.420:api"
     // at runtime, use the full JEI jar
-    //runtime "mezz.jei:jei_1.10.2:3.14.7.420"
+    runtime "mezz.jei:jei_1.12.2:4.9.+"
     //deobfCompile "cofh:RedstoneFlux:1.12-2.0.1.2:universal"
-    compile "codechicken:CodeChickenLib:1.12.2-3.1.7.+:deobf"
-    compile "cofh:CoFHCore:1.12.2-4.4.+:deobf"
-    compile "cofh:ThermalFoundation:1.12.2-2.4.+:deobf"
-    compile "cofh:ThermalDynamics:1.12.2-2.4.+:deobf"
-    compile "cofh:ThermalExpansion:1.12.2-5.4.+:deobf"
-    compile "cofh:RedstoneArsenal:1.12.2-2.4.+:deobf"
+//    compile "codechicken:CodeChickenLib:1.12.2-3.1.7.+:deobf"
+//    compile "cofh:CoFHCore:1.12.2-4.4.+:deobf"
+//    compile "cofh:ThermalFoundation:1.12.2-2.4.+:deobf"
+    runtime "cofh:ThermalDynamics:1.12.2-2.4.+:universal"
+    runtime "cofh:ThermalExpansion:1.12.2-5.4.+:universal"
+    runtime "cofh:RedstoneArsenal:1.12.2-2.4.+:universal"
+    compile "cofh:RedstoneFlux:1.12-2.0.1.+:deobf"
 }
 
 minecraft {
