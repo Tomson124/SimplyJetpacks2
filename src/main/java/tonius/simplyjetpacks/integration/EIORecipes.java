@@ -21,34 +21,34 @@ public abstract class EIORecipes
 				toSend.append("<alloying energy=\"" + energy + "\"" + " exp=\"1\">");
 				{
 					if (primaryInput != null) {
-						toSend.append("<input>");
+						toSend.append("<input ");
 						{
 							appendItemStack(toSend, primaryInput);
 						}
-						toSend.append("</input>");
+						toSend.append(" />");
 					}
 
 					if (secondaryInput != null) {
-						toSend.append("<input>");
+						toSend.append("<input ");
 						{
 							appendItemStack(toSend, secondaryInput);
 						}
-						toSend.append("</input>");
+						toSend.append(" />");
 					}
 
 					if (tertiaryInput != null) {
-						toSend.append("<input>");
+						toSend.append("<input ");
 						{
 							appendItemStack(toSend, tertiaryInput);
 						}
-						toSend.append("</input>");
+						toSend.append(" />");
 					}
 
-					toSend.append("<output>");
+					toSend.append("<output ");
 					{
 						appendItemStack(toSend, output);
 					}
-					toSend.append("</output>");
+					toSend.append(" />");
 				}
 				toSend.append("</alloying>");
 			}
@@ -65,7 +65,7 @@ public abstract class EIORecipes
 	{
 		if(stack != null)
 		{
-			sb.append(" name=\"" + stack.getItem().getRegistryName() + "\" amount=\"" + stack.getCount() + "\"");
+			sb.append(" name=\"" + stack.getItem().getRegistryName() + ":" + stack.getItemDamage() + "\" amount=\"" + stack.getCount() + "\"");
 		}
 	}
 
