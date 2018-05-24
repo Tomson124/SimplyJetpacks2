@@ -82,7 +82,7 @@ public abstract class EIORecipes
 		writeItemStack(toSend, "inputStack", input);
 		writeItemStack(toSend, "outputStack", output);
 
-		FMLInterModComms.sendMessage("EnderIO", "recipe:soulbinder", toSend);
+		FMLInterModComms.sendMessage("enderio", "recipe:soulbinder", toSend);
 	}
 
 	private static void writeItemStack(NBTTagCompound nbt, String tagName, ItemStack stack)

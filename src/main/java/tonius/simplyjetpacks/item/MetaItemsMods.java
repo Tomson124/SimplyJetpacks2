@@ -11,9 +11,9 @@ public enum MetaItemsMods {
 
 	//EnderIO
 	INGOT_DARK_SOULARIUM("ingot_dark_soularium", null, EnumRarity.UNCOMMON, true),
-	REINFORCED_GLIDERWINGS("reinforced_Gliderwing", null, EnumRarity.UNCOMMON),
-	UNIT_FLIGHT_CONTROL_EMPTY("unit_Flight_Control_Empty", null, EnumRarity.COMMON),
-	UNIT_FLIGHT_CONTROL("unit_Flight_Control", null, EnumRarity.UNCOMMON),
+	REINFORCED_GLIDERWINGS("reinforced_gliderwing", null, EnumRarity.UNCOMMON),
+	UNIT_FLIGHT_CONTROL_EMPTY("unit_flight_control_empty", null, EnumRarity.COMMON),
+	UNIT_FLIGHT_CONTROL("unit_flight_control", null, EnumRarity.UNCOMMON),
 	THRUSTER_EIO_1("thruster_EIO1", null, EnumRarity.COMMON),
 	THRUSTER_EIO_2("thruster_EIO2", null, EnumRarity.COMMON),
 	THRUSTER_EIO_3("thruster_EIO3", null, EnumRarity.UNCOMMON),
