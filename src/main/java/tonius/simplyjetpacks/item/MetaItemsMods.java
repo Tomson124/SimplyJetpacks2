@@ -10,7 +10,7 @@ import java.util.EnumSet;
 public enum MetaItemsMods {
 
 	//EnderIO
-	INGOT_DARK_SOULARIUM("ingot_Dark_Doularium", null, EnumRarity.UNCOMMON, true),
+	INGOT_DARK_SOULARIUM("ingot_dark_soularium", null, EnumRarity.UNCOMMON, true),
 	REINFORCED_GLIDERWINGS("reinforced_Gliderwing", null, EnumRarity.UNCOMMON),
 	UNIT_FLIGHT_CONTROL_EMPTY("unit_Flight_Control_Empty", null, EnumRarity.COMMON),
 	UNIT_FLIGHT_CONTROL("unit_Flight_Control", null, EnumRarity.UNCOMMON),

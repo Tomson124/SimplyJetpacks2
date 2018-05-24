@@ -14,38 +14,58 @@ public abstract class EIORecipes
 
 		StringBuilder toSend = new StringBuilder();
 
-		toSend.append("<recipeGroup name=\"" + SimplyJetpacks.MODID + "\">");
+		toSend.append("<enderio:recipes xmlns:enderio=\"http://enderio.com/recipes\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://enderio.com/recipes recipes.xsd \">");
 		{
-			toSend.append("<recipe name=\"" + name + "\" energyCost=\"" + energy + "\">");
+			toSend.append("<recipe name=\"" + name + "\">");
 			{
-				toSend.append("<input>");
+				toSend.append("<alloying energy=\"" + energy + "\"" + " exp=\"1\">");
 				{
-					appendItemStack(toSend, primaryInput);
-					appendItemStack(toSend, secondaryInput);
-					appendItemStack(toSend, tertiaryInput);
-				}
-				toSend.append("</input>");
+					if (primaryInput != null) {
+						toSend.append("<input>");
+						{
+							appendItemStack(toSend, primaryInput);
+						}
+						toSend.append("</input>");
+					}
 
-				toSend.append("<output>");
-				{
-					appendItemStack(toSend, output);
+					if (secondaryInput != null) {
+						toSend.append("<input>");
+						{
+							appendItemStack(toSend, secondaryInput);
+						}
+						toSend.append("</input>");
+					}
+
+					if (tertiaryInput != null) {
+						toSend.append("<input>");
+						{
+							appendItemStack(toSend, tertiaryInput);
+						}
+						toSend.append("</input>");
+					}
+
+					toSend.append("<output>");
+					{
+						appendItemStack(toSend, output);
+					}
+					toSend.append("</output>");
 				}
-				toSend.append("</output>");
+				toSend.append("</alloying>");
 			}
 			toSend.append("</recipe>");
 		}
-		toSend.append("</recipeGroup>");
+		toSend.append("</enderio:recipes>");
 
-		FMLInterModComms.sendMessage("EnderIO", "recipe:alloysmelter", toSend.toString());
+		System.out.println(toSend.toString());
+		System.out.println("F25");
+		FMLInterModComms.sendMessage("enderio", "recipe:xml", toSend.toString());
 	}
 
 	private static void appendItemStack(StringBuilder sb, ItemStack stack)
 	{
 		if(stack != null)
 		{
-			String itemName1 = Item.REGISTRY.getNameForObject(stack.getItem()).getResourceDomain();
-			String itemName2 = Item.REGISTRY.getNameForObject(stack.getItem()).getResourcePath();
-			sb.append("<itemStack modID=\"" + itemName1 + "\" itemName=\"" + itemName2 + "\" itemMeta=\"" + stack.getItemDamage() + "\" number=\"" + stack.getCount() + "\" />");
+			sb.append(" name=\"" + stack.getItem().getRegistryName() + "\" amount=\"" + stack.getCount() + "\"");
 		}
 	}
 

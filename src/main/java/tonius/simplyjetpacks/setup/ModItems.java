@@ -8,6 +8,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
+import org.lwjgl.Sys;
 import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
@@ -122,10 +123,11 @@ public abstract class ModItems {
 
 	public static void preInit() {
 		registerItems();
-		registerOreDicts();
+
 	}
 
 	public static void init() {
+		registerOreDicts();
 		doIMC();
 	}
 
@@ -158,6 +160,12 @@ public abstract class ModItems {
 
 		}
 		if (integrateEIO) {
+			if(MetaItemsMods.INGOT_DARK_SOULARIUM.getName() == null){
+				System.out.println("F87");
+			}
+			if(ingotDarkSoularium == null){
+				System.out.println("F89");
+			}
 			OreDictionary.registerOre(MetaItemsMods.INGOT_DARK_SOULARIUM.getName(), ingotDarkSoularium);
 		}
 	}
@@ -189,7 +197,7 @@ public abstract class ModItems {
 	}
 
 	public static void gatherIngredients(){
-
+		System.out.println("F75");
 		if (integrateEIO) {
 			ingotDarkSoularium = MetaItemsMods.INGOT_DARK_SOULARIUM.getStackMetaItem();
 			unitFlightControlEmpty = MetaItemsMods.UNIT_FLIGHT_CONTROL_EMPTY.getStackMetaItem();
