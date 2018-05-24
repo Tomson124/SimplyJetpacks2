@@ -55,9 +55,7 @@ public abstract class EIORecipes
 			toSend.append("</recipe>");
 		}
 		toSend.append("</enderio:recipes>");
-
-		System.out.println(toSend.toString());
-		System.out.println("F25");
+		
 		FMLInterModComms.sendMessage("enderio", "recipe:xml", toSend.toString());
 	}
 
