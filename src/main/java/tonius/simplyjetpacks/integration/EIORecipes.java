@@ -55,7 +55,7 @@ public abstract class EIORecipes
 			toSend.append("</recipe>");
 		}
 		toSend.append("</enderio:recipes>");
-		
+
 		FMLInterModComms.sendMessage("enderio", "recipe:xml", toSend.toString());
 	}
 
@@ -63,7 +63,7 @@ public abstract class EIORecipes
 	{
 		if(stack != null)
 		{
-			sb.append(" name=\"" + stack.getItem().getRegistryName() + ":" + stack.getItemDamage() + "\" amount=\"" + stack.getCount() + "\"");
+			sb.append(" name=\"item:" + stack.getItem().getRegistryName() + ":" + stack.getItemDamage() + "\" amount=\"" + stack.getCount() + "\"");
 		}
 	}
 
