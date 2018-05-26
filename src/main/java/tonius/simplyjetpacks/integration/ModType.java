@@ -5,7 +5,7 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 
 public enum ModType {
 	SIMPLY_JETPACKS(SimplyJetpacks.MODID),
-	ENDER_IO("EnderIO"),
+	ENDER_IO("enderio"),
 	THERMAL_EXPANSION("thermalexpansion"),
 	REDSTONE_ARSENAL("redstonearsenal"),
 	THERMAL_DYNAMICS("thermaldynamics");

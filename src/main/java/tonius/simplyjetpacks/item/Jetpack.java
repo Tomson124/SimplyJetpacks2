@@ -1,9 +1,12 @@
 package tonius.simplyjetpacks.item;
 
+import net.minecraftforge.fml.common.Loader;
 import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.client.model.PackModelType;
+import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.config.PackDefaults;
 import tonius.simplyjetpacks.handler.SyncHandler;
+import tonius.simplyjetpacks.integration.ModType;
 import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.NBTHelper;
@@ -248,6 +251,7 @@ public enum Jetpack implements IStringSerializable {
 	}
 
 	protected void loadConfig(Configuration config) {
+
 		if (this.defaults.fuelCapacity != null) {
 			this.fuelCapacity = config.get(this.defaults.section.name, "Fuel Capacity", this.defaults.fuelCapacity, "The maximum amount of fuel that this pack can hold.").setMinValue(1).getInt(this.defaults.fuelCapacity);
 		}
