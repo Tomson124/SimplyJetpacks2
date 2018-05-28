@@ -45,6 +45,7 @@ public enum Jetpack implements IStringSerializable {
 	JETPACK_TE_3_ARMORED("jetpack_TE3_Armored", 3, "jetpackTE3", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_TE_3.ordinal()),
 	JETPACK_TE_4_ARMORED("jetpack_TE4_Armored", 4, "jetpackTE4", EnumRarity.RARE, true, MetaItemsMods.ARMOR_PLATING_TE_4.ordinal()),
 	JETPLATE_TE_5("jetpack_TE5", 5, "jetpackTE5", EnumRarity.EPIC, true),
+	JETPLATE_TE_5_ENDERIUM("jetpack_TE5_enderium", 5, "jetpackTE5enderium", EnumRarity.EPIC, true),
 	
 	JETPACK_VANILLA_1("jetpack_Vanilla1", 1, "jetpackVanilla1", EnumRarity.COMMON),
 	JETPACK_VANILLA_2("jetpack_Vanilla2", 2, "jetpackVanilla2", EnumRarity.UNCOMMON),
@@ -56,6 +57,7 @@ public enum Jetpack implements IStringSerializable {
 	public static final EnumSet<Jetpack> PACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPLATE_EIO_5);
 	public static final EnumSet<Jetpack> PACKS_TE = EnumSet.range(JETPACK_TE_1, JETPLATE_TE_5);
 	public static final EnumSet<Jetpack> PACKS_TE_ARMORED = EnumSet.range(JETPACK_TE_1_ARMORED, JETPACK_TE_4_ARMORED);
+	public static final EnumSet<Jetpack> PACKS_RR = EnumSet.of(JETPLATE_TE_5_ENDERIUM);
 	public static final EnumSet<Jetpack> PACKS_VANILLA = EnumSet.range(JETPACK_VANILLA_1, JETPACK_VANILLA_3);
 
 	protected static final String TAG_PARTICLE = "JetpackParticleType";
@@ -245,6 +247,11 @@ public enum Jetpack implements IStringSerializable {
 		}
 		if (ModItems.integrateVanilla){
 			for (Jetpack pack : PACKS_VANILLA) {
+				pack.loadConfig(config);
+			}
+		}
+		if (ModItems.integrateRR){
+			for (Jetpack pack : PACKS_RR) {
 				pack.loadConfig(config);
 			}
 		}

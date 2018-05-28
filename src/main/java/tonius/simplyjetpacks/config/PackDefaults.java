@@ -266,6 +266,25 @@ public class PackDefaults
 			d.sprintFuelModifier = 6.0D;
 			d.emergencyHoverMode = true;
 
+			if(ModType.REDSTONE_REPOSITORY.loaded){
+				d = new PackDefaults("jetpackTE5enderium", "Flux-Infused JetPlate (Enderium Armored) (TE/RR 5)");
+				d.fuelCapacity = 50000000;
+				d.fuelUsage = 850;
+				d.fuelPerTickIn = 30000;
+				d.fuelPerTickOut = 30000;
+				d.armorReduction = 8;
+				d.armorFuelPerHit = 4500;
+				d.enchantability = 20;
+				d.speedVertical = 0.9D;
+				d.accelVertical = 0.15D;
+				d.speedVerticalHover = 0.45D;
+				d.speedVerticalHoverSlow = 0.0D;
+				d.speedSideways = 0.21D;
+				d.sprintSpeedModifier = 2.4D;
+				d.sprintFuelModifier = 6.0D;
+				d.emergencyHoverMode = true;
+			}
+
 			d = new PackDefaults("fluxPackTE1", "Basic Flux Pack (TE 1)");
 			d.fuelCapacity = 1500000;
 			d.fuelPerTickIn = 800;

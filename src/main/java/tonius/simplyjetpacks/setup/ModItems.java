@@ -8,7 +8,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
-import org.lwjgl.Sys;
 import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
@@ -105,6 +104,9 @@ public abstract class ModItems {
 	public static ItemStack jetpackTE4Armored;
 	public static ItemStack jetpackTE5;
 
+	//RR
+	public static ItemStack jetpackTE5Enderium;
+
 	public static ItemStack fluxPackTE1;
 	public static ItemStack fluxPackTE2;
 	public static ItemStack fluxPackTE3;
@@ -119,6 +121,7 @@ public abstract class ModItems {
 	public static boolean integrateTE = ModType.THERMAL_EXPANSION.loaded && Config.enableIntegrationTE;
 	public static boolean integrateTD = ModType.THERMAL_DYNAMICS.loaded && Config.enableIntegrationTD;
 	public static boolean integrateRA = ModType.REDSTONE_ARSENAL.loaded && Config.enableIntegrationRA;
+	public static boolean integrateRR = ModType.REDSTONE_REPOSITORY.loaded && Config.enableIntegrationRR;
 	public static boolean integrateVanilla = Config.enableIntegrationVanilla;
 
 	public static void preInit() {
@@ -226,7 +229,7 @@ public abstract class ModItems {
 		}
 
 		if (integrateTE) {
-				TEItems.init();
+			TEItems.init();
 			thrusterTE1 = MetaItemsMods.THRUSTER_TE_1.getStackMetaItem();
 			thrusterTE2 = MetaItemsMods.THRUSTER_TE_2.getStackMetaItem();
 			thrusterTE3 = MetaItemsMods.THRUSTER_TE_3.getStackMetaItem();
@@ -262,11 +265,16 @@ public abstract class ModItems {
 			jetpackTE3Armored = Jetpack.JETPACK_TE_3_ARMORED.getStackJetpack();
 			jetpackTE4Armored = Jetpack.JETPACK_TE_4_ARMORED.getStackJetpack();
 
+			if(integrateRR){
+				jetpackTE5Enderium = Jetpack.JETPLATE_TE_5_ENDERIUM.getStackJetpack();
+			}
+
 			fluxPackTE1 = Fluxpack.FLUXPACK_TE1.getStackFluxpack();
 			fluxPackTE2 = Fluxpack.FLUXPACK_TE2.getStackFluxpack();
 			fluxPackTE3 = Fluxpack.FLUXPACK_TE3.getStackFluxpack();
 			fluxPackTE2Armored = Fluxpack.FLUXPACK_TE2_ARMORED.getStackFluxpack();
 			fluxPackTE3Armored = Fluxpack.FLUXPACK_TE3_ARMORED.getStackFluxpack();
+
 		}
 
 		if (integrateVanilla) {
@@ -356,6 +364,7 @@ public abstract class ModItems {
 				RecipeHandler.addOreDictRecipe(unitGlowstoneEmpty, "FLF", "LHL", "FLF", 'L', "ingotLumium", 'F', "ingotElectrumFlux", 'H', TEItems.signalumGlass);
 			}
 
+
 			RecipeHandler.addOreDictRecipe(armorPlatingTE1, "TIT", "III", "TIT", 'I', "ingotIron", 'T', "ingotTin");
 
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackTE1, "IBI", "IJI", "T T", 'I', "ingotLead", 'B', TEItems.capacitorBasic, 'T', thrusterTE1, 'J', leatherStrap));
@@ -374,6 +383,10 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE3, " C ", "ISI", "LOL", 'I', "ingotEnderium", 'L', "ingotLead", 'C', TEItems.cellResonant, 'S', fluxPackTE2, 'O', TEItems.powerCoilElectrum));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxPackTE2Armored, fluxPackTE2, armorPlatingTE2));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxPackTE3Armored, fluxPackTE3, armorPlatingTE4));
+
+			if(integrateRR){
+				ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackTE5Enderium, "AAA", "AJA", "AAA", 'A', "ingotGelidEnderium", 'J', jetpackTE5));
+			}
 
 			RecipeHelper.addArmoredReverseRecipe(Jetpack.PACKS_TE, Jetpack.PACKS_TE_ARMORED, Fluxpack.TE_FLUXPACKS, Fluxpack.TE_FLUXPACKS_ARMORED);
 
@@ -439,5 +452,6 @@ public abstract class ModItems {
 				TERecipes.addTransposerFill(6400, unitCryotheumEmpty, unitCryotheum, new FluidStack(FluidRegistry.getFluid("cryotheum"), 4000), false);
 			}
 		}
+
 	}
 }
