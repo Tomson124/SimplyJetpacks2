@@ -91,6 +91,7 @@ public class SyncHandler
 	{
 		flyKeyState.clear();
 		forwardKeyState.clear();
+		descendKeyState.clear();
 		backwardKeyState.clear();
 		leftKeyState.clear();
 		rightKeyState.clear();
@@ -100,6 +101,7 @@ public class SyncHandler
 	{
 		flyKeyState.remove(player);
 		forwardKeyState.remove(player);
+		descendKeyState.remove(player);
 		backwardKeyState.remove(player);
 		leftKeyState.remove(player);
 		rightKeyState.remove(player);
