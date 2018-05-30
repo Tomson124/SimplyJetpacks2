@@ -272,7 +272,7 @@ public class PackDefaults
 				d.fuelUsage = 850;
 				d.fuelPerTickIn = 30000;
 				d.fuelPerTickOut = 30000;
-				d.armorReduction = 8;
+				d.armorReduction = 12;
 				d.armorFuelPerHit = 4500;
 				d.enchantability = 20;
 				d.speedVertical = 0.9D;

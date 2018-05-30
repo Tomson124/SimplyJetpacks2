@@ -576,7 +576,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	}
 
     @Optional.Method(modid = "redstonerepository")
-	public boolean isArmorEnderium(ItemStack stack){
+	public boolean isEnderiumArmor(ItemStack stack){
 	    return MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1) == 19;
     }
 }
