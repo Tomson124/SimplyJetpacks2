@@ -16,6 +16,8 @@ public abstract class Defaults
 	public static final boolean enableIntegrationTD = ModType.THERMAL_DYNAMICS.loaded;
 	public static boolean enableIntegrationRA = ModType.REDSTONE_ARSENAL.loaded;
 	public static final boolean enableIntegrationVanilla = false;
+	public static final boolean enableIntegrationRR = ModType.REDSTONE_REPOSITORY.loaded;
+	public static final int gelidEnderiumFuelUsageBonus = 80;
 
 	// controls
 	public static final boolean customControls = false;

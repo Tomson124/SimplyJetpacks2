@@ -41,6 +41,8 @@ public class Config
 	public static boolean enableIntegrationTD = Defaults.enableIntegrationTD;
 	public static boolean enableIntegrationRA = Defaults.enableIntegrationRA;
 	public static boolean enableIntegrationVanilla = Defaults.enableIntegrationVanilla;
+	public static boolean enableIntegrationRR = Defaults.enableIntegrationRR;
+	public static int gelidEnderiumFuelUsageBonus = Defaults.gelidEnderiumFuelUsageBonus;
 
 	// controls
 	public static boolean customControls = Defaults.customControls;
@@ -89,6 +91,8 @@ public class Config
 		enableIntegrationTE = config.get(sectionIntegration.name, "ThermalDynamics integration", Defaults.enableIntegrationTD, "When enabled, Simply Jetpacks will register ThermalDynamic items for thruster recipes.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationTD);
 		enableIntegrationRA = config.get(sectionIntegration.name, "RedstoneArsenal integration", Defaults.enableIntegrationRA, "When enabled, Simply Jetpacks will register its RedstoneArsenal tier5 jetpack recipes.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationRA);
 		enableIntegrationVanilla = config.get(sectionIntegration.name, "Vanilla integration", Defaults.enableIntegrationVanilla, "When enabled, Simply Jetpacks will register its Vanilla-based jetpacks.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationVanilla);
+		enableIntegrationRR = config.get(sectionIntegration.name, "Redstone Repository integration", Defaults.enableIntegrationRA, "When enabled, Simply Jetpacks will register its RedstoneRepository tier5 jetplate recipes.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationRR);
+		gelidEnderiumFuelUsageBonus = config.get(sectionIntegration.name, "RedstoneRepository Fuel Efficiency Bonus", Defaults.gelidEnderiumFuelUsageBonus, "When set to a value between 0-100, changes the fuel efficiency bonus of the Enderium Armored Jetplate (Ex: 80 uses fuel at 80% rate").setMinValue(0).setMaxValue(100).setRequiresMcRestart(true).getInt(Defaults.gelidEnderiumFuelUsageBonus);
 
 		customControls = configClient.get(sectionControls.name, "Custom controls", Defaults.customControls, "When enabled, the key codes specified here will be used for the fly and descend keys. Otherwise, the vanilla jump and sneak keys will be used.").getBoolean(Defaults.customControls);
 		flyKey = configClient.get(sectionControls.name, "Custom Fly key", Defaults.flyKey, "The name of the Fly key when custom controls are enabled.").getString();

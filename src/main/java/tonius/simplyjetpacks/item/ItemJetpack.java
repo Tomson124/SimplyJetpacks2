@@ -1,6 +1,8 @@
 package tonius.simplyjetpacks.item;
 
 import cofh.redstoneflux.api.IEnergyContainerItem;
+import net.minecraftforge.fml.common.Optional;
+import thundr.redstonerepository.api.IArmorEnderium;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.util.ITooltipFlag;
@@ -49,7 +51,8 @@ import java.util.UUID;
 
 import static tonius.simplyjetpacks.handler.LivingTickHandler.floatingTickCount;
 
-public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider {
+@Optional.Interface(iface = "thundr.redstonerepository.api.IArmorEnderium", modid = "redstonerepository")
+public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider, IArmorEnderium{
 
 	public static final String TAG_ENERGY = "Energy";
 	public static final String TAG_ON = "PackOn";
@@ -94,6 +97,11 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			}
 			if (ModItems.integrateTE) {
 				for (Jetpack pack : Jetpack.PACKS_TE) {
+					ItemHelper.addJetpacks(pack, List);
+				}
+			}
+			if (ModItems.integrateRR) {
+				for (Jetpack pack : Jetpack.PACKS_RR) {
 					ItemHelper.addJetpacks(pack, List);
 				}
 			}
@@ -208,6 +216,9 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		list.add(SJStringHelper.getStateText(this.isOn(stack)));
 		list.add(SJStringHelper.getHoverModeText(this.isHoverModeOn(stack)));
 		if (Jetpack.values()[i].getFuelUsage() > 0) {
+			if(Jetpack.values()[i].getBaseName().contains("enderium")){
+				list.add(TextFormatting.BLUE + "Supercooled! Fuel Usage Rate " + Config.gelidEnderiumFuelUsageBonus + "%");
+			}
 			list.add(SJStringHelper.getFuelUsageText(this.fuelType, Jetpack.values()[i].getFuelUsage()));
 		}
 		list.add(SJStringHelper.getParticlesText(Jetpack.values()[i].getParticleType(stack)));
@@ -229,8 +240,16 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 
 	protected int getFuelUsage(ItemStack stack) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
+		int usage = Jetpack.values()[i].getFuelUsage();
+
 		//if(ModEnchantments.fuelEffeciency == null) {
-		return Jetpack.values()[i].getFuelUsage();
+		//gelid enderium gives 80 percent fuel usage (default) supercooled bonus
+		if(Jetpack.values()[i].getBaseName().contains("enderium")){
+			return (int)Math.round(usage*.8);
+		}
+		else {
+			return usage;
+		}
 		//}
 
 		//int fuelEfficiencyLevel = tonius.simplyjetpacks.util.math.MathHelper.clampI(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
@@ -555,4 +574,9 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			SimplyJetpacks.proxy.registerItemRenderer(this, i, Jetpack.getTypeFromMeta(i).getBaseName());
 		}
 	}
+
+    @Optional.Method(modid = "redstonerepository")
+	public boolean isEnderiumArmor(ItemStack stack){
+	    return MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1) == 19;
+    }
 }

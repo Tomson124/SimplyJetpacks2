@@ -8,7 +8,8 @@ public enum ModType {
 	ENDER_IO("enderio"),
 	THERMAL_EXPANSION("thermalexpansion"),
 	REDSTONE_ARSENAL("redstonearsenal"),
-	THERMAL_DYNAMICS("thermaldynamics");
+	THERMAL_DYNAMICS("thermaldynamics"),
+	REDSTONE_REPOSITORY("redstonerepository");
 
 	public final String[] modids;
 	public final boolean loaded;
