@@ -282,9 +282,9 @@ public abstract class ModItems {
 			jetpackVanilla2 = Jetpack.JETPACK_VANILLA_2.getStackJetpack();
 			jetpackVanilla3 = Jetpack.JETPACK_VANILLA_3.getStackJetpack();
 
-			//thrusterVanilla1 = MetaItems.THRUSTER_VANILLA_1.getStackMetaItem();
-			//thrusterVanilla2 = MetaItems.THRUSTER_VANILLA_2.getStackMetaItem();
-			//thrusterVanilla3 = MetaItems.THRUSTER_VANILLA_3.getStackMetaItem();
+			thrusterVanilla1 = MetaItemsMods.THRUSTER_VANILLA_1.getStackMetaItem();
+			thrusterVanilla2 = MetaItemsMods.THRUSTER_VANILLA_2.getStackMetaItem();
+			thrusterVanilla3 = MetaItemsMods.THRUSTER_VANILLA_3.getStackMetaItem();
 		}
 	}
 

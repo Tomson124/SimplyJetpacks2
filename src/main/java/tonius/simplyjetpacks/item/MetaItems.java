@@ -14,10 +14,6 @@ public enum MetaItems {
 	PARTICLE_SMOKE("particle_Smoke", "particleCustomizers", EnumRarity.COMMON),
 	PARTICLE_RAINBOWSMOKE("particle_Rainbow_Smoke", "particleCustomizers", EnumRarity.COMMON),
 
-	//THRUSTER_VANILLA_1("thruster_Vanilla1", null, EnumRarity.COMMON),
-	//THRUSTER_VANILLA_2("thruster_Vanilla2", null, EnumRarity.UNCOMMON),
-	//THRUSTER_VANILLA_3("thruster_Vanilla3", null, EnumRarity.RARE),
-
 	LEATHER_STRAP("leather_Strap", null, EnumRarity.COMMON);
 
 	private String name;
