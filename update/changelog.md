@@ -1,3 +1,11 @@
+# 2.2.6  -  30-05-2018
+* **General**
+    * ThermalExpansion not a dependency anymore. Huge thank you to @thundR
+
+* **Added**
+    * Support for EnderIO. @thundR
+    * Support for Redstone Repository. Thanks to @thundR
+
 # 2.2.5  -  23-05-2018
 * **General**
     * Cleanup and rewrite of mod integrations. Huge thank you to @thundR
