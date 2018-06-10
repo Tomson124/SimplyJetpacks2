@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "simplyjetpacks:items/ingotDarkSoularium"
+    "layer0": "simplyjetpacks:items/ingot_dark_soularium"
   }
 }
