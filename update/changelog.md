@@ -1,3 +1,7 @@
+# 2.2.7  -  10-06-2018
+* **Fixed**
+    * Missing textures for EnderIO integration
+
 # 2.2.6  -  30-05-2018
 * **General**
     * ThermalExpansion not a dependency anymore. Huge thank you to @thundR
