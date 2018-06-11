@@ -9,6 +9,11 @@ import java.util.EnumSet;
 
 public enum MetaItemsMods {
 
+	//the 'vanilla' mod (here for modular item registration)
+	THRUSTER_VANILLA_1("thruster_Vanilla1", null, EnumRarity.COMMON),
+	THRUSTER_VANILLA_2("thruster_Vanilla2", null, EnumRarity.UNCOMMON),
+	THRUSTER_VANILLA_3("thruster_Vanilla3", null, EnumRarity.RARE),
+
 	//EnderIO
 	INGOT_DARK_SOULARIUM("ingot_dark_soularium", null, EnumRarity.UNCOMMON, true),
 	REINFORCED_GLIDERWINGS("reinforced_gliderwing", null, EnumRarity.UNCOMMON),
@@ -48,6 +53,7 @@ public enum MetaItemsMods {
 	private EnumRarity rarity;
 	private boolean glow;
 
+	public static final EnumSet<MetaItemsMods> ITEMS_VANILLA = EnumSet.range(THRUSTER_VANILLA_1, THRUSTER_VANILLA_3);
 	public static final EnumSet<MetaItemsMods> ITEMS_EIO = EnumSet.range(INGOT_DARK_SOULARIUM, ARMOR_PLATING_EIO_4);
 	public static final EnumSet<MetaItemsMods> ITEMS_TE = EnumSet.range(PLATE_FLUX, THRUSTER_TE_5);
 	public static final EnumSet<MetaItemsMods> ITEMS_TE_RA = EnumSet.range(UNIT_GLOWSTONE_EMTPY, THRUSTER_TE_5);

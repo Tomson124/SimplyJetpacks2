@@ -71,6 +71,13 @@ public class ItemMetaMods extends ItemMeta {
 	@SuppressWarnings("unchecked")
 	public void getSubItems(CreativeTabs creativeTabs, NonNullList list) {
 		if (isInCreativeTab(creativeTabs)) {
+			if (ModItems.integrateVanilla){
+				for (MetaItemsMods item : MetaItemsMods.ITEMS_VANILLA) {
+					ItemStack stack;
+					stack = new ItemStack(this, 1, item.ordinal());
+					list.add(stack);
+				}
+			}
 			if (ModItems.integrateEIO) {
 				for (MetaItemsMods item : MetaItemsMods.ITEMS_EIO) {
 					ItemStack stack;
