@@ -1,3 +1,7 @@
+# 2.2.8  -  12-06-2018
+* **General**
+    * Changed HUD implementation
+
 # 2.2.7  -  10-06-2018
 * **Fixed**
     * Missing textures for EnderIO integration

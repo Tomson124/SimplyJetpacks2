@@ -24,6 +24,7 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -179,12 +180,12 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	// HUD info
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addHUDInfo(List<String> list, ItemStack stack, boolean showFuel, boolean showState) {
+	public void addHUDInfo(RenderGameOverlayEvent.Text event, ItemStack stack, boolean showFuel, boolean showState) {
 		if (showFuel && this.hasFuelIndicator) {
-			list.add(this.getHUDFuelInfo(stack, this));
+			event.getLeft().add(this.getHUDFuelInfo(stack, this));
 		}
 		if (showState && this.hasStateIndicators) {
-			list.add(this.getHUDStatesInfo(stack));
+			event.getLeft().add(this.getHUDStatesInfo(stack));
 		}
 	}
 

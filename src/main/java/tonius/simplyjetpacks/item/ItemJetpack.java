@@ -1,6 +1,7 @@
 package tonius.simplyjetpacks.item;
 
 import cofh.redstoneflux.api.IEnergyContainerItem;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.Optional;
 import thundr.redstonerepository.api.IArmorEnderium;
 import com.google.common.collect.Multimap;
@@ -305,12 +306,12 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	// HUD info
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addHUDInfo(List<String> list, ItemStack stack, boolean showFuel, boolean showState) {
+	public void addHUDInfo(RenderGameOverlayEvent.Text event, ItemStack stack, boolean showFuel, boolean showState) {
 		if (showFuel && this.hasFuelIndicator) {
-			list.add(this.getHUDFuelInfo(stack, this));
+			event.getLeft().add(this.getHUDFuelInfo(stack, this));
 		}
 		if (showState && this.hasStateIndicators) {
-			list.add(this.getHUDStatesInfo(stack));
+			event.getLeft().add(this.getHUDStatesInfo(stack));
 		}
 	}
 
