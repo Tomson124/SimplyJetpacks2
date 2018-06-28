@@ -54,7 +54,7 @@ dependencies {
     runtime "cofh:ThermalDynamics:1.12.2-2.5.+:universal"
     runtime "cofh:ThermalExpansion:1.12.2-5.5.+:universal"
     runtime "cofh:RedstoneArsenal:1.12.2-2.5.+:universal"
-    //compile "cofh:RedstoneFlux:1.12-2.0.2.+:deobf"
+    compile "cofh:RedstoneFlux:1.12-2.0.2.+:deobf"
 }
 
 minecraft {

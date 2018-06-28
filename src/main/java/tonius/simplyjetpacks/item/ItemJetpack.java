@@ -1,8 +1,11 @@
 package tonius.simplyjetpacks.item;
 
+import cofh.core.item.IEnchantableItem;
 import cofh.redstoneflux.api.IEnergyContainerItem;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.Optional;
+import org.lwjgl.Sys;
 import thundr.redstonerepository.api.IArmorEnderium;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.model.ModelBiped;
@@ -35,6 +38,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.capability.CapabilityProviderEnergy;
 import tonius.simplyjetpacks.capability.EnergyConversionStorage;
@@ -53,7 +57,7 @@ import java.util.UUID;
 import static tonius.simplyjetpacks.handler.LivingTickHandler.floatingTickCount;
 
 @Optional.Interface(iface = "thundr.redstonerepository.api.IArmorEnderium", modid = "redstonerepository")
-public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider, IArmorEnderium{
+public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider, IArmorEnderium, IEnchantableItem {
 
 	public static final String TAG_ENERGY = "Energy";
 	public static final String TAG_ON = "PackOn";
@@ -206,7 +210,8 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		if (this.showTier) {
 			list.add(SJStringHelper.getTierText(Jetpack.values()[i].getTier()));
 		}
-		list.add(SJStringHelper.getFuelText(this.fuelType, item.getFuelStored(stack), Jetpack.values()[i].getFuelCapacity(), !Jetpack.values()[i].usesFuel));
+
+		list.add(SJStringHelper.getFuelText(this.fuelType, item.getFuelStored(stack), item.getMaxFuelStored(stack), !Jetpack.values()[i].usesFuel));
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -244,7 +249,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		int usage = Jetpack.values()[i].getFuelUsage();
 
 		//if(ModEnchantments.fuelEffeciency == null) {
-		//gelid enderium gives 80 percent fuel usage (default) supercooled bonus
 		if(Jetpack.values()[i].getBaseName().contains("enderium")){
 			return (int)Math.round(usage*.8);
 		}
@@ -300,6 +304,10 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@Override
 	public int getMaxEnergyStored(ItemStack container) {
 		int i = MathHelper.clamp(container.getItemDamage(), 0, numItems - 1);
+		int id = StackUtil.getEnchantmentIdByName("holding", container);
+		if(id != -1){
+			return Jetpack.values()[i].getFuelCapacity() + Jetpack.values()[i].getFuelCapacity() * StackUtil.getEnchantmentLevel(id, container) / 2;
+		}
 		return Jetpack.values()[i].getFuelCapacity();
 	}
 
@@ -541,7 +549,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		if (this.fuelType == FuelType.ENERGY) {
 			for (int j = 0; j <= 5; j++) {
 				ItemStack currentStack = user.getItemStackFromSlot(EquipmentSlotHelper.fromSlot(j));
-				if (currentStack != null && currentStack != stack && getIEnergyStorage(currentStack) != null) {
+				if (currentStack.isEmpty() && currentStack != stack && getIEnergyStorage(currentStack) != null && !(stack.getItem() instanceof IArmorEnderium)) {
 					if (Jetpack.values()[i].usesFuel) {
 						int energyToAdd = Math.min(item.useFuel(stack, Jetpack.values()[i].getFuelPerTickOut(), true), getIEnergyStorage(currentStack).receiveEnergy(Jetpack.values()[i].getFuelPerTickOut(), true));
 						item.useFuel(stack, energyToAdd, false);
@@ -580,4 +588,8 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public boolean isEnderiumArmor(ItemStack stack){
 	    return MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1) == 19;
     }
+
+	public boolean canEnchant(ItemStack stack, Enchantment enchantment){
+		return enchantment == Enchantment.getEnchantmentByLocation("cofhcore:holding");
+	}
 }
