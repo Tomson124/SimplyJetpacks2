@@ -1,6 +1,15 @@
-# 2.2.8  -  12-06-2018
+# 2.2.8  -  12-07-2018
 * **General**
     * Changed HUD implementation
+    * Updated russian localization - Thanks @YuRaNnNzZZ
+    * Updated chinese localization - Thanks @DYColdWind
+
+* **Added**
+    * Support for TE's Holding entchant
+
+* **Fixed**
+    * Missing textures for vanilla integration
+    * Wooden gear to use ore dict
 
 # 2.2.7  -  10-06-2018
 * **Fixed**
