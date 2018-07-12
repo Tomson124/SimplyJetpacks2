@@ -145,7 +145,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 				state.setStyle(new Style().setColor(TextFormatting.GREEN));
 			}
 			ITextComponent msg = SJStringHelper.localizeNew(type, state);
-			player.sendMessage(msg);
+			player.sendStatusMessage(msg, true);
 		}
 	}
 
@@ -346,7 +346,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		if (user instanceof EntityPlayer) {
 			ITextComponent msg = SJStringHelper.localizeNew("chat.itemJetpack.emergencyHoverMode.msg");
 			msg.setStyle(new Style().setColor(TextFormatting.RED));
-			((EntityPlayer) user).sendMessage(msg);
+			((EntityPlayer) user).sendStatusMessage(msg, true);
 		}
 	}
 

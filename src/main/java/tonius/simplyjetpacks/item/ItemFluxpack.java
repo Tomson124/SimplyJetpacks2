@@ -117,7 +117,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 				state.setStyle(new Style().setColor(TextFormatting.GREEN));
 			}
 			ITextComponent msg = SJStringHelper.localizeNew(type, state);
-			player.sendMessage(msg);
+			player.sendStatusMessage(msg, true);
 		}
 	}
 
