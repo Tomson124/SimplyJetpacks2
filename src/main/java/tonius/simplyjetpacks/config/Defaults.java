@@ -43,5 +43,5 @@ public abstract class Defaults
 	public static final boolean minimalFuelHUD = false;
 	public static final boolean showExactFuelInHUD = false;
 	public static final boolean enableStateHUD = true;
-	public static final boolean enableStateChatMessages = false;
+	public static final boolean enableStateMessages = true;
 }

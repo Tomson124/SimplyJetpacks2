@@ -68,7 +68,7 @@ public class Config
 	public static boolean minimalFuelHUD = Defaults.minimalFuelHUD;
 	public static boolean showExactFuelInHUD = Defaults.showExactFuelInHUD;
 	public static boolean enableStateHUD = Defaults.enableStateHUD;
-	public static boolean enableStateChatMessages = Defaults.enableStateChatMessages;
+	public static boolean enableStateMessages = Defaults.enableStateMessages;
 
 	public static void preInit(FMLPreInitializationEvent evt)
 	{
@@ -114,7 +114,7 @@ public class Config
 		minimalFuelHUD = configClient.get(sectionGui.name, "Minimal Fuel HUD", Defaults.minimalFuelHUD, "When enabled, only the fuel amounts themselves will be rendered on the fuel HUD.").getBoolean(Defaults.minimalFuelHUD);
 		showExactFuelInHUD = configClient.get(sectionGui.name, "Exact fuel amounts in HUD", Defaults.showExactFuelInHUD, "When enabled, the fuel HUD will display the exact amount of RF or mB other than just a percentage.").getBoolean(Defaults.showExactFuelInHUD);
 		enableStateHUD = configClient.get(sectionGui.name, "Enable State HUD", Defaults.enableStateHUD, "When enabled, a HUD that displays the states (engine/mode/etc.) of the currently worn jetpack or flux pack will show.").getBoolean(Defaults.enableStateHUD);
-		enableStateChatMessages = configClient.get(sectionGui.name, "Enable State Chat Messages", Defaults.enableStateChatMessages, "When enabled, switching jetpacks or flux packs on or off will display chat messages.").getBoolean(Defaults.enableStateChatMessages);
+		enableStateMessages = configClient.get(sectionGui.name, "Enable State Messages", Defaults.enableStateMessages, "When enabled, switching jetpacks or flux packs on or off, or change their modes will display a status message above the inventory bar.").getBoolean(Defaults.enableStateMessages);
 
 		//PackBase.loadAllConfigs(config);
 		Jetpack.loadAllConfigs(config);

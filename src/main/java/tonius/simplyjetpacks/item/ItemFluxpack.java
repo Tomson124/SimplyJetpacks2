@@ -104,10 +104,10 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		}
 	}
 
-	public void toggleState(boolean on, ItemStack stack, String type, String tag, EntityPlayer player, boolean showInChat) {
+	public void toggleState(boolean on, ItemStack stack, String type, String tag, EntityPlayer player, boolean showState) {
 		NBTHelper.setBoolean(stack, tag, !on);
 
-		if (player != null && showInChat) {
+		if (player != null && showState) {
 			type = type != null && !type.equals("") ? "chat." + this.name + "." + type : "chat." + this.name + ".on";
 			ITextComponent state = SJStringHelper.localizeNew(on ? "chat.disabled" : "chat.enabled");
 			if (on) {
