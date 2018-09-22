@@ -1,15 +1,12 @@
 package tonius.simplyjetpacks.integration;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import tonius.simplyjetpacks.SimplyJetpacks;
 
-public abstract class EIORecipes
-{
-	public static void addAlloySmelterRecipe(String name, int energy, ItemStack primaryInput, ItemStack secondaryInput, ItemStack tertiaryInput, ItemStack output)
-	{
+public abstract class EIORecipes {
+	public static void addAlloySmelterRecipe(String name, int energy, ItemStack primaryInput, ItemStack secondaryInput, ItemStack tertiaryInput, ItemStack output) {
 		SimplyJetpacks.logger.info("Registering EIO Alloy Smelter recipe");
 
 		StringBuilder toSend = new StringBuilder();
@@ -59,16 +56,13 @@ public abstract class EIORecipes
 		FMLInterModComms.sendMessage("enderio", "recipe:xml", toSend.toString());
 	}
 
-	private static void appendItemStack(StringBuilder sb, ItemStack stack)
-	{
-		if(stack != null)
-		{
+	private static void appendItemStack(StringBuilder sb, ItemStack stack) {
+		if (stack != null) {
 			sb.append(" name=\"item:" + stack.getItem().getRegistryName() + ":" + stack.getItemDamage() + "\" amount=\"" + stack.getCount() + "\"");
 		}
 	}
 
-	public static void addSoulBinderRecipe(String recipeID, int energy, int xp, String soulTypes, ItemStack input, ItemStack output)
-	{
+	public static void addSoulBinderRecipe(String recipeID, int energy, int xp, String soulTypes, ItemStack input, ItemStack output) {
 		SimplyJetpacks.logger.info("Registering EIO Soul Binder recipe");
 
 		NBTTagCompound toSend = new NBTTagCompound();
@@ -83,10 +77,8 @@ public abstract class EIORecipes
 		FMLInterModComms.sendMessage("enderio", "recipe:soulbinder", toSend);
 	}
 
-	private static void writeItemStack(NBTTagCompound nbt, String tagName, ItemStack stack)
-	{
-		if(stack != null)
-		{
+	private static void writeItemStack(NBTTagCompound nbt, String tagName, ItemStack stack) {
+		if (stack != null) {
 			NBTTagCompound stackTag = new NBTTagCompound();
 			stack.writeToNBT(stackTag);
 			nbt.setTag(tagName, stackTag);
