@@ -6,6 +6,7 @@
 
 * **Added**
     * Support for TE's Holding entchant
+    * Config option for disabling state messages
 
 * **Fixed**
     * Missing textures for vanilla integration
