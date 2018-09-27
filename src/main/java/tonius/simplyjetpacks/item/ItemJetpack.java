@@ -57,6 +57,7 @@ import java.util.UUID;
 import static tonius.simplyjetpacks.handler.LivingTickHandler.floatingTickCount;
 
 @Optional.Interface(iface = "thundr.redstonerepository.api.IArmorEnderium", modid = "redstonerepository")
+@Optional.Interface(iface = "cofh.core.item.IEnchantableItem", modid = "cofhcore")
 public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider, IArmorEnderium, IEnchantableItem {
 
 	public static final String TAG_ENERGY = "Energy";
@@ -588,6 +589,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	    return MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1) == 19;
     }
 
+    @Optional.Method(modid = "cofhcore")
 	public boolean canEnchant(ItemStack stack, Enchantment enchantment){
 		return enchantment == Enchantment.getEnchantmentByLocation("cofhcore:holding");
 	}
