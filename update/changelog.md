@@ -1,3 +1,13 @@
+# 2.2.9  -  01-10-2018
+* **General**
+    * Changed HUD implementation again to the "old" one
+
+* **Added**
+    *
+
+* **Fixed**
+    * Crash when CoFHCore is not installed
+
 # 2.2.8  -  12-07-2018
 * **General**
     * Changed HUD implementation
@@ -5,7 +15,7 @@
     * Updated chinese localization - Thanks @DYColdWind
 
 * **Added**
-    * Support for TE's Holding entchant
+    * Support for TE's Holding enchantment
     * Config option for disabling state messages
 
 * **Fixed**
