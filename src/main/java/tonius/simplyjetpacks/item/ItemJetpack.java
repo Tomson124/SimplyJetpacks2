@@ -29,7 +29,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.EnumHelper;
@@ -314,12 +313,12 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	// HUD info
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addHUDInfo(RenderGameOverlayEvent.Text event, ItemStack stack, boolean showFuel, boolean showState) {
+	public void addHUDInfo(List<String> list, ItemStack stack, boolean showFuel, boolean showState) {
 		if (showFuel && this.hasFuelIndicator) {
-			event.getLeft().add(this.getHUDFuelInfo(stack, this));
+			list.add(this.getHUDFuelInfo(stack, this));
 		}
 		if (showState && this.hasStateIndicators) {
-			event.getLeft().add(this.getHUDStatesInfo(stack));
+			list.add(this.getHUDStatesInfo(stack));
 		}
 	}
 

@@ -6,23 +6,42 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
+import tonius.simplyjetpacks.client.util.RenderUtils;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.item.IHUDInfoProvider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HUDTickHandler {
 	private static final Minecraft mc = Minecraft.getMinecraft();
 
-	@SideOnly(Side.CLIENT)
-	@SubscribeEvent
-	public void onOverlayRender(RenderGameOverlayEvent.Text event) {
+	@SubscribeEvent(receiveCanceled = true)
+	public void onOverlayRender(RenderGameOverlayEvent.Post event) {
 		if (mc.player != null) {
 			if ((mc.currentScreen == null || Config.showHUDWhileChatting && mc.currentScreen instanceof GuiChat) && !mc.gameSettings.hideGUI && !mc.gameSettings.showDebugInfo) {
 				ItemStack chestplate = mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 				if (chestplate != null && chestplate.getItem() instanceof IHUDInfoProvider) {
 					IHUDInfoProvider provider = (IHUDInfoProvider) chestplate.getItem();
-					provider.addHUDInfo(event, chestplate, Config.enableFuelHUD, Config.enableStateHUD);
+
+					List<String> info = new ArrayList<String>();
+					provider.addHUDInfo(info, chestplate, Config.enableFuelHUD, Config.enableStateHUD);
+					if (info.isEmpty()) {
+						return;
+					}
+
+					GL11.glPushMatrix();
+					mc.entityRenderer.setupOverlayRendering();
+					GL11.glScaled(Config.HUDScale, Config.HUDScale, 1.0D);
+
+					int i = 0;
+					for (String s : info) {
+						RenderUtils.drawStringAtHUDPosition(s, RenderUtils.HUDPositions.values()[Config.HUDPosition], mc.fontRenderer, Config.HUDOffsetX, Config.HUDOffsetY, Config.HUDScale, 0xeeeeee, true, i);
+						i++;
+					}
+
+					GL11.glPopMatrix();
 				}
 			}
 		}
