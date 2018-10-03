@@ -11,16 +11,22 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import thundr.redstonerepository.api.IArmorEnderium;
 import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.capability.CapabilityProviderEnergy;
+import tonius.simplyjetpacks.capability.EnergyConversionStorage;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.setup.ModEnchantments;
@@ -112,6 +118,22 @@ public class ItemPack extends ItemArmor implements ISpecialArmor, IEnergyContain
 		}
 		int fuelEfficiencyLevel = MathHelper.clamp(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
 		return (int) Math.round(Objects.requireNonNull(Jetpack.getTypeFromName(name)).getArmorFuelPerHit() * (5 - fuelEfficiencyLevel) / 5.0D);
+	}
+
+	public IEnergyStorage getIEnergyStorage(ItemStack chargeItem) {
+
+		if (chargeItem.hasCapability(CapabilityEnergy.ENERGY, null)) {
+			return chargeItem.getCapability(CapabilityEnergy.ENERGY, null);
+		} else if (chargeItem.getItem() instanceof IEnergyContainerItem) {
+			return new EnergyConversionStorage((IEnergyContainerItem) chargeItem.getItem(), chargeItem);
+		}
+
+		return null;
+	}
+
+	@Override
+	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+		return new CapabilityProviderEnergy<>(new EnergyConversionStorage(this, stack), CapabilityEnergy.ENERGY, null);
 	}
 
 	@Override

@@ -66,13 +66,9 @@ public class ItemJetpack extends ItemPack {
 
 	protected static final UUID ARMOR_MODIFIER = UUID.fromString("0819e549-a0f9-49d3-a199-53662799c67b");
 
-	private final int numItems;
-
 	public ItemJetpack(String name) {
 		super(EnumHelper.addArmorMaterial("JETPACK_SJ", "jetpack", 0, new int[]{0, 0, 0, 0}, 0, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0), 2, EntityEquipmentSlot.CHEST, name);
 		//this.setHasSubtypes(true);
-
-		numItems = /*Jetpack.values().length*/ 2;
 	}
 
 	/*@Override
@@ -136,8 +132,7 @@ public class ItemJetpack extends ItemPack {
 	}
 
 	public boolean isJetplate(ItemStack stack) {
-		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
-		return Jetpack.values()[i].getTier() == 5;
+		return Objects.requireNonNull(Jetpack.getTypeFromName(name)).getTier() == 5;
 	}
 
 	public boolean isChargerOn(ItemStack stack) {
@@ -158,26 +153,23 @@ public class ItemJetpack extends ItemPack {
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings("unchecked")
 	public void shiftInformation(ItemStack stack, List list) {
-		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
-
 		list.add(SJStringHelper.getStateText(this.isOn(stack)));
 		list.add(SJStringHelper.getHoverModeText(this.isHoverModeOn(stack)));
-		if (Jetpack.values()[i].getFuelUsage() > 0) {
-			if(Jetpack.values()[i].getBaseName().contains("enderium")){
+		if (Jetpack.getTypeFromName(name).getFuelUsage() > 0) {
+			if(Jetpack.getTypeFromName(name).getBaseName().contains("enderium")){
 				list.add(TextFormatting.BLUE + "Supercooled! Fuel Usage Rate " + Config.gelidEnderiumFuelUsageBonus + "%");
 			}
-			list.add(SJStringHelper.getFuelUsageText(this.fuelType, Jetpack.values()[i].getFuelUsage()));
+			list.add(SJStringHelper.getFuelUsageText(this.fuelType, Jetpack.getTypeFromName(name).getFuelUsage()));
 		}
-		list.add(SJStringHelper.getParticlesText(Jetpack.values()[i].getParticleType(stack)));
+		list.add(SJStringHelper.getParticlesText(Jetpack.getTypeFromName(name).getParticleType(stack)));
 		SJStringHelper.addDescriptionLines(list, "jetpack", TextFormatting.GREEN.toString());
 	}
 
 	protected int getFuelUsage(ItemStack stack) {
-		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
-		int usage = Jetpack.values()[i].getFuelUsage();
+		int usage = Jetpack.getTypeFromName(name).getFuelUsage();
 
 		//if(ModEnchantments.fuelEffeciency == null) {
-		if(Jetpack.values()[i].getBaseName().contains("enderium")){
+		if(Jetpack.getTypeFromName(name).getBaseName().contains("enderium")){
 			return (int)Math.round(usage*.8);
 		}
 		else {
@@ -223,24 +215,22 @@ public class ItemJetpack extends ItemPack {
 
 	@Override
 	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(slot);
-		if (!Jetpack.values()[i].getIsArmored()) {
+		if (!Jetpack.getTypeFromName(name).getIsArmored()) {
 			multimap.clear();
 			return multimap;
 		}
 		if (slot == EntityEquipmentSlot.CHEST) {
 			multimap.clear();
-			multimap.put(SharedMonsterAttributes.ARMOR.getName(), new AttributeModifier(ARMOR_MODIFIER, "Armor modifier", (double) Jetpack.values()[i].getArmorReduction(), 0));
+			multimap.put(SharedMonsterAttributes.ARMOR.getName(), new AttributeModifier(ARMOR_MODIFIER, "Armor modifier", (double) Jetpack.getTypeFromName(name).getArmorReduction(), 0));
 		}
 		return multimap;
 	}
 
 	@Override
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
-		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
 		if (Config.enableArmor3DModels) {
-			ModelBiped model = RenderUtils.getArmorModel(Jetpack.values()[i], entityLiving);
+			ModelBiped model = RenderUtils.getArmorModel(Jetpack.getTypeFromName(name), entityLiving);
 			if (model != null) {
 				return model;
 			}
@@ -250,26 +240,25 @@ public class ItemJetpack extends ItemPack {
 
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
-		String flat = Config.enableArmor3DModels || Jetpack.values()[i].armorModel == PackModelType.FLAT ? "" : ".flat";
-		return SimplyJetpacks.RESOURCE_PREFIX + "textures/armor/" + Jetpack.values()[i].getBaseName() + flat + ".png";
+		String flat = Config.enableArmor3DModels || Jetpack.getTypeFromName(name).armorModel == PackModelType.FLAT ? "" : ".flat";
+		return SimplyJetpacks.RESOURCE_PREFIX + "textures/armor/" + Jetpack.getTypeFromName(name).getBaseName() + flat + ".png";
 	}
 
 	public void flyUser(EntityPlayer user, ItemStack stack, ItemJetpack item, boolean force) {
-		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
+
 		Item chestItem = StackUtil.getItem(stack);
 		ItemJetpack jetpack = (ItemJetpack) chestItem;
 		if (jetpack.isOn(stack)) {
 			boolean hoverMode = jetpack.isHoverModeOn(stack);
-			double hoverSpeed = Config.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(user) ? Jetpack.values()[i].speedVerticalHoverSlow : Jetpack.values()[i].speedVerticalHover;
+			double hoverSpeed = Config.invertHoverSneakingBehavior == SyncHandler.isDescendKeyDown(user) ? Jetpack.getTypeFromName(name).speedVerticalHoverSlow : Jetpack.getTypeFromName(name).speedVerticalHover;
 			boolean flyKeyDown = force || SyncHandler.isFlyKeyDown(user);
 			boolean descendKeyDown = SyncHandler.isDescendKeyDown(user);
-			double currentAccel = Jetpack.values()[i].accelVertical * (user.motionY < 0.3D ? 2.5D : 1.0D);
-			double currentSpeedVertical = Jetpack.values()[i].speedVertical * (user.isInWater() ? 0.4D : 1.0D);
+			double currentAccel = Jetpack.getTypeFromName(name).accelVertical * (user.motionY < 0.3D ? 2.5D : 1.0D);
+			double currentSpeedVertical = Jetpack.getTypeFromName(name).speedVertical * (user.isInWater() ? 0.4D : 1.0D);
 
 			if (flyKeyDown || hoverMode && !user.onGround) {
-				if (Jetpack.values()[i].usesFuel) {
-					item.extractEnergy(stack, (int) (user.isSprinting() ? Math.round(this.getFuelUsage(stack) * Jetpack.values()[i].sprintFuelModifier) : this.getFuelUsage(stack)), false);
+				if (Jetpack.getTypeFromName(name).usesFuel) {
+					item.extractEnergy(stack, (int) (user.isSprinting() ? Math.round(this.getFuelUsage(stack) * Jetpack.getTypeFromName(name).sprintFuelModifier) : this.getFuelUsage(stack)), false);
 				}
 
 				if (item.getEnergyStored(stack) > 0) {
@@ -278,17 +267,17 @@ public class ItemJetpack extends ItemPack {
 							user.motionY = Math.min(user.motionY + currentAccel, currentSpeedVertical);
 						} else {
 							if (descendKeyDown) {
-								user.motionY = Math.min(user.motionY + currentAccel, -Jetpack.values()[i].speedVerticalHoverSlow);
+								user.motionY = Math.min(user.motionY + currentAccel, -Jetpack.getTypeFromName(name).speedVerticalHoverSlow);
 							} else {
-								user.motionY = Math.min(user.motionY + currentAccel, Jetpack.values()[i].speedVerticalHover);
+								user.motionY = Math.min(user.motionY + currentAccel, Jetpack.getTypeFromName(name).speedVerticalHover);
 							}
 						}
 					} else {
 						user.motionY = Math.min(user.motionY + currentAccel, -hoverSpeed);
 					}
 
-					float speedSideways = (float) (user.isSneaking() ? Jetpack.values()[i].speedSideways * 0.5F : Jetpack.values()[i].speedSideways);
-					float speedForward = (float) (user.isSprinting() ? speedSideways * Jetpack.values()[i].sprintSpeedModifier : speedSideways);
+					float speedSideways = (float) (user.isSneaking() ? Jetpack.getTypeFromName(name).speedSideways * 0.5F : Jetpack.getTypeFromName(name).speedSideways);
+					float speedForward = (float) (user.isSprinting() ? speedSideways * Jetpack.getTypeFromName(name).sprintSpeedModifier : speedSideways);
 					if (SyncHandler.isForwardKeyDown(user)) {
 						user.moveRelative(0, 0, speedForward, speedForward);
 					}
@@ -334,7 +323,7 @@ public class ItemJetpack extends ItemPack {
 		}
 
 		//Emergency Hover
-		if (!user.world.isRemote && Jetpack.values()[i].emergencyHoverMode && this.isEHoverModeOn(stack)) {
+		if (!user.world.isRemote && Jetpack.getTypeFromName(name).emergencyHoverMode && this.isEHoverModeOn(stack)) {
 			if (item.getEnergyStored(stack) > 0 && (!this.isHoverModeOn(stack) || !this.isOn(stack))) {
 				if (user.posY < -5) {
 					this.doEHover(stack, user);
@@ -364,53 +353,25 @@ public class ItemJetpack extends ItemPack {
 	}
 
 	protected void chargeInventory(EntityLivingBase user, ItemStack stack, ItemJetpack item) {
-		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
-
 		if (this.fuelType == FuelType.ENERGY) {
 			for (int j = 0; j <= 5; j++) {
 				ItemStack currentStack = user.getItemStackFromSlot(EquipmentSlotHelper.fromSlot(j));
 				if (currentStack.isEmpty() && currentStack != stack && getIEnergyStorage(currentStack) != null && !(stack.getItem() instanceof IArmorEnderium)) {
-					if (Jetpack.values()[i].usesFuel) {
-						int energyToAdd = Math.min(item.extractEnergy(stack, Jetpack.values()[i].getFuelPerTickOut(), true), getIEnergyStorage(currentStack).receiveEnergy(Jetpack.values()[i].getFuelPerTickOut(), true));
+					if (Jetpack.getTypeFromName(name).usesFuel) {
+						int energyToAdd = Math.min(item.extractEnergy(stack, Jetpack.getTypeFromName(name).getFuelPerTickOut(), true), getIEnergyStorage(currentStack).receiveEnergy(Jetpack.getTypeFromName(name).getFuelPerTickOut(), true));
 						item.extractEnergy(stack, energyToAdd, false);
 						getIEnergyStorage(currentStack).receiveEnergy(energyToAdd, false);
 					} else {
-						getIEnergyStorage(currentStack).receiveEnergy(Jetpack.values()[i].getFuelPerTickOut(), false);
+						getIEnergyStorage(currentStack).receiveEnergy(Jetpack.getTypeFromName(name).getFuelPerTickOut(), false);
 					}
 				}
 			}
 		}
 	}
 
-	public IEnergyStorage getIEnergyStorage(ItemStack chargeItem) {
-
-		if (chargeItem.hasCapability(CapabilityEnergy.ENERGY, null)) {
-			return chargeItem.getCapability(CapabilityEnergy.ENERGY, null);
-		} else if (chargeItem.getItem() instanceof IEnergyContainerItem) {
-			return new EnergyConversionStorage((IEnergyContainerItem) chargeItem.getItem(), chargeItem);
-		}
-
-		return null;
-	}
-
-	@Override
-	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
-		return new CapabilityProviderEnergy<>(new EnergyConversionStorage(this, stack), CapabilityEnergy.ENERGY, null);
-	}
-
 	public void registerItemModel() {
-		for (int i = 0; i < numItems; i++) {
-			SimplyJetpacks.proxy.registerItemRenderer(this, i, Jetpack.getTypeFromMeta(i).getBaseName());
+		for (int i = 0; i < 2; i++) { //TODO: DONT HARDCODE THIS
+			SimplyJetpacks.proxy.registerItemRenderer(this, i, Jetpack.getTypeFromName(name).getBaseName());
 		}
-	}
-
-    @Optional.Method(modid = "redstonerepository")
-	public boolean isEnderiumArmor(ItemStack stack){
-	    return MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1) == 19;
-    }
-
-    @Optional.Method(modid = "cofhcore")
-	public boolean canEnchant(ItemStack stack, Enchantment enchantment){
-		return enchantment == Enchantment.getEnchantmentByLocation("cofhcore:holding");
 	}
 }
