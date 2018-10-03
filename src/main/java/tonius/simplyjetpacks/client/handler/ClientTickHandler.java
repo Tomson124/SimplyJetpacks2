@@ -49,11 +49,12 @@ public class ClientTickHandler {
 
 		ParticleType jetpackState = null;
 		ItemStack armor = mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+		ItemJetpack itemJetpack = (ItemJetpack) armor.getItem();
 		if (armor != null && armor.getItem() instanceof ItemJetpack) {
 			int i = MathHelper.clamp(armor.getItemDamage(), 0, numItems - 1);
 			Jetpack jetpack = Jetpack.getTypeFromMeta(i);
 			if (jetpack != null) {
-				jetpackState = jetpack.getDisplayParticleType(armor, (ItemJetpack) armor.getItem(), mc.player);
+				jetpackState = itemJetpack.getDisplayParticleType(armor, (ItemJetpack) armor.getItem(), mc.player);
 			}
 			wearingJetpack = true;
 		} else {

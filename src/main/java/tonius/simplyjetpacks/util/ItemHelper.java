@@ -217,7 +217,7 @@ public class ItemHelper {
 		if (pack.usesFuel) {
 			NBTHelper.setInt(jetpackStack, ItemJetpack.TAG_ENERGY, 0);
 		} else if (jetpackItem != null) {
-			((ItemJetpack) jetpackItem).addFuel(jetpackStack, ((ItemJetpack) jetpackItem).getMaxEnergyStored(jetpackStack), false);
+			((ItemJetpack) jetpackItem).receiveEnergy(jetpackStack, ((ItemJetpack) jetpackItem).getMaxEnergyStored(jetpackStack), false);
 		}
 		((ItemJetpack) jetpackItem).setParticleType(jetpackStack, ParticleType.DEFAULT);
 		List.add(jetpackStack);

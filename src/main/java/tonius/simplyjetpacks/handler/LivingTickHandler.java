@@ -46,6 +46,7 @@ public class LivingTickHandler
 		{
 			ParticleType jetpackState = null;
 			ItemStack armor = evt.getEntityLiving().getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+			ItemJetpack itemJetpack = (ItemJetpack) armor.getItem();
 			Jetpack jetpack = null;
 			if(armor != null && armor.getItem() instanceof ItemJetpack)
 			{
@@ -53,7 +54,7 @@ public class LivingTickHandler
 				jetpack = Jetpack.getTypeFromMeta(i);
 				if(jetpack != null)
 				{
-					jetpackState = jetpack.getDisplayParticleType(armor, (ItemJetpack) armor.getItem(), evt.getEntityLiving());
+					jetpackState = itemJetpack.getDisplayParticleType(armor, (ItemJetpack) armor.getItem(), evt.getEntityLiving());
 				}
 			}
 

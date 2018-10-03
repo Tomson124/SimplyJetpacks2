@@ -196,6 +196,15 @@ public enum Jetpack implements IStringSerializable {
 		return platingMeta;
 	}
 
+	public static Jetpack getTypeFromName(String name) {
+		for (Jetpack pack : Jetpack.values()) {
+			if (pack.baseName.equalsIgnoreCase(name)) {
+				return pack;
+			}
+		}
+		return null;
+	}
+
 	public static
 	@Nonnull
 	Jetpack getTypeFromMeta(int meta) {
@@ -221,14 +230,6 @@ public enum Jetpack implements IStringSerializable {
 	public Jetpack setArmorModel(PackModelType armorModel) {
 		this.armorModel = armorModel;
 		return this;
-	}
-
-	public ParticleType getDisplayParticleType(ItemStack stack, ItemJetpack item, EntityLivingBase user) {
-		boolean flyKeyDown = SyncHandler.isFlyKeyDown(user);
-		if (item.isOn(stack) && item.getFuelStored(stack) > 0 && (flyKeyDown || item.isHoverModeOn(stack) && !user.onGround && user.motionY < 0)) {
-			return this.getParticleType(stack);
-		}
-		return null;
 	}
 	
 	public static void loadAllConfigs(Configuration config) {
