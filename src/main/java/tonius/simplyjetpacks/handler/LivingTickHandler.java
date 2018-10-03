@@ -4,6 +4,7 @@ import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.item.ItemJetpack;
+import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.item.Jetpack;
 import tonius.simplyjetpacks.network.PacketHandler;
 import tonius.simplyjetpacks.network.message.MessageJetpackSync;
@@ -46,15 +47,12 @@ public class LivingTickHandler
 		{
 			ParticleType jetpackState = null;
 			ItemStack armor = evt.getEntityLiving().getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-			ItemJetpack itemJetpack = (ItemJetpack) armor.getItem();
 			Jetpack jetpack = null;
-			if(armor != null && armor.getItem() instanceof ItemJetpack)
-			{
-				int i = MathHelper.clamp(armor.getItemDamage(), 0, numItems - 1);
-				jetpack = Jetpack.getTypeFromMeta(i);
-				if(jetpack != null)
-				{
-					jetpackState = itemJetpack.getDisplayParticleType(armor, (ItemJetpack) armor.getItem(), evt.getEntityLiving());
+			if(armor != null && armor.getItem() instanceof ItemJetpack) {
+				String name = ((ItemJetpack) armor.getItem()).name;
+				jetpack = Jetpack.getTypeFromName(name);
+				if(jetpack != null) {
+					jetpackState = ((ItemJetpack) armor.getItem()).getDisplayParticleType(armor, (ItemJetpack) armor.getItem(), evt.getEntityLiving());
 				}
 			}
 
