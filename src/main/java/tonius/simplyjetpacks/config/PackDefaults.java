@@ -70,6 +70,22 @@ public class PackDefaults
 		d.armorReduction = 8;
 		d.enchantability = 10;
 
+		d = new PackDefaults("jetpackEIO1", "Conductive Iron Jetpack (EIO 1)");
+		d.fuelCapacity = 80000;
+		d.fuelUsage = 32;
+		d.fuelPerTickIn = 400;
+		d.armorReduction = 5;
+		d.armorFuelPerHit = 80;
+		d.enchantability = 4;
+		d.speedVertical = 0.22D;
+		d.accelVertical = 0.1D;
+		d.speedVerticalHover = 0.18D;
+		d.speedVerticalHoverSlow = 0.14D;
+		d.speedSideways = 0.0D;
+		d.sprintSpeedModifier = 1.0D;
+		d.sprintFuelModifier = 1.0D;
+		d.emergencyHoverMode = false;
+
 		if(ModType.ENDER_IO.loaded)
 		{
 			d = new PackDefaults("jetpackEIO1", "Conductive Iron Jetpack (EIO 1)");

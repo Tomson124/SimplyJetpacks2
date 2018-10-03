@@ -27,7 +27,8 @@ public abstract class ModItems {
 	public static ItemMeta metaItem;
 	public static ItemMetaMods metaItemMods;
 
-	public static ItemStack jetpackCreative;
+	public static ItemJetpack jetpackCreative;
+	public static Item jetpackTest;
 	public static ItemStack fluxPackCreative;
 
 	public static ItemStack particleDefault;
@@ -172,7 +173,9 @@ public abstract class ModItems {
 		Log.info("Registering items...");
 
 		//Jetpacks
-		itemJetpack = register(new ItemJetpack("itemJetpack"));
+		//itemJetpack = register(new ItemJetpack("itemJetpack"));
+		jetpackTest = register(new ItemJetpack("jetpack_Creative"));
+		itemJetpack = register(new ItemJetpack("jetpack_Test"));
 
 		//Meta Items
 		metaItem = register(new ItemMeta("metaItem"));
@@ -181,7 +184,7 @@ public abstract class ModItems {
 		//FluxPacks
 		itemFluxPack = register(new ItemFluxpack("itemFluxpack"));
 
-		jetpackCreative = Jetpack.CREATIVE_JETPACK.getStackJetpack();
+		//jetpackCreative = Jetpack.CREATIVE_JETPACK.getStackJetpack();
 		fluxPackCreative = Fluxpack.CREATIVE_FLUXPACK.getStackFluxpack();
 
 		particleDefault = MetaItems.PARTICLE_DEFAULT.getStackMetaItem();
@@ -292,7 +295,7 @@ public abstract class ModItems {
 	public static void registerRecipes() {
 		gatherIngredients();
 		RecipeHandler.addOreDictRecipe(leatherStrap, "LIL", "LIL", 'L', Items.LEATHER, 'I', "ingotIron");
-		ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackCreative, "J", "P", 'J', jetpackCreative, 'P', "particleCustomizer"));
+		//ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackCreative, "J", "P", 'J', jetpackCreative, 'P', "particleCustomizer"));
 
 		Object dustCoal = OreDictionary.getOres("dustCoal").size() > 0 ? "dustCoal" : new ItemStack(Items.COAL);
 		RecipeHandler.addOreDictRecipe(particleDefault, " D ", "DCD", " D ", 'C', dustCoal, 'D', Blocks.TORCH);
