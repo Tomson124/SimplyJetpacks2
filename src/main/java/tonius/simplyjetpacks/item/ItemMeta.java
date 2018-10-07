@@ -1,5 +1,6 @@
 package tonius.simplyjetpacks.item;
 
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumRarity;
@@ -8,6 +9,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tonius.simplyjetpacks.SimplyJetpacks;
@@ -73,7 +75,7 @@ public class ItemMeta extends ItemRegistered {
 
 	public void registerItemModel() {
 		for (int i = 0; i < numItems; i++) {
-			SimplyJetpacks.proxy.registerItemRenderer(this, i, MetaItems.getTypeFromMeta(i).getName());
+			ModelLoader.setCustomModelResourceLocation(this, i, new ModelResourceLocation(MetaItems.getTypeFromMeta(i).getName(), "inventory"));
 		}
 	}
 }
