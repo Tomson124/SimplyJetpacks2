@@ -211,18 +211,6 @@ public class ItemHelper {
 
 	//END SURROUND
 
-	public static void addJetpacks(Jetpack pack, NonNullList<ItemStack> List) {
-		Item jetpackItem = ModItems.itemJetpack;
-		ItemStack jetpackStack = new ItemStack(jetpackItem, 1, pack.ordinal());
-		if (pack.usesFuel) {
-			NBTHelper.setInt(jetpackStack, ItemJetpack.TAG_ENERGY, 0);
-		} else if (jetpackItem != null) {
-			((ItemJetpack) jetpackItem).receiveEnergy(jetpackStack, ((ItemJetpack) jetpackItem).getMaxEnergyStored(jetpackStack), false);
-		}
-		((ItemJetpack) jetpackItem).setParticleType(jetpackStack, ParticleType.DEFAULT);
-		List.add(jetpackStack);
-	}
-
 	public static void addFluxpacks(Fluxpack pack, NonNullList<ItemStack> List) {
 		ItemStack stack;
 		Item fluxpackItem = ModItems.itemFluxPack;

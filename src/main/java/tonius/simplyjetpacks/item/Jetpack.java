@@ -65,12 +65,8 @@ public enum Jetpack implements IStringSerializable {
 	public ParticleType defaultParticleType = ParticleType.DEFAULT;
 	public PackModelType armorModel = PackModelType.FLAT;
 
-	public final
-	@Nonnull
-	String baseName;
-	public final
-	@Nonnull
-	String unlocalisedName;
+	public final @Nonnull String baseName;
+	public final @Nonnull String unlocalisedName;
 	public final int tier;
 	public int fuelCapacity;
 	public int fuelPerTickIn;
@@ -160,18 +156,6 @@ public enum Jetpack implements IStringSerializable {
 
 	public int getFuelUsage() {
 		return fuelUsage;
-	}
-
-	public
-	@Nonnull
-	ItemStack getStackJetpack() {
-		return getStackJetpack(1);
-	}
-
-	public
-	@Nonnull
-	ItemStack getStackJetpack(int size) {
-		return new ItemStack(ModItems.itemJetpack, size, ordinal());
 	}
 
 	public //TODO: INVESTIGATE!!

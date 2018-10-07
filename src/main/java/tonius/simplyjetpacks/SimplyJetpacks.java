@@ -51,7 +51,6 @@ public class SimplyJetpacks {
 		MinecraftForge.EVENT_BUS.register(new RegistryHandler());
 
 		Config.preInit(evt);
-		ModItems.preInit();
 	}
 
 	@EventHandler
