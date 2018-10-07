@@ -76,8 +76,8 @@ public class Config
 		configClient = new Configuration(new File(evt.getModConfigurationDirectory(), SimplyJetpacks.MODID + "-client.cfg"));
 		config.load();
 		configClient.load();
-		SimplyJetpacks.proxy.updateCustomKeybinds(flyKey, descendKey);
 		processConfig();
+		SimplyJetpacks.proxy.updateCustomKeybinds(flyKey, descendKey);
 	}
 
 	private static void processConfig()
