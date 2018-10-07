@@ -13,8 +13,8 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -27,7 +27,7 @@ import thundr.redstonerepository.api.IArmorEnderium;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.capability.CapabilityProviderEnergy;
 import tonius.simplyjetpacks.capability.EnergyConversionStorage;
-import tonius.simplyjetpacks.config.Config;
+import tonius.simplyjetpacks.client.handler.IModelRegister;
 import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.setup.ModEnchantments;
 import tonius.simplyjetpacks.util.NBTHelper;
@@ -39,7 +39,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-public class ItemPack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider, IArmorEnderium, IEnchantableItem {
+public class ItemPack extends ItemArmor implements ISpecialArmor, IModelRegister, IEnergyContainerItem, IHUDInfoProvider, IArmorEnderium, IEnchantableItem {
 
 	public String name; //BaseName
 	public static final String TAG_ENERGY = "Energy";
@@ -56,7 +56,7 @@ public class ItemPack extends ItemArmor implements ISpecialArmor, IEnergyContain
 		this.name = name;
 		this.setUnlocalizedName(SimplyJetpacks.PREFIX + name);
 		this.setCreativeTab(SimplyJetpacks.creativeTab);
-		this.setRegistryName(name);
+		this.setRegistryName(new ResourceLocation(SimplyJetpacks.MODID, name));
 	}
 
 	@Override
@@ -231,5 +231,10 @@ public class ItemPack extends ItemArmor implements ISpecialArmor, IEnergyContain
 
 	public boolean isOn(ItemStack stack) {
 		return NBTHelper.getBoolean(stack, TAG_ON, true);
+	}
+
+	@Override
+	public void registerModels() {
+		SimplyJetpacks.proxy.registerItemRenderer(this, getRegistryName());
 	}
 }
