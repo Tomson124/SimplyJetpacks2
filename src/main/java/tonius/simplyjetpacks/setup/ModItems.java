@@ -4,11 +4,15 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.registries.IForgeRegistry;
 import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
@@ -19,16 +23,17 @@ import tonius.simplyjetpacks.item.*;
 import tonius.simplyjetpacks.util.crafting.RecipeHandler;
 import tonius.simplyjetpacks.util.crafting.RecipeHelper;
 
+@Mod.EventBusSubscriber(modid = SimplyJetpacks.MODID)
 public abstract class ModItems {
-	public static ItemJetpack itemJetpack;
+
 
 	public static ItemFluxpack itemFluxPack;
 
 	public static ItemMeta metaItem;
 	public static ItemMetaMods metaItemMods;
 
-	public static ItemJetpack jetpackCreative;
-	public static Item jetpackTest;
+	public static Item jetpackCreative = new ItemJetpack("jetpack_Creative");
+	public static Item itemJetpackTest = new ItemJetpack("jetpack_Test");
 	public static ItemStack fluxPackCreative;
 
 	public static ItemStack particleDefault;
@@ -59,15 +64,15 @@ public abstract class ModItems {
 	public static ItemStack armorPlatingEIO3;
 	public static ItemStack armorPlatingEIO4;
 
-	public static ItemStack jetpackEIO1;
-	public static ItemStack jetpackEIO1Armored;
-	public static ItemStack jetpackEIO2;
-	public static ItemStack jetpackEIO2Armored;
-	public static ItemStack jetpackEIO3;
-	public static ItemStack jetpackEIO3Armored;
-	public static ItemStack jetpackEIO4;
-	public static ItemStack jetpackEIO4Armored;
-	public static ItemStack jetpackEIO5;
+	public static Item jetpackEIO1 = register(new ItemJetpack(Jetpack.JETPACK_EIO_1.getBaseName()));
+	public static Item jetpackEIO2 = register(new ItemJetpack(Jetpack.JETPACK_EIO_2.getBaseName()));
+	public static Item jetpackEIO3 = register(new ItemJetpack(Jetpack.JETPACK_EIO_3.getBaseName()));
+	public static Item jetpackEIO4 = register(new ItemJetpack(Jetpack.JETPACK_EIO_4.getBaseName()));
+	public static Item jetpackEIO5 = register(new ItemJetpack(Jetpack.JETPLATE_EIO_5.getBaseName()));
+	public static Item jetpackEIO1Armored = register(new ItemJetpack(Jetpack.JETPACK_EIO_1_ARMORED.getBaseName()));
+	public static Item jetpackEIO2Armored = register(new ItemJetpack(Jetpack.JETPACK_EIO_2_ARMORED.getBaseName()));
+	public static Item jetpackEIO3Armored = register(new ItemJetpack(Jetpack.JETPACK_EIO_3_ARMORED.getBaseName()));
+	public static Item jetpackEIO4Armored = register(new ItemJetpack(Jetpack.JETPACK_EIO_4_ARMORED.getBaseName()));
 
 	public static ItemStack fluxPackEIO1;
 	public static ItemStack fluxPackEIO2;
@@ -96,18 +101,19 @@ public abstract class ModItems {
 	public static ItemStack plateFlux;
 	public static ItemStack armorFluxPlate;
 
-	public static ItemStack jetpackTE1;
-	public static ItemStack jetpackTE2;
-	public static ItemStack jetpackTE3;
-	public static ItemStack jetpackTE4;
-	public static ItemStack jetpackTE1Armored;
-	public static ItemStack jetpackTE2Armored;
-	public static ItemStack jetpackTE3Armored;
-	public static ItemStack jetpackTE4Armored;
-	public static ItemStack jetpackTE5;
+	public static Item jetpackTE1 = new ItemJetpack(Jetpack.JETPACK_TE_1.getBaseName());
+	public static Item jetpackTE2 = new ItemJetpack(Jetpack.JETPACK_TE_2.getBaseName());
+	public static Item jetpackTE3 = new ItemJetpack(Jetpack.JETPACK_TE_3.getBaseName());
+	public static Item jetpackTE4 = new ItemJetpack(Jetpack.JETPACK_TE_4.getBaseName());
+	public static Item jetpackTE5 = new ItemJetpack(Jetpack.JETPLATE_TE_5.getBaseName());
+	public static Item jetpackTE1Armored = new ItemJetpack(Jetpack.JETPACK_TE_1_ARMORED.getBaseName());
+	public static Item jetpackTE2Armored = new ItemJetpack(Jetpack.JETPACK_TE_2_ARMORED.getBaseName());
+	public static Item jetpackTE3Armored = new ItemJetpack(Jetpack.JETPACK_TE_3_ARMORED.getBaseName());
+	public static Item jetpackTE4Armored = new ItemJetpack(Jetpack.JETPACK_TE_4_ARMORED.getBaseName());
+
 
 	//RR
-	public static ItemStack jetpackTE5Enderium;
+	public static Item jetpackTE5Enderium = new ItemJetpack(Jetpack.JETPLATE_TE_5_ENDERIUM.getBaseName());
 
 	public static ItemStack fluxPackTE1;
 	public static ItemStack fluxPackTE2;
@@ -115,21 +121,12 @@ public abstract class ModItems {
 	public static ItemStack fluxPackTE2Armored;
 	public static ItemStack fluxPackTE3Armored;
 
-	public static ItemStack jetpackVanilla1;
-	public static ItemStack jetpackVanilla2;
-	public static ItemStack jetpackVanilla3;
-
 	public static boolean integrateEIO = ModType.ENDER_IO.loaded && Config.enableIntegrationEIO;
 	public static boolean integrateTE = ModType.THERMAL_EXPANSION.loaded && Config.enableIntegrationTE;
 	public static boolean integrateTD = ModType.THERMAL_DYNAMICS.loaded && Config.enableIntegrationTD;
 	public static boolean integrateRA = ModType.REDSTONE_ARSENAL.loaded && Config.enableIntegrationRA;
 	public static boolean integrateRR = ModType.REDSTONE_REPOSITORY.loaded && Config.enableIntegrationRR;
 	public static boolean integrateVanilla = Config.enableIntegrationVanilla;
-
-	public static void preInit() {
-		registerItems();
-
-	}
 
 	public static void init() {
 		registerOreDicts();
@@ -139,10 +136,6 @@ public abstract class ModItems {
 	private static <T extends Item> T register(T item) {
 		//GameRegistry.register(item);
 		ForgeRegistries.ITEMS.register(item);
-
-		if (item instanceof ItemJetpack) {
-			((ItemJetpack) item).registerItemModel();
-		}
 
 		if (item instanceof ItemFluxpack) {
 			((ItemFluxpack) item).registerItemModel();
@@ -169,13 +162,43 @@ public abstract class ModItems {
 		}
 	}
 
-	private static void registerItems() {
+	@SubscribeEvent
+	public static void registerItems(RegistryEvent.Register<Item> event) {
 		Log.info("Registering items...");
+		IForgeRegistry<Item> r = event.getRegistry();
 
 		//Jetpacks
 		//itemJetpack = register(new ItemJetpack("itemJetpack"));
-		jetpackTest = register(new ItemJetpack("jetpack_Creative"));
-		itemJetpack = register(new ItemJetpack("jetpack_Test"));
+		r.register(itemJetpackTest);
+		r.register(jetpackCreative);
+
+		if (integrateEIO) {
+			r.register(jetpackEIO1);
+			r.register(jetpackEIO2);
+			r.register(jetpackEIO3);
+			r.register(jetpackEIO4);
+			r.register(jetpackEIO5);
+			r.register(jetpackEIO1Armored);
+			r.register(jetpackEIO2Armored);
+			r.register(jetpackEIO3Armored);
+			r.register(jetpackEIO4Armored);
+		}
+
+		if (integrateTE) {
+			r.register(jetpackTE1);
+			r.register(jetpackTE2);
+			r.register(jetpackTE3);
+			r.register(jetpackTE4);
+			r.register(jetpackTE5);
+			r.register(jetpackTE1Armored);
+			r.register(jetpackTE2Armored);
+			r.register(jetpackTE3Armored);
+			r.register(jetpackTE4Armored);
+
+			if(integrateRR){
+				r.register(jetpackTE5);
+			}
+		}
 
 		//Meta Items
 		metaItem = register(new ItemMeta("metaItem"));
@@ -193,8 +216,6 @@ public abstract class ModItems {
 		particleRainbowSmoke = MetaItems.PARTICLE_RAINBOWSMOKE.getStackMetaItem();
 
 		leatherStrap = MetaItems.LEATHER_STRAP.getStackMetaItem();
-
-
 	}
 
 	public static void gatherIngredients(){
@@ -214,16 +235,6 @@ public abstract class ModItems {
 			armorPlatingEIO2 = MetaItemsMods.ARMOR_PLATING_EIO_2.getStackMetaItem();
 			armorPlatingEIO3 = MetaItemsMods.ARMOR_PLATING_EIO_3.getStackMetaItem();
 			armorPlatingEIO4 = MetaItemsMods.ARMOR_PLATING_EIO_4.getStackMetaItem();
-
-			jetpackEIO1 = Jetpack.JETPACK_EIO_1.getStackJetpack();
-			jetpackEIO2 = Jetpack.JETPACK_EIO_2.getStackJetpack();
-			jetpackEIO3 = Jetpack.JETPACK_EIO_3.getStackJetpack();
-			jetpackEIO4 = Jetpack.JETPACK_EIO_4.getStackJetpack();
-			jetpackEIO5 = Jetpack.JETPLATE_EIO_5.getStackJetpack();
-			jetpackEIO1Armored = Jetpack.JETPACK_EIO_1_ARMORED.getStackJetpack();
-			jetpackEIO2Armored = Jetpack.JETPACK_EIO_2_ARMORED.getStackJetpack();
-			jetpackEIO3Armored = Jetpack.JETPACK_EIO_3_ARMORED.getStackJetpack();
-			jetpackEIO4Armored = Jetpack.JETPACK_EIO_4_ARMORED.getStackJetpack();
 
 			fluxPackEIO1 = Fluxpack.FLUXPACK_EIO1.getStackFluxpack();
 			fluxPackEIO2 = Fluxpack.FLUXPACK_EIO2.getStackFluxpack();
@@ -259,36 +270,12 @@ public abstract class ModItems {
 			armorPlatingTE3 = MetaItemsMods.ARMOR_PLATING_TE_3.getStackMetaItem();
 			armorPlatingTE4 = MetaItemsMods.ARMOR_PLATING_TE_4.getStackMetaItem();
 
-			jetpackTE1 = Jetpack.JETPACK_TE_1.getStackJetpack();
-			jetpackTE2 = Jetpack.JETPACK_TE_2.getStackJetpack();
-			jetpackTE3 = Jetpack.JETPACK_TE_3.getStackJetpack();
-			jetpackTE4 = Jetpack.JETPACK_TE_4.getStackJetpack();
-			jetpackTE5 = Jetpack.JETPLATE_TE_5.getStackJetpack();
-			jetpackTE1Armored = Jetpack.JETPACK_TE_1_ARMORED.getStackJetpack();
-			jetpackTE2Armored = Jetpack.JETPACK_TE_2_ARMORED.getStackJetpack();
-			jetpackTE3Armored = Jetpack.JETPACK_TE_3_ARMORED.getStackJetpack();
-			jetpackTE4Armored = Jetpack.JETPACK_TE_4_ARMORED.getStackJetpack();
-
-			if(integrateRR){
-				jetpackTE5Enderium = Jetpack.JETPLATE_TE_5_ENDERIUM.getStackJetpack();
-			}
-
 			fluxPackTE1 = Fluxpack.FLUXPACK_TE1.getStackFluxpack();
 			fluxPackTE2 = Fluxpack.FLUXPACK_TE2.getStackFluxpack();
 			fluxPackTE3 = Fluxpack.FLUXPACK_TE3.getStackFluxpack();
 			fluxPackTE2Armored = Fluxpack.FLUXPACK_TE2_ARMORED.getStackFluxpack();
 			fluxPackTE3Armored = Fluxpack.FLUXPACK_TE3_ARMORED.getStackFluxpack();
 
-		}
-
-		if (integrateVanilla) {
-			jetpackVanilla1 = Jetpack.JETPACK_VANILLA_1.getStackJetpack();
-			jetpackVanilla2 = Jetpack.JETPACK_VANILLA_2.getStackJetpack();
-			jetpackVanilla3 = Jetpack.JETPACK_VANILLA_3.getStackJetpack();
-
-			thrusterVanilla1 = MetaItemsMods.THRUSTER_VANILLA_1.getStackMetaItem();
-			thrusterVanilla2 = MetaItemsMods.THRUSTER_VANILLA_2.getStackMetaItem();
-			thrusterVanilla3 = MetaItemsMods.THRUSTER_VANILLA_3.getStackMetaItem();
 		}
 	}
 
@@ -322,9 +309,9 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackEIO4, "IBI", "IJI", "T T", 'I', "ingotVibrantAlloy", 'B', EIOItems.octadicCapacitor, 'T', thrusterEIO4, 'J', jetpackEIO3));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackEIO5, "OAO", "PJP", "TCT", 'A', EIOItems.enderCrystal, 'J', jetpackEIO4Armored, 'O', "ingot_dark_soularium", 'C', fluxPackEIO3Armored, 'T', thrusterEIO5, 'P', reinforcedGliderWings));
 
-			for (Jetpack jetpack : Jetpack.PACKS_EIO) {
+			/*for (Jetpack jetpack : Jetpack.PACKS_EIO) {
 				ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particleCustomizer"));
-			}
+			}*/ //TODO: Particle Customizer Recipe
 
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackEIO1Armored, "P", "J", 'J', jetpackEIO1, 'P', armorPlatingEIO1));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackEIO1, "J", 'J', jetpackEIO1Armored));
@@ -335,13 +322,13 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackEIO4Armored, "P", "J", 'J', jetpackEIO4, 'P', armorPlatingEIO4));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackEIO4, "J", 'J', jetpackEIO4Armored));
 
-			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackEIO1, "CUC", "ISI", "IPI", 'S', leatherStrap, 'C', EIOItems.basicCapacitor, 'U', EIOItems.capacitorBankBasic, 'I', "ingotConductiveIron", 'P', "dustCoal"));
+			/*ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackEIO1, "CUC", "ISI", "IPI", 'S', leatherStrap, 'C', EIOItems.basicCapacitor, 'U', EIOItems.capacitorBankBasic, 'I', "ingotConductiveIron", 'P', "dustCoal"));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackEIO2, "CBC", "ISI", "IPI", 'S', fluxPackEIO1, 'C', EIOItems.doubleCapacitor, 'B', EIOItems.capacitorBank, 'I', "ingotEnergeticAlloy", 'P', EIOItems.pulsatingCrystal));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackEIO3, "CBC", "ISI", "IPI", 'S', fluxPackEIO2, 'C', EIOItems.octadicCapacitor, 'B', EIOItems.capacitorBankVibrant, 'I', "ingotVibrantAlloy", 'P', EIOItems.vibrantCrystal));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackEIO2Armored, "P", "J", 'J', fluxPackEIO2, 'P', armorPlatingEIO2));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackEIO2, "J", 'J', fluxPackEIO2Armored));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackEIO3Armored, "P", "J", 'J', fluxPackEIO3, 'P', armorPlatingEIO3));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackEIO3, "J", 'J', fluxPackEIO3Armored));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackEIO3, "J", 'J', fluxPackEIO3Armored));*/
 		}
 
 		if (integrateTE) {
@@ -375,43 +362,28 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackTE2, "IBI", "IJI", "T T", 'I', "ingotInvar", 'B', TEItems.capacitorHardened, 'T', thrusterTE2, 'J', jetpackTE1));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackTE3, "IBI", "IJI", "T T", 'I', "ingotElectrum", 'B', TEItems.capacitorReinforced, 'T', thrusterTE3, 'J', jetpackTE2));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackTE4, "IBI", "IJI", "T T", 'I', "ingotEnderium", 'B', TEItems.capacitorResonant, 'T', thrusterTE4, 'J', jetpackTE3));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE1Armored, jetpackTE1, armorPlatingTE1));
+			/*ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE1Armored, jetpackTE1, armorPlatingTE1));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE2Armored, jetpackTE2, armorPlatingTE2));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE3Armored, jetpackTE3, armorPlatingTE3));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE4Armored, jetpackTE4, armorPlatingTE4));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE4Armored, jetpackTE4, armorPlatingTE4));*/
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackTE5, "PAP", "OJO", "TCT", 'A', armorFluxPlate, 'J', jetpackTE4Armored, 'O', unitCryotheum, 'C', fluxPackTE3Armored, 'T', thrusterTE5, 'P', plateFlux));
 
 
-			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE1, "ICI", "ISI", 'I', "ingotLead", 'C', TEItems.cellBasic, 'S', leatherStrap));
+			/*ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE1, "ICI", "ISI", 'I', "ingotLead", 'C', TEItems.cellBasic, 'S', leatherStrap));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE2, " C ", "ISI", "LOL", 'I', "ingotElectrum", 'L', "ingotLead", 'C', TEItems.cellReinforced, 'S', fluxPackTE1, 'O', TEItems.powerCoilElectrum));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE3, " C ", "ISI", "LOL", 'I', "ingotEnderium", 'L', "ingotLead", 'C', TEItems.cellResonant, 'S', fluxPackTE2, 'O', TEItems.powerCoilElectrum));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxPackTE2Armored, fluxPackTE2, armorPlatingTE2));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxPackTE3Armored, fluxPackTE3, armorPlatingTE4));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxPackTE3Armored, fluxPackTE3, armorPlatingTE4));*/
 
 			if(integrateRR){
 				ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackTE5Enderium, "AAA", "AJA", "AAA", 'A', "ingotGelidEnderium", 'J', jetpackTE5));
 			}
 
-			RecipeHelper.addArmoredReverseRecipe(Jetpack.PACKS_TE, Jetpack.PACKS_TE_ARMORED, Fluxpack.TE_FLUXPACKS, Fluxpack.TE_FLUXPACKS_ARMORED);
+			/*RecipeHelper.addArmoredReverseRecipe(Jetpack.PACKS_TE, Jetpack.PACKS_TE_ARMORED, Fluxpack.TE_FLUXPACKS, Fluxpack.TE_FLUXPACKS_ARMORED);
 
 			for (Jetpack jetpack : Jetpack.PACKS_TE) {
 				ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particleCustomizer"));
-			}
-		}
-
-		if (integrateVanilla) {
-			RecipeHandler.addOreDictRecipe(thrusterVanilla1, " I ", "IFI", "IBI", 'I', Items.IRON_INGOT, 'F', Blocks.FURNACE, 'B', Items.BLAZE_POWDER);
-			RecipeHandler.addOreDictRecipe(thrusterVanilla2, " I ", "IFI", "IBI", 'I', Items.GOLD_INGOT, 'F', Blocks.FURNACE, 'B', Items.BLAZE_POWDER);
-			RecipeHandler.addOreDictRecipe(thrusterVanilla3, " I ", "IFI", "IBI", 'I', Items.DIAMOND, 'F', Blocks.FURNACE, 'B', Items.BLAZE_POWDER);
-
-			//Jetpacks
-			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackVanilla1, "IBI", "IJI", "T T", 'I', Items.IRON_INGOT, 'B', Items.COMPARATOR, 'T', thrusterVanilla1, 'J', leatherStrap));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackVanilla2, "IBI", "IJI", "T T", 'I', Items.GOLD_INGOT, 'B', Blocks.REDSTONE_BLOCK, 'T', thrusterVanilla2, 'J', jetpackVanilla1));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackVanilla3, "IBI", "IJI", "T T", 'I', Items.DIAMOND, 'B', Blocks.REDSTONE_BLOCK, 'T', thrusterVanilla3, 'J', jetpackVanilla2));
-
-			for (Jetpack jetpack : Jetpack.PACKS_VANILLA) {
-				ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particleCustomizer"));
-			}
+			}*/
 		}
 	}
 
@@ -419,7 +391,7 @@ public abstract class ModItems {
 		SimplyJetpacks.logger.info("Doing intermod communication");
 
 		if (integrateEIO) {
-			/*ItemStack ingotConductiveIron = OreDictionary.getOres("ingotConductiveIron").get(0).copy();
+			ItemStack ingotConductiveIron = OreDictionary.getOres("ingotConductiveIron").get(0).copy();
 			ingotConductiveIron.setCount(10);
 			EIORecipes.addAlloySmelterRecipe("Conductive Iron Armor Plating", 3200, armorPlatingEIO1, ingotConductiveIron, null, armorPlatingEIO2);
 
@@ -433,10 +405,7 @@ public abstract class ModItems {
 
 			ItemStack ingotSoularium = OreDictionary.getOres("ingotSoularium").get(0).copy();
 			ingotDarkSteel.setCount(10);
-			EIORecipes.addAlloySmelterRecipe("Dark Soularium Alloy", 32000, ingotDarkSteel, ingotSoularium, EIOItems.pulsatingCrystal, ingotDarkSoularium);*/
-
-			//Workarround until next EnderIO version
-			addAlloySmelterRecipeWorkaround();
+			EIORecipes.addAlloySmelterRecipe("Dark Soularium Alloy", 32000, ingotDarkSteel, ingotSoularium, EIOItems.pulsatingCrystal, ingotDarkSoularium);
 
 			EIORecipes.addSoulBinderRecipe("Flight Control Unit", 75000, 8, "Bat", unitFlightControlEmpty, unitFlightControl);
 		}
@@ -460,53 +429,5 @@ public abstract class ModItems {
 			}
 		}
 
-	}
-
-	private static void addAlloySmelterRecipeWorkaround() {
-		SimplyJetpacks.logger.info("Registering EIO Alloy Smelter recipe");
-
-		StringBuilder toSend = new StringBuilder();
-
-		toSend.append("<enderio:recipes xmlns:enderio=\"http://enderio.com/recipes\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://enderio.com/recipes recipes.xsd \">");
-		{
-			toSend.append("<recipe name=\"Conductive Iron Armor Plating\">");
-			{
-				toSend.append("<alloying energy=\"3200\"" + " exp=\"1\">");
-				{
-					toSend.append("<input name=\"simplyjetpacks:metaitemmods:12\" amount=\"1\"/>");
-					toSend.append("<input name=\"ingotConductiveIron\" amount=\"10\"/>");
-					toSend.append("<output name=\"simplyjetpacks:metaitemmods:13\" amount=\"1\"/>");
-				}
-				toSend.append("</alloying>");
-			}
-			toSend.append("</recipe>");
-
-			toSend.append("<recipe name=\"Electrical Steel Armor Plating\">");
-			{
-				toSend.append("<alloying energy=\"4800\"" + " exp=\"1\">");
-				{
-					toSend.append("<input name=\"simplyjetpacks:metaitemmods:13\" amount=\"1\"/>");
-					toSend.append("<input name=\"ingotElectricalSteel\" amount=\"10\"/>");
-					toSend.append("<output name=\"simplyjetpacks:metaitemmods:14\" amount=\"1\"/>");
-				}
-				toSend.append("</alloying>");
-			}
-			toSend.append("</recipe>");
-
-			toSend.append("<recipe name=\"Dark Steel Armor Plating\">");
-			{
-				toSend.append("<alloying energy=\"6400\"" + " exp=\"1\">");
-				{
-					toSend.append("<input name=\"simplyjetpacks:metaitemmods:14\" amount=\"1\"/>");
-					toSend.append("<input name=\"ingotDarkSteel\" amount=\"10\"/>");
-					toSend.append("<output name=\"simplyjetpacks:metaitemmods:15\" amount=\"1\"/>");
-				}
-				toSend.append("</alloying>");
-			}
-			toSend.append("</recipe>");
-		}
-		toSend.append("</enderio:recipes>");
-
-		FMLInterModComms.sendMessage("enderio", "recipe:xml", toSend.toString());
 	}
 }

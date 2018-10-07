@@ -16,17 +16,17 @@ import tonius.simplyjetpacks.util.NBTHelper;
 
 public class UpgradingRecipe extends ShapedOreRecipe {
 	private final IEnergyContainerItem resultItem;
-	private final int resultMeta;
+	private final ItemStack resultStack;
 
 	private static int j = 0;
 
-	public UpgradingRecipe(ItemStack result, Object... recipe) {
+	public UpgradingRecipe(Item result, Object... recipe) {
 		super(null, result, recipe);
 		setRegistryName(SimplyJetpacks.MODID, "upgradeRecipe" + j);
 		j++;
-		this.resultItem = (IEnergyContainerItem) result.getItem();
-		this.resultMeta = result.getItemDamage();
-		result.getEnchantmentTagList();
+		this.resultItem = (IEnergyContainerItem) result;
+		this.resultStack = new ItemStack(result);
+		resultStack.getEnchantmentTagList();
 	}
 
 	@Override
@@ -50,16 +50,15 @@ public class UpgradingRecipe extends ShapedOreRecipe {
 			}
 		}
 
-		ItemStack result = new ItemStack((Item) this.resultItem, 1, this.resultMeta);
 		if (tags != null) {
-			result.setTagCompound(tags);
+			resultStack.setTagCompound(tags);
 		}
-		NBTHelper.setInt(result, "Energy", Math.min(addedEnergy, this.resultItem.getMaxEnergyStored(result)));
+		NBTHelper.setInt(resultStack, "Energy", Math.min(addedEnergy, this.resultItem.getMaxEnergyStored(resultStack)));
 
 		if (this.resultItem instanceof ItemJetpack && particleType != null) {
-			((ItemJetpack) this.resultItem).setParticleType(result, particleType);
+			((ItemJetpack) this.resultItem).setParticleType(resultStack, particleType);
 		}
 
-		return result;
+		return resultStack;
 	}
 }

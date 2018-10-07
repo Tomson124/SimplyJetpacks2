@@ -240,7 +240,7 @@ public final class RecipeHelper {
 		return inputL;
 	}
 
-	public static void addArmoredReverseRecipe(EnumSet setJ, EnumSet setArmorJ, EnumSet setF, EnumSet setArmorF) {
+	/*public static void addArmoredReverseRecipe(EnumSet setJ, EnumSet setArmorJ, EnumSet setF, EnumSet setArmorF) {
 		Iterator i = setJ.iterator();
 		Iterator t = setArmorJ.iterator();
 		EnumSet fluxpacks = setF.clone();
@@ -273,5 +273,5 @@ public final class RecipeHelper {
 				ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxpack, "J", 'J', fluxpackArmored));
 			}
 		}
-	}
+	}*/
 }

@@ -368,10 +368,4 @@ public class ItemJetpack extends ItemPack {
 			}
 		}
 	}
-
-	public void registerItemModel() {
-		for (int i = 0; i < 2; i++) { //TODO: DONT HARDCODE THIS
-			SimplyJetpacks.proxy.registerItemRenderer(this, i, Jetpack.getTypeFromName(name).getBaseName());
-		}
-	}
 }
