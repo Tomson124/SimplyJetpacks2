@@ -303,9 +303,9 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@Override
 	public int getMaxEnergyStored(ItemStack container) {
 		int i = MathHelper.clamp(container.getItemDamage(), 0, numItems - 1);
-		int id = StackUtil.getEnchantmentIdByName("holding", container);
+		int id = StackUtil.getEnchantmentIdByName("cofhcore:holding", container);
 		if(id != -1){
-			return Jetpack.values()[i].getFuelCapacity() + Jetpack.values()[i].getFuelCapacity() * StackUtil.getEnchantmentLevel(id, container) / 2;
+			return Jetpack.values()[i].getFuelCapacity() + Jetpack.values()[i].getFuelCapacity() * EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByID(id), container) / 2;
 		}
 		return Jetpack.values()[i].getFuelCapacity();
 	}
