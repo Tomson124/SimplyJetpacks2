@@ -2,10 +2,15 @@ package tonius.simplyjetpacks.item;
 
 import cofh.core.item.IEnchantableItem;
 import cofh.redstoneflux.api.IEnergyContainerItem;
+import com.google.common.collect.Multimap;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
@@ -28,8 +33,12 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.capability.CapabilityProviderEnergy;
 import tonius.simplyjetpacks.capability.EnergyConversionStorage;
 import tonius.simplyjetpacks.client.handler.IModelRegister;
+import tonius.simplyjetpacks.client.model.PackModelType;
+import tonius.simplyjetpacks.client.util.RenderUtils;
+import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.setup.ModEnchantments;
+import tonius.simplyjetpacks.util.EquipmentSlotHelper;
 import tonius.simplyjetpacks.util.NBTHelper;
 import tonius.simplyjetpacks.util.SJStringHelper;
 import tonius.simplyjetpacks.util.StackUtil;
@@ -38,6 +47,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public class ItemPack extends ItemArmor implements ISpecialArmor, IModelRegister, IEnergyContainerItem, IHUDInfoProvider, IArmorEnderium, IEnchantableItem {
 
@@ -51,6 +61,8 @@ public class ItemPack extends ItemArmor implements ISpecialArmor, IModelRegister
 	public boolean showTier = true;
 	public boolean isFluxBased = false;
 
+	protected static final UUID ARMOR_MODIFIER = UUID.fromString("0819e549-a0f9-49d3-a199-53662799c67b");
+
 	public ItemPack(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn, String name) {
 		super(materialIn, renderIndexIn, equipmentSlotIn);
 		this.name = name;
@@ -61,8 +73,8 @@ public class ItemPack extends ItemArmor implements ISpecialArmor, IModelRegister
 
 	@Override
 	public EnumRarity getRarity(ItemStack stack) {
-		if (Objects.requireNonNull(Jetpack.getTypeFromName(name)).getRarity() != null) {
-			return Objects.requireNonNull(Jetpack.getTypeFromName(name)).getRarity();
+		if (Objects.requireNonNull(Packs.getTypeFromName(name)).getRarity() != null) {
+			return Objects.requireNonNull(Packs.getTypeFromName(name)).getRarity();
 		}
 		return super.getRarity(stack);
 	}
@@ -76,8 +88,8 @@ public class ItemPack extends ItemArmor implements ISpecialArmor, IModelRegister
 	@Override
 	public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
 		int energy = this.getEnergyStored(container);
-		int energyReceived = Math.min(this.getMaxEnergyStored(container) - energy, Math.min(maxReceive, Objects.requireNonNull(Jetpack.getTypeFromName(name)).getFuelPerTickIn()));
-		if (!Objects.requireNonNull(Jetpack.getTypeFromName(name)).usesFuel) {
+		int energyReceived = Math.min(this.getMaxEnergyStored(container) - energy, Math.min(maxReceive, Objects.requireNonNull(Packs.getTypeFromName(name)).getFuelPerTickIn()));
+		if (!Objects.requireNonNull(Packs.getTypeFromName(name)).usesFuel) {
 			energyReceived = this.getMaxEnergyStored(container);
 		}
 		if (!simulate) {
@@ -90,7 +102,7 @@ public class ItemPack extends ItemArmor implements ISpecialArmor, IModelRegister
 	@Override
 	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
 		int energy = this.getEnergyStored(container);
-		int energyExtracted = Math.min(energy, Math.min(maxExtract, Objects.requireNonNull(Jetpack.getTypeFromName(name)).getFuelPerTickOut() == 0 ? Objects.requireNonNull(Jetpack.getTypeFromName(name)).getFuelUsage() : Objects.requireNonNull(Jetpack.getTypeFromName(name)).getFuelPerTickOut()));
+		int energyExtracted = Math.min(energy, Math.min(maxExtract, Objects.requireNonNull(Packs.getTypeFromName(name)).getFuelPerTickOut() == 0 ? Objects.requireNonNull(Packs.getTypeFromName(name)).getFuelUsage() : Objects.requireNonNull(Packs.getTypeFromName(name)).getFuelPerTickOut()));
 		if (!simulate) {
 			energy -= energyExtracted;
 			NBTHelper.setInt(container, TAG_ENERGY, energy);
@@ -107,17 +119,24 @@ public class ItemPack extends ItemArmor implements ISpecialArmor, IModelRegister
 	public int getMaxEnergyStored(ItemStack container) {
 		int id = StackUtil.getEnchantmentIdByName("holding", container);
 		if(id != -1){
-			return Objects.requireNonNull(Jetpack.getTypeFromName(name)).getFuelCapacity() + Objects.requireNonNull(Jetpack.getTypeFromName(name)).getFuelCapacity() * StackUtil.getEnchantmentLevel(id, container) / 2;
+			return Objects.requireNonNull(Packs.getTypeFromName(name)).getFuelCapacity() + Objects.requireNonNull(Packs.getTypeFromName(name)).getFuelCapacity() * StackUtil.getEnchantmentLevel(id, container) / 2;
 		}
-		return Objects.requireNonNull(Jetpack.getTypeFromName(name)).getFuelCapacity();
+		return Objects.requireNonNull(Packs.getTypeFromName(name)).getFuelCapacity();
+	}
+
+	@Override
+	public double getDurabilityForDisplay(ItemStack stack) {
+		double stored = this.getMaxEnergyStored(stack) - this.getEnergyStored(stack) + 1;
+		double max = this.getMaxEnergyStored(stack) + 1;
+		return stored / max;
 	}
 
 	protected int getFuelPerDamage(ItemStack stack) {
 		if (ModEnchantments.fuelEffeciency == null) {
-			return Objects.requireNonNull(Jetpack.getTypeFromName(name)).getArmorFuelPerHit();
+			return Objects.requireNonNull(Packs.getTypeFromName(name)).getArmorFuelPerHit();
 		}
 		int fuelEfficiencyLevel = MathHelper.clamp(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
-		return (int) Math.round(Objects.requireNonNull(Jetpack.getTypeFromName(name)).getArmorFuelPerHit() * (5 - fuelEfficiencyLevel) / 5.0D);
+		return (int) Math.round(Objects.requireNonNull(Packs.getTypeFromName(name)).getArmorFuelPerHit() * (5 - fuelEfficiencyLevel) / 5.0D);
 	}
 
 	public IEnergyStorage getIEnergyStorage(ItemStack chargeItem) {
@@ -136,20 +155,52 @@ public class ItemPack extends ItemArmor implements ISpecialArmor, IModelRegister
 		return new CapabilityProviderEnergy<>(new EnergyConversionStorage(this, stack), CapabilityEnergy.ENERGY, null);
 	}
 
+	protected void chargeInventory(EntityLivingBase user, ItemStack stack, ItemPack item) {
+		if (this.fuelType == FuelType.ENERGY) {
+			for (int j = 0; j <= 5; j++) {
+				ItemStack currentStack = user.getItemStackFromSlot(EquipmentSlotHelper.fromSlot(j));
+				if (currentStack != null && currentStack != stack && getIEnergyStorage(currentStack) != null && (currentStack.hasCapability(CapabilityEnergy.ENERGY, null) || currentStack.getItem() instanceof IEnergyContainerItem)) {
+					if (Packs.getTypeFromName(name).usesFuel) {
+						int energyToAdd = Math.min(item.extractEnergy(stack, Packs.getTypeFromName(name).getFuelPerTickOut(), true), getIEnergyStorage(currentStack).receiveEnergy(Packs.getTypeFromName(name).getFuelPerTickOut(), true));
+						item.extractEnergy(stack, energyToAdd, false);
+						getIEnergyStorage(currentStack).receiveEnergy(energyToAdd, false);
+					}
+					else {
+						getIEnergyStorage(currentStack).receiveEnergy(Packs.getTypeFromName(name).getFuelPerTickOut(), false);
+					}
+				}
+			}
+		}
+	}
+
 	@Override
 	public ArmorProperties getProperties(EntityLivingBase player, @Nonnull ItemStack armor, DamageSource source, double damage, int slot) {
-		if (Objects.requireNonNull(Jetpack.getTypeFromName(name)).getIsArmored() && !source.isUnblockable()) {
+		if (Objects.requireNonNull(Packs.getTypeFromName(name)).getIsArmored() && !source.isUnblockable()) {
 			int energyPerDamage = this.getFuelPerDamage(armor);
 			int maxAbsorbed = energyPerDamage > 0 ? 25 * (this.getEnergyStored(armor) / energyPerDamage) : 0;
 			if (this.getEnergyStored(armor) < energyPerDamage) {
-				return new ArmorProperties(0, 0.65D * (Objects.requireNonNull(Jetpack.getTypeFromName(name)).getArmorReduction() / 20.0D), Integer.MAX_VALUE);
+				return new ArmorProperties(0, 0.65D * (Objects.requireNonNull(Packs.getTypeFromName(name)).getArmorReduction() / 20.0D), Integer.MAX_VALUE);
 			}
 			if (this.isFluxBased && source.damageType.equals("flux")) {
 				return new ArmorProperties(0, 0.5D, Integer.MAX_VALUE);
 			}
-			return new ArmorProperties(0, 0.85D * (Objects.requireNonNull(Jetpack.getTypeFromName(name)).getArmorReduction() / 20.0D), maxAbsorbed);
+			return new ArmorProperties(0, 0.85D * (Objects.requireNonNull(Packs.getTypeFromName(name)).getArmorReduction() / 20.0D), maxAbsorbed);
 		}
 		return new ArmorProperties(0, 0, 0);
+	}
+
+	@Override
+	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(slot);
+		if (!Packs.getTypeFromName(name).getIsArmored()) {
+			multimap.clear();
+			return multimap;
+		}
+		if (slot == EntityEquipmentSlot.CHEST) {
+			multimap.clear();
+			multimap.put(SharedMonsterAttributes.ARMOR.getName(), new AttributeModifier(ARMOR_MODIFIER, "Armor modifier", (double) Packs.getTypeFromName(name).getArmorReduction(), 0));
+		}
+		return multimap;
 	}
 
 	@Override
@@ -158,11 +209,28 @@ public class ItemPack extends ItemArmor implements ISpecialArmor, IModelRegister
 	}
 
 	@Override
+	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
+		if (Config.enableArmor3DModels) {
+			ModelBiped model = RenderUtils.getArmorModel(Packs.getTypeFromName(name), entityLiving);
+			if (model != null) {
+				return model;
+			}
+		}
+		return super.getArmorModel(entityLiving, itemStack, armorSlot, _default);
+	}
+
+	@Override
+	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+		String flat = Config.enableArmor3DModels || Packs.getTypeFromName(name).armorModel == PackModelType.FLAT ? "" : ".flat";
+		return SimplyJetpacks.RESOURCE_PREFIX + "textures/armor/" + name + flat + ".png";
+	}
+
+	@Override
 	public void damageArmor(EntityLivingBase entity, @Nonnull ItemStack stack, DamageSource source, int damage, int slot) {
-		if (Objects.requireNonNull(Jetpack.getTypeFromName(name)).getIsArmored()) {
-			if(Objects.requireNonNull(Jetpack.getTypeFromName(name)).usesFuel) {
+		if (Objects.requireNonNull(Packs.getTypeFromName(name)).getIsArmored()) {
+			if (Objects.requireNonNull(Packs.getTypeFromName(name)).usesFuel) {
 				if (this.fuelType == FuelType.ENERGY && this.isFluxBased && source.damageType.equals("flux")) {
-					this.receiveEnergy(stack, damage * (source.getImmediateSource() == null ? Objects.requireNonNull(Jetpack.getTypeFromName(name)).getArmorFuelPerHit() / 2 : this.getFuelPerDamage(stack)), false);
+					this.receiveEnergy(stack, damage * (source.getImmediateSource() == null ? Objects.requireNonNull(Packs.getTypeFromName(name)).getArmorFuelPerHit() / 2 : this.getFuelPerDamage(stack)), false);
 				} else {
 					this.extractEnergy(stack, damage * this.getFuelPerDamage(stack), false);
 				}
@@ -216,14 +284,14 @@ public class ItemPack extends ItemArmor implements ISpecialArmor, IModelRegister
 	@SuppressWarnings("unchecked")
 	public void information(ItemStack stack, ItemPack item, List list) {
 		if (this.showTier) {
-			list.add(SJStringHelper.getTierText(Objects.requireNonNull(Jetpack.getTypeFromName(name)).getTier()));
+			list.add(SJStringHelper.getTierText(Objects.requireNonNull(Packs.getTypeFromName(name)).getTier()));
 		}
-		list.add(SJStringHelper.getFuelText(this.fuelType, item.getEnergyStored(stack), item.getMaxEnergyStored(stack), !Objects.requireNonNull(Jetpack.getTypeFromName(name)).usesFuel));
+		list.add(SJStringHelper.getFuelText(this.fuelType, item.getEnergyStored(stack), item.getMaxEnergyStored(stack), !Objects.requireNonNull(Packs.getTypeFromName(name)).usesFuel));
 	}
 
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
-		if (!Objects.requireNonNull(Jetpack.getTypeFromName(name)).usesFuel) {
+		if (!Objects.requireNonNull(Packs.getTypeFromName(name)).usesFuel) {
 			return false;
 		}
 		return this.hasFuelIndicator;

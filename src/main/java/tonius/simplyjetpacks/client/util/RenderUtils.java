@@ -8,7 +8,7 @@ import net.minecraft.entity.EntityLivingBase;
 import tonius.simplyjetpacks.client.model.ModelFluxPack;
 import tonius.simplyjetpacks.client.model.ModelJetpack;
 import tonius.simplyjetpacks.item.Fluxpack;
-import tonius.simplyjetpacks.item.Jetpack;
+import tonius.simplyjetpacks.item.Packs;
 
 public abstract class RenderUtils
 {
@@ -81,7 +81,7 @@ public abstract class RenderUtils
 		BOTTOM_RIGHT
 	}
 
-	public static ModelBiped getArmorModel(Jetpack pack, EntityLivingBase entity)
+	public static ModelBiped getArmorModel(Packs pack, EntityLivingBase entity)
 	{
 		ModelBiped model = null;
 		switch(pack.armorModel)

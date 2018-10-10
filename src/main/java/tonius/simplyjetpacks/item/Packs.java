@@ -1,26 +1,19 @@
 package tonius.simplyjetpacks.item;
 
-import net.minecraftforge.fml.common.Loader;
-import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.client.model.PackModelType;
-import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.config.PackDefaults;
-import tonius.simplyjetpacks.handler.SyncHandler;
-import tonius.simplyjetpacks.integration.ModType;
 import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.NBTHelper;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.common.config.Configuration;
 
 import javax.annotation.Nonnull;
 import java.util.*;
 
-public enum Jetpack implements IStringSerializable {
+public enum Packs implements IStringSerializable {
 	CREATIVE_JETPACK("jetpack_Creative", 6, "jetpackCreative", EnumRarity.EPIC, ParticleType.RAINBOW_SMOKE, false),
 	JETPACK_TEST("jetpack_Test", 1, "jetpackEIO1", EnumRarity.COMMON),
 	//POTATO_JETPACK("jetpack_Potato", 1, "jetpackPotato", EnumRarity.COMMON, ParticleType.DEFAULT, false),
@@ -50,16 +43,33 @@ public enum Jetpack implements IStringSerializable {
 	
 	JETPACK_VANILLA_1("jetpack_Vanilla1", 1, "jetpackVanilla1", EnumRarity.COMMON),
 	JETPACK_VANILLA_2("jetpack_Vanilla2", 2, "jetpackVanilla2", EnumRarity.UNCOMMON),
-	JETPACK_VANILLA_3("jetpack_Vanilla3", 3, "jetpackVanilla3", EnumRarity.RARE);
+	JETPACK_VANILLA_3("jetpack_Vanilla3", 3, "jetpackVanilla3", EnumRarity.RARE),
+
+
+	CREATIVE_FLUXPACK("fluxPack_creative", 6, "fluxPackCreative", EnumRarity.EPIC, false),
+
+	//EnderIO
+	FLUXPACK_EIO1("fluxPack_EIO1", 1, "fluxPackEIO1", EnumRarity.COMMON),
+	FLUXPACK_EIO2("fluxPack_EIO2", 2, "fluxPackEIO2", EnumRarity.UNCOMMON),
+	FLUXPACK_EIO3("fluxPack_EIO3", 3, "fluxPackEIO3", EnumRarity.RARE),
+	FLUXPACK_EIO2_ARMORED("fluxPack_EIO2_Armored", 2, "fluxPackEIO2", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_EIO_2.ordinal()),
+	FLUXPACK_EIO3_ARMORED("fluxPack_EIO3_Armored", 3, "fluxPackEIO3", EnumRarity.RARE, true, MetaItemsMods.ARMOR_PLATING_EIO_4.ordinal()),
+
+	//Thermal Expansioin
+	FLUXPACK_TE1("fluxPack_TE1", 1, "fluxPackTE1", EnumRarity.COMMON),
+	FLUXPACK_TE2("fluxPack_TE2", 2, "fluxPackTE2", EnumRarity.UNCOMMON),
+	FLUXPACK_TE3("fluxPack_TE3", 3, "fluxPackTE3", EnumRarity.RARE),
+	FLUXPACK_TE2_ARMORED("fluxPack_TE2_Armored", 2, "fluxPackTE2", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_TE_2.ordinal()),
+	FLUXPACK_TE3_ARMORED("fluxPack_TE3_Armored", 3, "fluxPackTE3", EnumRarity.RARE, true, MetaItemsMods.ARMOR_PLATING_TE_4.ordinal());
 
 	protected final PackDefaults defaults;
-	protected static final EnumSet<Jetpack> ALL_PACKS = EnumSet.allOf(Jetpack.class);
-	protected static final EnumSet<Jetpack> PACKS_SJ = EnumSet.of(CREATIVE_JETPACK, JETPACK_TEST);
-	public static final EnumSet<Jetpack> PACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPLATE_EIO_5);
-	public static final EnumSet<Jetpack> PACKS_TE = EnumSet.range(JETPACK_TE_1, JETPLATE_TE_5);
-	public static final EnumSet<Jetpack> PACKS_TE_ARMORED = EnumSet.range(JETPACK_TE_1_ARMORED, JETPACK_TE_4_ARMORED);
-	public static final EnumSet<Jetpack> PACKS_RR = EnumSet.of(JETPLATE_TE_5_ENDERIUM);
-	public static final EnumSet<Jetpack> PACKS_VANILLA = EnumSet.range(JETPACK_VANILLA_1, JETPACK_VANILLA_3);
+	protected static final EnumSet<Packs> ALL_PACKS = EnumSet.allOf(Packs.class);
+	protected static final EnumSet<Packs> PACKS_SJ = EnumSet.of(CREATIVE_JETPACK, JETPACK_TEST);
+	public static final EnumSet<Packs> PACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPLATE_EIO_5);
+	public static final EnumSet<Packs> PACKS_TE = EnumSet.range(JETPACK_TE_1, JETPLATE_TE_5);
+	public static final EnumSet<Packs> PACKS_TE_ARMORED = EnumSet.range(JETPACK_TE_1_ARMORED, JETPACK_TE_4_ARMORED);
+	public static final EnumSet<Packs> PACKS_RR = EnumSet.of(JETPLATE_TE_5_ENDERIUM);
+	public static final EnumSet<Packs> PACKS_VANILLA = EnumSet.range(JETPACK_VANILLA_1, JETPACK_VANILLA_3);
 
 	protected static final String TAG_PARTICLE = "JetpackParticleType";
 	public ParticleType defaultParticleType = ParticleType.DEFAULT;
@@ -94,24 +104,24 @@ public enum Jetpack implements IStringSerializable {
 	@Nonnull
 	List<String> jetpacks = new ArrayList<String>();
 
-	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, ParticleType defaultParticleType, boolean usesFuel) {
+	private Packs(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, ParticleType defaultParticleType, boolean usesFuel) {
 		this(baseName, tier, defaultConfigKey, rarity);
 		this.defaultParticleType = defaultParticleType;
 		this.usesFuel = usesFuel;
 	}
 
-	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, boolean isArmored) {
+	private Packs(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, boolean isArmored) {
 		this(baseName, tier, defaultConfigKey, rarity);
 		this.isArmored = isArmored;
 	}
 
-	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, boolean isArmored, int platingMeta) {
+	private Packs(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, boolean isArmored, int platingMeta) {
 		this(baseName, tier, defaultConfigKey, rarity);
 		this.isArmored = isArmored;
 		this.platingMeta = platingMeta;
 	}
 
-	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity) {
+	private Packs(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity) {
 		this.baseName = baseName;
 		this.tier = tier;
 		this.defaults = PackDefaults.get(defaultConfigKey);
@@ -181,8 +191,8 @@ public enum Jetpack implements IStringSerializable {
 		return platingMeta;
 	}
 
-	public static Jetpack getTypeFromName(String name) {
-		for (Jetpack pack : Jetpack.values()) {
+	public static Packs getTypeFromName(String name) {
+		for (Packs pack : Packs.values()) {
 			if (pack.baseName.equalsIgnoreCase(name)) {
 				return pack;
 			}
@@ -192,11 +202,11 @@ public enum Jetpack implements IStringSerializable {
 
 	public static
 	@Nonnull
-	Jetpack getTypeFromMeta(int meta) {
+	Packs getTypeFromMeta(int meta) {
 		return values()[meta >= 0 && meta < values().length ? meta : 0];
 	}
 
-	public static int getMetaFromType(Jetpack value) {
+	public static int getMetaFromType(Packs value) {
 		return value.ordinal();
 	}
 
@@ -212,32 +222,32 @@ public enum Jetpack implements IStringSerializable {
 		return this.defaultParticleType;
 	}
 
-	public Jetpack setArmorModel(PackModelType armorModel) {
+	public Packs setArmorModel(PackModelType armorModel) {
 		this.armorModel = armorModel;
 		return this;
 	}
 	
 	public static void loadAllConfigs(Configuration config) {
-		for (Jetpack pack : PACKS_SJ) {
+		for (Packs pack : PACKS_SJ) {
 			pack.loadConfig(config);
 		}
 		if (ModItems.integrateEIO){
-			for (Jetpack pack : PACKS_EIO) {
+			for (Packs pack : PACKS_EIO) {
 				pack.loadConfig(config);
 			}
 		}
 		if (ModItems.integrateTE) {
-			for (Jetpack pack : PACKS_TE) {
+			for (Packs pack : PACKS_TE) {
 				pack.loadConfig(config);
 			}
 		}
 		if (ModItems.integrateVanilla){
-			for (Jetpack pack : PACKS_VANILLA) {
+			for (Packs pack : PACKS_VANILLA) {
 				pack.loadConfig(config);
 			}
 		}
 		if (ModItems.integrateRR){
-			for (Jetpack pack : PACKS_RR) {
+			for (Packs pack : PACKS_RR) {
 				pack.loadConfig(config);
 			}
 		}

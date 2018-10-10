@@ -8,7 +8,6 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
@@ -21,7 +20,6 @@ import tonius.simplyjetpacks.crafting.UpgradingRecipeShapeless;
 import tonius.simplyjetpacks.integration.*;
 import tonius.simplyjetpacks.item.*;
 import tonius.simplyjetpacks.util.crafting.RecipeHandler;
-import tonius.simplyjetpacks.util.crafting.RecipeHelper;
 
 @Mod.EventBusSubscriber(modid = SimplyJetpacks.MODID)
 public abstract class ModItems {
@@ -32,9 +30,9 @@ public abstract class ModItems {
 	public static ItemMeta metaItem;
 	public static ItemMetaMods metaItemMods;
 
-	public static Item jetpackCreative = new ItemJetpack("jetpack_Creative");
+	public static Item jetpackCreative = new ItemJetpack(Packs.CREATIVE_JETPACK.getBaseName());
 	public static Item itemJetpackTest = new ItemJetpack("jetpack_Test");
-	public static ItemStack fluxPackCreative;
+	public static Item fluxPackCreative = new ItemFluxpack(Packs.CREATIVE_FLUXPACK.getBaseName());
 
 	public static ItemStack particleDefault;
 	public static ItemStack particleSmoke;
@@ -54,25 +52,21 @@ public abstract class ModItems {
 	public static ItemStack thrusterEIO4;
 	public static ItemStack thrusterEIO5;
 
-	public static ItemStack thrusterVanilla1;
-	public static ItemStack thrusterVanilla2;
-	public static ItemStack thrusterVanilla3;
-
 	//EnderIO Packs
 	public static ItemStack armorPlatingEIO1;
 	public static ItemStack armorPlatingEIO2;
 	public static ItemStack armorPlatingEIO3;
 	public static ItemStack armorPlatingEIO4;
 
-	public static Item jetpackEIO1 = register(new ItemJetpack(Jetpack.JETPACK_EIO_1.getBaseName()));
-	public static Item jetpackEIO2 = register(new ItemJetpack(Jetpack.JETPACK_EIO_2.getBaseName()));
-	public static Item jetpackEIO3 = register(new ItemJetpack(Jetpack.JETPACK_EIO_3.getBaseName()));
-	public static Item jetpackEIO4 = register(new ItemJetpack(Jetpack.JETPACK_EIO_4.getBaseName()));
-	public static Item jetpackEIO5 = register(new ItemJetpack(Jetpack.JETPLATE_EIO_5.getBaseName()));
-	public static Item jetpackEIO1Armored = register(new ItemJetpack(Jetpack.JETPACK_EIO_1_ARMORED.getBaseName()));
-	public static Item jetpackEIO2Armored = register(new ItemJetpack(Jetpack.JETPACK_EIO_2_ARMORED.getBaseName()));
-	public static Item jetpackEIO3Armored = register(new ItemJetpack(Jetpack.JETPACK_EIO_3_ARMORED.getBaseName()));
-	public static Item jetpackEIO4Armored = register(new ItemJetpack(Jetpack.JETPACK_EIO_4_ARMORED.getBaseName()));
+	public static Item jetpackEIO1 = register(new ItemJetpack(Packs.JETPACK_EIO_1.getBaseName()));
+	public static Item jetpackEIO2 = register(new ItemJetpack(Packs.JETPACK_EIO_2.getBaseName()));
+	public static Item jetpackEIO3 = register(new ItemJetpack(Packs.JETPACK_EIO_3.getBaseName()));
+	public static Item jetpackEIO4 = register(new ItemJetpack(Packs.JETPACK_EIO_4.getBaseName()));
+	public static Item jetpackEIO5 = register(new ItemJetpack(Packs.JETPLATE_EIO_5.getBaseName()));
+	public static Item jetpackEIO1Armored = register(new ItemJetpack(Packs.JETPACK_EIO_1_ARMORED.getBaseName()));
+	public static Item jetpackEIO2Armored = register(new ItemJetpack(Packs.JETPACK_EIO_2_ARMORED.getBaseName()));
+	public static Item jetpackEIO3Armored = register(new ItemJetpack(Packs.JETPACK_EIO_3_ARMORED.getBaseName()));
+	public static Item jetpackEIO4Armored = register(new ItemJetpack(Packs.JETPACK_EIO_4_ARMORED.getBaseName()));
 
 	public static ItemStack fluxPackEIO1;
 	public static ItemStack fluxPackEIO2;
@@ -101,25 +95,25 @@ public abstract class ModItems {
 	public static ItemStack plateFlux;
 	public static ItemStack armorFluxPlate;
 
-	public static Item jetpackTE1 = new ItemJetpack(Jetpack.JETPACK_TE_1.getBaseName());
-	public static Item jetpackTE2 = new ItemJetpack(Jetpack.JETPACK_TE_2.getBaseName());
-	public static Item jetpackTE3 = new ItemJetpack(Jetpack.JETPACK_TE_3.getBaseName());
-	public static Item jetpackTE4 = new ItemJetpack(Jetpack.JETPACK_TE_4.getBaseName());
-	public static Item jetpackTE5 = new ItemJetpack(Jetpack.JETPLATE_TE_5.getBaseName());
-	public static Item jetpackTE1Armored = new ItemJetpack(Jetpack.JETPACK_TE_1_ARMORED.getBaseName());
-	public static Item jetpackTE2Armored = new ItemJetpack(Jetpack.JETPACK_TE_2_ARMORED.getBaseName());
-	public static Item jetpackTE3Armored = new ItemJetpack(Jetpack.JETPACK_TE_3_ARMORED.getBaseName());
-	public static Item jetpackTE4Armored = new ItemJetpack(Jetpack.JETPACK_TE_4_ARMORED.getBaseName());
+	public static Item jetpackTE1 = new ItemJetpack(Packs.JETPACK_TE_1.getBaseName());
+	public static Item jetpackTE2 = new ItemJetpack(Packs.JETPACK_TE_2.getBaseName());
+	public static Item jetpackTE3 = new ItemJetpack(Packs.JETPACK_TE_3.getBaseName());
+	public static Item jetpackTE4 = new ItemJetpack(Packs.JETPACK_TE_4.getBaseName());
+	public static Item jetpackTE5 = new ItemJetpack(Packs.JETPLATE_TE_5.getBaseName());
+	public static Item jetpackTE1Armored = new ItemJetpack(Packs.JETPACK_TE_1_ARMORED.getBaseName());
+	public static Item jetpackTE2Armored = new ItemJetpack(Packs.JETPACK_TE_2_ARMORED.getBaseName());
+	public static Item jetpackTE3Armored = new ItemJetpack(Packs.JETPACK_TE_3_ARMORED.getBaseName());
+	public static Item jetpackTE4Armored = new ItemJetpack(Packs.JETPACK_TE_4_ARMORED.getBaseName());
+
+	public static Item fluxPackTE1 = new ItemFluxpack(Packs.FLUXPACK_TE1.getBaseName());
+	public static Item fluxPackTE2 = new ItemFluxpack(Packs.FLUXPACK_TE2.getBaseName());
+	public static Item fluxPackTE3 = new ItemFluxpack(Packs.FLUXPACK_TE3.getBaseName());
+	public static Item fluxPackTE2Armored = new ItemFluxpack(Packs.FLUXPACK_TE2_ARMORED.getBaseName());
+	public static Item fluxPackTE3Armored = new ItemFluxpack(Packs.FLUXPACK_TE3_ARMORED.getBaseName());
 
 
 	//RR
-	public static Item jetpackTE5Enderium = new ItemJetpack(Jetpack.JETPLATE_TE_5_ENDERIUM.getBaseName());
-
-	public static ItemStack fluxPackTE1;
-	public static ItemStack fluxPackTE2;
-	public static ItemStack fluxPackTE3;
-	public static ItemStack fluxPackTE2Armored;
-	public static ItemStack fluxPackTE3Armored;
+	public static Item jetpackTE5Enderium = new ItemJetpack(Packs.JETPLATE_TE_5_ENDERIUM.getBaseName());
 
 	public static boolean integrateEIO = ModType.ENDER_IO.loaded && Config.enableIntegrationEIO;
 	public static boolean integrateTE = ModType.THERMAL_EXPANSION.loaded && Config.enableIntegrationTE;
@@ -136,10 +130,6 @@ public abstract class ModItems {
 	private static <T extends Item> T register(T item) {
 		//GameRegistry.register(item);
 		ForgeRegistries.ITEMS.register(item);
-
-		if (item instanceof ItemFluxpack) {
-			((ItemFluxpack) item).registerItemModel();
-		}
 
 		if (item instanceof ItemMeta) {
 			((ItemMeta) item).registerItemModel();
@@ -167,10 +157,9 @@ public abstract class ModItems {
 		Log.info("Registering items...");
 		IForgeRegistry<Item> r = event.getRegistry();
 
-		//Jetpacks
-		//itemJetpack = register(new ItemJetpack("itemJetpack"));
 		r.register(itemJetpackTest);
 		r.register(jetpackCreative);
+		r.register(fluxPackCreative);
 
 		if (integrateEIO) {
 			r.register(jetpackEIO1);
@@ -195,6 +184,12 @@ public abstract class ModItems {
 			r.register(jetpackTE3Armored);
 			r.register(jetpackTE4Armored);
 
+			r.register(fluxPackTE1);
+			r.register(fluxPackTE2);
+			r.register(fluxPackTE3);
+			r.register(fluxPackTE2Armored);
+			r.register(fluxPackTE3Armored);
+
 			if(integrateRR){
 				r.register(jetpackTE5);
 			}
@@ -206,9 +201,6 @@ public abstract class ModItems {
 
 		//FluxPacks
 		itemFluxPack = register(new ItemFluxpack("itemFluxpack"));
-
-		//jetpackCreative = Jetpack.CREATIVE_JETPACK.getStackJetpack();
-		fluxPackCreative = Fluxpack.CREATIVE_FLUXPACK.getStackFluxpack();
 
 		particleDefault = MetaItems.PARTICLE_DEFAULT.getStackMetaItem();
 		particleSmoke = MetaItems.PARTICLE_SMOKE.getStackMetaItem();
@@ -269,13 +261,6 @@ public abstract class ModItems {
 			armorPlatingTE2 = MetaItemsMods.ARMOR_PLATING_TE_2.getStackMetaItem();
 			armorPlatingTE3 = MetaItemsMods.ARMOR_PLATING_TE_3.getStackMetaItem();
 			armorPlatingTE4 = MetaItemsMods.ARMOR_PLATING_TE_4.getStackMetaItem();
-
-			fluxPackTE1 = Fluxpack.FLUXPACK_TE1.getStackFluxpack();
-			fluxPackTE2 = Fluxpack.FLUXPACK_TE2.getStackFluxpack();
-			fluxPackTE3 = Fluxpack.FLUXPACK_TE3.getStackFluxpack();
-			fluxPackTE2Armored = Fluxpack.FLUXPACK_TE2_ARMORED.getStackFluxpack();
-			fluxPackTE3Armored = Fluxpack.FLUXPACK_TE3_ARMORED.getStackFluxpack();
-
 		}
 	}
 
@@ -309,7 +294,7 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackEIO4, "IBI", "IJI", "T T", 'I', "ingotVibrantAlloy", 'B', EIOItems.octadicCapacitor, 'T', thrusterEIO4, 'J', jetpackEIO3));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackEIO5, "OAO", "PJP", "TCT", 'A', EIOItems.enderCrystal, 'J', jetpackEIO4Armored, 'O', "ingot_dark_soularium", 'C', fluxPackEIO3Armored, 'T', thrusterEIO5, 'P', reinforcedGliderWings));
 
-			/*for (Jetpack jetpack : Jetpack.PACKS_EIO) {
+			/*for (Packs jetpack : Packs.PACKS_EIO) {
 				ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particleCustomizer"));
 			}*/ //TODO: Particle Customizer Recipe
 
@@ -369,19 +354,19 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackTE5, "PAP", "OJO", "TCT", 'A', armorFluxPlate, 'J', jetpackTE4Armored, 'O', unitCryotheum, 'C', fluxPackTE3Armored, 'T', thrusterTE5, 'P', plateFlux));
 
 
-			/*ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE1, "ICI", "ISI", 'I', "ingotLead", 'C', TEItems.cellBasic, 'S', leatherStrap));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE1, "ICI", "ISI", 'I', "ingotLead", 'C', TEItems.cellBasic, 'S', leatherStrap));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE2, " C ", "ISI", "LOL", 'I', "ingotElectrum", 'L', "ingotLead", 'C', TEItems.cellReinforced, 'S', fluxPackTE1, 'O', TEItems.powerCoilElectrum));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE3, " C ", "ISI", "LOL", 'I', "ingotEnderium", 'L', "ingotLead", 'C', TEItems.cellResonant, 'S', fluxPackTE2, 'O', TEItems.powerCoilElectrum));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxPackTE2Armored, fluxPackTE2, armorPlatingTE2));
+			/*ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxPackTE2Armored, fluxPackTE2, armorPlatingTE2));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxPackTE3Armored, fluxPackTE3, armorPlatingTE4));*/
 
 			if(integrateRR){
 				ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackTE5Enderium, "AAA", "AJA", "AAA", 'A', "ingotGelidEnderium", 'J', jetpackTE5));
 			}
 
-			/*RecipeHelper.addArmoredReverseRecipe(Jetpack.PACKS_TE, Jetpack.PACKS_TE_ARMORED, Fluxpack.TE_FLUXPACKS, Fluxpack.TE_FLUXPACKS_ARMORED);
+			/*RecipeHelper.addArmoredReverseRecipe(Packs.PACKS_TE, Packs.PACKS_TE_ARMORED, Fluxpack.TE_FLUXPACKS, Fluxpack.TE_FLUXPACKS_ARMORED);
 
-			for (Jetpack jetpack : Jetpack.PACKS_TE) {
+			for (Packs jetpack : Packs.PACKS_TE) {
 				ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particleCustomizer"));
 			}*/
 		}
