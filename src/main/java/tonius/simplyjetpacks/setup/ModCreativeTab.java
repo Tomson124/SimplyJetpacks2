@@ -15,6 +15,6 @@ public class ModCreativeTab extends CreativeTabs {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public ItemStack getTabIconItem() {
-		return new ItemStack(ModItems.itemJetpack);
+		return new ItemStack(ModItems.jetpackCreative);
 	}
 }

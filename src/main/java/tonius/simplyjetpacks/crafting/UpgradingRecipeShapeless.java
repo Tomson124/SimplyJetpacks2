@@ -3,6 +3,7 @@ package tonius.simplyjetpacks.crafting;
 import cofh.redstoneflux.api.IEnergyContainerItem;
 import com.google.common.collect.Lists;
 import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -24,7 +25,7 @@ public class UpgradingRecipeShapeless extends ShapelessOreRecipe {
 
 	private static int j = 0;
 
-	public UpgradingRecipeShapeless(ItemStack result, Object... recipe) {
+	public UpgradingRecipeShapeless(Item result, Object... recipe) {
 		super(null, result, recipe);
 		setRegistryName(new ResourceLocation(SimplyJetpacks.MODID, "upgradeRecipeShapeless" + j));
 		j++;
