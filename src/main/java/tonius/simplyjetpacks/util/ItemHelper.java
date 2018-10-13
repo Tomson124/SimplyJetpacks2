@@ -12,10 +12,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.item.Fluxpack;
 import tonius.simplyjetpacks.item.ItemFluxpack;
-import tonius.simplyjetpacks.item.ItemJetpack;
-import tonius.simplyjetpacks.item.Jetpack;
 import tonius.simplyjetpacks.setup.ModItems;
-import tonius.simplyjetpacks.setup.ParticleType;
 
 public class ItemHelper {
 	public static OreDictionaryProxy oreProxy = new OreDictionaryProxy();
@@ -221,7 +218,7 @@ public class ItemHelper {
 		} else {
 			stack = new ItemStack(fluxpackItem, 1, pack.ordinal());
 			if (fluxpackItem != null) {
-				((ItemFluxpack) fluxpackItem).addFuel(stack, ((ItemFluxpack) fluxpackItem).getMaxEnergyStored(stack), false);
+				((ItemFluxpack) fluxpackItem).receiveEnergy(stack, ((ItemFluxpack) fluxpackItem).getMaxEnergyStored(stack), false);
 			}
 
 			List.add(stack);

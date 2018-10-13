@@ -19,7 +19,7 @@ public class RegistryHandler {
 			TEItems.initFluids();
 		}
 
-		ModItems.registerRecipes();
+		ModItems.registerRecipes(event);
 
 		for(IRecipe recipe : RECIPES_TO_REGISTER) {
 			event.getRegistry().register(recipe);

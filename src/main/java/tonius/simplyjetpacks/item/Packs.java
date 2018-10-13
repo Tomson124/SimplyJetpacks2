@@ -23,10 +23,10 @@ public enum Packs implements IStringSerializable {
 	JETPACK_EIO_2("jetpack_EIO2", 2, "jetpackEIO2", EnumRarity.COMMON),
 	JETPACK_EIO_3("jetpack_EIO3", 3, "jetpackEIO3", EnumRarity.UNCOMMON),
 	JETPACK_EIO_4("jetpack_EIO4", 4, "jetpackEIO4", EnumRarity.RARE),
-	JETPACK_EIO_1_ARMORED("jetpack_EIO1_Armored", 1, "jetpackEIO1", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_EIO_1.ordinal()),
-	JETPACK_EIO_2_ARMORED("jetpack_EIO2_Armored", 2, "jetpackEIO2", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_EIO_2.ordinal()),
-	JETPACK_EIO_3_ARMORED("jetpack_EIO3_Armored", 3, "jetpackEIO3", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_EIO_3.ordinal()),
-	JETPACK_EIO_4_ARMORED("jetpack_EIO4_Armored", 4, "jetpackEIO4", EnumRarity.RARE, true, MetaItemsMods.ARMOR_PLATING_EIO_4.ordinal()),
+	JETPACK_EIO_1_ARMORED("jetpack_EIO1_Armored", 1, "jetpackEIO1", EnumRarity.COMMON, true, ItemsSJ2.ARMOR_PLATING_EIO_1.ordinal()),
+	JETPACK_EIO_2_ARMORED("jetpack_EIO2_Armored", 2, "jetpackEIO2", EnumRarity.COMMON, true, ItemsSJ2.ARMOR_PLATING_EIO_2.ordinal()),
+	JETPACK_EIO_3_ARMORED("jetpack_EIO3_Armored", 3, "jetpackEIO3", EnumRarity.UNCOMMON, true, ItemsSJ2.ARMOR_PLATING_EIO_3.ordinal()),
+	JETPACK_EIO_4_ARMORED("jetpack_EIO4_Armored", 4, "jetpackEIO4", EnumRarity.RARE, true, ItemsSJ2.ARMOR_PLATING_EIO_4.ordinal()),
 	JETPLATE_EIO_5("jetpack_EIO5", 5, "jetpackEIO5", EnumRarity.EPIC, true),
 
 	//ThermalExpansion
@@ -34,10 +34,10 @@ public enum Packs implements IStringSerializable {
 	JETPACK_TE_2("jetpack_TE2", 2, "jetpackTE2", EnumRarity.COMMON),
 	JETPACK_TE_3("jetpack_TE3", 3, "jetpackTE3", EnumRarity.UNCOMMON),
 	JETPACK_TE_4("jetpack_TE4", 4, "jetpackTE4", EnumRarity.RARE),
-	JETPACK_TE_1_ARMORED("jetpack_TE1_Armored", 1, "jetpackTE1", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_TE_1.ordinal()),
-	JETPACK_TE_2_ARMORED("jetpack_TE2_Armored", 2, "jetpackTE2", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_TE_2.ordinal()),
-	JETPACK_TE_3_ARMORED("jetpack_TE3_Armored", 3, "jetpackTE3", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_TE_3.ordinal()),
-	JETPACK_TE_4_ARMORED("jetpack_TE4_Armored", 4, "jetpackTE4", EnumRarity.RARE, true, MetaItemsMods.ARMOR_PLATING_TE_4.ordinal()),
+	JETPACK_TE_1_ARMORED("jetpack_TE1_Armored", 1, "jetpackTE1", EnumRarity.COMMON, true, ItemsSJ2.ARMOR_PLATING_TE_1.ordinal()),
+	JETPACK_TE_2_ARMORED("jetpack_TE2_Armored", 2, "jetpackTE2", EnumRarity.COMMON, true, ItemsSJ2.ARMOR_PLATING_TE_2.ordinal()),
+	JETPACK_TE_3_ARMORED("jetpack_TE3_Armored", 3, "jetpackTE3", EnumRarity.UNCOMMON, true, ItemsSJ2.ARMOR_PLATING_TE_3.ordinal()),
+	JETPACK_TE_4_ARMORED("jetpack_TE4_Armored", 4, "jetpackTE4", EnumRarity.RARE, true, ItemsSJ2.ARMOR_PLATING_TE_4.ordinal()),
 	JETPLATE_TE_5("jetpack_TE5", 5, "jetpackTE5", EnumRarity.EPIC, true),
 	JETPLATE_TE_5_ENDERIUM("jetpack_TE5_enderium", 5, "jetpackTE5enderium", EnumRarity.EPIC, true),
 	
@@ -52,15 +52,15 @@ public enum Packs implements IStringSerializable {
 	FLUXPACK_EIO1("fluxPack_EIO1", 1, "fluxPackEIO1", EnumRarity.COMMON),
 	FLUXPACK_EIO2("fluxPack_EIO2", 2, "fluxPackEIO2", EnumRarity.UNCOMMON),
 	FLUXPACK_EIO3("fluxPack_EIO3", 3, "fluxPackEIO3", EnumRarity.RARE),
-	FLUXPACK_EIO2_ARMORED("fluxPack_EIO2_Armored", 2, "fluxPackEIO2", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_EIO_2.ordinal()),
-	FLUXPACK_EIO3_ARMORED("fluxPack_EIO3_Armored", 3, "fluxPackEIO3", EnumRarity.RARE, true, MetaItemsMods.ARMOR_PLATING_EIO_4.ordinal()),
+	FLUXPACK_EIO2_ARMORED("fluxPack_EIO2_Armored", 2, "fluxPackEIO2", EnumRarity.UNCOMMON, true, ItemsSJ2.ARMOR_PLATING_EIO_2.ordinal()),
+	FLUXPACK_EIO3_ARMORED("fluxPack_EIO3_Armored", 3, "fluxPackEIO3", EnumRarity.RARE, true, ItemsSJ2.ARMOR_PLATING_EIO_4.ordinal()),
 
 	//Thermal Expansioin
 	FLUXPACK_TE1("fluxPack_TE1", 1, "fluxPackTE1", EnumRarity.COMMON),
 	FLUXPACK_TE2("fluxPack_TE2", 2, "fluxPackTE2", EnumRarity.UNCOMMON),
 	FLUXPACK_TE3("fluxPack_TE3", 3, "fluxPackTE3", EnumRarity.RARE),
-	FLUXPACK_TE2_ARMORED("fluxPack_TE2_Armored", 2, "fluxPackTE2", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_TE_2.ordinal()),
-	FLUXPACK_TE3_ARMORED("fluxPack_TE3_Armored", 3, "fluxPackTE3", EnumRarity.RARE, true, MetaItemsMods.ARMOR_PLATING_TE_4.ordinal());
+	FLUXPACK_TE2_ARMORED("fluxPack_TE2_Armored", 2, "fluxPackTE2", EnumRarity.UNCOMMON, true, ItemsSJ2.ARMOR_PLATING_TE_2.ordinal()),
+	FLUXPACK_TE3_ARMORED("fluxPack_TE3_Armored", 3, "fluxPackTE3", EnumRarity.RARE, true, ItemsSJ2.ARMOR_PLATING_TE_4.ordinal());
 
 	protected final PackDefaults defaults;
 	protected static final EnumSet<Packs> ALL_PACKS = EnumSet.allOf(Packs.class);

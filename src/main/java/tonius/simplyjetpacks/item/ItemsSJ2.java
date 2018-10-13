@@ -5,9 +5,17 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-public enum MetaItemsMods {
+public enum ItemsSJ2 {
+
+	PARTICLE_DEFAULT("particle_Default", "particleCustomizers", EnumRarity.COMMON),
+	PARTICLE_NONE("particle_None", "particleCustomizers", EnumRarity.COMMON),
+	PARTICLE_SMOKE("particle_Smoke", "particleCustomizers", EnumRarity.COMMON),
+	PARTICLE_RAINBOWSMOKE("particle_Rainbow_Smoke", "particleCustomizers", EnumRarity.COMMON),
+
+	LEATHER_STRAP("leather_Strap", null, EnumRarity.COMMON),
 
 	//the 'vanilla' mod (here for modular item registration)
 	THRUSTER_VANILLA_1("thruster_Vanilla1", null, EnumRarity.COMMON),
@@ -53,25 +61,20 @@ public enum MetaItemsMods {
 	private EnumRarity rarity;
 	private boolean glow;
 
-	public static final EnumSet<MetaItemsMods> ITEMS_VANILLA = EnumSet.range(THRUSTER_VANILLA_1, THRUSTER_VANILLA_3);
-	public static final EnumSet<MetaItemsMods> ITEMS_EIO = EnumSet.range(INGOT_DARK_SOULARIUM, ARMOR_PLATING_EIO_4);
-	public static final EnumSet<MetaItemsMods> ITEMS_TE = EnumSet.range(PLATE_FLUX, THRUSTER_TE_5);
-	public static final EnumSet<MetaItemsMods> ITEMS_TE_RA = EnumSet.range(UNIT_GLOWSTONE_EMTPY, THRUSTER_TE_5);
-
-	private MetaItemsMods(String name, String keyTooltip, EnumRarity rarity) {
+	private ItemsSJ2(String name, String keyTooltip, EnumRarity rarity) {
 		this.name = name;
 		this.keyTooltip = keyTooltip;
 		this.rarity = rarity;
 	}
 
-	private MetaItemsMods(String name, String keyTooltip, EnumRarity rarity, boolean glow) {
+	private ItemsSJ2(String name, String keyTooltip, EnumRarity rarity, boolean glow) {
 		this(name, keyTooltip, rarity);
 		this.glow = glow;
 	}
 
-	public static MetaItemsMods getFromName(String s)
+	public static ItemsSJ2 getFromName(String s)
 	{
-		for(MetaItemsMods meta : values())
+		for(ItemsSJ2 meta : values())
 		{
 			if(meta.name.toLowerCase().equals(s.toLowerCase()))
 			{
@@ -83,8 +86,8 @@ public enum MetaItemsMods {
 	}
 
 	public static @Nonnull
-	MetaItemsMods getTypeFromMeta(int meta) {
-		return values()[meta >= 0 && meta < values().length + MetaItemsMods.values().length ? meta : 0];
+	ItemsSJ2 getTypeFromMeta(int meta) {
+		return values()[meta >= 0 && meta < values().length + ItemsSJ2.values().length ? meta : 0];
 	}
 
 	public
@@ -99,12 +102,21 @@ public enum MetaItemsMods {
 		return new ItemStack(ModItems.metaItemMods, size, ordinal());
 	}
 
-	public String getName()
+	public static Packs getTypeFromName(String name) {
+		for (Packs pack : Packs.values()) {
+			if (pack.baseName.equalsIgnoreCase(name)) {
+				return pack;
+			}
+		}
+		return null;
+	}
+
+	public @Nonnull String getName()
 	{
 		return name;
 	}
 
-	public String getKeyTooltip() {
+	public @Nullable String getKeyTooltip() {
 		return keyTooltip;
 	}
 
