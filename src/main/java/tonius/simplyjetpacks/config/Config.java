@@ -4,7 +4,6 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.util.RenderUtils.HUDPositions;
-import tonius.simplyjetpacks.item.Fluxpack;
 import tonius.simplyjetpacks.item.Packs;
 
 import java.io.File;
@@ -111,6 +110,5 @@ public class Config
 
 		//PackBase.loadAllConfigs(config);
 		Packs.loadAllConfigs(config);
-		Fluxpack.loadAllConfigs(config);
 	}
 }
