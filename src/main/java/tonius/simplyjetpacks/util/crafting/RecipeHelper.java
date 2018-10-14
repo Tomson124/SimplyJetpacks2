@@ -11,16 +11,9 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.CraftingHelper.ShapedPrimer;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreIngredient;
 import tonius.simplyjetpacks.RegistryHandler;
 import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.crafting.UpgradingRecipe;
-import tonius.simplyjetpacks.item.Fluxpack;
-import tonius.simplyjetpacks.item.Jetpack;
-
-import java.util.EnumSet;
-import java.util.Iterator;
 import java.util.List;
 
 public final class RecipeHelper {
@@ -48,6 +41,15 @@ public final class RecipeHelper {
 			RECIPE_LIST.add(rec);
 		}
 		RecipeHandler.lastRecipe = rec;
+	}
+
+	/*
+	 * This adds a shaped recipe to the list of crafting recipes, using the forge format.
+	 */
+	public static void addOldShaped(Item output, Object... input) {
+		ShapedPrimer primer = CraftingHelper.parseShaped(input);
+		addRecipe(j++, new ShapedRecipes(new ResourceLocation(MODID, "recipes" + j).toString(), primer.width,
+				primer.height, primer.input, new ItemStack(output)));
 	}
 
 	/*
