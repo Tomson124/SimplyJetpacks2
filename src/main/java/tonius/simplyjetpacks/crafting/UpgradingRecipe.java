@@ -11,6 +11,7 @@ import tonius.simplyjetpacks.CommonProxy;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.item.ItemFluxpack;
 import tonius.simplyjetpacks.item.ItemJetpack;
+import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.NBTHelper;
 
@@ -39,11 +40,12 @@ public class UpgradingRecipe extends ShapedOreRecipe {
 		for (int i = 0; i < inventoryCrafting.getSizeInventory(); i++) {
 			slotStack = inventoryCrafting.getStackInSlot(i);
 			if (slotStack != null && slotStack.getItem() != null) {
-				if (slotStack.getItem() instanceof ItemJetpack || slotStack.getItem() instanceof ItemFluxpack) {
+				if (slotStack.getItem() instanceof ItemPack) {
 					tags = NBTHelper.getTagCompound(slotStack).copy();
 				}
 				if (slotStack.getItem() instanceof IEnergyContainerItem) {
 					addedEnergy += ((IEnergyContainerItem) slotStack.getItem()).getEnergyStored(slotStack);
+					NBTHelper.setInt(resultStack, "Energy", Math.min(addedEnergy, this.resultItem.getMaxEnergyStored(resultStack)));
 				} else if (OreDictionary.containsMatch(false, CommonProxy.oresListParticles, slotStack)) {
 					particleType = ParticleType.values()[slotStack.getItemDamage()];
 				}
@@ -53,7 +55,7 @@ public class UpgradingRecipe extends ShapedOreRecipe {
 		if (tags != null) {
 			resultStack.setTagCompound(tags);
 		}
-		NBTHelper.setInt(resultStack, "Energy", Math.min(addedEnergy, this.resultItem.getMaxEnergyStored(resultStack)));
+		//NBTHelper.setInt(resultStack, "Energy", Math.min(addedEnergy, this.resultItem.getMaxEnergyStored(resultStack)));
 
 		if (this.resultItem instanceof ItemJetpack && particleType != null) {
 			((ItemJetpack) this.resultItem).setParticleType(resultStack, particleType);
