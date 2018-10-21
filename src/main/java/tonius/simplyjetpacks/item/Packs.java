@@ -239,11 +239,6 @@ public enum Packs implements IStringSerializable {
 				pack.loadConfig(config);
 			}
 		}
-		if (ModItems.integrateVanilla){
-			for (Packs pack : PACKS_VANILLA) {
-				pack.loadConfig(config);
-			}
-		}
 		if (ModItems.integrateRR){
 			for (Packs pack : PACKS_RR) {
 				pack.loadConfig(config);
