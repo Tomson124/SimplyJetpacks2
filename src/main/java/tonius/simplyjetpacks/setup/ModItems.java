@@ -25,19 +25,15 @@ import tonius.simplyjetpacks.item.*;
 import tonius.simplyjetpacks.util.crafting.RecipeHandler;
 import tonius.simplyjetpacks.util.crafting.RecipeHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static tonius.simplyjetpacks.SimplyJetpacks.MODID;
 
 @Mod.EventBusSubscriber(modid = MODID)
 public class ModItems {
 
-
-	public static ItemFluxpack itemFluxPack;
-
-	public static ItemMeta metaItem;
-	public static ItemIngredients metaItemMods;
-
 	public static Item jetpackCreative = new ItemJetpack(Packs.CREATIVE_JETPACK.getBaseName());
-	public static Item itemJetpackTest = new ItemJetpack("jetpack_Test");
 	public static Item fluxPackCreative = new ItemFluxpack(Packs.CREATIVE_FLUXPACK.getBaseName());
 
 	public static Item particleDefault = new ItemIngredients(ItemsSJ2.PARTICLE_DEFAULT.getName());
@@ -115,16 +111,16 @@ public class ModItems {
 	public static Item fluxPackTE2Armored = new ItemFluxpack(Packs.FLUXPACK_TE2_ARMORED.getBaseName());
 	public static Item fluxPackTE3Armored = new ItemFluxpack(Packs.FLUXPACK_TE3_ARMORED.getBaseName());
 
-
 	//RR
 	public static Item jetpackTE5Enderium = new ItemJetpack(Packs.JETPLATE_TE_5_ENDERIUM.getBaseName());
+
+	private static List<Item> jetpacks = new ArrayList<Item>();
 
 	public static boolean integrateEIO = ModType.ENDER_IO.loaded && Config.enableIntegrationEIO;
 	public static boolean integrateTE = ModType.THERMAL_EXPANSION.loaded && Config.enableIntegrationTE;
 	public static boolean integrateTD = ModType.THERMAL_DYNAMICS.loaded && Config.enableIntegrationTD;
 	public static boolean integrateRA = ModType.REDSTONE_ARSENAL.loaded && Config.enableIntegrationRA;
 	public static boolean integrateRR = ModType.REDSTONE_REPOSITORY.loaded && Config.enableIntegrationRR;
-	public static boolean integrateVanilla = Config.enableIntegrationVanilla;
 
 	public static void init() {
 		registerOreDicts();
@@ -132,12 +128,21 @@ public class ModItems {
 	}
 
 	private static void registerOreDicts() {
-		for (MetaItems item : MetaItems.PARTICLE_CUSTOMIZERS) {
-			OreDictionary.registerOre("particleCustomizer", new ItemStack(metaItem, 1, item.ordinal()));
+		OreDictionary.registerOre("particleCustomizer", particleDefault);
+		OreDictionary.registerOre("particleCustomizer", particleSmoke);
+		OreDictionary.registerOre("particleCustomizer", particleRainbowSmoke);
+		OreDictionary.registerOre("particleCustomizer", particleNone);
 
-		}
 		if (integrateEIO) {
 			OreDictionary.registerOre(ItemsSJ2.INGOT_DARK_SOULARIUM.getName(), ingotDarkSoularium);
+		}
+	}
+
+	public static void registerJetpacks(RegistryEvent.Register<Item> event, Item jetpack) {
+		IForgeRegistry<Item> r = event.getRegistry();
+		r.register(jetpack);
+		if (jetpack instanceof ItemJetpack) {
+			jetpacks.add(jetpack);
 		}
 	}
 
@@ -146,8 +151,7 @@ public class ModItems {
 		Log.info("Registering items...");
 		IForgeRegistry<Item> r = event.getRegistry();
 
-		r.register(itemJetpackTest);
-		r.register(jetpackCreative);
+		registerJetpacks(event, jetpackCreative);
 		r.register(fluxPackCreative);
 
 		r.register(particleDefault);
@@ -172,15 +176,15 @@ public class ModItems {
 			r.register(armorPlatingEIO3);
 			r.register(armorPlatingEIO4);
 
-			r.register(jetpackEIO1);
-			r.register(jetpackEIO2);
-			r.register(jetpackEIO3);
-			r.register(jetpackEIO4);
-			r.register(jetpackEIO5);
-			r.register(jetpackEIO1Armored);
-			r.register(jetpackEIO2Armored);
-			r.register(jetpackEIO3Armored);
-			r.register(jetpackEIO4Armored);
+			registerJetpacks(event,jetpackEIO1);
+			registerJetpacks(event,jetpackEIO2);
+			registerJetpacks(event,jetpackEIO3);
+			registerJetpacks(event,jetpackEIO4);
+			registerJetpacks(event,jetpackEIO5);
+			registerJetpacks(event,jetpackEIO1Armored);
+			registerJetpacks(event,jetpackEIO2Armored);
+			registerJetpacks(event,jetpackEIO3Armored);
+			registerJetpacks(event,jetpackEIO4Armored);
 
 			r.register(fluxPackEIO1);
 			r.register(fluxPackEIO2);
@@ -205,15 +209,15 @@ public class ModItems {
 			r.register(armorPlatingTE3);
 			r.register(armorPlatingTE4);
 
-			r.register(jetpackTE1);
-			r.register(jetpackTE2);
-			r.register(jetpackTE3);
-			r.register(jetpackTE4);
-			r.register(jetpackTE5);
-			r.register(jetpackTE1Armored);
-			r.register(jetpackTE2Armored);
-			r.register(jetpackTE3Armored);
-			r.register(jetpackTE4Armored);
+			registerJetpacks(event,jetpackTE1);
+			registerJetpacks(event,jetpackTE2);
+			registerJetpacks(event,jetpackTE3);
+			registerJetpacks(event,jetpackTE4);
+			registerJetpacks(event,jetpackTE5);
+			registerJetpacks(event,jetpackTE1Armored);
+			registerJetpacks(event,jetpackTE2Armored);
+			registerJetpacks(event,jetpackTE3Armored);
+			registerJetpacks(event,jetpackTE4Armored);
 
 			r.register(fluxPackTE1);
 			r.register(fluxPackTE2);
@@ -236,7 +240,7 @@ public class ModItems {
 			}
 
 			if(integrateRR){
-				r.register(jetpackTE5);
+				registerJetpacks(event,jetpackTE5);
 			}
 		}
 	}
@@ -349,15 +353,13 @@ public class ModItems {
 			r.register(new UpgradingRecipeShapeless(fluxPackTE2Armored, fluxPackTE2, armorPlatingTE2));
 			r.register(new UpgradingRecipeShapeless(fluxPackTE3Armored, fluxPackTE3, armorPlatingTE4));
 
-			/*if(integrateRR){
+			if(integrateRR){
 				r.register(new UpgradingRecipe(jetpackTE5Enderium, "AAA", "AJA", "AAA", 'A', "ingotGelidEnderium", 'J', jetpackTE5));
-			}*/
+			}
 
-			/*RecipeHelper.addArmoredReverseRecipe(Packs.PACKS_TE, Packs.PACKS_TE_ARMORED, Fluxpack.TE_FLUXPACKS, Fluxpack.TE_FLUXPACKS_ARMORED);
-
-			for (Packs jetpack : Packs.PACKS_TE) {
-				ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particleCustomizer"));
-			}*/
+			for (Item jetpack : jetpacks) {
+				r.register(new UpgradingRecipeShapeless(jetpack, jetpack, "particleCustomizer"));
+			}
 		}
 	}
 
