@@ -19,6 +19,9 @@ public class HUDTickHandler {
 
 	@SubscribeEvent(receiveCanceled = true)
 	public void onOverlayRender(RenderGameOverlayEvent.Post event) {
+		if (event.getType() != RenderGameOverlayEvent.ElementType.ALL) {
+			return; // chose a random element type to use for all overlays
+		}
 		if (mc.player != null) {
 			if ((mc.currentScreen == null || Config.showHUDWhileChatting && mc.currentScreen instanceof GuiChat) && !mc.gameSettings.hideGUI && !mc.gameSettings.showDebugInfo) {
 				ItemStack chestplate = mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
