@@ -1,3 +1,12 @@
+# 2.2.10 - 04-11-2018
+* **General**
+    * Make enthantment mehtods mor compatible - Thanks ZombieHDGaming
+
+* **Fixed**
+    * Weird glitch with HUD - #123
+    * Mod not respecting custom controls - #111 Thanks Keridos
+    * Dark Soularium Ingot recipe - Thanks loper12
+
 # 2.2.9  -  01-10-2018
 * **General**
     * Changed HUD implementation again to the "old" one
