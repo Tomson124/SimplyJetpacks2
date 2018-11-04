@@ -507,9 +507,9 @@ public abstract class ModItems {
 				toSend.append("<alloying energy=\"32000\"" + " exp=\"1\">");
 				{
 					toSend.append("<input name=\"ingotConductiveIron\"/>");
-					toSend.append("<input name=\"enderio:item_material:14\">");
-					toSend.append("<input name=\"ingotDarkSteel\"\>");
-					toSend.append("<output name=\"simplyjetpacks:metaitemmods:3\"\>");
+					toSend.append("<input name=\"enderio:item_material:14\"/>");
+					toSend.append("<input name=\"ingotDarkSteel\"/>");
+					toSend.append("<output name=\"simplyjetpacks:metaitemmods:3\"/>");
 				}
 				toSend.append("</alloying>");
 			}
