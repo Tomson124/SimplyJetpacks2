@@ -416,7 +416,7 @@ public abstract class ModItems {
 		SimplyJetpacks.logger.info("Doing intermod communication");
 
 		if (integrateEIO) {
-			/*ItemStack ingotConductiveIron = OreDictionary.getOres("ingotConductiveIron").get(0).copy();
+			ItemStack ingotConductiveIron = OreDictionary.getOres("ingotConductiveIron").get(0).copy();
 			ingotConductiveIron.setCount(10);
 			EIORecipes.addAlloySmelterRecipe("Conductive Iron Armor Plating", 3200, armorPlatingEIO1, ingotConductiveIron, null, armorPlatingEIO2);
 
@@ -430,10 +430,7 @@ public abstract class ModItems {
 
 			ItemStack ingotSoularium = OreDictionary.getOres("ingotSoularium").get(0).copy();
 			ingotDarkSteel.setCount(10);
-			EIORecipes.addAlloySmelterRecipe("Dark Soularium Alloy", 32000, ingotDarkSteel, ingotSoularium, EIOItems.pulsatingCrystal, ingotDarkSoularium);*/
-
-			//Workarround until next EnderIO version
-			addAlloySmelterRecipeWorkaround();
+			EIORecipes.addAlloySmelterRecipe("Dark Soularium Alloy", 32000, ingotDarkSteel, ingotSoularium, EIOItems.pulsatingCrystal, ingotDarkSoularium);
 
 			EIORecipes.addSoulBinderRecipe("Flight Control Unit", 75000, 8, "Bat", unitFlightControlEmpty, unitFlightControl);
 		}
@@ -457,66 +454,5 @@ public abstract class ModItems {
 			}
 		}
 
-	}
-
-	private static void addAlloySmelterRecipeWorkaround() {
-		SimplyJetpacks.logger.info("Registering EIO Alloy Smelter recipe");
-
-		StringBuilder toSend = new StringBuilder();
-
-		toSend.append("<enderio:recipes xmlns:enderio=\"http://enderio.com/recipes\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://enderio.com/recipes recipes.xsd \">");
-		{
-			toSend.append("<recipe name=\"Conductive Iron Armor Plating\">");
-			{
-				toSend.append("<alloying energy=\"3200\"" + " exp=\"1\">");
-				{
-					toSend.append("<input name=\"simplyjetpacks:metaitemmods:12\" amount=\"1\"/>");
-					toSend.append("<input name=\"ingotConductiveIron\" amount=\"10\"/>");
-					toSend.append("<output name=\"simplyjetpacks:metaitemmods:13\" amount=\"1\"/>");
-				}
-				toSend.append("</alloying>");
-			}
-			toSend.append("</recipe>");
-
-			toSend.append("<recipe name=\"Electrical Steel Armor Plating\">");
-			{
-				toSend.append("<alloying energy=\"4800\"" + " exp=\"1\">");
-				{
-					toSend.append("<input name=\"simplyjetpacks:metaitemmods:13\" amount=\"1\"/>");
-					toSend.append("<input name=\"ingotElectricalSteel\" amount=\"10\"/>");
-					toSend.append("<output name=\"simplyjetpacks:metaitemmods:14\" amount=\"1\"/>");
-				}
-				toSend.append("</alloying>");
-			}
-			toSend.append("</recipe>");
-
-			toSend.append("<recipe name=\"Dark Steel Armor Plating\">");
-			{
-				toSend.append("<alloying energy=\"6400\"" + " exp=\"1\">");
-				{
-					toSend.append("<input name=\"simplyjetpacks:metaitemmods:14\" amount=\"1\"/>");
-					toSend.append("<input name=\"ingotDarkSteel\" amount=\"10\"/>");
-					toSend.append("<output name=\"simplyjetpacks:metaitemmods:15\" amount=\"1\"/>");
-				}
-				toSend.append("</alloying>");
-			}
-			toSend.append("</recipe>");
-			
-			toSend.append("<recipe name=\"Dark Soularium Ingot\">");
-			{
-				toSend.append("<alloying energy=\"32000\"" + " exp=\"1\">");
-				{
-					toSend.append("<input name=\"ingotConductiveIron\"/>");
-					toSend.append("<input name=\"enderio:item_material:14\"/>");
-					toSend.append("<input name=\"ingotDarkSteel\"/>");
-					toSend.append("<output name=\"simplyjetpacks:metaitemmods:3\"/>");
-				}
-				toSend.append("</alloying>");
-			}
-			toSend.append("</recipe>");
-		}
-		toSend.append("</enderio:recipes>");
-
-		FMLInterModComms.sendMessage("enderio", "recipe:xml", toSend.toString());
 	}
 }
