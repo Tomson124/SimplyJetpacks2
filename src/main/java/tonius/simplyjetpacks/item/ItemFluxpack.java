@@ -55,8 +55,6 @@ public class ItemFluxpack extends ItemPack implements ISpecialArmor, IEnergyCont
 	public static final String TAG_ENERGY = "Energy";
 	public static final String TAG_ON = "PackOn";
 
-	public String name;
-
 	public ItemFluxpack(String name) {
 		super(EnumHelper.addArmorMaterial("JETPACK_SJ", "jetpack", 0, new int[]{0, 0, 0, 0}, 0, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0), 2, EntityEquipmentSlot.CHEST, name);
 	}
