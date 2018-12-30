@@ -139,9 +139,7 @@ simplyjetpacks.tooltip.raReplacement.description.3=of one if its items.
 simplyjetpacks.tooltip.enderiumUpgrade.description.1=Makes a Flux-Infused JetPlate look like
 simplyjetpacks.tooltip.enderiumUpgrade.description.2=an Enderium Flux armor piece.
 
-simplyjetpacks.gui.hud.itemJetpack.fuel=Jetpack fuel
-simplyjetpacks.gui.hud.itemJetpackEIO.fuel=Jetpack fuel
-simplyjetpacks.gui.hud.itemFluxpack.fuel=Flux Pack energy
+simplyjetpacks.gui.hud.pack.fuel=Energy level
 simplyjetpacks.gui.hud.fuel.depleted=Depleted
 simplyjetpacks.gui.hud.state.engine=Engine
 simplyjetpacks.gui.hud.state.hover=Hover

@@ -81,10 +81,10 @@ public abstract class SJStringHelper {
 		return TextFormatting.AQUA.toString() + TextFormatting.ITALIC + localize("tooltip.packGUIKey", key);
 	}
 
-	public static String getHUDFuelText(String prefix, int percent, FuelType fuelType, int fuel) {
+	public static String getHUDFuelText(int percent, FuelType fuelType, int fuel) {
 		String text = "";
 		if (!Config.minimalFuelHUD) {
-			text += localize("gui.hud." + prefix + ".fuel") + ": ";
+			text += localize("gui.hud.pack.fuel") + ": ";
 		}
 		if (percent > 0) {
 			text += getColoredPercent(percent) + "%";
