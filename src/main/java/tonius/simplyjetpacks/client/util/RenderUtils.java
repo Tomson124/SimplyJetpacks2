@@ -88,7 +88,11 @@ public abstract class RenderUtils
 			case JETPACK:
 				model = ModelJetpack.INSTANCE;
 				break;
+			case FLUX_PACK:
+				model = ModelFluxPack.INSTANCE;
+				break;
 			default:
+				break;
 		}
 		if(model == null)
 		{

@@ -209,6 +209,17 @@ public class ItemPack extends ItemArmor implements ISpecialArmor, IModelRegister
 	}
 
 	@Override
+	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
+		if (Config.enableArmor3DModels) {
+			ModelBiped model = RenderUtils.getArmorModel(Packs.getTypeFromName(name), entityLiving);
+			if (model != null) {
+				return model;
+			}
+		}
+		return super.getArmorModel(entityLiving, itemStack, armorSlot, _default);
+	}
+
+	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
 		String flat = Config.enableArmor3DModels || Packs.getTypeFromName(name).armorModel == PackModelType.FLAT ? "" : ".flat";
 		return SimplyJetpacks.RESOURCE_PREFIX + "textures/armor/" + name + flat + ".png";
