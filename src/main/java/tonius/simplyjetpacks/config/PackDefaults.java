@@ -54,6 +54,7 @@ public class PackDefaults
 		d = new PackDefaults("jetpackCreative", "Creative Jetpack");
 		d.fuelCapacity = 200000;
 		d.fuelPerTickOut = 50000;
+		d.fuelPerTickIn = 0;
 		d.armorReduction = 12;
 		d.enchantability = 20;
 		d.speedVertical = 0.9D;
@@ -67,6 +68,7 @@ public class PackDefaults
 		d = new PackDefaults("fluxPackCreative", "Creative Flux Pack");
 		d.fuelCapacity = 200000;
 		d.fuelPerTickOut = 50000;
+		d.fuelPerTickIn = 0;
 		d.armorReduction = 8;
 		d.enchantability = 10;
 
