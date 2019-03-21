@@ -1,6 +1,10 @@
+# 2.2.11 - 21-03-2019
+* **Fixed**
+    * Bug where the creative packs could be charged
+
 # 2.2.10 - 04-11-2018
 * **General**
-    * Make enthantment mehtods mor compatible - Thanks ZombieHDGaming
+    * Make enthantment mehtods more compatible - Thanks ZombieHDGaming
 
 * **Fixed**
     * Weird glitch with HUD - #123
