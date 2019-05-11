@@ -30,14 +30,14 @@ public abstract class TEItems {
 	public static ItemStack cellResonant;
 
 	//dynamos
-	@GameRegistry.ItemStackHolder(value = "thermalexpansion:dynamo", meta = 0)
-	public static ItemStack dynamoReactant = null;
 	@GameRegistry.ItemStackHolder(value = "thermalexpansion:dynamo", meta = 1)
 	public static ItemStack dynamoMagmatic = null;
 	@GameRegistry.ItemStackHolder(value = "thermalexpansion:dynamo", meta = 3)
-	public static ItemStack dynamoSteam = null;
+	public static ItemStack dynamoReactant = null;
 	@GameRegistry.ItemStackHolder(value = "thermalexpansion:dynamo", meta = 4)
 	public static ItemStack dynamoEnervation = null;
+	@GameRegistry.ItemStackHolder(value = "thermalexpansion:dynamo", meta = 5)
+	public static ItemStack dynamoNumismatic = null;
 
 	//materials
 	@GameRegistry.ItemStackHolder(value = "thermalfoundation:glass_alloy", meta = 5)
