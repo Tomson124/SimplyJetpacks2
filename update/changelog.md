@@ -1,3 +1,8 @@
+# 2.2.12 - 12-05-2019
+* **Fixed**
+    * Bug where jetpacks would not show up if TD integration was disabled - #126 #136
+    * Recipes for thrusters, changed the dynamos required to fit the used materials to the jetpack tier - #134
+
 # 2.2.11 - 21-03-2019
 * **Fixed**
     * Bug where the creative packs could be charged
