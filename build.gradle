@@ -20,8 +20,8 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 version = "2.2.12"
 
 def ENV = System.getenv()
-if (ENV.BUILD_NUMBER) {
-    version = version + "." + "${System.getenv().BUILD_NUMBER}"
+if (ENV.BUILD_BUILDNUMBER) {
+    version = version + "." + "${System.getenv().BUILD_BUILDNUMBER}"
 }
 
 sourceCompatibility = 1.8
