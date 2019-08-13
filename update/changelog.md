@@ -1,3 +1,8 @@
+# 2.2.13 - 13-08-2019
+* **Fixed**
+    * Jetplate not charging items - #138
+    *
+
 # 2.2.12 - 12-05-2019
 * **Fixed**
     * Bug where jetpacks would not show up if TD integration was disabled - #126 #136
