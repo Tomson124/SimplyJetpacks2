@@ -1,7 +1,10 @@
 # 2.2.13 - 13-08-2019
 * **Fixed**
+    * Crash when charging items and Redstone Repository is not installed - #143 #144
+
+# 2.2.13 - 13-08-2019
+* **Fixed**
     * Jetplate not charging items - #138
-    *
 
 # 2.2.12 - 12-05-2019
 * **Fixed**
