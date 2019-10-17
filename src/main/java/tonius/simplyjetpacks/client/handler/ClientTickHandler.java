@@ -7,7 +7,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
@@ -17,7 +16,7 @@ import tonius.simplyjetpacks.client.audio.SoundJetpack;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.item.ItemJetpack;
-import tonius.simplyjetpacks.item.Jetpack;
+import tonius.simplyjetpacks.item.Packs;
 import tonius.simplyjetpacks.setup.ParticleType;
 
 import java.lang.reflect.Field;
@@ -31,7 +30,7 @@ public class ClientTickHandler {
 
 	private static Field sprintToggleTimer = null;
 
-	private static final int numItems = Jetpack.values().length;
+	private static final int numItems = Packs.values().length;
 
 	public ClientTickHandler() {
 		try {
@@ -50,10 +49,10 @@ public class ClientTickHandler {
 		ParticleType jetpackState = null;
 		ItemStack armor = mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		if (armor != null && armor.getItem() instanceof ItemJetpack) {
-			int i = MathHelper.clamp(armor.getItemDamage(), 0, numItems - 1);
-			Jetpack jetpack = Jetpack.getTypeFromMeta(i);
-			if (jetpack != null) {
-				jetpackState = jetpack.getDisplayParticleType(armor, (ItemJetpack) armor.getItem(), mc.player);
+			String name = ((ItemJetpack) armor.getItem()).name;
+			Packs packs = Packs.getTypeFromName(name);
+			if (packs != null) {
+				jetpackState = ((ItemJetpack) armor.getItem()).getDisplayParticleType(armor, (ItemJetpack) armor.getItem(), mc.player);
 			}
 			wearingJetpack = true;
 		} else {

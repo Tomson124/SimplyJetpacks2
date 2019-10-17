@@ -4,13 +4,12 @@ import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.item.ItemJetpack;
-import tonius.simplyjetpacks.item.Jetpack;
+import tonius.simplyjetpacks.item.Packs;
 import tonius.simplyjetpacks.network.PacketHandler;
 import tonius.simplyjetpacks.network.message.MessageJetpackSync;
 import tonius.simplyjetpacks.setup.ParticleType;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
@@ -24,7 +23,7 @@ public class LivingTickHandler
 {
 	private static final Map<Integer, ParticleType> lastJetpackState = new ConcurrentHashMap<Integer, ParticleType>();
 
-	private final int numItems = Jetpack.values().length;
+	private final int numItems = Packs.values().length;
 
 	public static Field floatingTickCount = null;
 
@@ -46,14 +45,12 @@ public class LivingTickHandler
 		{
 			ParticleType jetpackState = null;
 			ItemStack armor = evt.getEntityLiving().getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-			Jetpack jetpack = null;
-			if(armor != null && armor.getItem() instanceof ItemJetpack)
-			{
-				int i = MathHelper.clamp(armor.getItemDamage(), 0, numItems - 1);
-				jetpack = Jetpack.getTypeFromMeta(i);
-				if(jetpack != null)
-				{
-					jetpackState = jetpack.getDisplayParticleType(armor, (ItemJetpack) armor.getItem(), evt.getEntityLiving());
+			Packs packs = null;
+			if(armor != null && armor.getItem() instanceof ItemJetpack) {
+				String name = ((ItemJetpack) armor.getItem()).name;
+				packs = Packs.getTypeFromName(name);
+				if(packs != null) {
+					jetpackState = ((ItemJetpack) armor.getItem()).getDisplayParticleType(armor, (ItemJetpack) armor.getItem(), evt.getEntityLiving());
 				}
 			}
 
@@ -69,7 +66,7 @@ public class LivingTickHandler
 				}
 				PacketHandler.instance.sendToAllAround(new MessageJetpackSync(evt.getEntityLiving().getEntityId(), jetpackState != null ? jetpackState.ordinal() : -1), new TargetPoint(evt.getEntityLiving().dimension, evt.getEntityLiving().posX, evt.getEntityLiving().posY, evt.getEntityLiving().posZ, 256));
 			}
-			else if(jetpack != null && evt.getEntityLiving().world.getTotalWorldTime() % 160L == 0)
+			else if(packs != null && evt.getEntityLiving().world.getTotalWorldTime() % 160L == 0)
 			{
 				PacketHandler.instance.sendToAllAround(new MessageJetpackSync(evt.getEntityLiving().getEntityId(), jetpackState != null ? jetpackState.ordinal() : -1), new TargetPoint(evt.getEntityLiving().dimension, evt.getEntityLiving().posX, evt.getEntityLiving().posY, evt.getEntityLiving().posZ, 256));
 			}
@@ -95,7 +92,7 @@ public class LivingTickHandler
             ItemStack armor = evt.getEntityLiving().getEquipmentInSlot(3);
             if (armor != null && armor.getItem() instanceof ItemJetpack) {
                 ItemJetpack jetpackItem = (ItemJetpack) armor.getItem();
-                Jetpack jetpack = jetpackItem.getPack(armor);
+                Packs jetpack = jetpackItem.getPack(armor);
                 if (jetpack != null) {
                     if (jetpack instanceof JetpackPotato || MathHelper.RANDOM.nextInt(3) == 0) {
                         jetpack.setMobMode(armor);

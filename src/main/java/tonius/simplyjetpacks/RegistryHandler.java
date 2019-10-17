@@ -15,16 +15,16 @@ public class RegistryHandler {
 
 	@SubscribeEvent
 	public void onRegisterRecipes(RegistryEvent.Register<IRecipe> event) {
-		if (ModItems.integrateTE) {
+		/*if (ModItems.integrateTE) {
 			TEItems.initFluids();
-		}
+		}*/
 
-		ModItems.registerRecipes();
+		//ModItems.registerRecipes(event);
 
-		for(IRecipe recipe : RECIPES_TO_REGISTER) {
+		/*for(IRecipe recipe : RECIPES_TO_REGISTER) {
 			event.getRegistry().register(recipe);
 		}
-		RECIPES_TO_REGISTER.clear();
+		RECIPES_TO_REGISTER.clear();*/
 	}
 
 

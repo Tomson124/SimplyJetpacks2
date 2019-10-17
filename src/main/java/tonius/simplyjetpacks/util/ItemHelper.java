@@ -10,12 +10,8 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.item.Fluxpack;
 import tonius.simplyjetpacks.item.ItemFluxpack;
-import tonius.simplyjetpacks.item.ItemJetpack;
-import tonius.simplyjetpacks.item.Jetpack;
 import tonius.simplyjetpacks.setup.ModItems;
-import tonius.simplyjetpacks.setup.ParticleType;
 
 public class ItemHelper {
 	public static OreDictionaryProxy oreProxy = new OreDictionaryProxy();
@@ -210,33 +206,4 @@ public class ItemHelper {
 	}
 
 	//END SURROUND
-
-	public static void addJetpacks(Jetpack pack, NonNullList<ItemStack> List) {
-		Item jetpackItem = ModItems.itemJetpack;
-		ItemStack jetpackStack = new ItemStack(jetpackItem, 1, pack.ordinal());
-		if (pack.usesFuel) {
-			NBTHelper.setInt(jetpackStack, ItemJetpack.TAG_ENERGY, 0);
-		} else if (jetpackItem != null) {
-			((ItemJetpack) jetpackItem).addFuel(jetpackStack, ((ItemJetpack) jetpackItem).getMaxEnergyStored(jetpackStack), false);
-		}
-		((ItemJetpack) jetpackItem).setParticleType(jetpackStack, ParticleType.DEFAULT);
-		List.add(jetpackStack);
-	}
-
-	public static void addFluxpacks(Fluxpack pack, NonNullList<ItemStack> List) {
-		ItemStack stack;
-		Item fluxpackItem = ModItems.itemFluxPack;
-		ItemStack fluxpackStack = new ItemStack(fluxpackItem, 1, pack.ordinal());
-		if (pack.usesFuel) {
-			List.add(fluxpackStack);
-			NBTHelper.setInt(fluxpackStack, ItemFluxpack.TAG_ENERGY, 0);
-		} else {
-			stack = new ItemStack(fluxpackItem, 1, pack.ordinal());
-			if (fluxpackItem != null) {
-				((ItemFluxpack) fluxpackItem).addFuel(stack, ((ItemFluxpack) fluxpackItem).getMaxEnergyStored(stack), false);
-			}
-
-			List.add(stack);
-		}
-	}
 }

@@ -1,18 +1,10 @@
 package tonius.simplyjetpacks.config;
 
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.util.RenderUtils.HUDPositions;
-import tonius.simplyjetpacks.item.Fluxpack;
-import tonius.simplyjetpacks.item.Jetpack;
+import tonius.simplyjetpacks.item.Packs;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -40,7 +32,6 @@ public class Config
 	public static boolean enableIntegrationTE = Defaults.enableIntegrationTE;
 	public static boolean enableIntegrationTD = Defaults.enableIntegrationTD;
 	public static boolean enableIntegrationRA = Defaults.enableIntegrationRA;
-	public static boolean enableIntegrationVanilla = Defaults.enableIntegrationVanilla;
 	public static boolean enableIntegrationRR = Defaults.enableIntegrationRR;
 	public static int gelidEnderiumFuelUsageBonus = Defaults.gelidEnderiumFuelUsageBonus;
 
@@ -90,7 +81,6 @@ public class Config
 		enableIntegrationTE = config.get(sectionIntegration.name, "ThermalExpansion integration", Defaults.enableIntegrationTE, "When enabled, Simply Jetpacks will register its Thermal Expansion-based jetpacks and flux packs.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationTE);
 		enableIntegrationTD = config.get(sectionIntegration.name, "ThermalDynamics integration", Defaults.enableIntegrationTD, "When enabled, Simply Jetpacks will register ThermalDynamic items for thruster recipes.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationTD);
 		enableIntegrationRA = config.get(sectionIntegration.name, "RedstoneArsenal integration", Defaults.enableIntegrationRA, "When enabled, Simply Jetpacks will register its RedstoneArsenal tier5 jetpack recipes.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationRA);
-		enableIntegrationVanilla = config.get(sectionIntegration.name, "Vanilla integration", Defaults.enableIntegrationVanilla, "When enabled, Simply Jetpacks will register its Vanilla-based jetpacks.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationVanilla);
 		enableIntegrationRR = config.get(sectionIntegration.name, "Redstone Repository integration", Defaults.enableIntegrationRA, "When enabled, Simply Jetpacks will register its RedstoneRepository tier5 jetplate recipes.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationRR);
 		gelidEnderiumFuelUsageBonus = config.get(sectionIntegration.name, "RedstoneRepository Fuel Efficiency Bonus", Defaults.gelidEnderiumFuelUsageBonus, "When set to a value between 0-100, changes the fuel efficiency bonus of the Enderium Armored Jetplate (Ex: 80 uses fuel at 80% rate").setMinValue(0).setMaxValue(100).setRequiresMcRestart(true).getInt(Defaults.gelidEnderiumFuelUsageBonus);
 
@@ -102,7 +92,7 @@ public class Config
 
 		enableArmor3DModels = configClient.get(sectionAesthetics.name, "Enable Armor 3D Models", Defaults.enableArmor3DModels, "When enabled, worn jetpacks and flux packs will have a 3D armor model. Otherwise, flat textures will be used.").getBoolean(Defaults.enableArmor3DModels);
 
-		jetpackSounds = configClient.get(sectionSounds.name, "Jetpack Sounds", Defaults.jetpackSounds, "When enabled, jetpacks will make sounds when used.").getBoolean(Defaults.jetpackSounds);
+		jetpackSounds = configClient.get(sectionSounds.name, "Packs Sounds", Defaults.jetpackSounds, "When enabled, jetpacks will make sounds when used.").getBoolean(Defaults.jetpackSounds);
 
 		holdShiftForDetails = configClient.get(sectionGui.name, "Hold Shift for Details", Defaults.holdShiftForDetails, "When enabled, item details are only shown in the tooltip when holding Shift.").getBoolean(Defaults.holdShiftForDetails);
 		HUDPosition = configClient.get(sectionGui.name, "HUD Base Position", Defaults.HUDPosition, "The base position of the HUD on the screen. 0 = top left, 1 = top center, 2 = top right, 3 = left, 4 = right, 5 = bottom left, 6 = bottom right").setMinValue(0).setMaxValue(HUDPositions.values().length - 1).getInt(Defaults.HUDPosition);
@@ -117,7 +107,6 @@ public class Config
 		enableStateMessages = configClient.get(sectionGui.name, "Enable State Messages", Defaults.enableStateMessages, "When enabled, switching jetpacks or flux packs on or off, or change their modes will display a status message above the inventory bar.").getBoolean(Defaults.enableStateMessages);
 
 		//PackBase.loadAllConfigs(config);
-		Jetpack.loadAllConfigs(config);
-		Fluxpack.loadAllConfigs(config);
+		Packs.loadAllConfigs(config);
 	}
 }

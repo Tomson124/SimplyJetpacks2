@@ -48,10 +48,9 @@ public class SimplyJetpacks {
 	public static void preInit(FMLPreInitializationEvent evt) {
 		logger.info("Starting Simply Jetpacks 2");
 
-		MinecraftForge.EVENT_BUS.register(new RegistryHandler());
+		//MinecraftForge.EVENT_BUS.register(new RegistryHandler());
 
 		Config.preInit(evt);
-		ModItems.preInit();
 	}
 
 	@EventHandler

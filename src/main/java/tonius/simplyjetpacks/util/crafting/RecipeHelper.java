@@ -11,16 +11,10 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.CraftingHelper.ShapedPrimer;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreIngredient;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import tonius.simplyjetpacks.RegistryHandler;
 import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.crafting.UpgradingRecipe;
-import tonius.simplyjetpacks.item.Fluxpack;
-import tonius.simplyjetpacks.item.Jetpack;
-
-import java.util.EnumSet;
-import java.util.Iterator;
 import java.util.List;
 
 public final class RecipeHelper {
@@ -29,6 +23,10 @@ public final class RecipeHelper {
 	private static final String MODID = SimplyJetpacks.MODID;
 	private static final String MODNAME = SimplyJetpacks.MOD_NAME;
 	public static final List<IRecipe> RECIPE_LIST = RegistryHandler.RECIPES_TO_REGISTER;
+
+	public static IRecipe addShapedOreRecipe(Item result, Object... recipe) {
+		return new ShapedOreRecipe(null, result, recipe).setRegistryName(result.getRegistryName());
+	}
 
 	/*
 	 * This adds the recipe to the list of crafting recipes.  Since who cares about names, it adds it as recipesX, where X is the current recipe you are adding.
@@ -48,6 +46,15 @@ public final class RecipeHelper {
 			RECIPE_LIST.add(rec);
 		}
 		RecipeHandler.lastRecipe = rec;
+	}
+
+	/*
+	 * This adds a shaped recipe to the list of crafting recipes, using the forge format.
+	 */
+	public static void addOldShaped(Item output, Object... input) {
+		ShapedPrimer primer = CraftingHelper.parseShaped(input);
+		addRecipe(j++, new ShapedRecipes(new ResourceLocation(MODID, "recipes" + j).toString(), primer.width,
+				primer.height, primer.input, new ItemStack(output)));
 	}
 
 	/*
@@ -238,40 +245,5 @@ public final class RecipeHelper {
 			}
 		}
 		return inputL;
-	}
-
-	public static void addArmoredReverseRecipe(EnumSet setJ, EnumSet setArmorJ, EnumSet setF, EnumSet setArmorF) {
-		Iterator i = setJ.iterator();
-		Iterator t = setArmorJ.iterator();
-		EnumSet fluxpacks = setF.clone();
-		fluxpacks.remove(setF.toArray()[0]);
-		Iterator i2 = fluxpacks.iterator();
-		Iterator t2 = setArmorF.iterator();
-		while (i.hasNext() && t.hasNext()) {
-			ItemStack jetpack = ((Jetpack) i.next()).getStackJetpack();
-			ItemStack jetpackArmored = ((Jetpack) t.next()).getStackJetpack();
-			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpack, "J", 'J', jetpackArmored));
-		}
-		while (i2.hasNext() && t2.hasNext()) {
-			ItemStack fluxpack = ((Fluxpack) i2.next()).getStackFluxpack();
-			ItemStack fluxpackArmored = ((Fluxpack) t2.next()).getStackFluxpack();
-			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxpack, "F", 'F', fluxpackArmored));
-		}
-	}
-
-	public static void addArmoredReverseRecipe(EnumSet set, EnumSet setArmor, Enum pack) {
-		Iterator i = set.iterator();
-		Iterator t = setArmor.iterator();
-		while (i.hasNext() && t.hasNext()) {
-			if (pack instanceof Jetpack) {
-				ItemStack jetpack = ((Jetpack) i.next()).getStackJetpack();
-				ItemStack jetpackArmored = ((Jetpack) t.next()).getStackJetpack();
-				ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpack, "J", 'J', jetpackArmored));
-			} else {
-				ItemStack fluxpack = ((Fluxpack) i.next()).getStackFluxpack();
-				ItemStack fluxpackArmored = ((Fluxpack) t.next()).getStackFluxpack();
-				ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxpack, "J", 'J', fluxpackArmored));
-			}
-		}
 	}
 }

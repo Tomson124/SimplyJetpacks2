@@ -1,5 +1,6 @@
 package tonius.simplyjetpacks.integration;
 
+import net.minecraft.item.Item;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,7 +14,7 @@ public abstract class TERecipes {
 	private static final String output = "output";
 	private static final String output2 = "output2";
 
-	public static void addSmelterRecipe(int energy, ItemStack primaryInput, ItemStack secondaryInput, ItemStack primaryOutput, ItemStack secondaryOutput, int chance) {
+	public static void addSmelterRecipe(int energy, Item primaryInput, ItemStack secondaryInput, Item primaryOutput, Item secondaryOutput, int chance) {
 		SimplyJetpacks.logger.info("Registering TE Induction Smelter recipe");
 
 		NBTTagCompound toSend = new NBTTagCompound();
@@ -24,18 +25,18 @@ public abstract class TERecipes {
 		toSend.setTag(output, new NBTTagCompound());
 		toSend.setTag(output2, new NBTTagCompound());
 
-		primaryInput.writeToNBT(toSend.getCompoundTag(input));
+		new ItemStack(primaryInput).writeToNBT(toSend.getCompoundTag(input));
 		secondaryInput.writeToNBT(toSend.getCompoundTag(input2));
-		primaryOutput.writeToNBT(toSend.getCompoundTag(output));
+		new ItemStack(primaryOutput).writeToNBT(toSend.getCompoundTag(output));
 		if (secondaryOutput != null) {
-			secondaryOutput.writeToNBT(toSend.getCompoundTag(output2));
+			new ItemStack(secondaryOutput).writeToNBT(toSend.getCompoundTag(output2));
 			toSend.setInteger("chance", chance);
 		}
 
 		FMLInterModComms.sendMessage("thermalexpansion", "AddSmelterRecipe", toSend);
 	}
 
-	public static void addTransposerFill(int energy, ItemStack fluidInput, ItemStack fluidOutput, FluidStack fluid, boolean reversible) {
+	public static void addTransposerFill(int energy, Item fluidInput, Item fluidOutput, FluidStack fluid, boolean reversible) {
 		SimplyJetpacks.logger.info("Registering TE Fluid Transposer fill recipe");
 
 		NBTTagCompound toSend = new NBTTagCompound();
@@ -45,8 +46,8 @@ public abstract class TERecipes {
 		toSend.setTag(output, new NBTTagCompound());
 		toSend.setTag("fluid", new NBTTagCompound());
 
-		fluidInput.writeToNBT(toSend.getCompoundTag(input));
-		fluidOutput.writeToNBT(toSend.getCompoundTag(output));
+		new ItemStack(fluidInput).writeToNBT(toSend.getCompoundTag(input));
+		new ItemStack(fluidOutput).writeToNBT(toSend.getCompoundTag(output));
 		toSend.setBoolean("reversible", reversible);
 		fluid.writeToNBT(toSend.getCompoundTag("fluid"));
 
