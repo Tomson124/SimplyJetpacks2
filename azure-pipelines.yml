@@ -9,6 +9,7 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+name: $(Rev:.r)
 steps:
 - task: Gradle@2
   inputs:
