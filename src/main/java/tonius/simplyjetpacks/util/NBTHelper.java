@@ -1,28 +1,23 @@
 package tonius.simplyjetpacks.util;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.nbt.CompoundNBT;
 
 public final class NBTHelper {
 	private NBTHelper() {
 
 	}
 
-	public static NBTTagCompound getTagCompound(ItemStack stack) {
-
-		if (stack.isEmpty()) {
-			return null;
+	public static CompoundNBT getCompoundTag(ItemStack stack) {
+		CompoundNBT nbt = stack.getTag();
+		if (nbt == null) {
+			nbt = new CompoundNBT();
+			stack.setTag(nbt);
 		}
-		if (!stack.hasTagCompound()) {
-			stack.setTagCompound(new NBTTagCompound());
-		}
-		return stack.getTagCompound();
+		return nbt;
 	}
 
-	public static boolean keyExists(ItemStack stack, String key) {
+	/*public static boolean keyExists(ItemStack stack, String key) {
 
 		if (stack.isEmpty()) {
 			return false;
@@ -183,5 +178,5 @@ public final class NBTHelper {
 	public static void removeTag(ItemStack stack, String key) {
 
 		getTagCompound(stack).removeTag(key);
-	}
+	}*/
 }

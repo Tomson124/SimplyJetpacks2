@@ -5,7 +5,7 @@ import tonius.simplyjetpacks.config.PackDefaults;
 import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.NBTHelper;
-import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Rarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.common.config.Configuration;
@@ -14,51 +14,51 @@ import javax.annotation.Nonnull;
 import java.util.*;
 
 public enum Packs implements IStringSerializable {
-	CREATIVE_JETPACK("jetpack_Creative", 6, "jetpackCreative", EnumRarity.EPIC, PackModelType.JETPACK, ParticleType.RAINBOW_SMOKE, false),
-	CREATIVE_FLUXPACK("fluxPack_creative", 6, "fluxPackCreative", EnumRarity.EPIC, PackModelType.FLUX_PACK, false),
-	//POTATO_JETPACK("jetpack_Potato", 1, "jetpackPotato", EnumRarity.COMMON, ParticleType.DEFAULT, false),
+	CREATIVE_JETPACK("jetpack_Creative", 6, "jetpackCreative", Rarity.EPIC, PackModelType.JETPACK, ParticleType.RAINBOW_SMOKE, false),
+	CREATIVE_FLUXPACK("fluxPack_creative", 6, "fluxPackCreative", Rarity.EPIC, PackModelType.FLUX_PACK, false),
+	//POTATO_JETPACK("jetpack_Potato", 1, "jetpackPotato", Rarity.COMMON, ParticleType.DEFAULT, false),
 
 	//EnderIO
-	JETPACK_EIO_1("jetpack_EIO1", 1, "jetpackEIO1", EnumRarity.COMMON, PackModelType.JETPACK),
-	JETPACK_EIO_2("jetpack_EIO2", 2, "jetpackEIO2", EnumRarity.COMMON, PackModelType.JETPACK),
-	JETPACK_EIO_3("jetpack_EIO3", 3, "jetpackEIO3", EnumRarity.UNCOMMON, PackModelType.JETPACK),
-	JETPACK_EIO_4("jetpack_EIO4", 4, "jetpackEIO4", EnumRarity.RARE, PackModelType.JETPACK),
-	JETPACK_EIO_1_ARMORED("jetpack_EIO1_Armored", 1, "jetpackEIO1", EnumRarity.COMMON, PackModelType.JETPACK, true, ItemsSJ2.ARMOR_PLATING_EIO_1.getName()),
-	JETPACK_EIO_2_ARMORED("jetpack_EIO2_Armored", 2, "jetpackEIO2", EnumRarity.COMMON, PackModelType.JETPACK, true, ItemsSJ2.ARMOR_PLATING_EIO_2.getName()),
-	JETPACK_EIO_3_ARMORED("jetpack_EIO3_Armored", 3, "jetpackEIO3", EnumRarity.UNCOMMON, PackModelType.JETPACK, true, ItemsSJ2.ARMOR_PLATING_EIO_3.getName()),
-	JETPACK_EIO_4_ARMORED("jetpack_EIO4_Armored", 4, "jetpackEIO4", EnumRarity.RARE, PackModelType.JETPACK, true, ItemsSJ2.ARMOR_PLATING_EIO_4.getName()),
-	JETPLATE_EIO_5("jetpack_EIO5", 5, "jetpackEIO5", EnumRarity.EPIC, PackModelType.JETPACK, true),
+	JETPACK_EIO_1("jetpack_EIO1", 1, "jetpackEIO1", Rarity.COMMON, PackModelType.JETPACK),
+	JETPACK_EIO_2("jetpack_EIO2", 2, "jetpackEIO2", Rarity.COMMON, PackModelType.JETPACK),
+	JETPACK_EIO_3("jetpack_EIO3", 3, "jetpackEIO3", Rarity.UNCOMMON, PackModelType.JETPACK),
+	JETPACK_EIO_4("jetpack_EIO4", 4, "jetpackEIO4", Rarity.RARE, PackModelType.JETPACK),
+	JETPACK_EIO_1_ARMORED("jetpack_EIO1_Armored", 1, "jetpackEIO1", Rarity.COMMON, PackModelType.JETPACK, true, ItemsSJ2.ARMOR_PLATING_EIO_1.getName()),
+	JETPACK_EIO_2_ARMORED("jetpack_EIO2_Armored", 2, "jetpackEIO2", Rarity.COMMON, PackModelType.JETPACK, true, ItemsSJ2.ARMOR_PLATING_EIO_2.getName()),
+	JETPACK_EIO_3_ARMORED("jetpack_EIO3_Armored", 3, "jetpackEIO3", Rarity.UNCOMMON, PackModelType.JETPACK, true, ItemsSJ2.ARMOR_PLATING_EIO_3.getName()),
+	JETPACK_EIO_4_ARMORED("jetpack_EIO4_Armored", 4, "jetpackEIO4", Rarity.RARE, PackModelType.JETPACK, true, ItemsSJ2.ARMOR_PLATING_EIO_4.getName()),
+	JETPLATE_EIO_5("jetpack_EIO5", 5, "jetpackEIO5", Rarity.EPIC, PackModelType.JETPACK, true),
 
 	//EnderIO
-	FLUXPACK_EIO1("fluxPack_EIO1", 1, "fluxPackEIO1", EnumRarity.COMMON, PackModelType.FLUX_PACK),
-	FLUXPACK_EIO2("fluxPack_EIO2", 2, "fluxPackEIO2", EnumRarity.UNCOMMON, PackModelType.FLUX_PACK),
-	FLUXPACK_EIO3("fluxPack_EIO3", 3, "fluxPackEIO3", EnumRarity.RARE, PackModelType.FLUX_PACK),
-	FLUXPACK_EIO2_ARMORED("fluxPack_EIO2_Armored", 2, "fluxPackEIO2", EnumRarity.UNCOMMON, PackModelType.FLUX_PACK, true, ItemsSJ2.ARMOR_PLATING_EIO_2.getName()),
-	FLUXPACK_EIO3_ARMORED("fluxPack_EIO3_Armored", 3, "fluxPackEIO3", EnumRarity.RARE, PackModelType.FLUX_PACK, true, ItemsSJ2.ARMOR_PLATING_EIO_4.getName()),
+	FLUXPACK_EIO1("fluxPack_EIO1", 1, "fluxPackEIO1", Rarity.COMMON, PackModelType.FLUX_PACK),
+	FLUXPACK_EIO2("fluxPack_EIO2", 2, "fluxPackEIO2", Rarity.UNCOMMON, PackModelType.FLUX_PACK),
+	FLUXPACK_EIO3("fluxPack_EIO3", 3, "fluxPackEIO3", Rarity.RARE, PackModelType.FLUX_PACK),
+	FLUXPACK_EIO2_ARMORED("fluxPack_EIO2_Armored", 2, "fluxPackEIO2", Rarity.UNCOMMON, PackModelType.FLUX_PACK, true, ItemsSJ2.ARMOR_PLATING_EIO_2.getName()),
+	FLUXPACK_EIO3_ARMORED("fluxPack_EIO3_Armored", 3, "fluxPackEIO3", Rarity.RARE, PackModelType.FLUX_PACK, true, ItemsSJ2.ARMOR_PLATING_EIO_4.getName()),
 
 	//ThermalExpansion
-	JETPACK_TE_1("jetpack_TE1", 1, "jetpackTE1", EnumRarity.COMMON, PackModelType.JETPACK),
-	JETPACK_TE_2("jetpack_TE2", 2, "jetpackTE2", EnumRarity.COMMON,  PackModelType.JETPACK),
-	JETPACK_TE_3("jetpack_TE3", 3, "jetpackTE3", EnumRarity.UNCOMMON,  PackModelType.JETPACK),
-	JETPACK_TE_4("jetpack_TE4", 4, "jetpackTE4", EnumRarity.RARE,  PackModelType.JETPACK),
-	JETPACK_TE_1_ARMORED("jetpack_TE1_Armored", 1, "jetpackTE1", EnumRarity.COMMON, PackModelType.JETPACK, true, ItemsSJ2.ARMOR_PLATING_TE_1.getName()),
-	JETPACK_TE_2_ARMORED("jetpack_TE2_Armored", 2, "jetpackTE2", EnumRarity.COMMON, PackModelType.JETPACK, true, ItemsSJ2.ARMOR_PLATING_TE_2.getName()),
-	JETPACK_TE_3_ARMORED("jetpack_TE3_Armored", 3, "jetpackTE3", EnumRarity.UNCOMMON, PackModelType.JETPACK, true, ItemsSJ2.ARMOR_PLATING_TE_3.getName()),
-	JETPACK_TE_4_ARMORED("jetpack_TE4_Armored", 4, "jetpackTE4", EnumRarity.RARE, PackModelType.JETPACK, true, ItemsSJ2.ARMOR_PLATING_TE_4.getName()),
-	JETPLATE_TE_5("jetpack_TE5", 5, "jetpackTE5", EnumRarity.EPIC, PackModelType.JETPACK, true),
+	JETPACK_TE_1("jetpack_TE1", 1, "jetpackTE1", Rarity.COMMON, PackModelType.JETPACK),
+	JETPACK_TE_2("jetpack_TE2", 2, "jetpackTE2", Rarity.COMMON,  PackModelType.JETPACK),
+	JETPACK_TE_3("jetpack_TE3", 3, "jetpackTE3", Rarity.UNCOMMON,  PackModelType.JETPACK),
+	JETPACK_TE_4("jetpack_TE4", 4, "jetpackTE4", Rarity.RARE,  PackModelType.JETPACK),
+	JETPACK_TE_1_ARMORED("jetpack_TE1_Armored", 1, "jetpackTE1", Rarity.COMMON, PackModelType.JETPACK, true, ItemsSJ2.ARMOR_PLATING_TE_1.getName()),
+	JETPACK_TE_2_ARMORED("jetpack_TE2_Armored", 2, "jetpackTE2", Rarity.COMMON, PackModelType.JETPACK, true, ItemsSJ2.ARMOR_PLATING_TE_2.getName()),
+	JETPACK_TE_3_ARMORED("jetpack_TE3_Armored", 3, "jetpackTE3", Rarity.UNCOMMON, PackModelType.JETPACK, true, ItemsSJ2.ARMOR_PLATING_TE_3.getName()),
+	JETPACK_TE_4_ARMORED("jetpack_TE4_Armored", 4, "jetpackTE4", Rarity.RARE, PackModelType.JETPACK, true, ItemsSJ2.ARMOR_PLATING_TE_4.getName()),
+	JETPLATE_TE_5("jetpack_TE5", 5, "jetpackTE5", Rarity.EPIC, PackModelType.JETPACK, true),
 
-	FLUXPACK_TE1("fluxPack_TE1", 1, "fluxPackTE1", EnumRarity.COMMON, PackModelType.FLUX_PACK),
-	FLUXPACK_TE2("fluxPack_TE2", 2, "fluxPackTE2", EnumRarity.UNCOMMON, PackModelType.FLUX_PACK),
-	FLUXPACK_TE3("fluxPack_TE3", 3, "fluxPackTE3", EnumRarity.RARE, PackModelType.FLUX_PACK),
-	FLUXPACK_TE2_ARMORED("fluxPack_TE2_Armored", 2, "fluxPackTE2", EnumRarity.UNCOMMON, PackModelType.FLUX_PACK, true, ItemsSJ2.ARMOR_PLATING_TE_2.getName()),
-	FLUXPACK_TE3_ARMORED("fluxPack_TE3_Armored", 3, "fluxPackTE3", EnumRarity.RARE, PackModelType.FLUX_PACK, true, ItemsSJ2.ARMOR_PLATING_TE_4.getName()),
+	FLUXPACK_TE1("fluxPack_TE1", 1, "fluxPackTE1", Rarity.COMMON, PackModelType.FLUX_PACK),
+	FLUXPACK_TE2("fluxPack_TE2", 2, "fluxPackTE2", Rarity.UNCOMMON, PackModelType.FLUX_PACK),
+	FLUXPACK_TE3("fluxPack_TE3", 3, "fluxPackTE3", Rarity.RARE, PackModelType.FLUX_PACK),
+	FLUXPACK_TE2_ARMORED("fluxPack_TE2_Armored", 2, "fluxPackTE2", Rarity.UNCOMMON, PackModelType.FLUX_PACK, true, ItemsSJ2.ARMOR_PLATING_TE_2.getName()),
+	FLUXPACK_TE3_ARMORED("fluxPack_TE3_Armored", 3, "fluxPackTE3", Rarity.RARE, PackModelType.FLUX_PACK, true, ItemsSJ2.ARMOR_PLATING_TE_4.getName()),
 
-	JETPLATE_TE_5_ENDERIUM("jetpack_TE5_enderium", 5, "jetpackTE5enderium", EnumRarity.EPIC, PackModelType.JETPACK, true),
+	JETPLATE_TE_5_ENDERIUM("jetpack_TE5_enderium", 5, "jetpackTE5enderium", Rarity.EPIC, PackModelType.JETPACK, true),
 
 	//Vanilla
-	JETPACK_VANILLA_1("jetpack_Vanilla1", 1, "jetpackVanilla1", EnumRarity.COMMON, PackModelType.JETPACK),
-	JETPACK_VANILLA_2("jetpack_Vanilla2", 2, "jetpackVanilla2", EnumRarity.UNCOMMON, PackModelType.JETPACK),
-	JETPACK_VANILLA_3("jetpack_Vanilla3", 3, "jetpackVanilla3", EnumRarity.RARE, PackModelType.JETPACK);
+	JETPACK_VANILLA_1("jetpack_Vanilla1", 1, "jetpackVanilla1", Rarity.COMMON, PackModelType.JETPACK),
+	JETPACK_VANILLA_2("jetpack_Vanilla2", 2, "jetpackVanilla2", Rarity.UNCOMMON, PackModelType.JETPACK),
+	JETPACK_VANILLA_3("jetpack_Vanilla3", 3, "jetpackVanilla3", Rarity.RARE, PackModelType.JETPACK);
 
 	protected final PackDefaults defaults;
 	protected static final EnumSet<Packs> PACKS_SJ = EnumSet.of(CREATIVE_JETPACK, CREATIVE_FLUXPACK);
@@ -84,7 +84,7 @@ public enum Packs implements IStringSerializable {
 	public String platingMeta;
 
 	public boolean usesFuel;
-	public EnumRarity rarity;
+	public Rarity rarity;
 
 	public double speedVertical;
 	public double accelVertical;
@@ -99,24 +99,24 @@ public enum Packs implements IStringSerializable {
 	@Nonnull
 	List<String> jetpacks = new ArrayList<String>();
 
-	private Packs(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, PackModelType armorModel, ParticleType defaultParticleType, boolean usesFuel) {
+	private Packs(@Nonnull String baseName, int tier, String defaultConfigKey, Rarity rarity, PackModelType armorModel, ParticleType defaultParticleType, boolean usesFuel) {
 		this(baseName, tier, defaultConfigKey, rarity, armorModel);
 		this.defaultParticleType = defaultParticleType;
 		this.usesFuel = usesFuel;
 	}
 
-	private Packs(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, PackModelType armorModel, boolean isArmored) {
+	private Packs(@Nonnull String baseName, int tier, String defaultConfigKey, Rarity rarity, PackModelType armorModel, boolean isArmored) {
 		this(baseName, tier, defaultConfigKey, rarity, armorModel);
 		this.isArmored = isArmored;
 	}
 
-	private Packs(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, PackModelType armorModel, boolean isArmored, String platingMeta) {
+	private Packs(@Nonnull String baseName, int tier, String defaultConfigKey, Rarity rarity, PackModelType armorModel, boolean isArmored, String platingMeta) {
 		this(baseName, tier, defaultConfigKey, rarity, armorModel);
 		this.isArmored = isArmored;
 		this.platingMeta = platingMeta;
 	}
 
-	private Packs(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, PackModelType armorModel) {
+	private Packs(@Nonnull String baseName, int tier, String defaultConfigKey, Rarity rarity, PackModelType armorModel) {
 		this.baseName = baseName;
 		this.tier = tier;
 		this.defaults = PackDefaults.get(defaultConfigKey);
@@ -173,7 +173,7 @@ public enum Packs implements IStringSerializable {
 		return baseName.toLowerCase(Locale.ENGLISH);
 	}
 
-	public EnumRarity getRarity() {
+	public Rarity getRarity() {
 		return rarity;
 	}
 

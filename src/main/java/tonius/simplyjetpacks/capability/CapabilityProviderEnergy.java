@@ -1,53 +1,29 @@
 package tonius.simplyjetpacks.capability;
 
-import net.minecraft.util.EnumFacing;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.function.IntSupplier;
 
 public class CapabilityProviderEnergy<HANDLER> implements ICapabilityProvider {
 
-	protected final HANDLER instance;
+	private final ItemForgeEnergy energyItem;
+	private final LazyOptional<ItemForgeEnergy> energyCapability;
 
-	protected final Capability<HANDLER> capability;
-
-	protected final EnumFacing facing;
-
-	public CapabilityProviderEnergy(final Capability<HANDLER> capability, @Nullable final EnumFacing facing) {
-		this(capability.getDefaultInstance(), capability, facing);
+	public CapabilityProviderEnergy(ItemStack stack, IntSupplier energyCapacity) {
+		this.energyItem = new ItemForgeEnergy(stack,energyCapacity);
+		this.energyCapability = LazyOptional.of(() -> energyItem);
 	}
 
-	public CapabilityProviderEnergy(final HANDLER instance, Capability<HANDLER> capability, @Nullable EnumFacing facing) {
-		this.instance = instance;
-		this.capability = capability;
-		this.facing = facing;
-	}
-
+	@Nonnull
 	@Override
-	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
-		return capability == getCapability();
-	}
-
-	@Override
-	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
-		if (capability == getCapability()) {
-			return getCapability().cast(getInstance());
-		}
-
-		return null;
-	}
-
-	public final Capability<HANDLER> getCapability() {
-		return capability;
-	}
-
-	@Nullable
-	public EnumFacing getFacing() {
-		return facing;
-	}
-
-	public final HANDLER getInstance() {
-		return instance;
+	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+		return cap == CapabilityEnergy.ENERGY ? energyCapability.cast() : LazyOptional.empty();
 	}
 }

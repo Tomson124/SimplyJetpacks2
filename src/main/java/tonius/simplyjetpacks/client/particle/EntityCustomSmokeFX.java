@@ -1,18 +1,19 @@
 package tonius.simplyjetpacks.client.particle;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.ParticleSmokeNormal;
+import net.minecraft.client.particle.IAnimatedSprite;
+import net.minecraft.client.particle.SmokeParticle;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 
-public class EntityCustomSmokeFX extends ParticleSmokeNormal
+public class EntityCustomSmokeFX extends SmokeParticle
 {
-	private static final Minecraft mc = Minecraft.getMinecraft();
+	private static final Minecraft mc = Minecraft.getInstance();
 
-	public EntityCustomSmokeFX(World world, double posX, double posY, double posZ, double velX, double velY, double velZ)
+	public EntityCustomSmokeFX(World world, double posX, double posY, double posZ, double velX, double velY, double velZ, IAnimatedSprite animatedSprite)
 	{
-		super(world, posX, posY, posZ, velX, velY, velZ, 1.0F);
+		super(world, posX, posY, posZ, velX, velY, velZ, 1.0F, animatedSprite);
 	}
 
 	@Override

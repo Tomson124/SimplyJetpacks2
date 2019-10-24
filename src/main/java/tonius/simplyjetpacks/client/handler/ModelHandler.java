@@ -1,13 +1,13 @@
 package tonius.simplyjetpacks.client.handler;
 
 import net.minecraft.item.Item;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
 import tonius.simplyjetpacks.SimplyJetpacks;
 
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = SimplyJetpacks.MODID)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = SimplyJetpacks.MODID)
 public final class ModelHandler  {
 	@SubscribeEvent
 	public static void registerModels(ModelRegistryEvent evt) {
