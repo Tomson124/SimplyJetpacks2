@@ -8,7 +8,7 @@ import tonius.simplyjetpacks.util.NBTHelper;
 import net.minecraft.item.Rarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
-import net.minecraftforge.common.config.Configuration;
+//import net.minecraftforge.common.config.Configuration;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -194,7 +194,7 @@ public enum Packs implements IStringSerializable {
 		throw new IllegalArgumentException("The input string does not refer to a jetpack or fluxpack.");
 	}
 
-	public ParticleType getParticleType(ItemStack stack) {
+	/*public ParticleType getParticleType(ItemStack stack) {
 		if (stack.getTagCompound() != null && NBTHelper.keyExists(stack, TAG_PARTICLE)) {
 			int particle = NBTHelper.getInt(stack, TAG_PARTICLE, this.defaultParticleType.ordinal());
 			ParticleType particleType = ParticleType.values()[particle];
@@ -271,5 +271,5 @@ public enum Packs implements IStringSerializable {
 		if (this.defaults.emergencyHoverMode != null) {
 			this.emergencyHoverMode = config.get(this.defaults.section.name, "Emergency Hover Mode", this.defaults.emergencyHoverMode, "When enabled, this jetpack will activate hover mode automatically when the wearer is about to die from a fall.").getBoolean(this.defaults.emergencyHoverMode);
 		}
-	}
+	}*/
 }
