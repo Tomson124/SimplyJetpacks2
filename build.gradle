@@ -1,3 +1,17 @@
+apply plugin: 'java'
+
+jar {
+    sourceSets {
+        main {
+            java {
+                exclude 'tonius/simplyjetpacks/crafting/**'
+                exclude 'tonius/simplyjetpacks/handler/**'
+                exclude 'tonius/simplyjetpacks/integration/**'
+            }
+        }
+    }
+}
+
 allprojects {
     repositories {
         jcenter()
@@ -30,6 +44,7 @@ version = "3.0.0"
 group = "tonius.simplyjetpacks"
 archivesBaseName = "SimplyJetpacks2-1.14.4"
 
+
 //def ENV = System.getenv()
 //if (ENV.BUILD_NUMBER) {
 //    version = version + "." + "${System.getenv().BUILD_NUMBER}"
@@ -59,6 +74,8 @@ minecraft {
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
+
+            //exclude 'src/main/java/tonius/simplyjetpacks/crafting/**'
 
             mods {
                 examplemod {
@@ -137,7 +154,7 @@ dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.14.4-28.1.56'
+    minecraft 'net.minecraftforge:forge:1.14.4-28.1.96'
 
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"

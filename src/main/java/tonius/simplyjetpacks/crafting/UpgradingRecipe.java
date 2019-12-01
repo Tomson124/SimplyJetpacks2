@@ -1,15 +1,13 @@
 package tonius.simplyjetpacks.crafting;
 
-import cofh.redstoneflux.api.IEnergyContainerItem;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-import tonius.simplyjetpacks.CommonProxy;
+import tonius.simplyjetpacks.ServerProxy;
 import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.item.ItemFluxpack;
 import tonius.simplyjetpacks.item.ItemJetpack;
 import tonius.simplyjetpacks.item.ItemPack;
 import tonius.simplyjetpacks.setup.ParticleType;
@@ -46,7 +44,7 @@ public class UpgradingRecipe extends ShapedOreRecipe {
 				if (slotStack.getItem() instanceof IEnergyContainerItem) {
 					addedEnergy += ((IEnergyContainerItem) slotStack.getItem()).getEnergyStored(slotStack);
 					NBTHelper.setInt(resultStack, "Energy", Math.min(addedEnergy, this.resultItem.getMaxEnergyStored(resultStack)));
-				} else if (OreDictionary.containsMatch(false, CommonProxy.oresListParticles, slotStack)) {
+				} else if (OreDictionary.containsMatch(false, ServerProxy.oresListParticles, slotStack)) {
 					particleType = ParticleType.values()[slotStack.getItemDamage()];
 				}
 			}

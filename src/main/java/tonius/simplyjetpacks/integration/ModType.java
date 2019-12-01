@@ -1,6 +1,5 @@
 package tonius.simplyjetpacks.integration;
 
-import net.minecraftforge.fml.common.Loader;
 import tonius.simplyjetpacks.SimplyJetpacks;
 
 public enum ModType {

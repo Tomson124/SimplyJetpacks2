@@ -1,57 +1,33 @@
 package tonius.simplyjetpacks.item;
 
-import cofh.core.item.IEnchantableItem;
-import cofh.redstoneflux.api.IEnergyContainerItem;
-import com.google.common.collect.Multimap;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ISpecialArmor;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.fml.common.Optional;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import thundr.redstonerepository.api.IArmorEnderium;
-import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.capability.CapabilityProviderEnergy;
-import tonius.simplyjetpacks.capability.EnergyConversionStorage;
+import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.*;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.nbt.CompoundNBT;
 import tonius.simplyjetpacks.client.handler.IModelRegister;
-import tonius.simplyjetpacks.client.model.PackModelType;
-import tonius.simplyjetpacks.client.util.RenderUtils;
-import tonius.simplyjetpacks.config.Config;
-import tonius.simplyjetpacks.setup.FuelType;
-import tonius.simplyjetpacks.setup.ModEnchantments;
-import tonius.simplyjetpacks.util.EquipmentSlotHelper;
-import tonius.simplyjetpacks.util.NBTHelper;
-import tonius.simplyjetpacks.util.SJStringHelper;
-import tonius.simplyjetpacks.util.StackUtil;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
 
-public class ItemPack extends ItemArmor implements ISpecialArmor, IModelRegister, IEnergyContainerItem, IHUDInfoProvider, IArmorEnderium, IEnchantableItem {
+public class ItemPack extends ArmorItem implements IModelRegister, IHUDInfoProvider {
 
-	public String name; //BaseName
+	public ItemPack(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder) {
+		super(materialIn, slot, builder);
+	}
+
+	@Override
+	public void registerModels() {
+
+	}
+
+	@Override
+	public void addHUDInfo(List<String> list, ItemStack stack, boolean showFuel, boolean showState) {
+
+	}
+
+	/*public String name; //BaseName
 	public static final String TAG_ENERGY = "Energy";
 	public static final String TAG_ON = "PackOn";
 
@@ -304,5 +280,5 @@ public class ItemPack extends ItemArmor implements ISpecialArmor, IModelRegister
 	@Override
 	public void registerModels() {
 		SimplyJetpacks.proxy.registerItemRenderer(this, getRegistryName());
-	}
+	}*/
 }

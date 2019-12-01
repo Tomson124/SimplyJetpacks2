@@ -1,11 +1,9 @@
 package tonius.simplyjetpacks.client.handler;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiChat;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
 import tonius.simplyjetpacks.client.util.RenderUtils;
 import tonius.simplyjetpacks.config.Config;
@@ -15,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HUDTickHandler {
-	private static final Minecraft mc = Minecraft.getMinecraft();
+	private static final Minecraft mc = Minecraft.getInstance();
 
 	@SubscribeEvent(receiveCanceled = true)
 	public void onOverlayRender(RenderGameOverlayEvent.Post event) {
@@ -23,7 +21,7 @@ public class HUDTickHandler {
 			return; // chose a random element type to use for all overlays
 		}
 		if (mc.player != null) {
-			if ((mc.currentScreen == null || Config.showHUDWhileChatting && mc.currentScreen instanceof GuiChat) && !mc.gameSettings.hideGUI && !mc.gameSettings.showDebugInfo) {
+			/*if ((mc.currentScreen == null || Config.showHUDWhileChatting && mc.currentScreen instanceof GuiChat) && !mc.gameSettings.hideGUI && !mc.gameSettings.showDebugInfo) {
 				ItemStack chestplate = mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 				if (chestplate != null && chestplate.getItem() instanceof IHUDInfoProvider) {
 					IHUDInfoProvider provider = (IHUDInfoProvider) chestplate.getItem();
@@ -35,7 +33,7 @@ public class HUDTickHandler {
 					}
 
 					GL11.glPushMatrix();
-					mc.entityRenderer.setupOverlayRendering();
+					//mc.entityRenderer.setupOverlayRendering();
 					GL11.glScaled(Config.HUDScale, Config.HUDScale, 1.0D);
 
 					int i = 0;
@@ -46,7 +44,7 @@ public class HUDTickHandler {
 
 					GL11.glPopMatrix();
 				}
-			}
+			}*/
 		}
 	}
 }

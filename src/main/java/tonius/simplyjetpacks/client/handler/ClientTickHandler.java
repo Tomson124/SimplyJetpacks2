@@ -1,20 +1,12 @@
 package tonius.simplyjetpacks.client.handler;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.audio.SoundJetpack;
 import tonius.simplyjetpacks.config.Config;
-import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.item.ItemJetpack;
 import tonius.simplyjetpacks.item.Packs;
 import tonius.simplyjetpacks.setup.ParticleType;
@@ -23,7 +15,7 @@ import java.lang.reflect.Field;
 import java.util.Iterator;
 
 public class ClientTickHandler {
-	private static final Minecraft mc = Minecraft.getMinecraft();
+	private static final Minecraft mc = Minecraft.getInstance();
 	private static ParticleType lastJetpackState = null;
 	private static boolean wearingJetpack = false;
 	private static boolean sprintKeyCheck = false;
@@ -34,7 +26,7 @@ public class ClientTickHandler {
 
 	public ClientTickHandler() {
 		try {
-			sprintToggleTimer = ReflectionHelper.findField(EntityPlayerSP.class, "sprintToggleTimer", "field_71156_d");
+			//sprintToggleTimer = ReflectionHelper.findField(EntityPlayerSP.class, "sprintToggleTimer", "field_71156_d");
 		} catch (Exception e) {
 			SimplyJetpacks.logger.error("Unable to find field \"sprintToggleTimer\"");
 			e.printStackTrace();
@@ -47,7 +39,7 @@ public class ClientTickHandler {
 		}
 
 		ParticleType jetpackState = null;
-		ItemStack armor = mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+		/*ItemStack armor = mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		if (armor != null && armor.getItem() instanceof ItemJetpack) {
 			String name = ((ItemJetpack) armor.getItem()).name;
 			Packs packs = Packs.getTypeFromName(name);
@@ -57,11 +49,11 @@ public class ClientTickHandler {
 			wearingJetpack = true;
 		} else {
 			wearingJetpack = false;
-		}
+		}*/
 
 		if (jetpackState != lastJetpackState) {
 			lastJetpackState = jetpackState;
-			SyncHandler.processJetpackUpdate(mc.player.getEntityId(), jetpackState);
+			//SyncHandler.processJetpackUpdate(mc.player.getEntityId(), jetpackState);
 		}
 	}
 
@@ -70,7 +62,7 @@ public class ClientTickHandler {
 			return;
 		}
 
-		if (!mc.isGamePaused()) {
+		/*if (!mc.isGamePaused()) {
 			Iterator<Integer> itr = SyncHandler.getJetpackStates().keySet().iterator();
 			int currentEntity;
 			while (itr.hasNext()) {
@@ -114,13 +106,13 @@ public class ClientTickHandler {
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 	}
 
 
 	@SubscribeEvent
-	public void onClientTick(ClientTickEvent evt) {
-		if (evt.phase == Phase.START) {
+	public void onClientTick(TickEvent.ClientTickEvent evt) {
+		if (evt.phase == TickEvent.Phase.START) {
 			tickStart();
 		} else {
 			tickEnd();

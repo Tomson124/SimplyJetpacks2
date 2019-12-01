@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.RecipeMatcher;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-import tonius.simplyjetpacks.CommonProxy;
+import tonius.simplyjetpacks.ServerProxy;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.item.ItemFluxpack;
 import tonius.simplyjetpacks.item.ItemJetpack;
@@ -68,7 +68,7 @@ public class UpgradingRecipeShapeless extends ShapelessOreRecipe {
 				inputStack = stack;
 				if (inputStack.getItem() instanceof IEnergyContainerItem) {
 					addedEnergy += ((IEnergyContainerItem) inputStack.getItem()).getEnergyStored(inputStack);
-				} else if (OreDictionary.containsMatch(false, CommonProxy.oresListParticles, inputStack)) {
+				} else if (OreDictionary.containsMatch(false, ServerProxy.oresListParticles, inputStack)) {
 					particleType = ParticleType.values()[inputStack.getItemDamage()];
 				}
 
