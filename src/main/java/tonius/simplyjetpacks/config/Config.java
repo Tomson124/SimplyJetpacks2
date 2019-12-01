@@ -1,39 +1,51 @@
 package tonius.simplyjetpacks.config;
 
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import com.electronwill.nightconfig.core.file.CommentedFileConfig;
+import com.electronwill.nightconfig.core.io.WritingMode;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.config.ModConfig;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.util.RenderUtils.HUDPositions;
 import tonius.simplyjetpacks.item.Packs;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Config
-{
+public class Config {
+	private static final ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
+	private static final ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
+
+	public static ForgeConfigSpec COMMON_CONFIG;
+	public static ForgeConfigSpec CLIENT_CONFIG;
+
 	public static final List<Section> configSections = new ArrayList<Section>();
-	private static final Section sectionItem = new Section(false, "Item Settings", "item");
+	private static final String CATEGORY_JETPACK = "jetpack";
+	private static final String SUBCATEGORY_CREATIVE_JETPACK = "creativeJetpack";
+
+	public static ForgeConfigSpec.IntValue CREATIVE_JETPACK_MAX_ENERGY;
+
 	private static final Section sectionIntegration = new Section(false, "Integration Settings", "integration");
 	private static final Section sectionControls = new Section(true, "Controls Settings", "controls");
 	private static final Section sectionAesthetics = new Section(true, "Aesthetics Settings", "aesthetics");
 	private static final Section sectionSounds = new Section(true, "Sound Settings", "sounds");
 	private static final Section sectionGui = new Section(true, "GUI Settings", "gui");
-	public static Configuration config;
-	public static Configuration configClient;
 
 	// item
 	public static int enchantFuelEfficiencyID = Defaults.enchantFuelEfficiencyID;
 	public static boolean flammableFluidsExplode = Defaults.flammableFluidsExplode;
 	public static boolean addRAItemsIfNotInstalled = Defaults.addRAItemsIfNotInstalled;
 
-	// integration
+	/*integration
 	public static boolean enableIntegrationEIO = Defaults.enableIntegrationEIO;
 	public static boolean enableIntegrationTE = Defaults.enableIntegrationTE;
 	public static boolean enableIntegrationTD = Defaults.enableIntegrationTD;
 	public static boolean enableIntegrationRA = Defaults.enableIntegrationRA;
 	public static boolean enableIntegrationRR = Defaults.enableIntegrationRR;
 	public static int gelidEnderiumFuelUsageBonus = Defaults.gelidEnderiumFuelUsageBonus;
+	*/
 
 	// controls
 	public static boolean customControls = Defaults.customControls;
@@ -61,8 +73,52 @@ public class Config
 	public static boolean enableStateHUD = Defaults.enableStateHUD;
 	public static boolean enableStateMessages = Defaults.enableStateMessages;
 
-	public static void preInit(FMLPreInitializationEvent evt)
-	{
+	static {
+
+		COMMON_BUILDER.comment("Item settings").push(CATEGORY_JETPACK);
+		COMMON_BUILDER.pop();
+
+		setupJetpackConfig();
+		COMMON_BUILDER.pop();
+
+		COMMON_CONFIG = COMMON_BUILDER.build();
+		CLIENT_CONFIG = CLIENT_BUILDER.build();
+	}
+
+	private static void setupJetpackConfig() {
+		COMMON_BUILDER.comment("Creative Jetpack settings").push(SUBCATEGORY_CREATIVE_JETPACK);
+
+		CREATIVE_JETPACK_MAX_ENERGY = COMMON_BUILDER.comment("The maximum amount of energy that this pack can hold.")
+				.defineInRange("maxPower", 200000, 0, Integer.MAX_VALUE);
+
+		COMMON_BUILDER.pop();
+	}
+
+	public static void loadConfig(ForgeConfigSpec spec, Path path) {
+
+		final CommentedFileConfig configData = CommentedFileConfig.builder(path)
+				.sync()
+				.autosave()
+				.writingMode(WritingMode.REPLACE)
+				.build();
+
+		configData.load();
+		spec.setConfig(configData);
+	}
+
+
+
+
+	@SubscribeEvent
+	public static void onLoad(final ModConfig.Loading configEvent) {
+
+	}
+
+	@SubscribeEvent
+	public static void onReload(final ModConfig.ConfigReloading configEvent) {
+	}
+
+	/*public static void preInit(FMLPreInitializationEvent evt) {
 		config = new Configuration(new File(evt.getModConfigurationDirectory(), SimplyJetpacks.MODID + ".cfg"));
 		configClient = new Configuration(new File(evt.getModConfigurationDirectory(), SimplyJetpacks.MODID + "-client.cfg"));
 		config.load();
@@ -71,8 +127,7 @@ public class Config
 		SimplyJetpacks.proxy.updateCustomKeybinds(flyKey, descendKey);
 	}
 
-	private static void processConfig()
-	{
+	private static void processConfig() {
 		enchantFuelEfficiencyID = config.get(sectionItem.name, "Fuel Efficiency enchant ID", Defaults.enchantFuelEfficiencyID, "The ID of the Fuel Efficiency enchantment. Set to 0 to disable.").setMinValue(0).setMaxValue(255).setRequiresMcRestart(true).getInt();
 		flammableFluidsExplode = config.get(sectionItem.name, "Jetpacks explode in flammable fluid blocks", Defaults.flammableFluidsExplode, "When enabled, jetpacks will explode and kill their users when they are being used to fly through flammable fluid blocks.").getBoolean(Defaults.flammableFluidsExplode);
 		addRAItemsIfNotInstalled = config.get(sectionItem.name, "Add Redstone Arsenal items if not installed", Defaults.addRAItemsIfNotInstalled, "When enabled, Simply Jetpacks will register some crafting components from Redstone Arsenal to make the Flux-Infused JetPlate craftable if Redstone Arsenal is not installed.").setRequiresMcRestart(true).getBoolean(Defaults.addRAItemsIfNotInstalled);
@@ -108,5 +163,5 @@ public class Config
 
 		//PackBase.loadAllConfigs(config);
 		Packs.loadAllConfigs(config);
-	}
+	}*/
 }

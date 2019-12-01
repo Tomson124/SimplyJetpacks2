@@ -1,49 +1,35 @@
 package tonius.simplyjetpacks.setup;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import tonius.simplyjetpacks.Log;
-import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.registry.RegistryHandler;
 import tonius.simplyjetpacks.config.Config;
-import tonius.simplyjetpacks.crafting.UpgradingRecipe;
-import tonius.simplyjetpacks.crafting.UpgradingRecipeShapeless;
-import tonius.simplyjetpacks.integration.*;
 import tonius.simplyjetpacks.item.*;
-import tonius.simplyjetpacks.util.crafting.RecipeHandler;
-import tonius.simplyjetpacks.util.crafting.RecipeHelper;
+import tonius.simplyjetpacks.util.reference.Reference;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static tonius.simplyjetpacks.SimplyJetpacks.MODID;
-
-@Mod.EventBusSubscriber(modid = MODID)
 public class ModItems {
 
-	public static Item jetpackCreative = new ItemJetpack(Packs.CREATIVE_JETPACK.getBaseName());
+	/*public static Item jetpackCreative = new ItemJetpack(Packs.CREATIVE_JETPACK.getBaseName());
 	public static Item fluxPackCreative = new ItemFluxpack(Packs.CREATIVE_FLUXPACK.getBaseName());
 
 	public static Item particleDefault = new ItemIngredients(ItemsSJ2.PARTICLE_DEFAULT.getName());
 	public static Item particleSmoke = new ItemIngredients(ItemsSJ2.PARTICLE_SMOKE.getName());
 	public static Item particleNone = new ItemIngredients(ItemsSJ2.PARTICLE_NONE.getName());
-	public static Item particleRainbowSmoke = new ItemIngredients(ItemsSJ2.PARTICLE_RAINBOWSMOKE.getName());
+	public static Item particleRainbowSmoke = new ItemIngredients(ItemsSJ2.PARTICLE_RAINBOWSMOKE.getName());*/
 
-	public static Item leatherStrap = new ItemIngredients(ItemsSJ2.LEATHER_STRAP.getName());
+	public static Item leatherStrap = new ItemIngredients(Reference.ItemReference.LEATHER_STRAP, null, new Item.Properties().group(RegistryHandler.creativeTab));
 
-	//EnderIO Packs
+	/*//EnderIO Packs
 	public static Item unitFlightControlEmpty = new ItemIngredients(ItemsSJ2.UNIT_FLIGHT_CONTROL_EMPTY.getName());
 	public static Item unitFlightControl = new ItemIngredients(ItemsSJ2.UNIT_FLIGHT_CONTROL.getName());
 	public static Item reinforcedGliderWings = new ItemIngredients(ItemsSJ2.REINFORCED_GLIDERWINGS.getName());
@@ -112,22 +98,22 @@ public class ModItems {
 	public static Item fluxPackTE3Armored = new ItemFluxpack(Packs.FLUXPACK_TE3_ARMORED.getBaseName());
 
 	//RR
-	public static Item jetpackTE5Enderium = new ItemJetpack(Packs.JETPLATE_TE_5_ENDERIUM.getBaseName());
+	public static Item jetpackTE5Enderium = new ItemJetpack(Packs.JETPLATE_TE_5_ENDERIUM.getBaseName());*/
 
-	private static List<Item> jetpacks = new ArrayList<Item>();
-
+	/*
 	public static boolean integrateEIO = ModType.ENDER_IO.loaded && Config.enableIntegrationEIO;
 	public static boolean integrateTE = ModType.THERMAL_EXPANSION.loaded && Config.enableIntegrationTE;
 	public static boolean integrateTD = ModType.THERMAL_DYNAMICS.loaded && Config.enableIntegrationTD;
 	public static boolean integrateRA = ModType.REDSTONE_ARSENAL.loaded && Config.enableIntegrationRA;
 	public static boolean integrateRR = ModType.REDSTONE_REPOSITORY.loaded && Config.enableIntegrationRR;
+	*/
 
 	public static void init() {
-		registerOreDicts();
-		doIMC();
+		//registerOreDicts();
+		//doIMC();
 	}
 
-	private static void registerOreDicts() {
+	/*private static void registerOreDicts() {
 		OreDictionary.registerOre("particleCustomizer", particleDefault);
 		OreDictionary.registerOre("particleCustomizer", particleSmoke);
 		OreDictionary.registerOre("particleCustomizer", particleRainbowSmoke);
@@ -136,31 +122,30 @@ public class ModItems {
 		if (integrateEIO) {
 			OreDictionary.registerOre(ItemsSJ2.INGOT_DARK_SOULARIUM.getName(), ingotDarkSoularium);
 		}
-	}
+	}*/
 
-	public static void registerJetpacks(RegistryEvent.Register<Item> event, Item jetpack) {
+	/*public static void registerJetpacks(RegistryEvent.Register<Item> event, Item jetpack) {
 		IForgeRegistry<Item> r = event.getRegistry();
 		r.register(jetpack);
 		if (jetpack instanceof ItemJetpack) {
 			jetpacks.add(jetpack);
 		}
-	}
+	}*/
 
-	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		Log.info("Registering items...");
 		IForgeRegistry<Item> r = event.getRegistry();
 
-		registerJetpacks(event, jetpackCreative);
+		/*registerJetpacks(event, jetpackCreative);
 		r.register(fluxPackCreative);
 
 		r.register(particleDefault);
 		r.register(particleSmoke);
 		r.register(particleRainbowSmoke);
-		r.register(particleNone);
+		r.register(particleNone);*/
 		r.register(leatherStrap);
 
-		if (integrateEIO) {
+		/*if (integrateEIO) {
 			r.register(unitFlightControlEmpty);
 			r.register(unitFlightControl);
 			r.register(reinforcedGliderWings);
@@ -241,11 +226,10 @@ public class ModItems {
 
 			if(integrateRR){
 				registerJetpacks(event,jetpackTE5);
-			}
-		}
+			}*/
 	}
 
-	@SubscribeEvent()
+	/*@SubscribeEvent()
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> evt) { //TODO: Use Json recipes for parts or all of the recipes? Recipe Factory?
 		IForgeRegistry<IRecipe> r = evt.getRegistry();
 
@@ -283,9 +267,9 @@ public class ModItems {
 			r.register(new UpgradingRecipe(jetpackEIO4, "IBI", "IJI", "T T", 'I', "ingotVibrantAlloy", 'B', EIOItems.octadicCapacitor, 'T', thrusterEIO4, 'J', jetpackEIO3));
 			r.register(new UpgradingRecipe(jetpackEIO5, "OAO", "PJP", "TCT", 'A', EIOItems.enderCrystal, 'J', jetpackEIO4Armored, 'O', "ingot_dark_soularium", 'C', fluxPackEIO3Armored, 'T', thrusterEIO5, 'P', reinforcedGliderWings));
 
-			/*for (Packs jetpack : Packs.PACKS_EIO) {
+			*//*for (Packs jetpack : Packs.PACKS_EIO) {
 				ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particleCustomizer"));
-			}*/ //TODO: Particle Customizer Recipe
+			}*//* //TODO: Particle Customizer Recipe
 
 			r.register(new UpgradingRecipeShapeless(jetpackEIO1Armored, jetpackEIO1, armorPlatingEIO1));
 			r.register(new UpgradingRecipeShapeless(jetpackEIO1, jetpackEIO1Armored));
@@ -405,5 +389,5 @@ public class ModItems {
 			}
 		}
 
-	}
+	}*/
 }

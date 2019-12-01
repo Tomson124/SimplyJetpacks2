@@ -1,7 +1,6 @@
 package tonius.simplyjetpacks.config;
 
 import tonius.simplyjetpacks.client.util.RenderUtils.HUDPositions;
-import tonius.simplyjetpacks.integration.ModType;
 
 public abstract class Defaults
 {
@@ -10,13 +9,14 @@ public abstract class Defaults
 	public static final boolean flammableFluidsExplode = false;
 	public static final boolean addRAItemsIfNotInstalled = true;
 
-	// integration
+	/* integration
 	public static final boolean enableIntegrationEIO = ModType.ENDER_IO.loaded;
 	public static final boolean enableIntegrationTE = ModType.THERMAL_EXPANSION.loaded;
 	public static final boolean enableIntegrationTD = ModType.THERMAL_DYNAMICS.loaded;
 	public static boolean enableIntegrationRA = ModType.REDSTONE_ARSENAL.loaded;
 	public static final boolean enableIntegrationRR = ModType.REDSTONE_REPOSITORY.loaded;
 	public static final int gelidEnderiumFuelUsageBonus = 80;
+	*/
 
 	// controls
 	public static final boolean customControls = false;
