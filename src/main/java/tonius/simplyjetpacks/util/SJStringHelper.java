@@ -1,20 +1,12 @@
 package tonius.simplyjetpacks.util;
 
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
-import tonius.simplyjetpacks.SimplyJetpacks;
+import net.minecraft.util.text.TextFormatting;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.setup.ParticleType;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.fluids.FluidRegistry;
 
 import java.text.DecimalFormat;
 import java.util.List;
-
-import static net.minecraft.util.text.translation.I18n.translateToLocal;
-import static net.minecraft.util.text.translation.I18n.translateToLocalFormatted;
 
 public abstract class SJStringHelper {
 	private static final DecimalFormat formatter = new DecimalFormat("###,###");
@@ -47,11 +39,6 @@ public abstract class SJStringHelper {
 	public static String getChargerStateText(boolean state) {
 		String onOrOff = state ? TextFormatting.GREEN + localize("tooltip.enabled") : TextFormatting.RED + localize("tooltip.disabled");
 		return TextFormatting.GOLD + localize("tooltip.chargerState") + ": " + onOrOff;
-	}
-
-	public static String getFuelFluidText(String fluidName) {
-		fluidName = localize(FluidRegistry.getFluid(fluidName).getUnlocalizedName(), false, (Object[]) null);
-		return TextFormatting.GOLD + localize("tooltip.fuelFluid") + ": " + TextFormatting.GRAY + fluidName;
 	}
 
 	public static String getFuelUsageText(FuelType fuelType, int usage) {
@@ -141,7 +128,7 @@ public abstract class SJStringHelper {
 		return localize(unlocalized, true, args);
 	}
 
-	public static String localize(String unlocalized, boolean prefix, Object... args) {
+	/*public static String localize(String unlocalized, boolean prefix, Object... args) {
 		String toLocalize = (prefix ? SimplyJetpacks.PREFIX : "") + unlocalized;
 		if(args != null && args.length > 0)
 		{
@@ -180,5 +167,5 @@ public abstract class SJStringHelper {
 
 	public static void addDescriptionLines(List<String> list, String base) {
 		addDescriptionLines(list, base, "");
-	}
+	}*/
 }

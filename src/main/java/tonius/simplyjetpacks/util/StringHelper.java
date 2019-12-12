@@ -1,9 +1,6 @@
 package tonius.simplyjetpacks.util;
 
-import org.lwjgl.input.Keyboard;
-
-public final class StringHelper
-{
+public final class StringHelper {
 	public static final String BLACK = "§0";
 	public static final String BLUE = "§1";
 	public static final String GREEN = "§2";
@@ -26,21 +23,18 @@ public final class StringHelper
 	public static final String UNDERLINE = "§n";
 	public static final String ITALIC = "§o";
 	public static final String END = "§r";
-	public static final String[] ROMAN_NUMERAL = new String[] {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"};
+	public static final String[] ROMAN_NUMERAL = new String[]{"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"};
 	public static boolean displayShiftForDetail = true;
 	public static boolean displayStackCount = false;
 
-	private StringHelper()
-	{
+	private StringHelper() {
 	}
 
-	public static boolean isControlKeyDown()
-	{
+	/*public static boolean isControlKeyDown() {
 		return Keyboard.isKeyDown(29) || Keyboard.isKeyDown(157);
 	}
 
-	public static boolean isShiftKeyDown()
-	{
+	public static boolean isShiftKeyDown() {
 		return Keyboard.isKeyDown(42) || Keyboard.isKeyDown(54);
-	}
+	}*/
 }

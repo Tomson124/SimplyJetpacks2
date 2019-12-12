@@ -1,21 +1,12 @@
 package tonius.simplyjetpacks.setup;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import tonius.simplyjetpacks.Log;
-import tonius.simplyjetpacks.registry.RegistryHandler;
-import tonius.simplyjetpacks.config.Config;
+import tonius.simplyjetpacks.registry.SJItemGroups;
 import tonius.simplyjetpacks.item.*;
 import tonius.simplyjetpacks.util.reference.Reference;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ModItems {
 
@@ -27,7 +18,7 @@ public class ModItems {
 	public static Item particleNone = new ItemIngredients(ItemsSJ2.PARTICLE_NONE.getName());
 	public static Item particleRainbowSmoke = new ItemIngredients(ItemsSJ2.PARTICLE_RAINBOWSMOKE.getName());*/
 
-	public static Item leatherStrap = new ItemIngredients(Reference.ItemReference.LEATHER_STRAP, null, new Item.Properties().group(RegistryHandler.creativeTab));
+	public static Item leatherStrap = new ItemIngredients(Reference.ItemReference.LEATHER_STRAP, null, new Item.Properties().group(SJItemGroups.creativeTab));
 
 	/*//EnderIO Packs
 	public static Item unitFlightControlEmpty = new ItemIngredients(ItemsSJ2.UNIT_FLIGHT_CONTROL_EMPTY.getName());

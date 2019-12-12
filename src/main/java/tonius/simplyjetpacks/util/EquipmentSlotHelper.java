@@ -1,16 +1,12 @@
 package tonius.simplyjetpacks.util;
 
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.inventory.EquipmentSlotType;
 
-public class EquipmentSlotHelper
-{
-	public static EntityEquipmentSlot fromSlot(int slot)
-	{
+public class EquipmentSlotHelper {
+	public static EquipmentSlotType fromSlot(int slot) {
 
-		for(EntityEquipmentSlot entityequipmentslot : EntityEquipmentSlot.values())
-		{
-			if(entityequipmentslot.getSlotIndex() == slot)
-			{
+		for (EquipmentSlotType entityequipmentslot : EquipmentSlotType.values()) {
+			if (entityequipmentslot.getSlotIndex() == slot) {
 				return entityequipmentslot;
 			}
 		}
