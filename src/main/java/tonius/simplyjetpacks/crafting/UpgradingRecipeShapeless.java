@@ -1,15 +1,10 @@
 package tonius.simplyjetpacks.crafting;
 
-import cofh.redstoneflux.api.IEnergyContainerItem;
-import com.google.common.collect.Lists;
-import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.RecipeMatcher;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import tonius.simplyjetpacks.ServerProxy;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.item.ItemFluxpack;
@@ -21,17 +16,16 @@ import tonius.simplyjetpacks.util.NBTHelper;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class UpgradingRecipeShapeless extends ShapelessOreRecipe {
+public class UpgradingRecipeShapeless {
 
 	private static int j = 0;
 
 	public UpgradingRecipeShapeless(Item result, Object... recipe) {
-		super(null, result, recipe);
-		setRegistryName(new ResourceLocation(SimplyJetpacks.MODID, "upgradeRecipeShapeless" + j));
+		//setRegistryName(new ResourceLocation(SimplyJetpacks.MODID, "upgradeRecipeShapeless" + j));
 		j++;
 	}
 
-	@Override
+	/*@Override
 	public boolean matches(@Nonnull InventoryCrafting inv, @Nonnull World world) {
 
 		int ingredientCount = 0;
@@ -95,5 +89,5 @@ public class UpgradingRecipeShapeless extends ShapelessOreRecipe {
 	public boolean isDynamic() {
 
 		return true;
-	}
+	}*/
 }
