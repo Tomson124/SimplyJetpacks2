@@ -1,8 +1,10 @@
 package tonius.simplyjetpacks.client.handler;
 
+import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
-import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.item.ItemFluxpack;
 import tonius.simplyjetpacks.item.ItemJetpack;
 import tonius.simplyjetpacks.network.PacketHandler;
@@ -11,17 +13,6 @@ import tonius.simplyjetpacks.network.message.MessageKeyboardSync;
 import tonius.simplyjetpacks.util.StackUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.InputEvent;
-import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 
@@ -29,7 +20,7 @@ public class KeyTracker {
 
 	public static final KeyTracker instance = new KeyTracker();
 
-	static final Minecraft mc = Minecraft.getMinecraft();
+	static final Minecraft mc = Minecraft.getInstance();
 	private static int flyKey;
 	private static int descendKey;
 	private static boolean lastFlyState = false;
@@ -50,7 +41,7 @@ public class KeyTracker {
 	private static ArrayList<KeyBinding> keys = new ArrayList<>();
 
 	public KeyTracker() {
-		engineKey = new KeyBinding(SimplyJetpacks.PREFIX + "keybind.engine", Keyboard.KEY_G, SimplyJetpacks.PREFIX + "category.simplyjetpacks");
+		/*engineKey = new KeyBinding(SimplyJetpacks.PREFIX + "keybind.engine", Keyboard.KEY_G, SimplyJetpacks.PREFIX + "category.simplyjetpacks");
 		ClientRegistry.registerKeyBinding(engineKey);
 
 		hoverKey = new KeyBinding(SimplyJetpacks.PREFIX + "keybind.hover", Keyboard.KEY_L, SimplyJetpacks.PREFIX + "category.simplyjetpacks");
@@ -60,12 +51,12 @@ public class KeyTracker {
 		ClientRegistry.registerKeyBinding(chargerKey);
 
 		emergencyHoverKey = new KeyBinding(SimplyJetpacks.PREFIX + "keybind.emergencyhover", Keyboard.KEY_R, SimplyJetpacks.PREFIX + "category.simplyjetpacks");
-		ClientRegistry.registerKeyBinding(emergencyHoverKey);
+		ClientRegistry.registerKeyBinding(emergencyHoverKey);*/
 	}
 
 	@SubscribeEvent
-	public void onKeyInput(KeyInputEvent event) {
-		EntityPlayer player = FMLClientHandler.instance().getClient().player;
+	public void onKeyInput(InputEvent.KeyInputEvent event) {
+		/*EntityPlayer player = FMLClientHandler.instance().getClient().player;
 		ItemStack chestStack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		Item chestItem = StackUtil.getItem(chestStack);
 
@@ -102,13 +93,13 @@ public class KeyTracker {
 					}
 				}
 			}
-		}
+		}*/
 
 	}
 
 	@SubscribeEvent
 	public void onMouseInput(InputEvent.MouseInputEvent event) {
-		EntityPlayer player = FMLClientHandler.instance().getClient().player;
+		/*EntityPlayer player = FMLClientHandler.instance().getClient().player;
 		ItemStack chestStack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		Item chestItem = StackUtil.getItem(chestStack);
 
@@ -145,7 +136,7 @@ public class KeyTracker {
 					}
 				}
 			}
-		}
+		}*/
 
 	}
 
@@ -157,12 +148,12 @@ public class KeyTracker {
 	}
 
 	public static void updateCustomKeybinds(String flyKeyName, String descendKeyName) {
-		flyKey = Keyboard.getKeyIndex(flyKeyName);
-		descendKey = Keyboard.getKeyIndex(descendKeyName);
+		//flyKey = Keyboard.getKeyIndex(flyKeyName);
+		//descendKey = Keyboard.getKeyIndex(descendKeyName);
 	}
 
 	private static void tickStart() {
-		if (mc.player != null) {
+		/*if (mc.player != null) {
 			boolean flyState;
 			boolean descendState;
 			if (Config.customControls) {
@@ -189,7 +180,7 @@ public class KeyTracker {
 				PacketHandler.instance.sendToServer(new MessageKeyboardSync(flyState, descendState, forwardState, backwardState, leftState, rightState));
 				SyncHandler.processKeyUpdate(mc.player, flyState, descendState, forwardState, backwardState, leftState, rightState);
 			}
-		}
+		}*/
 	}
 
 	@SubscribeEvent

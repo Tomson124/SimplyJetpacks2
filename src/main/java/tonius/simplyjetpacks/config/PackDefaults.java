@@ -1,7 +1,5 @@
 package tonius.simplyjetpacks.config;
 
-import tonius.simplyjetpacks.integration.ModType;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,7 +70,7 @@ public class PackDefaults
 		d.armorReduction = 8;
 		d.enchantability = 10;
 
-		if(ModType.ENDER_IO.loaded)
+		/*if(ModType.ENDER_IO.loaded)
 		{
 			d = new PackDefaults("jetpackEIO1", "Conductive Iron Jetpack (EIO 1)");
 			d.fuelCapacity = 80000;
@@ -308,6 +306,6 @@ public class PackDefaults
 			d.armorReduction = 7;
 			d.armorFuelPerHit = 140;
 			d.enchantability = 8;
-		}
+		}*/
 	}
 }

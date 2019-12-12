@@ -8,7 +8,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.handler.SyncHandler;
+
 import tonius.simplyjetpacks.sound.SJSoundRegistry;
 
 import java.util.Collections;
@@ -48,7 +48,7 @@ public class SoundJetpack extends TickableSound {
 		this.y = (float) this.user.posY;
 		this.z = (float) this.user.posZ;
 
-		if (this.fadeOut < 0 && !SyncHandler.getJetpackStates().keySet().contains(this.user.getEntityId())) {
+		if (this.fadeOut < 0 /*&& !SyncHandler.getJetpackStates().keySet().contains(this.user.getEntityId())*/) {
 			this.fadeOut = 0;
 			synchronized (playingFor) {
 				playingFor.remove(this.user.getEntityId());

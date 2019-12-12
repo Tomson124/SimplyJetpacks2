@@ -2,10 +2,6 @@ package tonius.simplyjetpacks.client.util;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
-import tonius.simplyjetpacks.client.particle.EntityColoredSmokeFX;
-import tonius.simplyjetpacks.client.particle.EntityCustomBubbleFX;
-import tonius.simplyjetpacks.client.particle.EntityCustomFlameFX;
-import tonius.simplyjetpacks.client.particle.EntityCustomSmokeFX;
 import tonius.simplyjetpacks.setup.ParticleType;
 
 public abstract class ParticleUtils
