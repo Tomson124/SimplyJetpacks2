@@ -4,7 +4,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.util.reference.Reference;
 
 public enum SJSoundRegistry implements IModSound {
 
@@ -23,7 +23,7 @@ public enum SJSoundRegistry implements IModSound {
 	}
 
 	private SJSoundRegistry(SoundCategory soundCategory, String name) {
-		this(soundCategory, new ResourceLocation(SimplyJetpacks.MODID, name));
+		this(soundCategory, new ResourceLocation(Reference.MODID, name));
 	}
 
 	public static void init() {

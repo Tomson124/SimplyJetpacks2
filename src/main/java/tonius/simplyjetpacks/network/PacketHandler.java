@@ -1,16 +1,11 @@
 package tonius.simplyjetpacks.network;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import net.minecraftforge.fml.relauncher.Side;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.network.message.*;
 
 public abstract class PacketHandler {
 
-	public static final SimpleNetworkWrapper instance = NetworkRegistry.INSTANCE.newSimpleChannel("SimplyJetpacks");
+	/*public static final SimpleNetworkWrapper instance = NetworkRegistry.INSTANCE.newSimpleChannel("SimplyJetpacks");
 
 	public static void init() {
 		SimplyJetpacks.logger.info("Registering network messages");
@@ -21,5 +16,5 @@ public abstract class PacketHandler {
 
 	public static EntityPlayer getPlayer(MessageContext context) {
 		return SimplyJetpacks.proxy.getPlayer(context);
-	}
+	}*/
 }

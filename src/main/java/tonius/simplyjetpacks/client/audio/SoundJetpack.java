@@ -17,8 +17,6 @@ import java.util.Map;
 
 @OnlyIn(Dist.CLIENT)
 public class SoundJetpack extends TickableSound {
-	private static final ResourceLocation SOUND = new ResourceLocation(SimplyJetpacks.RESOURCE_PREFIX + "jetpack");
-	private static final ResourceLocation SOUND_OTHER = new ResourceLocation(SimplyJetpacks.RESOURCE_PREFIX + "jetpack_other");
 
 	private static final Map<Integer, SoundJetpack> playingFor = Collections.synchronizedMap(new HashMap<Integer, SoundJetpack>());
 	private static final Minecraft mc = Minecraft.getInstance();

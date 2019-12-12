@@ -79,7 +79,7 @@ public class Config {
 		COMMON_BUILDER.pop();
 
 		setupJetpackConfig();
-		COMMON_BUILDER.pop();
+		//COMMON_BUILDER.pop();
 
 		COMMON_CONFIG = COMMON_BUILDER.build();
 		CLIENT_CONFIG = CLIENT_BUILDER.build();

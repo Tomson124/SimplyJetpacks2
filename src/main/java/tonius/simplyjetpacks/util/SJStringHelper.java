@@ -120,9 +120,9 @@ public abstract class SJStringHelper {
 		return TextFormatting.GRAY + localize("tooltip.holdShift", TextFormatting.YELLOW.toString() + TextFormatting.ITALIC + localize("tooltip.holdShift.shift") + TextFormatting.RESET + TextFormatting.GRAY);
 	}
 
-	public static boolean canShowDetails() {
+	/*public static boolean canShowDetails() {
 		return !Config.holdShiftForDetails || StringHelper.isShiftKeyDown();
-	}
+	}*/
 
 	public static String localize(String unlocalized, Object... args) {
 		return localize(unlocalized, true, args);

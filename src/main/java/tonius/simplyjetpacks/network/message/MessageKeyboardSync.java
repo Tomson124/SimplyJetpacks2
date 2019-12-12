@@ -2,15 +2,8 @@ package tonius.simplyjetpacks.network.message;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import tonius.simplyjetpacks.handler.SyncHandler;
 
-public class MessageKeyboardSync implements IMessage, IMessageHandler<MessageKeyboardSync, IMessage> {
+public class MessageKeyboardSync {
 	public boolean flyState;
 	public boolean descendState;
 
@@ -31,6 +24,7 @@ public class MessageKeyboardSync implements IMessage, IMessageHandler<MessageKey
 		this.rightState = rightState;
 	}
 
+	/*
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		this.flyState = buf.readBoolean();
@@ -71,7 +65,7 @@ public class MessageKeyboardSync implements IMessage, IMessageHandler<MessageKey
 	public void handleMessage(MessageKeyboardSync msg, MessageContext ctx) {
 		EntityPlayer entityPlayer = ctx.getServerHandler().player;
 		if (entityPlayer != null) {
-			SyncHandler.processKeyUpdate(entityPlayer, msg.flyState, msg.descendState, msg.forwardState, msg.backwardState, msg.leftState, msg.rightState);
+			//SyncHandler.processKeyUpdate(entityPlayer, msg.flyState, msg.descendState, msg.forwardState, msg.backwardState, msg.leftState, msg.rightState);
 		}
-	}
+	}*/
 }

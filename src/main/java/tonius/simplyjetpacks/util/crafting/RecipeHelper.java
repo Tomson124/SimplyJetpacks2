@@ -39,7 +39,6 @@ public final class RecipeHelper {
 	public static void addRecipe(String name, IRecipe rec) {
 		Item i = rec.getRecipeOutput().getItem();
 		RECIPE_LIST.add(rec);
-		RecipeHandler.lastRecipe = rec;
 	}
 
 

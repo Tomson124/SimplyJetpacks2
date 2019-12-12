@@ -1,17 +1,11 @@
 package tonius.simplyjetpacks.network.message;
 
-import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.setup.ParticleType;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class MessageJetpackSync implements IMessage, IMessageHandler<MessageJetpackSync, IMessage> {
+public class MessageJetpackSync {
 	public int entityId;
 	public int particleId;
 
@@ -23,7 +17,7 @@ public class MessageJetpackSync implements IMessage, IMessageHandler<MessageJetp
 		this.particleId = particleId;
 	}
 
-	@Override
+	/*@Override
 	public void fromBytes(ByteBuf buf) {
 		this.entityId = buf.readInt();
 		this.particleId = buf.readInt();
@@ -54,10 +48,10 @@ public class MessageJetpackSync implements IMessage, IMessageHandler<MessageJetp
 		if (entity != null && entity instanceof EntityLivingBase && entity != FMLClientHandler.instance().getClient().player) {
 			if (msg.particleId >= 0) {
 				ParticleType particle = ParticleType.values()[msg.particleId];
-				SyncHandler.processJetpackUpdate(msg.entityId, particle);
+				//SyncHandler.processJetpackUpdate(msg.entityId, particle);
 			} else {
-				SyncHandler.processJetpackUpdate(msg.entityId, null);
+				//SyncHandler.processJetpackUpdate(msg.entityId, null);
 			}
 		}
-	}
+	}*/
 }
