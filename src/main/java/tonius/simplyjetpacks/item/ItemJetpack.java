@@ -1,15 +1,13 @@
 package tonius.simplyjetpacks.item;
 
 import com.google.common.collect.Multimap;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -17,11 +15,8 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.fml.common.Optional;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import thundr.redstonerepository.api.IArmorEnderium;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.client.util.RenderUtils;
@@ -32,35 +27,32 @@ import tonius.simplyjetpacks.util.*;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
-import static tonius.simplyjetpacks.handler.LivingTickHandler.floatingTickCount;
-
-@Optional.Interface(iface = "thundr.redstonerepository.api.IArmorEnderium", modid = "redstonerepository")
-@Optional.Interface(iface = "cofh.core.item.IEnchantableItem", modid = "cofhcore")
 public class ItemJetpack extends ItemPack {
 
 	public static final String TAG_HOVERMODE_ON = "JetpackHoverModeOn";
 	public static final String TAG_EHOVER_ON = "JetpackEHoverOn";
 	public static final String TAG_CHARGER_ON = "JetpackChargerOn";
 
-	public ItemJetpack(String name) {
-		super(EnumHelper.addArmorMaterial("JETPACK_SJ", "jetpack", 0, new int[]{0, 0, 0, 0}, 0, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0), 2, EntityEquipmentSlot.CHEST, name);
+	public ItemJetpack(Item.Properties properties) {
+		super(ArmorMaterial.LEATHER, EquipmentSlotType.CHEST, properties);
 	}
-
+/*
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
 	}
 
 	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-		flyUser(player, stack, this, false);
+	public void onArmorTick(World world, PlayerEntity player, ItemStack stack) {
+		//flyUser(player, stack, this, false);
 		if (this.isJetplate(stack) && this.isChargerOn(stack)) {
-			chargeInventory(player, stack, this);
+			//chargeInventory(player, stack, this);
 		}
 	}
 
-	public void toggleState(boolean on, ItemStack stack, String type, String tag, EntityPlayer player, boolean showState) {
+ */
+
+	/*public void toggleState(boolean on, ItemStack stack, String type, String tag, PlayerEntity player, boolean showState) {
 		NBTHelper.setBoolean(stack, tag, !on);
 		if (player != null && showState) {
 			type = type != null && !type.equals("") ? "chat." + this.name + "." + type : "chat." + this.name + ".on";
@@ -88,7 +80,7 @@ public class ItemJetpack extends ItemPack {
 		NBTHelper.setInt(stack, Packs.TAG_PARTICLE, particle.ordinal());
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@SuppressWarnings("unchecked")
 	public void shiftInformation(ItemStack stack, List list) {
 		list.add(SJStringHelper.getStateText(this.isOn(stack)));
@@ -102,6 +94,7 @@ public class ItemJetpack extends ItemPack {
 		list.add(SJStringHelper.getParticlesText(Packs.getTypeFromName(name).getParticleType(stack)));
 		SJStringHelper.addDescriptionLines(list, "jetpack", TextFormatting.GREEN.toString());
 	}
+
 
 	protected int getFuelUsage(ItemStack stack) {
 		int usage = Packs.getTypeFromName(name).getFuelUsage();
@@ -119,6 +112,8 @@ public class ItemJetpack extends ItemPack {
 		//return (int) Math.round(this.fuelUsage * (20 - fuelEfficiencyLevel) / 20.0D);
 	}
 
+	*/
+	/*
 	public boolean isHoverModeOn(ItemStack stack) {
 		return NBTHelper.getBoolean(stack, TAG_HOVERMODE_ON, false);
 	}
@@ -127,19 +122,19 @@ public class ItemJetpack extends ItemPack {
 		return NBTHelper.getBoolean(stack, TAG_EHOVER_ON, true);
 	}
 
-	public void doEHover(ItemStack armor, EntityLivingBase user) {
+	public void doEHover(ItemStack armor, LivingEntity user) {
 		NBTHelper.setBoolean(armor, TAG_ON, true);
 		NBTHelper.setBoolean(armor, TAG_HOVERMODE_ON, true);
 
-		if (user instanceof EntityPlayer) {
+		if (user instanceof PlayerEntity) {
 			ITextComponent msg = SJStringHelper.localizeNew("chat.itemJetpack.emergencyHoverMode.msg");
 			msg.setStyle(new Style().setColor(TextFormatting.RED));
-			((EntityPlayer) user).sendStatusMessage(msg, true);
+			((PlayerEntity) user).sendStatusMessage(msg, true);
 		}
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public String getHUDStatesInfo(ItemStack stack) {
 		Boolean engine = this.isOn(stack);
 		Boolean hover = this.isHoverModeOn(stack);
@@ -151,7 +146,9 @@ public class ItemJetpack extends ItemPack {
 		}
 	}
 
-	public void flyUser(EntityPlayer user, ItemStack stack, ItemJetpack item, boolean force) {
+ */
+
+	/*public void flyUser(EntityPlayer user, ItemStack stack, ItemJetpack item, boolean force) {
 
 		Item chestItem = StackUtil.getItem(stack);
 		ItemJetpack jetpack = (ItemJetpack) chestItem;
@@ -223,7 +220,7 @@ public class ItemJetpack extends ItemPack {
                                     user.attackEntityFrom(new EntityDamageSource("jetpackexplode", user), 100.0F);
                                 }
                             }
-                        }*/
+                        }
 					}
 				}
 			}
@@ -249,13 +246,13 @@ public class ItemJetpack extends ItemPack {
 				}
 			}
 		}
-	}
+	}*/
 
-	public ParticleType getDisplayParticleType(ItemStack stack, ItemPack item, EntityLivingBase user) {
+	/*public ParticleType getDisplayParticleType(ItemStack stack, ItemPack item, EntityLivingBase user) {
 		boolean flyKeyDown = SyncHandler.isFlyKeyDown(user);
 		if (item.isOn(stack) && item.getEnergyStored(stack) > 0 && (flyKeyDown || this.isHoverModeOn(stack) && !user.onGround && user.motionY < 0)) {
 			return Objects.requireNonNull(Packs.getTypeFromName(name)).getParticleType(stack);
 		}
 		return null;
-	}
+	}*/
 }

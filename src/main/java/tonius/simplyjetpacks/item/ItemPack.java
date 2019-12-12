@@ -13,6 +13,8 @@ import java.util.List;
 
 public class ItemPack extends ArmorItem implements IModelRegister, IHUDInfoProvider {
 
+	public static final String TAG_ON = "PackOn";
+
 	public ItemPack(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder) {
 		super(materialIn, slot, builder);
 	}
