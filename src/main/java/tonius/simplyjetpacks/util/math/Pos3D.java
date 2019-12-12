@@ -1,10 +1,8 @@
 package tonius.simplyjetpacks.util.math;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.MathHelper;
 
@@ -24,10 +22,6 @@ public class Pos3D extends Vec3d {
 
 	public Pos3D(Vec3i vec) {
 		super(vec);
-	}
-
-	public Pos3D(RayTraceResult mop) {
-		this(mop.getBlockPos());
 	}
 
 	public Pos3D(double x, double y, double z) {
@@ -58,20 +52,20 @@ public class Pos3D extends Vec3d {
 	 * @param tag - tag compound to read from
 	 * @return the Pos3D from the tag compound
 	 */
-	public static Pos3D read(NBTTagCompound tag) {
+	public static Pos3D read(CompoundNBT tag) {
 		return new Pos3D(tag.getDouble("x"), tag.getDouble("y"), tag.getDouble("z"));
 	}
 
 	/**
-	 * Writes this Pos3D's data to an NBTTagCompound.
+	 * Writes this Pos3D's data to an CompoundNBT.
 	 *
 	 * @param nbtTags - tag compound to write to
 	 * @return the tag compound with this Pos3D's data
 	 */
-	public NBTTagCompound write(NBTTagCompound nbtTags) {
-		nbtTags.setDouble("x", x);
-		nbtTags.setDouble("y", y);
-		nbtTags.setDouble("z", z);
+	public CompoundNBT write(CompoundNBT nbtTags) {
+		nbtTags.putDouble("x", x);
+		nbtTags.putDouble("y", y);
+		nbtTags.putDouble("z", z);
 
 		return nbtTags;
 	}
@@ -93,7 +87,7 @@ public class Pos3D extends Vec3d {
 	 * @return Pos3D representing the motion of the given entity
 	 */
 	public static Pos3D fromMotion(Entity entity) {
-		return new Pos3D(entity.motionX, entity.motionY, entity.motionZ);
+		return new Pos3D(entity.getMotion());
 	}
 
 	/**
@@ -123,25 +117,6 @@ public class Pos3D extends Vec3d {
 	 */
 	public Pos3D translate(Vec3d pos) {
 		return translate(pos.x, pos.y, pos.z);
-	}
-
-	/**
-	 * Performs the same operation as translate(x, y, z), but by a set amount in a EnumFacing
-	 */
-	public Pos3D translate(EnumFacing direction, double amount) {
-		return translate(direction.getDirectionVec().getX() * amount, direction.getDirectionVec().getY() * amount, direction.getDirectionVec().getZ() * amount);
-	}
-
-	/**
-	 * Performs the same operation as translate(x, y, z), but by a set amount in a EnumFacing
-	 */
-	public Pos3D translateExcludingSide(EnumFacing direction, double amount) {
-		double xPos = x, yPos = y, zPos = z;
-		if (direction.getAxis() != Axis.X) xPos += amount;
-		if (direction.getAxis() != Axis.Y) yPos += amount;
-		if (direction.getAxis() != Axis.Z) zPos += amount;
-
-		return new Pos3D(xPos, yPos, zPos);
 	}
 
 	/**

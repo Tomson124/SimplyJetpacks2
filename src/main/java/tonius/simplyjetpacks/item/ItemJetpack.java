@@ -21,7 +21,6 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.client.util.RenderUtils;
 import tonius.simplyjetpacks.config.Config;
-import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.setup.*;
 import tonius.simplyjetpacks.util.*;
 
