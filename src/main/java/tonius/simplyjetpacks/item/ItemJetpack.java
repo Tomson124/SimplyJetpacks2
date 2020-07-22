@@ -1,5 +1,6 @@
 package tonius.simplyjetpacks.item;
 
+import cofh.core.init.CoreProps;
 import cofh.core.item.IEnchantableItem;
 import cofh.redstoneflux.api.IEnergyContainerItem;
 import com.google.common.collect.Multimap;
@@ -184,6 +185,13 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		double stored = this.getMaxFuelStored(stack) - this.getFuelStored(stack) + 1;
 		double max = this.getMaxFuelStored(stack) + 1;
 		return stored / max;
+	}
+
+	@Override
+	public int getRGBDurabilityForDisplay(ItemStack stack) {
+		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
+		Jetpack jetpack = Jetpack.values()[i];
+		return jetpack == Jetpack.JETPLATE_TE_5_ENDERIUM ? CoreProps.RGB_DURABILITY_ENDER : super.getRGBDurabilityForDisplay(stack);
 	}
 
 	@Override
