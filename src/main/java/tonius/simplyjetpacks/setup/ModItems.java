@@ -13,6 +13,7 @@ import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.crafting.UpgradingRecipe;
+import tonius.simplyjetpacks.crafting.UpgradingRecipeParticleOnly;
 import tonius.simplyjetpacks.crafting.UpgradingRecipeShapeless;
 import tonius.simplyjetpacks.integration.*;
 import tonius.simplyjetpacks.item.*;
@@ -377,7 +378,7 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE3Armored, jetpackTE3, armorPlatingTE3));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE4Armored, jetpackTE4, armorPlatingTE4));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackTE5, "PAP", "OJO", "TCT", 'A', armorFluxPlate, 'J', jetpackTE4Armored, 'O', unitCryotheum, 'C', fluxPackTE3Armored, 'T', thrusterTE5, 'P', plateFlux));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE5, jetpackTE5));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeParticleOnly(jetpackTE5, jetpackTE5));
 
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE1, "ICI", "ISI", 'I', "ingotLead", 'C', TEItems.cellBasic, 'S', leatherStrap));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxPackTE2, " C ", "ISI", "LOL", 'I', "ingotElectrum", 'L', "ingotLead", 'C', TEItems.cellReinforced, 'S', fluxPackTE1, 'O', TEItems.powerCoilElectrum));
@@ -386,8 +387,9 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxPackTE3Armored, fluxPackTE3, armorPlatingTE4));
 
 			if(integrateRR){
-				ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackTE5Enderium, "AAA", "AJA", "AAA", 'A', RRItems.plateArmorGelidEnderium, 'J', jetpackTE5));
-				ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE5Enderium, jetpackTE5Enderium));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackTE5Enderium, "PAP", "OJO", "TCT", 'A', RRItems.fluxGelidChestplate, 'J', jetpackTE4Armored, 'O', unitCryotheum, 'C', fluxPackTE3Armored, 'T', thrusterTE5, 'P', plateFlux));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackTE5Enderium, "AJA", "AAA", "AAA", 'A', RRItems.plateArmorGelidEnderium, 'J', jetpackTE5));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipeParticleOnly(jetpackTE5Enderium, jetpackTE5Enderium));
 			}
 
 			RecipeHelper.addArmoredReverseRecipe(Jetpack.PACKS_TE, Jetpack.PACKS_TE_ARMORED, Fluxpack.TE_FLUXPACKS, Fluxpack.TE_FLUXPACKS_ARMORED);

@@ -18,22 +18,22 @@ import tonius.simplyjetpacks.util.ItemHelper;
 import tonius.simplyjetpacks.util.NBTHelper;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
 
-public class UpgradingRecipeShapeless extends ShapelessOreRecipe {
-
+public class UpgradingRecipeParticleOnly extends ShapelessOreRecipe {
 	private static int j = 0;
 
-	public UpgradingRecipeShapeless(ItemStack result, Object... recipe) {
-		super(null, result, recipe);
-		setRegistryName(new ResourceLocation(SimplyJetpacks.MODID, "upgradeRecipeShapeless" + j));
+	public UpgradingRecipeParticleOnly(ItemStack result, Object input) {
+		super(null, result, input);
+		setRegistryName(new ResourceLocation(SimplyJetpacks.MODID, "upgradeRecipeParticleOnly" + j));
 		j++;
 	}
 
 	@Override
 	public boolean matches(@Nonnull InventoryCrafting inv, @Nonnull World world) {
 		int ingredientCount = 0;
-		List<ItemStack> items = Lists.newArrayList();
+		List<ItemStack> items = new ArrayList<>();
 
 		for (int i = 0; i < inv.getSizeInventory(); ++i) {
 			ItemStack itemstack = inv.getStackInSlot(i);
@@ -43,7 +43,7 @@ public class UpgradingRecipeShapeless extends ShapelessOreRecipe {
 			}
 		}
 
-		if (ingredientCount != this.input.size()) {
+		if (ingredientCount != 2) {
 			return false;
 		}
 
@@ -76,13 +76,13 @@ public class UpgradingRecipeShapeless extends ShapelessOreRecipe {
 			}
 		}
 
-		if (inputStack.isEmpty()) {
+		if (inputStack.isEmpty() || particleType == null) {
 			return ItemStack.EMPTY;
 		}
 
 		NBTHelper.setInt(outputStack, "Energy", Math.min(addedEnergy, outputItem.getMaxEnergyStored(outputStack)));
 
-		if (outputItem instanceof ItemJetpack && particleType != null) {
+		if (outputItem instanceof ItemJetpack) {
 			((ItemJetpack) outputItem).setParticleType(outputStack, particleType);
 		}
 
@@ -91,7 +91,6 @@ public class UpgradingRecipeShapeless extends ShapelessOreRecipe {
 
 	@Override
 	public boolean isDynamic() {
-
 		return true;
 	}
 }
