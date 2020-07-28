@@ -17,7 +17,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "2.2.14"
+version = "2.2.15"
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
@@ -38,7 +38,7 @@ repositories {
     }
     maven {
         name = "Covers Maven"
-        url = "http://maven.covers1624.net"
+        url = "https://maven.covers1624.net"
     }
 }
 
