@@ -32,7 +32,6 @@ public class UpgradingRecipeShapeless extends ShapelessOreRecipe {
 
 	@Override
 	public boolean matches(@Nonnull InventoryCrafting inv, @Nonnull World world) {
-
 		int ingredientCount = 0;
 		List<ItemStack> items = Lists.newArrayList();
 

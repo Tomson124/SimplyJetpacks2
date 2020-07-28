@@ -196,9 +196,7 @@ public enum Jetpack implements IStringSerializable {
 		return platingMeta;
 	}
 
-	public static
-	@Nonnull
-	Jetpack getTypeFromMeta(int meta) {
+	public static @Nonnull Jetpack getTypeFromMeta(int meta) {
 		return values()[meta >= 0 && meta < values().length ? meta : 0];
 	}
 
