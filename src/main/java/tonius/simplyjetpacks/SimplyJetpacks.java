@@ -1,6 +1,7 @@
 package tonius.simplyjetpacks;
 
 import net.minecraft.item.Item;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -30,6 +31,8 @@ public class SimplyJetpacks {
 
 		// Register the setup method for modloading
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+
+		ModItems.init();
 
 		Config.loadConfig(Config.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve("mytutorial-client.toml"));
 		Config.loadConfig(Config.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("mytutorial-common.toml"));

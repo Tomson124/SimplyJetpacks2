@@ -1,7 +1,14 @@
 package tonius.simplyjetpacks.setup;
 
 import net.minecraft.item.Item;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import tonius.simplyjetpacks.Log;
 import tonius.simplyjetpacks.registry.SJItemGroups;
@@ -9,6 +16,14 @@ import tonius.simplyjetpacks.item.*;
 import tonius.simplyjetpacks.util.reference.Reference;
 
 public class ModItems {
+
+	public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, Reference.MODID);
+
+	public static void init() {
+		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+	}
+
+	public static final RegistryObject<Item> LEATHER_STRAP = ITEMS.register("leather_strap", () -> new Item(new Item.Properties().group(SJItemGroups.creativeTab)));
 
 	/*public static Item jetpackCreative = new ItemJetpack(Packs.CREATIVE_JETPACK.getBaseName());
 	public static Item fluxPackCreative = new ItemFluxpack(Packs.CREATIVE_FLUXPACK.getBaseName());
@@ -18,7 +33,7 @@ public class ModItems {
 	public static Item particleNone = new ItemIngredients(ItemsSJ2.PARTICLE_NONE.getName());
 	public static Item particleRainbowSmoke = new ItemIngredients(ItemsSJ2.PARTICLE_RAINBOWSMOKE.getName());*/
 
-	public static Item leatherStrap = new ItemIngredients(Reference.ItemReference.LEATHER_STRAP, null, new Item.Properties().group(SJItemGroups.creativeTab));
+	//public static Item leatherStrap = new ItemIngredients(Reference.ItemReference.LEATHER_STRAP, null, new Item.Properties().group(SJItemGroups.creativeTab));
 
 	/*//EnderIO Packs
 	public static Item unitFlightControlEmpty = new ItemIngredients(ItemsSJ2.UNIT_FLIGHT_CONTROL_EMPTY.getName());
@@ -99,10 +114,10 @@ public class ModItems {
 	public static boolean integrateRR = ModType.REDSTONE_REPOSITORY.loaded && Config.enableIntegrationRR;
 	*/
 
-	public static void init() {
+	/*public static void init() {
 		//registerOreDicts();
 		//doIMC();
-	}
+	}*/
 
 	/*private static void registerOreDicts() {
 		OreDictionary.registerOre("particleCustomizer", particleDefault);
@@ -134,7 +149,7 @@ public class ModItems {
 		r.register(particleSmoke);
 		r.register(particleRainbowSmoke);
 		r.register(particleNone);*/
-		r.register(leatherStrap);
+		//r.register(leatherStrap);
 
 		/*if (integrateEIO) {
 			r.register(unitFlightControlEmpty);
