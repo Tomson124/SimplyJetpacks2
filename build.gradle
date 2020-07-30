@@ -1,113 +1,135 @@
 buildscript {
     repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
+        mavenCentral()
     }
-
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
-version = "2.2.15"
+version = "${minecraft_version}-${mod_version}" //." + (System.env.BUILD_NUMBER ?: "homebaked")
+group = 'tomson124.simplyjetpacks'
+archivesBaseName = "SimplyJetpacks2-${minecraft_version}"
 
-def ENV = System.getenv()
-if (ENV.BUILD_NUMBER) {
-    version = version + "." + "${System.getenv().BUILD_NUMBER}"
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+
+minecraft {
+    mappings channel: 'snapshot', version: "${mappings_version}"
+
+    //makeObfSourceJar = false
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                simplyjetpacks {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                simplyjetpacks {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            args '--mod', 'simplyjetpacks', '--all', '--output', file('src/generated/resources/')
+            mods {
+                simplyjetpacks {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
 }
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 repositories {
+    // Mekanism
     maven {
-        // location of the maven that hosts JEI files
-        url "http://dvs1.progwml6.com/files/maven"
+        name = "ModMaven"
+        url = "https://modmaven.k-4u.nl/"
     }
+    // JEI
     maven {
-        name = "ChickenBones Maven"
-        url = "http://chickenbones.net/maven/"
+        name = "Progwm16 maven"
+        url = "http://dvs1.progwml6.com/files/maven/"
     }
+    // TOP
     maven {
-        name = "Covers Maven"
-        url = "https://maven.covers1624.net"
+        name = "tterrag maven"
+        url = "https://maven.tterrag.com/"
+    }
+    // Immersive Engineering
+    maven {
+        name = "blamejared maven"
+        url = "https://maven.blamejared.com/"
     }
 }
 
 dependencies {
-    // compile against the JEI API
-    //deobfCompile "mezz.jei:jei_1.10.2:3.14.7.420:api"
-    // at runtime, use the full JEI jar
-    //deobfCompile "cofh:RedstoneFlux:1.12-2.0.1.2:universal"
-    runtime "codechicken:CodeChickenLib:1.12.2-3.2.+:universal"
-    compile "cofh:CoFHCore:1.12.2-4.6.+:deobf"
-    runtime "cofh:CoFHWorld:1.12.2-1.2.+:universal"
-    runtime "cofh:ThermalFoundation:1.12.2-2.6.+:universal"
-    runtime "cofh:ThermalDynamics:1.12.2-2.5.+:universal"
-    runtime "cofh:ThermalExpansion:1.12.2-5.5.+:universal"
-    runtime "cofh:RedstoneArsenal:1.12.2-2.6.+:universal"
-    compile "cofh:RedstoneFlux:1.12-2.1.+:deobf"
+    //minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-32.0.75"
+
+    compileOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:api")
+    runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")
+    runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:additions")
+    runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:generators")
+    runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:tools")
+
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
+
+    compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${top_version}:api")
+    runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${top_version}")
+
+    runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${immersiveengineering_version}")
 }
 
-minecraft {
-    version = "1.12.2-14.23.5.2768"
-    runDir = "run"
-
-    // the mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   snapshot are built nightly.
-    // stable_#            stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not allways work.
-    // simply re-run your setup task after changing the mappings to update your workspace.
-    mappings = "snapshot_20171003"
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-
-    replaceIn "SimplyJetpacks.java"
-    replace "@VERSION@", project.version
-}
-
-group = "tonius.simplyjetpacks"
-archivesBaseName = "SimplyJetpacks2-1.12.2"
-
-processResources {
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+jar {
+    manifest {
+        attributes([
+                "Specification-Title": "simplyjetpacks",
+                "Specification-Vendor": "tomson124",
+                "Specification-Version": "1",
+                "Implementation-Title": project.name,
+                "Implementation-Version": "${version}",
+                "Implementation-Vendor" :"tomson124",
+                //"Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
     }
 }
 
-//task setUpdateVersion(type: Copy) {
-//    description 'Creates or updates the version numbers in the update.json'
-//    onlyIf{
-//        !tasks.build.state.failure
-//    }
-//    from 'update'
-//    into "update"
-//    include 'update_template.json'
-//    rename { file -> 'update.json' }
-//    expand 'version':project.version, 'mcversion':project.minecraft.version
-//
-//    duplicatesStrategy = 'include'
-//}
+jar.finalizedBy('reobfJar')
+//publish.dependsOn('reobfJar')
 
-//tasks.build.finalizedBy(setUpdateVersion)
-
-idea {
-    module {
-        inheritOutputDirs = true
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
+        }
     }
 }
