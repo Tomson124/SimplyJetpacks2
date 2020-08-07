@@ -1,0 +1,29 @@
+{
+  "display": {
+    "background": "minecraft:textures/block/stone.png",
+    "icon": {
+      "item": "simplyjetpacks:jetpack_creative"
+    },
+    "title": {
+      "translate": "advancements.simplyjetpacks.simply_jetpacks.title"
+    },
+    "description": {
+      "translate": "advancements.simplyjetpacks.simply_jetpacks.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "simply_jetpacks": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "dimension": "minecraft:overworld"
+      }
+    }
+  },
+  "rewards": {
+    "experience": 1
+  }
+}

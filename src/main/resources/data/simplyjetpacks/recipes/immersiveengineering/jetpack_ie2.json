@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "pep",
+    "pjp",
+    "t t"
+  ],
+  "key": {
+    "p": { "tag": "forge:plates/aluminum" },
+    "e": { "item": "immersiveengineering:electron_tube" },
+    "j": { "item": "simplyjetpacks:jetpack_ie1" },
+    "t": { "item": "simplyjetpacks:thruster_ie2" }
+  },
+  "result": {
+    "item": "simplyjetpacks:jetpack_ie2",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "immersiveengineering"
+    }
+  ]
+}

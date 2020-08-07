@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ici",
+    "ueu",
+    "iai"
+  ],
+  "key": {
+    "i": { "tag": "forge:ingots/osmium" },
+    "c": { "tag": "forge:circuits/elite" },
+    "u": { "item": "mekanism:elite_universal_cable" },
+    "e": { "item": "mekanism:elite_energy_cube" },
+    "a": { "tag": "forge:alloys/elite" }
+  },
+  "result": {
+    "item": "simplyjetpacks:thruster_mek3",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "mekanism"
+    }
+  ]
+}

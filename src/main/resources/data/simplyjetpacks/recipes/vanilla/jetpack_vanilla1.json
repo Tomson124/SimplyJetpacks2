@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ici",
+    "isi",
+    "t t"
+  ],
+  "key": {
+    "i": { "tag": "forge:ingots/iron" },
+    "c": { "item": "minecraft:comparator" },
+    "s": { "item": "simplyjetpacks:leather_strap" },
+    "t": { "item": "simplyjetpacks:thruster_vanilla1" }
+  },
+  "result": {
+    "item": "simplyjetpacks:jetpack_vanilla1",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "vanilla"
+    }
+  ]
+}

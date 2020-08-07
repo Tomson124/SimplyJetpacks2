@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " s ",
+    "gig"
+  ],
+  "key": {
+    "s": { "item": "simplyjetpacks:leather_strap" },
+    "i": { "tag": "forge:ingots/gold" },
+    "g": { "tag": "forge:glass_panes" }
+  },
+  "result": {
+    "item": "simplyjetpacks:pilot_goggles",
+    "count": 1
+  }
+}

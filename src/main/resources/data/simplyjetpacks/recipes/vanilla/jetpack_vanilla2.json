@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "grg",
+    "gjg",
+    "t t"
+  ],
+  "key": {
+    "g": { "tag": "forge:ingots/gold" },
+    "r": { "tag": "forge:storage_blocks/redstone" },
+    "j": { "item": "simplyjetpacks:jetpack_vanilla1" },
+    "t": { "item": "simplyjetpacks:thruster_vanilla2" }
+  },
+  "result": {
+    "item": "simplyjetpacks:jetpack_vanilla2",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "vanilla"
+    }
+  ]
+}

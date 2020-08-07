@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:netherite_chestplate"
+    },
+    {
+      "item": "simplyjetpacks:jetpack_vanilla4"
+    }
+  ],
+  "result": {
+    "item": "simplyjetpacks:jetpack_vanilla4_armored",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "vanilla"
+    }
+  ]
+}

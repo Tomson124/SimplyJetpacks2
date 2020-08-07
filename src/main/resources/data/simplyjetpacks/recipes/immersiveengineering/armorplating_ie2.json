@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "pip",
+    "ipi",
+    "pip"
+  ],
+  "key": {
+    "p": { "tag": "forge:plates/iron" },
+    "i": { "tag": "forge:ingots/iron" }
+  },
+  "result": {
+    "item": "simplyjetpacks:armorplating_ie2",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "immersiveengineering"
+    }
+  ]
+}

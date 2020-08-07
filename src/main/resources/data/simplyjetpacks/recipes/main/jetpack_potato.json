@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "s s",
+    "gpg",
+    "r r"
+  ],
+  "key": {
+    "s": { "tag": "forge:string" },
+    "g": { "tag": "forge:nuggets/gold" },
+    "p": { "tag": "forge:crops/potato" },
+    "r": { "tag": "forge:dusts/redstone" }
+  },
+  "result": {
+    "item": "simplyjetpacks:jetpack_potato",
+    "count": 1
+  }
+}

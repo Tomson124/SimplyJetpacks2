@@ -1,20 +1,17 @@
 {
   "jetpack": {
     "category": "player",
-    "sounds": [
-      "simplyjetpacks:jetpack"
-    ]
+    "sounds": ["simplyjetpacks:jetpack"],
+    "subtitle": "subtitle.simplyjetpacks.jetpack"
   },
   "jetpack_other": {
     "category": "player",
-    "sounds": [
-      "simplyjetpacks:jetpack_other"
-    ]
+    "sounds": ["simplyjetpacks:jetpack_other"],
+    "subtitle": "subtitle.simplyjetpacks.jetpack_other"
   },
   "rocket": {
     "category": "player",
-    "sounds": [
-      "simplyjetpacks:rocket"
-    ]
+    "sounds": ["simplyjetpacks:rocket"],
+    "subtitle": "subtitle.simplyjetpacks.rocket"
   }
 }

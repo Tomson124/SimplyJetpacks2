@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " g ",
+    "gcg",
+    " g "
+  ],
+  "key": {
+    "g": {
+      "tag": "forge:glass"
+    },
+    "c": { "tag": "forge:dusts/coal" }
+  },
+  "result": {
+    "item": "simplyjetpacks:particle_none",
+    "count": 1
+  }
+}

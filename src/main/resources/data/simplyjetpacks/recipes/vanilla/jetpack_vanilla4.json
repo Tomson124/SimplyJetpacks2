@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "nrn",
+    "njn",
+    "t t"
+  ],
+  "key": {
+    "n": { "item": "minecraft:netherite_ingot" },
+    "r": { "tag": "forge:storage_blocks/redstone" },
+    "j": { "item": "simplyjetpacks:jetpack_vanilla3" },
+    "t": { "item": "simplyjetpacks:thruster_vanilla4" }
+  },
+  "result": {
+    "item": "simplyjetpacks:jetpack_vanilla4",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "vanilla"
+    }
+  ]
+}

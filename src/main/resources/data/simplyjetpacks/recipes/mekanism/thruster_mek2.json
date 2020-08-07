@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ici",
+    "ueu",
+    "iai"
+  ],
+  "key": {
+    "i": { "tag": "forge:ingots/osmium" },
+    "c": { "tag": "forge:circuits/advanced" },
+    "u": { "item": "mekanism:advanced_universal_cable" },
+    "e": { "item": "mekanism:advanced_energy_cube" },
+    "a": { "tag": "forge:alloys/advanced" }
+  },
+  "result": {
+    "item": "simplyjetpacks:thruster_mek2",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "mekanism"
+    }
+  ]
+}

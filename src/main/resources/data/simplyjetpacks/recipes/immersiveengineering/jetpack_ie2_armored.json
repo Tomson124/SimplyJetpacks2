@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "simplyjetpacks:armorplating_ie2"
+    },
+    {
+      "item": "simplyjetpacks:jetpack_ie2"
+    }
+  ],
+  "result": {
+    "item": "simplyjetpacks:jetpack_ie2_armored",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "immersiveengineering"
+    }
+  ]
+}

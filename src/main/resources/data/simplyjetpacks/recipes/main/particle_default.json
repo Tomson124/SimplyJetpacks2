@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " t ",
+    "tct",
+    " t "
+  ],
+  "key": {
+    "t": { "item": "minecraft:torch" },
+    "c": { "tag": "forge:dusts/coal" }
+  },
+  "result": {
+    "item": "simplyjetpacks:particle_default",
+    "count": 1
+  }
+}

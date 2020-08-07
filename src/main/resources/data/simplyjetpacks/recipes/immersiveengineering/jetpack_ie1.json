@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "pmp",
+    "plp",
+    "t t"
+  ],
+  "key": {
+    "p": { "tag": "forge:plates/iron" },
+    "m": { "item": "immersiveengineering:component_iron" },
+    "l": { "item": "simplyjetpacks:leather_strap" },
+    "t": { "item": "simplyjetpacks:thruster_ie1" }
+  },
+  "result": {
+    "item": "simplyjetpacks:jetpack_ie1",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "immersiveengineering"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "immersiveengineering:wirecoil_copper"
+    },
+    "title": {
+      "translate": "advancements.simplyjetpacks.immersiveengineering.title"
+    },
+    "description": {
+      "translate": "advancements.simplyjetpacks.immersiveengineering.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "code_trigger": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "code_trigger"
+    ]
+  ],
+  "rewards": {
+    "experience": 1
+  },
+  "parent": "simplyjetpacks:main/root_simplyjetpacks",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "immersiveengineering"
+    }
+  ]
+}

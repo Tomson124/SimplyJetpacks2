@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "pbp",
+    "pjp",
+    "t t"
+  ],
+  "key": {
+    "p": { "tag": "forge:plates/steel" },
+    "b": { "item": "immersiveengineering:circuit_board" },
+    "j": { "item": "simplyjetpacks:jetpack_ie2" },
+    "t": { "item": "simplyjetpacks:thruster_ie3" }
+  },
+  "result": {
+    "item": "simplyjetpacks:jetpack_ie3",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "immersiveengineering"
+    }
+  ]
+}

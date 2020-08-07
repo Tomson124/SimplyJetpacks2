@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ici",
+    "iji",
+    "t t"
+  ],
+  "key": {
+    "i": { "tag": "forge:ingots/osmium" },
+    "c": { "tag": "forge:circuits/advanced" },
+    "j": { "item": "simplyjetpacks:jetpack_mek1" },
+    "t": { "item": "simplyjetpacks:thruster_mek2" }
+  },
+  "result": {
+    "item": "simplyjetpacks:jetpack_mek2",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "mekanism"
+    }
+  ]
+}

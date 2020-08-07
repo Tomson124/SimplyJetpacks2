@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " i ",
+    "ifi",
+    "ibi"
+  ],
+  "key": {
+    "i": { "tag": "forge:ingots/iron" },
+    "f": { "item": "minecraft:furnace" },
+    "b": { "item": "minecraft:blaze_powder"}
+  },
+  "result": {
+    "item": "simplyjetpacks:thruster_vanilla1",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "vanilla"
+    }
+  ]
+}

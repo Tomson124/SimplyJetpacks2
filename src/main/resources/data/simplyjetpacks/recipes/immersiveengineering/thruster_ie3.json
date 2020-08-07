@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "pbp",
+    "wcw",
+    "php"
+  ],
+  "key": {
+    "p": { "tag": "forge:plates/steel" },
+    "b": { "item": "immersiveengineering:circuit_board" },
+    "w": { "item": "immersiveengineering:wirecoil_steel" },
+    "c": { "item": "immersiveengineering:coil_hv" },
+    "h": { "item": "immersiveengineering:furnace_heater" }
+  },
+  "result": {
+    "item": "simplyjetpacks:thruster_ie3",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "immersiveengineering"
+    }
+  ]
+}

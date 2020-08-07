@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " g ",
+    "gfg",
+    "gbg"
+  ],
+  "key": {
+    "g": { "tag": "forge:ingots/gold" },
+    "f": { "item": "minecraft:furnace" },
+    "b": { "item": "minecraft:blaze_powder"}
+  },
+  "result": {
+    "item": "simplyjetpacks:thruster_vanilla2",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "vanilla"
+    }
+  ]
+}
