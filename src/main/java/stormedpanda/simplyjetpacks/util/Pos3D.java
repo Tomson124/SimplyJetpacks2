@@ -2,13 +2,11 @@ package stormedpanda.simplyjetpacks.util;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3i;
+import net.minecraft.util.math.Vec3d;
 
 import javax.annotation.Nonnull;
 
@@ -17,19 +15,15 @@ import javax.annotation.Nonnull;
  *
  * @author aidancbrady
  */
-public class Pos3D extends Vector3d {
+public class Pos3D extends Vec3d {
 
     public Pos3D() {
         this(0, 0, 0);
     }
 
-    public Pos3D(Vector3d vec) {
+    public Pos3D(Vec3d vec) {
         super(vec.x, vec.y, vec.z);
     }
-
-/*    public Pos3D(Coord4D coord) {
-        super(coord.getX(), coord.getY(), coord.getZ());
-    }*/
 
     public Pos3D(double x, double y, double z) {
         super(x, y, z);
@@ -42,14 +36,6 @@ public class Pos3D extends Vector3d {
      */
     public Pos3D(Entity entity) {
         this(entity.getPosX(), entity.getPosY(), entity.getPosZ());
-    }
-
-    public static Pos3D create(TileEntity tile) {
-        return create(tile.getPos());
-    }
-
-    public static Pos3D create(Vector3i vec) {
-        return new Pos3D(Vector3d.copy(vec));
     }
 
     /**
@@ -103,20 +89,9 @@ public class Pos3D extends Vector3d {
      *
      * @return difference of the two Pos3Ds
      */
-    public Pos3D diff(Vector3d vec) {
+    public Pos3D diff(Vec3d vec) {
         return new Pos3D(x - vec.x, y - vec.y, z - vec.z);
     }
-
-    /**
-     * Creates a new Coord4D representing this Pos3D in the provided dimension.
-     *
-     * @param dimension - the dimension this Pos3D is in
-     *
-     * @return Coord4D representing this Pos3D
-     */
-/*    public Coord4D getCoord(RegistryKey<World> dimension) {
-        return new Coord4D((int) x, (int) y, (int) z, dimension);
-    }*/
 
     /**
      * Centres a block-derived Pos3D
@@ -145,7 +120,7 @@ public class Pos3D extends Vector3d {
      *
      * @return translated Pos3D
      */
-    public Pos3D translate(Vector3d pos) {
+    public Pos3D translate(Vec3d pos) {
         return translate(pos.x, pos.y, pos.z);
     }
 
@@ -156,11 +131,11 @@ public class Pos3D extends Vector3d {
      *
      * @return translated Pos3D
      */
-    public Pos3D translate(Vector3d... positions) {
+    public Pos3D translate(Vec3d... positions) {
         double x = this.x;
         double y = this.y;
         double z = this.z;
-        for (Vector3d position : positions) {
+        for (Vec3d position : positions) {
             x += position.x;
             y += position.y;
             z += position.z;
@@ -211,7 +186,7 @@ public class Pos3D extends Vector3d {
      *
      * @return the distance between this and the defined Pos3D
      */
-    public double distance(Vector3d pos) {
+    public double distance(Vec3d pos) {
         double subX = x - pos.x;
         double subY = y - pos.y;
         double subZ = z - pos.z;
@@ -270,7 +245,7 @@ public class Pos3D extends Vector3d {
         return new Pos3D(xPos, yPos, zPos);
     }
 
-    public Pos3D multiply(Vector3d pos) {
+    public Pos3D multiply(Vec3d pos) {
         return scale(pos.x, pos.y, pos.z);
     }
 
@@ -296,13 +271,6 @@ public class Pos3D extends Vector3d {
     public Pos3D rotate(float angle, Pos3D axis) {
         return translateMatrix(getRotationMatrix(angle, axis), this);
     }
-
-/*    public Pos3D transform(Quaternion quaternion) {
-        Quaternion q = quaternion.copy();
-        q.multiply(new Quaternion(x, y, z, 0.0F));
-        q.multiply(quaternion.copy().conjugate());
-        return new Pos3D(q.getX(), q.getY(), q.getZ());
-    }*/
 
     public double[] getRotationMatrix(float angle) {
         double[] matrix = new double[16];
@@ -370,7 +338,7 @@ public class Pos3D extends Vector3d {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Vector3d && ((Vector3d) obj).x == x && ((Vector3d) obj).y == y && ((Vector3d) obj).z == z;
+        return obj instanceof Vec3d && ((Vec3d) obj).x == x && ((Vec3d) obj).y == y && ((Vec3d) obj).z == z;
     }
 
     @Override

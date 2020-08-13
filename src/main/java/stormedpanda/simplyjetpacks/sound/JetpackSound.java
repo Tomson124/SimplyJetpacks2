@@ -42,7 +42,7 @@ public class JetpackSound extends TickableSound {
 			}
 		} else
 			if (this.fadeOut >= 5) {
-			this.func_239509_o_();
+			this.isDonePlaying();
 		} else
 			if(this.fadeOut >= 0) {
 			this.volume = 1.0F - this.fadeOut / 5F;

@@ -24,8 +24,6 @@ public enum JetpackType {
     VANILLA2_ARMORED("jetpack_vanilla2_armored", 2, "jetpack2", true, 1),
     VANILLA3("jetpack_vanilla3", 3, "jetpack3"),
     VANILLA3_ARMORED("jetpack_vanilla3_armored", 3, "jetpack3", true, 2),
-    VANILLA4("jetpack_vanilla4", 4, "jetpack4"),
-    VANILLA4_ARMORED("jetpack_vanilla4_armored", 4, "jetpack4", true, 3),
 
     IE1("jetpack_ie1", 1, "jetpack1"),
     IE1_ARMORED("jetpack_ie1_armored", 1, "jetpack1", true, 4),
@@ -45,7 +43,7 @@ public enum JetpackType {
 
     protected static final EnumSet<JetpackType> JETPACK_ALL = EnumSet.allOf(JetpackType.class);
     public static final EnumSet<JetpackType> JETPACK_SJ = EnumSet.range(CREATIVE, CREATIVE_ARMORED);
-    public static final EnumSet<JetpackType> JETPACK_VANILLA = EnumSet.range(VANILLA1, VANILLA4_ARMORED);
+    public static final EnumSet<JetpackType> JETPACK_VANILLA = EnumSet.range(VANILLA1, VANILLA3_ARMORED);
     public static final EnumSet<JetpackType> JETPACK_IE = EnumSet.range(IE1, IE3_ARMORED);
     public static final EnumSet<JetpackType> JETPACK_MEK = EnumSet.range(MEK1, MEK4_ARMORED);
 

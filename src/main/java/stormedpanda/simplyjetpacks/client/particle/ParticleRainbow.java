@@ -7,8 +7,8 @@ import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.SmokeParticle;
 import net.minecraft.client.renderer.ActiveRenderInfo;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particles.BasicParticleType;
+import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
@@ -16,7 +16,7 @@ import java.util.Random;
 
 public class ParticleRainbow extends SmokeParticle {
 
-    private ParticleRainbow(ClientWorld world, double posX, double posY, double posZ, double velX, double velY, double velZ, IAnimatedSprite sprite, float red, float green, float blue) {
+    private ParticleRainbow(World world, double posX, double posY, double posZ, double velX, double velY, double velZ, IAnimatedSprite sprite, float red, float green, float blue) {
         super(world, posX, posY, posZ, velX, velY, velZ, 1.0F, sprite);
         this.particleRed = red;
         this.particleGreen = green;
@@ -44,7 +44,7 @@ public class ParticleRainbow extends SmokeParticle {
         }
 
         @Override
-        public Particle makeParticle(@Nonnull BasicParticleType type, @Nonnull ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public Particle makeParticle(@Nonnull BasicParticleType type, @Nonnull World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             Color color = new Color(Color.HSBtoRGB(new Random().nextFloat() * 360, new Random().nextFloat() * 0.15F + 0.8F, 0.85F));
             float red = color.getRed() / 255.0F;
             float green = color.getGreen() / 255.0F;

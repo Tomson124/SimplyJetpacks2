@@ -9,7 +9,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 
 import javax.annotation.Nonnull;
 
-public class CapabilityProviderEnergy<HANDLER> implements ICapabilityProvider {
+public class CapabilityProviderEnergy implements ICapabilityProvider {
 
     protected IEnergyStorage instance;
 

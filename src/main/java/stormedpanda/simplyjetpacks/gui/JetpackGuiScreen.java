@@ -1,6 +1,5 @@
 package stormedpanda.simplyjetpacks.gui;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -23,8 +22,6 @@ import stormedpanda.simplyjetpacks.network.packets.PacketToggleCharger;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleEHover;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleEngine;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleHover;
-
-import javax.annotation.Nonnull;
 
 @OnlyIn(Dist.CLIENT)
 public class JetpackGuiScreen extends Screen {
@@ -75,7 +72,8 @@ public class JetpackGuiScreen extends Screen {
     }
 
     @Override
-    public void render(@Nonnull MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
+    public void render(int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground();
         FontRenderer fontRenderer = minecraft.fontRenderer;
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         int relX = (this.width - WIDTH) / 2;
@@ -83,15 +81,15 @@ public class JetpackGuiScreen extends Screen {
         float mousePosX = (float) mouseX;
         float mousePosY = (float) mouseY;
         minecraft.getTextureManager().bindTexture(GUI_BASE);
-        this.blit(stack, relX, relY, 0, 0, WIDTH, HEIGHT);
-        drawCenteredString(stack, fontRenderer, new TranslationTextComponent(minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST).getTranslationKey()), relX + 88, relY + 5, 0xFFFFFF);
+        this.blit(relX, relY, 0, 0, WIDTH, HEIGHT);
+        drawCenteredString(fontRenderer, new TranslationTextComponent(minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST).getTranslationKey()).getFormattedText(), relX + 88, relY + 5, 0xFFFFFF);
         InventoryScreen.drawEntityOnScreen(relX + 80, relY + 90, 40, (float)(relX + 51) - mousePosX, (float)(relY + 75 - 50) - mousePosY, minecraft.player);
         minecraft.getTextureManager().bindTexture(ENERGY_BAR);
-        blit(stack, relX + 10, relY + 16, 0, 0, 14, 78, 128, 128);
+        blit(relX + 10, relY + 16, 0, 0, 14, 78, 128, 128);
         int amount = getEnergyBarAmount();
         int barOffset = 78-amount;
-        blit(stack, relX + 10, relY + 16 + barOffset, 14, 0, 14, amount, 128, 128);
-        super.render(stack, mouseX, mouseY, partialTicks);
+        blit(relX + 10, relY + 16 + barOffset, 14, 0, 14, amount, 128, 128);
+        super.render(mouseX, mouseY, partialTicks);
     }
 
     private int getEnergyBarAmount() {

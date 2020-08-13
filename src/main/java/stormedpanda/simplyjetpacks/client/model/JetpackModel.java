@@ -113,17 +113,6 @@ public class JetpackModel extends BipedModel<PlayerEntity> {
 		this.isSitting = defaultArmor.isSitting;
 		this.rightArmPose = defaultArmor.rightArmPose;
 		this.leftArmPose = defaultArmor.leftArmPose;
-/*		middle.showModel = true;
-		leftCanister.showModel = true;
-		rightCanister.showModel = true;
-		leftTip1.showModel = true;
-		leftTip2.showModel = true;
-		rightTip1.showModel = true;
-		rightTip2.showModel = true;
-		leftExhaust1.showModel = true;
-		leftExhaust2.showModel = true;
-		rightExhaust1.showModel = true;
-		rightExhaust2.showModel = true;*/
 		return this;
 	}
 

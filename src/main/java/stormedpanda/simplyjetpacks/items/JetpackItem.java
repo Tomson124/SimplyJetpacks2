@@ -15,7 +15,7 @@ import net.minecraft.item.Rarity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -325,7 +325,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     private void fly(PlayerEntity player, double y) {
-        Vector3d motion = player.getMotion();
+        Vec3d motion = player.getMotion();
         player.setMotion(motion.getX(), y, motion.getZ());
     }
 
@@ -340,7 +340,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
             double speedVerticalHover = type.getSpeedVerticalHover();
             double speedVerticalHoverSlow = type.getSpeedVerticalHoverSlow();
 
-            if ((flyKeyDown || hoverMode && !player.isOnGround())) {
+            if ((flyKeyDown || hoverMode && !player.onGround)) {
                 if (!isCreative()) {
                     int amount = (int) (player.isSprinting() ? Math.round(getEnergyUsage(stack) * type.getSprintEnergyModifier()) : getEnergyUsage(stack));
                     useEnergy(stack, amount);
@@ -366,16 +366,16 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
                     float speedForward = (float) (player.isSprinting() ? speedSideways * baseSpeedForward : speedSideways);
 
                     if (SyncHandler.isHoldingForwards(player)) {
-                        player.moveRelative(1, new Vector3d(0, 0, speedForward));
+                        player.moveRelative(1, new Vec3d(0, 0, speedForward));
                     }
                     if (SyncHandler.isHoldingBackwards(player)) {
-                        player.moveRelative(1, new Vector3d(0, 0, -speedSideways * 0.8F));
+                        player.moveRelative(1, new Vec3d(0, 0, -speedSideways * 0.8F));
                     }
                     if (SyncHandler.isHoldingLeft(player)) {
-                        player.moveRelative(1, new Vector3d(speedSideways, 0, 0));
+                        player.moveRelative(1, new Vec3d(speedSideways, 0, 0));
                     }
                     if (SyncHandler.isHoldingRight(player)) {
-                        player.moveRelative(1, new Vector3d(-speedSideways, 0, 0));
+                        player.moveRelative(1, new Vec3d(-speedSideways, 0, 0));
                     }
                     if (!player.world.isRemote()) {
                         player.fallDistance = 0.0F;

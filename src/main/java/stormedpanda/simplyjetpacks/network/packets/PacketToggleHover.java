@@ -1,6 +1,5 @@
 package stormedpanda.simplyjetpacks.network.packets;
 
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
@@ -30,7 +29,7 @@ public class PacketToggleHover {
                 Item item = stack.getItem();
                 if (item instanceof JetpackItem) {
                     JetpackItem jetpack = (JetpackItem) item;
-                    jetpack.toggleHover(stack, (PlayerEntity) player);
+                    jetpack.toggleHover(stack, player);
                 }
             }
         });

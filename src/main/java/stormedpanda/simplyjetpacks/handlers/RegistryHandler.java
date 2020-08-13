@@ -60,8 +60,6 @@ public class RegistryHandler {
             new MetaItem("vanilla"));
     public static final RegistryObject<MetaItem> THRUSTER_VANILLA3 = ITEMS.register("thruster_vanilla3", () ->
             new MetaItem("vanilla"));
-    public static final RegistryObject<MetaItem> THRUSTER_VANILLA4 = ITEMS.register("thruster_vanilla4", () ->
-            new MetaItem("vanilla"));
 
     public static final RegistryObject<JetpackItem> JETPACK_VANILLA1 = ITEMS.register("jetpack_vanilla1", () ->
             new JetpackItem(JetpackType.VANILLA1));
@@ -75,10 +73,6 @@ public class RegistryHandler {
             new JetpackItem(JetpackType.VANILLA3));
     public static final RegistryObject<JetpackItem> JETPACK_VANILLA3_ARMORED = ITEMS.register("jetpack_vanilla3_armored", () ->
             new JetpackItem(JetpackType.VANILLA3_ARMORED));
-    public static final RegistryObject<JetpackItem> JETPACK_VANILLA4 = ITEMS.register("jetpack_vanilla4", () ->
-            new JetpackItem(JetpackType.VANILLA4));
-    public static final RegistryObject<JetpackItem> JETPACK_VANILLA4_ARMORED = ITEMS.register("jetpack_vanilla4_armored", () ->
-            new JetpackItem(JetpackType.VANILLA4_ARMORED));
 
     // Immersive Engineering:
     public static final RegistryObject<MetaItem> THRUSTER_IE1 = ITEMS.register("thruster_ie1", () ->

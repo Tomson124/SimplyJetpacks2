@@ -1,6 +1,6 @@
 package stormedpanda.simplyjetpacks.client.hud;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MainWindow;
 import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -41,15 +41,14 @@ public class HUDHandler {
                         return;
                     }
                     int count = 0;
-                    MatrixStack matrix = event.getMatrixStack();
-                    matrix.push();
-                    matrix.scale(SimplyJetpacksConfig.CLIENT.hudScale.get(), SimplyJetpacksConfig.CLIENT.hudScale.get(), 1.0F);
+                    RenderSystem.pushMatrix();
+                    RenderSystem.scalef(SimplyJetpacksConfig.CLIENT.hudScale.get(), SimplyJetpacksConfig.CLIENT.hudScale.get(), 1.0F);
                     MainWindow window = event.getWindow();
                     for (ITextComponent text : renderStrings) {
-                        HUDRenderHelper.drawStringAtPosition(window, matrix, text, count);
+                        HUDRenderHelper.drawStringAtPosition(window, text, count);
                         count++;
                     }
-                    matrix.pop();
+                    RenderSystem.popMatrix();
                 }
             }
         }

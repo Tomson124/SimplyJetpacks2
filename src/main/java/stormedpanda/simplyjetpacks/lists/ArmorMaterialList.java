@@ -13,10 +13,10 @@ import stormedpanda.simplyjetpacks.SimplyJetpacks;
 
 public enum ArmorMaterialList implements IArmorMaterial {
 
-	PILOT_GOGGLES("pilot_goggles", 0, new int[] {0, 0, 0, 0}, 0, Items.IRON_INGOT, "item.armor.equip_leather", 0.0f, 0.0f),
-	JETPACK("jetpack", 0, new int[] {0, 0, 2, 0}, 10, Items.IRON_INGOT, "item.armor.equip_iron", 0.0f, 0.0f),
-	JETPACK_ARMORED("jetpack_armored", 0, new int[] {0, 0, 4, 0}, 10, Items.IRON_INGOT, "item.armor.equip_iron", 0.0f, 0.0f),
-	JETPLATE("jetplate", 0, new int[] {0, 0, 12, 0}, 10, Items.IRON_INGOT, "item.armor.equip_iron", 3.0f, 3.0f);
+	PILOT_GOGGLES("pilot_goggles", 0, new int[] {0, 0, 0, 0}, 0, Items.IRON_INGOT, "item.armor.equip_leather", 0.0f),
+	JETPACK("jetpack", 0, new int[] {0, 0, 2, 0}, 10, Items.IRON_INGOT, "item.armor.equip_iron", 0.0f),
+	JETPACK_ARMORED("jetpack_armored", 0, new int[] {0, 0, 4, 0}, 10, Items.IRON_INGOT, "item.armor.equip_iron", 0.0f),
+	JETPLATE("jetplate", 0, new int[] {0, 0, 12, 0}, 10, Items.IRON_INGOT, "item.armor.equip_iron", 3.0f);
 
 	private final String name;
 	private final int durability;
@@ -25,10 +25,9 @@ public enum ArmorMaterialList implements IArmorMaterial {
 	private final Item repairItem;
 	private final String equipSound;
 	private final float toughness;
-	private final float knockbackResistance;
 	private static final int[] max_damage_array = new int[] {13, 15, 16, 11};
 
-	ArmorMaterialList(String name, int durability, int[] damageReductionAmounts, int enchantability, Item repairItem, String equipSound, float toughness, float knockbackResistance) {
+	ArmorMaterialList(String name, int durability, int[] damageReductionAmounts, int enchantability, Item repairItem, String equipSound, float toughness) {
 		this.name = name;
 		this.durability = durability;
 		this.damageReductionAmounts = damageReductionAmounts;
@@ -36,7 +35,6 @@ public enum ArmorMaterialList implements IArmorMaterial {
 		this.repairItem = repairItem;
 		this.equipSound = equipSound;
 		this.toughness = toughness;
-		this.knockbackResistance = knockbackResistance;
 	}
 
 	public static void setStats(ArmorMaterialList armor, boolean isArmored, int enchant, int defense) {
@@ -79,10 +77,5 @@ public enum ArmorMaterialList implements IArmorMaterial {
 	@Override
 	public float getToughness() {
 		return this.toughness;
-	}
-
-	@Override
-	public float getKnockbackResistance() {
-		return this.knockbackResistance;
 	}
 }
