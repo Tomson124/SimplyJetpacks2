@@ -1,6 +1,9 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven {
+            name = 'forge'
+            url = 'https://files.minecraftforge.net/maven/'
+        }
         jcenter()
         mavenCentral()
     }
@@ -66,8 +69,8 @@ minecraft {
 repositories {
     // Mekanism
     maven {
-        name = "ModMaven"
-        url = "https://modmaven.k-4u.nl/"
+        name = "Curse Maven"
+        url = "https://www.cursemaven.com/"
     }
     // JEI
     maven {
@@ -89,11 +92,12 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    /*compileOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:api")
-    runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")
-    runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:additions")
-    runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:generators")
-    runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:tools")*/
+    compile "curse.maven:mekanism:2996532" // API
+    runtimeOnly fg.deobf("curse.maven:mekanism:2996531")
+    //runtime "curse.maven:mekanism:2996531"
+    //runtime "curse.maven:mekanism-additions:2996535"
+    //runtime "curse.maven:mekanism-generators:2996533"
+    //runtime "curse.maven:mekanism-tools:2996534"
 
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
