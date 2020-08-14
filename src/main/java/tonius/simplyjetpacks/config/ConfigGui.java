@@ -10,30 +10,23 @@ import tonius.simplyjetpacks.util.SJStringHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConfigGui extends GuiConfig
-{
-	public ConfigGui(GuiScreen parentScreen)
-	{
-		super(parentScreen, getConfigElements(parentScreen), SimplyJetpacks.MODID, false, false, SJStringHelper.localize("config.title"));
-	}
+public class ConfigGui extends GuiConfig {
 
-	private static List<IConfigElement> getConfigElements(GuiScreen parent)
-	{
-		List<IConfigElement> list = new ArrayList<IConfigElement>();
-		String prefix = SimplyJetpacks.PREFIX + "config.";
+    public ConfigGui(GuiScreen parentScreen) {
+        super(parentScreen, getConfigElements(parentScreen), SimplyJetpacks.MODID, false, false, SJStringHelper.localize("config.title"));
+    }
 
-		for(Section configSection : Config.configSections)
-		{
-			if(configSection.client)
-			{
-				list.add(new ConfigElement(Config.configClient.getCategory(configSection.toLowerCase()).setLanguageKey(prefix + configSection.id)));
-			}
-			else
-			{
-				list.add(new ConfigElement(Config.config.getCategory(configSection.toLowerCase()).setLanguageKey(prefix + configSection.id)));
-			}
-		}
+    private static List<IConfigElement> getConfigElements(GuiScreen parent) {
+        List<IConfigElement> list = new ArrayList<>();
+        String prefix = SimplyJetpacks.PREFIX + "config.";
 
-		return list;
-	}
+        for (Section configSection : Config.configSections) {
+            if (configSection.client) {
+                list.add(new ConfigElement(Config.configClient.getCategory(configSection.toLowerCase()).setLanguageKey(prefix + configSection.id)));
+            } else {
+                list.add(new ConfigElement(Config.config.getCategory(configSection.toLowerCase()).setLanguageKey(prefix + configSection.id)));
+            }
+        }
+        return list;
+    }
 }

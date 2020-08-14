@@ -1,7 +1,7 @@
 package tonius.simplyjetpacks.setup;
 
-public enum ParticleType
-{
+public enum ParticleType {
+	
 	DEFAULT,
 	NONE,
 	SMOKE,

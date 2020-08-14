@@ -6,82 +6,82 @@ import net.minecraftforge.fml.common.event.FMLInterModComms;
 import tonius.simplyjetpacks.SimplyJetpacks;
 
 public abstract class EIORecipes {
-	public static void addAlloySmelterRecipe(String name, int energy, ItemStack primaryInput, ItemStack secondaryInput, ItemStack tertiaryInput, ItemStack output) {
-		SimplyJetpacks.logger.info("Registering EIO Alloy Smelter recipe");
+    public static void addAlloySmelterRecipe(String name, int energy, ItemStack primaryInput, ItemStack secondaryInput, ItemStack tertiaryInput, ItemStack output) {
+        SimplyJetpacks.LOGGER.info("Registering EIO Alloy Smelter recipe");
 
-		StringBuilder toSend = new StringBuilder();
+        StringBuilder toSend = new StringBuilder();
 
-		toSend.append("<enderio:recipes xmlns:enderio=\"http://enderio.com/recipes\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://enderio.com/recipes recipes.xsd \">");
-		{
-			toSend.append("<recipe name=\"" + name + "\">");
-			{
-				toSend.append("<alloying energy=\"" + energy + "\"" + " exp=\"1\">");
-				{
-					if (primaryInput != null) {
-						toSend.append("<input ");
-						{
-							appendItemStack(toSend, primaryInput);
-						}
-						toSend.append(" />");
-					}
+        toSend.append("<enderio:recipes xmlns:enderio=\"http://enderio.com/recipes\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://enderio.com/recipes recipes.xsd \">");
+        {
+            toSend.append("<recipe name=\"").append(name).append("\">");
+            {
+                toSend.append("<alloying energy=\"").append(energy).append("\"").append(" exp=\"1\">");
+                {
+                    if (primaryInput != null) {
+                        toSend.append("<input ");
+                        {
+                            appendItemStack(toSend, primaryInput);
+                        }
+                        toSend.append(" />");
+                    }
 
-					if (secondaryInput != null) {
-						toSend.append("<input ");
-						{
-							appendItemStack(toSend, secondaryInput);
-						}
-						toSend.append(" />");
-					}
+                    if (secondaryInput != null) {
+                        toSend.append("<input ");
+                        {
+                            appendItemStack(toSend, secondaryInput);
+                        }
+                        toSend.append(" />");
+                    }
 
-					if (tertiaryInput != null) {
-						toSend.append("<input ");
-						{
-							appendItemStack(toSend, tertiaryInput);
-						}
-						toSend.append(" />");
-					}
+                    if (tertiaryInput != null) {
+                        toSend.append("<input ");
+                        {
+                            appendItemStack(toSend, tertiaryInput);
+                        }
+                        toSend.append(" />");
+                    }
 
-					toSend.append("<output ");
-					{
-						appendItemStack(toSend, output);
-					}
-					toSend.append(" />");
-				}
-				toSend.append("</alloying>");
-			}
-			toSend.append("</recipe>");
-		}
-		toSend.append("</enderio:recipes>");
+                    toSend.append("<output ");
+                    {
+                        appendItemStack(toSend, output);
+                    }
+                    toSend.append(" />");
+                }
+                toSend.append("</alloying>");
+            }
+            toSend.append("</recipe>");
+        }
+        toSend.append("</enderio:recipes>");
 
-		FMLInterModComms.sendMessage("enderio", "recipe:xml", toSend.toString());
-	}
+        FMLInterModComms.sendMessage("enderio", "recipe:xml", toSend.toString());
+    }
 
-	private static void appendItemStack(StringBuilder sb, ItemStack stack) {
-		if (stack != null) {
-			sb.append(" name=\"item:" + stack.getItem().getRegistryName() + ":" + stack.getItemDamage() + "\" amount=\"" + stack.getCount() + "\"");
-		}
-	}
+    private static void appendItemStack(StringBuilder sb, ItemStack stack) {
+        if (stack != null) {
+            sb.append(" name=\"item:").append(stack.getItem().getRegistryName()).append(":").append(stack.getItemDamage()).append("\" amount=\"").append(stack.getCount()).append("\"");
+        }
+    }
 
-	public static void addSoulBinderRecipe(String recipeID, int energy, int xp, String soulTypes, ItemStack input, ItemStack output) {
-		SimplyJetpacks.logger.info("Registering EIO Soul Binder recipe");
+    public static void addSoulBinderRecipe(String recipeID, int energy, int xp, String soulTypes, ItemStack input, ItemStack output) {
+        SimplyJetpacks.LOGGER.info("Registering EIO Soul Binder recipe");
 
-		NBTTagCompound toSend = new NBTTagCompound();
+        NBTTagCompound toSend = new NBTTagCompound();
 
-		toSend.setString("recipeUID", recipeID);
-		toSend.setInteger("requiredEnergyRF", energy);
-		toSend.setInteger("requiredXP", xp);
-		toSend.setString("entityTypes", soulTypes);
-		writeItemStack(toSend, "inputStack", input);
-		writeItemStack(toSend, "outputStack", output);
+        toSend.setString("recipeUID", recipeID);
+        toSend.setInteger("requiredEnergyRF", energy);
+        toSend.setInteger("requiredXP", xp);
+        toSend.setString("entityTypes", soulTypes);
+        writeItemStack(toSend, "inputStack", input);
+        writeItemStack(toSend, "outputStack", output);
 
-		FMLInterModComms.sendMessage("enderio", "recipe:soulbinder", toSend);
-	}
+        FMLInterModComms.sendMessage("enderio", "recipe:soulbinder", toSend);
+    }
 
-	private static void writeItemStack(NBTTagCompound nbt, String tagName, ItemStack stack) {
-		if (stack != null) {
-			NBTTagCompound stackTag = new NBTTagCompound();
-			stack.writeToNBT(stackTag);
-			nbt.setTag(tagName, stackTag);
-		}
-	}
+    private static void writeItemStack(NBTTagCompound nbt, String tagName, ItemStack stack) {
+        if (stack != null) {
+            NBTTagCompound stackTag = new NBTTagCompound();
+            stack.writeToNBT(stackTag);
+            nbt.setTag(tagName, stackTag);
+        }
+    }
 }

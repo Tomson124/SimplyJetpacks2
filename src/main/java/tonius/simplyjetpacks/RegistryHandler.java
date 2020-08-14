@@ -18,14 +18,10 @@ public class RegistryHandler {
 		if (ModItems.integrateTE) {
 			TEItems.initFluids();
 		}
-
 		ModItems.registerRecipes();
-
-		for(IRecipe recipe : RECIPES_TO_REGISTER) {
+		for (IRecipe recipe : RECIPES_TO_REGISTER) {
 			event.getRegistry().register(recipe);
 		}
 		RECIPES_TO_REGISTER.clear();
 	}
-
-
 }

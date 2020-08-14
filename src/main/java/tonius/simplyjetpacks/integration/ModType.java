@@ -14,9 +14,8 @@ public enum ModType {
 	public final String[] modids;
 	public final boolean loaded;
 
-	private ModType(String... modids) {
+	ModType(String... modids) {
 		this.modids = modids;
-
 		for (String s : this.modids) {
 			if (!Loader.isModLoaded(s)) {
 				this.loaded = false;

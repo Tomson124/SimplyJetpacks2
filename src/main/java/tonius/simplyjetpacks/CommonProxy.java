@@ -17,47 +17,43 @@ import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.sound.SJSoundRegistry;
 
-import java.util.List;
+public class CommonProxy {
 
-public class CommonProxy
-{
-	public static NonNullList<ItemStack> oresListParticles = null;
+    public static NonNullList<ItemStack> oresListParticles = null;
 
-	public void registerHandlers()
-	{
-		SimplyJetpacks.logger.info("Registering handlers");
-		//NetworkRegistry.INSTANCE.registerGuiHandler(SimplyJetpacks.instance, new GuiHandler()); TODO: Readd GUIs
-		FMLCommonHandler.instance().bus().register(new SyncHandler());
-		FMLCommonHandler.instance().bus().register(new PlatingReturnHandler());
-		MinecraftForge.EVENT_BUS.register(new EntityInteractHandler());
-		MinecraftForge.EVENT_BUS.register(new LivingTickHandler());
-	}
+    public void registerHandlers() {
+        SimplyJetpacks.LOGGER.info("Registering Handlers...");
+        // TODO: Re-add GUIs
+        //NetworkRegistry.INSTANCE.registerGuiHandler(SimplyJetpacks.instance, new GuiHandler());
+        FMLCommonHandler.instance().bus().register(new SyncHandler());
+        FMLCommonHandler.instance().bus().register(new PlatingReturnHandler());
+        MinecraftForge.EVENT_BUS.register(new EntityInteractHandler());
+        MinecraftForge.EVENT_BUS.register(new LivingTickHandler());
+    }
 
-	public void showJetpackParticles(World world, EntityLivingBase wearer, ParticleType particle)
-	{}
+    public void showJetpackParticles(World world, EntityLivingBase wearer, ParticleType particle) {
+    }
 
-	public void updateCustomKeybinds(String flyKeyName, String descendKeyName)
-	{}
+    public void updateCustomKeybinds(String flyKeyName, String descendKeyName) {
+    }
 
-	public String getPackGUIKey()
-	{
-		return null;
-	}
+    public String getPackGUIKey() {
+        return null;
+    }
 
-	public void registerItemRenderer(Item item, int meta, String id)
-	{}
+    public void registerItemRenderer(Item item, int meta, String id) {
+    }
 
-	public void init() {
-		SimplyJetpacks.logger.info("Registering Sounds...");
-		SJSoundRegistry.init();
+    public void init() {
+        SimplyJetpacks.LOGGER.info("Registering Sounds...");
+        SJSoundRegistry.init();
+        oresListParticles = OreDictionary.getOres("particleCustomizer");
+    }
 
-		oresListParticles = OreDictionary.getOres("particleCustomizer");
-	}
+    public EntityPlayer getPlayer(MessageContext context) {
+        return context.getServerHandler().player;
+    }
 
-	public EntityPlayer getPlayer(MessageContext context) {
-		return context.getServerHandler().player;
-	}
-
-	public void initKeys() {
-	}
+    public void initKeys() {
+    }
 }

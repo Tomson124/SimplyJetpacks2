@@ -4,19 +4,16 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
-public abstract class GuiBase extends GuiContainer
-{
-	protected ResourceLocation texture;
+public abstract class GuiBase extends GuiContainer {
 
-	public GuiBase(Container container)
-	{
-		super(container);
-	}
+    protected ResourceLocation texture;
 
-	public GuiBase(Container container, ResourceLocation texture)
-	{
+    public GuiBase(Container container) {
+        super(container);
+    }
 
-		super(container);
-		this.texture = texture;
-	}
+    public GuiBase(Container container, ResourceLocation texture) {
+        super(container);
+        this.texture = texture;
+    }
 }

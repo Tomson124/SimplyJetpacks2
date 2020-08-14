@@ -42,14 +42,13 @@ public class UpgradingRecipeShapeless extends ShapelessOreRecipe {
 				items.add(itemstack);
 			}
 		}
-
 		if (ingredientCount != this.input.size()) {
 			return false;
 		}
-
 		return RecipeMatcher.findMatches(items, this.input) != null;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting inv) {
 		ItemStack inputStack = ItemStack.EMPTY;
@@ -71,27 +70,21 @@ public class UpgradingRecipeShapeless extends ShapelessOreRecipe {
 				}
 
 				if (stack.getItem() instanceof ItemJetpack || stack.getItem() instanceof ItemFluxpack) {
-					outputStack = ItemHelper.copyTag(outputStack, inputStack);
+					ItemHelper.copyTag(outputStack, inputStack);
 				}
 			}
 		}
 
-		if (inputStack.isEmpty()) {
-			return ItemStack.EMPTY;
-		}
-
+		if (inputStack.isEmpty()) return ItemStack.EMPTY;
 		NBTHelper.setInt(outputStack, "Energy", Math.min(addedEnergy, outputItem.getMaxEnergyStored(outputStack)));
-
 		if (outputItem instanceof ItemJetpack && particleType != null) {
 			((ItemJetpack) outputItem).setParticleType(outputStack, particleType);
 		}
-
 		return outputStack;
 	}
 
 	@Override
 	public boolean isDynamic() {
-
 		return true;
 	}
 }

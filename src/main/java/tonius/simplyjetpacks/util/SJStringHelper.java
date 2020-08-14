@@ -2,13 +2,12 @@ package tonius.simplyjetpacks.util;
 
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fluids.FluidRegistry;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.setup.ParticleType;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.fluids.FluidRegistry;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -17,6 +16,7 @@ import static net.minecraft.util.text.translation.I18n.translateToLocal;
 import static net.minecraft.util.text.translation.I18n.translateToLocalFormatted;
 
 public abstract class SJStringHelper {
+
 	private static final DecimalFormat formatter = new DecimalFormat("###,###");
 
 	public static String getFormattedNumber(int number) {
@@ -120,9 +120,9 @@ public abstract class SJStringHelper {
 	public static String getColoredPercent(int percent) {
 		if (percent > 70) {
 			return TextFormatting.GREEN.toString() + percent;
-		} else if (percent > 40 && percent <= 70) {
+		} else if (percent > 40) {
 			return TextFormatting.YELLOW.toString() + percent;
-		} else if (percent > 10 && percent <= 40) {
+		} else if (percent > 10) {
 			return TextFormatting.GOLD.toString() + percent;
 		} else {
 			return TextFormatting.RED.toString() + percent;
@@ -143,24 +143,20 @@ public abstract class SJStringHelper {
 
 	public static String localize(String unlocalized, boolean prefix, Object... args) {
 		String toLocalize = (prefix ? SimplyJetpacks.PREFIX : "") + unlocalized;
-		if(args != null && args.length > 0)
-		{
+		if(args != null && args.length > 0) {
 			return translateToLocalFormatted(toLocalize, args);
 		}
-		else
-		{
+		else {
 			return translateToLocal(toLocalize);
 		}
 	}
 
 	public static ITextComponent localizeNew(String unlocalized, Object... args) {
 		String toLocalize = SimplyJetpacks.PREFIX + unlocalized;
-		if(args != null && args.length > 0)
-		{
+		if (args != null && args.length > 0) {
 			return new TextComponentTranslation(toLocalize, args);
 		}
-		else
-		{
+		else {
 			return new TextComponentTranslation(toLocalize);
 		}
 	}

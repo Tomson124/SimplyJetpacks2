@@ -8,8 +8,6 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.enchantment.EnchantmentFuelEfficiency;
 
-import java.util.function.Predicate;
-
 public abstract class ModEnchantments {
 
 	//public static final EnumEnchantmentType enchantType = EnumHelper.addEnchantmentType(SimplyJetpacks.MODID, delegate);
@@ -17,16 +15,14 @@ public abstract class ModEnchantments {
 
 	public static void init() {
 		int id = Config.enchantFuelEfficiencyID;
-
 		if (id > 0) {
 			fuelEffeciency = new EnchantmentFuelEfficiency();
 		}
 	}
 
-	private static com.google.common.base.Predicate<Item> delegate = null;
+	private static final com.google.common.base.Predicate<Item> delegate = null;
 
-	public static boolean canEnchantItem(Item itemIn)
-	{
+	public static boolean canEnchantItem(Item itemIn) {
 		return delegate == null ? false : delegate.test(itemIn);
 	}
 

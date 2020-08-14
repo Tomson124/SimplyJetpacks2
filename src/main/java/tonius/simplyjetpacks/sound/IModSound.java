@@ -23,5 +23,4 @@ public interface IModSound {
 	 * @return the SoundCategory to use for playing the sound. Must not return null if isValid() is true.
 	 */
 	SoundCategory getSoundCategory();
-
 }

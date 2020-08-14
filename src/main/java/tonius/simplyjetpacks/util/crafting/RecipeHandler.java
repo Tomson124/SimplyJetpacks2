@@ -10,7 +10,7 @@ package tonius.simplyjetpacks.util.crafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 
-public final class RecipeHandler{
+public final class RecipeHandler {
 
 	public static IRecipe lastRecipe;
 
@@ -29,5 +29,4 @@ public final class RecipeHandler{
 	public static void addShapedRecipe(ItemStack output, Object... inputs){
 		RecipeHelper.addOldShaped(output, inputs);
 	}
-
 }

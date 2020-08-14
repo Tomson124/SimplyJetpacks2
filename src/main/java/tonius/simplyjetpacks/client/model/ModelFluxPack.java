@@ -3,12 +3,11 @@ package tonius.simplyjetpacks.client.model;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 
-public class ModelFluxPack extends ModelBiped
-{
+public class ModelFluxPack extends ModelBiped {
+
 	public static final ModelFluxPack INSTANCE = new ModelFluxPack();
 
-	public ModelFluxPack()
-	{
+	public ModelFluxPack() {
 		super(1.0F, 0, 64, 64);
 
 		this.bipedBody.showModel = true;
@@ -28,8 +27,7 @@ public class ModelFluxPack extends ModelBiped
 		this.bipedBody.addChild(energyCell);
 	}
 
-	private void setRotation(ModelRenderer model, float x, float y, float z)
-	{
+	private void setRotation(ModelRenderer model, float x, float y, float z) {
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;
 		model.rotateAngleZ = z;

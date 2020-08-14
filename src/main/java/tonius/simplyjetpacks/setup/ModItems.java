@@ -8,7 +8,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
-import tonius.simplyjetpacks.Log;
+import org.jline.utils.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.crafting.UpgradingRecipe;
@@ -19,6 +19,7 @@ import tonius.simplyjetpacks.util.crafting.RecipeHandler;
 import tonius.simplyjetpacks.util.crafting.RecipeHelper;
 
 public abstract class ModItems {
+
 	public static ItemJetpack itemJetpack;
 
 	public static ItemFluxpack itemFluxPack;
@@ -51,7 +52,7 @@ public abstract class ModItems {
 	public static ItemStack thrusterVanilla2;
 	public static ItemStack thrusterVanilla3;
 
-	//EnderIO Packs
+	// EnderIO
 	public static ItemStack armorPlatingEIO1;
 	public static ItemStack armorPlatingEIO2;
 	public static ItemStack armorPlatingEIO3;
@@ -75,7 +76,7 @@ public abstract class ModItems {
 	public static ItemStack fluxPackEIO4;
 	public static ItemStack fluxPackEIO4Armored;
 
-	//ThermalExpansion Packs
+	//ThermalExpansion
 	public static ItemStack thrusterTE1;
 	public static ItemStack thrusterTE2;
 	public static ItemStack thrusterTE3;
@@ -104,7 +105,7 @@ public abstract class ModItems {
 	public static ItemStack jetpackTE4Armored;
 	public static ItemStack jetpackTE5;
 
-	//RR
+	// RR
 	public static ItemStack jetpackTE5Enderium;
 
 	public static ItemStack fluxPackTE1;
@@ -126,7 +127,6 @@ public abstract class ModItems {
 
 	public static void preInit() {
 		registerItems();
-
 	}
 
 	public static void init() {
@@ -137,30 +137,24 @@ public abstract class ModItems {
 	private static <T extends Item> T register(T item) {
 		//GameRegistry.register(item);
 		ForgeRegistries.ITEMS.register(item);
-
 		if (item instanceof ItemJetpack) {
 			((ItemJetpack) item).registerItemModel();
 		}
-
 		if (item instanceof ItemFluxpack) {
 			((ItemFluxpack) item).registerItemModel();
 		}
-
 		if (item instanceof ItemMeta) {
 			((ItemMeta) item).registerItemModel();
 		}
-
 		if (item instanceof ItemMetaMods) {
 			((ItemMetaMods) item).registerItemModel();
 		}
-
 		return item;
 	}
 
 	private static void registerOreDicts() {
 		for (MetaItems item : MetaItems.PARTICLE_CUSTOMIZERS) {
 			OreDictionary.registerOre("particleCustomizer", new ItemStack(metaItem, 1, item.ordinal()));
-
 		}
 		if (integrateEIO) {
 			OreDictionary.registerOre(MetaItemsMods.INGOT_DARK_SOULARIUM.getName(), ingotDarkSoularium);
@@ -170,14 +164,14 @@ public abstract class ModItems {
 	private static void registerItems() {
 		Log.info("Registering items...");
 
-		//Jetpacks
+		// Jetpacks
 		itemJetpack = register(new ItemJetpack("itemJetpack"));
 
-		//Meta Items
+		// Meta Items
 		metaItem = register(new ItemMeta("metaItem"));
 		metaItemMods = register(new ItemMetaMods("metaItemMods"));
 
-		//FluxPacks
+		// FluxPacks
 		itemFluxPack = register(new ItemFluxpack("itemFluxpack"));
 
 		jetpackCreative = Jetpack.CREATIVE_JETPACK.getStackJetpack();
@@ -189,11 +183,9 @@ public abstract class ModItems {
 		particleRainbowSmoke = MetaItems.PARTICLE_RAINBOWSMOKE.getStackMetaItem();
 
 		leatherStrap = MetaItems.LEATHER_STRAP.getStackMetaItem();
-
-
 	}
 
-	public static void gatherIngredients(){
+	public static void gatherIngredients() {
 		if (integrateEIO) {
 			ingotDarkSoularium = MetaItemsMods.INGOT_DARK_SOULARIUM.getStackMetaItem();
 			unitFlightControlEmpty = MetaItemsMods.UNIT_FLIGHT_CONTROL_EMPTY.getStackMetaItem();
@@ -274,7 +266,6 @@ public abstract class ModItems {
 			fluxPackTE3 = Fluxpack.FLUXPACK_TE3.getStackFluxpack();
 			fluxPackTE2Armored = Fluxpack.FLUXPACK_TE2_ARMORED.getStackFluxpack();
 			fluxPackTE3Armored = Fluxpack.FLUXPACK_TE3_ARMORED.getStackFluxpack();
-
 		}
 
 		if (integrateVanilla) {
@@ -364,7 +355,6 @@ public abstract class ModItems {
 				RecipeHandler.addOreDictRecipe(unitGlowstoneEmpty, "FLF", "LHL", "FLF", 'L', "ingotLumium", 'F', "ingotElectrumFlux", 'H', TEItems.signalumGlass);
 			}
 
-
 			RecipeHandler.addOreDictRecipe(armorPlatingTE1, "TIT", "III", "TIT", 'I', "ingotIron", 'T', "ingotTin");
 
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackTE1, "IBI", "IJI", "T T", 'I', "ingotLead", 'B', TEItems.capacitorBasic, 'T', thrusterTE1, 'J', leatherStrap));
@@ -401,7 +391,7 @@ public abstract class ModItems {
 			RecipeHandler.addOreDictRecipe(thrusterVanilla2, " I ", "IFI", "IBI", 'I', Items.GOLD_INGOT, 'F', Blocks.FURNACE, 'B', Items.BLAZE_POWDER);
 			RecipeHandler.addOreDictRecipe(thrusterVanilla3, " I ", "IFI", "IBI", 'I', Items.DIAMOND, 'F', Blocks.FURNACE, 'B', Items.BLAZE_POWDER);
 
-			//Jetpacks
+			// Jetpacks
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackVanilla1, "IBI", "IJI", "T T", 'I', Items.IRON_INGOT, 'B', Items.COMPARATOR, 'T', thrusterVanilla1, 'J', leatherStrap));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackVanilla2, "IBI", "IJI", "T T", 'I', Items.GOLD_INGOT, 'B', Blocks.REDSTONE_BLOCK, 'T', thrusterVanilla2, 'J', jetpackVanilla1));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackVanilla3, "IBI", "IJI", "T T", 'I', Items.DIAMOND, 'B', Blocks.REDSTONE_BLOCK, 'T', thrusterVanilla3, 'J', jetpackVanilla2));
@@ -413,7 +403,7 @@ public abstract class ModItems {
 	}
 
 	private static void doIMC() {
-		SimplyJetpacks.logger.info("Doing intermod communication");
+		SimplyJetpacks.LOGGER.info("Doing inter-mod communication");
 
 		if (integrateEIO) {
 			ItemStack ingotConductiveIron = OreDictionary.getOres("ingotConductiveIron").get(0).copy();
@@ -453,6 +443,5 @@ public abstract class ModItems {
 				TERecipes.addTransposerFill(6400, unitCryotheumEmpty, unitCryotheum, new FluidStack(FluidRegistry.getFluid("cryotheum"), 4000), false);
 			}
 		}
-
 	}
 }

@@ -1,14 +1,5 @@
 package tonius.simplyjetpacks.client.handler;
 
-import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.config.Config;
-import tonius.simplyjetpacks.handler.SyncHandler;
-import tonius.simplyjetpacks.item.ItemFluxpack;
-import tonius.simplyjetpacks.item.ItemJetpack;
-import tonius.simplyjetpacks.network.PacketHandler;
-import tonius.simplyjetpacks.network.message.MessageKeyBind;
-import tonius.simplyjetpacks.network.message.MessageKeyboardSync;
-import tonius.simplyjetpacks.util.StackUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,14 +13,24 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
+import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.config.Config;
+import tonius.simplyjetpacks.handler.SyncHandler;
+import tonius.simplyjetpacks.item.ItemFluxpack;
+import tonius.simplyjetpacks.item.ItemJetpack;
+import tonius.simplyjetpacks.network.PacketHandler;
+import tonius.simplyjetpacks.network.message.MessageKeyBind;
+import tonius.simplyjetpacks.network.message.MessageKeyboardSync;
+import tonius.simplyjetpacks.util.StackUtil;
 
 import java.util.ArrayList;
 
 public class KeyTracker {
 
 	public static final KeyTracker instance = new KeyTracker();
-
 	static final Minecraft mc = Minecraft.getMinecraft();
+	private static final ArrayList<KeyBinding> keys = new ArrayList<>();
+
 	private static int flyKey;
 	private static int descendKey;
 	private static boolean lastFlyState = false;
@@ -40,14 +41,9 @@ public class KeyTracker {
 	private static boolean lastRightState = false;
 
 	private static KeyBinding engineKey;
-
 	private static KeyBinding hoverKey;
-
 	private static KeyBinding chargerKey;
-
 	private static KeyBinding emergencyHoverKey;
-
-	private static ArrayList<KeyBinding> keys = new ArrayList<>();
 
 	public KeyTracker() {
 		engineKey = new KeyBinding(SimplyJetpacks.PREFIX + "keybind.engine", Keyboard.KEY_G, SimplyJetpacks.PREFIX + "category.simplyjetpacks");
@@ -74,36 +70,33 @@ public class KeyTracker {
 			if (button > 0 && keyBindings.isPressed()) {
 				if (chestItem instanceof ItemJetpack) {
 					ItemJetpack jetpack = (ItemJetpack) chestItem;
-
 					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.engine")) {
-						jetpack.toggleState(jetpack.isOn(chestStack), chestStack, null, jetpack.TAG_ON, player, Config.enableStateMessages);
+						jetpack.toggleState(jetpack.isOn(chestStack), chestStack, null, ItemJetpack.TAG_ON, player, Config.enableStateMessages);
 						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.ENGINE));
 					}
 					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.hover")) {
-						jetpack.toggleState(jetpack.isHoverModeOn(chestStack), chestStack, "hoverMode", jetpack.TAG_HOVERMODE_ON, player, Config.enableStateMessages);
+						jetpack.toggleState(jetpack.isHoverModeOn(chestStack), chestStack, "hoverMode", ItemJetpack.TAG_HOVERMODE_ON, player, Config.enableStateMessages);
 						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.HOVER));
 					}
 					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.charger") && ((ItemJetpack) chestItem).isJetplate(chestStack)) {
-						jetpack.toggleState(jetpack.isChargerOn(chestStack), chestStack, "chargerMode", jetpack.TAG_CHARGER_ON, player, Config.enableStateMessages);
+						jetpack.toggleState(jetpack.isChargerOn(chestStack), chestStack, "chargerMode", ItemJetpack.TAG_CHARGER_ON, player, Config.enableStateMessages);
 						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.CHARGER));
 					}
 					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.emergencyhover")) {
-						jetpack.toggleState(jetpack.isEHoverModeOn(chestStack), chestStack, "emergencyHoverMode", jetpack.TAG_EHOVER_ON, player, Config.enableStateMessages);
+						jetpack.toggleState(jetpack.isEHoverModeOn(chestStack), chestStack, "emergencyHoverMode", ItemJetpack.TAG_EHOVER_ON, player, Config.enableStateMessages);
 						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.E_HOVER));
 					}
 				}
 
 				if (chestItem instanceof ItemFluxpack) {
 					ItemFluxpack fluxpack = (ItemFluxpack) chestItem;
-
 					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.engine")) {
-						fluxpack.toggleState(fluxpack.isOn(chestStack), chestStack, null, fluxpack.TAG_ON, player, Config.enableStateMessages);
+						fluxpack.toggleState(fluxpack.isOn(chestStack), chestStack, null, ItemFluxpack.TAG_ON, player, Config.enableStateMessages);
 						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.ENGINE));
 					}
 				}
 			}
 		}
-
 	}
 
 	@SubscribeEvent
@@ -117,36 +110,33 @@ public class KeyTracker {
 			if (button < 0 && keyBindings.isPressed()) {
 				if (chestItem instanceof ItemJetpack) {
 					ItemJetpack jetpack = (ItemJetpack) chestItem;
-
 					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.engine")) {
-						jetpack.toggleState(jetpack.isOn(chestStack), chestStack, null, jetpack.TAG_ON, player, Config.enableStateMessages);
+						jetpack.toggleState(jetpack.isOn(chestStack), chestStack, null, ItemJetpack.TAG_ON, player, Config.enableStateMessages);
 						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.ENGINE));
 					}
 					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.hover")) {
-						jetpack.toggleState(jetpack.isHoverModeOn(chestStack), chestStack, "hoverMode", jetpack.TAG_HOVERMODE_ON, player, Config.enableStateMessages);
+						jetpack.toggleState(jetpack.isHoverModeOn(chestStack), chestStack, "hoverMode", ItemJetpack.TAG_HOVERMODE_ON, player, Config.enableStateMessages);
 						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.HOVER));
 					}
 					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.charger") && ((ItemJetpack) chestItem).isJetplate(chestStack)) {
-						jetpack.toggleState(jetpack.isChargerOn(chestStack), chestStack, "chargerMode", jetpack.TAG_CHARGER_ON, player, Config.enableStateMessages);
+						jetpack.toggleState(jetpack.isChargerOn(chestStack), chestStack, "chargerMode", ItemJetpack.TAG_CHARGER_ON, player, Config.enableStateMessages);
 						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.CHARGER));
 					}
 					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.emergencyhover")) {
-						jetpack.toggleState(jetpack.isEHoverModeOn(chestStack), chestStack, "emergencyHoverMode", jetpack.TAG_EHOVER_ON, player, Config.enableStateMessages);
+						jetpack.toggleState(jetpack.isEHoverModeOn(chestStack), chestStack, "emergencyHoverMode", ItemJetpack.TAG_EHOVER_ON, player, Config.enableStateMessages);
 						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.E_HOVER));
 					}
 				}
 
 				if (chestItem instanceof ItemFluxpack) {
 					ItemFluxpack fluxpack = (ItemFluxpack) chestItem;
-
 					if (keyBindings.getKeyDescription().equals(SimplyJetpacks.PREFIX + "keybind.engine")) {
-						fluxpack.toggleState(fluxpack.isOn(chestStack), chestStack, null, fluxpack.TAG_ON, player, Config.enableStateMessages);
+						fluxpack.toggleState(fluxpack.isOn(chestStack), chestStack, null, ItemFluxpack.TAG_ON, player, Config.enableStateMessages);
 						PacketHandler.instance.sendToServer(new MessageKeyBind(MessageKeyBind.JetpackPacket.ENGINE));
 					}
 				}
 			}
 		}
-
 	}
 
 	public static void addKeys() {
@@ -181,7 +171,6 @@ public class KeyTracker {
 			if (flyState != lastFlyState || descendState != lastDescendState || forwardState != lastForwardState || backwardState != lastBackwardState || leftState != lastLeftState || rightState != lastRightState) {
 				lastFlyState = flyState;
 				lastDescendState = descendState;
-
 				lastForwardState = forwardState;
 				lastBackwardState = backwardState;
 				lastLeftState = leftState;

@@ -19,31 +19,26 @@ public class HUDTickHandler {
 
 	@SubscribeEvent(receiveCanceled = true)
 	public void onOverlayRender(RenderGameOverlayEvent.Post event) {
-		if (event.getType() != RenderGameOverlayEvent.ElementType.ALL) {
-			return; // chose a random element type to use for all overlays
-		}
+		if (event.getType() != RenderGameOverlayEvent.ElementType.ALL) return;
+
 		if (mc.player != null) {
 			if ((mc.currentScreen == null || Config.showHUDWhileChatting && mc.currentScreen instanceof GuiChat) && !mc.gameSettings.hideGUI && !mc.gameSettings.showDebugInfo) {
 				ItemStack chestplate = mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-				if (chestplate != null && chestplate.getItem() instanceof IHUDInfoProvider) {
+				if (chestplate.getItem() instanceof IHUDInfoProvider) {
 					IHUDInfoProvider provider = (IHUDInfoProvider) chestplate.getItem();
 
-					List<String> info = new ArrayList<String>();
+					List<String> info = new ArrayList<>();
 					provider.addHUDInfo(info, chestplate, Config.enableFuelHUD, Config.enableStateHUD);
-					if (info.isEmpty()) {
-						return;
-					}
+					if (info.isEmpty()) return;
 
 					GL11.glPushMatrix();
 					mc.entityRenderer.setupOverlayRendering();
 					GL11.glScaled(Config.HUDScale, Config.HUDScale, 1.0D);
-
 					int i = 0;
 					for (String s : info) {
 						RenderUtils.drawStringAtHUDPosition(s, RenderUtils.HUDPositions.values()[Config.HUDPosition], mc.fontRenderer, Config.HUDOffsetX, Config.HUDOffsetY, Config.HUDScale, 0xeeeeee, true, i);
 						i++;
 					}
-
 					GL11.glPopMatrix();
 				}
 			}

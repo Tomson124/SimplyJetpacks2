@@ -13,5 +13,4 @@ public abstract class TDItems {
 	public static ItemStack ductFluxRedstoneEnergy = null;
 	@GameRegistry.ItemStackHolder(value = "thermaldynamics:duct_0", meta = 4)
 	public static ItemStack ductFluxResonant = null;
-
 }

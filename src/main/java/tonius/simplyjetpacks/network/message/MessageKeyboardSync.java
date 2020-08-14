@@ -1,7 +1,6 @@
 package tonius.simplyjetpacks.network.message;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.WorldServer;
@@ -11,9 +10,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import tonius.simplyjetpacks.handler.SyncHandler;
 
 public class MessageKeyboardSync implements IMessage, IMessageHandler<MessageKeyboardSync, IMessage> {
+
 	public boolean flyState;
 	public boolean descendState;
-
 	public boolean forwardState;
 	public boolean backwardState;
 	public boolean leftState;
@@ -35,7 +34,6 @@ public class MessageKeyboardSync implements IMessage, IMessageHandler<MessageKey
 	public void fromBytes(ByteBuf buf) {
 		this.flyState = buf.readBoolean();
 		this.descendState = buf.readBoolean();
-
 		this.forwardState = buf.readBoolean();
 		this.backwardState = buf.readBoolean();
 		this.leftState = buf.readBoolean();
@@ -46,7 +44,6 @@ public class MessageKeyboardSync implements IMessage, IMessageHandler<MessageKey
 	public void toBytes(ByteBuf buf) {
 		buf.writeBoolean(this.flyState);
 		buf.writeBoolean(this.descendState);
-
 		buf.writeBoolean(this.forwardState);
 		buf.writeBoolean(this.backwardState);
 		buf.writeBoolean(this.leftState);
@@ -57,14 +54,7 @@ public class MessageKeyboardSync implements IMessage, IMessageHandler<MessageKey
 	public IMessage onMessage(MessageKeyboardSync msg, MessageContext ctx) {
 		EntityPlayerMP entityPlayerMP = ctx.getServerHandler().player;
 		WorldServer worldServer = entityPlayerMP.getServerWorld();
-
-		worldServer.addScheduledTask(new Runnable() {
-			@Override
-			public void run() {
-				handleMessage(msg, ctx);
-			}
-		});
-
+		worldServer.addScheduledTask(() -> handleMessage(msg, ctx));
 		return null;
 	}
 

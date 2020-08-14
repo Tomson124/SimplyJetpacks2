@@ -4,7 +4,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import tonius.simplyjetpacks.SimplyJetpacks;
 
 public enum SJSoundRegistry implements IModSound {
@@ -18,12 +17,12 @@ public enum SJSoundRegistry implements IModSound {
 	private final SoundCategory soundCategory;
 	private SoundEvent soundEvent = null;
 
-	private SJSoundRegistry(SoundCategory soundCategory, ResourceLocation resourceLocation) {
+	SJSoundRegistry(SoundCategory soundCategory, ResourceLocation resourceLocation) {
 		this.soundCategory = soundCategory;
 		this.resourceLocation = resourceLocation;
 	}
 
-	private SJSoundRegistry(SoundCategory soundCategory, String name) {
+	SJSoundRegistry(SoundCategory soundCategory, String name) {
 		this(soundCategory, new ResourceLocation(SimplyJetpacks.MODID, name));
 	}
 
@@ -52,5 +51,4 @@ public enum SJSoundRegistry implements IModSound {
 	public SoundCategory getSoundCategory() {
 		return soundCategory;
 	}
-
 }

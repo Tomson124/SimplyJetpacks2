@@ -4,6 +4,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class CapabilityProviderEnergy<HANDLER> implements ICapabilityProvider {
@@ -25,16 +26,15 @@ public class CapabilityProviderEnergy<HANDLER> implements ICapabilityProvider {
 	}
 
 	@Override
-	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
 		return capability == getCapability();
 	}
 
 	@Override
-	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 		if (capability == getCapability()) {
 			return getCapability().cast(getInstance());
 		}
-
 		return null;
 	}
 

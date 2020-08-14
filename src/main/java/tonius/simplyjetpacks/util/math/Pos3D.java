@@ -5,8 +5,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.Axis;
-import net.minecraft.util.math.*;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.*;
+
+import javax.annotation.Nonnull;
 
 /**
  * Pos3D - a way of performing operations on objects in a three dimensional environment.
@@ -163,6 +165,7 @@ public class Pos3D extends Vec3d {
 	 * @param yaw - yaw to rotate by
 	 * @return rotated Pos3D
 	 */
+	@Nonnull
 	public Pos3D rotateYaw(float yaw) {
 		double yawRadians = Math.toRadians(yaw);
 
@@ -177,6 +180,7 @@ public class Pos3D extends Vec3d {
 		return new Pos3D(xPos, y, zPos);
 	}
 
+	@Nonnull
 	@Override
 	public Pos3D rotatePitch(float pitch) {
 		double pitchRadians = Math.toRadians(pitch);
@@ -224,6 +228,7 @@ public class Pos3D extends Vec3d {
 		return new Pos3D(x * x, y * y, z * z);
 	}
 
+	@Nonnull
 	@Override
 	public Pos3D scale(double scale) {
 		return scale(scale, scale, scale);
@@ -281,6 +286,7 @@ public class Pos3D extends Vec3d {
 		return Math.acos(pos1.clone().dotProduct(pos2));
 	}
 
+	@Nonnull
 	@Override
 	public Pos3D normalize() {
 		return new Pos3D(super.normalize());
@@ -322,6 +328,7 @@ public class Pos3D extends Vec3d {
 		return new Pos3D(x, y, z);
 	}
 
+	@Nonnull
 	@Override
 	public String toString() {
 		return "[Pos3D: " + x + ", " + y + ", " + z + "]";

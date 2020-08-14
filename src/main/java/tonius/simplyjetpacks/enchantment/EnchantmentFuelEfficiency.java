@@ -7,42 +7,38 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.item.ItemJetpack;
 import tonius.simplyjetpacks.setup.ModEnchantments;
 
-public class EnchantmentFuelEfficiency extends Enchantment
-{
-	public EnchantmentFuelEfficiency()
-	{
-		super(Rarity.UNCOMMON, ModEnchantments.enchantType, EntityEquipmentSlot.values());
-	}
+import javax.annotation.Nonnull;
 
-	@Override
-	public int getMinEnchantability(int level)
-	{
-		return 8 + (level - 1) * 8;
-	}
+public class EnchantmentFuelEfficiency extends Enchantment {
 
-	@Override
-	public int getMaxEnchantability(int level)
-	{
-		return super.getMinEnchantability(level) + 50;
-	}
+    public EnchantmentFuelEfficiency() {
+        super(Rarity.UNCOMMON, ModEnchantments.enchantType, EntityEquipmentSlot.values());
+    }
 
-	@Override
-	public int getMaxLevel()
-	{
-		return 4;
-	}
+    @Override
+    public int getMinEnchantability(int level) {
+        return 8 + (level - 1) * 8;
+    }
 
-	@Override
-	public String getName()
-	{
-		return SimplyJetpacks.PREFIX + "enchantment.fuelEfficiency";
-	}
+    @Override
+    public int getMaxEnchantability(int level) {
+        return super.getMinEnchantability(level) + 50;
+    }
 
-	@Override
-	public boolean canApply(ItemStack stack)
-	{
-		ModEnchantments.canEnchantItem(stack.getItem());
-		return stack.getItem() instanceof ItemJetpack;
-	}
+    @Override
+    public int getMaxLevel() {
+        return 4;
+    }
 
+    @Nonnull
+    @Override
+    public String getName() {
+        return SimplyJetpacks.PREFIX + "enchantment.fuelEfficiency";
+    }
+
+    @Override
+    public boolean canApply(ItemStack stack) {
+        ModEnchantments.canEnchantItem(stack.getItem());
+        return stack.getItem() instanceof ItemJetpack;
+    }
 }

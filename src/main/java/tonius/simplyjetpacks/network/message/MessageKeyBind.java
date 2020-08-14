@@ -17,7 +17,9 @@ public class MessageKeyBind implements IMessage, IMessageHandler<MessageKeyBind,
 
 	public JetpackPacket packetType;
 
-	public MessageKeyBind() {}
+	public MessageKeyBind() {
+
+	}
 
 	public MessageKeyBind(JetpackPacket type) {
 		packetType = type;
@@ -37,14 +39,7 @@ public class MessageKeyBind implements IMessage, IMessageHandler<MessageKeyBind,
 	public IMessage onMessage(MessageKeyBind msg, MessageContext ctx) {
 		EntityPlayerMP entityPlayerMP = ctx.getServerHandler().player;
 		WorldServer worldServer = entityPlayerMP.getServerWorld();
-
-		worldServer.addScheduledTask(new Runnable() {
-			@Override
-			public void run() {
-				handleMessage(msg, ctx);
-			}
-		});
-
+		worldServer.addScheduledTask(() -> handleMessage(msg, ctx));
 		return null;
 	}
 
@@ -52,40 +47,32 @@ public class MessageKeyBind implements IMessage, IMessageHandler<MessageKeyBind,
 		EntityPlayer player = PacketHandler.getPlayer(ctx);
 		ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
-		if(msg.packetType == JetpackPacket.ENGINE) {
-			if(stack != null && stack.getItem() instanceof ItemJetpack) {
-				ItemJetpack jetpack = (ItemJetpack)stack.getItem();
-				((ItemJetpack)stack.getItem()).toggleState(jetpack.isOn(stack), stack, null, ItemJetpack.TAG_ON, player, false);
-			}
-			else if(stack != null && stack.getItem() instanceof ItemFluxpack) {
-				ItemFluxpack fluxpack = (ItemFluxpack) stack.getItem();
-				((ItemFluxpack)stack.getItem()).toggleState(fluxpack.isOn(stack), stack, null, ItemFluxpack.TAG_ON, player, false);
-			}
-		}
-		if (msg.packetType == JetpackPacket.CHARGER) {
-			if (stack != null && stack.getItem() instanceof ItemJetpack) {
-				ItemJetpack jetpack = (ItemJetpack) stack.getItem();
-				((ItemJetpack) stack.getItem()).toggleState(jetpack.isChargerOn(stack), stack, null, ItemJetpack.TAG_CHARGER_ON, player, false);
+		if (stack.getItem() instanceof ItemJetpack) {
+			ItemJetpack jetpack = (ItemJetpack)stack.getItem();
+			switch (msg.packetType) {
+				case ENGINE:
+					jetpack.toggleState(jetpack.isOn(stack), stack, null, ItemJetpack.TAG_ON, player, false);
+				case CHARGER:
+					jetpack.toggleState(jetpack.isChargerOn(stack), stack, null, ItemJetpack.TAG_CHARGER_ON, player, false);
+				case HOVER:
+					jetpack.toggleState(jetpack.isHoverModeOn(stack), stack, null, ItemJetpack.TAG_HOVERMODE_ON, player, false);
+				case E_HOVER:
+					jetpack.toggleState(jetpack.isEHoverModeOn(stack), stack, null, ItemJetpack.TAG_EHOVER_ON, player, false);
 			}
 		}
-		if(msg.packetType == JetpackPacket.HOVER) {
-			if(stack != null && stack.getItem() instanceof ItemJetpack) {
-				ItemJetpack jetpack = (ItemJetpack)stack.getItem();
-				((ItemJetpack)stack.getItem()).toggleState(jetpack.isHoverModeOn(stack), stack, null, ItemJetpack.TAG_HOVERMODE_ON, player, false);
-			}
-		}
-		if (msg.packetType == JetpackPacket.E_HOVER) {
-			if(stack != null && stack.getItem() instanceof ItemJetpack) {
-				ItemJetpack jetpack = (ItemJetpack)stack.getItem();
-				((ItemJetpack)stack.getItem()).toggleState(jetpack.isEHoverModeOn(stack), stack, null, ItemJetpack.TAG_EHOVER_ON, player, false);
+		else if (stack.getItem() instanceof ItemFluxpack) {
+			ItemFluxpack fluxpack = (ItemFluxpack) stack.getItem();
+			switch (msg.packetType) {
+				case ENGINE:
+					fluxpack.toggleState(fluxpack.isOn(stack), stack, null, ItemFluxpack.TAG_ON, player, false);
 			}
 		}
 	}
 
-	public static enum JetpackPacket {
+	public enum JetpackPacket {
 		ENGINE,
 		HOVER,
 		CHARGER,
-		E_HOVER;
+		E_HOVER
 	}
 }

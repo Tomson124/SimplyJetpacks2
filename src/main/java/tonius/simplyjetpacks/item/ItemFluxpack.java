@@ -43,6 +43,7 @@ import tonius.simplyjetpacks.util.ItemHelper;
 import tonius.simplyjetpacks.util.NBTHelper;
 import tonius.simplyjetpacks.util.SJStringHelper;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -73,7 +74,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(CreativeTabs creativeTabs, NonNullList<ItemStack> List) {
+	public void getSubItems(@Nonnull CreativeTabs creativeTabs, @Nonnull NonNullList<ItemStack> List) {
 		if (isInCreativeTab(creativeTabs)) {
 			for (Fluxpack pack : Fluxpack.SJ_FLUXPACKS) {
 				ItemHelper.addFluxpacks(pack, List);
@@ -92,11 +93,11 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	}
 
 	@Override
-	public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
+	public void onUpdate(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull Entity entity, int par4, boolean par5) {
 	}
 
 	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+	public void onArmorTick(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull ItemStack stack) {
 		if(this.isOn(stack)) {
 			this.chargeInventory(player, stack, this);
 		}
@@ -143,7 +144,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+	public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<String> tooltip, @Nonnull ITooltipFlag flagIn) {
 		information(stack, this, tooltip);
 		if (SJStringHelper.canShowDetails()) {
 			shiftInformation(stack, tooltip);
@@ -153,8 +154,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	}
 
 	@SideOnly(Side.CLIENT)
-	@SuppressWarnings("unchecked")
-	public void information(ItemStack stack, ItemFluxpack item, List list) {
+	public void information(ItemStack stack, ItemFluxpack item, List<String> list) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		if (this.showTier) {
 			list.add(SJStringHelper.getTierText(Fluxpack.values()[i].getTier()));
@@ -163,8 +163,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	}
 
 	@SideOnly(Side.CLIENT)
-	@SuppressWarnings("unchecked")
-	public void shiftInformation(ItemStack stack, List list) {
+	public void shiftInformation(ItemStack stack, List<String> list) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 
 		list.add(SJStringHelper.getStateText(this.isOn(stack)));
@@ -175,7 +174,6 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		SJStringHelper.addDescriptionLines(list, "fluxpack", TextFormatting.GREEN.toString());
 	}
 
-	// HUD info
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addHUDInfo(List<String> list, ItemStack stack, boolean showFuel, boolean showState) {
@@ -204,6 +202,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		return NBTHelper.getBoolean(stack, TAG_ON, true);
 	}
 
+	@Nonnull
 	@Override
 	public EnumRarity getRarity(ItemStack stack) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
@@ -223,19 +222,19 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	}
 
 	@Override
-	public double getDurabilityForDisplay(ItemStack stack) {
+	public double getDurabilityForDisplay(@Nonnull ItemStack stack) {
 		double stored = this.getMaxFuelStored(stack) - this.getFuelStored(stack) + 1;
 		double max = this.getMaxFuelStored(stack) + 1;
 		return stored / max;
 	}
 
+	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack itemStack) {
 		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
 		return Fluxpack.values()[i].unlocalisedName;
 	}
 
-	// fuel
 	public int getFuelStored(ItemStack stack) {
 		return this.getEnergyStored(stack);
 	}
@@ -307,8 +306,9 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		return new ArmorProperties(0, 1, 0);
 	}
 
+	@Nonnull
 	@Override
-	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+	public Multimap<String, AttributeModifier> getAttributeModifiers(@Nonnull EntityEquipmentSlot slot, ItemStack stack) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(slot);
 		if (!Fluxpack.values()[i].getIsArmored()) {
@@ -317,18 +317,18 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		}
 		if (slot == EntityEquipmentSlot.CHEST) {
 			multimap.clear();
-			multimap.put(SharedMonsterAttributes.ARMOR.getName(), new AttributeModifier(ItemJetpack.ARMOR_MODIFIER, "Armor modifier", (double) Fluxpack.values()[i].getArmorReduction(), 0));
+			multimap.put(SharedMonsterAttributes.ARMOR.getName(), new AttributeModifier(ItemJetpack.ARMOR_MODIFIER, "Armor modifier", Fluxpack.values()[i].getArmorReduction(), 0));
 		}
 		return multimap;
 	}
 
 	@Override
-	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
+	public int getArmorDisplay(EntityPlayer player, @Nonnull ItemStack armor, int slot) {
 		return 0;
 	}
 
 	@Override
-	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
+	public ModelBiped getArmorModel(@Nonnull EntityLivingBase entityLiving, ItemStack itemStack, @Nonnull EntityEquipmentSlot armorSlot, @Nonnull ModelBiped _default) {
 		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
 		if (Config.enableArmor3DModels) {
 			ModelBiped model = RenderUtils.getArmorModel(Fluxpack.values()[i], entityLiving);
@@ -340,7 +340,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	}
 
 	@Override
-	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+	public String getArmorTexture(ItemStack stack, @Nonnull Entity entity, @Nonnull EntityEquipmentSlot slot, @Nonnull String type) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		String flat = Config.enableArmor3DModels || Fluxpack.values()[i].armorModel == PackModelType.FLAT ? "" : ".flat";
 		return SimplyJetpacks.RESOURCE_PREFIX + "textures/armor/" + Fluxpack.values()[i].getBaseName() + flat + ".png";
@@ -358,13 +358,11 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		}
 	}
 
-	// armor
 	protected int getFuelPerDamage(ItemStack stack) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		if (ModEnchantments.fuelEffeciency == null) {
 			return Fluxpack.values()[i].getArmorFuelPerHit();
 		}
-
 		int fuelEfficiencyLevel = MathHelper.clamp(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
 		return (int) Math.round(Fluxpack.values()[i].getArmorFuelPerHit() * (5 - fuelEfficiencyLevel) / 5.0D);
 	}
@@ -377,12 +375,11 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		else if (chargeItem.getItem() instanceof IEnergyContainerItem) {
 			return new EnergyConversionStorage((IEnergyContainerItem) chargeItem.getItem(), chargeItem);
 		}
-
 		return null;
 	}
 
 	@Override
-	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+	public ICapabilityProvider initCapabilities(@Nonnull ItemStack stack, NBTTagCompound nbt) {
 		return new CapabilityProviderEnergy<>(new EnergyConversionStorage(this, stack), CapabilityEnergy.ENERGY, null);
 	}
 

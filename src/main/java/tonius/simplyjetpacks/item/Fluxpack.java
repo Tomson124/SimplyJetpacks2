@@ -1,13 +1,13 @@
 package tonius.simplyjetpacks.item;
 
-import tonius.simplyjetpacks.client.model.PackModelType;
-import tonius.simplyjetpacks.config.PackDefaults;
-import tonius.simplyjetpacks.setup.ModItems;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.common.config.Configuration;
+import tonius.simplyjetpacks.client.model.PackModelType;
+import tonius.simplyjetpacks.config.PackDefaults;
+import tonius.simplyjetpacks.setup.ModItems;
 
 import javax.annotation.Nonnull;
 import java.util.EnumSet;
@@ -17,14 +17,14 @@ public enum Fluxpack implements IStringSerializable {
 
 	CREATIVE_FLUXPACK("fluxPack_creative", "fluxPackCreative", 6, EnumRarity.EPIC, false, true),
 
-	//EnderIO
+	// EnderIO
 	FLUXPACK_EIO1("fluxPack_EIO1", "fluxPackEIO1", 1, EnumRarity.COMMON),
 	FLUXPACK_EIO2("fluxPack_EIO2", "fluxPackEIO2", 2, EnumRarity.UNCOMMON),
 	FLUXPACK_EIO3("fluxPack_EIO3", "fluxPackEIO3", 3, EnumRarity.RARE),
 	FLUXPACK_EIO2_ARMORED("fluxPack_EIO2_Armored", "fluxPackEIO2", 2, EnumRarity.UNCOMMON, true, true, MetaItemsMods.ARMOR_PLATING_EIO_2.ordinal()),
 	FLUXPACK_EIO3_ARMORED("fluxPack_EIO3_Armored", "fluxPackEIO3", 3, EnumRarity.RARE, true, true, MetaItemsMods.ARMOR_PLATING_EIO_4.ordinal()),
 
-	//Thermal Expansioin
+	// Thermal Expansion
 	FLUXPACK_TE1("fluxPack_TE1", "fluxPackTE1", 1, EnumRarity.COMMON),
 	FLUXPACK_TE2("fluxPack_TE2", "fluxPackTE2", 2, EnumRarity.UNCOMMON),
 	FLUXPACK_TE3("fluxPack_TE3", "fluxPackTE3", 3, EnumRarity.RARE),
@@ -55,23 +55,23 @@ public enum Fluxpack implements IStringSerializable {
 	public static final EnumSet<Fluxpack> TE_FLUXPACKS = EnumSet.range(FLUXPACK_TE1, FLUXPACK_TE3_ARMORED);
 	public static final EnumSet<Fluxpack> TE_FLUXPACKS_ARMORED = EnumSet.of(FLUXPACK_TE2_ARMORED, FLUXPACK_TE3_ARMORED);
 
-	private Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity, boolean usesFuel) {
+	Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity, boolean usesFuel) {
 		this(baseName, defaultConfigKey, tier, rarity);
 		this.usesFuel = usesFuel;
 	}
 
-	private Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity, boolean usesFuel, boolean isArmored) {
+	Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity, boolean usesFuel, boolean isArmored) {
 		this(baseName, defaultConfigKey, tier, rarity, usesFuel);
 		this.isArmored = isArmored;
 	}
 
-	private Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity, boolean usesFuel, boolean isArmored, int platingMeta) {
+	Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity, boolean usesFuel, boolean isArmored, int platingMeta) {
 		this(baseName, defaultConfigKey, tier, rarity, usesFuel);
 		this.isArmored = isArmored;
 		this.platingMeta = platingMeta;
 	}
 
-	private Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity) {
+	Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity) {
 		this.baseName = baseName;
 		this.defaults = PackDefaults.get(defaultConfigKey);
 		this.tier = tier;
@@ -81,9 +81,8 @@ public enum Fluxpack implements IStringSerializable {
 		this.setArmorModel(PackModelType.FLUX_PACK);
 	}
 
-	public
 	@Nonnull
-	String getBaseName() {
+	public String getBaseName() {
 		return baseName;
 	}
 
@@ -132,21 +131,18 @@ public enum Fluxpack implements IStringSerializable {
 		return platingMeta;
 	}
 
-	public
 	@Nonnull
-	ItemStack getStackFluxpack() {
+	public ItemStack getStackFluxpack() {
 		return getStackFluxpack(1);
 	}
 
-	public
 	@Nonnull
-	ItemStack getStackFluxpack(int size) {
+	public ItemStack getStackFluxpack(int size) {
 		return new ItemStack(ModItems.itemFluxPack, size, ordinal());
 	}
 
-	public static
 	@Nonnull
-	Fluxpack getTypeFromMeta(int meta) {
+	public static Fluxpack getTypeFromMeta(int meta) {
 		return values()[meta >= 0 && meta < values().length ? meta : 0];
 	}
 
@@ -235,8 +231,7 @@ public enum Fluxpack implements IStringSerializable {
 		if (this.defaults.armorFuelPerHit != null) {
 			this.armorFuelPerHit = config.get(this.defaults.section.name, "Armor Fuel Per Hit", this.defaults.armorFuelPerHit, "How much fuel is lost from this pack when the user is hit, if armored.").setMinValue(0).getInt(this.defaults.armorFuelPerHit);
 		}
-		/*if(this.defaults.enchantability != null)
-		{
+		/*if(this.defaults.enchantability != null) {
 			this.enchantability = config.get(this.defaults.section.name, "Enchantability", this.defaults.enchantability, "The enchantability of this pack. If set to 0, no enchantments can be applied.").setMinValue(0).getInt(this.defaults.enchantability);
 		}*/
 	}

@@ -1,13 +1,16 @@
 [
 	{
-	    "modid": "simplyjetpacks",
-	    "name": "Simply Jetpacks 2",
-	    "authorList": [ "tonius11", "Tomson124" ],
-	    "description": "Redstone Flux jetpacks and more",
-	    "credits": "Team CoFH, CrazyPants, Pathaleon, sk89q, Cybercat, dand0, nabijaczleweli, kevba10, and anyone else who helped making the mod, directly or indirectly",
-	    "version": "${version}",
-	    "mcversion": "${mcversion}",
-	    "logoFile": "assets/simplyjetpacks/logo.png",
-	    "url": "https://minecraft.curseforge.com/projects/simply-jetpacks-2"
+		"modid": "simplyjetpacks",
+		"name": "Simply Jetpacks 2",
+		"description": "Redstone Flux Jetpacks and more!",
+		"version": "${version}",
+		"mcversion": "${mcversion}",
+		"url": "https://www.curseforge.com/minecraft/mc-mods/simply-jetpacks-2",
+		"updateUrl": "https://github.com/Tomson124/SimplyJetpacks2/blob/1.12/updates/update.json",
+		"authorList": ["tonius11", "Tomson124", "StormedPanda"],
+		"credits": "Team CoFH, CrazyPants, Pathaleon, sk89q, Cybercat, dand0, nabijaczleweli, kevba10, and anyone else who helped make the mod, directly or indirectly",
+		"logoFile": "assets/simplyjetpacks/simplyjetpacks-logo.png",
+		"screenshots": [],
+		"dependencies": []
 	}
 ]

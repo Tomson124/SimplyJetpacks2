@@ -1,30 +1,34 @@
 package tonius.simplyjetpacks.item;
 
-import net.minecraftforge.fml.common.Loader;
-import tonius.simplyjetpacks.Log;
-import tonius.simplyjetpacks.client.model.PackModelType;
-import tonius.simplyjetpacks.config.Config;
-import tonius.simplyjetpacks.config.PackDefaults;
-import tonius.simplyjetpacks.handler.SyncHandler;
-import tonius.simplyjetpacks.integration.ModType;
-import tonius.simplyjetpacks.setup.ModItems;
-import tonius.simplyjetpacks.setup.ParticleType;
-import tonius.simplyjetpacks.util.NBTHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.common.config.Configuration;
+import tonius.simplyjetpacks.client.model.PackModelType;
+import tonius.simplyjetpacks.config.PackDefaults;
+import tonius.simplyjetpacks.handler.SyncHandler;
+import tonius.simplyjetpacks.setup.ModItems;
+import tonius.simplyjetpacks.setup.ParticleType;
+import tonius.simplyjetpacks.util.NBTHelper;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Locale;
 
 public enum Jetpack implements IStringSerializable {
+
 	CREATIVE_JETPACK("jetpack_Creative", 6, "jetpackCreative", EnumRarity.EPIC, ParticleType.RAINBOW_SMOKE, false),
 	//POTATO_JETPACK("jetpack_Potato", 1, "jetpackPotato", EnumRarity.COMMON, ParticleType.DEFAULT, false),
 
-	//EnderIO
+	// Vanilla
+	JETPACK_VANILLA_1("jetpack_Vanilla1", 1, "jetpackVanilla1", EnumRarity.COMMON),
+	JETPACK_VANILLA_2("jetpack_Vanilla2", 2, "jetpackVanilla2", EnumRarity.UNCOMMON),
+	JETPACK_VANILLA_3("jetpack_Vanilla3", 3, "jetpackVanilla3", EnumRarity.RARE),
+
+	// EnderIO
 	JETPACK_EIO_1("jetpack_EIO1", 1, "jetpackEIO1", EnumRarity.COMMON),
 	JETPACK_EIO_2("jetpack_EIO2", 2, "jetpackEIO2", EnumRarity.COMMON),
 	JETPACK_EIO_3("jetpack_EIO3", 3, "jetpackEIO3", EnumRarity.UNCOMMON),
@@ -35,7 +39,7 @@ public enum Jetpack implements IStringSerializable {
 	JETPACK_EIO_4_ARMORED("jetpack_EIO4_Armored", 4, "jetpackEIO4", EnumRarity.RARE, true, MetaItemsMods.ARMOR_PLATING_EIO_4.ordinal()),
 	JETPLATE_EIO_5("jetpack_EIO5", 5, "jetpackEIO5", EnumRarity.EPIC, true),
 
-	//ThermalExpansion
+	// ThermalExpansion
 	JETPACK_TE_1("jetpack_TE1", 1, "jetpackTE1", EnumRarity.COMMON),
 	JETPACK_TE_2("jetpack_TE2", 2, "jetpackTE2", EnumRarity.COMMON),
 	JETPACK_TE_3("jetpack_TE3", 3, "jetpackTE3", EnumRarity.UNCOMMON),
@@ -45,11 +49,7 @@ public enum Jetpack implements IStringSerializable {
 	JETPACK_TE_3_ARMORED("jetpack_TE3_Armored", 3, "jetpackTE3", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_TE_3.ordinal()),
 	JETPACK_TE_4_ARMORED("jetpack_TE4_Armored", 4, "jetpackTE4", EnumRarity.RARE, true, MetaItemsMods.ARMOR_PLATING_TE_4.ordinal()),
 	JETPLATE_TE_5("jetpack_TE5", 5, "jetpackTE5", EnumRarity.EPIC, true),
-	JETPLATE_TE_5_ENDERIUM("jetpack_TE5_enderium", 5, "jetpackTE5enderium", EnumRarity.EPIC, true),
-	
-	JETPACK_VANILLA_1("jetpack_Vanilla1", 1, "jetpackVanilla1", EnumRarity.COMMON),
-	JETPACK_VANILLA_2("jetpack_Vanilla2", 2, "jetpackVanilla2", EnumRarity.UNCOMMON),
-	JETPACK_VANILLA_3("jetpack_Vanilla3", 3, "jetpackVanilla3", EnumRarity.RARE);
+	JETPLATE_TE_5_ENDERIUM("jetpack_TE5_enderium", 5, "jetpackTE5enderium", EnumRarity.EPIC, true);
 
 	protected final PackDefaults defaults;
 	protected static final EnumSet<Jetpack> ALL_PACKS = EnumSet.allOf(Jetpack.class);
@@ -64,12 +64,10 @@ public enum Jetpack implements IStringSerializable {
 	public ParticleType defaultParticleType = ParticleType.DEFAULT;
 	public PackModelType armorModel = PackModelType.FLAT;
 
-	public final
 	@Nonnull
-	String baseName;
-	public final
+	public final String baseName;
 	@Nonnull
-	String unlocalisedName;
+	public final String unlocalisedName;
 	public final int tier;
 	public int fuelCapacity;
 	public int fuelPerTickIn;
@@ -93,28 +91,27 @@ public enum Jetpack implements IStringSerializable {
 	public double sprintFuelModifier;
 	public boolean emergencyHoverMode;
 
-	private final
 	@Nonnull
-	List<String> jetpacks = new ArrayList<String>();
+	private final List<String> jetpacks = new ArrayList<>();
 
-	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, ParticleType defaultParticleType, boolean usesFuel) {
+	Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, ParticleType defaultParticleType, boolean usesFuel) {
 		this(baseName, tier, defaultConfigKey, rarity);
 		this.defaultParticleType = defaultParticleType;
 		this.usesFuel = usesFuel;
 	}
 
-	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, boolean isArmored) {
+	Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, boolean isArmored) {
 		this(baseName, tier, defaultConfigKey, rarity);
 		this.isArmored = isArmored;
 	}
 
-	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, boolean isArmored, int platingMeta) {
+	Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, boolean isArmored, int platingMeta) {
 		this(baseName, tier, defaultConfigKey, rarity);
 		this.isArmored = isArmored;
 		this.platingMeta = platingMeta;
 	}
 
-	private Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity) {
+	Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity) {
 		this.baseName = baseName;
 		this.tier = tier;
 		this.defaults = PackDefaults.get(defaultConfigKey);
@@ -127,9 +124,8 @@ public enum Jetpack implements IStringSerializable {
 		this.setArmorModel(PackModelType.JETPACK);
 	}
 
-	public
 	@Nonnull
-	String getBaseName() {
+	public String getBaseName() {
 		return baseName;
 	}
 
@@ -161,21 +157,19 @@ public enum Jetpack implements IStringSerializable {
 		return fuelUsage;
 	}
 
-	public
 	@Nonnull
-	ItemStack getStackJetpack() {
+	public ItemStack getStackJetpack() {
 		return getStackJetpack(1);
 	}
 
-	public
 	@Nonnull
-	ItemStack getStackJetpack(int size) {
+	public ItemStack getStackJetpack(int size) {
 		return new ItemStack(ModItems.itemJetpack, size, ordinal());
 	}
 
-	public //TODO: INVESTIGATE!!
+	// TODO: Investigate this.
 	@Nonnull
-	List<String> getJetpacks() {
+	public List<String> getJetpacks() {
 		return jetpacks;
 	}
 
@@ -196,7 +190,8 @@ public enum Jetpack implements IStringSerializable {
 		return platingMeta;
 	}
 
-	public static @Nonnull Jetpack getTypeFromMeta(int meta) {
+	@Nonnull
+	public static Jetpack getTypeFromMeta(int meta) {
 		return values()[meta >= 0 && meta < values().length ? meta : 0];
 	}
 
@@ -256,7 +251,6 @@ public enum Jetpack implements IStringSerializable {
 	}
 
 	protected void loadConfig(Configuration config) {
-
 		if (this.defaults.fuelCapacity != null) {
 			this.fuelCapacity = config.get(this.defaults.section.name, "Fuel Capacity", this.defaults.fuelCapacity, "The maximum amount of fuel that this pack can hold.").setMinValue(1).getInt(this.defaults.fuelCapacity);
 		}

@@ -13,6 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.util.SJStringHelper;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -31,12 +32,14 @@ public class ItemMeta extends ItemRegistered {
 		numItems = MetaItems.values().length;
 	}
 
+	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack itemStack) {
 		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
 		return "item.simplyjetpacks." + MetaItems.values()[i].getName();
 	}
 
+	@Nonnull
 	@Override
 	public EnumRarity getRarity(ItemStack itemStack) {
 		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
@@ -48,8 +51,7 @@ public class ItemMeta extends ItemRegistered {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	@SuppressWarnings("unchecked")
-	public void addInformation(ItemStack itemStack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+	public void addInformation(ItemStack itemStack, @Nullable World worldIn, @Nonnull List<String> tooltip, @Nonnull ITooltipFlag flagIn) {
 		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
 		if (MetaItems.values()[i].getKeyTooltip() != null) {
 			if (SJStringHelper.canShowDetails()) {
@@ -62,8 +64,7 @@ public class ItemMeta extends ItemRegistered {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	@SuppressWarnings("unchecked")
-	public void getSubItems(CreativeTabs creativeTabs, NonNullList list) {
+	public void getSubItems(@Nonnull CreativeTabs creativeTabs, @Nonnull NonNullList<ItemStack> list) {
 		if (isInCreativeTab(creativeTabs)) {
 			for (int i = 0; i < numItems; i++) {
 				list.add(new ItemStack(this, 1, i));

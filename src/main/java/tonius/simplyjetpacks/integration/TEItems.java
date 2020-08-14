@@ -11,7 +11,7 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 
 public abstract class TEItems {
 
-	//capacitors
+	// Capacitors
 	@GameRegistry.ItemStackHolder(value = "thermalexpansion:capacitor", meta = 0)
 	public static ItemStack capacitorBasic = null;
 	@GameRegistry.ItemStackHolder(value = "thermalexpansion:capacitor", meta = 1)
@@ -21,7 +21,7 @@ public abstract class TEItems {
 	@GameRegistry.ItemStackHolder(value = "thermalexpansion:capacitor", meta = 4)
 	public static ItemStack capacitorResonant = null;
 
-	//cells
+	// Cells
 	@GameRegistry.ItemStackHolder("thermalexpansion:cell")
 	public static ItemStack cellBasic = null;
 	@GameRegistry.ItemStackHolder("thermalexpansion:cell")
@@ -29,7 +29,7 @@ public abstract class TEItems {
 	@GameRegistry.ItemStackHolder("thermalexpansion:cell")
 	public static ItemStack cellResonant;
 
-	//dynamos
+	// Dynamos
 	@GameRegistry.ItemStackHolder(value = "thermalexpansion:dynamo", meta = 1)
 	public static ItemStack dynamoMagmatic = null;
 	@GameRegistry.ItemStackHolder(value = "thermalexpansion:dynamo", meta = 3)
@@ -39,7 +39,7 @@ public abstract class TEItems {
 	@GameRegistry.ItemStackHolder(value = "thermalexpansion:dynamo", meta = 5)
 	public static ItemStack dynamoNumismatic = null;
 
-	//materials
+	// Crafting Materials
 	@GameRegistry.ItemStackHolder(value = "thermalfoundation:glass_alloy", meta = 5)
 	public static ItemStack signalumGlass = null;
 	@GameRegistry.ItemStackHolder(value = "thermalfoundation:material", meta = 513)
@@ -51,7 +51,7 @@ public abstract class TEItems {
 
 
 	public static void init() {
-		SimplyJetpacks.logger.info("Stealing Thermal Expansion's items");
+		SimplyJetpacks.LOGGER.info("Stealing Thermal Expansion's items");
 
 		if (cellBasic != null) {
 			cellBasic.setTagCompound(new NBTTagCompound());
