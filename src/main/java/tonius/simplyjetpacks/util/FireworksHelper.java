@@ -47,8 +47,8 @@ public final class FireworksHelper {
     public static final class Explosion {
         private boolean twinkle = false;
         private boolean trail = false;
-        private final List<Integer> primaryColors = new ArrayList();
-        private final List<Integer> fadeColors = new ArrayList();
+        private final List<Integer> primaryColors = new ArrayList<>();
+        private final List<Integer> fadeColors = new ArrayList<>();
         private FireworksHelper.Explosion.Type type;
 
         public Explosion() {
@@ -122,19 +122,16 @@ public final class FireworksHelper {
             var1.setBoolean("Trail", this.trail);
             var1.setByte("Type", (byte) this.type.ordinal());
             int[] var2 = new int[this.primaryColors.size()];
-
             int var3;
             for (var3 = 0; var3 < this.primaryColors.size(); ++var3) {
                 var2[var3] = this.primaryColors.get(var3);
             }
-
             var1.setIntArray("Colors", var2);
             var2 = new int[this.fadeColors.size()];
 
             for (var3 = 0; var3 < this.fadeColors.size(); ++var3) {
                 var2[var3] = this.fadeColors.get(var3);
             }
-
             var1.setIntArray("FadeColors", var2);
             return var1;
         }

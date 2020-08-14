@@ -8,7 +8,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
-import org.jline.utils.Log;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.crafting.UpgradingRecipe;
@@ -21,42 +20,44 @@ import tonius.simplyjetpacks.util.crafting.RecipeHelper;
 public abstract class ModItems {
 
 	public static ItemJetpack itemJetpack;
-
 	public static ItemFluxpack itemFluxPack;
-
 	public static ItemMeta metaItem;
 	public static ItemMetaMods metaItemMods;
 
+	// Simply Jetpacks
+	public static ItemStack leatherStrap;
 	public static ItemStack jetpackCreative;
 	public static ItemStack fluxPackCreative;
-
 	public static ItemStack particleDefault;
 	public static ItemStack particleSmoke;
 	public static ItemStack particleNone;
 	public static ItemStack particleRainbowSmoke;
 
-	public static ItemStack leatherStrap;
+	// Vanilla
+	public static ItemStack thrusterVanilla1;
+	public static ItemStack thrusterVanilla2;
+	public static ItemStack thrusterVanilla3;
+
+	public static ItemStack jetpackVanilla1;
+	public static ItemStack jetpackVanilla2;
+	public static ItemStack jetpackVanilla3;
+
+	// EnderIO
 	public static ItemStack unitFlightControlEmpty;
 	public static ItemStack reinforcedGliderWings;
 	public static ItemStack unitFlightControl;
-
 	public static ItemStack ingotDarkSoularium;
+	
+	public static ItemStack armorPlatingEIO1;
+	public static ItemStack armorPlatingEIO2;
+	public static ItemStack armorPlatingEIO3;
+	public static ItemStack armorPlatingEIO4;
 
 	public static ItemStack thrusterEIO1;
 	public static ItemStack thrusterEIO2;
 	public static ItemStack thrusterEIO3;
 	public static ItemStack thrusterEIO4;
 	public static ItemStack thrusterEIO5;
-
-	public static ItemStack thrusterVanilla1;
-	public static ItemStack thrusterVanilla2;
-	public static ItemStack thrusterVanilla3;
-
-	// EnderIO
-	public static ItemStack armorPlatingEIO1;
-	public static ItemStack armorPlatingEIO2;
-	public static ItemStack armorPlatingEIO3;
-	public static ItemStack armorPlatingEIO4;
 
 	public static ItemStack jetpackEIO1;
 	public static ItemStack jetpackEIO1Armored;
@@ -76,18 +77,7 @@ public abstract class ModItems {
 	public static ItemStack fluxPackEIO4;
 	public static ItemStack fluxPackEIO4Armored;
 
-	//ThermalExpansion
-	public static ItemStack thrusterTE1;
-	public static ItemStack thrusterTE2;
-	public static ItemStack thrusterTE3;
-	public static ItemStack thrusterTE4;
-	public static ItemStack thrusterTE5;
-
-	public static ItemStack armorPlatingTE1;
-	public static ItemStack armorPlatingTE2;
-	public static ItemStack armorPlatingTE3;
-	public static ItemStack armorPlatingTE4;
-
+	// Thermal Expansion
 	public static ItemStack unitGlowstone;
 	public static ItemStack unitGlowstoneEmpty;
 	public static ItemStack unitCryotheumEmpty;
@@ -95,42 +85,87 @@ public abstract class ModItems {
 	public static ItemStack plateFlux;
 	public static ItemStack armorFluxPlate;
 
+	public static ItemStack armorPlatingTE1;
+	public static ItemStack armorPlatingTE2;
+	public static ItemStack armorPlatingTE3;
+	public static ItemStack armorPlatingTE4;
+
+	public static ItemStack thrusterTE1;
+	public static ItemStack thrusterTE2;
+	public static ItemStack thrusterTE3;
+	public static ItemStack thrusterTE4;
+	public static ItemStack thrusterTE5;
+
 	public static ItemStack jetpackTE1;
-	public static ItemStack jetpackTE2;
-	public static ItemStack jetpackTE3;
-	public static ItemStack jetpackTE4;
 	public static ItemStack jetpackTE1Armored;
+	public static ItemStack jetpackTE2;
 	public static ItemStack jetpackTE2Armored;
+	public static ItemStack jetpackTE3;
 	public static ItemStack jetpackTE3Armored;
+	public static ItemStack jetpackTE4;
 	public static ItemStack jetpackTE4Armored;
 	public static ItemStack jetpackTE5;
 
-	// RR
-	public static ItemStack jetpackTE5Enderium;
-
 	public static ItemStack fluxPackTE1;
 	public static ItemStack fluxPackTE2;
-	public static ItemStack fluxPackTE3;
 	public static ItemStack fluxPackTE2Armored;
+	public static ItemStack fluxPackTE3;
 	public static ItemStack fluxPackTE3Armored;
 
-	public static ItemStack jetpackVanilla1;
-	public static ItemStack jetpackVanilla2;
-	public static ItemStack jetpackVanilla3;
+	// Mekanism
+	public static ItemStack armorPlatingMek1;
+	public static ItemStack armorPlatingMek2;
+	public static ItemStack armorPlatingMek3;
+	public static ItemStack armorPlatingMek4;
 
+	public static ItemStack thrusterMek1;
+	public static ItemStack thrusterMek2;
+	public static ItemStack thrusterMek3;
+	public static ItemStack thrusterMek4;
+
+	public static ItemStack jetpackMek1;
+	public static ItemStack jetpackMek1Armored;
+	public static ItemStack jetpackMek2;
+	public static ItemStack jetpackMek2Armored;
+	public static ItemStack jetpackMek3;
+	public static ItemStack jetpackMek3Armored;
+	public static ItemStack jetpackMek4;
+	public static ItemStack jetpackMek4Armored;
+	
+	// Immersive Engineering
+	public static ItemStack armorPlatingIE1;
+	public static ItemStack armorPlatingIE2;
+	public static ItemStack armorPlatingIE3;
+
+	public static ItemStack thrusterIE1;
+	public static ItemStack thrusterIE2;
+	public static ItemStack thrusterIE3;
+
+	public static ItemStack jetpackIE1;
+	public static ItemStack jetpackIE1Armored;
+	public static ItemStack jetpackIE2;
+	public static ItemStack jetpackIE2Armored;
+	public static ItemStack jetpackIE3;
+	public static ItemStack jetpackIE3Armored;
+	
+	// Redstone Repository
+	public static ItemStack jetpackTE5Enderium;
+
+	public static boolean integrateVanilla = Config.enableIntegrationVanilla;
 	public static boolean integrateEIO = ModType.ENDER_IO.loaded && Config.enableIntegrationEIO;
 	public static boolean integrateTE = ModType.THERMAL_EXPANSION.loaded && Config.enableIntegrationTE;
 	public static boolean integrateTD = ModType.THERMAL_DYNAMICS.loaded && Config.enableIntegrationTD;
 	public static boolean integrateRA = ModType.REDSTONE_ARSENAL.loaded && Config.enableIntegrationRA;
+	public static boolean integrateMek = ModType.MEKANISM.loaded && Config.enableIntegrationMek;
+	public static boolean integrateIE = ModType.IMMERSIVE_ENGINEERING.loaded && Config.enableIntegrationIE;
 	public static boolean integrateRR = ModType.REDSTONE_REPOSITORY.loaded && Config.enableIntegrationRR;
-	public static boolean integrateVanilla = Config.enableIntegrationVanilla;
 
 	public static void preInit() {
 		registerItems();
 	}
 
 	public static void init() {
-		registerOreDicts();
+		registerOreDictionary();
 		doIMC();
 	}
 
@@ -152,9 +187,9 @@ public abstract class ModItems {
 		return item;
 	}
 
-	private static void registerOreDicts() {
+	private static void registerOreDictionary() {
 		for (MetaItems item : MetaItems.PARTICLE_CUSTOMIZERS) {
-			OreDictionary.registerOre("particleCustomizer", new ItemStack(metaItem, 1, item.ordinal()));
+			OreDictionary.registerOre("particle_customizer", new ItemStack(metaItem, 1, item.ordinal()));
 		}
 		if (integrateEIO) {
 			OreDictionary.registerOre(MetaItemsMods.INGOT_DARK_SOULARIUM.getName(), ingotDarkSoularium);
@@ -162,25 +197,23 @@ public abstract class ModItems {
 	}
 
 	private static void registerItems() {
-		Log.info("Registering items...");
+		SimplyJetpacks.LOGGER.info("Registering items...");
 
-		// Jetpacks
+		// Jetpacks / Fluxpacks
 		itemJetpack = register(new ItemJetpack("itemJetpack"));
+		itemFluxPack = register(new ItemFluxpack("itemFluxpack"));
 
 		// Meta Items
 		metaItem = register(new ItemMeta("metaItem"));
 		metaItemMods = register(new ItemMetaMods("metaItemMods"));
 
-		// FluxPacks
-		itemFluxPack = register(new ItemFluxpack("itemFluxpack"));
-
-		jetpackCreative = Jetpack.CREATIVE_JETPACK.getStackJetpack();
-		fluxPackCreative = Fluxpack.CREATIVE_FLUXPACK.getStackFluxpack();
+		jetpackCreative = Jetpack.JETPACK_CREATIVE.getStackJetpack();
+		fluxPackCreative = Fluxpack.FLUXPACK_CREATIVE.getStackFluxpack();
 
 		particleDefault = MetaItems.PARTICLE_DEFAULT.getStackMetaItem();
 		particleSmoke = MetaItems.PARTICLE_SMOKE.getStackMetaItem();
 		particleNone = MetaItems.PARTICLE_NONE.getStackMetaItem();
-		particleRainbowSmoke = MetaItems.PARTICLE_RAINBOWSMOKE.getStackMetaItem();
+		particleRainbowSmoke = MetaItems.PARTICLE_RAINBOW.getStackMetaItem();
 
 		leatherStrap = MetaItems.LEATHER_STRAP.getStackMetaItem();
 	}
@@ -204,19 +237,19 @@ public abstract class ModItems {
 			armorPlatingEIO4 = MetaItemsMods.ARMOR_PLATING_EIO_4.getStackMetaItem();
 
 			jetpackEIO1 = Jetpack.JETPACK_EIO_1.getStackJetpack();
-			jetpackEIO2 = Jetpack.JETPACK_EIO_2.getStackJetpack();
-			jetpackEIO3 = Jetpack.JETPACK_EIO_3.getStackJetpack();
-			jetpackEIO4 = Jetpack.JETPACK_EIO_4.getStackJetpack();
-			jetpackEIO5 = Jetpack.JETPLATE_EIO_5.getStackJetpack();
 			jetpackEIO1Armored = Jetpack.JETPACK_EIO_1_ARMORED.getStackJetpack();
+			jetpackEIO2 = Jetpack.JETPACK_EIO_2.getStackJetpack();
 			jetpackEIO2Armored = Jetpack.JETPACK_EIO_2_ARMORED.getStackJetpack();
+			jetpackEIO3 = Jetpack.JETPACK_EIO_3.getStackJetpack();
 			jetpackEIO3Armored = Jetpack.JETPACK_EIO_3_ARMORED.getStackJetpack();
+			jetpackEIO4 = Jetpack.JETPACK_EIO_4.getStackJetpack();
 			jetpackEIO4Armored = Jetpack.JETPACK_EIO_4_ARMORED.getStackJetpack();
+			jetpackEIO5 = Jetpack.JETPLATE_EIO_5.getStackJetpack();
 
 			fluxPackEIO1 = Fluxpack.FLUXPACK_EIO1.getStackFluxpack();
 			fluxPackEIO2 = Fluxpack.FLUXPACK_EIO2.getStackFluxpack();
-			fluxPackEIO3 = Fluxpack.FLUXPACK_EIO3.getStackFluxpack();
 			fluxPackEIO2Armored = Fluxpack.FLUXPACK_EIO2_ARMORED.getStackFluxpack();
+			fluxPackEIO3 = Fluxpack.FLUXPACK_EIO3.getStackFluxpack();
 			fluxPackEIO3Armored = Fluxpack.FLUXPACK_EIO3_ARMORED.getStackFluxpack();
 		}
 
@@ -231,16 +264,15 @@ public abstract class ModItems {
 			if (!integrateRA && Config.addRAItemsIfNotInstalled) {
 				plateFlux = MetaItemsMods.PLATE_FLUX.getStackMetaItem();
 				armorFluxPlate = MetaItemsMods.ARMOR_PLATE_FLUX.getStackMetaItem();
-			}
-			else if (integrateRA) {
+			} else if (integrateRA) {
 				plateFlux = RAItems.fluxPlating;
 				armorFluxPlate = RAItems.armorChestPlate;
 			}
 
 			unitGlowstone = MetaItemsMods.UNIT_GLOWSTONE.getStackMetaItem();
-			unitGlowstoneEmpty = MetaItemsMods.UNIT_GLOWSTONE_EMTPY.getStackMetaItem();
+			unitGlowstoneEmpty = MetaItemsMods.UNIT_GLOWSTONE_EMPTY.getStackMetaItem();
 			unitCryotheum = MetaItemsMods.UNIT_CRYOTHEUM.getStackMetaItem();
-			unitCryotheumEmpty = MetaItemsMods.UNIT_CRYOTHEUM_EMTPY.getStackMetaItem();
+			unitCryotheumEmpty = MetaItemsMods.UNIT_CRYOTHEUM_EMPTY.getStackMetaItem();
 
 			armorPlatingTE1 = MetaItemsMods.ARMOR_PLATING_TE_1.getStackMetaItem();
 			armorPlatingTE2 = MetaItemsMods.ARMOR_PLATING_TE_2.getStackMetaItem();
@@ -248,41 +280,60 @@ public abstract class ModItems {
 			armorPlatingTE4 = MetaItemsMods.ARMOR_PLATING_TE_4.getStackMetaItem();
 
 			jetpackTE1 = Jetpack.JETPACK_TE_1.getStackJetpack();
-			jetpackTE2 = Jetpack.JETPACK_TE_2.getStackJetpack();
-			jetpackTE3 = Jetpack.JETPACK_TE_3.getStackJetpack();
-			jetpackTE4 = Jetpack.JETPACK_TE_4.getStackJetpack();
-			jetpackTE5 = Jetpack.JETPLATE_TE_5.getStackJetpack();
 			jetpackTE1Armored = Jetpack.JETPACK_TE_1_ARMORED.getStackJetpack();
+			jetpackTE2 = Jetpack.JETPACK_TE_2.getStackJetpack();
 			jetpackTE2Armored = Jetpack.JETPACK_TE_2_ARMORED.getStackJetpack();
+			jetpackTE3 = Jetpack.JETPACK_TE_3.getStackJetpack();
 			jetpackTE3Armored = Jetpack.JETPACK_TE_3_ARMORED.getStackJetpack();
+			jetpackTE4 = Jetpack.JETPACK_TE_4.getStackJetpack();
 			jetpackTE4Armored = Jetpack.JETPACK_TE_4_ARMORED.getStackJetpack();
+			jetpackTE5 = Jetpack.JETPLATE_TE_5.getStackJetpack();
 
-			if(integrateRR){
+			if (integrateRR) {
 				jetpackTE5Enderium = Jetpack.JETPLATE_TE_5_ENDERIUM.getStackJetpack();
 			}
 
 			fluxPackTE1 = Fluxpack.FLUXPACK_TE1.getStackFluxpack();
 			fluxPackTE2 = Fluxpack.FLUXPACK_TE2.getStackFluxpack();
-			fluxPackTE3 = Fluxpack.FLUXPACK_TE3.getStackFluxpack();
 			fluxPackTE2Armored = Fluxpack.FLUXPACK_TE2_ARMORED.getStackFluxpack();
+			fluxPackTE3 = Fluxpack.FLUXPACK_TE3.getStackFluxpack();
 			fluxPackTE3Armored = Fluxpack.FLUXPACK_TE3_ARMORED.getStackFluxpack();
 		}
 
 		if (integrateVanilla) {
-			jetpackVanilla1 = Jetpack.JETPACK_VANILLA_1.getStackJetpack();
-			jetpackVanilla2 = Jetpack.JETPACK_VANILLA_2.getStackJetpack();
-			jetpackVanilla3 = Jetpack.JETPACK_VANILLA_3.getStackJetpack();
-
 			thrusterVanilla1 = MetaItemsMods.THRUSTER_VANILLA_1.getStackMetaItem();
 			thrusterVanilla2 = MetaItemsMods.THRUSTER_VANILLA_2.getStackMetaItem();
 			thrusterVanilla3 = MetaItemsMods.THRUSTER_VANILLA_3.getStackMetaItem();
+			jetpackVanilla1 = Jetpack.JETPACK_VANILLA_1.getStackJetpack();
+			jetpackVanilla2 = Jetpack.JETPACK_VANILLA_2.getStackJetpack();
+			jetpackVanilla3 = Jetpack.JETPACK_VANILLA_3.getStackJetpack();
+		}
+
+		if (integrateMek) {
+			thrusterMek1 = MetaItemsMods.THRUSTER_MEK_1.getStackMetaItem();
+			thrusterMek2 = MetaItemsMods.THRUSTER_MEK_2.getStackMetaItem();
+			thrusterMek3 = MetaItemsMods.THRUSTER_MEK_3.getStackMetaItem();
+			thrusterMek4 = MetaItemsMods.THRUSTER_MEK_4.getStackMetaItem();
+			jetpackMek1 = Jetpack.JETPACK_MEK_1.getStackJetpack();
+			jetpackMek2 = Jetpack.JETPACK_MEK_2.getStackJetpack();
+			jetpackMek3 = Jetpack.JETPACK_MEK_3.getStackJetpack();
+			jetpackMek4 = Jetpack.JETPACK_MEK_4.getStackJetpack();
+		}
+
+		if (integrateIE) {
+			thrusterIE1 = MetaItemsMods.THRUSTER_IE_1.getStackMetaItem();
+			thrusterIE2 = MetaItemsMods.THRUSTER_IE_2.getStackMetaItem();
+			thrusterIE3 = MetaItemsMods.THRUSTER_IE_3.getStackMetaItem();
+			jetpackIE1 = Jetpack.JETPACK_IE_1.getStackJetpack();
+			jetpackIE2 = Jetpack.JETPACK_IE_2.getStackJetpack();
+			jetpackIE3 = Jetpack.JETPACK_IE_3.getStackJetpack();
 		}
 	}
 
 	public static void registerRecipes() {
 		gatherIngredients();
 		RecipeHandler.addOreDictRecipe(leatherStrap, "LIL", "LIL", 'L', Items.LEATHER, 'I', "ingotIron");
-		ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackCreative, "J", "P", 'J', jetpackCreative, 'P', "particleCustomizer"));
+		ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpackCreative, "J", "P", 'J', jetpackCreative, 'P', "particle_customizer"));
 
 		Object dustCoal = OreDictionary.getOres("dustCoal").size() > 0 ? "dustCoal" : new ItemStack(Items.COAL);
 		RecipeHandler.addOreDictRecipe(particleDefault, " D ", "DCD", " D ", 'C', dustCoal, 'D', Blocks.TORCH);

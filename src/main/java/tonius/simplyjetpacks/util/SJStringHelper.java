@@ -41,7 +41,7 @@ public abstract class SJStringHelper {
 
 	public static String getHoverModeText(boolean state) {
 		String enabledOrDisabled = state ? TextFormatting.GREEN + localize("tooltip.enabled") : TextFormatting.RED + localize("tooltip.disabled");
-		return TextFormatting.GOLD + localize("tooltip.hoverMode") + ": " + enabledOrDisabled;
+		return TextFormatting.GOLD + localize("tooltip.hover_mode") + ": " + enabledOrDisabled;
 	}
 
 	public static String getChargerStateText(boolean state) {
@@ -164,7 +164,8 @@ public abstract class SJStringHelper {
 	public static void addDescriptionLines(List<String> list, String base, String color) {
 		int i = 1;
 		while (true) {
-			String unlocalized = SimplyJetpacks.PREFIX + "tooltip." + base + ".description." + i;
+			//String unlocalized = SimplyJetpacks.PREFIX + "tooltip." + base + ".description." + i;
+			String unlocalized = "tooltip." + SimplyJetpacks.PREFIX + base + ".description." + i;
 			String localized = translateToLocal(unlocalized);
 			if (unlocalized.equals(localized)) {
 				break;

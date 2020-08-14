@@ -13,44 +13,46 @@ import java.util.List;
 
 public class Config {
 
-    public static final List<Section> configSections = new ArrayList<Section>();
+    public static final List<Section> configSections = new ArrayList<>();
     private static final Section sectionItem = new Section(false, "Item Settings", "item");
     private static final Section sectionIntegration = new Section(false, "Integration Settings", "integration");
     private static final Section sectionControls = new Section(true, "Controls Settings", "controls");
     private static final Section sectionAesthetics = new Section(true, "Aesthetics Settings", "aesthetics");
     private static final Section sectionSounds = new Section(true, "Sound Settings", "sounds");
     private static final Section sectionGui = new Section(true, "GUI Settings", "gui");
-    public static Configuration config;
+    public static Configuration configCommon;
     public static Configuration configClient;
 
-    // item
+    // Item
     public static int enchantFuelEfficiencyID = Defaults.enchantFuelEfficiencyID;
     public static boolean flammableFluidsExplode = Defaults.flammableFluidsExplode;
     public static boolean addRAItemsIfNotInstalled = Defaults.addRAItemsIfNotInstalled;
 
-    // integration
+    // Integration
+    public static boolean enableIntegrationVanilla = Defaults.enableIntegrationVanilla;
     public static boolean enableIntegrationEIO = Defaults.enableIntegrationEIO;
     public static boolean enableIntegrationTE = Defaults.enableIntegrationTE;
     public static boolean enableIntegrationTD = Defaults.enableIntegrationTD;
     public static boolean enableIntegrationRA = Defaults.enableIntegrationRA;
-    public static boolean enableIntegrationVanilla = Defaults.enableIntegrationVanilla;
+    public static boolean enableIntegrationMek = Defaults.enableIntegrationMek;
+    public static boolean enableIntegrationIE = Defaults.enableIntegrationIE;
     public static boolean enableIntegrationRR = Defaults.enableIntegrationRR;
     public static int gelidEnderiumFuelUsageBonus = Defaults.gelidEnderiumFuelUsageBonus;
 
-    // controls
+    // Controls
     public static boolean customControls = Defaults.customControls;
     public static String flyKey = Defaults.flyKey;
     public static String descendKey = Defaults.descendKey;
     public static boolean invertHoverSneakingBehavior = Defaults.invertHoverSneakingBehavior;
     public static boolean doubleTapSprintInAir = Defaults.doubleTapSprintInAir;
 
-    // aesthetics
+    // Aesthetics
     public static boolean enableArmor3DModels = Defaults.enableArmor3DModels;
 
-    // sounds
+    // Sounds
     public static boolean jetpackSounds = Defaults.jetpackSounds;
 
-    // gui
+    // GUI
     public static boolean holdShiftForDetails = Defaults.holdShiftForDetails;
     public static int HUDPosition = Defaults.HUDPosition;
     public static int HUDOffsetX = Defaults.HUDOffsetX;
@@ -64,26 +66,28 @@ public class Config {
     public static boolean enableStateMessages = Defaults.enableStateMessages;
 
     public static void preInit(FMLPreInitializationEvent evt) {
-        config = new Configuration(new File(evt.getModConfigurationDirectory(), SimplyJetpacks.MODID + ".cfg"));
+        configCommon = new Configuration(new File(evt.getModConfigurationDirectory(), SimplyJetpacks.MODID + "-common.cfg"));
         configClient = new Configuration(new File(evt.getModConfigurationDirectory(), SimplyJetpacks.MODID + "-client.cfg"));
-        config.load();
+        configCommon.load();
         configClient.load();
         processConfig();
         SimplyJetpacks.proxy.updateCustomKeybinds(flyKey, descendKey);
     }
 
     private static void processConfig() {
-        enchantFuelEfficiencyID = config.get(sectionItem.name, "Fuel Efficiency enchant ID", Defaults.enchantFuelEfficiencyID, "The ID of the Fuel Efficiency enchantment. Set to 0 to disable.").setMinValue(0).setMaxValue(255).setRequiresMcRestart(true).getInt();
-        flammableFluidsExplode = config.get(sectionItem.name, "Jetpacks explode in flammable fluid blocks", Defaults.flammableFluidsExplode, "When enabled, jetpacks will explode and kill their users when they are being used to fly through flammable fluid blocks.").getBoolean(Defaults.flammableFluidsExplode);
-        addRAItemsIfNotInstalled = config.get(sectionItem.name, "Add Redstone Arsenal items if not installed", Defaults.addRAItemsIfNotInstalled, "When enabled, Simply Jetpacks will register some crafting components from Redstone Arsenal to make the Flux-Infused JetPlate craftable if Redstone Arsenal is not installed.").setRequiresMcRestart(true).getBoolean(Defaults.addRAItemsIfNotInstalled);
+        enchantFuelEfficiencyID = configCommon.get(sectionItem.name, "Fuel Efficiency enchant ID", Defaults.enchantFuelEfficiencyID, "The ID of the Fuel Efficiency enchantment. Set to 0 to disable.").setMinValue(0).setMaxValue(255).setRequiresMcRestart(true).getInt();
+        flammableFluidsExplode = configCommon.get(sectionItem.name, "Jetpacks explode in flammable fluid blocks", Defaults.flammableFluidsExplode, "When enabled, jetpacks will explode and kill their users when they are being used to fly through flammable fluid blocks.").getBoolean(Defaults.flammableFluidsExplode);
+        addRAItemsIfNotInstalled = configCommon.get(sectionItem.name, "Add Redstone Arsenal items if not installed", Defaults.addRAItemsIfNotInstalled, "When enabled, Simply Jetpacks will register some crafting components from Redstone Arsenal to make the Flux-Infused JetPlate craftable if Redstone Arsenal is not installed.").setRequiresMcRestart(true).getBoolean(Defaults.addRAItemsIfNotInstalled);
 
-        enableIntegrationEIO = config.get(sectionIntegration.name, "Ender IO integration", Defaults.enableIntegrationEIO, "When enabled, Simply Jetpacks will register its Ender IO-based jetpacks and flux packs.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationEIO);
-        enableIntegrationTE = config.get(sectionIntegration.name, "ThermalExpansion integration", Defaults.enableIntegrationTE, "When enabled, Simply Jetpacks will register its Thermal Expansion-based jetpacks and flux packs.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationTE);
-        enableIntegrationTD = config.get(sectionIntegration.name, "ThermalDynamics integration", Defaults.enableIntegrationTD, "When enabled, Simply Jetpacks will register ThermalDynamic items for thruster recipes.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationTD);
-        enableIntegrationRA = config.get(sectionIntegration.name, "RedstoneArsenal integration", Defaults.enableIntegrationRA, "When enabled, Simply Jetpacks will register its RedstoneArsenal tier5 jetpack recipes.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationRA);
-        enableIntegrationVanilla = config.get(sectionIntegration.name, "Vanilla integration", Defaults.enableIntegrationVanilla, "When enabled, Simply Jetpacks will register its Vanilla-based jetpacks.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationVanilla);
-        enableIntegrationRR = config.get(sectionIntegration.name, "Redstone Repository integration", Defaults.enableIntegrationRA, "When enabled, Simply Jetpacks will register its RedstoneRepository tier5 jetplate recipes.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationRR);
-        gelidEnderiumFuelUsageBonus = config.get(sectionIntegration.name, "RedstoneRepository Fuel Efficiency Bonus", Defaults.gelidEnderiumFuelUsageBonus, "When set to a value between 0-100, changes the fuel efficiency bonus of the Enderium Armored Jetplate (Ex: 80 uses fuel at 80% rate").setMinValue(0).setMaxValue(100).setRequiresMcRestart(true).getInt(Defaults.gelidEnderiumFuelUsageBonus);
+        enableIntegrationVanilla = configCommon.get(sectionIntegration.name, "Vanilla integration", Defaults.enableIntegrationVanilla, "When enabled, Simply Jetpacks will register its Vanilla-based jetpacks.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationVanilla);
+        enableIntegrationEIO = configCommon.get(sectionIntegration.name, "Ender IO integration", Defaults.enableIntegrationEIO, "When enabled, Simply Jetpacks will register its Ender IO-based jetpacks and flux packs.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationEIO);
+        enableIntegrationTE = configCommon.get(sectionIntegration.name, "ThermalExpansion integration", Defaults.enableIntegrationTE, "When enabled, Simply Jetpacks will register its Thermal Expansion-based jetpacks and flux packs.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationTE);
+        enableIntegrationTD = configCommon.get(sectionIntegration.name, "ThermalDynamics integration", Defaults.enableIntegrationTD, "When enabled, Simply Jetpacks will register ThermalDynamic items for thruster recipes.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationTD);
+        enableIntegrationRA = configCommon.get(sectionIntegration.name, "RedstoneArsenal integration", Defaults.enableIntegrationRA, "When enabled, Simply Jetpacks will register its RedstoneArsenal tier5 jetpack recipes.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationRA);
+        enableIntegrationMek = configCommon.get(sectionIntegration.name, "Mekanism integration", Defaults.enableIntegrationMek, "When enabled, Simply Jetpacks will register its Mekanism-based Jetpacks.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationMek);
+        enableIntegrationIE = configCommon.get(sectionIntegration.name, "Immersive Engineering integration", Defaults.enableIntegrationIE, "When enabled, Simply Jetpacks will register its Immersive Engineering Jetpacks.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationIE);
+        enableIntegrationRR = configCommon.get(sectionIntegration.name, "Redstone Repository integration", Defaults.enableIntegrationRA, "When enabled, Simply Jetpacks will register its RedstoneRepository tier5 jetplate recipes.").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationRR);
+        gelidEnderiumFuelUsageBonus = configCommon.get(sectionIntegration.name, "RedstoneRepository Fuel Efficiency Bonus", Defaults.gelidEnderiumFuelUsageBonus, "When set to a value between 0-100, changes the fuel efficiency bonus of the Enderium Armored Jetplate (Ex: 80 uses fuel at 80% rate").setMinValue(0).setMaxValue(100).setRequiresMcRestart(true).getInt(Defaults.gelidEnderiumFuelUsageBonus);
 
         customControls = configClient.get(sectionControls.name, "Custom controls", Defaults.customControls, "When enabled, the key codes specified here will be used for the fly and descend keys. Otherwise, the vanilla jump and sneak keys will be used.").getBoolean(Defaults.customControls);
         flyKey = configClient.get(sectionControls.name, "Custom Fly key", Defaults.flyKey, "The name of the Fly key when custom controls are enabled.").getString();
@@ -107,8 +111,8 @@ public class Config {
         enableStateHUD = configClient.get(sectionGui.name, "Enable State HUD", Defaults.enableStateHUD, "When enabled, a HUD that displays the states (engine/mode/etc.) of the currently worn jetpack or flux pack will show.").getBoolean(Defaults.enableStateHUD);
         enableStateMessages = configClient.get(sectionGui.name, "Enable State Messages", Defaults.enableStateMessages, "When enabled, switching jetpacks or flux packs on or off, or change their modes will display a status message above the inventory bar.").getBoolean(Defaults.enableStateMessages);
 
-        //PackBase.loadAllConfigs(config);
-        Jetpack.loadAllConfigs(config);
-        Fluxpack.loadAllConfigs(config);
+        //PackBase.loadAllConfigs(configCommon);
+        Jetpack.loadAllConfigs(configCommon);
+        Fluxpack.loadAllConfigs(configCommon);
     }
 }

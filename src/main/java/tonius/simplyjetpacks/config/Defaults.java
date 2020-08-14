@@ -5,34 +5,36 @@ import tonius.simplyjetpacks.integration.ModType;
 
 public abstract class Defaults {
 
-    // item
+    // Item
     public static final int enchantFuelEfficiencyID = 110;
     public static final boolean flammableFluidsExplode = false;
     public static final boolean addRAItemsIfNotInstalled = true;
 
-    // integration
+    // Integration
+    public static final boolean enableIntegrationVanilla = true;
     public static final boolean enableIntegrationEIO = ModType.ENDER_IO.loaded;
     public static final boolean enableIntegrationTE = ModType.THERMAL_EXPANSION.loaded;
     public static final boolean enableIntegrationTD = ModType.THERMAL_DYNAMICS.loaded;
+    public static final boolean enableIntegrationMek = ModType.MEKANISM.loaded;
+    public static final boolean enableIntegrationIE = ModType.IMMERSIVE_ENGINEERING.loaded;
     public static boolean enableIntegrationRA = ModType.REDSTONE_ARSENAL.loaded;
-    public static final boolean enableIntegrationVanilla = false;
     public static final boolean enableIntegrationRR = ModType.REDSTONE_REPOSITORY.loaded;
     public static final int gelidEnderiumFuelUsageBonus = 80;
 
-    // controls
+    // Controls
     public static final boolean customControls = false;
     public static final String flyKey = "SPACE";
     public static final String descendKey = "LSHIFT";
     public static final boolean invertHoverSneakingBehavior = false;
     public static final boolean doubleTapSprintInAir = true;
 
-    // aesthetics
+    // Aesthetics
     public static final boolean enableArmor3DModels = true;
 
-    // sounds
+    // Sounds
     public static final boolean jetpackSounds = true;
 
-    // gui
+    // GUI
     public static final boolean holdShiftForDetails = true;
     public static final int HUDPosition = HUDPositions.TOP_LEFT.ordinal();
     public static final int HUDOffsetX = 0;

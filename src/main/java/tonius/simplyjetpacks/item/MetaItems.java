@@ -9,18 +9,18 @@ import java.util.EnumSet;
 
 public enum MetaItems {
 
-    PARTICLE_DEFAULT("particle_Default", "particleCustomizers", EnumRarity.COMMON),
-    PARTICLE_NONE("particle_None", "particleCustomizers", EnumRarity.COMMON),
-    PARTICLE_SMOKE("particle_Smoke", "particleCustomizers", EnumRarity.COMMON),
-    PARTICLE_RAINBOWSMOKE("particle_Rainbow_Smoke", "particleCustomizers", EnumRarity.COMMON),
+    PARTICLE_DEFAULT("particle_default", "particle_customizers", EnumRarity.COMMON),
+    PARTICLE_NONE("particle_none", "particle_customizers", EnumRarity.COMMON),
+    PARTICLE_SMOKE("particle_smoke", "particle_customizers", EnumRarity.COMMON),
+    PARTICLE_RAINBOW("particle_rainbow", "particle_customizers", EnumRarity.COMMON),
 
-    LEATHER_STRAP("leather_Strap", null, EnumRarity.COMMON);
+    LEATHER_STRAP("leather_strap", null, EnumRarity.COMMON);
 
     private final String name;
     private final String keyTooltip;
     private final EnumRarity rarity;
 
-    public static final EnumSet<MetaItems> PARTICLE_CUSTOMIZERS = EnumSet.range(PARTICLE_DEFAULT, PARTICLE_RAINBOWSMOKE);
+    public static final EnumSet<MetaItems> PARTICLE_CUSTOMIZERS = EnumSet.range(PARTICLE_DEFAULT, PARTICLE_RAINBOW);
 
     MetaItems(String name, String keyTooltip, EnumRarity rarity) {
         this.name = name;

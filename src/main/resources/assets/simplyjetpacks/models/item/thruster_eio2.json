@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "simplyjetpacks:items/thruster_eio2"
+    "layer0": "simplyjetpacks:item/thruster_eio2"
   }
 }

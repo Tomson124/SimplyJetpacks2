@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "simplyjetpacks:jetpack_vanilla2_armored"
+    },
+    "title": {
+      "translate": "advancements.simplyjetpacks.jetpack_vanilla2_armored.title"
+    },
+    "description": {
+      "translate": "advancements.simplyjetpacks.jetpack_vanilla2_armored.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "jetpack_vanilla2_armored": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "simplyjetpacks:jetpack_vanilla2_armored",
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 1
+  },
+  "parent": "simplyjetpacks:vanilla/jetpack_vanilla2"
+}

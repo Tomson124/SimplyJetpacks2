@@ -15,21 +15,21 @@ import java.util.Locale;
 
 public enum Fluxpack implements IStringSerializable {
 
-	CREATIVE_FLUXPACK("fluxPack_creative", "fluxPackCreative", 6, EnumRarity.EPIC, false, true),
+	FLUXPACK_CREATIVE("fluxpack_creative", "fluxpack_creative", 6, EnumRarity.EPIC, false, true),
 
 	// EnderIO
-	FLUXPACK_EIO1("fluxPack_EIO1", "fluxPackEIO1", 1, EnumRarity.COMMON),
-	FLUXPACK_EIO2("fluxPack_EIO2", "fluxPackEIO2", 2, EnumRarity.UNCOMMON),
-	FLUXPACK_EIO3("fluxPack_EIO3", "fluxPackEIO3", 3, EnumRarity.RARE),
-	FLUXPACK_EIO2_ARMORED("fluxPack_EIO2_Armored", "fluxPackEIO2", 2, EnumRarity.UNCOMMON, true, true, MetaItemsMods.ARMOR_PLATING_EIO_2.ordinal()),
-	FLUXPACK_EIO3_ARMORED("fluxPack_EIO3_Armored", "fluxPackEIO3", 3, EnumRarity.RARE, true, true, MetaItemsMods.ARMOR_PLATING_EIO_4.ordinal()),
+	FLUXPACK_EIO1("fluxpack_eio1", "fluxpack_eio1", 1, EnumRarity.COMMON),
+	FLUXPACK_EIO2("fluxpack_eio2", "fluxpack_eio2", 2, EnumRarity.UNCOMMON),
+	FLUXPACK_EIO3("fluxpack_eio3", "fluxpack_eio3", 3, EnumRarity.RARE),
+	FLUXPACK_EIO2_ARMORED("fluxpack_eio2_armored", "fluxpack_eio2", 2, EnumRarity.UNCOMMON, true, true, MetaItemsMods.ARMOR_PLATING_EIO_2.ordinal()),
+	FLUXPACK_EIO3_ARMORED("fluxpack_eio3_armored", "fluxpack_eio3", 3, EnumRarity.RARE, true, true, MetaItemsMods.ARMOR_PLATING_EIO_4.ordinal()),
 
 	// Thermal Expansion
-	FLUXPACK_TE1("fluxPack_TE1", "fluxPackTE1", 1, EnumRarity.COMMON),
-	FLUXPACK_TE2("fluxPack_TE2", "fluxPackTE2", 2, EnumRarity.UNCOMMON),
-	FLUXPACK_TE3("fluxPack_TE3", "fluxPackTE3", 3, EnumRarity.RARE),
-	FLUXPACK_TE2_ARMORED("fluxPack_TE2_Armored", "fluxPackTE2", 2, EnumRarity.UNCOMMON, true, true, MetaItemsMods.ARMOR_PLATING_TE_2.ordinal()),
-	FLUXPACK_TE3_ARMORED("fluxPack_TE3_Armored", "fluxPackTE3", 3, EnumRarity.RARE, true, true, MetaItemsMods.ARMOR_PLATING_TE_4.ordinal());
+	FLUXPACK_TE1("fluxpack_te1", "fluxpack_te1", 1, EnumRarity.COMMON),
+	FLUXPACK_TE2("fluxpack_te2", "fluxpack_te2", 2, EnumRarity.UNCOMMON),
+	FLUXPACK_TE3("fluxpack_te3", "fluxpack_te3", 3, EnumRarity.RARE),
+	FLUXPACK_TE2_ARMORED("fluxpack_te2_armored", "fluxpack_te2", 2, EnumRarity.UNCOMMON, true, true, MetaItemsMods.ARMOR_PLATING_TE_2.ordinal()),
+	FLUXPACK_TE3_ARMORED("fluxpack_te3_armored", "fluxpack_te3", 3, EnumRarity.RARE, true, true, MetaItemsMods.ARMOR_PLATING_TE_4.ordinal());
 
 	public final @Nonnull String baseName;
 	public final @Nonnull String unlocalisedName;
@@ -50,7 +50,7 @@ public enum Fluxpack implements IStringSerializable {
 
 	public boolean isArmored;
 
-	protected static final EnumSet<Fluxpack> SJ_FLUXPACKS = EnumSet.of(CREATIVE_FLUXPACK);
+	protected static final EnumSet<Fluxpack> SJ_FLUXPACKS = EnumSet.of(FLUXPACK_CREATIVE);
 	public static final EnumSet<Fluxpack> EIO_FLUXPACKS = EnumSet.range(FLUXPACK_EIO1, FLUXPACK_EIO3_ARMORED);
 	public static final EnumSet<Fluxpack> TE_FLUXPACKS = EnumSet.range(FLUXPACK_TE1, FLUXPACK_TE3_ARMORED);
 	public static final EnumSet<Fluxpack> TE_FLUXPACKS_ARMORED = EnumSet.of(FLUXPACK_TE2_ARMORED, FLUXPACK_TE3_ARMORED);

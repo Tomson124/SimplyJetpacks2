@@ -99,6 +99,13 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			for (Jetpack pack : Jetpack.PACKS_SJ) {
 				ItemHelper.addJetpacks(pack, List);
 			}
+			if (ModItems.integrateVanilla) {
+				for (Jetpack pack : Jetpack.PACKS_VANILLA) {
+					ItemStack stack;
+					stack = new ItemStack(this, 1, pack.ordinal());
+					List.add(stack);
+				}
+			}
 			if (ModItems.integrateEIO) {
 				for (Jetpack pack : Jetpack.PACKS_EIO) {
 					ItemHelper.addJetpacks(pack, List);
@@ -109,23 +116,22 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 					ItemHelper.addJetpacks(pack, List);
 				}
 			}
+			if (ModItems.integrateMek) {
+				for (Jetpack pack : Jetpack.PACKS_MEK) {
+					ItemHelper.addJetpacks(pack, List);
+				}
+			}
+			if (ModItems.integrateIE) {
+				for (Jetpack pack : Jetpack.PACKS_IE) {
+					ItemHelper.addJetpacks(pack, List);
+				}
+			}
 			if (ModItems.integrateRR) {
 				for (Jetpack pack : Jetpack.PACKS_RR) {
 					ItemHelper.addJetpacks(pack, List);
 				}
 			}
-			if (ModItems.integrateVanilla) {
-				for (Jetpack pack : Jetpack.PACKS_VANILLA) {
-					ItemStack stack;
-					stack = new ItemStack(this, 1, pack.ordinal());
-					List.add(stack);
-				}
-			}
 		}
-	}
-
-	@Override
-	public void onUpdate(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull Entity entity, int par4, boolean par5) {
 	}
 
 	@Override
@@ -228,7 +234,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@SideOnly(Side.CLIENT)
 	public void shiftInformation(ItemStack stack, @Nonnull List<String> list) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
-
 		list.add(SJStringHelper.getStateText(this.isOn(stack)));
 		list.add(SJStringHelper.getHoverModeText(this.isHoverModeOn(stack)));
 		if (Jetpack.values()[i].getFuelUsage() > 0) {
@@ -256,7 +261,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	protected int getFuelUsage(ItemStack stack) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		int usage = Jetpack.values()[i].getFuelUsage();
-
 		//if (ModEnchantments.fuelEfficiency == null) {
 		if (Jetpack.values()[i].getBaseName().contains("enderium")) {
 			return (int)Math.round(usage*.8);
@@ -503,7 +507,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 								e.printStackTrace();
 							}
 						}
-
 						//TODO: Re-implement explosions
                         /*if (Config.flammableFluidsExplode) {
                             if (!(user instanceof EntityPlayer) || !((EntityPlayer) user).capabilities.isCreativeMode) {
@@ -522,7 +525,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 				}
 			}
 		}
-
 		if (!user.world.isRemote && Jetpack.values()[i].emergencyHoverMode && this.isEHoverModeOn(stack)) {
 			if (item.getEnergyStored(stack) > 0 && (!this.isHoverModeOn(stack) || !this.isOn(stack))) {
 				if (user.posY < -5) {
@@ -546,11 +548,10 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 
 	protected void chargeInventory(EntityLivingBase user, ItemStack stack, ItemJetpack item) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
-
 		if (this.fuelType == FuelType.ENERGY) {
 			for (int j = 0; j <= 5; j++) {
 				ItemStack currentStack = user.getItemStackFromSlot(EquipmentSlotHelper.fromSlot(j));
-				if (currentStack != null && currentStack != stack && getIEnergyStorage(currentStack) != null && (currentStack.hasCapability(CapabilityEnergy.ENERGY, null) || currentStack.getItem() instanceof IEnergyContainerItem && (!ModItems.integrateRR || !(stack.getItem() instanceof IArmorEnderium)))) {
+				if (currentStack != stack && getIEnergyStorage(currentStack) != null && (currentStack.hasCapability(CapabilityEnergy.ENERGY, null) || currentStack.getItem() instanceof IEnergyContainerItem && (!ModItems.integrateRR || !(stack.getItem() instanceof IArmorEnderium)))) {
 					if (Jetpack.values()[i].usesFuel) {
 						int energyToAdd = Math.min(item.useFuel(stack, Jetpack.values()[i].getFuelPerTickOut(), true), getIEnergyStorage(currentStack).receiveEnergy(Jetpack.values()[i].getFuelPerTickOut(), true));
 						item.useFuel(stack, energyToAdd, false);

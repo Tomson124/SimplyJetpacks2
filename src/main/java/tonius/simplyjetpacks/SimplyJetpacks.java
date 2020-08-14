@@ -64,7 +64,7 @@ public class SimplyJetpacks {
 
     @EventHandler
     public static void loadComplete(FMLLoadCompleteEvent evt) {
-        Config.config.save();
+        Config.configCommon.save();
         Config.configClient.save();
     }
 

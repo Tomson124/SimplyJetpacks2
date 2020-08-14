@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "simplyjetpacks:items/unit_glowstone"
+    "layer0": "simplyjetpacks:item/unit_glowstone"
   }
 }

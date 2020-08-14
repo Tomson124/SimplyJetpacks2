@@ -93,10 +93,6 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	}
 
 	@Override
-	public void onUpdate(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull Entity entity, int par4, boolean par5) {
-	}
-
-	@Override
 	public void onArmorTick(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull ItemStack stack) {
 		if(this.isOn(stack)) {
 			this.chargeInventory(player, stack, this);
@@ -105,7 +101,6 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	public void toggleState(boolean on, ItemStack stack, String type, String tag, EntityPlayer player, boolean showState) {
 		NBTHelper.setBoolean(stack, tag, !on);
-
 		if (player != null && showState) {
 			type = type != null && !type.equals("") ? "chat." + this.name + "." + type : "chat." + this.name + ".on";
 			ITextComponent state = SJStringHelper.localizeNew(on ? "chat.disabled" : "chat.enabled");
@@ -120,22 +115,17 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		}
 	}
 
-	protected void chargeInventory(EntityLivingBase user, ItemStack stack, ItemFluxpack item)
-	{
+	protected void chargeInventory(EntityLivingBase user, ItemStack stack, ItemFluxpack item) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
-
-		if(this.fuelType == FuelType.ENERGY)
-		{
-			for(int j = 0; j <= 5; j++)
-			{
+		if (this.fuelType == FuelType.ENERGY) {
+			for (int j = 0; j <= 5; j++) {
 				ItemStack currentStack = user.getItemStackFromSlot(EquipmentSlotHelper.fromSlot(j));
-				if (currentStack != null && currentStack != stack && getIEnergyStorage(currentStack) != null && (currentStack.hasCapability(CapabilityEnergy.ENERGY, null) || currentStack.getItem() instanceof IEnergyContainerItem)) {
+				if (currentStack != stack && getIEnergyStorage(currentStack) != null && (currentStack.hasCapability(CapabilityEnergy.ENERGY, null) || currentStack.getItem() instanceof IEnergyContainerItem)) {
 					if (Fluxpack.values()[i].usesFuel) {
 						int energyToAdd = Math.min(item.useFuel(stack, Fluxpack.values()[i].getFuelPerTickOut(), true), getIEnergyStorage(currentStack).receiveEnergy(Fluxpack.values()[i].getFuelPerTickOut(), true));
 						item.useFuel(stack, energyToAdd, false);
 						getIEnergyStorage(currentStack).receiveEnergy(energyToAdd, false);
-					}
-					else {
+					} else {
 						getIEnergyStorage(currentStack).receiveEnergy(Fluxpack.values()[i].getFuelPerTickOut(), false);
 					}
 				}
@@ -165,7 +155,6 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	@SideOnly(Side.CLIENT)
 	public void shiftInformation(ItemStack stack, List<String> list) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
-
 		list.add(SJStringHelper.getStateText(this.isOn(stack)));
 		list.add(SJStringHelper.getEnergySendText(Fluxpack.values()[i].getFuelPerTickOut()));
 		if (Fluxpack.values()[i].getFuelPerTickIn() > 0) {

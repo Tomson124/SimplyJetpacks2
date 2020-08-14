@@ -9,7 +9,9 @@ public enum ModType {
 	THERMAL_EXPANSION("thermalexpansion"),
 	REDSTONE_ARSENAL("redstonearsenal"),
 	THERMAL_DYNAMICS("thermaldynamics"),
-	REDSTONE_REPOSITORY("redstonerepository");
+	REDSTONE_REPOSITORY("redstonerepository"),
+	MEKANISM("mekanism"),
+	IMMERSIVE_ENGINEERING("immersiveengineering");
 
 	public final String[] modids;
 	public final boolean loaded;

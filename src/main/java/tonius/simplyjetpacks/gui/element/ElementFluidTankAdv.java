@@ -5,7 +5,7 @@ public class ElementFluidTankAdv { //extends ElementFluidTank {
     // TODO: Re-add GUIs
 /*	public ElementFluidTankAdv(GuiBase gui, int posX, int posY, IFluidTank tank) {
 		super(gui, posX, posY, tank);
-        this.texture = new ResourceLocation(SimplyJetpacks.RESOURCE_PREFIX + "textures/gui/elements/fluidTank.png");
+        this.texture = new ResourceLocation(SimplyJetpacks.RESOURCE_PREFIX + "textures/gui/elements/bar_fluid.png");
     }
     
     @Override

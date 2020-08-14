@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "simplyjetpacks:items/jetpack_te1_armored"
+    "layer0": "simplyjetpacks:item/jetpack_te1_armored"
   }
 }

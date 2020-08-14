@@ -85,6 +85,20 @@ public class ItemMetaMods extends ItemMeta {
 					list.add(stack);
 				}
 			}
+			if (ModItems.integrateMek) {
+				for (MetaItemsMods item : MetaItemsMods.ITEMS_MEK) {
+					ItemStack stack;
+					stack = new ItemStack(this, 1, item.ordinal());
+					list.add(stack);
+				}
+			}
+			if (ModItems.integrateIE) {
+				for (MetaItemsMods item : MetaItemsMods.ITEMS_IE) {
+					ItemStack stack;
+					stack = new ItemStack(this, 1, item.ordinal());
+					list.add(stack);
+				}
+			}
 			if (ModItems.integrateTE) {
 				if (ModItems.integrateRA) {
 					for (MetaItemsMods item : MetaItemsMods.ITEMS_TE_RA) {
@@ -92,8 +106,7 @@ public class ItemMetaMods extends ItemMeta {
 						stack = new ItemStack(this, 1, item.ordinal());
 						list.add(stack);
 					}
-				}
-				else {
+				} else {
 					for (MetaItemsMods item : MetaItemsMods.ITEMS_TE) {
 						ItemStack stack;
 						stack = new ItemStack(this, 1, item.ordinal());

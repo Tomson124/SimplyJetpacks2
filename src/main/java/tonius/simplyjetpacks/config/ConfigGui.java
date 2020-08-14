@@ -24,7 +24,7 @@ public class ConfigGui extends GuiConfig {
             if (configSection.client) {
                 list.add(new ConfigElement(Config.configClient.getCategory(configSection.toLowerCase()).setLanguageKey(prefix + configSection.id)));
             } else {
-                list.add(new ConfigElement(Config.config.getCategory(configSection.toLowerCase()).setLanguageKey(prefix + configSection.id)));
+                list.add(new ConfigElement(Config.configCommon.getCategory(configSection.toLowerCase()).setLanguageKey(prefix + configSection.id)));
             }
         }
         return list;

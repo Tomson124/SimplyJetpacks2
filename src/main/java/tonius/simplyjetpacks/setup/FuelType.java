@@ -2,8 +2,8 @@ package tonius.simplyjetpacks.setup;
 
 public enum FuelType {
 
-	// TODO: Remove FLUID
 	ENERGY(" RF"),
+	// TODO: Remove FLUID
 	FLUID(" mB");
 
 	public final String suffix;

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "simplyjetpacks:items/unit_flight_control_empty"
+    "layer0": "simplyjetpacks:item/unit_flight_control_empty"
   }
 }
