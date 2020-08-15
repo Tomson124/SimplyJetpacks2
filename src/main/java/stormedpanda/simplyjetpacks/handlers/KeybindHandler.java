@@ -51,10 +51,10 @@ public class KeybindHandler {
         ItemStack chestStack = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
         Item chestItem = null;
         JetpackItem jetpack;
-        if(!chestStack.isEmpty()) { chestItem = chestStack.getItem(); }
+        if (!chestStack.isEmpty()) { chestItem = chestStack.getItem(); }
         if (chestItem instanceof JetpackItem) {
             jetpack = (JetpackItem) chestItem;
-            if(JETPACK_GUI_KEY.isPressed()) {
+            if (JETPACK_GUI_KEY.isPressed()) {
                 Minecraft.getInstance().displayGuiScreen(new JetpackGuiScreen());
             }
             if (JETPACK_ENGINE_KEY.isPressed()) {
