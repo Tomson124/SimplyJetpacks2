@@ -27,7 +27,7 @@ public class ItemMeta extends ItemRegistered {
 		this.setUnlocalizedName(SimplyJetpacks.PREFIX + registryName);
 		this.setHasSubtypes(true);
 		this.setMaxDamage(0);
-		this.setCreativeTab(SimplyJetpacks.creativeTab);
+		this.setCreativeTab(SimplyJetpacks.tabSimplyJetpacks);
 
 		numItems = MetaItems.values().length;
 	}

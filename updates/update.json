@@ -3,10 +3,11 @@
   "promos": {
     "1.10.2-latest" : "2.1.3",
     "1.10.2-recommended" : "2.1.3",
-    "1.12.2-latest" : "2.2.7.45",
-    "1.12.2-recommended" : "2.2.7.45"
+    "1.12.2-latest" : "2.2.16.0",
+    "1.12.2-recommended" : "2.2.16.0"
   },
   "1.12.2" : {
+    "2.2.16.0" : "Added Mekanism and Immersive Engineering Integration",
     "2.2.7.45" : "Fix missing textures for EnderIO integration",
     "2.2.6.43" : "Added EnderIO and Redstone Repository support. TE no dependency anymore",
     "2.2.5.39" : "Fix TD integrations, rewrite mod integrations and rewrite config system. Thanks to thundR",

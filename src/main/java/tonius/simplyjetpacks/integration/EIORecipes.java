@@ -7,7 +7,7 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 
 public abstract class EIORecipes {
     public static void addAlloySmelterRecipe(String name, int energy, ItemStack primaryInput, ItemStack secondaryInput, ItemStack tertiaryInput, ItemStack output) {
-        SimplyJetpacks.LOGGER.info("Registering EIO Alloy Smelter recipe");
+        SimplyJetpacks.logger.info("Registering EIO Alloy Smelter recipe");
 
         StringBuilder toSend = new StringBuilder();
 
@@ -63,7 +63,7 @@ public abstract class EIORecipes {
     }
 
     public static void addSoulBinderRecipe(String recipeID, int energy, int xp, String soulTypes, ItemStack input, ItemStack output) {
-        SimplyJetpacks.LOGGER.info("Registering EIO Soul Binder recipe");
+        SimplyJetpacks.logger.info("Registering EIO Soul Binder recipe");
 
         NBTTagCompound toSend = new NBTTagCompound();
 

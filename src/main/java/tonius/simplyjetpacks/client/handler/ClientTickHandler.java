@@ -38,7 +38,7 @@ public class ClientTickHandler {
 		try {
 			sprintToggleTimer = ReflectionHelper.findField(EntityPlayerSP.class, "sprintToggleTimer", "field_71156_d");
 		} catch (Exception e) {
-			SimplyJetpacks.LOGGER.error("Unable to find field 'sprintToggleTimer'");
+			SimplyJetpacks.logger.error("Unable to find field 'sprintToggleTimer'");
 			e.printStackTrace();
 		}
 	}

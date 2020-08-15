@@ -51,7 +51,7 @@ public abstract class TEItems {
 
 
 	public static void init() {
-		SimplyJetpacks.LOGGER.info("Stealing Thermal Expansion's items");
+		SimplyJetpacks.logger.info("Stealing Thermal Expansion's items");
 
 		if (cellBasic != null) {
 			cellBasic.setTagCompound(new NBTTagCompound());

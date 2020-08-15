@@ -86,7 +86,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		this.setUnlocalizedName(SimplyJetpacks.PREFIX + name);
 		this.setHasSubtypes(true);
 		this.setMaxDamage(0);
-		this.setCreativeTab(SimplyJetpacks.creativeTab);
+		this.setCreativeTab(SimplyJetpacks.tabSimplyJetpacks);
 		this.setRegistryName(name);
 
 		numItems = Jetpack.values().length;

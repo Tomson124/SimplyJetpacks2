@@ -35,7 +35,7 @@ minecraft {
 repositories {
     maven {
         name = "Progwml6 Maven"
-        url = "http://dvs1.progwml6.com/files/maven/"
+        url = "https://dvs1.progwml6.com/files/maven/"
     }
     maven {
         name = "ChickenBones Maven"
@@ -50,33 +50,46 @@ repositories {
         url = "https://www.cursemaven.com/"
     }
     maven {
-        name = "blamejared maven"
+        name = "Blamejared Maven"
         url = "https://maven.blamejared.com/"
+    }
+    maven {
+        name = "Tterrag Maven"
+        url = "https://maven.tterrag.com/"
     }
 }
 
 dependencies {
-    apiCompile "curse.maven:mekanism:2835176"
+    deobfProvided "mezz.jei:jei_1.12.2:${jei_version}:api"
+    runtime "mezz.jei:jei_1.12.2:${jei_version}"
+    deobfProvided "mcjty.theoneprobe:TheOneProbe-1.12:${top_version}:api"
+    runtime "mcjty.theoneprobe:TheOneProbe-1.12:${top_version}"
+
+    compile "cofh:RedstoneFlux:${redstoneflux_version}:deobf"
+
+    //runtime "com.enderio.core:EnderCore:${endercore_version}"
+    //runtime "com.enderio.core:EnderCore:${endercore_version}:core"
+    //runtime "com.enderio:EnderIO:${enderio_version}"
+    //runtime "info.loenwind.autoconfig:AutoConfig:1.12.2-1.0.2"
+    //runtime "info.loenwind.autosave:AutoSave:1.12.2-1.0.11"
+
+    deobfProvided "curse.maven:mekanism:2835176"
     runtime "curse.maven:mekanism:2835175"
-
-    //runtime "blusunrize.Immersiveengineering:0.12-93-559:ImmersiveEngineering-0.12-93-559"
-
+    runtime "curse.maven:immersiveengineering:2974106"
+    //runtime "blusunrize.Immersiveengineering:${immersiveengineering_version}:ImmersiveEngineering-${immersiveengineering_version}"
     runtime "codechicken:CodeChickenLib:${codechickenlib_version}:universal"
-    compile "cofh:CoFHCore:1.12.2-4.6.+:deobf"
-    runtime "cofh:CoFHWorld:1.12.2-1.2.+:universal"
-    runtime "cofh:ThermalFoundation:1.12.2-2.6.+:universal"
-    runtime "cofh:ThermalDynamics:1.12.2-2.5.+:universal"
-    runtime "cofh:ThermalExpansion:1.12.2-5.5.+:universal"
-
-    runtime "cofh:RedstoneArsenal:1.12.2-2.6.+:universal"
-    compile "cofh:RedstoneFlux:1.12-2.1.+:deobf"
+    compile "cofh:CoFHCore:${cofhcore_version}:deobf"
+    runtime "cofh:CoFHWorld:${cofhworld_version}:universal"
+    runtime "cofh:ThermalFoundation:${thermalfoundation_version}:universal"
+    runtime "cofh:ThermalDynamics:${thermaldynamics_version}:universal"
+    runtime "cofh:ThermalExpansion:${thermalexpansion_version}:universal"
+    runtime "cofh:RedstoneArsenal:${redstonearsenal_version}:universal"
     compile "curse.maven:redstone-repository-revolved:2695517"
 }
 
 processResources {
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
-
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
         expand 'version':project.version, 'mcversion':project.minecraft.version

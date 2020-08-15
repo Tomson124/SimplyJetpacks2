@@ -22,7 +22,7 @@ public class CommonProxy {
     public static NonNullList<ItemStack> oresListParticles = null;
 
     public void registerHandlers() {
-        SimplyJetpacks.LOGGER.info("Registering Handlers...");
+        SimplyJetpacks.logger.info("Registering Handlers...");
         // TODO: Re-add GUIs
         //NetworkRegistry.INSTANCE.registerGuiHandler(SimplyJetpacks.instance, new GuiHandler());
         FMLCommonHandler.instance().bus().register(new SyncHandler());
@@ -45,7 +45,7 @@ public class CommonProxy {
     }
 
     public void init() {
-        SimplyJetpacks.LOGGER.info("Registering Sounds...");
+        SimplyJetpacks.logger.info("Registering Sounds...");
         SJSoundRegistry.init();
         oresListParticles = OreDictionary.getOres("particleCustomizer");
     }

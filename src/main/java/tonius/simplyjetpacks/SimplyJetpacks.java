@@ -14,15 +14,12 @@ import org.apache.logging.log4j.Logger;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.network.PacketHandler;
-import tonius.simplyjetpacks.setup.ModCreativeTab;
+import tonius.simplyjetpacks.setup.CreativeTabSimplyJetpacks;
 import tonius.simplyjetpacks.setup.ModEnchantments;
 import tonius.simplyjetpacks.setup.ModItems;
 
-@Mod(modid = SimplyJetpacks.MODID, dependencies = SimplyJetpacks.DEPENDENCIES, guiFactory = SimplyJetpacks.GUI_FACTORY)
+@Mod(modid = SimplyJetpacks.MODID, dependencies = SimplyJetpacks.DEPENDENCIES, guiFactory = "tonius.simplyjetpacks.config.ConfigGuiFactory")
 public class SimplyJetpacks {
-
-    //@Instance(MODID)
-    public static SimplyJetpacks INSTANCE;
 
     public static final String MODID = "simplyjetpacks";
     public static final String MODNAME = "Simply Jetpacks 2";
@@ -30,30 +27,33 @@ public class SimplyJetpacks {
     
     public static final String PREFIX = MODID + ".";
     public static final String RESOURCE_PREFIX = MODID + ":";
-    public static final String DEPENDENCIES = "required-after:redstoneflux@[2.0.1,);" + "after:thermalexpansion;" + "after:redstonearsenal;" + "after:thermaldynamics;" + "after:enderio;" + "after:redstonerepository;";
-    public static final String GUI_FACTORY = "tonius.simplyjetpacks.config.ConfigGuiFactory";
+    public static final String DEPENDENCIES = "";//"required-after:redstoneflux@[2.0.1,);" + "after:thermalexpansion;" + "after:redstonearsenal;" + "after:thermaldynamics;" + "after:enderio;" + "after:redstonerepository;";
+
+    @Mod.Instance(MODID)
+    public static SimplyJetpacks instance;
 
     @SidedProxy(clientSide = "tonius.simplyjetpacks.client.ClientProxy", serverSide = "tonius.simplyjetpacks.CommonProxy")
     public static CommonProxy proxy;
-    public static Logger LOGGER = LogManager.getLogger("SimplyJetpacks");
+
+    public static Logger logger = LogManager.getLogger(MODID);
     public static SyncHandler keyboard;
 
-    public static final ModCreativeTab creativeTab = new ModCreativeTab();
+    public static final CreativeTabSimplyJetpacks tabSimplyJetpacks = new CreativeTabSimplyJetpacks();
 
     public SimplyJetpacks() {
         FluidRegistry.enableUniversalBucket();
     }
 
     @EventHandler
-    public static void preInit(FMLPreInitializationEvent evt) {
-        LOGGER.info("Starting Simply Jetpacks 2");
+    public static void preInit(FMLPreInitializationEvent event) {
+        logger.info("Starting Simply Jetpacks 2...");
         MinecraftForge.EVENT_BUS.register(new RegistryHandler());
-        Config.preInit(evt);
+        Config.preInit(event);
         ModItems.preInit();
     }
 
     @EventHandler
-    public static void init(FMLInitializationEvent evt) {
+    public static void init(FMLInitializationEvent event) {
         proxy.registerHandlers();
         proxy.initKeys();
         PacketHandler.init();
@@ -63,13 +63,13 @@ public class SimplyJetpacks {
     }
 
     @EventHandler
-    public static void loadComplete(FMLLoadCompleteEvent evt) {
+    public static void loadComplete(FMLLoadCompleteEvent event) {
         Config.configCommon.save();
         Config.configClient.save();
     }
 
     @EventHandler
-    public static void serverStopping(FMLServerStoppingEvent evt) {
+    public static void serverStopping(FMLServerStoppingEvent event) {
         SyncHandler.clearAll();
     }
 }

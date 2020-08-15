@@ -197,7 +197,7 @@ public abstract class ModItems {
 	}
 
 	private static void registerItems() {
-		SimplyJetpacks.LOGGER.info("Registering items...");
+		SimplyJetpacks.logger.info("Registering items...");
 
 		// Jetpacks / Fluxpacks
 		itemJetpack = register(new ItemJetpack("itemJetpack"));
@@ -454,7 +454,7 @@ public abstract class ModItems {
 	}
 
 	private static void doIMC() {
-		SimplyJetpacks.LOGGER.info("Doing inter-mod communication");
+		SimplyJetpacks.logger.info("Doing inter-mod communication");
 
 		if (integrateEIO) {
 			ItemStack ingotConductiveIron = OreDictionary.getOres("ingotConductiveIron").get(0).copy();
