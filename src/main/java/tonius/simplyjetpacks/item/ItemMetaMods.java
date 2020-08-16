@@ -12,7 +12,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.setup.ModItems;
-import tonius.simplyjetpacks.util.SJStringHelper;
+import tonius.simplyjetpacks.util.SJStringUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -49,10 +49,10 @@ public class ItemMetaMods extends ItemMeta {
 	public void addInformation(ItemStack itemStack, @Nullable World worldIn, @Nonnull List<String> tooltip, @Nonnull ITooltipFlag flagIn) {
 		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
 		if (MetaItemsMods.values()[i].getKeyTooltip() != null) {
-			if (SJStringHelper.canShowDetails()) {
-				SJStringHelper.addDescriptionLines(tooltip, MetaItemsMods.values()[i].getKeyTooltip(), TextFormatting.GRAY.toString());
+			if (SJStringUtil.canShowDetails()) {
+				SJStringUtil.addDescriptionLines(tooltip, MetaItemsMods.values()[i].getKeyTooltip(), TextFormatting.GRAY.toString());
 			} else {
-				tooltip.add(SJStringHelper.getShiftText());
+				tooltip.add(SJStringUtil.getShiftText());
 			}
 		}
 	}

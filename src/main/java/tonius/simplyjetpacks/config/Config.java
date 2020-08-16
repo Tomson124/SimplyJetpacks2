@@ -111,7 +111,6 @@ public class Config {
         enableStateHUD = configClient.get(sectionGui.name, "Enable State HUD", Defaults.enableStateHUD, "When enabled, a HUD that displays the states (engine/mode/etc.) of the currently worn jetpack or flux pack will show.").getBoolean(Defaults.enableStateHUD);
         enableStateMessages = configClient.get(sectionGui.name, "Enable State Messages", Defaults.enableStateMessages, "When enabled, switching jetpacks or flux packs on or off, or change their modes will display a status message above the inventory bar.").getBoolean(Defaults.enableStateMessages);
 
-        //PackBase.loadAllConfigs(configCommon);
         Jetpack.loadAllConfigs(configCommon);
         Fluxpack.loadAllConfigs(configCommon);
     }

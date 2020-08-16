@@ -5,7 +5,7 @@ import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.IConfigElement;
 import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.util.SJStringHelper;
+import tonius.simplyjetpacks.util.SJStringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +13,12 @@ import java.util.List;
 public class ConfigGui extends GuiConfig {
 
     public ConfigGui(GuiScreen parentScreen) {
-        super(parentScreen, getConfigElements(parentScreen), SimplyJetpacks.MODID, false, false, SJStringHelper.localize("config.title"));
+        super(parentScreen, getConfigElements(parentScreen), SimplyJetpacks.MODID, false, false, SJStringUtil.localize("config.", ".title"));
     }
 
     private static List<IConfigElement> getConfigElements(GuiScreen parent) {
         List<IConfigElement> list = new ArrayList<>();
-        String prefix = SimplyJetpacks.PREFIX + "config.";
+        String prefix = "config." + SimplyJetpacks.MODID + ".";
 
         for (Section configSection : Config.configSections) {
             if (configSection.client) {

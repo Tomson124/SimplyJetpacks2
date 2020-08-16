@@ -27,6 +27,9 @@ public enum Jetpack implements IStringSerializable {
 	JETPACK_VANILLA_1("jetpack_vanilla1", 1, "jetpack_vanilla1", EnumRarity.COMMON),
 	JETPACK_VANILLA_2("jetpack_vanilla2", 2, "jetpack_vanilla2", EnumRarity.UNCOMMON),
 	JETPACK_VANILLA_3("jetpack_vanilla3", 3, "jetpack_vanilla3", EnumRarity.RARE),
+	JETPACK_VANILLA_1_ARMORED("jetpack_vanilla1_armored", 1, "jetpack_vanilla1", EnumRarity.COMMON, true),
+	JETPACK_VANILLA_2_ARMORED("jetpack_vanilla2_armored", 2, "jetpack_vanilla2", EnumRarity.UNCOMMON, true),
+	JETPACK_VANILLA_3_ARMORED("jetpack_vanilla3_armored", 3, "jetpack_vanilla3", EnumRarity.RARE, true),
 
 	// EnderIO
 	JETPACK_EIO_1("jetpack_eio1", 1, "jetpack_eio1", EnumRarity.COMMON),
@@ -52,27 +55,27 @@ public enum Jetpack implements IStringSerializable {
 	JETPLATE_TE_5_ENDERIUM("jetpack_te5_enderium", 5, "jetpack_te5_enderium", EnumRarity.EPIC, true),
 
 	// Mekanism
-	JETPACK_MEK_1("jetpack_mek1", 1, "jetpack_te1", EnumRarity.COMMON),
-	JETPACK_MEK_2("jetpack_mek2", 2, "jetpack_te2", EnumRarity.COMMON),
-	JETPACK_MEK_3("jetpack_mek3", 3, "jetpack_te3", EnumRarity.UNCOMMON),
-	JETPACK_MEK_4("jetpack_mek4", 4, "jetpack_te4", EnumRarity.RARE),
-	JETPACK_MEK_1_ARMORED("jetpack_mek1_armored", 1, "jetpack_te1", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_MEK_1.ordinal()),
-	JETPACK_MEK_2_ARMORED("jetpack_mek2_armored", 2, "jetpack_te2", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_MEK_2.ordinal()),
-	JETPACK_MEK_3_ARMORED("jetpack_mek3_armored", 3, "jetpack_te3", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_MEK_3.ordinal()),
-	JETPACK_MEK_4_ARMORED("jetpack_mek4_armored", 4, "jetpack_te4", EnumRarity.RARE, true, MetaItemsMods.ARMOR_PLATING_MEK_4.ordinal()),
+	JETPACK_MEK_1("jetpack_mek1", 1, "jetpack_mek1", EnumRarity.COMMON),
+	JETPACK_MEK_2("jetpack_mek2", 2, "jetpack_mek2", EnumRarity.COMMON),
+	JETPACK_MEK_3("jetpack_mek3", 3, "jetpack_mek3", EnumRarity.UNCOMMON),
+	JETPACK_MEK_4("jetpack_mek4", 4, "jetpack_mek4", EnumRarity.RARE),
+	JETPACK_MEK_1_ARMORED("jetpack_mek1_armored", 1, "jetpack_mek1", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_MEK_1.ordinal()),
+	JETPACK_MEK_2_ARMORED("jetpack_mek2_armored", 2, "jetpack_mek2", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_MEK_2.ordinal()),
+	JETPACK_MEK_3_ARMORED("jetpack_mek3_armored", 3, "jetpack_mek3", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_MEK_3.ordinal()),
+	JETPACK_MEK_4_ARMORED("jetpack_mek4_armored", 4, "jetpack_mek4", EnumRarity.RARE, true, MetaItemsMods.ARMOR_PLATING_MEK_4.ordinal()),
 
 	// Immersive Engineering
-	JETPACK_IE_1("jetpack_ie1", 1, "jetpack_te1", EnumRarity.COMMON),
-	JETPACK_IE_2("jetpack_ie2", 2, "jetpack_te2", EnumRarity.COMMON),
-	JETPACK_IE_3("jetpack_ie3", 3, "jetpack_te3", EnumRarity.UNCOMMON),
-	JETPACK_IE_1_ARMORED("jetpack_ie1_armored", 1, "jetpack_te1", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_IE_1.ordinal()),
-	JETPACK_IE_2_ARMORED("jetpack_ie2_armored", 2, "jetpack_te2", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_IE_2.ordinal()),
-	JETPACK_IE_3_ARMORED("jetpack_ie3_armored", 3, "jetpack_te3", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_IE_3.ordinal());
+	JETPACK_IE_1("jetpack_ie1", 1, "jetpack_ie1", EnumRarity.COMMON),
+	JETPACK_IE_2("jetpack_ie2", 2, "jetpack_ie2", EnumRarity.COMMON),
+	JETPACK_IE_3("jetpack_ie3", 3, "jetpack_ie3", EnumRarity.UNCOMMON),
+	JETPACK_IE_1_ARMORED("jetpack_ie1_armored", 1, "jetpack_ie1", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_IE_1.ordinal()),
+	JETPACK_IE_2_ARMORED("jetpack_ie2_armored", 2, "jetpack_ie2", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_IE_2.ordinal()),
+	JETPACK_IE_3_ARMORED("jetpack_ie3_armored", 3, "jetpack_ie3", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_IE_3.ordinal());
 
 	protected final PackDefaults defaults;
 	protected static final EnumSet<Jetpack> PACKS_ALL = EnumSet.allOf(Jetpack.class);
 	protected static final EnumSet<Jetpack> PACKS_SJ = EnumSet.of(JETPACK_CREATIVE);
-	public static final EnumSet<Jetpack> PACKS_VANILLA = EnumSet.range(JETPACK_VANILLA_1, JETPACK_VANILLA_3);
+	public static final EnumSet<Jetpack> PACKS_VANILLA = EnumSet.range(JETPACK_VANILLA_1, JETPACK_VANILLA_3_ARMORED);
 	public static final EnumSet<Jetpack> PACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPLATE_EIO_5);
 	public static final EnumSet<Jetpack> PACKS_TE = EnumSet.range(JETPACK_TE_1, JETPLATE_TE_5);
 	public static final EnumSet<Jetpack> PACKS_TE_ARMORED = EnumSet.range(JETPACK_TE_1_ARMORED, JETPACK_TE_4_ARMORED);
@@ -234,6 +237,10 @@ public enum Jetpack implements IStringSerializable {
 	public Jetpack setArmorModel(PackModelType armorModel) {
 		this.armorModel = armorModel;
 		return this;
+	}
+
+	public boolean getGlow() {
+		return this.baseName.contains("creative");
 	}
 
 	public ParticleType getDisplayParticleType(ItemStack stack, ItemJetpack item, EntityLivingBase user) {

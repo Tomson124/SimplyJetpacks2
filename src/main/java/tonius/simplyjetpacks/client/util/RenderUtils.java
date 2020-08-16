@@ -92,7 +92,7 @@ public abstract class RenderUtils {
 
     public static ModelBiped getArmorModel(Fluxpack pack, EntityLivingBase entity) {
         ModelBiped model = null;
-        if (pack.armorModel == PackModelType.FLUX_PACK) {
+        if (pack.armorModel == PackModelType.FLUXPACK) {
             model = ModelFluxPack.INSTANCE;
         }
         if (model == null) {

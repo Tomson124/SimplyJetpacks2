@@ -37,17 +37,13 @@ public class CommonProxy {
     public void updateCustomKeybinds(String flyKeyName, String descendKeyName) {
     }
 
-    public String getPackGUIKey() {
-        return null;
-    }
-
     public void registerItemRenderer(Item item, int meta, String id) {
     }
 
     public void init() {
         SimplyJetpacks.logger.info("Registering Sounds...");
         SJSoundRegistry.init();
-        oresListParticles = OreDictionary.getOres("particleCustomizer");
+        oresListParticles = OreDictionary.getOres("particle_customizer");
     }
 
     public EntityPlayer getPlayer(MessageContext context) {

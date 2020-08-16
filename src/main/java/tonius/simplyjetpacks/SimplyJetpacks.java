@@ -36,7 +36,6 @@ public class SimplyJetpacks {
     public static CommonProxy proxy;
 
     public static Logger logger = LogManager.getLogger(MODID);
-    public static SyncHandler keyboard;
 
     public static final CreativeTabSimplyJetpacks tabSimplyJetpacks = new CreativeTabSimplyJetpacks();
 

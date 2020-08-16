@@ -14,7 +14,8 @@ public enum MetaItems {
     PARTICLE_SMOKE("particle_smoke", "particle_customizers", EnumRarity.COMMON),
     PARTICLE_RAINBOW("particle_rainbow", "particle_customizers", EnumRarity.COMMON),
 
-    LEATHER_STRAP("leather_strap", null, EnumRarity.COMMON);
+    LEATHER_STRAP("leather_strap", null, EnumRarity.COMMON),
+    PILOT_GOGGLES("pilot_goggles", null, EnumRarity.COMMON);
 
     private final String name;
     private final String keyTooltip;

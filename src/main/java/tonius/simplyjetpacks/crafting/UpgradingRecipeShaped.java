@@ -16,15 +16,15 @@ import tonius.simplyjetpacks.util.NBTHelper;
 
 import javax.annotation.Nonnull;
 
-public class UpgradingRecipe extends ShapedOreRecipe {
+public class UpgradingRecipeShaped extends ShapedOreRecipe {
 	private final IEnergyContainerItem resultItem;
 	private final int resultMeta;
 
 	private static int j = 0;
 
-	public UpgradingRecipe(ItemStack result, Object... recipe) {
+	public UpgradingRecipeShaped(ItemStack result, Object... recipe) {
 		super(null, result, recipe);
-		setRegistryName(SimplyJetpacks.MODID, "upgradeRecipe" + j);
+		setRegistryName(SimplyJetpacks.MODID, "upgradeRecipeShaped" + j);
 		j++;
 		this.resultItem = (IEnergyContainerItem) result.getItem();
 		this.resultMeta = result.getItemDamage();

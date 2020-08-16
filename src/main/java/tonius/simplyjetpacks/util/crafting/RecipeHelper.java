@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreIngredient;
 import tonius.simplyjetpacks.RegistryHandler;
 import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.crafting.UpgradingRecipe;
+import tonius.simplyjetpacks.crafting.UpgradingRecipeShaped;
 import tonius.simplyjetpacks.item.Fluxpack;
 import tonius.simplyjetpacks.item.Jetpack;
 
@@ -240,12 +240,12 @@ public final class RecipeHelper {
 		while (i.hasNext() && t.hasNext()) {
 			ItemStack jetpack = ((Jetpack) i.next()).getStackJetpack();
 			ItemStack jetpackArmored = ((Jetpack) t.next()).getStackJetpack();
-			ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpack, "J", 'J', jetpackArmored));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpack, "J", 'J', jetpackArmored));
 		}
 		while (i2.hasNext() && t2.hasNext()) {
 			ItemStack fluxpack = ((Fluxpack) i2.next()).getStackFluxpack();
 			ItemStack fluxpackArmored = ((Fluxpack) t2.next()).getStackFluxpack();
-			ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxpack, "F", 'F', fluxpackArmored));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(fluxpack, "F", 'F', fluxpackArmored));
 		}
 	}
 
@@ -256,11 +256,11 @@ public final class RecipeHelper {
 			if (pack instanceof Jetpack) {
 				ItemStack jetpack = ((Jetpack) i.next()).getStackJetpack();
 				ItemStack jetpackArmored = ((Jetpack) t.next()).getStackJetpack();
-				ForgeRegistries.RECIPES.register(new UpgradingRecipe(jetpack, "J", 'J', jetpackArmored));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpack, "J", 'J', jetpackArmored));
 			} else {
 				ItemStack fluxpack = ((Fluxpack) i.next()).getStackFluxpack();
 				ItemStack fluxpackArmored = ((Fluxpack) t.next()).getStackFluxpack();
-				ForgeRegistries.RECIPES.register(new UpgradingRecipe(fluxpack, "J", 'J', fluxpackArmored));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(fluxpack, "J", 'J', fluxpackArmored));
 			}
 		}
 	}

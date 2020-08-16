@@ -7,18 +7,24 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.network.message.MessageJetpackSync;
-import tonius.simplyjetpacks.network.message.MessageKeyBind;
+import tonius.simplyjetpacks.network.message.MessageKeybind;
 import tonius.simplyjetpacks.network.message.MessageKeyboardSync;
 
 public abstract class PacketHandler {
 
-	public static final SimpleNetworkWrapper instance = NetworkRegistry.INSTANCE.newSimpleChannel("SimplyJetpacks");
+	private static int ID = 0;
+
+	public static int nextID() {
+		return ID++;
+	}
+
+	public static final SimpleNetworkWrapper instance = NetworkRegistry.INSTANCE.newSimpleChannel(SimplyJetpacks.MODID);
 
 	public static void init() {
-		SimplyJetpacks.logger.info("Registering network messages");
-		instance.registerMessage(MessageJetpackSync.class, MessageJetpackSync.class, 0, Side.CLIENT);
-		instance.registerMessage(MessageKeyboardSync.class, MessageKeyboardSync.class, 2, Side.SERVER);
-		instance.registerMessage(MessageKeyBind.class, MessageKeyBind.class, 4, Side.SERVER);
+		SimplyJetpacks.logger.info("Registering Network Messages...");
+		instance.registerMessage(MessageJetpackSync.class, MessageJetpackSync.class, nextID(), Side.CLIENT);
+		instance.registerMessage(MessageKeyboardSync.class, MessageKeyboardSync.class, nextID(), Side.SERVER);
+		instance.registerMessage(MessageKeybind.class, MessageKeybind.class, nextID(), Side.SERVER);
 	}
 
 	public static EntityPlayer getPlayer(MessageContext context) {

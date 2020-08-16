@@ -22,9 +22,6 @@ public class ItemHelper {
     public static OreDictionaryProxy oreProxy = new OreDictionaryProxy();
     public static ResourceLocation resourceLocation = new ResourceLocation(SimplyJetpacks.MODID);
 
-    private ItemHelper() {
-    }
-
     public static boolean oreNameExists(String oreName) {
         return oreProxy.oreNameExists(oreName);
     }

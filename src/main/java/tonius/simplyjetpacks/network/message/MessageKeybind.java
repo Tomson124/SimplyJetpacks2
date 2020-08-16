@@ -13,15 +13,14 @@ import tonius.simplyjetpacks.item.ItemFluxpack;
 import tonius.simplyjetpacks.item.ItemJetpack;
 import tonius.simplyjetpacks.network.PacketHandler;
 
-public class MessageKeyBind implements IMessage, IMessageHandler<MessageKeyBind, IMessage> {
+public class MessageKeybind implements IMessage, IMessageHandler<MessageKeybind, IMessage> {
 
 	public JetpackPacket packetType;
 
-	public MessageKeyBind() {
-
+	public MessageKeybind() {
 	}
 
-	public MessageKeyBind(JetpackPacket type) {
+	public MessageKeybind(JetpackPacket type) {
 		packetType = type;
 	}
 
@@ -36,14 +35,14 @@ public class MessageKeyBind implements IMessage, IMessageHandler<MessageKeyBind,
 	}
 
 	@Override
-	public IMessage onMessage(MessageKeyBind msg, MessageContext ctx) {
+	public IMessage onMessage(MessageKeybind msg, MessageContext ctx) {
 		EntityPlayerMP entityPlayerMP = ctx.getServerHandler().player;
 		WorldServer worldServer = entityPlayerMP.getServerWorld();
 		worldServer.addScheduledTask(() -> handleMessage(msg, ctx));
 		return null;
 	}
 
-	public void handleMessage(MessageKeyBind msg, MessageContext ctx) {
+	public void handleMessage(MessageKeybind msg, MessageContext ctx) {
 		EntityPlayer player = PacketHandler.getPlayer(ctx);
 		ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 

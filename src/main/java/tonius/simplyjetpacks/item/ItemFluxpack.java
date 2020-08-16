@@ -41,7 +41,7 @@ import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.util.EquipmentSlotHelper;
 import tonius.simplyjetpacks.util.ItemHelper;
 import tonius.simplyjetpacks.util.NBTHelper;
-import tonius.simplyjetpacks.util.SJStringHelper;
+import tonius.simplyjetpacks.util.SJStringUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -102,15 +102,13 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	public void toggleState(boolean on, ItemStack stack, String type, String tag, EntityPlayer player, boolean showState) {
 		NBTHelper.setBoolean(stack, tag, !on);
 		if (player != null && showState) {
-			type = type != null && !type.equals("") ? "chat." + this.name + "." + type : "chat." + this.name + ".on";
-			ITextComponent state = SJStringHelper.localizeNew(on ? "chat.disabled" : "chat.enabled");
+			ITextComponent state = on ? SJStringUtil.localizeNew("chat.", ".disabled") : SJStringUtil.localizeNew("chat.", ".enabled");
 			if (on) {
 				state.setStyle(new Style().setColor(TextFormatting.RED));
-			}
-			else {
+			} else {
 				state.setStyle(new Style().setColor(TextFormatting.GREEN));
 			}
-			ITextComponent msg = SJStringHelper.localizeNew(type, state);
+			ITextComponent msg = SJStringUtil.localizeNew("chat.", ".fluxpack." + type, state);
 			player.sendStatusMessage(msg, true);
 		}
 	}
@@ -134,12 +132,23 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean hasEffect(ItemStack itemStack) {
+		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
+		if (Fluxpack.values()[i].getGlow()) {
+			return true;
+		}
+		return super.hasEffect(itemStack);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
 	public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<String> tooltip, @Nonnull ITooltipFlag flagIn) {
 		information(stack, this, tooltip);
-		if (SJStringHelper.canShowDetails()) {
+		if (SJStringUtil.canShowDetails()) {
 			shiftInformation(stack, tooltip);
 		} else {
-			tooltip.add(SJStringHelper.getShiftText());
+			tooltip.add(SJStringUtil.getShiftText());
 		}
 	}
 
@@ -147,20 +156,20 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	public void information(ItemStack stack, ItemFluxpack item, List<String> list) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		if (this.showTier) {
-			list.add(SJStringHelper.getTierText(Fluxpack.values()[i].getTier()));
+			list.add(SJStringUtil.getTierText(Fluxpack.values()[i].getTier()));
 		}
-		list.add(SJStringHelper.getFuelText(this.fuelType, item.getFuelStored(stack), Fluxpack.values()[i].getFuelCapacity(), !Fluxpack.values()[i].usesFuel));
+		list.add(SJStringUtil.getFuelText(this.fuelType, item.getFuelStored(stack), Fluxpack.values()[i].getFuelCapacity(), !Fluxpack.values()[i].usesFuel));
 	}
 
 	@SideOnly(Side.CLIENT)
 	public void shiftInformation(ItemStack stack, List<String> list) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
-		list.add(SJStringHelper.getStateText(this.isOn(stack)));
-		list.add(SJStringHelper.getEnergySendText(Fluxpack.values()[i].getFuelPerTickOut()));
+		list.add(SJStringUtil.getStateText(this.isOn(stack)));
+		list.add(SJStringUtil.getEnergySendText(Fluxpack.values()[i].getFuelPerTickOut()));
 		if (Fluxpack.values()[i].getFuelPerTickIn() > 0) {
-			list.add(SJStringHelper.getEnergyReceiveText(Fluxpack.values()[i].getFuelPerTickIn()));
+			list.add(SJStringUtil.getEnergyReceiveText(Fluxpack.values()[i].getFuelPerTickIn()));
 		}
-		SJStringHelper.addDescriptionLines(list, "fluxpack", TextFormatting.GREEN.toString());
+		SJStringUtil.addDescriptionLines(list, "fluxpack", TextFormatting.GREEN.toString());
 	}
 
 	@Override
@@ -179,12 +188,12 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		int fuel = item.getFuelStored(stack);
 		int maxFuel = item.getMaxFuelStored(stack);
 		int percent = (int) Math.ceil((double) fuel / (double) maxFuel * 100D);
-		return SJStringHelper.getHUDFuelText(this.name, percent, this.fuelType, fuel);
+		return SJStringUtil.getHUDFuelText("fluxpack", percent, fuel);
 	}
 
 	@SideOnly(Side.CLIENT)
 	public String getHUDStatesInfo(ItemStack stack) {
-		return SJStringHelper.getHUDStateText(this.isOn(stack), null, null);
+		return SJStringUtil.getHUDStateText(this.isOn(stack), null, null);
 	}
 
 	public boolean isOn(ItemStack stack) {
@@ -306,7 +315,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		}
 		if (slot == EntityEquipmentSlot.CHEST) {
 			multimap.clear();
-			multimap.put(SharedMonsterAttributes.ARMOR.getName(), new AttributeModifier(ItemJetpack.ARMOR_MODIFIER, "Armor modifier", Fluxpack.values()[i].getArmorReduction(), 0));
+			multimap.put(SharedMonsterAttributes.ARMOR.getName(), new AttributeModifier(ItemJetpack.ARMOR_MODIFIER, "Armor Modifier", Fluxpack.values()[i].getArmorReduction(), 0));
 		}
 		return multimap;
 	}

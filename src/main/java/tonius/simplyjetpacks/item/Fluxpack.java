@@ -78,7 +78,7 @@ public enum Fluxpack implements IStringSerializable {
 		this.unlocalisedName = "item.simplyjetpacks." + baseName;
 		this.usesFuel = true;
 		this.rarity = rarity;
-		this.setArmorModel(PackModelType.FLUX_PACK);
+		this.setArmorModel(PackModelType.FLUXPACK);
 	}
 
 	@Nonnull
@@ -153,6 +153,10 @@ public enum Fluxpack implements IStringSerializable {
 	public Fluxpack setArmorModel(PackModelType armorModel) {
 		this.armorModel = armorModel;
 		return this;
+	}
+
+	public boolean getGlow() {
+		return this.baseName.contains("creative");
 	}
 
 	public static void loadAllConfigs(Configuration config) {

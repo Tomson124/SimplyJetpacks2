@@ -11,7 +11,7 @@ import tonius.simplyjetpacks.CommonProxy;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.handler.ClientTickHandler;
 import tonius.simplyjetpacks.client.handler.HUDTickHandler;
-import tonius.simplyjetpacks.client.handler.KeyTracker;
+import tonius.simplyjetpacks.client.handler.KeybindHandler;
 import tonius.simplyjetpacks.client.util.ParticleUtils;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.math.Pos3D;
@@ -25,7 +25,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void registerHandlers() {
 		super.registerHandlers();
-		MinecraftForge.EVENT_BUS.register(KeyTracker.instance);
+		MinecraftForge.EVENT_BUS.register(new KeybindHandler());
 		MinecraftForge.EVENT_BUS.register(new ClientTickHandler());
 		MinecraftForge.EVENT_BUS.register(new HUDTickHandler());
 	}
@@ -61,11 +61,11 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void updateCustomKeybinds(String flyKeyName, String descendKeyName) {
-		KeyTracker.updateCustomKeybinds(flyKeyName, descendKeyName);
+		KeybindHandler.updateCustomKeybinds(flyKeyName, descendKeyName);
 	}
 
 	@Override
 	public void initKeys() {
-		KeyTracker.addKeys();
+		KeybindHandler.setup();
 	}
 }

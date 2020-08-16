@@ -33,12 +33,17 @@ public class EnchantmentFuelEfficiency extends Enchantment {
     @Nonnull
     @Override
     public String getName() {
-        return SimplyJetpacks.PREFIX + "enchantment.fuelEfficiency";
+        return "enchantment." + SimplyJetpacks.MODID + ".fuel_efficiency";
     }
 
     @Override
     public boolean canApply(ItemStack stack) {
         ModEnchantments.canEnchantItem(stack.getItem());
         return stack.getItem() instanceof ItemJetpack;
+    }
+
+    @Override
+    public boolean isAllowedOnBooks() {
+        return true;
     }
 }

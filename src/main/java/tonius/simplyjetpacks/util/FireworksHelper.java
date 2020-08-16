@@ -12,9 +12,6 @@ import java.util.List;
 
 public final class FireworksHelper {
 
-    public FireworksHelper() {
-    }
-
     public static ItemStack getFireworksStack(int var0, FireworksHelper.Explosion... var1) {
         NBTTagCompound var2 = new NBTTagCompound();
         NBTTagCompound var3 = new NBTTagCompound();

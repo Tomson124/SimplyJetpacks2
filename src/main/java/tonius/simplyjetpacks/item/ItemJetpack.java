@@ -145,15 +145,13 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public void toggleState(boolean on, ItemStack stack, String type, String tag, EntityPlayer player, boolean showState) {
 		NBTHelper.setBoolean(stack, tag, !on);
 		if (player != null && showState) {
-			type = type != null && !type.equals("") ? "chat." + this.name + "." + type : "chat." + this.name + ".on";
-			ITextComponent state = SJStringHelper.localizeNew(on ? "chat.disabled" : "chat.enabled");
+			ITextComponent state = on ? SJStringUtil.localizeNew("chat.", ".disabled") : SJStringUtil.localizeNew("chat.", ".enabled");
 			if (on) {
 				state.setStyle(new Style().setColor(TextFormatting.RED));
-			}
-			else {
+			} else {
 				state.setStyle(new Style().setColor(TextFormatting.GREEN));
 			}
-			ITextComponent msg = SJStringHelper.localizeNew(type, state);
+			ITextComponent msg = SJStringUtil.localizeNew("chat.", ".jetpack." + type, state);
 			player.sendStatusMessage(msg, true);
 		}
 	}
@@ -169,6 +167,16 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 
 	public void setParticleType(ItemStack stack, ParticleType particle) {
 		NBTHelper.setInt(stack, Jetpack.TAG_PARTICLE, particle.ordinal());
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean hasEffect(ItemStack itemStack) {
+		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
+		if (Jetpack.values()[i].getGlow()) {
+			return true;
+		}
+		return super.hasEffect(itemStack);
 	}
 
 	@Nonnull
@@ -212,12 +220,13 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<String> tooltip, @Nonnull ITooltipFlag flagIn) {
 		information(stack, this, tooltip);
-		if (SJStringHelper.canShowDetails()) {
+		if (SJStringUtil.canShowDetails()) {
 			shiftInformation(stack, tooltip);
 		} else {
-			tooltip.add(SJStringHelper.getShiftText());
+			tooltip.add(SJStringUtil.getShiftText());
 		}
 	}
 
@@ -225,25 +234,25 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public void information(ItemStack stack, ItemJetpack item, @Nonnull List<String> list) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		if (this.showTier) {
-			list.add(SJStringHelper.getTierText(Jetpack.values()[i].getTier()));
+			list.add(SJStringUtil.getTierText(Jetpack.values()[i].getTier()));
 		}
 
-		list.add(SJStringHelper.getFuelText(this.fuelType, item.getFuelStored(stack), item.getMaxFuelStored(stack), !Jetpack.values()[i].usesFuel));
+		list.add(SJStringUtil.getFuelText(this.fuelType, item.getFuelStored(stack), item.getMaxFuelStored(stack), !Jetpack.values()[i].usesFuel));
 	}
 
 	@SideOnly(Side.CLIENT)
 	public void shiftInformation(ItemStack stack, @Nonnull List<String> list) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
-		list.add(SJStringHelper.getStateText(this.isOn(stack)));
-		list.add(SJStringHelper.getHoverModeText(this.isHoverModeOn(stack)));
+		list.add(SJStringUtil.getStateText(this.isOn(stack)));
+		list.add(SJStringUtil.getHoverModeText(this.isHoverModeOn(stack)));
 		if (Jetpack.values()[i].getFuelUsage() > 0) {
 			if(Jetpack.values()[i].getBaseName().contains("enderium")){
 				list.add(TextFormatting.BLUE + "Supercooled! Fuel Usage Rate " + Config.gelidEnderiumFuelUsageBonus + "%");
 			}
-			list.add(SJStringHelper.getFuelUsageText(this.fuelType, Jetpack.values()[i].getFuelUsage()));
+			list.add(SJStringUtil.getFuelUsageText(this.fuelType, Jetpack.values()[i].getFuelUsage()));
 		}
-		list.add(SJStringHelper.getParticlesText(Jetpack.values()[i].getParticleType(stack)));
-		SJStringHelper.addDescriptionLines(list, "jetpack", TextFormatting.GREEN.toString());
+		list.add(SJStringUtil.getParticlesText(Jetpack.values()[i].getParticleType(stack)));
+		SJStringUtil.addDescriptionLines(list, "jetpack", TextFormatting.GREEN.toString());
 	}
 
 	public boolean isOn(ItemStack stack) {
@@ -338,7 +347,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		int fuel = item.getFuelStored(stack);
 		int maxFuel = item.getMaxFuelStored(stack);
 		int percent = (int) Math.ceil((double) fuel / (double) maxFuel * 100D);
-		return SJStringHelper.getHUDFuelText(this.name, percent, this.fuelType, fuel);
+		return SJStringUtil.getHUDFuelText("jetpack", percent, fuel);
 	}
 
 	public boolean isHoverModeOn(ItemStack stack) {
@@ -352,9 +361,8 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public void doEHover(ItemStack armor, EntityLivingBase user) {
 		NBTHelper.setBoolean(armor, TAG_ON, true);
 		NBTHelper.setBoolean(armor, TAG_HOVERMODE_ON, true);
-
 		if (user instanceof EntityPlayer) {
-			ITextComponent msg = SJStringHelper.localizeNew("chat.itemJetpack.emergencyHoverMode.msg");
+			ITextComponent msg = SJStringUtil.localizeNew("chat.", ".jetpack.emergency_hover_mode.msg");
 			msg.setStyle(new Style().setColor(TextFormatting.RED));
 			((EntityPlayer) user).sendStatusMessage(msg, true);
 		}
@@ -366,9 +374,9 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		Boolean hover = this.isHoverModeOn(stack);
 		Boolean charger = this.isChargerOn(stack);
 		if (isJetplate(stack)) {
-			return SJStringHelper.getHUDStateText(engine, hover, charger);
+			return SJStringUtil.getHUDStateText(engine, hover, charger);
 		} else {
-			return SJStringHelper.getHUDStateText(engine, hover, null);
+			return SJStringUtil.getHUDStateText(engine, hover, null);
 		}
 	}
 
@@ -405,7 +413,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		}
 		if (slot == EntityEquipmentSlot.CHEST) {
 			multimap.clear();
-			multimap.put(SharedMonsterAttributes.ARMOR.getName(), new AttributeModifier(ARMOR_MODIFIER, "Armor modifier", Jetpack.values()[i].getArmorReduction(), 0));
+			multimap.put(SharedMonsterAttributes.ARMOR.getName(), new AttributeModifier(ARMOR_MODIFIER, "Armor Modifier", Jetpack.values()[i].getArmorReduction(), 0));
 		}
 		return multimap;
 	}
@@ -499,7 +507,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 
 					if (!user.world.isRemote) {
 						user.fallDistance = 0.0F;
-
 						if (user instanceof EntityPlayerMP) {
 							try {
 								floatingTickCount.setInt(((EntityPlayerMP) user).connection, 0);
