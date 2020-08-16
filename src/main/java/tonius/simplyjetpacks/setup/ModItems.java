@@ -188,6 +188,9 @@ public abstract class ModItems {
 		if (item instanceof ItemMetaMods) {
 			((ItemMetaMods) item).registerItemModel();
 		}
+		if (item instanceof ItemPilotGoggles) {
+			((ItemPilotGoggles) item).registerItemModel();
+		}
 		return item;
 	}
 
@@ -501,8 +504,7 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackIE2Armored, jetpackIE3, armorPlatingIE3));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackIE1, "J", 'J', jetpackIE1Armored));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackIE2, "J", 'J', jetpackIE2Armored));
-			//ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackIE3, "J", 'J', jetpackIE2Armored));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackIE3, jetpackIE2Armored));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackIE3, "J", 'J', jetpackIE2Armored));
 
 			for (Jetpack jetpack : Jetpack.PACKS_IE) {
 				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particleCustomizer"));

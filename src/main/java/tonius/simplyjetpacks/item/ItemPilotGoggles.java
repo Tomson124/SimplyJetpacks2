@@ -1,16 +1,21 @@
 package tonius.simplyjetpacks.item;
 
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import sun.net.www.content.image.png;
 import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.client.model.PackModelType;
+import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.util.SJStringUtil;
 
 import javax.annotation.Nonnull;
@@ -19,11 +24,8 @@ import java.util.List;
 
 public class ItemPilotGoggles extends ItemArmor {
 
-    private final String name;
-
     public ItemPilotGoggles(String name) {
-        super(EnumHelper.addArmorMaterial("SJ_GOGGLES", "pilot_goggles", 0, new int[]{0, 0, 0, 0}, 0, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0), 1, EntityEquipmentSlot.HEAD);
-        this.name = name;
+        super(EnumHelper.addArmorMaterial("PILOTGOGGLES_SJ", "pilot_goggles", 0, new int[]{0, 0, 0, 0}, 0, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0), 1, EntityEquipmentSlot.HEAD);
         this.setUnlocalizedName(SimplyJetpacks.PREFIX + name);
         this.setHasSubtypes(false);
         this.setMaxDamage(0);
@@ -54,4 +56,12 @@ public class ItemPilotGoggles extends ItemArmor {
         SJStringUtil.addDescriptionLines(list, "pilot_goggles", TextFormatting.GREEN.toString());
     }
 
+    public void registerItemModel() {
+        SimplyJetpacks.proxy.registerItemRenderer(this, 0, "pilot_goggles");
+    }
+
+    @Override
+    public String getArmorTexture(ItemStack stack, @Nonnull Entity entity, @Nonnull EntityEquipmentSlot slot, @Nonnull String type) {
+        return SimplyJetpacks.RESOURCE_PREFIX + "textures/armor/pilot_goggles.png";
+    }
 }
