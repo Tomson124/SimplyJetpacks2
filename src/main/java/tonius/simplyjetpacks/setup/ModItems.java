@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
@@ -32,7 +33,7 @@ public abstract class ModItems {
 	public static ItemStack particleDefault;
 	public static ItemStack particleSmoke;
 	public static ItemStack particleNone;
-	public static ItemStack particleRainbowSmoke;
+	public static ItemStack particleRainbow;
 
 	// Vanilla
 	public static ItemStack thrusterVanilla1;
@@ -174,7 +175,6 @@ public abstract class ModItems {
 	}
 
 	private static <T extends Item> T register(T item) {
-		//GameRegistry.register(item);
 		ForgeRegistries.ITEMS.register(item);
 		if (item instanceof ItemJetpack) {
 			((ItemJetpack) item).registerItemModel();
@@ -220,7 +220,7 @@ public abstract class ModItems {
 		particleDefault = MetaItems.PARTICLE_DEFAULT.getStackMetaItem();
 		particleSmoke = MetaItems.PARTICLE_SMOKE.getStackMetaItem();
 		particleNone = MetaItems.PARTICLE_NONE.getStackMetaItem();
-		particleRainbowSmoke = MetaItems.PARTICLE_RAINBOW.getStackMetaItem();
+		particleRainbow = MetaItems.PARTICLE_RAINBOW.getStackMetaItem();
 
 		leatherStrap = MetaItems.LEATHER_STRAP.getStackMetaItem();
 		pilotGoggles = register(new ItemPilotGoggles("pilot_goggles"));
@@ -364,7 +364,7 @@ public abstract class ModItems {
 		RecipeHandler.addOreDictRecipe(particleDefault, " D ", "DCD", " D ", 'C', dustCoal, 'D', Blocks.TORCH);
 		RecipeHandler.addOreDictRecipe(particleNone, " D ", "DCD", " D ", 'C', dustCoal, 'D', "blockGlass");
 		RecipeHandler.addOreDictRecipe(particleSmoke, " C ", "CCC", " C ", 'C', dustCoal);
-		RecipeHandler.addOreDictRecipe(particleRainbowSmoke, " R ", " C ", "G B", 'C', dustCoal, 'R', "dyeRed", 'G', "dyeLime", 'B', "dyeBlue");
+		RecipeHandler.addOreDictRecipe(particleRainbow, " R ", " C ", "G B", 'C', dustCoal, 'R', "dyeRed", 'G', "dyeLime", 'B', "dyeBlue");
 
 		if (integrateEIO) {
 			RecipeHandler.addOreDictRecipe(thrusterEIO1, "ICI", "PCP", "DSD", 'I', "ingotConductiveIron", 'P', EIOItems.redstoneConduit, 'C', EIOItems.basicCapacitor, 'D', "gearWood", 'S', "dustRedstone");
@@ -385,7 +385,7 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackEIO5, "OAO", "PJP", "TCT", 'A', EIOItems.enderCrystal, 'J', jetpackEIO4Armored, 'O', "ingot_dark_soularium", 'C', fluxPackEIO3Armored, 'T', thrusterEIO5, 'P', reinforcedGliderWings));
 
 			for (Jetpack jetpack : Jetpack.PACKS_EIO) {
-				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particleCustomizer"));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particle_customizer"));
 			}
 
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackEIO1, "J", 'J', jetpackEIO1Armored));
@@ -448,16 +448,16 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxPackTE2Armored, fluxPackTE2, armorPlatingTE2));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxPackTE3Armored, fluxPackTE3, armorPlatingTE4));
 
-			if(integrateRR){
+			if (integrateRR) {
 				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackTE5Enderium, "PAP", "OJO", "TCT", 'A', RRItems.fluxGelidChestplate, 'J', jetpackTE4Armored, 'O', unitCryotheum, 'C', fluxPackTE3Armored, 'T', thrusterTE5, 'P', plateFlux));
 				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackTE5Enderium, "AJA", "AAA", "AAA", 'A', RRItems.plateArmorGelidEnderium, 'J', jetpackTE5));
-				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackTE5Enderium, "J", "P", 'J', jetpackTE5Enderium, 'P', "particleCustomizer"));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackTE5Enderium, "J", "P", 'J', jetpackTE5Enderium, 'P', "particle_customizer"));
 			}
 
 			RecipeHelper.addArmoredReverseRecipe(Jetpack.PACKS_TE, Jetpack.PACKS_TE_ARMORED, Fluxpack.TE_FLUXPACKS, Fluxpack.TE_FLUXPACKS_ARMORED);
 
 			for (Jetpack jetpack : Jetpack.PACKS_TE) {
-				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particleCustomizer"));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particle_customizer"));
 			}
 		}
 
@@ -477,7 +477,7 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackVanilla3, "J", 'J', jetpackVanilla3Armored));
 
 			for (Jetpack jetpack : Jetpack.PACKS_VANILLA) {
-				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particleCustomizer"));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particle_customizer"));
 			}
 		}
 		if (integrateMek) {
@@ -493,7 +493,7 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackMek4, "J", 'J', jetpackMek4Armored));
 
 			for (Jetpack jetpack : Jetpack.PACKS_MEK) {
-				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particleCustomizer"));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particle_customizer"));
 			}
 		}
 		if (integrateIE) {
@@ -507,7 +507,7 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackIE3, "J", 'J', jetpackIE2Armored));
 
 			for (Jetpack jetpack : Jetpack.PACKS_IE) {
-				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particleCustomizer"));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpack.getStackJetpack(1), "J", "P", 'J', jetpack.getStackJetpack(1), 'P', "particle_customizer"));
 			}
 		}
 	}
