@@ -61,10 +61,7 @@ public class ItemMetaMods extends ItemMeta {
 	@SideOnly(Side.CLIENT)
 	public boolean hasEffect(ItemStack itemStack) {
 		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
-		if (MetaItemsMods.values()[i].getGlow()) {
-			return true;
-		}
-		return super.hasEffect(itemStack);
+		return MetaItemsMods.values()[i].getGlow() || super.hasEffect(itemStack);
 	}
 
 	@Override

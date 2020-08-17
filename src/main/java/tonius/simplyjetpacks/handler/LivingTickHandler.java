@@ -35,51 +35,51 @@ public class LivingTickHandler {
     }
 
     @SubscribeEvent
-    public void onLivingTick(LivingUpdateEvent evt) {
-        if (!evt.getEntityLiving().world.isRemote) {
+    public void onLivingTick(LivingUpdateEvent event) {
+        if (!event.getEntityLiving().world.isRemote) {
             ParticleType jetpackState = null;
-            ItemStack armor = evt.getEntityLiving().getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+            ItemStack armor = event.getEntityLiving().getItemStackFromSlot(EntityEquipmentSlot.CHEST);
             Jetpack jetpack = null;
             if (armor != null && armor.getItem() instanceof ItemJetpack) {
                 int i = MathHelper.clamp(armor.getItemDamage(), 0, numItems - 1);
                 jetpack = Jetpack.getTypeFromMeta(i);
                 if (jetpack != null) {
-                    jetpackState = jetpack.getDisplayParticleType(armor, (ItemJetpack) armor.getItem(), evt.getEntityLiving());
+                    jetpackState = jetpack.getDisplayParticleType(armor, (ItemJetpack) armor.getItem(), event.getEntityLiving());
                 }
             }
-            if (jetpackState != lastJetpackState.get(evt.getEntityLiving().getEntityId())) {
+            if (jetpackState != lastJetpackState.get(event.getEntityLiving().getEntityId())) {
                 if (jetpackState == null) {
-                    lastJetpackState.remove(evt.getEntityLiving().getEntityId());
+                    lastJetpackState.remove(event.getEntityLiving().getEntityId());
                 } else {
-                    lastJetpackState.put(evt.getEntityLiving().getEntityId(), jetpackState);
+                    lastJetpackState.put(event.getEntityLiving().getEntityId(), jetpackState);
                 }
-                PacketHandler.instance.sendToAllAround(new MessageJetpackSync(evt.getEntityLiving().getEntityId(), jetpackState != null ? jetpackState.ordinal() : -1), new TargetPoint(evt.getEntityLiving().dimension, evt.getEntityLiving().posX, evt.getEntityLiving().posY, evt.getEntityLiving().posZ, 256));
-            } else if (jetpack != null && evt.getEntityLiving().world.getTotalWorldTime() % 160L == 0) {
-                PacketHandler.instance.sendToAllAround(new MessageJetpackSync(evt.getEntityLiving().getEntityId(), jetpackState != null ? jetpackState.ordinal() : -1), new TargetPoint(evt.getEntityLiving().dimension, evt.getEntityLiving().posX, evt.getEntityLiving().posY, evt.getEntityLiving().posZ, 256));
+                PacketHandler.instance.sendToAllAround(new MessageJetpackSync(event.getEntityLiving().getEntityId(), jetpackState != null ? jetpackState.ordinal() : -1), new TargetPoint(event.getEntityLiving().dimension, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, 256));
+            } else if (jetpack != null && event.getEntityLiving().world.getTotalWorldTime() % 160L == 0) {
+                PacketHandler.instance.sendToAllAround(new MessageJetpackSync(event.getEntityLiving().getEntityId(), jetpackState != null ? jetpackState.ordinal() : -1), new TargetPoint(event.getEntityLiving().dimension, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, 256));
             }
 
-            if (evt.getEntityLiving().world.getTotalWorldTime() % 200L == 0) {
-                lastJetpackState.keySet().removeIf(entityId -> evt.getEntityLiving().world.getEntityByID(entityId) == null);
+            if (event.getEntityLiving().world.getTotalWorldTime() % 200L == 0) {
+                lastJetpackState.keySet().removeIf(entityId -> event.getEntityLiving().world.getEntityByID(entityId) == null);
             }
         }
     }
 
     // TODO: Investigate and update this
     /*@SubscribeEvent
-	public void mobUseJetpack(LivingUpdateEvent evt) {
-        if (!evt.getEntityLiving().worldObj.isRemote && evt.getEntityLiving() instanceof EntityMob) {
-            ItemStack armor = evt.getEntityLiving().getEquipmentInSlot(3);
+	public void mobUseJetpack(LivingUpdateEvent event) {
+        if (!event.getEntityLiving().worldObj.isRemote && event.getEntityLiving() instanceof EntityMob) {
+            ItemStack armor = event.getEntityLiving().getEquipmentInSlot(3);
             if (armor != null && armor.getItem() instanceof ItemJetpack) {
                 ItemJetpack jetpackItem = (ItemJetpack) armor.getItem();
                 Jetpack jetpack = jetpackItem.getPack(armor);
                 if (jetpack != null) {
                     if (jetpack instanceof JetpackPotato || MathHelper.RANDOM.nextInt(3) == 0) {
                         jetpack.setMobMode(armor);
-                        jetpack.flyUser(evt.getEntityLiving(), armor, jetpackItem, false);
+                        jetpack.flyUser(event.getEntityLiving(), armor, jetpackItem, false);
                     }
                 }
-                if (evt.getEntityLiving().posY > evt.getEntityLiving().worldObj.getActualHeight() + 10) {
-                    evt.getEntityLiving().attackEntityFrom(DamageSource.generic, 80);
+                if (event.getEntityLiving().posY > event.getEntityLiving().worldObj.getActualHeight() + 10) {
+                    event.getEntityLiving().attackEntityFrom(DamageSource.generic, 80);
                 }
             }
         }

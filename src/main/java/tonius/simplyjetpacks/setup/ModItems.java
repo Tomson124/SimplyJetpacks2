@@ -25,14 +25,14 @@ public abstract class ModItems {
 	public static ItemMetaMods metaItemMods;
 
 	// Simply Jetpacks
-	public static ItemPilotGoggles pilotGoggles;
-	public static ItemStack leatherStrap;
 	public static ItemStack jetpackCreative;
 	public static ItemStack fluxpackCreative;
 	public static ItemStack particleDefault;
-	public static ItemStack particleSmoke;
 	public static ItemStack particleNone;
+	public static ItemStack particleSmoke;
 	public static ItemStack particleRainbow;
+	public static ItemStack leatherStrap;
+	public static ItemPilotGoggles pilotGoggles;
 
 	// Vanilla
 	public static ItemStack thrusterVanilla1;
@@ -47,8 +47,8 @@ public abstract class ModItems {
 
 	// EnderIO
 	public static ItemStack unitFlightControlEmpty;
-	public static ItemStack reinforcedGliderWing;
 	public static ItemStack unitFlightControl;
+	public static ItemStack reinforcedGliderWing;
 	public static ItemStack ingotDarkSoularium;
 	public static ItemStack armorplatingEIO1;
 	public static ItemStack armorplatingEIO2;
@@ -76,12 +76,12 @@ public abstract class ModItems {
 	public static ItemStack fluxpackEIO3Armored;
 
 	// Thermal Expansion
-	public static ItemStack unitGlowstone;
 	public static ItemStack unitGlowstoneEmpty;
+	public static ItemStack unitGlowstone;
 	public static ItemStack unitCryotheumEmpty;
 	public static ItemStack unitCryotheum;
-	public static ItemStack plateFlux;
-	public static ItemStack armorFluxPlate;
+	public static ItemStack fluxPlate;
+	public static ItemStack fluxArmorplating;
 	public static ItemStack armorplatingTE1;
 	public static ItemStack armorplatingTE2;
 	public static ItemStack armorplatingTE3;
@@ -159,7 +159,7 @@ public abstract class ModItems {
 
 	public static void init() {
 		registerOreDictionary();
-		doIMC();
+		performIMC();
 	}
 
 	private static <T extends Item> T register(T item) {
@@ -197,19 +197,16 @@ public abstract class ModItems {
 		// Jetpacks / Fluxpacks
 		itemJetpack = register(new ItemJetpack("itemJetpack"));
 		itemFluxPack = register(new ItemFluxpack("itemFluxpack"));
+		jetpackCreative = Jetpack.JETPACK_CREATIVE.getStackJetpack();
+		fluxpackCreative = Fluxpack.FLUXPACK_CREATIVE.getStackFluxpack();
 
 		// Meta Items
 		metaItem = register(new ItemMeta("metaItem"));
 		metaItemMods = register(new ItemMetaMods("metaItemMods"));
-
-		jetpackCreative = Jetpack.JETPACK_CREATIVE.getStackJetpack();
-		fluxpackCreative = Fluxpack.FLUXPACK_CREATIVE.getStackFluxpack();
-
 		particleDefault = MetaItems.PARTICLE_DEFAULT.getStackMetaItem();
-		particleSmoke = MetaItems.PARTICLE_SMOKE.getStackMetaItem();
 		particleNone = MetaItems.PARTICLE_NONE.getStackMetaItem();
+		particleSmoke = MetaItems.PARTICLE_SMOKE.getStackMetaItem();
 		particleRainbow = MetaItems.PARTICLE_RAINBOW.getStackMetaItem();
-
 		leatherStrap = MetaItems.LEATHER_STRAP.getStackMetaItem();
 		pilotGoggles = register(new ItemPilotGoggles("pilot_goggles"));
 	}
@@ -259,17 +256,17 @@ public abstract class ModItems {
 			thrusterTE5 = MetaItemsMods.THRUSTER_TE_5.getStackMetaItem();
 
 			if (!integrateRA && Config.addRAItemsIfNotInstalled) {
-				plateFlux = MetaItemsMods.PLATE_FLUX.getStackMetaItem();
-				armorFluxPlate = MetaItemsMods.ARMOR_PLATE_FLUX.getStackMetaItem();
+				fluxPlate = MetaItemsMods.FLUX_PLATE.getStackMetaItem();
+				fluxArmorplating = MetaItemsMods.FLUX_ARMOR_PLATING.getStackMetaItem();
 			} else if (integrateRA) {
-				plateFlux = RAItems.fluxPlating;
-				armorFluxPlate = RAItems.armorChestPlate;
+				fluxPlate = RAItems.fluxArmorplating;
+				fluxArmorplating = RAItems.fluxPlate;
 			}
 
-			unitGlowstone = MetaItemsMods.UNIT_GLOWSTONE.getStackMetaItem();
 			unitGlowstoneEmpty = MetaItemsMods.UNIT_GLOWSTONE_EMPTY.getStackMetaItem();
-			unitCryotheum = MetaItemsMods.UNIT_CRYOTHEUM.getStackMetaItem();
+			unitGlowstone = MetaItemsMods.UNIT_GLOWSTONE.getStackMetaItem();
 			unitCryotheumEmpty = MetaItemsMods.UNIT_CRYOTHEUM_EMPTY.getStackMetaItem();
+			unitCryotheum = MetaItemsMods.UNIT_CRYOTHEUM.getStackMetaItem();
 
 			armorplatingTE1 = MetaItemsMods.ARMOR_PLATING_TE_1.getStackMetaItem();
 			armorplatingTE2 = MetaItemsMods.ARMOR_PLATING_TE_2.getStackMetaItem();
@@ -376,37 +373,31 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackEIO3, "IBI", "IJI", "T T", 'I', "ingotEnergeticAlloy", 'B', EIOItems.doubleCapacitor, 'T', thrusterEIO3, 'J', jetpackEIO2));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackEIO4, "IBI", "IJI", "T T", 'I', "ingotVibrantAlloy", 'B', EIOItems.octadicCapacitor, 'T', thrusterEIO4, 'J', jetpackEIO3));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackEIO5, "OAO", "PJP", "TCT", 'A', EIOItems.enderCrystal, 'J', jetpackEIO4Armored, 'O', "ingot_dark_soularium", 'C', fluxpackEIO3Armored, 'T', thrusterEIO5, 'P', reinforcedGliderWing));
-
-			for (Jetpack jetpack : Jetpack.JETPACKS_EIO) {
-				ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpack.getStackJetpack(), jetpack.getStackJetpack(), "particle_customizer"));
-			}
-
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackEIO1, "J", 'J', jetpackEIO1Armored));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackEIO2, "J", 'J', jetpackEIO2Armored));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackEIO3, "J", 'J', jetpackEIO3Armored));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackEIO4, "J", 'J', jetpackEIO4Armored));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackEIO1Armored, "P", "J", 'J', jetpackEIO1, 'P', armorplatingEIO1));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackEIO2Armored, "P", "J", 'J', jetpackEIO2, 'P', armorplatingEIO2));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackEIO3Armored, "P", "J", 'J', jetpackEIO3, 'P', armorplatingEIO3));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackEIO4Armored, "P", "J", 'J', jetpackEIO4, 'P', armorplatingEIO4));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackEIO1Armored, jetpackEIO1, armorplatingEIO1));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackEIO2Armored, jetpackEIO2, armorplatingEIO2));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackEIO3Armored, jetpackEIO3, armorplatingEIO3));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackEIO4Armored, jetpackEIO4, armorplatingEIO4));
 
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(fluxpackEIO1, "CUC", "ISI", "IPI", 'S', leatherStrap, 'C', EIOItems.basicCapacitor, 'U', EIOItems.capacitorBankBasic, 'I', "ingotConductiveIron", 'P', "dustCoal"));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(fluxpackEIO2, "CBC", "ISI", "IPI", 'S', fluxpackEIO1, 'C', EIOItems.doubleCapacitor, 'B', EIOItems.capacitorBank, 'I', "ingotEnergeticAlloy", 'P', EIOItems.pulsatingCrystal));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(fluxpackEIO3, "CBC", "ISI", "IPI", 'S', fluxpackEIO2, 'C', EIOItems.octadicCapacitor, 'B', EIOItems.capacitorBankVibrant, 'I', "ingotVibrantAlloy", 'P', EIOItems.vibrantCrystal));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(fluxpackEIO1Armored, "P", "J", 'J', fluxpackEIO1, 'P', armorplatingEIO1));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(fluxpackEIO2Armored, "P", "J", 'J', fluxpackEIO2, 'P', armorplatingEIO2));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(fluxpackEIO3Armored, "P", "J", 'J', fluxpackEIO3, 'P', armorplatingEIO3));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(fluxpackEIO1, "J", 'J', fluxpackEIO1Armored));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(fluxpackEIO2, "J", 'J', fluxpackEIO2Armored));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(fluxpackEIO3, "J", 'J', fluxpackEIO3Armored));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxpackEIO1Armored, fluxpackEIO1, armorplatingEIO1));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxpackEIO2Armored, fluxpackEIO2, armorplatingEIO2));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxpackEIO3Armored, fluxpackEIO3, armorplatingEIO3));
+
+			RecipeHelper.addArmoredReverseRecipe(Jetpack.JETPACKS_EIO, Jetpack.JETPACKS_EIO_ARMORED, Fluxpack.FLUXPACKS_EIO, Fluxpack.FLUXPACKS_EIO_ARMORED);
+
+			for (Jetpack jetpack : Jetpack.JETPACKS_EIO) {
+				ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpack.getStackJetpack(), jetpack.getStackJetpack(), "particle_customizer"));
+			}
 		}
 
 		if (integrateTE) {
 			if (!integrateRA && Config.addRAItemsIfNotInstalled) {
-				RecipeHandler.addOreDictRecipe(plateFlux, "NNN", "GIG", "NNN", 'G', Items.DIAMOND, 'I', "ingotSignalum", 'N', "nuggetSignalum");
-				RecipeHandler.addOreDictRecipe(armorFluxPlate, "I I", "III", "III", 'I', plateFlux);
+				RecipeHandler.addOreDictRecipe(fluxPlate, "NNN", "GIG", "NNN", 'G', Items.DIAMOND, 'I', "ingotSignalum", 'N', "nuggetSignalum");
+				RecipeHandler.addOreDictRecipe(fluxArmorplating, "I I", "III", "III", 'I', fluxPlate);
+				RecipeHandler.addOreDictRecipe(unitGlowstoneEmpty, "FLF", "LHL", "FLF", 'L', "ingotLumium", 'F', "ingotSignalum", 'H', TEItems.signalumGlass);
 				RecipeHandler.addOreDictRecipe(unitCryotheumEmpty, "FTF", "THT", "FTF", 'T', "ingotTin", 'F', "ingotSignalum", 'H', "blockGlassHardened");
-				RecipeHandler.addOreDictRecipe(unitGlowstoneEmpty, "FLF", "LHL", "FLF", 'L', "ingotLumium", 'F', "ingotSignalum", 'H', TEItems.signalumGlass); //TODO: Change Glowstone to lamp
 			}
 
 			Object ductFluxLeadstone = integrateTD ? TDItems.ductFluxLeadstone : "blockGlass";
@@ -418,7 +409,7 @@ public abstract class ModItems {
 			RecipeHandler.addOreDictRecipe(thrusterTE2, "ICI", "PDP", "IRI", 'I', "ingotInvar", 'P', ductFluxHardened, 'C', TEItems.powerCoilGold, 'D', TEItems.dynamoMagmatic, 'R', "dustRedstone");
 			RecipeHandler.addOreDictRecipe(thrusterTE3, "ICI", "PDP", "IRI", 'I', "ingotElectrum", 'P', ductFluxRedstoneEnergy, 'C', TEItems.powerCoilGold, 'D', TEItems.dynamoEnervation, 'R', TEItems.bucketRedstone);
 			RecipeHandler.addOreDictRecipe(thrusterTE4, "ICI", "PDP", "IRI", 'I', "ingotEnderium", 'P', ductFluxResonant, 'C', TEItems.powerCoilGold, 'D', TEItems.dynamoNumismatic, 'R', TEItems.bucketRedstone);
-			RecipeHandler.addOreDictRecipe(thrusterTE5, "FPF", "GRG", 'G', unitGlowstone, 'P', plateFlux, 'R', thrusterTE4, 'F', "ingotSignalum");
+			RecipeHandler.addOreDictRecipe(thrusterTE5, "FPF", "GRG", 'G', unitGlowstone, 'P', fluxPlate, 'R', thrusterTE4, 'F', "ingotSignalum");
 
 			if (integrateRA) {
 				RecipeHandler.addOreDictRecipe(unitCryotheumEmpty, "FTF", "THT", "FTF", 'T', "ingotTin", 'F', "ingotElectrumFlux", 'H', "blockGlassHardened");
@@ -431,7 +422,7 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackTE2, "IBI", "IJI", "T T", 'I', "ingotInvar", 'B', TEItems.capacitorHardened, 'T', thrusterTE2, 'J', jetpackTE1));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackTE3, "IBI", "IJI", "T T", 'I', "ingotElectrum", 'B', TEItems.capacitorReinforced, 'T', thrusterTE3, 'J', jetpackTE2));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackTE4, "IBI", "IJI", "T T", 'I', "ingotEnderium", 'B', TEItems.capacitorResonant, 'T', thrusterTE4, 'J', jetpackTE3));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackTE5, "PAP", "OJO", "TCT", 'A', armorFluxPlate, 'J', jetpackTE4Armored, 'O', unitCryotheum, 'C', fluxpackTE3Armored, 'T', thrusterTE5, 'P', plateFlux));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackTE5, "PAP", "OJO", "TCT", 'A', fluxArmorplating, 'J', jetpackTE4Armored, 'O', unitCryotheum, 'C', fluxpackTE4Armored, 'T', thrusterTE5, 'P', fluxPlate));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE1Armored, jetpackTE1, armorplatingTE1));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE2Armored, jetpackTE2, armorplatingTE2));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE3Armored, jetpackTE3, armorplatingTE3));
@@ -447,7 +438,7 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxpackTE4Armored, fluxpackTE4, armorplatingTE4));
 
 			if (integrateRR) {
-				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackTE5Enderium, "PAP", "OJO", "TCT", 'A', RRItems.fluxGelidChestplate, 'J', jetpackTE4Armored, 'O', unitCryotheum, 'C', fluxpackTE4Armored, 'T', thrusterTE5, 'P', plateFlux));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackTE5Enderium, "PAP", "OJO", "TCT", 'A', RRItems.fluxGelidChestplate, 'J', jetpackTE4Armored, 'O', unitCryotheum, 'C', fluxpackTE4Armored, 'T', thrusterTE5, 'P', fluxPlate));
 				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackTE5Enderium, "AJA", "AAA", "AAA", 'A', RRItems.plateArmorGelidEnderium, 'J', jetpackTE5));
 				ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE5Enderium, jetpackTE5Enderium, "particle_customizer"));
 			}
@@ -463,16 +454,15 @@ public abstract class ModItems {
 			RecipeHandler.addOreDictRecipe(thrusterVanilla1, " I ", "IFI", "IBI", 'I', Items.IRON_INGOT, 'F', Blocks.FURNACE, 'B', Items.BLAZE_POWDER);
 			RecipeHandler.addOreDictRecipe(thrusterVanilla2, " I ", "IFI", "IBI", 'I', Items.GOLD_INGOT, 'F', Blocks.FURNACE, 'B', Items.BLAZE_POWDER);
 			RecipeHandler.addOreDictRecipe(thrusterVanilla3, " I ", "IFI", "IBI", 'I', Items.DIAMOND, 'F', Blocks.FURNACE, 'B', Items.BLAZE_POWDER);
-
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackVanilla1, "IBI", "IJI", "T T", 'I', Items.IRON_INGOT, 'B', Items.COMPARATOR, 'T', thrusterVanilla1, 'J', leatherStrap));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackVanilla2, "IBI", "IJI", "T T", 'I', Items.GOLD_INGOT, 'B', Blocks.REDSTONE_BLOCK, 'T', thrusterVanilla2, 'J', jetpackVanilla1));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackVanilla3, "IBI", "IJI", "T T", 'I', Items.DIAMOND, 'B', Blocks.REDSTONE_BLOCK, 'T', thrusterVanilla3, 'J', jetpackVanilla2));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackVanilla1Armored, jetpackVanilla1, Items.IRON_CHESTPLATE));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackVanilla2Armored, jetpackVanilla2, Items.GOLDEN_CHESTPLATE));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackVanilla3Armored, jetpackVanilla3, Items.DIAMOND_CHESTPLATE));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackVanilla1, "J", 'J', jetpackVanilla1Armored));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackVanilla2, "J", 'J', jetpackVanilla2Armored));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackVanilla3, "J", 'J', jetpackVanilla3Armored));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackVanilla1, jetpackVanilla1Armored));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackVanilla2, jetpackVanilla2Armored));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackVanilla3, jetpackVanilla3Armored));
 
 			for (Jetpack jetpack : Jetpack.JETPACKS_VANILLA) {
 				ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpack.getStackJetpack(), jetpack.getStackJetpack(), "particle_customizer"));
@@ -480,16 +470,26 @@ public abstract class ModItems {
 		}
 
 		if (integrateMek) {
-			//RecipeHandler.addOreDictRecipe(thrusterVanilla1, " I ", "IFI", "IBI", 'I', Items.IRON_INGOT, 'F', Blocks.FURNACE, 'B', Items.BLAZE_POWDER);
-			//ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackVanilla1, "IBI", "IJI", "T T", 'I', Items.IRON_INGOT, 'B', Items.COMPARATOR, 'T', thrusterVanilla1, 'J', leatherStrap));
+			RecipeHandler.addOreDictRecipe(armorplatingMek1, "ICI", "CIC", "ICI", 'I', "ingotOsmium", 'C', MekItems.circuitBasic);
+			RecipeHandler.addOreDictRecipe(armorplatingMek2, "ICI", "CIC", "ICI", 'I', "ingotOsmium", 'C', MekItems.circuitAdvanced);
+			RecipeHandler.addOreDictRecipe(armorplatingMek3, "ICI", "CIC", "ICI", 'I', "ingotOsmium", 'C', MekItems.circuitElite);
+			RecipeHandler.addOreDictRecipe(armorplatingMek4, "ICI", "CIC", "ICI", 'I', "ingotOsmium", 'C', MekItems.circuitUltimate);
+			RecipeHandler.addOreDictRecipe(thrusterMek1, "ICI", "UEU", "IAI", 'I', "ingotOsmium", 'C', MekItems.circuitBasic, 'U', MekItems.cableBasic, 'E', MekItems.cubeBasic, 'A', "dustRedstone");
+			RecipeHandler.addOreDictRecipe(thrusterMek2, "ICI", "UEU", "IAI", 'I', "ingotOsmium", 'C', MekItems.circuitAdvanced, 'U', MekItems.cableAdvanced, 'E', MekItems.cubeAdvanced, 'A', MekItems.alloyEnriched);
+			RecipeHandler.addOreDictRecipe(thrusterMek3, "ICI", "UEU", "IAI", 'I', "ingotOsmium", 'C', MekItems.circuitElite, 'U', MekItems.cableElite, 'E', MekItems.cubeElite, 'A', MekItems.alloyReinforced);
+			RecipeHandler.addOreDictRecipe(thrusterMek4, "ICI", "UEU", "IAI", 'I', "ingotOsmium", 'C', MekItems.circuitUltimate, 'U', MekItems.cableUltimate, 'E', MekItems.cubeUltimate, 'A', MekItems.alloyAtomic);
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackMek1, "ICI", "ISI", "T T", 'I', "ingotOsmium", 'C', MekItems.circuitBasic, 'S', leatherStrap, 'T', thrusterMek1));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackMek2, "ICI", "IJI", "T T", 'I', "ingotOsmium", 'C', MekItems.circuitAdvanced, 'J', jetpackMek1, 'T', thrusterMek2));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackMek3, "ICI", "IJI", "T T", 'I', "ingotOsmium", 'C', MekItems.circuitElite, 'J', jetpackMek2, 'T', thrusterMek3));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackMek4, "ICI", "IJI", "T T", 'I', "ingotOsmium", 'C', MekItems.circuitUltimate, 'J', jetpackMek3, 'T', thrusterMek4));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackMek1Armored, jetpackMek1, armorplatingMek1));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackMek2Armored, jetpackMek2, armorplatingMek2));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackMek3Armored, jetpackMek3, armorplatingMek3));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackMek4Armored, jetpackMek4, armorplatingMek4));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackMek1, "J", 'J', jetpackMek1Armored));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackMek2, "J", 'J', jetpackMek2Armored));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackMek3, "J", 'J', jetpackMek3Armored));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackMek4, "J", 'J', jetpackMek4Armored));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackMek1, jetpackMek1Armored));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackMek2, jetpackMek2Armored));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackMek3, jetpackMek3Armored));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackMek4, jetpackMek4Armored));
 
 			for (Jetpack jetpack : Jetpack.JETPACKS_MEK) {
 				ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpack.getStackJetpack(), jetpack.getStackJetpack(), "particle_customizer"));
@@ -497,14 +497,21 @@ public abstract class ModItems {
 		}
 
 		if (integrateIE) {
-			//RecipeHandler.addOreDictRecipe(thrusterVanilla1, " I ", "IFI", "IBI", 'I', Items.IRON_INGOT, 'F', Blocks.FURNACE, 'B', Items.BLAZE_POWDER);
-			//ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackVanilla1, "IBI", "IJI", "T T", 'I', Items.IRON_INGOT, 'B', Items.COMPARATOR, 'T', thrusterVanilla1, 'J', leatherStrap));
+			RecipeHandler.addOreDictRecipe(armorplatingIE1, "FFF", "FWF", "FFF", 'F', IEItems.hempFabric, 'W', Blocks.WOOL);
+			RecipeHandler.addOreDictRecipe(armorplatingIE2, "PIP", "IPI", "PIP", 'P', "plateIron", 'I', "ingotIron");
+			RecipeHandler.addOreDictRecipe(armorplatingIE3, "PIP", "IPI", "PIP", 'P', "plateSteel", 'I', "ingotSteel");
+			RecipeHandler.addOreDictRecipe(thrusterIE1, "PMP", "WCW", "PHP", 'P', "plateIron", 'M', IEItems.componentIron, 'W', IEItems.coilCopper, 'C', IEItems.wireCoilLv, 'H', IEItems.furnace_heater);
+			RecipeHandler.addOreDictRecipe(thrusterIE2, "PMP", "WCW", "PHP", 'P', "plateAluminum", 'M', IEItems.electronTube, 'W', IEItems.coilElectrum, 'C', IEItems.wireCoilMv, 'H', IEItems.furnace_heater);
+			RecipeHandler.addOreDictRecipe(thrusterIE3, "PMP", "WCW", "PHP", 'P', "plateSteel", 'M', IEItems.circuitBoard, 'W', IEItems.coilSteel, 'C', IEItems.wireCoilHv, 'H', IEItems.furnace_heater);
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackIE1, "PMP", "PSP", "T T", 'P', "plateIron", 'M', IEItems.componentIron, 'S', leatherStrap, 'T', thrusterIE1));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackIE2, "PMP", "PJP", "T T", 'P', "plateAluminum", 'M', IEItems.electronTube, 'J', jetpackIE1, 'T', thrusterIE2));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackIE3, "PMP", "PJP", "T T", 'P', "plateSteel", 'M', IEItems.circuitBoard, 'J', jetpackIE2, 'T', thrusterIE3));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackIE1Armored, jetpackIE1, armorplatingIE1));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackIE2Armored, jetpackIE2, armorplatingIE2));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackIE2Armored, jetpackIE3, armorplatingIE3));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackIE1, "J", 'J', jetpackIE1Armored));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackIE2, "J", 'J', jetpackIE2Armored));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackIE3, "J", 'J', jetpackIE2Armored));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackIE3Armored, jetpackIE3, armorplatingIE3));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackIE1, jetpackIE1Armored));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackIE2, jetpackIE2Armored));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackIE3, jetpackIE3Armored));
 
 			for (Jetpack jetpack : Jetpack.JETPACKS_IE) {
 				ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpack.getStackJetpack(), jetpack.getStackJetpack(), "particle_customizer"));
@@ -512,8 +519,8 @@ public abstract class ModItems {
 		}
 	}
 
-	private static void doIMC() {
-		SimplyJetpacks.logger.info("Performing inter-mod communication...");
+	private static void performIMC() {
+		SimplyJetpacks.logger.info("Performing IMC...");
 
 		if (integrateEIO) {
 			ItemStack ingotConductiveIron = OreDictionary.getOres("ingotConductiveIron").get(0).copy();

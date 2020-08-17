@@ -50,7 +50,6 @@ public class SyncHandler {
     public static void processKeyUpdate(EntityPlayer player, boolean keyFly, boolean keyDescend, boolean keyForward, boolean keyBackward, boolean keyLeft, boolean keyRight) {
         flyKeyState.put(player, keyFly);
         descendKeyState.put(player, keyDescend);
-
         forwardKeyState.put(player, keyForward);
         backwardKeyState.put(player, keyBackward);
         leftKeyState.put(player, keyLeft);
@@ -88,17 +87,17 @@ public class SyncHandler {
     }
 
     @SubscribeEvent
-    public void onPlayerLoggedOut(PlayerLoggedOutEvent evt) {
-        removeFromAll(evt.player);
+    public void onPlayerLoggedOut(PlayerLoggedOutEvent event) {
+        removeFromAll(event.player);
     }
 
     @SubscribeEvent
-    public void onDimChanged(PlayerChangedDimensionEvent evt) {
-        removeFromAll(evt.player);
+    public void onDimChanged(PlayerChangedDimensionEvent event) {
+        removeFromAll(event.player);
     }
 
     @SubscribeEvent
-    public void onClientDisconnectedFromServer(ClientDisconnectionFromServerEvent evt) {
+    public void onClientDisconnectedFromServer(ClientDisconnectionFromServerEvent event) {
         SoundJetpack.clearPlayingFor();
     }
 }

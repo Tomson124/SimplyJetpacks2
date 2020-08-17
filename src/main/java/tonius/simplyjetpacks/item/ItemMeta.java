@@ -64,10 +64,7 @@ public class ItemMeta extends ItemRegistered {
 	@SideOnly(Side.CLIENT)
 	public boolean hasEffect(ItemStack itemStack) {
 		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
-		if (MetaItems.values()[i].getGlow()) {
-			return true;
-		}
-		return super.hasEffect(itemStack);
+		return MetaItems.values()[i].getGlow() || super.hasEffect(itemStack);
 	}
 
 	@Override

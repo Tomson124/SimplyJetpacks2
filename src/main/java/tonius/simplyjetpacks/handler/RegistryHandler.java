@@ -1,4 +1,4 @@
-package tonius.simplyjetpacks;
+package tonius.simplyjetpacks.handler;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.crafting.IRecipe;

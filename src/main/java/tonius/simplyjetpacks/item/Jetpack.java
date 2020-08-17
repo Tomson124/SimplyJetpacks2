@@ -80,6 +80,7 @@ public enum Jetpack implements IStringSerializable {
 	protected static final EnumSet<Jetpack> JETPACKS_SJ = EnumSet.of(JETPACK_CREATIVE);
 	public static final EnumSet<Jetpack> JETPACKS_VANILLA = EnumSet.range(JETPACK_VANILLA_1, JETPACK_VANILLA_3_ARMORED);
 	public static final EnumSet<Jetpack> JETPACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPLATE_EIO_5);
+	public static final EnumSet<Jetpack> JETPACKS_EIO_ARMORED = EnumSet.range(JETPACK_EIO_1_ARMORED, JETPACK_EIO_4_ARMORED);
 	public static final EnumSet<Jetpack> JETPACKS_TE = EnumSet.range(JETPACK_TE_1, JETPLATE_TE_5);
 	public static final EnumSet<Jetpack> JETPACKS_TE_ARMORED = EnumSet.range(JETPACK_TE_1_ARMORED, JETPACK_TE_4_ARMORED);
 	public static final EnumSet<Jetpack> JETPACKS_MEK = EnumSet.range(JETPACK_MEK_1, JETPACK_MEK_4_ARMORED);

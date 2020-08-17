@@ -173,10 +173,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@SideOnly(Side.CLIENT)
 	public boolean hasEffect(ItemStack itemStack) {
 		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
-		if (Jetpack.values()[i].getGlow()) {
-			return true;
-		}
-		return super.hasEffect(itemStack);
+		return Jetpack.values()[i].getGlow() || super.hasEffect(itemStack);
 	}
 
 	@Nonnull

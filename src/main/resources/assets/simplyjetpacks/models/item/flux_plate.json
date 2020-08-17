@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "simplyjetpacks:item/armor_flux_plate"
+    "layer0": "simplyjetpacks:item/flux_plate"
   }
 }

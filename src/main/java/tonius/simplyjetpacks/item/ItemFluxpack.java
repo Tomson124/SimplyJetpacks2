@@ -135,10 +135,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	@SideOnly(Side.CLIENT)
 	public boolean hasEffect(ItemStack itemStack) {
 		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
-		if (Fluxpack.values()[i].getGlow()) {
-			return true;
-		}
-		return super.hasEffect(itemStack);
+		return Fluxpack.values()[i].getGlow() || super.hasEffect(itemStack);
 	}
 
 	@Override

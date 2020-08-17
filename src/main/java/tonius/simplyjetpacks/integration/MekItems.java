@@ -4,25 +4,25 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public abstract class MekItems {
-    // TODO: Add NBT data to ItemStackHolders
     // Universal Cables
-    @GameRegistry.ItemStackHolder(value = "mekanism:transmitter", meta = 0, nbt = "")
-    public static ItemStack hempFabric;
-    @GameRegistry.ItemStackHolder(value = "mekanism:transmitter", meta = 0, nbt = "")
-    public static ItemStack componentIron;
-    @GameRegistry.ItemStackHolder(value = "mekanism:transmitter", meta = 0, nbt = "")
-    public static ItemStack electronTube;
-    @GameRegistry.ItemStackHolder(value = "mekanism:transmitter", meta = 0, nbt = "")
-    public static ItemStack circuitBoard;
+    @GameRegistry.ItemStackHolder(value = "mekanism:transmitter", nbt = "{tier:0}")
+    public static ItemStack cableBasic;
+    @GameRegistry.ItemStackHolder(value = "mekanism:transmitter", nbt = "{tier:1}")
+    public static ItemStack cableAdvanced;
+    @GameRegistry.ItemStackHolder(value = "mekanism:transmitter", nbt = "{tier:2}")
+    public static ItemStack cableElite;
+    @GameRegistry.ItemStackHolder(value = "mekanism:transmitter", nbt = "{tier:3}")
+    public static ItemStack cableUltimate;
+
     // Energy Cubes
-    @GameRegistry.ItemStackHolder(value = "mekanism:energycube", meta = 0, nbt = "")
-    public static ItemStack wirecoilCopper;
-    @GameRegistry.ItemStackHolder(value = "mekanism:energycube", meta = 0, nbt = "")
-    public static ItemStack wirecoilElectrum;
-    @GameRegistry.ItemStackHolder(value = "mekanism:energycube", meta = 0, nbt = "")
-    public static ItemStack wirecoilSteel;
-    @GameRegistry.ItemStackHolder(value = "mekanism:energycube", meta = 0, nbt = "")
-    public static ItemStack coilLv;
+    @GameRegistry.ItemStackHolder(value = "mekanism:energycube", nbt = "{tier:0}")
+    public static ItemStack cubeBasic;
+    @GameRegistry.ItemStackHolder(value = "mekanism:energycube", nbt = "{tier:1}")
+    public static ItemStack cubeAdvanced;
+    @GameRegistry.ItemStackHolder(value = "mekanism:energycube", nbt = "{tier:2}")
+    public static ItemStack cubeElite;
+    @GameRegistry.ItemStackHolder(value = "mekanism:energycube", nbt = "{tier:3}")
+    public static ItemStack cubeUltimate;
     // Circuits
     @GameRegistry.ItemStackHolder(value = "mekanism:controlcircuit", meta = 0)
     public static ItemStack circuitBasic;

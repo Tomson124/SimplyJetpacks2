@@ -12,8 +12,10 @@ import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import tonius.simplyjetpacks.config.Config;
+import tonius.simplyjetpacks.handler.RegistryHandler;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.network.PacketHandler;
+import tonius.simplyjetpacks.proxy.CommonProxy;
 import tonius.simplyjetpacks.setup.CreativeTabSimplyJetpacks;
 import tonius.simplyjetpacks.setup.ModItems;
 
@@ -32,7 +34,7 @@ public class SimplyJetpacks {
     @Mod.Instance(MODID)
     public static SimplyJetpacks instance;
 
-    @SidedProxy(clientSide = "tonius.simplyjetpacks.client.ClientProxy", serverSide = "tonius.simplyjetpacks.CommonProxy")
+    @SidedProxy(clientSide = "tonius.simplyjetpacks.proxy.ClientProxy", serverSide = "tonius.simplyjetpacks.proxy.CommonProxy")
     public static CommonProxy proxy;
 
     public static Logger logger = LogManager.getLogger(MODID);

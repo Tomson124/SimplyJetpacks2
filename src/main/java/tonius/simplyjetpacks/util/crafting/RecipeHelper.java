@@ -13,9 +13,9 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.CraftingHelper.ShapedPrimer;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreIngredient;
-import tonius.simplyjetpacks.RegistryHandler;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.crafting.UpgradingRecipeShaped;
+import tonius.simplyjetpacks.handler.RegistryHandler;
 import tonius.simplyjetpacks.item.Fluxpack;
 import tonius.simplyjetpacks.item.Jetpack;
 
@@ -234,7 +234,7 @@ public final class RecipeHelper {
 		Iterator i = setJ.iterator();
 		Iterator t = setArmorJ.iterator();
 		EnumSet fluxpacks = setF.clone();
-		fluxpacks.remove(setF.toArray()[0]);
+		//fluxpacks.remove(setF.toArray()[0]);
 		Iterator i2 = fluxpacks.iterator();
 		Iterator t2 = setArmorF.iterator();
 		while (i.hasNext() && t.hasNext()) {

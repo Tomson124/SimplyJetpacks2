@@ -1,4 +1,4 @@
-package tonius.simplyjetpacks;
+package tonius.simplyjetpacks.proxy;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,6 +10,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.oredict.OreDictionary;
+import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.crafting.PlatingReturnHandler;
 import tonius.simplyjetpacks.handler.EntityInteractHandler;
 import tonius.simplyjetpacks.handler.LivingTickHandler;

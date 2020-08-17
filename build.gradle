@@ -1,11 +1,11 @@
 buildscript {
     repositories {
+        jcenter()
+        mavenCentral()
         maven {
             name = 'forge'
             url = 'https://files.minecraftforge.net/maven/'
         }
-        jcenter()
-        mavenCentral()
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
@@ -94,11 +94,11 @@ dependencies {
 processResources {
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
-    from(sourceSets.main.resources.srcDirs) {
+    from (sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-    from(sourceSets.main.resources.srcDirs) {
+    from (sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
 }
