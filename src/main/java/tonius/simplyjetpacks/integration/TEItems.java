@@ -23,9 +23,11 @@ public abstract class TEItems {
 	@GameRegistry.ItemStackHolder("thermalexpansion:cell")
 	public static ItemStack cellBasic = null;
 	@GameRegistry.ItemStackHolder("thermalexpansion:cell")
+	public static ItemStack cellHardened = null;
+	@GameRegistry.ItemStackHolder("thermalexpansion:cell")
 	public static ItemStack cellReinforced = null;
 	@GameRegistry.ItemStackHolder("thermalexpansion:cell")
-	public static ItemStack cellResonant;
+	public static ItemStack cellResonant = null;
 	// Dynamos
 	@GameRegistry.ItemStackHolder(value = "thermalexpansion:dynamo", meta = 1)
 	public static ItemStack dynamoMagmatic = null;
@@ -50,6 +52,10 @@ public abstract class TEItems {
 		if (cellBasic != null) {
 			cellBasic.setTagCompound(new NBTTagCompound());
 			cellBasic.getTagCompound().setByte("Level", (byte) 0);
+		}
+		if (cellHardened != null) {
+			cellHardened.setTagCompound(new NBTTagCompound());
+			cellHardened.getTagCompound().setByte("Level", (byte) 1);
 		}
 		if (cellReinforced != null) {
 			cellReinforced.setTagCompound(new NBTTagCompound());

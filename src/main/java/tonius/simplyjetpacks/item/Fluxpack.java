@@ -26,18 +26,20 @@ public enum Fluxpack implements IStringSerializable {
 
 	// Thermal Expansion
 	FLUXPACK_TE1("fluxpack_te1", "fluxpack_te1", 1, EnumRarity.COMMON),
-	FLUXPACK_TE2("fluxpack_te2", "fluxpack_te2", 2, EnumRarity.UNCOMMON),
-	FLUXPACK_TE3("fluxpack_te3", "fluxpack_te3", 3, EnumRarity.RARE),
+	FLUXPACK_TE2("fluxpack_te2", "fluxpack_te2", 2, EnumRarity.COMMON),
+	FLUXPACK_TE3("fluxpack_te3", "fluxpack_te3", 3, EnumRarity.UNCOMMON),
+	FLUXPACK_TE4("fluxpack_te4", "fluxpack_te4", 4, EnumRarity.RARE),
 	FLUXPACK_TE1_ARMORED("fluxpack_te1_armored", "fluxpack_te1", 1, EnumRarity.COMMON, true, true, MetaItemsMods.ARMOR_PLATING_TE_1.ordinal()),
-	FLUXPACK_TE2_ARMORED("fluxpack_te2_armored", "fluxpack_te2", 2, EnumRarity.UNCOMMON, true, true, MetaItemsMods.ARMOR_PLATING_TE_2.ordinal()),
-	FLUXPACK_TE3_ARMORED("fluxpack_te3_armored", "fluxpack_te3", 3, EnumRarity.RARE, true, true, MetaItemsMods.ARMOR_PLATING_TE_3.ordinal());
+	FLUXPACK_TE2_ARMORED("fluxpack_te2_armored", "fluxpack_te2", 2, EnumRarity.COMMON, true, true, MetaItemsMods.ARMOR_PLATING_TE_2.ordinal()),
+	FLUXPACK_TE3_ARMORED("fluxpack_te3_armored", "fluxpack_te4", 3, EnumRarity.UNCOMMON, true, true, MetaItemsMods.ARMOR_PLATING_TE_3.ordinal()),
+	FLUXPACK_TE4_ARMORED("fluxpack_te4_armored", "fluxpack_te4", 4, EnumRarity.RARE, true, true, MetaItemsMods.ARMOR_PLATING_TE_4.ordinal());
 
 	protected final PackDefaults defaults;
 	protected static final EnumSet<Fluxpack> FLUXPACKS_ALL = EnumSet.allOf(Fluxpack.class);
 	protected static final EnumSet<Fluxpack> FLUXPACKS_SJ = EnumSet.of(FLUXPACK_CREATIVE);
 	public static final EnumSet<Fluxpack> FLUXPACKS_EIO = EnumSet.range(FLUXPACK_EIO1, FLUXPACK_EIO3_ARMORED);
-	public static final EnumSet<Fluxpack> FLUXPACKS_TE = EnumSet.range(FLUXPACK_TE1, FLUXPACK_TE3_ARMORED);
-	public static final EnumSet<Fluxpack> FLUXPACKS_TE_ARMORED = EnumSet.of(FLUXPACK_TE2_ARMORED, FLUXPACK_TE3_ARMORED);
+	public static final EnumSet<Fluxpack> FLUXPACKS_TE = EnumSet.range(FLUXPACK_TE1, FLUXPACK_TE4_ARMORED);
+	public static final EnumSet<Fluxpack> FLUXPACKS_TE_ARMORED = EnumSet.range(FLUXPACK_TE1_ARMORED, FLUXPACK_TE4_ARMORED);
 
 	@Nonnull
 	public final String baseName;
@@ -134,12 +136,7 @@ public enum Fluxpack implements IStringSerializable {
 
 	@Nonnull
 	public ItemStack getStackFluxpack() {
-		return getStackFluxpack(1);
-	}
-
-	@Nonnull
-	public ItemStack getStackFluxpack(int size) {
-		return new ItemStack(ModItems.itemFluxPack, size, ordinal());
+		return new ItemStack(ModItems.itemFluxPack, 1, ordinal());
 	}
 
 	@Nonnull

@@ -180,12 +180,7 @@ public enum Jetpack implements IStringSerializable {
 
 	@Nonnull
 	public ItemStack getStackJetpack() {
-		return getStackJetpack(1);
-	}
-
-	@Nonnull
-	public ItemStack getStackJetpack(int size) {
-		return new ItemStack(ModItems.itemJetpack, size, ordinal());
+		return new ItemStack(ModItems.itemJetpack, 1, ordinal());
 	}
 
 	// TODO: Investigate this.

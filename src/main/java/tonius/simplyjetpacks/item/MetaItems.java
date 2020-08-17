@@ -19,6 +19,7 @@ public enum MetaItems {
     private final String name;
     private final String keyTooltip;
     private final EnumRarity rarity;
+    private boolean glow;
 
     public static final EnumSet<MetaItems> PARTICLE_CUSTOMIZERS = EnumSet.range(PARTICLE_DEFAULT, PARTICLE_RAINBOW);
 
@@ -26,6 +27,11 @@ public enum MetaItems {
         this.name = name;
         this.keyTooltip = keyTooltip;
         this.rarity = rarity;
+    }
+
+    MetaItems(String name, String keyTooltip, EnumRarity rarity, boolean glow) {
+        this(name, keyTooltip, rarity);
+        this.glow = glow;
     }
 
     public static MetaItems getFromName(String s) {
@@ -62,5 +68,9 @@ public enum MetaItems {
 
     public EnumRarity getRarity() {
         return rarity;
+    }
+
+    public boolean getGlow() {
+        return glow;
     }
 }

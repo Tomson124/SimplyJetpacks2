@@ -1,9 +1,11 @@
 package tonius.simplyjetpacks;
 
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import tonius.simplyjetpacks.integration.TEItems;
+import tonius.simplyjetpacks.setup.ModEnchantments;
 import tonius.simplyjetpacks.setup.ModItems;
 
 import java.util.ArrayList;
@@ -23,5 +25,10 @@ public class RegistryHandler {
 			event.getRegistry().register(recipe);
 		}
 		RECIPES_TO_REGISTER.clear();
+	}
+
+	@SubscribeEvent
+	public void onRegisterEnchantments(RegistryEvent.Register<Enchantment> event) {
+		event.getRegistry().registerAll(ModEnchantments.ENCHANTMENTS.toArray(new Enchantment[0]));
 	}
 }

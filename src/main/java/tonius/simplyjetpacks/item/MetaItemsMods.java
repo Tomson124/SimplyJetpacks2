@@ -15,10 +15,6 @@ public enum MetaItemsMods {
     THRUSTER_VANILLA_3("thruster_vanilla3", null, EnumRarity.RARE),
 
     // EnderIO
-    INGOT_DARK_SOULARIUM("ingot_dark_soularium", null, EnumRarity.UNCOMMON, true),
-    REINFORCED_GLIDER_WING("reinforced_glider_wing", null, EnumRarity.UNCOMMON),
-    UNIT_FLIGHT_CONTROL_EMPTY("unit_flight_control_empty", null, EnumRarity.COMMON),
-    UNIT_FLIGHT_CONTROL("unit_flight_control", null, EnumRarity.UNCOMMON),
     ARMOR_PLATING_EIO_1("armorplating_eio1", null, EnumRarity.COMMON),
     ARMOR_PLATING_EIO_2("armorplating_eio2", null, EnumRarity.COMMON),
     ARMOR_PLATING_EIO_3("armorplating_eio3", null, EnumRarity.COMMON),
@@ -28,14 +24,12 @@ public enum MetaItemsMods {
     THRUSTER_EIO_3("thruster_eio3", null, EnumRarity.UNCOMMON),
     THRUSTER_EIO_4("thruster_eio4", null, EnumRarity.RARE),
     THRUSTER_EIO_5("thruster_eio5", null, EnumRarity.EPIC),
+    INGOT_DARK_SOULARIUM("ingot_dark_soularium", null, EnumRarity.UNCOMMON, true),
+    REINFORCED_GLIDER_WING("reinforced_glider_wing", null, EnumRarity.UNCOMMON),
+    UNIT_FLIGHT_CONTROL_EMPTY("unit_flight_control_empty", null, EnumRarity.COMMON),
+    UNIT_FLIGHT_CONTROL("unit_flight_control", null, EnumRarity.UNCOMMON),
 
     // Thermal Expansion
-    PLATE_FLUX("plate_flux", null, EnumRarity.UNCOMMON),
-    ARMOR_PLATE_FLUX("armor_plate_flux", null, EnumRarity.RARE),
-    UNIT_GLOWSTONE_EMPTY("unit_glowstone_empty", null, EnumRarity.COMMON),
-    UNIT_GLOWSTONE("unit_glowstone", null, EnumRarity.UNCOMMON),
-    UNIT_CRYOTHEUM_EMPTY("unit_cryotheum_empty", null, EnumRarity.COMMON),
-    UNIT_CRYOTHEUM("unit_cryotheum", null, EnumRarity.UNCOMMON),
     ARMOR_PLATING_TE_1("armorplating_te1", null, EnumRarity.COMMON),
     ARMOR_PLATING_TE_2("armorplating_te2", null, EnumRarity.COMMON),
     ARMOR_PLATING_TE_3("armorplating_te3", null, EnumRarity.COMMON),
@@ -45,6 +39,12 @@ public enum MetaItemsMods {
     THRUSTER_TE_3("thruster_te3", null, EnumRarity.UNCOMMON),
     THRUSTER_TE_4("thruster_te4", null, EnumRarity.RARE),
     THRUSTER_TE_5("thruster_te5", null, EnumRarity.EPIC),
+    PLATE_FLUX("plate_flux", null, EnumRarity.UNCOMMON),
+    ARMOR_PLATE_FLUX("armor_plate_flux", null, EnumRarity.RARE),
+    UNIT_GLOWSTONE_EMPTY("unit_glowstone_empty", null, EnumRarity.COMMON),
+    UNIT_GLOWSTONE("unit_glowstone", null, EnumRarity.UNCOMMON),
+    UNIT_CRYOTHEUM_EMPTY("unit_cryotheum_empty", null, EnumRarity.COMMON),
+    UNIT_CRYOTHEUM("unit_cryotheum", null, EnumRarity.UNCOMMON),
 
     // Mekanism
     ARMOR_PLATING_MEK_1("armorplating_mek1", null, EnumRarity.COMMON),
@@ -70,9 +70,9 @@ public enum MetaItemsMods {
     private boolean glow;
 
     public static final EnumSet<MetaItemsMods> ITEMS_VANILLA = EnumSet.range(THRUSTER_VANILLA_1, THRUSTER_VANILLA_3);
-    public static final EnumSet<MetaItemsMods> ITEMS_EIO = EnumSet.range(INGOT_DARK_SOULARIUM, ARMOR_PLATING_EIO_4);
-    public static final EnumSet<MetaItemsMods> ITEMS_TE = EnumSet.range(PLATE_FLUX, THRUSTER_TE_5);
-    public static final EnumSet<MetaItemsMods> ITEMS_TE_RA = EnumSet.range(UNIT_GLOWSTONE_EMPTY, THRUSTER_TE_5);
+    public static final EnumSet<MetaItemsMods> ITEMS_EIO = EnumSet.range(ARMOR_PLATING_EIO_1, UNIT_FLIGHT_CONTROL);
+    public static final EnumSet<MetaItemsMods> ITEMS_TE = EnumSet.range(ARMOR_PLATING_TE_1, UNIT_CRYOTHEUM);
+    public static final EnumSet<MetaItemsMods> ITEMS_TE_RA = EnumSet.range(THRUSTER_TE_5, UNIT_CRYOTHEUM);
     public static final EnumSet<MetaItemsMods> ITEMS_MEK = EnumSet.range(ARMOR_PLATING_MEK_1, THRUSTER_MEK_4);
     public static final EnumSet<MetaItemsMods> ITEMS_IE = EnumSet.range(ARMOR_PLATING_IE_1, THRUSTER_IE_3);
 

@@ -106,6 +106,8 @@ public abstract class ModItems {
 	public static ItemStack fluxpackTE2Armored;
 	public static ItemStack fluxpackTE3;
 	public static ItemStack fluxpackTE3Armored;
+	public static ItemStack fluxpackTE4;
+	public static ItemStack fluxpackTE4Armored;
 
 	// Mekanism
 	public static ItemStack armorplatingMek1;
@@ -294,6 +296,8 @@ public abstract class ModItems {
 			fluxpackTE2Armored = Fluxpack.FLUXPACK_TE2_ARMORED.getStackFluxpack();
 			fluxpackTE3 = Fluxpack.FLUXPACK_TE3.getStackFluxpack();
 			fluxpackTE3Armored = Fluxpack.FLUXPACK_TE3_ARMORED.getStackFluxpack();
+			fluxpackTE4 = Fluxpack.FLUXPACK_TE4.getStackFluxpack();
+			fluxpackTE4Armored = Fluxpack.FLUXPACK_TE4_ARMORED.getStackFluxpack();
 		}
 
 		if (integrateVanilla) {
@@ -374,7 +378,7 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackEIO5, "OAO", "PJP", "TCT", 'A', EIOItems.enderCrystal, 'J', jetpackEIO4Armored, 'O', "ingot_dark_soularium", 'C', fluxpackEIO3Armored, 'T', thrusterEIO5, 'P', reinforcedGliderWing));
 
 			for (Jetpack jetpack : Jetpack.JETPACKS_EIO) {
-				ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpack.getStackJetpack(1), jetpack.getStackJetpack(1), "particle_customizer"));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpack.getStackJetpack(), jetpack.getStackJetpack(), "particle_customizer"));
 			}
 
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackEIO1, "J", 'J', jetpackEIO1Armored));
@@ -434,22 +438,24 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE4Armored, jetpackTE4, armorplatingTE4));
 
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(fluxpackTE1, "ICI", "ISI", 'I', "ingotLead", 'C', TEItems.cellBasic, 'S', leatherStrap));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(fluxpackTE2, " C ", "ISI", "LOL", 'I', "ingotElectrum", 'L', "ingotLead", 'C', TEItems.cellReinforced, 'S', fluxpackTE1, 'O', TEItems.powerCoilElectrum));
-			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(fluxpackTE3, " C ", "ISI", "LOL", 'I', "ingotEnderium", 'L', "ingotLead", 'C', TEItems.cellResonant, 'S', fluxpackTE2, 'O', TEItems.powerCoilElectrum));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(fluxpackTE2, " C ", "ISI", "LOL", 'I', "ingotInvar", 'L', "ingotLead", 'C', TEItems.cellHardened, 'S', fluxpackTE1, 'O', TEItems.powerCoilElectrum));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(fluxpackTE3, " C ", "ISI", "LOL", 'I', "ingotElectrum", 'L', "ingotLead", 'C', TEItems.cellReinforced, 'S', fluxpackTE2, 'O', TEItems.powerCoilElectrum));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(fluxpackTE4, " C ", "ISI", "LOL", 'I', "ingotEnderium", 'L', "ingotLead", 'C', TEItems.cellResonant, 'S', fluxpackTE3, 'O', TEItems.powerCoilElectrum));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxpackTE1Armored, fluxpackTE1, armorplatingTE1));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxpackTE2Armored, fluxpackTE2, armorplatingTE2));
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxpackTE3Armored, fluxpackTE3, armorplatingTE3));
+			ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(fluxpackTE4Armored, fluxpackTE4, armorplatingTE4));
 
 			if (integrateRR) {
-				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackTE5Enderium, "PAP", "OJO", "TCT", 'A', RRItems.fluxGelidChestplate, 'J', jetpackTE4Armored, 'O', unitCryotheum, 'C', fluxpackTE3Armored, 'T', thrusterTE5, 'P', plateFlux));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackTE5Enderium, "PAP", "OJO", "TCT", 'A', RRItems.fluxGelidChestplate, 'J', jetpackTE4Armored, 'O', unitCryotheum, 'C', fluxpackTE4Armored, 'T', thrusterTE5, 'P', plateFlux));
 				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackTE5Enderium, "AJA", "AAA", "AAA", 'A', RRItems.plateArmorGelidEnderium, 'J', jetpackTE5));
-				ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackTE5Enderium, "J", "P", 'J', jetpackTE5Enderium, 'P', "particle_customizer"));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackTE5Enderium, jetpackTE5Enderium, "particle_customizer"));
 			}
 
 			RecipeHelper.addArmoredReverseRecipe(Jetpack.JETPACKS_TE, Jetpack.JETPACKS_TE_ARMORED, Fluxpack.FLUXPACKS_TE, Fluxpack.FLUXPACKS_TE_ARMORED);
 
 			for (Jetpack jetpack : Jetpack.JETPACKS_TE) {
-				ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpack.getStackJetpack(1), jetpack.getStackJetpack(1), "particle_customizer"));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpack.getStackJetpack(), jetpack.getStackJetpack(), "particle_customizer"));
 			}
 		}
 
@@ -469,7 +475,7 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackVanilla3, "J", 'J', jetpackVanilla3Armored));
 
 			for (Jetpack jetpack : Jetpack.JETPACKS_VANILLA) {
-				ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpack.getStackJetpack(1), jetpack.getStackJetpack(1), "particle_customizer"));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpack.getStackJetpack(), jetpack.getStackJetpack(), "particle_customizer"));
 			}
 		}
 
@@ -486,7 +492,7 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackMek4, "J", 'J', jetpackMek4Armored));
 
 			for (Jetpack jetpack : Jetpack.JETPACKS_MEK) {
-				ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpack.getStackJetpack(1), jetpack.getStackJetpack(1), "particle_customizer"));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpack.getStackJetpack(), jetpack.getStackJetpack(), "particle_customizer"));
 			}
 		}
 
@@ -501,7 +507,7 @@ public abstract class ModItems {
 			ForgeRegistries.RECIPES.register(new UpgradingRecipeShaped(jetpackIE3, "J", 'J', jetpackIE2Armored));
 
 			for (Jetpack jetpack : Jetpack.JETPACKS_IE) {
-				ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpack.getStackJetpack(1), jetpack.getStackJetpack(1), "particle_customizer"));
+				ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpack.getStackJetpack(), jetpack.getStackJetpack(), "particle_customizer"));
 			}
 		}
 	}

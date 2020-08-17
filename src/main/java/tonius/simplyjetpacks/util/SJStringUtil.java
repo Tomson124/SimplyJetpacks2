@@ -20,7 +20,7 @@ public abstract class SJStringUtil {
 	private static final String off = TextFormatting.RED + localize("tooltip.", ".off");
 	private static final String enabled = TextFormatting.GREEN + localize("tooltip.", ".enabled");
 	private static final String disabled = TextFormatting.RED + localize("tooltip.", ".disabled");
-	private static final String notAvailable = TextFormatting.DARK_GRAY + localize("tooltip.", ".notavailable");
+	private static final String notAvailable = TextFormatting.DARK_GRAY + localize("tooltip.", ".not_available");
 
 	private static final DecimalFormat formatter = new DecimalFormat("###,###");
 

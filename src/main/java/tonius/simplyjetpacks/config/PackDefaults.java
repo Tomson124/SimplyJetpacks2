@@ -157,7 +157,7 @@ public class PackDefaults {
             d.armorFuelPerHit = 60;
             d.enchantability = 4;
 
-            d = new PackDefaults("fluxpack_eio2", "Capacitor Pack (eio 2)");
+            d = new PackDefaults("fluxpack_eio2", "Double-Layer Capacitor Pack (eio 2)");
             d.fuelCapacity = 4000000;
             d.fuelPerTickIn = 4000;
             d.fuelPerTickOut = 4000;
@@ -165,21 +165,13 @@ public class PackDefaults {
             d.armorFuelPerHit = 100;
             d.enchantability = 6;
 
-            d = new PackDefaults("fluxpack_eio3", "Vibrant Capacitor Pack (eio 3)");
+            d = new PackDefaults("fluxpack_eio3", "Octadic Capacitor Pack (eio 3)");
             d.fuelCapacity = 20000000;
             d.fuelPerTickIn = 20000;
             d.fuelPerTickOut = 20000;
             d.armorReduction = 7;
             d.armorFuelPerHit = 140;
             d.enchantability = 8;
-
-            d = new PackDefaults("fluxpack_eio4", "Octadic Capacitor Pack (eio 4)");
-            d.fuelCapacity = 80000000;
-            d.fuelPerTickIn = 32000;
-            d.fuelPerTickOut = 32000;
-            d.armorReduction = 7;
-            d.armorFuelPerHit = 160;
-            d.enchantability = 10;
         }
 
         if (ModType.THERMAL_EXPANSION.loaded) {
@@ -283,7 +275,7 @@ public class PackDefaults {
                 d.emergencyHoverMode = true;
             }
 
-            d = new PackDefaults("fluxpack_te1", "Basic Fluxpack (te 1)");
+            d = new PackDefaults("fluxpack_te1", "Leadstone Fluxpack (te 1)");
             d.fuelCapacity = 1500000;
             d.fuelPerTickIn = 800;
             d.fuelPerTickOut = 800;
@@ -291,7 +283,7 @@ public class PackDefaults {
             d.armorFuelPerHit = 60;
             d.enchantability = 4;
 
-            d = new PackDefaults("fluxpack_te2", "Reinforced Fluxpack (te 2)");
+            d = new PackDefaults("fluxpack_te2", "Hardened Fluxpack (te 2)");
             d.fuelCapacity = 12000000;
             d.fuelPerTickIn = 6000;
             d.fuelPerTickOut = 6000;
@@ -299,13 +291,21 @@ public class PackDefaults {
             d.armorFuelPerHit = 100;
             d.enchantability = 6;
 
-            d = new PackDefaults("fluxpack_te3", "Resonant Fluxpack (te 3)");
+            d = new PackDefaults("fluxpack_te3", "Reinforced Fluxpack (te 3)");
             d.fuelCapacity = 40000000;
             d.fuelPerTickIn = 20000;
             d.fuelPerTickOut = 20000;
             d.armorReduction = 7;
             d.armorFuelPerHit = 140;
             d.enchantability = 8;
+
+            d = new PackDefaults("fluxpack_te4", "Resonant Fluxpack (te 4)");
+            d.fuelCapacity = 80000000;
+            d.fuelPerTickIn = 32000;
+            d.fuelPerTickOut = 32000;
+            d.armorReduction = 7;
+            d.armorFuelPerHit = 160;
+            d.enchantability = 10;
         }
 
         if (ModType.MEKANISM.loaded) {

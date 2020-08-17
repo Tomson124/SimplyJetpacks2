@@ -57,7 +57,6 @@ public class SimplyJetpacks {
         proxy.initKeys();
         PacketHandler.init();
         ModItems.init();
-        //ModEnchantments.init();
         proxy.init();
     }
 

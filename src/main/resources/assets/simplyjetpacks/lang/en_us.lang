@@ -118,12 +118,12 @@ item.simplyjetpacks.enderium_upgrade.name=Enderium Flux Overlay
 
 chat.simplyjetpacks.enabled=enabled
 chat.simplyjetpacks.disabled=disabled
-chat.simplyjetpacks.notavailable=not available
+chat.simplyjetpacks.not_available=not available
 chat.simplyjetpacks.jetpack.engine_mode=Jetpack Engine %s
 chat.simplyjetpacks.jetpack.hover_mode=Hover Mode %s
-chat.simplyjetpacks.jetpack.charger_mode=JetPlate Charger %s
+chat.simplyjetpacks.jetpack.charger_mode=Charger Mode %s
 chat.simplyjetpacks.jetpack.emergency_hover_mode=Emergency Hover Mode %s
-chat.simplyjetpacks.jetpack.emergency_hover_mode.msg=User is about to die! Activating Emergency Hover Mode
+chat.simplyjetpacks.jetpack.emergency_hover_mode.msg=WARNING: User about to die, Emergency Hover Activated!
 chat.simplyjetpacks.fluxpack.engine_mode=Fluxpack Charger %s
 
 tooltip.simplyjetpacks.holdShift=Hold %s for Details
@@ -166,7 +166,7 @@ tooltip.simplyjetpacks.particle_customizers.description.2=Craft with a Jetpack t
 tooltip.simplyjetpacks.ra_replacement.description.1=Redstone Arsenal is not installed.
 tooltip.simplyjetpacks.ra_replacement.description.2=So instead, have this blatant rip-off
 tooltip.simplyjetpacks.ra_replacement.description.3=of one if its items.
-tooltip.simplyjetpacks.enderium_upgrade.description.1=Makes a Flux-Infused JetPlate look like
+tooltip.simplyjetpacks.enderium_upgrade.description.1=Makes a Flux-Infused JetPlate look like an Enderium Flux armor piece.
 tooltip.simplyjetpacks.enderium_upgrade.description.2=an Enderium Flux armor piece.
 tooltip.simplyjetpacks.pilot_goggles.description.1=Only the best goggles for the best pilot!
 

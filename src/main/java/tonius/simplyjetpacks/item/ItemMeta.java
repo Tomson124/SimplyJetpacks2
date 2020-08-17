@@ -23,12 +23,10 @@ public class ItemMeta extends ItemRegistered {
 
 	public ItemMeta(String registryName) {
 		super(registryName);
-
 		this.setUnlocalizedName(SimplyJetpacks.PREFIX + registryName);
 		this.setHasSubtypes(true);
 		this.setMaxDamage(0);
 		this.setCreativeTab(SimplyJetpacks.tabSimplyJetpacks);
-
 		numItems = MetaItems.values().length;
 	}
 
@@ -60,6 +58,16 @@ public class ItemMeta extends ItemRegistered {
 				tooltip.add(SJStringUtil.getShiftText());
 			}
 		}
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean hasEffect(ItemStack itemStack) {
+		int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
+		if (MetaItems.values()[i].getGlow()) {
+			return true;
+		}
+		return super.hasEffect(itemStack);
 	}
 
 	@Override
