@@ -29,7 +29,7 @@ public class SoundJetpack extends MovingSound
 	private int fadeOut = -1;
 
 	public SoundJetpack(EntityLivingBase target) {
-		//super(target == minecraft.thePlayer ? SJSoundEvents.JETPACK : SJSoundEvents.JETPACK_OTHER, target == minecraft.thePlayer ? SoundCategory.PLAYERS : SoundCategory.NEUTRAL);
+		//super(target == minecraft.player ? SJSoundRegistry.JETPACK.getSoundEvent() : SJSoundRegistry.JETPACK_OTHER.getSoundEvent(), target == minecraft.player ? SoundCategory.PLAYERS : SoundCategory.NEUTRAL);
 		super(SJSoundRegistry.JETPACK.getSoundEvent(), SoundCategory.PLAYERS);
 		this.repeat = true;
 		this.user = target;

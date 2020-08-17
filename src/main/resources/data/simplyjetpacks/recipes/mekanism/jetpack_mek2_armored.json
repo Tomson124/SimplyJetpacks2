@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "simplyjetpacks:jetpack_mek2"
+    },
+    {
+      "item": "simplyjetpacks:armorplating_mek2"
+    }
+  ],
+  "result": {
+    "item": "simplyjetpacks:jetpack_mek2_armored",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "mekanism"
+    }
+  ]
+}

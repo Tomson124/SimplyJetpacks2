@@ -72,20 +72,19 @@ public enum Jetpack implements IStringSerializable {
 	JETPACK_IE_2_ARMORED("jetpack_ie2_armored", 2, "jetpack_ie2", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_IE_2.ordinal()),
 	JETPACK_IE_3_ARMORED("jetpack_ie3_armored", 3, "jetpack_ie3", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_IE_3.ordinal());
 
-	protected final PackDefaults defaults;
-	protected static final EnumSet<Jetpack> PACKS_ALL = EnumSet.allOf(Jetpack.class);
-	protected static final EnumSet<Jetpack> PACKS_SJ = EnumSet.of(JETPACK_CREATIVE);
-	public static final EnumSet<Jetpack> PACKS_VANILLA = EnumSet.range(JETPACK_VANILLA_1, JETPACK_VANILLA_3_ARMORED);
-	public static final EnumSet<Jetpack> PACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPLATE_EIO_5);
-	public static final EnumSet<Jetpack> PACKS_TE = EnumSet.range(JETPACK_TE_1, JETPLATE_TE_5);
-	public static final EnumSet<Jetpack> PACKS_TE_ARMORED = EnumSet.range(JETPACK_TE_1_ARMORED, JETPACK_TE_4_ARMORED);
-	public static final EnumSet<Jetpack> PACKS_MEK = EnumSet.range(JETPACK_MEK_1, JETPACK_MEK_4_ARMORED);
-	public static final EnumSet<Jetpack> PACKS_IE = EnumSet.range(JETPACK_IE_1, JETPACK_IE_3_ARMORED);
-	public static final EnumSet<Jetpack> PACKS_RR = EnumSet.of(JETPLATE_TE_5_ENDERIUM);
-
 	protected static final String TAG_PARTICLE = "JetpackParticleType";
 	public ParticleType defaultParticleType;
-	public PackModelType armorModel = PackModelType.FLAT;
+
+	protected final PackDefaults defaults;
+	protected static final EnumSet<Jetpack> JETPACKS_ALL = EnumSet.allOf(Jetpack.class);
+	protected static final EnumSet<Jetpack> JETPACKS_SJ = EnumSet.of(JETPACK_CREATIVE);
+	public static final EnumSet<Jetpack> JETPACKS_VANILLA = EnumSet.range(JETPACK_VANILLA_1, JETPACK_VANILLA_3_ARMORED);
+	public static final EnumSet<Jetpack> JETPACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPLATE_EIO_5);
+	public static final EnumSet<Jetpack> JETPACKS_TE = EnumSet.range(JETPACK_TE_1, JETPLATE_TE_5);
+	public static final EnumSet<Jetpack> JETPACKS_TE_ARMORED = EnumSet.range(JETPACK_TE_1_ARMORED, JETPACK_TE_4_ARMORED);
+	public static final EnumSet<Jetpack> JETPACKS_MEK = EnumSet.range(JETPACK_MEK_1, JETPACK_MEK_4_ARMORED);
+	public static final EnumSet<Jetpack> JETPACKS_IE = EnumSet.range(JETPACK_IE_1, JETPACK_IE_3_ARMORED);
+	public static final EnumSet<Jetpack> JETPACKS_RR = EnumSet.of(JETPLATE_TE_5_ENDERIUM);
 
 	@Nonnull
 	public final String baseName;
@@ -98,12 +97,11 @@ public enum Jetpack implements IStringSerializable {
 	public int armorFuelPerHit;
 	public int armorReduction;
 	public int fuelUsage;
-
-	public boolean isArmored;
 	public int platingMeta;
-
 	public boolean usesFuel;
+	public boolean isArmored;
 	public EnumRarity rarity;
+	public PackModelType armorModel = PackModelType.FLAT;
 
 	public double speedVertical;
 	public double accelVertical;
@@ -252,36 +250,36 @@ public enum Jetpack implements IStringSerializable {
 	}
 	
 	public static void loadAllConfigs(Configuration config) {
-		for (Jetpack pack : PACKS_SJ) {
+		for (Jetpack pack : JETPACKS_SJ) {
 			pack.loadConfig(config);
 		}
 		if (ModItems.integrateVanilla){
-			for (Jetpack pack : PACKS_VANILLA) {
+			for (Jetpack pack : JETPACKS_VANILLA) {
 				pack.loadConfig(config);
 			}
 		}
 		if (ModItems.integrateEIO){
-			for (Jetpack pack : PACKS_EIO) {
+			for (Jetpack pack : JETPACKS_EIO) {
 				pack.loadConfig(config);
 			}
 		}
 		if (ModItems.integrateTE) {
-			for (Jetpack pack : PACKS_TE) {
+			for (Jetpack pack : JETPACKS_TE) {
 				pack.loadConfig(config);
 			}
 		}
 		if (ModItems.integrateMek){
-			for (Jetpack pack : PACKS_MEK) {
+			for (Jetpack pack : JETPACKS_MEK) {
 				pack.loadConfig(config);
 			}
 		}
 		if (ModItems.integrateIE){
-			for (Jetpack pack : PACKS_IE) {
+			for (Jetpack pack : JETPACKS_IE) {
 				pack.loadConfig(config);
 			}
 		}
 		if (ModItems.integrateRR){
-			for (Jetpack pack : PACKS_RR) {
+			for (Jetpack pack : JETPACKS_RR) {
 				pack.loadConfig(config);
 			}
 		}

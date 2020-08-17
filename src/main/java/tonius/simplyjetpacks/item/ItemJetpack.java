@@ -96,38 +96,38 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull CreativeTabs creativeTabs, @Nonnull NonNullList<ItemStack> List) {
 		if (isInCreativeTab(creativeTabs)) {
-			for (Jetpack pack : Jetpack.PACKS_SJ) {
+			for (Jetpack pack : Jetpack.JETPACKS_SJ) {
 				ItemHelper.addJetpacks(pack, List);
 			}
 			if (ModItems.integrateVanilla) {
-				for (Jetpack pack : Jetpack.PACKS_VANILLA) {
+				for (Jetpack pack : Jetpack.JETPACKS_VANILLA) {
 					ItemStack stack;
 					stack = new ItemStack(this, 1, pack.ordinal());
 					List.add(stack);
 				}
 			}
 			if (ModItems.integrateEIO) {
-				for (Jetpack pack : Jetpack.PACKS_EIO) {
+				for (Jetpack pack : Jetpack.JETPACKS_EIO) {
 					ItemHelper.addJetpacks(pack, List);
 				}
 			}
 			if (ModItems.integrateTE) {
-				for (Jetpack pack : Jetpack.PACKS_TE) {
+				for (Jetpack pack : Jetpack.JETPACKS_TE) {
 					ItemHelper.addJetpacks(pack, List);
 				}
 			}
 			if (ModItems.integrateMek) {
-				for (Jetpack pack : Jetpack.PACKS_MEK) {
+				for (Jetpack pack : Jetpack.JETPACKS_MEK) {
 					ItemHelper.addJetpacks(pack, List);
 				}
 			}
 			if (ModItems.integrateIE) {
-				for (Jetpack pack : Jetpack.PACKS_IE) {
+				for (Jetpack pack : Jetpack.JETPACKS_IE) {
 					ItemHelper.addJetpacks(pack, List);
 				}
 			}
 			if (ModItems.integrateRR) {
-				for (Jetpack pack : Jetpack.PACKS_RR) {
+				for (Jetpack pack : Jetpack.JETPACKS_RR) {
 					ItemHelper.addJetpacks(pack, List);
 				}
 			}
@@ -236,7 +236,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		if (this.showTier) {
 			list.add(SJStringUtil.getTierText(Jetpack.values()[i].getTier()));
 		}
-
 		list.add(SJStringUtil.getFuelText(this.fuelType, item.getFuelStored(stack), item.getMaxFuelStored(stack), !Jetpack.values()[i].usesFuel));
 	}
 
@@ -246,10 +245,11 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		list.add(SJStringUtil.getStateText(this.isOn(stack)));
 		list.add(SJStringUtil.getHoverModeText(this.isHoverModeOn(stack)));
 		if (Jetpack.values()[i].getFuelUsage() > 0) {
-			if(Jetpack.values()[i].getBaseName().contains("enderium")){
-				list.add(TextFormatting.BLUE + "Supercooled! Fuel Usage Rate " + Config.gelidEnderiumFuelUsageBonus + "%");
+			if (Jetpack.values()[i].getBaseName().contains("enderium")) {
+				list.add(SJStringUtil.getEnderiumBonusText());
 			}
-			list.add(SJStringUtil.getFuelUsageText(this.fuelType, Jetpack.values()[i].getFuelUsage()));
+			//list.add(SJStringUtil.getFuelUsageText(this.fuelType, Jetpack.values()[i].getFuelUsage()));
+			list.add(SJStringUtil.getFuelUsageText(this.fuelType, this.getFuelUsage(stack)));
 		}
 		list.add(SJStringUtil.getParticlesText(Jetpack.values()[i].getParticleType(stack)));
 		SJStringUtil.addDescriptionLines(list, "jetpack", TextFormatting.GREEN.toString());
@@ -269,16 +269,13 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 
 	protected int getFuelUsage(ItemStack stack) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
-		int usage = Jetpack.values()[i].getFuelUsage();
-		//if (ModEnchantments.fuelEfficiency == null) {
+		int baseUsage = Jetpack.values()[i].getFuelUsage();
 		if (Jetpack.values()[i].getBaseName().contains("enderium")) {
-			return (int)Math.round(usage*.8);
+			float bonus = (int) (Config.gelidEnderiumFuelUsageBonus / 10);
+			baseUsage = Math.round(baseUsage * bonus);
 		}
-		else {
-			return usage;
-		}
-		//int fuelEfficiencyLevel = tonius.simplyjetpacks.util.math.MathHelper.clampI(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
-		//return (int) Math.round(this.fuelUsage * (20 - fuelEfficiencyLevel) / 20.0D);
+		int level = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.FUEL_EFFICIENCY, stack);
+		return level != 0 ? (int) Math.round(baseUsage * (5 - level) / 5.0D) : baseUsage;
 	}
 
 	public int addFuel(ItemStack stack, int maxAdd, boolean simulate) {
@@ -453,10 +450,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 
 	protected int getFuelPerDamage(ItemStack stack) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
-		if (ModEnchantments.fuelEffeciency == null) {
-			return Jetpack.values()[i].getArmorFuelPerHit();
-		}
-		int fuelEfficiencyLevel = MathHelper.clamp(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
+		int fuelEfficiencyLevel = MathHelper.clamp(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.FUEL_EFFICIENCY, stack), 0, 4);
 		return (int) Math.round(Jetpack.values()[i].getArmorFuelPerHit() * (5 - fuelEfficiencyLevel) / 5.0D);
 	}
 

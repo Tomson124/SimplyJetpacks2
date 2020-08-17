@@ -1,0 +1,31 @@
+{
+  "display": {
+    "description": {
+      "translate": "advancement.simplyjetpacks.root.description"
+    },
+    "title": {
+      "translate": "advancement.simplyjetpacks.root.title",
+      "color": "purple"
+    },
+    "icon": {
+      "item": "minecraft:apple"
+    },
+    "frame": "challenge",
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/blocks/stone.png"
+  },
+  "criteria": {
+    "location": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "dimension":"overworld",
+        "position": {
+          "y": {
+            "max": 5
+          }
+        }
+      }
+    }
+  }
+}

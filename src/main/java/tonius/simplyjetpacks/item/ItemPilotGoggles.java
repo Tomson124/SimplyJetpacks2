@@ -6,16 +6,12 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import sun.net.www.content.image.png;
 import tonius.simplyjetpacks.SimplyJetpacks;
-import tonius.simplyjetpacks.client.model.PackModelType;
-import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.util.SJStringUtil;
 
 import javax.annotation.Nonnull;

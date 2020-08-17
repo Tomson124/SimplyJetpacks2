@@ -5,7 +5,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;
-import tonius.simplyjetpacks.client.model.ModelFluxPack;
+import tonius.simplyjetpacks.client.model.ModelFluxpack;
 import tonius.simplyjetpacks.client.model.ModelJetpack;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.item.Fluxpack;
@@ -18,11 +18,9 @@ public abstract class RenderUtils {
     public static void drawStringLeft(String string, FontRenderer fontRenderer, int x, int y, int color, boolean shadow) {
         fontRenderer.drawString(string, x, y, color, shadow);
     }
-
     public static void drawStringCenter(String string, FontRenderer fontRenderer, int x, int y, int color, boolean shadow) {
         fontRenderer.drawString(string, x - fontRenderer.getStringWidth(string) / 2.0f, y, color, shadow);
     }
-
     public static void drawStringRight(String string, FontRenderer fontRenderer, int x, int y, int color, boolean shadow) {
         fontRenderer.drawString(string, x - fontRenderer.getStringWidth(string), y, color, shadow);
     }
@@ -86,14 +84,13 @@ public abstract class RenderUtils {
         model.isSneak = entity.isSneaking();
         model.isRiding = entity.isRiding();
         model.isChild = entity.isChild();
-
         return model;
     }
 
     public static ModelBiped getArmorModel(Fluxpack pack, EntityLivingBase entity) {
         ModelBiped model = null;
         if (pack.armorModel == PackModelType.FLUXPACK) {
-            model = ModelFluxPack.INSTANCE;
+            model = ModelFluxpack.INSTANCE;
         }
         if (model == null) {
             return null;
@@ -101,7 +98,6 @@ public abstract class RenderUtils {
         model.isSneak = entity.isSneaking();
         model.isRiding = entity.isRiding();
         model.isChild = entity.isChild();
-
         return model;
     }
 }

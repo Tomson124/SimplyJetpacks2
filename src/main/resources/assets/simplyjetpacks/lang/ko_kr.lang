@@ -109,7 +109,7 @@ item.simplyjetpacks.unit_cryotheum.name=Cryotheum Coolant Unit
 item.simplyjetpacks.unit_glowstone_empty.name=Glowstone Elevation Unit (Empty)
 item.simplyjetpacks.unit_glowstone.name=Glowstone Elevation Unit
 item.simplyjetpacks.ingot_dark_soularium.name=Dark Soularium Ingot
-item.simplyjetpacks.reinforced_gliderwing.name=Reinforced Glider Wing
+item.simplyjetpacks.reinforced_glider_wing.name=Reinforced Glider Wing
 item.simplyjetpacks.unit_flight_control_empty.name=Flight Control Unit (Empty)
 item.simplyjetpacks.unit_flight_control.name=Flight Control Unit
 item.simplyjetpacks.plate_flux.name=Fluxed Armor Plating
@@ -250,3 +250,6 @@ config.simplyjetpacks.tuning.jetpack_bc2=Tuning - Kinetic Jetpack (bc 2)
 subtitle.simplyjetpacks.jetpack=*Jetpack Noises*
 subtitle.simplyjetpacks.jetpack_other=*Jetpack Other Noises*
 subtitle.simplyjetpacks.rocket=*Rocket Noises*
+
+advancements.simplyjetpacks.root.title=Simply Jetpacks 2
+advancements.simplyjetpacks.root.description=Install Simply Jetpacks 2

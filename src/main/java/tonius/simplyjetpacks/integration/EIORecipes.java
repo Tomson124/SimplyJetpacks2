@@ -7,7 +7,7 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 
 public abstract class EIORecipes {
     public static void addAlloySmelterRecipe(String name, int energy, ItemStack primaryInput, ItemStack secondaryInput, ItemStack tertiaryInput, ItemStack output) {
-        SimplyJetpacks.logger.info("Registering EIO Alloy Smelter recipe");
+        SimplyJetpacks.logger.info("Registering EIO Alloy Smelter Recipe...");
 
         StringBuilder toSend = new StringBuilder();
 

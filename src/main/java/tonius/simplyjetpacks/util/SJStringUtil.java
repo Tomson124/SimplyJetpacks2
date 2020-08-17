@@ -178,4 +178,8 @@ public abstract class SJStringUtil {
 			i++;
 		}
 	}
+
+	public static String getEnderiumBonusText() {
+		return TextFormatting.BLUE + localize("tooltip.", ".enderium_fuel_bonus", Config.gelidEnderiumFuelUsageBonus);
+	}
 }

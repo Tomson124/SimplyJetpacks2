@@ -2,7 +2,6 @@ package tonius.simplyjetpacks.item;
 
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.common.config.Configuration;
 import tonius.simplyjetpacks.client.model.PackModelType;
@@ -21,18 +20,29 @@ public enum Fluxpack implements IStringSerializable {
 	FLUXPACK_EIO1("fluxpack_eio1", "fluxpack_eio1", 1, EnumRarity.COMMON),
 	FLUXPACK_EIO2("fluxpack_eio2", "fluxpack_eio2", 2, EnumRarity.UNCOMMON),
 	FLUXPACK_EIO3("fluxpack_eio3", "fluxpack_eio3", 3, EnumRarity.RARE),
+	FLUXPACK_EIO1_ARMORED("fluxpack_eio1_armored", "fluxpack_eio1", 1, EnumRarity.COMMON, true, true, MetaItemsMods.ARMOR_PLATING_EIO_1.ordinal()),
 	FLUXPACK_EIO2_ARMORED("fluxpack_eio2_armored", "fluxpack_eio2", 2, EnumRarity.UNCOMMON, true, true, MetaItemsMods.ARMOR_PLATING_EIO_2.ordinal()),
-	FLUXPACK_EIO3_ARMORED("fluxpack_eio3_armored", "fluxpack_eio3", 3, EnumRarity.RARE, true, true, MetaItemsMods.ARMOR_PLATING_EIO_4.ordinal()),
+	FLUXPACK_EIO3_ARMORED("fluxpack_eio3_armored", "fluxpack_eio3", 3, EnumRarity.RARE, true, true, MetaItemsMods.ARMOR_PLATING_EIO_3.ordinal()),
 
 	// Thermal Expansion
 	FLUXPACK_TE1("fluxpack_te1", "fluxpack_te1", 1, EnumRarity.COMMON),
 	FLUXPACK_TE2("fluxpack_te2", "fluxpack_te2", 2, EnumRarity.UNCOMMON),
 	FLUXPACK_TE3("fluxpack_te3", "fluxpack_te3", 3, EnumRarity.RARE),
+	FLUXPACK_TE1_ARMORED("fluxpack_te1_armored", "fluxpack_te1", 1, EnumRarity.COMMON, true, true, MetaItemsMods.ARMOR_PLATING_TE_1.ordinal()),
 	FLUXPACK_TE2_ARMORED("fluxpack_te2_armored", "fluxpack_te2", 2, EnumRarity.UNCOMMON, true, true, MetaItemsMods.ARMOR_PLATING_TE_2.ordinal()),
-	FLUXPACK_TE3_ARMORED("fluxpack_te3_armored", "fluxpack_te3", 3, EnumRarity.RARE, true, true, MetaItemsMods.ARMOR_PLATING_TE_4.ordinal());
+	FLUXPACK_TE3_ARMORED("fluxpack_te3_armored", "fluxpack_te3", 3, EnumRarity.RARE, true, true, MetaItemsMods.ARMOR_PLATING_TE_3.ordinal());
 
-	public final @Nonnull String baseName;
-	public final @Nonnull String unlocalisedName;
+	protected final PackDefaults defaults;
+	protected static final EnumSet<Fluxpack> FLUXPACKS_ALL = EnumSet.allOf(Fluxpack.class);
+	protected static final EnumSet<Fluxpack> FLUXPACKS_SJ = EnumSet.of(FLUXPACK_CREATIVE);
+	public static final EnumSet<Fluxpack> FLUXPACKS_EIO = EnumSet.range(FLUXPACK_EIO1, FLUXPACK_EIO3_ARMORED);
+	public static final EnumSet<Fluxpack> FLUXPACKS_TE = EnumSet.range(FLUXPACK_TE1, FLUXPACK_TE3_ARMORED);
+	public static final EnumSet<Fluxpack> FLUXPACKS_TE_ARMORED = EnumSet.of(FLUXPACK_TE2_ARMORED, FLUXPACK_TE3_ARMORED);
+
+	@Nonnull
+	public final String baseName;
+	@Nonnull
+	public final String unlocalisedName;
 	public final int tier;
 	public int fuelCapacity;
 	public int fuelPerTickIn;
@@ -41,19 +51,10 @@ public enum Fluxpack implements IStringSerializable {
 	public int armorReduction;
 	public int fuelUsage;
 	public int platingMeta;
-
 	public boolean usesFuel;
+	public boolean isArmored;
 	public EnumRarity rarity;
 	public PackModelType armorModel = PackModelType.FLAT;
-
-	protected final PackDefaults defaults;
-
-	public boolean isArmored;
-
-	protected static final EnumSet<Fluxpack> SJ_FLUXPACKS = EnumSet.of(FLUXPACK_CREATIVE);
-	public static final EnumSet<Fluxpack> EIO_FLUXPACKS = EnumSet.range(FLUXPACK_EIO1, FLUXPACK_EIO3_ARMORED);
-	public static final EnumSet<Fluxpack> TE_FLUXPACKS = EnumSet.range(FLUXPACK_TE1, FLUXPACK_TE3_ARMORED);
-	public static final EnumSet<Fluxpack> TE_FLUXPACKS_ARMORED = EnumSet.of(FLUXPACK_TE2_ARMORED, FLUXPACK_TE3_ARMORED);
 
 	Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity, boolean usesFuel) {
 		this(baseName, defaultConfigKey, tier, rarity);
@@ -160,58 +161,17 @@ public enum Fluxpack implements IStringSerializable {
 	}
 
 	public static void loadAllConfigs(Configuration config) {
-		for (Fluxpack pack : SJ_FLUXPACKS) {
+		for (Fluxpack pack : FLUXPACKS_SJ) {
 			pack.loadConfig(config);
 		}
 		if (ModItems.integrateEIO) {
-			for (Fluxpack pack : EIO_FLUXPACKS) {
+			for (Fluxpack pack : FLUXPACKS_EIO) {
 				pack.loadConfig(config);
 			}
 		}
 		if (ModItems.integrateTE) {
-			for (Fluxpack pack : TE_FLUXPACKS) {
+			for (Fluxpack pack : FLUXPACKS_TE) {
 				pack.loadConfig(config);
-			}
-		}
-	}
-
-	public static void writeAllConfigsToNBT(NBTTagCompound tag) {
-		for (Fluxpack pack : SJ_FLUXPACKS) {
-			NBTTagCompound packTag = new NBTTagCompound();
-			pack.writeConfigToNBT(packTag);
-			tag.setTag(pack.defaults.section.id, packTag);
-		}
-		if (ModItems.integrateEIO) {
-			for (Fluxpack pack : EIO_FLUXPACKS) {
-				NBTTagCompound packTag = new NBTTagCompound();
-				pack.writeConfigToNBT(packTag);
-				tag.setTag(pack.defaults.section.id, packTag);
-			}
-		}
-		if (ModItems.integrateTE) {
-			for (Fluxpack pack : TE_FLUXPACKS) {
-				NBTTagCompound packTag = new NBTTagCompound();
-				pack.writeConfigToNBT(packTag);
-				tag.setTag(pack.defaults.section.id, packTag);
-			}
-		}
-	}
-
-	public static void readAllConfigsFromNBT(NBTTagCompound tag) {
-		for (Fluxpack pack : SJ_FLUXPACKS) {
-			NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
-			pack.readConfigFromNBT(packTag);
-		}
-		if (ModItems.integrateEIO) {
-			for (Fluxpack pack : EIO_FLUXPACKS) {
-				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
-				pack.readConfigFromNBT(packTag);
-			}
-		}
-		if (ModItems.integrateTE) {
-			for (Fluxpack pack : TE_FLUXPACKS) {
-				NBTTagCompound packTag = tag.getCompoundTag(pack.defaults.section.id);
-				pack.readConfigFromNBT(packTag);
 			}
 		}
 	}
@@ -238,41 +198,5 @@ public enum Fluxpack implements IStringSerializable {
 		/*if(this.defaults.enchantability != null) {
 			this.enchantability = config.get(this.defaults.section.name, "Enchantability", this.defaults.enchantability, "The enchantability of this pack. If set to 0, no enchantments can be applied.").setMinValue(0).getInt(this.defaults.enchantability);
 		}*/
-	}
-
-	protected void writeConfigToNBT(NBTTagCompound tag) {
-		if (this.defaults.fuelCapacity != null) {
-			tag.setInteger("FuelCapacity", this.fuelCapacity);
-		}
-		if (this.defaults.fuelUsage != null) {
-			tag.setInteger("FuelUsage", this.fuelUsage);
-		}
-		if (this.defaults.fuelPerTickIn != null) {
-			tag.setInteger("FuelPerTickIn", this.fuelPerTickIn);
-		}
-		if (this.defaults.fuelPerTickOut != null) {
-			tag.setInteger("FuelPerTickOut", this.fuelPerTickOut);
-		}
-		if (this.defaults.armorReduction != null) {
-			tag.setInteger("ArmorReduction", this.armorReduction);
-		}
-	}
-
-	protected void readConfigFromNBT(NBTTagCompound tag) {
-		if (this.defaults.fuelCapacity != null) {
-			this.fuelCapacity = tag.getInteger("FuelCapacity");
-		}
-		if (this.defaults.fuelUsage != null) {
-			this.fuelUsage = tag.getInteger("FuelUsage");
-		}
-		if (this.defaults.fuelPerTickIn != null) {
-			this.fuelPerTickIn = tag.getInteger("FuelPerTickIn");
-		}
-		if (this.defaults.fuelPerTickOut != null) {
-			this.fuelPerTickOut = tag.getInteger("FuelPerTickOut");
-		}
-		if (this.defaults.armorReduction != null) {
-			this.armorReduction = tag.getInteger("ArmorReduction");
-		}
 	}
 }

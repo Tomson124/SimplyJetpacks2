@@ -8,7 +8,6 @@ import java.util.Map;
 public class PackDefaults {
 
     private static final Map<String, PackDefaults> DEFAULTS = new HashMap<>();
-
     public final Section section;
 
     // Base
@@ -154,6 +153,8 @@ public class PackDefaults {
             d.fuelCapacity = 800000;
             d.fuelPerTickIn = 800;
             d.fuelPerTickOut = 800;
+            d.armorReduction = 4;
+            d.armorFuelPerHit = 60;
             d.enchantability = 4;
 
             d = new PackDefaults("fluxpack_eio2", "Capacitor Pack (eio 2)");
@@ -282,13 +283,15 @@ public class PackDefaults {
                 d.emergencyHoverMode = true;
             }
 
-            d = new PackDefaults("fluxpack_te1", "Basic FluxPack (te 1)");
+            d = new PackDefaults("fluxpack_te1", "Basic Fluxpack (te 1)");
             d.fuelCapacity = 1500000;
             d.fuelPerTickIn = 800;
             d.fuelPerTickOut = 800;
+            d.armorReduction = 4;
+            d.armorFuelPerHit = 60;
             d.enchantability = 4;
 
-            d = new PackDefaults("fluxpack_te2", "Reinforced FluxPack (te 2)");
+            d = new PackDefaults("fluxpack_te2", "Reinforced Fluxpack (te 2)");
             d.fuelCapacity = 12000000;
             d.fuelPerTickIn = 6000;
             d.fuelPerTickOut = 6000;
@@ -296,7 +299,7 @@ public class PackDefaults {
             d.armorFuelPerHit = 100;
             d.enchantability = 6;
 
-            d = new PackDefaults("fluxpack_te3", "Resonant FluxPack (te 3)");
+            d = new PackDefaults("fluxpack_te3", "Resonant Fluxpack (te 3)");
             d.fuelCapacity = 40000000;
             d.fuelPerTickIn = 20000;
             d.fuelPerTickOut = 20000;

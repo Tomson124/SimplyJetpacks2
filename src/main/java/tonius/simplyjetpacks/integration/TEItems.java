@@ -10,7 +10,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import tonius.simplyjetpacks.SimplyJetpacks;
 
 public abstract class TEItems {
-
 	// Capacitors
 	@GameRegistry.ItemStackHolder(value = "thermalexpansion:capacitor", meta = 0)
 	public static ItemStack capacitorBasic = null;
@@ -20,7 +19,6 @@ public abstract class TEItems {
 	public static ItemStack capacitorReinforced = null;
 	@GameRegistry.ItemStackHolder(value = "thermalexpansion:capacitor", meta = 4)
 	public static ItemStack capacitorResonant = null;
-
 	// Cells
 	@GameRegistry.ItemStackHolder("thermalexpansion:cell")
 	public static ItemStack cellBasic = null;
@@ -28,7 +26,6 @@ public abstract class TEItems {
 	public static ItemStack cellReinforced = null;
 	@GameRegistry.ItemStackHolder("thermalexpansion:cell")
 	public static ItemStack cellResonant;
-
 	// Dynamos
 	@GameRegistry.ItemStackHolder(value = "thermalexpansion:dynamo", meta = 1)
 	public static ItemStack dynamoMagmatic = null;
@@ -38,7 +35,6 @@ public abstract class TEItems {
 	public static ItemStack dynamoEnervation = null;
 	@GameRegistry.ItemStackHolder(value = "thermalexpansion:dynamo", meta = 5)
 	public static ItemStack dynamoNumismatic = null;
-
 	// Crafting Materials
 	@GameRegistry.ItemStackHolder(value = "thermalfoundation:glass_alloy", meta = 5)
 	public static ItemStack signalumGlass = null;
@@ -48,7 +44,6 @@ public abstract class TEItems {
 	public static ItemStack powerCoilElectrum = null;
 
 	public static ItemStack bucketRedstone = null;
-
 
 	public static void init() {
 		SimplyJetpacks.logger.info("Stealing Thermal Expansion's items");

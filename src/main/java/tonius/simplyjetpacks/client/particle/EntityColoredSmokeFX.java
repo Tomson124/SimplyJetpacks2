@@ -15,7 +15,6 @@ public class EntityColoredSmokeFX extends EntityCustomSmokeFX {
 	}
 
 	public static EntityColoredSmokeFX getRainbowSmoke(World world, double posX, double posY, double posZ, double velX, double velY, double velZ) {
-
 		Color color = new Color(Color.HSBtoRGB(MathHelper.RANDOM.nextFloat() * 360, MathHelper.RANDOM.nextFloat() * 0.15F + 0.8F, 0.85F));
 		float red = color.getRed() / 255.0F;
 		float green = color.getGreen() / 255.0F;

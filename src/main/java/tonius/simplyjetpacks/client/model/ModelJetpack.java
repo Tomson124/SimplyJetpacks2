@@ -10,13 +10,13 @@ public class ModelJetpack extends ModelBiped {
 	public ModelJetpack() {
 		super(1.0F, 0, 64, 64);
 
-		this.bipedBody.showModel = true;
-		this.bipedRightArm.showModel = true;
-		this.bipedLeftArm.showModel = true;
-		this.bipedHead.showModel = false;
 		this.bipedHeadwear.showModel = false;
-		this.bipedRightLeg.showModel = false;
+		this.bipedHead.showModel = false;
+		this.bipedBody.showModel = true;
+		this.bipedLeftArm.showModel = true;
+		this.bipedRightArm.showModel = true;
 		this.bipedLeftLeg.showModel = false;
+		this.bipedRightLeg.showModel = false;
 
 		ModelRenderer middle = new ModelRenderer(this, 0, 54).setTextureSize(64, 64);
 		middle.addBox(-2F, 3F, 3.6F, 4, 5, 2);

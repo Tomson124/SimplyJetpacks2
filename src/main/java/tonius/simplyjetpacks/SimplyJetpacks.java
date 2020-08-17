@@ -15,7 +15,6 @@ import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.network.PacketHandler;
 import tonius.simplyjetpacks.setup.CreativeTabSimplyJetpacks;
-import tonius.simplyjetpacks.setup.ModEnchantments;
 import tonius.simplyjetpacks.setup.ModItems;
 
 @Mod(modid = SimplyJetpacks.MODID, dependencies = SimplyJetpacks.DEPENDENCIES, guiFactory = "tonius.simplyjetpacks.config.ConfigGuiFactory")
@@ -27,6 +26,7 @@ public class SimplyJetpacks {
     
     public static final String PREFIX = MODID + ".";
     public static final String RESOURCE_PREFIX = MODID + ":";
+    // TODO: Put dependencies back in.
     public static final String DEPENDENCIES = "";//"required-after:redstoneflux@[2.0.1,);" + "after:thermalexpansion;" + "after:redstonearsenal;" + "after:thermaldynamics;" + "after:enderio;" + "after:redstonerepository;";
 
     @Mod.Instance(MODID)
@@ -57,7 +57,7 @@ public class SimplyJetpacks {
         proxy.initKeys();
         PacketHandler.init();
         ModItems.init();
-        ModEnchantments.init();
+        //ModEnchantments.init();
         proxy.init();
     }
 

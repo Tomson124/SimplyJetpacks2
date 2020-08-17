@@ -76,16 +76,16 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull CreativeTabs creativeTabs, @Nonnull NonNullList<ItemStack> List) {
 		if (isInCreativeTab(creativeTabs)) {
-			for (Fluxpack pack : Fluxpack.SJ_FLUXPACKS) {
+			for (Fluxpack pack : Fluxpack.FLUXPACKS_SJ) {
 				ItemHelper.addFluxpacks(pack, List);
 			}
 			if (ModItems.integrateEIO) {
-				for (Fluxpack pack : Fluxpack.EIO_FLUXPACKS) {
+				for (Fluxpack pack : Fluxpack.FLUXPACKS_EIO) {
 					ItemHelper.addFluxpacks(pack, List);
 				}
 			}
 			if (ModItems.integrateTE) {
-				for (Fluxpack pack : Fluxpack.TE_FLUXPACKS) {
+				for (Fluxpack pack : Fluxpack.FLUXPACKS_TE) {
 					ItemHelper.addFluxpacks(pack, List);
 				}
 			}
@@ -358,10 +358,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	protected int getFuelPerDamage(ItemStack stack) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
-		if (ModEnchantments.fuelEffeciency == null) {
-			return Fluxpack.values()[i].getArmorFuelPerHit();
-		}
-		int fuelEfficiencyLevel = MathHelper.clamp(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.fuelEffeciency, stack), 0, 4);
+		int fuelEfficiencyLevel = MathHelper.clamp(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.FUEL_EFFICIENCY, stack), 0, 4);
 		return (int) Math.round(Fluxpack.values()[i].getArmorFuelPerHit() * (5 - fuelEfficiencyLevel) / 5.0D);
 	}
 

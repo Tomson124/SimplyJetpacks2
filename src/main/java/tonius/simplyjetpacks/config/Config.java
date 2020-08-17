@@ -37,7 +37,7 @@ public class Config {
     public static boolean enableIntegrationMek = Defaults.enableIntegrationMek;
     public static boolean enableIntegrationIE = Defaults.enableIntegrationIE;
     public static boolean enableIntegrationRR = Defaults.enableIntegrationRR;
-    public static int gelidEnderiumFuelUsageBonus = Defaults.gelidEnderiumFuelUsageBonus;
+    public static float gelidEnderiumFuelUsageBonus = Defaults.gelidEnderiumFuelUsageBonus;
 
     // Controls
     public static boolean customControls = Defaults.customControls;

@@ -4,7 +4,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public abstract class TDItems {
-
 	@GameRegistry.ItemStackHolder(value = "thermaldynamics:duct_0", meta = 0)
 	public static ItemStack ductFluxLeadstone = null;
 	@GameRegistry.ItemStackHolder(value = "thermaldynamics:duct_0", meta = 1)

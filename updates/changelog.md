@@ -1,7 +1,8 @@
 # 2.2.16 - 00-08-2020
 - **General**
-    - Tweaked some code
+    - Tweaked some code, making it more efficient
     - Renamed some things internally
+    - Updated textures for some Jetpacks
 
 - **Added**
     - Mekanism Jetpack Integration
@@ -10,15 +11,16 @@
 
 - **Fixed**
     - Config Values updating when changed
+    - Jetpack texture names not matching Jetpack name
     
 # 2.2.15 - 00-08-2020
 - **General**
     - Changed RedstoneRepository chestplate craft to use gelid armor plates instead of ingots
-    - Tweaked TE5 jetpack recipes a bit
+    - Tweaked TE5 Jetpack recipes a bit
 
 - **Added**
     - Pseudo-upgrade crafts for TE5 chestplates to be able to change their particle mode
-    - Blue durability bar for gelid TE5 jetpack
+    - Blue durability bar for gelid TE5 Jetpack
 
 - **Fixed**
     - HoverMode tooltip in ru_ru.lang 
@@ -31,12 +33,12 @@
     
 # 2.2.13 - 13-08-2019
 - **Fixed**
-    - Jetplate not charging items - #138
+    - JetPlate not charging items - #138
     
 # 2.2.12 - 12-05-2019
 - **Fixed**
-    - Bug where jetpacks would not show up if TD integration was disabled - #126 #136
-    - Recipes for thrusters, changed the dynamos required to fit the used materials to the jetpack tier - #134
+    - Bug where Jetpacks would not show up if TD integration was disabled - #126 #136
+    - Recipes for thrusters, changed the dynamos required to fit the used materials to the Jetpack tier - #134
 
 # 2.2.11 - 21-03-2019
 - **Fixed**
@@ -89,7 +91,7 @@
     - Cleanup and rewrite of mod integrations. Huge thank you to @thundR
 
 - **Fixed**
-    - Crafting with entchanted jetpacks not possible - #81
+    - Crafting with entchanted Jetpacks not possible - #81
     - ThermalDynamics integration
     - Complete refactor of config system. Again huge thank you to @thundR - #82 #83 #85
 
@@ -132,10 +134,10 @@
 
 # 2.2.0 - 30-12-2017
 - **General**
-    - Update to MC 1.12.2
+    - Update to Minecraft Version 1.12.2
 
 - **Fixed**
-    - Armor values for jetpacks
+    - Armor values for Jetpacks
 
 # 2.1.3 - 19-06-2017
 - **Fixed**
@@ -146,11 +148,11 @@
     - Tweaked config values for Fluxpacks a little bit
 
 - **Fixed**
-    - Mouse buttons not working for jetpack keybindings
+    - Mouse buttons not working for Jetpack keybindings
     - Crash when holding a Creative Capacitor Bank in your hand
 
 - **Added**
-    - ThermalExpansion (and ThermalDynamics) integration, Tier 5 jetpack not craftable yet, no armored versions yet, no Fluxpacks yet; Those things will come soon.
+    - ThermalExpansion (and ThermalDynamics) integration, Tier 5 Jetpack not craftable yet, no armored versions yet, no Fluxpacks yet; Those things will come soon.
     - Textures for TE Jetpacks
     - Optional recipes when ThermalDynamics is not installed (Instead of Fluxducts, Hardened Glass is required)
     - Config option to disable TE integration
