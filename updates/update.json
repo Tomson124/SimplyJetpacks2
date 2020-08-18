@@ -1,10 +1,10 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/simply-jetpacks-2",
   "promos": {
-    "1.15.2-latest" : "2.3.0.1",
-    "1.15.2-recommended" : "2.3.0.1",
-    "1.16.1-latest" : "2.3.0.1",
-    "1.16.1-recommended" : "2.3.0.1"
+    "1.15.2-latest" : "2.5.0.1",
+    "1.15.2-recommended" : "2.5.0.1",
+    "1.16.1-latest" : "2.6.0.1",
+    "1.16.1-recommended" : "2.6.0.1"
   },
   "1.16.1" : {
     "2.3.0.1" : "Updated to 1.16.1"

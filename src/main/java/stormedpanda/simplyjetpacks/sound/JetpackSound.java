@@ -33,7 +33,7 @@ public class JetpackSound extends TickableSound {
 	public void tick() {
 		BlockPos pos = this.player.getPosition();
 		this.x = (float) pos.getX();
-		this.y = (float) pos.getY();// - 10;
+		this.y = (float) pos.getY();
 		this.z = (float) pos.getZ();
 		if (this.fadeOut < 0 && !ClientJetpackHandler.isFlying(this.player)) {
 			this.fadeOut = 0;
@@ -42,9 +42,9 @@ public class JetpackSound extends TickableSound {
 			}
 		} else
 			if (this.fadeOut >= 5) {
-			this.isDonePlaying();
+			this.donePlaying = true;
 		} else
-			if(this.fadeOut >= 0) {
+			if (this.fadeOut >= 0) {
 			this.volume = 1.0F - this.fadeOut / 5F;
 			this.fadeOut++;
 		}

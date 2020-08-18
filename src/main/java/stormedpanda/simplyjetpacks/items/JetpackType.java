@@ -54,11 +54,7 @@ public enum JetpackType {
     private int platingID;
     private final Item.Properties properties;
 
-    // Configurations:
     public final JetpackConfigDefaults defaults;
-    //public int energyCapacity;
-    //public int energyPerTickIn;
-    //public int energyPerTickOut;
     private int capacity;
     private int maxReceive;
     private int maxExtract;
@@ -187,8 +183,6 @@ public enum JetpackType {
     }
 
     public IArmorMaterial getArmorMaterial() {
-        //ArmorMaterialList.setArmorReduction(ArmorMaterialList.JETPACK_ARMORED, getArmorReduction());
-        //return isArmored ? ArmorMaterialList.JETPACK_ARMORED : ArmorMaterialList.JETPACK;
         ArmorMaterialList armorMaterial = isArmored ? ArmorMaterialList.JETPACK_ARMORED : ArmorMaterialList.JETPACK;
         ArmorMaterialList.setStats(armorMaterial, isArmored, getEnchantability(), getArmorReduction());
         return armorMaterial;
@@ -216,7 +210,7 @@ public enum JetpackType {
 
     public JetpackParticleType getParticleType(ItemStack stack) {
         if (stack.getTag() != null && NBTHelper.hasKey(stack, JetpackItem.TAG_PARTICLE)) {
-            int particle = NBTHelper.getInt(stack, JetpackItem.TAG_PARTICLE);//, particleType.ordinal());
+            int particle = NBTHelper.getInt(stack, JetpackItem.TAG_PARTICLE);
             JetpackParticleType particleType = JetpackParticleType.values()[particle];
             if (particleType != null) {
                 return particleType;
@@ -227,9 +221,6 @@ public enum JetpackType {
     }
 
     public static void loadAllConfigs() {
-/*        for (JetpackType jetpackType : JETPACK_ALL) {
-            jetpackType.loadJetpackConfigurations();
-        }*/
         for (JetpackType jetpackType : JETPACK_SJ) {
             jetpackType.loadJetpackConfigurations();
         }

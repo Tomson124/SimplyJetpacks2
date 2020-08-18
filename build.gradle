@@ -1,11 +1,11 @@
 buildscript {
     repositories {
+        jcenter()
+        mavenCentral()
         maven {
             name = 'forge'
             url = 'https://files.minecraftforge.net/maven/'
         }
-        jcenter()
-        mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
@@ -27,7 +27,7 @@ minecraft {
     mappings channel: 'snapshot', version: "${mappings_version}"
 
     //makeObfSourceJar = false
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    accessTransformer = file('src/main/resources/META-INF/simplyjetpacks_at.cfg')
 
     runs {
         client {
@@ -40,7 +40,6 @@ minecraft {
                 }
             }
         }
-
         server {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
@@ -51,7 +50,6 @@ minecraft {
                 }
             }
         }
-
         data {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
@@ -67,22 +65,18 @@ minecraft {
 }
 
 repositories {
-    // Mekanism
     maven {
         name = "Curse Maven"
         url = "https://www.cursemaven.com/"
     }
-    // JEI
     maven {
         name = "Progwm16 maven"
         url = "http://dvs1.progwml6.com/files/maven/"
     }
-    // TOP
     maven {
         name = "tterrag maven"
         url = "https://maven.tterrag.com/"
     }
-    // Immersive Engineering
     maven {
         name = "blamejared maven"
         url = "https://maven.blamejared.com/"
@@ -92,18 +86,17 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    compile "curse.maven:mekanism:2996532" // API
-    runtimeOnly fg.deobf("curse.maven:mekanism:2996531")
-    //runtime "curse.maven:mekanism:2996531"
-    //runtime "curse.maven:mekanism-additions:2996535"
-    //runtime "curse.maven:mekanism-generators:2996533"
-    //runtime "curse.maven:mekanism-tools:2996534"
-
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 
     compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.15:${top_version}:api")
     runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.15:${top_version}")
+
+    //compileOnly fg.deobf("curse.maven:mekanism:2996532") // API
+    runtimeOnly fg.deobf("curse.maven:mekanism:2996531")
+    //runtimeOnly fg.deobf("curse.maven:mekanism-additions:2996535")
+    //runtimeOnly fg.deobf("curse.maven:mekanism-generators:2996533")
+    //runtimeOnly fg.deobf("curse.maven:mekanism-tools:2996534")
 
     runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${immersiveengineering_version}")
 }
