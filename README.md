@@ -1,6 +1,6 @@
 [![CurseForge](http://cf.way2muchnoise.eu/simply-jetpacks-2.svg)](https://www.curseforge.com/minecraft/mc-mods/simply-jetpacks-2)
 [![CurseForge](http://cf.way2muchnoise.eu/versions/simply-jetpacks-2.svg)](https://www.curseforge.com/minecraft/mc-mods/simply-jetpacks-2)
-[![Status](https://img.shields.io/badge/Status-In_Development-orange.svg)](https://github.com/Tomson124/SimplyJetpacks2)
+[![Status](https://img.shields.io/badge/Status-Stable-green.svg)](https://github.com/Tomson124/SimplyJetpacks2)
 [![Discord Tomson124](https://img.shields.io/badge/Discord-Tomson124-738bd7.svg?style=flat-square)](https://discord.gg/CcbJjRh)
 [![Discord SimplyJetpacks](https://img.shields.io/badge/Discord-SimplyJetpacks-738bd7.svg?style=flat-square)](https://discord.gg/v5qJysC)
 
