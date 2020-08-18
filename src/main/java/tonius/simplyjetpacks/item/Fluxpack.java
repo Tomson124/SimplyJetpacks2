@@ -4,6 +4,7 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.common.config.Configuration;
+import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.config.PackDefaults;
 import tonius.simplyjetpacks.setup.ModItems;
@@ -58,6 +59,7 @@ public enum Fluxpack implements IStringSerializable {
 	public boolean isArmored;
 	public EnumRarity rarity;
 	public PackModelType armorModel = PackModelType.FLAT;
+	public int enchantability;
 
 	Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity, boolean usesFuel) {
 		this(baseName, defaultConfigKey, tier, rarity);
@@ -174,27 +176,31 @@ public enum Fluxpack implements IStringSerializable {
 		}
 	}
 
+	private static String getKey() {
+		return "config." + SimplyJetpacks.PREFIX + "tuning.";
+	}
+
 	protected void loadConfig(Configuration config) {
 		if (this.defaults.fuelCapacity != null) {
-			this.fuelCapacity = config.get(this.defaults.section.name, "Fuel Capacity", this.defaults.fuelCapacity, "The maximum amount of fuel that this pack can hold.").setMinValue(1).getInt(this.defaults.fuelCapacity);
+			this.fuelCapacity = config.get(this.defaults.section.key, getKey() + "fuelCapacity", this.defaults.fuelCapacity, getKey() + "fuelCapacity.tooltip").setMinValue(1).getInt(this.defaults.fuelCapacity);
 		}
 		if (this.defaults.fuelUsage != null) {
-			this.fuelUsage = config.get(this.defaults.section.name, "Fuel Usage", this.defaults.fuelUsage, "The amount of fuel that this pack uses every tick when used.").setMinValue(0).getInt(this.defaults.fuelUsage);
+			this.fuelUsage = config.get(this.defaults.section.key, getKey() + "fuelUsage", this.defaults.fuelUsage, getKey() + "fuelUsage.tooltip").setMinValue(0).getInt(this.defaults.fuelUsage);
 		}
 		if (this.defaults.fuelPerTickIn != null) {
-			this.fuelPerTickIn = config.get(this.defaults.section.name, "Fuel Per Tick In", this.defaults.fuelPerTickIn, "The amount of fuel that can be inserted into this pack per tick from external sources.").setMinValue(0).getInt(this.defaults.fuelPerTickIn);
+			this.fuelPerTickIn = config.get(this.defaults.section.key, getKey() + "fuelPerTickIn", this.defaults.fuelPerTickIn, getKey() + "fuelPerTickIn.tooltip").setMinValue(0).getInt(this.defaults.fuelPerTickIn);
 		}
 		if (this.defaults.fuelPerTickOut != null) {
-			this.fuelPerTickOut = config.get(this.defaults.section.name, "Fuel Per Tick Out", this.defaults.fuelPerTickOut, "The amount of fuel that can be extracted from this pack per tick by external sources. Also determines how quickly Flux Packs can charge other items.").setMinValue(0).getInt(this.defaults.fuelPerTickOut);
+			this.fuelPerTickOut = config.get(this.defaults.section.key, getKey() + "fuelPerTickOut", this.defaults.fuelPerTickOut, getKey() + "fuelPerTickOut.tooltip").setMinValue(0).getInt(this.defaults.fuelPerTickOut);
 		}
 		if (this.defaults.armorReduction != null) {
-			this.armorReduction = config.get(this.defaults.section.name, "Armor Reduction", this.defaults.armorReduction, "How well this pack can protect the user from damage, if armored. The higher the value, the stronger the armor will be.").setMinValue(0).setMaxValue(20).getInt(this.defaults.armorReduction);
+			this.armorReduction = config.get(this.defaults.section.key, getKey() + "armorReduction", this.defaults.armorReduction, getKey() + "armorReduction.tooltip").setMinValue(0).setMaxValue(20).getInt(this.defaults.armorReduction);
 		}
 		if (this.defaults.armorFuelPerHit != null) {
-			this.armorFuelPerHit = config.get(this.defaults.section.name, "Armor Fuel Per Hit", this.defaults.armorFuelPerHit, "How much fuel is lost from this pack when the user is hit, if armored.").setMinValue(0).getInt(this.defaults.armorFuelPerHit);
+			this.armorFuelPerHit = config.get(this.defaults.section.key, getKey() + "armorFuelPerHit", this.defaults.armorFuelPerHit, getKey() + "armorFuelPerHit.tooltip").setMinValue(0).getInt(this.defaults.armorFuelPerHit);
 		}
-		/*if(this.defaults.enchantability != null) {
-			this.enchantability = config.get(this.defaults.section.name, "Enchantability", this.defaults.enchantability, "The enchantability of this pack. If set to 0, no enchantments can be applied.").setMinValue(0).getInt(this.defaults.enchantability);
-		}*/
+		if(this.defaults.enchantability != null) {
+			this.enchantability = config.get(this.defaults.section.key, getKey() + "enchantability", this.defaults.enchantability, getKey() + "enchantability.tooltip").setMinValue(0).getInt(this.defaults.enchantability);
+		}
 	}
 }

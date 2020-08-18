@@ -137,7 +137,8 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@Override
 	public void onArmorTick(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull ItemStack stack) {
 		flyUser(player, stack, this, false);
-		if (this.isJetplate(stack) && this.isChargerOn(stack)) {
+		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
+		if (this.canCharge(stack) && this.isChargerOn(stack)) {
 			chargeInventory(player, stack, this);
 		}
 	}
@@ -160,6 +161,11 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		return Jetpack.values()[i].getTier() == 5;
 	}
+
+    public boolean canCharge(ItemStack stack) {
+        int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
+        return Jetpack.values()[i].chargerMode;
+    }
 
 	public boolean isChargerOn(ItemStack stack) {
 		return NBTHelper.getBoolean(stack, TAG_CHARGER_ON, true);
@@ -250,6 +256,12 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		}
 		list.add(SJStringUtil.getParticlesText(Jetpack.values()[i].getParticleType(stack)));
 		SJStringUtil.addDescriptionLines(list, "jetpack", TextFormatting.GREEN.toString());
+	}
+
+	@Override
+	public int getItemEnchantability(ItemStack stack) {
+		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
+		return Jetpack.values()[i].enchantability;
 	}
 
 	public boolean isOn(ItemStack stack) {
@@ -367,7 +379,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		Boolean engine = this.isOn(stack);
 		Boolean hover = this.isHoverModeOn(stack);
 		Boolean charger = this.isChargerOn(stack);
-		if (isJetplate(stack)) {
+		if (this.canCharge(stack)) {
 			return SJStringUtil.getHUDStateText(engine, hover, charger);
 		} else {
 			return SJStringUtil.getHUDStateText(engine, hover, null);
@@ -505,20 +517,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 								e.printStackTrace();
 							}
 						}
-						//TODO: Re-implement explosions
-                        /*if (Config.flammableFluidsExplode) {
-                            if (!(user instanceof EntityPlayer) || !((EntityPlayer) user).capabilities.isCreativeMode) {
-                                int x = Math.round((float) user.posX - 0.5F);
-                                int y = Math.round((float) user.posY);
-                                int z = Math.round((float) user.posZ - 0.5F);
-                                Block fluidBlock = user.worldObj.getBlock(x, y, z);
-                                if (fluidBlock instanceof IFluidBlock && fluidBlock.isFlammable(user.worldObj, x, y, z, ForgeDirection.UNKNOWN)) {
-                                    user.worldObj.playSoundAtEntity(user, "mob.ghast.fireball", 2.0F, 1.0F);
-                                    user.worldObj.createExplosion(user, user.posX, user.posY, user.posZ, 3.5F, false);
-                                    user.attackEntityFrom(new EntityDamageSource("jetpackexplode", user), 100.0F);
-                                }
-                            }
-                        }*/
 					}
 				}
 			}

@@ -99,6 +99,12 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		}
 	}
 
+	@Override
+	public int getItemEnchantability(ItemStack stack) {
+		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
+		return Fluxpack.values()[i].enchantability;
+	}
+
 	public void toggleState(boolean on, ItemStack stack, String type, String tag, EntityPlayer player, boolean showState) {
 		NBTHelper.setBoolean(stack, tag, !on);
 		if (player != null && showState) {

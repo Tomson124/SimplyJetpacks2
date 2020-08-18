@@ -28,9 +28,10 @@ public class PackDefaults {
     public Double sprintSpeedModifier;
     public Double sprintFuelModifier;
     public Boolean emergencyHoverMode;
+    public Boolean chargerMode;
 
-    public PackDefaults(String key, String sectionTitle) {
-        this.section = new Section(false, "Tuning - " + sectionTitle, "tuning." + key);
+    public PackDefaults(String modid, String key) {
+        this.section = new Section(false, "tuning." + modid + "." + key, "tuning." + key, key);
         DEFAULTS.put(key, this);
     }
 
@@ -40,13 +41,13 @@ public class PackDefaults {
 
     // The Great Mighty List of Defaults
     static {
-        PackDefaults d = new PackDefaults("jetpack_potato", "Potato Jetpack");
+        PackDefaults d = new PackDefaults("simplyjetpacks", "jetpack_potato");
         d.fuelCapacity = 1200;
         d.fuelUsage = 45;
         d.speedVertical = 0.9D;
         d.accelVertical = 0.5D;
 
-        d = new PackDefaults("jetpack_creative", "Creative Jetpack");
+        d = new PackDefaults("simplyjetpacks", "jetpack_creative");
         d.fuelCapacity = 200000;
         d.fuelPerTickOut = 50000;
         d.fuelPerTickIn = 0;
@@ -59,8 +60,9 @@ public class PackDefaults {
         d.speedSideways = 0.21D;
         d.sprintSpeedModifier = 2.5D;
         d.emergencyHoverMode = true;
+        d.chargerMode = true;
 
-        d = new PackDefaults("fluxpack_creative", "Creative Fluxpack");
+        d = new PackDefaults("simplyjetpacks", "fluxpack_creative");
         d.fuelCapacity = 200000;
         d.fuelPerTickOut = 50000;
         d.fuelPerTickIn = 0;
@@ -68,7 +70,7 @@ public class PackDefaults {
         d.enchantability = 10;
 
         if (ModType.ENDER_IO.loaded) {
-            d = new PackDefaults("jetpack_eio1", "Conductive Iron Jetpack (eio 1)");
+            d = new PackDefaults("enderio", "jetpack_eio1");
             d.fuelCapacity = 80000;
             d.fuelUsage = 32;
             d.fuelPerTickIn = 400;
@@ -83,8 +85,9 @@ public class PackDefaults {
             d.sprintSpeedModifier = 1.0D;
             d.sprintFuelModifier = 1.0D;
             d.emergencyHoverMode = false;
+            d.chargerMode = false;
 
-            d = new PackDefaults("jetpack_eio2", "Electrical Steel Jetpack (eio 2)");
+            d = new PackDefaults("enderio", "jetpack_eio2");
             d.fuelCapacity = 400000;
             d.fuelUsage = 50;
             d.fuelPerTickIn = 2000;
@@ -99,8 +102,9 @@ public class PackDefaults {
             d.sprintSpeedModifier = 1.0D;
             d.sprintFuelModifier = 1.0D;
             d.emergencyHoverMode = false;
+            d.chargerMode = false;
 
-            d = new PackDefaults("jetpack_eio3", "Energetic Jetpack (eio 3)");
+            d = new PackDefaults("enderio", "jetpack_eio3");
             d.fuelCapacity = 4000000;
             d.fuelUsage = 200;
             d.fuelPerTickIn = 20000;
@@ -115,8 +119,9 @@ public class PackDefaults {
             d.sprintSpeedModifier = 1.3D;
             d.sprintFuelModifier = 2.5D;
             d.emergencyHoverMode = true;
+            d.chargerMode = false;
 
-            d = new PackDefaults("jetpack_eio4", "Vibrant Jetpack (eio 4)");
+            d = new PackDefaults("enderio", "jetpack_eio4");
             d.fuelCapacity = 20000000;
             d.fuelUsage = 450;
             d.fuelPerTickIn = 50000;
@@ -131,8 +136,9 @@ public class PackDefaults {
             d.sprintSpeedModifier = 1.8D;
             d.sprintFuelModifier = 4.0D;
             d.emergencyHoverMode = true;
+            d.chargerMode = false;
 
-            d = new PackDefaults("jetpack_eio5", "Dark Soularium JetPlate (eio 5)");
+            d = new PackDefaults("enderio", "jetpack_eio5");
             d.fuelCapacity = 60000000;
             d.fuelUsage = 850;
             d.fuelPerTickIn = 200000;
@@ -148,8 +154,9 @@ public class PackDefaults {
             d.sprintSpeedModifier = 2.4D;
             d.sprintFuelModifier = 6.0D;
             d.emergencyHoverMode = true;
+            d.chargerMode = true;
 
-            d = new PackDefaults("fluxpack_eio1", "Basic Capacitor Pack (eio 1)");
+            d = new PackDefaults("enderio", "fluxpack_eio1");
             d.fuelCapacity = 800000;
             d.fuelPerTickIn = 800;
             d.fuelPerTickOut = 800;
@@ -157,7 +164,7 @@ public class PackDefaults {
             d.armorFuelPerHit = 60;
             d.enchantability = 4;
 
-            d = new PackDefaults("fluxpack_eio2", "Double-Layer Capacitor Pack (eio 2)");
+            d = new PackDefaults("enderio", "fluxpack_eio2");
             d.fuelCapacity = 4000000;
             d.fuelPerTickIn = 4000;
             d.fuelPerTickOut = 4000;
@@ -165,7 +172,7 @@ public class PackDefaults {
             d.armorFuelPerHit = 100;
             d.enchantability = 6;
 
-            d = new PackDefaults("fluxpack_eio3", "Octadic Capacitor Pack (eio 3)");
+            d = new PackDefaults("enderio", "fluxpack_eio3");
             d.fuelCapacity = 20000000;
             d.fuelPerTickIn = 20000;
             d.fuelPerTickOut = 20000;
@@ -175,7 +182,7 @@ public class PackDefaults {
         }
 
         if (ModType.THERMAL_EXPANSION.loaded) {
-            d = new PackDefaults("jetpack_te1", "Leadstone Jetpack (te 1)");
+            d = new PackDefaults("te", "jetpack_te1");
             d.fuelCapacity = 800000;
             d.fuelUsage = 32;
             d.fuelPerTickIn = 1500;
@@ -190,8 +197,9 @@ public class PackDefaults {
             d.sprintSpeedModifier = 1.0D;
             d.sprintFuelModifier = 1.0D;
             d.emergencyHoverMode = false;
+            d.chargerMode = false;
 
-            d = new PackDefaults("jetpack_te2", "Hardened Jetpack (te 2)");
+            d = new PackDefaults("te", "jetpack_te2");
             d.fuelCapacity = 3000000;
             d.fuelUsage = 50;
             d.fuelPerTickIn = 8000;
@@ -206,8 +214,9 @@ public class PackDefaults {
             d.sprintSpeedModifier = 1.0D;
             d.sprintFuelModifier = 1.0D;
             d.emergencyHoverMode = false;
+            d.chargerMode = false;
 
-            d = new PackDefaults("jetpack_te3", "Reinforced Jetpack (te 3)");
+            d = new PackDefaults("te", "jetpack_te3");
             d.fuelCapacity = 6000000;
             d.fuelUsage = 200;
             d.fuelPerTickIn = 15000;
@@ -222,8 +231,9 @@ public class PackDefaults {
             d.sprintSpeedModifier = 1.3D;
             d.sprintFuelModifier = 2.5D;
             d.emergencyHoverMode = true;
+            d.chargerMode = false;
 
-            d = new PackDefaults("jetpack_te4", "Resonant Jetpack (te 4)");
+            d = new PackDefaults("te", "jetpack_te4");
             d.fuelCapacity = 25000000;
             d.fuelUsage = 450;
             d.fuelPerTickIn = 20000;
@@ -238,8 +248,9 @@ public class PackDefaults {
             d.sprintSpeedModifier = 1.8D;
             d.sprintFuelModifier = 4.0D;
             d.emergencyHoverMode = true;
+            d.chargerMode = false;
 
-            d = new PackDefaults("jetpack_te5", "Flux-Infused JetPlate (te 5)");
+            d = new PackDefaults("te", "jetpack_te5");
             d.fuelCapacity = 50000000;
             d.fuelUsage = 850;
             d.fuelPerTickIn = 30000;
@@ -255,9 +266,10 @@ public class PackDefaults {
             d.sprintSpeedModifier = 2.4D;
             d.sprintFuelModifier = 6.0D;
             d.emergencyHoverMode = true;
+            d.chargerMode = true;
 
             if (ModType.REDSTONE_REPOSITORY.loaded) {
-                d = new PackDefaults("jetpack_te5_enderium", "Flux-Infused JetPlate (Enderium Armored) (te/rr 5)");
+                d = new PackDefaults("te", "jetpack_te5_enderium");
                 d.fuelCapacity = 50000000;
                 d.fuelUsage = 850;
                 d.fuelPerTickIn = 30000;
@@ -273,9 +285,10 @@ public class PackDefaults {
                 d.sprintSpeedModifier = 2.4D;
                 d.sprintFuelModifier = 6.0D;
                 d.emergencyHoverMode = true;
+                d.chargerMode = true;
             }
 
-            d = new PackDefaults("fluxpack_te1", "Leadstone Fluxpack (te 1)");
+            d = new PackDefaults("te", "fluxpack_te1");
             d.fuelCapacity = 1500000;
             d.fuelPerTickIn = 800;
             d.fuelPerTickOut = 800;
@@ -283,7 +296,7 @@ public class PackDefaults {
             d.armorFuelPerHit = 60;
             d.enchantability = 4;
 
-            d = new PackDefaults("fluxpack_te2", "Hardened Fluxpack (te 2)");
+            d = new PackDefaults("te", "fluxpack_te2");
             d.fuelCapacity = 12000000;
             d.fuelPerTickIn = 6000;
             d.fuelPerTickOut = 6000;
@@ -291,7 +304,7 @@ public class PackDefaults {
             d.armorFuelPerHit = 100;
             d.enchantability = 6;
 
-            d = new PackDefaults("fluxpack_te3", "Reinforced Fluxpack (te 3)");
+            d = new PackDefaults("te", "fluxpack_te3");
             d.fuelCapacity = 40000000;
             d.fuelPerTickIn = 20000;
             d.fuelPerTickOut = 20000;
@@ -299,7 +312,7 @@ public class PackDefaults {
             d.armorFuelPerHit = 140;
             d.enchantability = 8;
 
-            d = new PackDefaults("fluxpack_te4", "Resonant Fluxpack (te 4)");
+            d = new PackDefaults("te", "fluxpack_te4");
             d.fuelCapacity = 80000000;
             d.fuelPerTickIn = 32000;
             d.fuelPerTickOut = 32000;
@@ -309,7 +322,7 @@ public class PackDefaults {
         }
 
         if (ModType.MEKANISM.loaded) {
-            d = new PackDefaults("jetpack_mek1", "Basic Jetpack (mek 1)");
+            d = new PackDefaults("mek", "jetpack_mek1");
             d.fuelCapacity = 80000;
             d.fuelUsage = 32;
             d.fuelPerTickIn = 400;
@@ -324,8 +337,9 @@ public class PackDefaults {
             d.sprintSpeedModifier = 1.0D;
             d.sprintFuelModifier = 1.0D;
             d.emergencyHoverMode = false;
+            d.chargerMode = false;
 
-            d = new PackDefaults("jetpack_mek2", "Advanced Jetpack (mek 2)");
+            d = new PackDefaults("mek", "jetpack_mek2");
             d.fuelCapacity = 400000;
             d.fuelUsage = 50;
             d.fuelPerTickIn = 2000;
@@ -340,8 +354,9 @@ public class PackDefaults {
             d.sprintSpeedModifier = 1.0D;
             d.sprintFuelModifier = 1.0D;
             d.emergencyHoverMode = false;
+            d.chargerMode = false;
 
-            d = new PackDefaults("jetpack_mek3", "Elite Jetpack (mek 3)");
+            d = new PackDefaults("mek", "jetpack_mek3");
             d.fuelCapacity = 4000000;
             d.fuelUsage = 200;
             d.fuelPerTickIn = 20000;
@@ -356,8 +371,9 @@ public class PackDefaults {
             d.sprintSpeedModifier = 1.3D;
             d.sprintFuelModifier = 2.5D;
             d.emergencyHoverMode = true;
+            d.chargerMode = false;
 
-            d = new PackDefaults("jetpack_mek4", "Ultimate Jetpack (mek 4)");
+            d = new PackDefaults("mek", "jetpack_mek4");
             d.fuelCapacity = 20000000;
             d.fuelUsage = 450;
             d.fuelPerTickIn = 50000;
@@ -372,10 +388,11 @@ public class PackDefaults {
             d.sprintSpeedModifier = 1.8D;
             d.sprintFuelModifier = 4.0D;
             d.emergencyHoverMode = true;
+            d.chargerMode = false;
         }
 
         if (ModType.IMMERSIVE_ENGINEERING.loaded) {
-            d = new PackDefaults("jetpack_ie1", "Low Voltage Jetpack (ie 1)");
+            d = new PackDefaults("ie", "jetpack_ie1");
             d.fuelCapacity = 80000;
             d.fuelUsage = 32;
             d.fuelPerTickIn = 400;
@@ -390,8 +407,9 @@ public class PackDefaults {
             d.sprintSpeedModifier = 1.0D;
             d.sprintFuelModifier = 1.0D;
             d.emergencyHoverMode = false;
+            d.chargerMode = false;
 
-            d = new PackDefaults("jetpack_ie2", "Medium Voltage Jetpack (ie 2)");
+            d = new PackDefaults("ie", "jetpack_ie2");
             d.fuelCapacity = 400000;
             d.fuelUsage = 50;
             d.fuelPerTickIn = 2000;
@@ -406,8 +424,9 @@ public class PackDefaults {
             d.sprintSpeedModifier = 1.0D;
             d.sprintFuelModifier = 1.0D;
             d.emergencyHoverMode = false;
+            d.chargerMode = false;
 
-            d = new PackDefaults("jetpack_ie3", "High Voltage Jetpack (ie 3)");
+            d = new PackDefaults("ie", "jetpack_ie3");
             d.fuelCapacity = 4000000;
             d.fuelUsage = 200;
             d.fuelPerTickIn = 20000;
@@ -422,10 +441,11 @@ public class PackDefaults {
             d.sprintSpeedModifier = 1.3D;
             d.sprintFuelModifier = 2.5D;
             d.emergencyHoverMode = true;
+            d.chargerMode = false;
         }
 
         if (Config.enableIntegrationVanilla) {
-            d = new PackDefaults("jetpack_vanilla1", "Iron Jetpack (vanilla 1)");
+            d = new PackDefaults("vanilla", "jetpack_vanilla1");
             d.fuelCapacity = 80000;
             d.fuelUsage = 32;
             d.fuelPerTickIn = 400;
@@ -440,8 +460,9 @@ public class PackDefaults {
             d.sprintSpeedModifier = 1.0D;
             d.sprintFuelModifier = 1.0D;
             d.emergencyHoverMode = false;
+            d.chargerMode = false;
 
-            d = new PackDefaults("jetpack_vanilla2", "Gold Jetpack (vanilla 2)");
+            d = new PackDefaults("vanilla", "jetpack_vanilla2");
             d.fuelCapacity = 400000;
             d.fuelUsage = 50;
             d.fuelPerTickIn = 2000;
@@ -456,8 +477,9 @@ public class PackDefaults {
             d.sprintSpeedModifier = 1.0D;
             d.sprintFuelModifier = 1.0D;
             d.emergencyHoverMode = false;
+            d.chargerMode = false;
 
-            d = new PackDefaults("jetpack_vanilla3", "Diamond Jetpack (vanilla 3)");
+            d = new PackDefaults("vanilla", "jetpack_vanilla3");
             d.fuelCapacity = 20000000;
             d.fuelUsage = 450;
             d.fuelPerTickIn = 50000;
@@ -472,6 +494,7 @@ public class PackDefaults {
             d.sprintSpeedModifier = 1.8D;
             d.sprintFuelModifier = 4.0D;
             d.emergencyHoverMode = true;
+            d.chargerMode = false;
         }
     }
 }

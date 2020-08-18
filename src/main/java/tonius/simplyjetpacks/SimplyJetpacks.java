@@ -17,6 +17,7 @@ import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.network.PacketHandler;
 import tonius.simplyjetpacks.proxy.CommonProxy;
 import tonius.simplyjetpacks.setup.CreativeTabSimplyJetpacks;
+import tonius.simplyjetpacks.setup.ModEnchantments;
 import tonius.simplyjetpacks.setup.ModItems;
 
 @Mod(modid = SimplyJetpacks.MODID, dependencies = SimplyJetpacks.DEPENDENCIES, guiFactory = "tonius.simplyjetpacks.config.ConfigGuiFactory")
@@ -51,6 +52,7 @@ public class SimplyJetpacks {
         MinecraftForge.EVENT_BUS.register(new RegistryHandler());
         Config.preInit(event);
         ModItems.preInit();
+        ModEnchantments.init();
     }
 
     @EventHandler

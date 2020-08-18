@@ -6,8 +6,7 @@ import tonius.simplyjetpacks.integration.ModType;
 public abstract class Defaults {
 
     // Item
-    public static final int enchantFuelEfficiencyID = 110;
-    public static final boolean flammableFluidsExplode = false;
+    public static final boolean enableFuelEfficiencyEnchantment = true;
     public static final boolean addRAItemsIfNotInstalled = true;
 
     // Integration
@@ -36,7 +35,7 @@ public abstract class Defaults {
 
     // GUI
     public static final boolean holdShiftForDetails = true;
-    public static final int HUDPosition = HUDPositions.TOP_LEFT.ordinal();
+    public static final HUDPositions HUDPosition = HUDPositions.TOP_LEFT;
     public static final int HUDOffsetX = 0;
     public static final int HUDOffsetY = 0;
     public static final double HUDScale = 1.0D;
