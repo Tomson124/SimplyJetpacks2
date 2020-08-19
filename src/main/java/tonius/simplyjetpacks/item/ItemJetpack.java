@@ -38,6 +38,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import scala.collection.generic.BitOperations;
 import thundr.redstonerepository.api.IArmorEnderium;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.capability.CapabilityProviderEnergy;
@@ -88,7 +89,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		this.setMaxDamage(0);
 		this.setCreativeTab(SimplyJetpacks.tabSimplyJetpacks);
 		this.setRegistryName(name);
-
 		numItems = Jetpack.values().length;
 	}
 
@@ -251,7 +251,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			if (Jetpack.values()[i].getBaseName().contains("enderium")) {
 				list.add(SJStringUtil.getEnderiumBonusText());
 			}
-			//list.add(SJStringUtil.getFuelUsageText(this.fuelType, Jetpack.values()[i].getFuelUsage()));
 			list.add(SJStringUtil.getFuelUsageText(this.fuelType, this.getFuelUsage(stack)));
 		}
 		list.add(SJStringUtil.getParticlesText(Jetpack.values()[i].getParticleType(stack)));
@@ -305,6 +304,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		}
 		if (!simulate) {
 			energy += energyReceived;
+			//energy = MathHelper.clamp(0, Integer.MAX_VALUE, energy);
 			NBTHelper.setInt(container, TAG_ENERGY, energy);
 		}
 		return energyReceived;
@@ -474,7 +474,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			boolean descendKeyDown = SyncHandler.isDescendKeyDown(user);
 			double currentAccel = Jetpack.values()[i].accelVertical * (user.motionY < 0.3D ? 2.5D : 1.0D);
 			double currentSpeedVertical = Jetpack.values()[i].speedVertical * (user.isInWater() ? 0.4D : 1.0D);
-
 			if (flyKeyDown || hoverMode && !user.onGround) {
 				if (Jetpack.values()[i].usesFuel) {
 					item.useFuel(stack, (int) (user.isSprinting() ? Math.round(this.getFuelUsage(stack) * Jetpack.values()[i].sprintFuelModifier) : this.getFuelUsage(stack)), false);
@@ -507,7 +506,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 					if (SyncHandler.isRightKeyDown(user)) {
 						user.moveRelative(-speedSideways, 0, 0, speedSideways);
 					}
-
 					if (!user.world.isRemote) {
 						user.fallDistance = 0.0F;
 						if (user instanceof EntityPlayerMP) {

@@ -1,23 +1,31 @@
-[![CurseForge](http://cf.way2muchnoise.eu/251792.svg)](https://minecraft.curseforge.com/projects/simply-jetpacks-2)
-[![CurseForge](http://cf.way2muchnoise.eu/versions/251792.svg)](https://minecraft.curseforge.com/projects/simply-jetpacks-2)
-[![](https://img.shields.io/badge/Discord-Tomson124-738bd7.svg?style=flat-square)](https://discord.gg/CcbJjRh)
+[![CurseForge](http://cf.way2muchnoise.eu/simply-jetpacks-2.svg)](https://www.curseforge.com/minecraft/mc-mods/simply-jetpacks-2)
+[![CurseForge](http://cf.way2muchnoise.eu/versions/simply-jetpacks-2.svg)](https://www.curseforge.com/minecraft/mc-mods/simply-jetpacks-2)
+[![Discord Tomson124](https://img.shields.io/badge/Discord-Tomson124-738bd7.svg?style=flat-square)](https://discord.gg/CcbJjRh)
+[![Discord SimplyJetpacks](https://img.shields.io/badge/Discord-SimplyJetpacks-738bd7.svg?style=flat-square)](https://discord.gg/v5qJysC)
 
-# SimplyJetpacks for 1.12.2 [![Build Status](https://jenkins.modmuss50.me/buildStatus/icon?job=SimplyJetpacks-2/SimplyJetpacks-2-1.12)](https://jenkins.modmuss50.me/job/SimplyJetpacks-2/job/SimplyJetpacks-2-1.12/)
-An addon for ThermalExpansion that adds jetpacks and Fluxpacks.
-Support for more mods is soon to come, too.
+![Simply Jetpacks 2 Logo](https://raw.githubusercontent.com/Tomson124/SimplyJetpacks2/1.15/src/main/resources/assets/simplyjetpacks/logo.png "Simply Jetpacks 2 Logo")
 
-If you have suggestions for new features or enhancements, please tell me on our [Discord server](https://discord.gg/CcbJjRh) or on my website.
-On my website you can also find the latest infos about development in form of more or less regularly blog posts. If you want to stay on the bleeding edge in
-terms of information you can also follow me on Twitter, [@Tomson124](https://twitter.com/Tomson124).
+# Simply Jetpacks 2
 
-Website: [www.tomson124.de](http://tomson124.de)
+Simply Jetpacks is a Minecraft Mod that adds Jetpacks and Fluxpacks with various recipes from other mods such as Thermal Expansion and EnderIO.
 
-Downloads for the mod can be found on [Curse](https://minecraft.curseforge.com/projects/simply-jetpacks-2).
-The latest dev builds can be downloaded from the [Jenkins Server (Adf.ly)](http://adf.ly/1eeGmt)
+Downloads for the mod can be found on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/simply-jetpacks-2 "CurseForge - Simply Jetpacks 2")
 
-Former Author: Tonius
-Updated to 1.12.2 by Tomson124
+**List of Supported Mods**
+- EnderIO
+- Mekanism
+- Immersive Engineering
+- Redstone Arsenal
+- Redstone Repository
+- Thermal Dynamics
+- Thermal Expansion
 
-If you want to help and don't know how to code, donations are always a good way to support the devs, too.
-Patreon:    https://www.patreon.com/Tomson124
-PayPal.me:  https://www.paypal.me/Tomson124
+Authors: Tomson124 and StormedPanda
+
+Former Author: Tonius11
+
+If you have suggestions for new features or enhancements, please tell us on our [Discord Server](https://discord.gg/CcbJjRh "Tomson124 Discord").
+If you want to stay on the bleeding edge in terms of information you can also follow me on Twitter, [@Tomson124](https://twitter.com/Tomson124 "Tomson124 Twitter").
+
+If you want to help and don't know how to code, donations are always a good way to support the devs.
+You can do that on [Patreon](https://www.patreon.com/Tomson124 "Tomson124 Patreon") or [PayPal](https://www.paypal.me/Tomson124 "Tomson124 PayPal")
