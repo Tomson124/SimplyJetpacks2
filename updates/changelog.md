@@ -2,15 +2,17 @@
 - **General**
     - Tweaked some code, making it more efficient
     - Renamed some things internally
-    - Updated textures for some Jetpacks
+    - Updated Vanilla Jetpack textures
+    - Updated EnderIO textures - Thank you to CyberCat5555
 
 - **Added**
     - Mekanism Jetpack Integration
     - Immersive Engineering Jetpack Integration
     - All new flashy Pilot Goggles
-
+    - Added new armor variants to some jetpacks
+ 
 - **Fixed**
-    - Config Values updating when changed
+    - Config Gui + added Config Version data
     - Jetpack texture names not matching Jetpack name
     
 # 2.2.15 - 00-08-2020

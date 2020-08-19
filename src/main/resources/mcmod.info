@@ -7,8 +7,8 @@
 		"mcversion": "${mcversion}",
 		"url": "https://www.curseforge.com/minecraft/mc-mods/simply-jetpacks-2",
 		"updateUrl": "https://raw.githubusercontent.com/Tomson124/SimplyJetpacks2/1.12/updates/update.json",
-		"authorList": ["Tonius11", "Tomson124", "StormedPanda"],
-		"credits": "Team CoFH, CrazyPants, Pathaleon, sk89q, Cybercat, dand0, nabijaczleweli, kevba10, and anyone else who helped make the mod, directly or indirectly",
+		"authorList": ["Tomson124", "StormedPanda"],
+		"credits": "Thankyou to Tonius11 for the original mod. Thankyou to Team CoFH, CrazyPants, Pathaleon, sk89q, Cybercat, dand0, nabijaczleweli, kevba10, and anyone else who helped make the mod, directly or indirectly",
 		"logoFile": "assets/simplyjetpacks/logo.png",
 		"screenshots": [],
 		"dependencies": []
