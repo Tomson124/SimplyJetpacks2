@@ -47,7 +47,7 @@ public class MessageKeybind implements IMessage, IMessageHandler<MessageKeybind,
 		ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
 		if (stack.getItem() instanceof ItemJetpack) {
-			ItemJetpack jetpack = (ItemJetpack)stack.getItem();
+			ItemJetpack jetpack = (ItemJetpack) stack.getItem();
 			switch (msg.packetType) {
 				case ENGINE:
 					jetpack.toggleState(jetpack.isOn(stack), stack, null, ItemJetpack.TAG_ON, player, false);
@@ -57,21 +57,21 @@ public class MessageKeybind implements IMessage, IMessageHandler<MessageKeybind,
 					jetpack.toggleState(jetpack.isHoverModeOn(stack), stack, null, ItemJetpack.TAG_HOVERMODE_ON, player, false);
 				case E_HOVER:
 					jetpack.toggleState(jetpack.isEHoverModeOn(stack), stack, null, ItemJetpack.TAG_EHOVER_ON, player, false);
+				default:
 			}
 		}
 		else if (stack.getItem() instanceof ItemFluxpack) {
 			ItemFluxpack fluxpack = (ItemFluxpack) stack.getItem();
-			switch (msg.packetType) {
-				case ENGINE:
-					fluxpack.toggleState(fluxpack.isOn(stack), stack, null, ItemFluxpack.TAG_ON, player, false);
+			if (msg.packetType == JetpackPacket.ENGINE) {
+				fluxpack.toggleState(fluxpack.isOn(stack), stack, null, ItemFluxpack.TAG_ON, player, false);
 			}
 		}
 	}
 
 	public enum JetpackPacket {
 		ENGINE,
-		HOVER,
 		CHARGER,
+		HOVER,
 		E_HOVER
 	}
 }

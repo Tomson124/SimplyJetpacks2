@@ -3,11 +3,12 @@ package tonius.simplyjetpacks.handler;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
-import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientDisconnectionFromServerEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import tonius.simplyjetpacks.client.audio.SoundJetpack;
+import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.setup.ParticleType;
+import tonius.simplyjetpacks.util.AdvancementUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -86,18 +87,42 @@ public class SyncHandler {
         rightKeyState.remove(player);
     }
 
+    // This is here because it does not want to be lonely.
+    public static void checkAdvancements(EntityPlayer player) {
+        if (ModItems.integrateVanilla) {
+            AdvancementUtil.unlockAdvancement(player, "vanilla/root_vanilla");
+        }
+        if (ModItems.integrateIE) {
+            AdvancementUtil.unlockAdvancement(player, "ie/root_ie");
+        }
+        if (ModItems.integrateMek) {
+            AdvancementUtil.unlockAdvancement(player, "mek/root_mek");
+        }
+        if (ModItems.integrateEIO) {
+            AdvancementUtil.unlockAdvancement(player, "eio/root_eio");
+        }
+        if (ModItems.integrateTE) {
+            AdvancementUtil.unlockAdvancement(player, "te/root_te");
+        }
+    }
+
     @SubscribeEvent
-    public void onPlayerLoggedOut(PlayerLoggedOutEvent event) {
+    public void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        checkAdvancements(event.player);
+    }
+
+    @SubscribeEvent
+    public void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
         removeFromAll(event.player);
     }
 
     @SubscribeEvent
-    public void onDimChanged(PlayerChangedDimensionEvent event) {
+    public void onDimChanged(PlayerEvent.PlayerChangedDimensionEvent event) {
         removeFromAll(event.player);
     }
 
     @SubscribeEvent
-    public void onClientDisconnectedFromServer(ClientDisconnectionFromServerEvent event) {
+    public void onClientDisconnectedFromServer(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
         SoundJetpack.clearPlayingFor();
     }
 }

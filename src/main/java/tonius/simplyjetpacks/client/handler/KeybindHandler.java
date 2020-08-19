@@ -38,21 +38,23 @@ public class KeybindHandler {
 
 	public static KeyBinding JETPACK_GUI_KEY;
 	public static KeyBinding JETPACK_ENGINE_KEY;
+	public static KeyBinding JETPACK_CHARGER_KEY;
 	public static KeyBinding JETPACK_HOVER_KEY;
 	public static KeyBinding JETPACK_EHOVER_KEY;
-	public static KeyBinding JETPACK_CHARGER_KEY;
+
+	private static final String category = "keybind.simplyjetpacks.category";
 
 	public static void setup() {
-		JETPACK_GUI_KEY = new KeyBinding("keybind.simplyjetpacks.gui", Keyboard.KEY_NONE, "keybind.simplyjetpacks.category");
+		JETPACK_GUI_KEY = new KeyBinding("keybind.simplyjetpacks.gui", Keyboard.KEY_NONE, category);
 		ClientRegistry.registerKeyBinding(JETPACK_GUI_KEY);
-		JETPACK_ENGINE_KEY = new KeyBinding("keybind.simplyjetpacks.engine", Keyboard.KEY_G, "keybind.simplyjetpacks.category");
+		JETPACK_ENGINE_KEY = new KeyBinding("keybind.simplyjetpacks.engine", Keyboard.KEY_G, category);
 		ClientRegistry.registerKeyBinding(JETPACK_ENGINE_KEY);
-		JETPACK_HOVER_KEY = new KeyBinding("keybind.simplyjetpacks.hover", Keyboard.KEY_L, "keybind.simplyjetpacks.category");
-		ClientRegistry.registerKeyBinding(JETPACK_HOVER_KEY);
-		JETPACK_EHOVER_KEY = new KeyBinding("keybind.simplyjetpacks.emergency_hover", Keyboard.KEY_R, "keybind.simplyjetpacks.category");
-		ClientRegistry.registerKeyBinding(JETPACK_EHOVER_KEY);
-		JETPACK_CHARGER_KEY = new KeyBinding("keybind.simplyjetpacks.charger", Keyboard.KEY_P, "keybind.simplyjetpacks.category");
+		JETPACK_CHARGER_KEY = new KeyBinding("keybind.simplyjetpacks.charger", Keyboard.KEY_P, category);
 		ClientRegistry.registerKeyBinding(JETPACK_CHARGER_KEY);
+		JETPACK_HOVER_KEY = new KeyBinding("keybind.simplyjetpacks.hover", Keyboard.KEY_L, category);
+		ClientRegistry.registerKeyBinding(JETPACK_HOVER_KEY);
+		JETPACK_EHOVER_KEY = new KeyBinding("keybind.simplyjetpacks.emergency_hover", Keyboard.KEY_R, category);
+		ClientRegistry.registerKeyBinding(JETPACK_EHOVER_KEY);
 	}
 
 	@SubscribeEvent
@@ -71,15 +73,15 @@ public class KeybindHandler {
 				jetpack.toggleState(jetpack.isOn(chestStack), chestStack, "engine_mode", ItemJetpack.TAG_ON, player, Config.enableStateMessages);
 				PacketHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.ENGINE));
 			}
+			if (JETPACK_CHARGER_KEY.isPressed()) {
+				jetpack.toggleState(jetpack.isChargerOn(chestStack), chestStack, "charger_mode", ItemJetpack.TAG_CHARGER_ON, player, Config.enableStateMessages);
+				PacketHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.CHARGER));
+			}
 			if (JETPACK_HOVER_KEY.isPressed()) {
 				jetpack.toggleState(jetpack.isHoverModeOn(chestStack), chestStack, "hover_mode", ItemJetpack.TAG_HOVERMODE_ON, player, Config.enableStateMessages);
 				PacketHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.HOVER));
 			}
 			if (JETPACK_EHOVER_KEY.isPressed()) {
-				jetpack.toggleState(jetpack.isChargerOn(chestStack), chestStack, "charger_mode", ItemJetpack.TAG_CHARGER_ON, player, Config.enableStateMessages);
-				PacketHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.CHARGER));
-			}
-			if (JETPACK_CHARGER_KEY.isPressed()) {
 				jetpack.toggleState(jetpack.isEHoverModeOn(chestStack), chestStack, "emergency_hover_mode", ItemJetpack.TAG_EHOVER_ON, player, Config.enableStateMessages);
 				PacketHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.E_HOVER));
 			}

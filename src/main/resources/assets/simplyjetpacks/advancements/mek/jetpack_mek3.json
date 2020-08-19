@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "item": "simplyjetpacks:itemjetpack",
+      "data": 28
+    },
+    "title": {
+      "translate": "item.simplyjetpacks.jetpack_mek3.name"
+    },
+    "description": {
+      "translate": "advancement.simplyjetpacks.jetpack_mek3.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "jetpack_mek3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "simplyjetpacks:itemjetpack",
+            "data": 28
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 1
+  },
+  "parent": "simplyjetpacks:mek/jetpack_mek2"
+}

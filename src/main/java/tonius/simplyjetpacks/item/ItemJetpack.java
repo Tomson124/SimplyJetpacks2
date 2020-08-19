@@ -137,7 +137,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	@Override
 	public void onArmorTick(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull ItemStack stack) {
 		flyUser(player, stack, this, false);
-		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		if (this.canCharge(stack) && this.isChargerOn(stack)) {
 			chargeInventory(player, stack, this);
 		}
@@ -379,6 +378,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		Boolean engine = this.isOn(stack);
 		Boolean hover = this.isHoverModeOn(stack);
 		Boolean charger = this.isChargerOn(stack);
+		Boolean eHover = this.isEHoverModeOn(stack);
 		if (this.canCharge(stack)) {
 			return SJStringUtil.getHUDStateText(engine, hover, charger);
 		} else {

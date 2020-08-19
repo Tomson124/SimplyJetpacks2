@@ -1,0 +1,31 @@
+{
+  "display": {
+    "icon": {
+      "item": "mekanism:atomicalloy"
+    },
+    "title": {
+      "translate": "advancement.simplyjetpacks.mek.title"
+    },
+    "description": {
+      "translate": "advancement.simplyjetpacks.mek.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "code_trigger": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "code_trigger"
+    ]
+  ],
+  "rewards": {
+    "experience": 1
+  },
+  "parent": "simplyjetpacks:root"
+}

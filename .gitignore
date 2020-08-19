@@ -1,6 +1,10 @@
-# Simply Jetpacks 2:
+# idea
 .idea
+
+# gradle
 .gradle
-run
 build
+
+# other
+run
 libs

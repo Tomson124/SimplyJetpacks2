@@ -67,8 +67,8 @@ public class Config {
     public static boolean enableStateMessages = Defaults.enableStateMessages;
 
     public static void preInit(FMLPreInitializationEvent event) {
-        configCommon = new Configuration(new File(event.getModConfigurationDirectory(), SimplyJetpacks.MODID + "/common.cfg"));
-        configClient = new Configuration(new File(event.getModConfigurationDirectory(), SimplyJetpacks.MODID + "/client.cfg"));
+        configCommon = new Configuration(new File(event.getModConfigurationDirectory(), SimplyJetpacks.MODID + "/common.cfg"), "2.2.16", true);
+        configClient = new Configuration(new File(event.getModConfigurationDirectory(), SimplyJetpacks.MODID + "/client.cfg"), "2.2.16", true);
         syncConfig();
         SimplyJetpacks.proxy.updateCustomKeybinds(flyKey, descendKey);
     }

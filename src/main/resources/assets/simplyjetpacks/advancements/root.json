@@ -1,14 +1,14 @@
 {
   "display": {
-    "description": {
-      "translate": "advancement.simplyjetpacks.root.description"
+    "icon": {
+      "item": "simplyjetpacks:itemjetpack",
+      "data": 0
     },
     "title": {
-      "translate": "advancement.simplyjetpacks.root.title",
-      "color": "purple"
+      "translate": "advancement.simplyjetpacks.root.title"
     },
-    "icon": {
-      "item": "minecraft:apple"
+    "description": {
+      "translate": "advancement.simplyjetpacks.root.desc"
     },
     "frame": "challenge",
     "announce_to_chat": true,
