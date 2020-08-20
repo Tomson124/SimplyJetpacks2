@@ -35,7 +35,6 @@ import tonius.simplyjetpacks.capability.EnergyConversionStorage;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.client.util.RenderUtils;
 import tonius.simplyjetpacks.config.Config;
-import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.setup.ModEnchantments;
 import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.util.EquipmentSlotHelper;
@@ -49,9 +48,8 @@ import java.util.List;
 
 public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider {
 
-	public boolean hasFuelIndicator = true;
+	public boolean hasEnergyIndicator = true;
 	public boolean hasStateIndicators = true;
-	public FuelType fuelType = FuelType.ENERGY;
 	public boolean isFluxBased = false;
 	public boolean showTier = true;
 	public static final String TAG_ENERGY = "Energy";
@@ -121,17 +119,15 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	protected void chargeInventory(EntityLivingBase user, ItemStack stack, ItemFluxpack item) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
-		if (this.fuelType == FuelType.ENERGY) {
-			for (int j = 0; j <= 5; j++) {
-				ItemStack currentStack = user.getItemStackFromSlot(EquipmentSlotHelper.fromSlot(j));
-				if (currentStack != stack && getIEnergyStorage(currentStack) != null && (currentStack.hasCapability(CapabilityEnergy.ENERGY, null) || currentStack.getItem() instanceof IEnergyContainerItem)) {
-					if (Fluxpack.values()[i].usesFuel) {
-						int energyToAdd = Math.min(item.useFuel(stack, Fluxpack.values()[i].getFuelPerTickOut(), true), getIEnergyStorage(currentStack).receiveEnergy(Fluxpack.values()[i].getFuelPerTickOut(), true));
-						item.useFuel(stack, energyToAdd, false);
-						getIEnergyStorage(currentStack).receiveEnergy(energyToAdd, false);
-					} else {
-						getIEnergyStorage(currentStack).receiveEnergy(Fluxpack.values()[i].getFuelPerTickOut(), false);
-					}
+		for (int j = 0; j <= 5; j++) {
+			ItemStack currentStack = user.getItemStackFromSlot(EquipmentSlotHelper.fromSlot(j));
+			if (currentStack != stack && getIEnergyStorage(currentStack) != null && (currentStack.hasCapability(CapabilityEnergy.ENERGY, null) || currentStack.getItem() instanceof IEnergyContainerItem)) {
+				if (Fluxpack.values()[i].usesEnergy) {
+					int energyToAdd = Math.min(item.useEnergy(stack, Fluxpack.values()[i].getEnergyPerTickOut(), true), getIEnergyStorage(currentStack).receiveEnergy(Fluxpack.values()[i].getEnergyPerTickOut(), true));
+					item.useEnergy(stack, energyToAdd, false);
+					getIEnergyStorage(currentStack).receiveEnergy(energyToAdd, false);
+				} else {
+					getIEnergyStorage(currentStack).receiveEnergy(Fluxpack.values()[i].getEnergyPerTickOut(), false);
 				}
 			}
 		}
@@ -161,25 +157,25 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		if (this.showTier) {
 			list.add(SJStringUtil.getTierText(Fluxpack.values()[i].getTier()));
 		}
-		list.add(SJStringUtil.getFuelText(this.fuelType, item.getFuelStored(stack), Fluxpack.values()[i].getFuelCapacity(), !Fluxpack.values()[i].usesFuel));
+		list.add(SJStringUtil.getEnergyText(item.getEnergyStored(stack), Fluxpack.values()[i].getEnergyCapacity(), !Fluxpack.values()[i].usesEnergy));
 	}
 
 	@SideOnly(Side.CLIENT)
 	public void shiftInformation(ItemStack stack, List<String> list) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		list.add(SJStringUtil.getStateText(this.isOn(stack)));
-		list.add(SJStringUtil.getEnergySendText(Fluxpack.values()[i].getFuelPerTickOut()));
-		if (Fluxpack.values()[i].getFuelPerTickIn() > 0) {
-			list.add(SJStringUtil.getEnergyReceiveText(Fluxpack.values()[i].getFuelPerTickIn()));
+		list.add(SJStringUtil.getEnergySendText(Fluxpack.values()[i].getEnergyPerTickOut()));
+		if (Fluxpack.values()[i].getEnergyPerTickIn() > 0) {
+			list.add(SJStringUtil.getEnergyReceiveText(Fluxpack.values()[i].getEnergyPerTickIn()));
 		}
 		SJStringUtil.addDescriptionLines(list, "fluxpack", TextFormatting.GREEN.toString());
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addHUDInfo(List<String> list, ItemStack stack, boolean showFuel, boolean showState) {
-		if (showFuel && this.hasFuelIndicator) {
-			list.add(this.getHUDFuelInfo(stack, this));
+	public void addHUDInfo(List<String> list, ItemStack stack, boolean showEnergy, boolean showState) {
+		if (showEnergy && this.hasEnergyIndicator) {
+			list.add(this.getHUDEnergyInfo(stack, this));
 		}
 		if (showState && this.hasStateIndicators) {
 			list.add(this.getHUDStatesInfo(stack));
@@ -187,16 +183,16 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	}
 
 	@SideOnly(Side.CLIENT)
-	public String getHUDFuelInfo(ItemStack stack, ItemFluxpack item) {
-		int fuel = item.getFuelStored(stack);
-		int maxFuel = item.getMaxFuelStored(stack);
-		int percent = (int) Math.ceil((double) fuel / (double) maxFuel * 100D);
-		return SJStringUtil.getHUDFuelText("fluxpack", percent, fuel);
+	public String getHUDEnergyInfo(ItemStack stack, ItemFluxpack item) {
+		int energy = item.getEnergyStored(stack);
+		int maxEnergy = item.getMaxEnergyStored(stack);
+		int percent = (int) Math.ceil((double) energy / (double) maxEnergy * 100D);
+		return SJStringUtil.getHUDEnergyText("fluxpack", percent, energy);
 	}
 
 	@SideOnly(Side.CLIENT)
 	public String getHUDStatesInfo(ItemStack stack) {
-		return SJStringUtil.getHUDStateText(this.isOn(stack), null, null);
+		return SJStringUtil.getHUDStateText(this.isOn(stack), null, null, null);
 	}
 
 	public boolean isOn(ItemStack stack) {
@@ -216,16 +212,16 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
-		if (!Fluxpack.values()[i].usesFuel) {
+		if (!Fluxpack.values()[i].usesEnergy) {
 			return false;
 		}
-		return this.hasFuelIndicator;
+		return this.hasEnergyIndicator;
 	}
 
 	@Override
 	public double getDurabilityForDisplay(@Nonnull ItemStack stack) {
-		double stored = this.getMaxFuelStored(stack) - this.getFuelStored(stack) + 1;
-		double max = this.getMaxFuelStored(stack) + 1;
+		double stored = this.getMaxEnergyStored(stack) - this.getEnergyStored(stack) + 1;
+		double max = this.getMaxEnergyStored(stack) + 1;
 		return stored / max;
 	}
 
@@ -236,19 +232,11 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		return Fluxpack.values()[i].unlocalisedName;
 	}
 
-	public int getFuelStored(ItemStack stack) {
-		return this.getEnergyStored(stack);
-	}
-
-	public int getMaxFuelStored(ItemStack stack) {
-		return this.getMaxEnergyStored(stack);
-	}
-
-	public int addFuel(ItemStack stack, int maxAdd, boolean simulate) {
+	public int addEnergy(ItemStack stack, int maxAdd, boolean simulate) {
 		return this.receiveEnergy(stack, maxAdd, simulate);
 	}
 
-	public int useFuel(ItemStack stack, int maxUse, boolean simulate) {
+	public int useEnergy(ItemStack stack, int maxUse, boolean simulate) {
 		return this.extractEnergy(stack, maxUse, simulate);
 	}
 
@@ -256,8 +244,8 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
 		int i = MathHelper.clamp(container.getItemDamage(), 0, numItems - 1);
 		int energy = this.getEnergyStored(container);
-		int energyReceived = Math.min(this.getMaxEnergyStored(container) - energy, Math.min(maxReceive, Fluxpack.values()[i].getFuelPerTickIn()));
-		if (!Fluxpack.values()[i].usesFuel) {
+		int energyReceived = Math.min(this.getMaxEnergyStored(container) - energy, Math.min(maxReceive, Fluxpack.values()[i].getEnergyPerTickIn()));
+		if (!Fluxpack.values()[i].usesEnergy) {
 			energyReceived = this.getMaxEnergyStored(container);
 		}
 		if (!simulate) {
@@ -271,7 +259,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
 		int i = MathHelper.clamp(container.getItemDamage(), 0, numItems - 1);
 		int energy = this.getEnergyStored(container);
-		int energyExtracted = Math.min(energy, Math.min(maxExtract, Fluxpack.values()[i].getFuelPerTickOut()));
+		int energyExtracted = Math.min(energy, Math.min(maxExtract, Fluxpack.values()[i].getEnergyPerTickOut()));
 		if (!simulate) {
 			energy -= energyExtracted;
 			NBTHelper.setInt(container, TAG_ENERGY, energy);
@@ -282,7 +270,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	@Override
 	public int getMaxEnergyStored(ItemStack container) {
 		int i = MathHelper.clamp(container.getItemDamage(), 0, numItems - 1);
-		return Fluxpack.values()[i].getFuelCapacity();
+		return Fluxpack.values()[i].getEnergyCapacity();
 	}
 
 	@Override
@@ -294,9 +282,9 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
 		int i = MathHelper.clamp(armor.getItemDamage(), 0, numItems - 1);
 		if (Fluxpack.values()[i].getIsArmored() && !source.isUnblockable()) {
-			int energyPerDamage = this.getFuelPerDamage(armor);
-			int maxAbsorbed = energyPerDamage > 0 ? 25 * (this.getFuelStored(armor) / energyPerDamage) : 0;
-			if (this.getFuelStored(armor) < energyPerDamage) {
+			int energyPerDamage = this.getEnergyPerDamage(armor);
+			int maxAbsorbed = energyPerDamage > 0 ? 25 * (this.getEnergyStored(armor) / energyPerDamage) : 0;
+			if (this.getEnergyStored(armor) < energyPerDamage) {
 				return new ArmorProperties(0, 0.65D * (Fluxpack.values()[i].getArmorReduction() / 20.0D), Integer.MAX_VALUE);
 			}
 			if (this.isFluxBased && source.damageType.equals("flux")) {
@@ -350,19 +338,19 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack armor, DamageSource source, int damage, int slot) {
 		int i = MathHelper.clamp(armor.getItemDamage(), 0, numItems - 1);
-		if (Fluxpack.values()[i].getIsArmored() && Fluxpack.values()[i].usesFuel) {
-			if (this.fuelType == FuelType.ENERGY && this.isFluxBased && source.damageType.equals("flux")) {
-				this.addFuel(armor, damage * (source.getImmediateSource() == null ? Fluxpack.values()[i].getArmorFuelPerHit() / 2 : this.getFuelPerDamage(armor)), false);
+		if (Fluxpack.values()[i].getIsArmored() && Fluxpack.values()[i].usesEnergy) {
+			if (this.isFluxBased && source.damageType.equals("flux")) {
+				this.addEnergy(armor, damage * (source.getImmediateSource() == null ? Fluxpack.values()[i].getArmorEnergyPerHit() / 2 : this.getEnergyPerDamage(armor)), false);
 			} else {
-				this.useFuel(armor, damage * this.getFuelPerDamage(armor), false);
+				this.useEnergy(armor, damage * this.getEnergyPerDamage(armor), false);
 			}
 		}
 	}
 
-	protected int getFuelPerDamage(ItemStack stack) {
+	protected int getEnergyPerDamage(ItemStack stack) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		int fuelEfficiencyLevel = MathHelper.clamp(EnchantmentHelper.getEnchantmentLevel(ModEnchantments.FUEL_EFFICIENCY, stack), 0, 4);
-		return (int) Math.round(Fluxpack.values()[i].getArmorFuelPerHit() * (5 - fuelEfficiencyLevel) / 5.0D);
+		return (int) Math.round(Fluxpack.values()[i].getArmorEnergyPerHit() * (5 - fuelEfficiencyLevel) / 5.0D);
 	}
 
 	public IEnergyStorage getIEnergyStorage(ItemStack chargeItem) {

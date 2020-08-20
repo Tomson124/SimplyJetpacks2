@@ -17,7 +17,7 @@ public abstract class Defaults {
     public static final boolean enableIntegrationIE = ModType.IMMERSIVE_ENGINEERING.loaded;
     public static boolean enableIntegrationRA = ModType.REDSTONE_ARSENAL.loaded;
     public static final boolean enableIntegrationRR = ModType.REDSTONE_REPOSITORY.loaded;
-    public static final int gelidEnderiumFuelUsageBonus = 80;
+    public static final int gelidEnderiumEnergyUsageBonus = 80;
     // Controls
     public static final boolean customControls = false;
     public static final String flyKey = "SPACE";
@@ -35,9 +35,9 @@ public abstract class Defaults {
     public static final int HUDOffsetY = 0;
     public static final double HUDScale = 1.0D;
     public static final boolean showHUDWhileChatting = true;
-    public static final boolean enableFuelHUD = true;
-    public static final boolean minimalFuelHUD = false;
-    public static final boolean showExactFuelInHUD = false;
+    public static final boolean enableEnergyHUD = true;
+    public static final boolean minimalEnergyHUD = false;
+    public static final boolean showExactEnergyInHUD = false;
     public static final boolean enableStateHUD = true;
     public static final boolean enableStateMessages = true;
 }

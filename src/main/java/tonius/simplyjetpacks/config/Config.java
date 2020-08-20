@@ -38,7 +38,7 @@ public class Config {
     public static boolean enableIntegrationMek = Defaults.enableIntegrationMek;
     public static boolean enableIntegrationIE = Defaults.enableIntegrationIE;
     public static boolean enableIntegrationRR = Defaults.enableIntegrationRR;
-    public static float gelidEnderiumFuelUsageBonus = Defaults.gelidEnderiumFuelUsageBonus;
+    public static float gelidEnderiumEnergyUsageBonus = Defaults.gelidEnderiumEnergyUsageBonus;
     // Controls
     public static boolean customControls = Defaults.customControls;
     public static String flyKey = Defaults.flyKey;
@@ -56,9 +56,9 @@ public class Config {
     public static int HUDOffsetY = Defaults.HUDOffsetY;
     public static double HUDScale = Defaults.HUDScale;
     public static boolean showHUDWhileChatting = Defaults.showHUDWhileChatting;
-    public static boolean enableFuelHUD = Defaults.enableFuelHUD;
-    public static boolean minimalFuelHUD = Defaults.minimalFuelHUD;
-    public static boolean showExactFuelInHUD = Defaults.showExactFuelInHUD;
+    public static boolean enableEnergyHUD = Defaults.enableEnergyHUD;
+    public static boolean minimalEnergyHUD = Defaults.minimalEnergyHUD;
+    public static boolean showExactEnergyInHUD = Defaults.showExactEnergyInHUD;
     public static boolean enableStateHUD = Defaults.enableStateHUD;
     public static boolean enableStateMessages = Defaults.enableStateMessages;
 
@@ -85,7 +85,7 @@ public class Config {
         enableIntegrationMek = configCommon.get(sectionIntegration.key, getKey(sectionIntegration) + "enableIntegrationMek", Defaults.enableIntegrationMek, getKey(sectionIntegration) + "enableIntegrationMek.tooltip").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationMek);
         enableIntegrationIE = configCommon.get(sectionIntegration.key, getKey(sectionIntegration) + "enableIntegrationIE", Defaults.enableIntegrationIE, getKey(sectionIntegration) + "enableIntegrationIE.tooltip").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationIE);
         enableIntegrationRR = configCommon.get(sectionIntegration.key, getKey(sectionIntegration) + "enableIntegrationRR", Defaults.enableIntegrationRR, getKey(sectionIntegration) + "enableIntegrationRR.tooltip").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationRR);
-        gelidEnderiumFuelUsageBonus = configCommon.get(sectionIntegration.key, getKey(sectionIntegration) + "gelidEnderiumFuelUsageBonus", Defaults.gelidEnderiumFuelUsageBonus, getKey(sectionIntegration) + "gelidEnderiumFuelUsageBonus.tooltip").setMinValue(0).setMaxValue(100).setRequiresMcRestart(true).getInt(Defaults.gelidEnderiumFuelUsageBonus);
+        gelidEnderiumEnergyUsageBonus = configCommon.get(sectionIntegration.key, getKey(sectionIntegration) + "gelidEnderiumEnergyUsageBonus", Defaults.gelidEnderiumEnergyUsageBonus, getKey(sectionIntegration) + "gelidEnderiumEnergyUsageBonus.tooltip").setMinValue(0).setMaxValue(100).setRequiresMcRestart(true).getInt(Defaults.gelidEnderiumEnergyUsageBonus);
 
         customControls = configClient.get(sectionControls.key, getKey(sectionControls) + "customControls", Defaults.customControls, getKey(sectionControls) + "customControls.tooltip").getBoolean(Defaults.customControls);
         flyKey = configClient.get(sectionControls.key, getKey(sectionControls) + "flyKey", Defaults.flyKey, getKey(sectionControls) + "flyKey.tooltip").getString();
@@ -104,9 +104,9 @@ public class Config {
         HUDOffsetY = configClient.get(sectionGui.key, getKey(sectionGui) + "HUDOffsetY", Defaults.HUDOffsetY, getKey(sectionGui) + "HUDOffsetY.tooltip").getInt(Defaults.HUDOffsetY);
         HUDScale = Math.abs(configClient.get(sectionGui.key, getKey(sectionGui) + "HUDScale", Defaults.HUDScale, getKey(sectionGui) + "HUDScale.tooltip").setMinValue(0.001D).getDouble(Defaults.HUDScale));
         showHUDWhileChatting = configClient.get(sectionGui.key, getKey(sectionGui) + "showHUDWhileChatting", Defaults.showHUDWhileChatting, getKey(sectionGui) + "showHUDWhileChatting.tooltip").getBoolean(Defaults.showHUDWhileChatting);
-        enableFuelHUD = configClient.get(sectionGui.key, getKey(sectionGui) + "enableFuelHUD", Defaults.enableFuelHUD, getKey(sectionGui) + "enableFuelHUD.tooltip").getBoolean(Defaults.enableFuelHUD);
-        minimalFuelHUD = configClient.get(sectionGui.key, getKey(sectionGui) + "minimalFuelHUD", Defaults.minimalFuelHUD, getKey(sectionGui) + "minimalFuelHUD.tooltip").getBoolean(Defaults.minimalFuelHUD);
-        showExactFuelInHUD = configClient.get(sectionGui.key, getKey(sectionGui) + "showExactFuelInHUD", Defaults.showExactFuelInHUD, getKey(sectionGui) + "showExactFuelInHUD.tooltip").getBoolean(Defaults.showExactFuelInHUD);
+        enableEnergyHUD = configClient.get(sectionGui.key, getKey(sectionGui) + "enableEnergyHUD", Defaults.enableEnergyHUD, getKey(sectionGui) + "enableEnergyHUD.tooltip").getBoolean(Defaults.enableEnergyHUD);
+        minimalEnergyHUD = configClient.get(sectionGui.key, getKey(sectionGui) + "minimalEnergyHUD", Defaults.minimalEnergyHUD, getKey(sectionGui) + "minimalEnergyHUD.tooltip").getBoolean(Defaults.minimalEnergyHUD);
+        showExactEnergyInHUD = configClient.get(sectionGui.key, getKey(sectionGui) + "showExactEnergyInHUD", Defaults.showExactEnergyInHUD, getKey(sectionGui) + "showExactEnergyInHUD.tooltip").getBoolean(Defaults.showExactEnergyInHUD);
         enableStateHUD = configClient.get(sectionGui.key, getKey(sectionGui) + "enableStateHUD", Defaults.enableStateHUD, getKey(sectionGui) + "enableStateHUD.tooltip").getBoolean(Defaults.enableStateHUD);
         enableStateMessages = configClient.get(sectionGui.key, getKey(sectionGui) + "enableStateMessages", Defaults.enableStateMessages, getKey(sectionGui) + "enableStateMessages.tooltip").getBoolean(Defaults.enableStateMessages);
 

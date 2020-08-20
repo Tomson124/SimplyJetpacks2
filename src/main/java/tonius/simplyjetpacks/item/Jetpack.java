@@ -94,14 +94,14 @@ public enum Jetpack implements IStringSerializable {
 	@Nonnull
 	public final String unlocalisedName;
 	public final int tier;
-	public int fuelCapacity;
-	public int fuelPerTickIn;
-	public int fuelPerTickOut;
-	public int armorFuelPerHit;
+	public int energyCapacity;
+	public int energyPerTickIn;
+	public int energyPerTickOut;
+	public int armorEnergyPerHit;
 	public int armorReduction;
-	public int fuelUsage;
+	public int energyUsage;
 	public int platingMeta;
-	public boolean usesFuel;
+	public boolean usesEnergy;
 	public boolean isArmored;
 	public EnumRarity rarity;
 	public PackModelType armorModel = PackModelType.FLAT;
@@ -112,7 +112,7 @@ public enum Jetpack implements IStringSerializable {
 	public double speedVerticalHoverSlow;
 	public double speedSideways;
 	public double sprintSpeedModifier;
-	public double sprintFuelModifier;
+	public double sprintEnergyModifier;
 	public boolean emergencyHoverMode;
 	public boolean chargerMode;
 	public int enchantability;
@@ -120,10 +120,10 @@ public enum Jetpack implements IStringSerializable {
 	@Nonnull
 	private final List<String> jetpacks = new ArrayList<>();
 
-	Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, ParticleType defaultParticleType, boolean usesFuel) {
+	Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, ParticleType defaultParticleType, boolean usesEnergy) {
 		this(baseName, tier, defaultConfigKey, rarity);
 		this.defaultParticleType = defaultParticleType;
-		this.usesFuel = usesFuel;
+		this.usesEnergy = usesEnergy;
 	}
 
 	Jetpack(@Nonnull String baseName, int tier, String defaultConfigKey, EnumRarity rarity, boolean isArmored) {
@@ -144,7 +144,7 @@ public enum Jetpack implements IStringSerializable {
 		this.defaultParticleType = ParticleType.DEFAULT;
 		this.unlocalisedName = "item.simplyjetpacks." + baseName;
 		this.jetpacks.add(baseName);
-		this.usesFuel = true;
+		this.usesEnergy = true;
 		this.isArmored = false;
 		this.rarity = rarity;
 		this.setArmorModel(PackModelType.JETPACK);
@@ -159,28 +159,28 @@ public enum Jetpack implements IStringSerializable {
 		return tier;
 	}
 
-	public int getFuelCapacity() {
-		return fuelCapacity;
+	public int getEnergyCapacity() {
+		return energyCapacity;
 	}
 
-	public int getFuelPerTickIn() {
-		return fuelPerTickIn;
+	public int getEnergyPerTickIn() {
+		return energyPerTickIn;
 	}
 
-	public int getFuelPerTickOut() {
-		return fuelPerTickOut;
+	public int getEnergyPerTickOut() {
+		return energyPerTickOut;
 	}
 
-	public int getArmorFuelPerHit() {
-		return armorFuelPerHit;
+	public int getArmorEnergyPerHit() {
+		return armorEnergyPerHit;
 	}
 
 	public int getArmorReduction() {
 		return armorReduction;
 	}
 
-	public int getFuelUsage() {
-		return fuelUsage;
+	public int getEnergyUsage() {
+		return energyUsage;
 	}
 
 	@Nonnull
@@ -243,7 +243,7 @@ public enum Jetpack implements IStringSerializable {
 
 	public ParticleType getDisplayParticleType(ItemStack stack, ItemJetpack item, EntityLivingBase user) {
 		boolean flyKeyDown = SyncHandler.isFlyKeyDown(user);
-		if (item.isOn(stack) && item.getFuelStored(stack) > 0 && (flyKeyDown || item.isHoverModeOn(stack) && !user.onGround && user.motionY < 0)) {
+		if (item.isOn(stack) && item.getEnergyStored(stack) > 0 && (flyKeyDown || item.isHoverModeOn(stack) && !user.onGround && user.motionY < 0)) {
 			return this.getParticleType(stack);
 		}
 		return null;
@@ -290,23 +290,23 @@ public enum Jetpack implements IStringSerializable {
 	}
 
 	protected void loadConfig(Configuration config) {
-		if (this.defaults.fuelCapacity != null) {
-			this.fuelCapacity = config.get(this.defaults.section.key, I18n.format(getKey() + "fuelCapacity"), this.defaults.fuelCapacity, I18n.format(getKey() + "fuelCapacity.tooltip")).setMinValue(1).getInt(this.defaults.fuelCapacity);
+		if (this.defaults.energyCapacity != null) {
+			this.energyCapacity = config.get(this.defaults.section.key, I18n.format(getKey() + "energyCapacity"), this.defaults.energyCapacity, I18n.format(getKey() + "energyCapacity.tooltip")).setMinValue(1).getInt(this.defaults.energyCapacity);
 		}
-		if (this.defaults.fuelUsage != null) {
-			this.fuelUsage = config.get(this.defaults.section.key, I18n.format(getKey() + "fuelUsage"), this.defaults.fuelUsage, I18n.format(getKey() + "fuelUsage.tooltip")).setMinValue(0).getInt(this.defaults.fuelUsage);
+		if (this.defaults.energyUsage != null) {
+			this.energyUsage = config.get(this.defaults.section.key, I18n.format(getKey() + "energyUsage"), this.defaults.energyUsage, I18n.format(getKey() + "energyUsage.tooltip")).setMinValue(0).getInt(this.defaults.energyUsage);
 		}
-		if (this.defaults.fuelPerTickIn != null) {
-			this.fuelPerTickIn = config.get(this.defaults.section.key, I18n.format(getKey() + "fuelPerTickIn"), this.defaults.fuelPerTickIn, I18n.format(getKey() + "fuelPerTickIn.tooltip")).setMinValue(0).getInt(this.defaults.fuelPerTickIn);
+		if (this.defaults.energyPerTickIn != null) {
+			this.energyPerTickIn = config.get(this.defaults.section.key, I18n.format(getKey() + "energyPerTickIn"), this.defaults.energyPerTickIn, I18n.format(getKey() + "energyPerTickIn.tooltip")).setMinValue(0).getInt(this.defaults.energyPerTickIn);
 		}
-		if (this.defaults.fuelPerTickOut != null) {
-			this.fuelPerTickOut = config.get(this.defaults.section.key, I18n.format(getKey() + "fuelPerTickOut"), this.defaults.fuelPerTickOut, I18n.format(getKey() + "fuelPerTickOut.tooltip")).setMinValue(0).getInt(this.defaults.fuelPerTickOut);
+		if (this.defaults.energyPerTickOut != null) {
+			this.energyPerTickOut = config.get(this.defaults.section.key, I18n.format(getKey() + "energyPerTickOut"), this.defaults.energyPerTickOut, I18n.format(getKey() + "energyPerTickOut.tooltip")).setMinValue(0).getInt(this.defaults.energyPerTickOut);
 		}
 		if (this.defaults.armorReduction != null) {
 			this.armorReduction = config.get(this.defaults.section.key, I18n.format(getKey() + "armorReduction"), this.defaults.armorReduction, I18n.format(getKey() + "armorReduction.tooltip")).setMinValue(0).setMaxValue(20).getInt(this.defaults.armorReduction);
 		}
-		if (this.defaults.armorFuelPerHit != null) {
-			this.armorFuelPerHit = config.get(this.defaults.section.key, I18n.format(getKey() + "armorFuelPerHit"), this.defaults.armorFuelPerHit, I18n.format(getKey() + "armorFuelPerHit.tooltip")).setMinValue(0).getInt(this.defaults.armorFuelPerHit);
+		if (this.defaults.armorEnergyPerHit != null) {
+			this.armorEnergyPerHit = config.get(this.defaults.section.key, I18n.format(getKey() + "armorEnergyPerHit"), this.defaults.armorEnergyPerHit, I18n.format(getKey() + "armorEnergyPerHit.tooltip")).setMinValue(0).getInt(this.defaults.armorEnergyPerHit);
 		}
 		if (this.defaults.speedVertical != null) {
 			this.speedVertical = config.get(this.defaults.section.key, I18n.format(getKey() + "speedVertical"), this.defaults.speedVertical, I18n.format(getKey() + "speedVertical.tooltip")).setMinValue(0.0D).getDouble(this.defaults.speedVertical);
@@ -326,8 +326,8 @@ public enum Jetpack implements IStringSerializable {
 		if (this.defaults.sprintSpeedModifier != null) {
 			this.sprintSpeedModifier = config.get(this.defaults.section.key, I18n.format(getKey() + "sprintSpeedModifier"), this.defaults.sprintSpeedModifier, I18n.format(getKey() + "sprintSpeedModifier.tooltip")).setMinValue(0.0D).getDouble(this.defaults.sprintSpeedModifier);
 		}
-		if (this.defaults.sprintFuelModifier != null) {
-			this.sprintFuelModifier = config.get(this.defaults.section.key, I18n.format(getKey() + "sprintFuelModifier"), this.defaults.sprintFuelModifier, I18n.format(getKey() + "sprintFuelModifier.tooltip")).setMinValue(0.0D).getDouble(this.defaults.sprintFuelModifier);
+		if (this.defaults.sprintEnergyModifier != null) {
+			this.sprintEnergyModifier = config.get(this.defaults.section.key, I18n.format(getKey() + "sprintEnergyModifier"), this.defaults.sprintEnergyModifier, I18n.format(getKey() + "sprintEnergyModifier.tooltip")).setMinValue(0.0D).getDouble(this.defaults.sprintEnergyModifier);
 		}
 		if (this.defaults.emergencyHoverMode != null) {
 			this.emergencyHoverMode = config.get(this.defaults.section.key, I18n.format(getKey() + "emergencyHoverMode"), this.defaults.emergencyHoverMode, I18n.format(getKey() + "emergencyHoverMode.tooltip")).getBoolean(this.defaults.emergencyHoverMode);

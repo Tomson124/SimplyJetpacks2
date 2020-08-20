@@ -23,10 +23,13 @@ public class ConfigGui extends GuiConfig {
         String prefix = "config." + SimplyJetpacks.PREFIX;
 
         for (Section configSection : Config.configSections) {
+            String langKey =  configSection.name.equals("") ? prefix + configSection.id : configSection.name;
             if (configSection.client) {
-                category = Config.configClient.getCategory(configSection.key).setLanguageKey(prefix + configSection.id);
+                //category = Config.configClient.getCategory(configSection.key).setLanguageKey(prefix + configSection.id);
+                category = Config.configClient.getCategory(configSection.key).setLanguageKey(langKey);
             } else {
-                category = Config.configCommon.getCategory(configSection.key).setLanguageKey(prefix + configSection.id);
+                //category = Config.configCommon.getCategory(configSection.key).setLanguageKey(prefix + configSection.id);
+                category = Config.configCommon.getCategory(configSection.key).setLanguageKey(langKey);
             }
             category.setComment(prefix + configSection.id + ".tooltip");
             if (!category.isChild()) {

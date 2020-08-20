@@ -203,10 +203,10 @@ public class ItemHelper {
     public static void addJetpacks(Jetpack pack, NonNullList<ItemStack> List) {
         ItemJetpack jetpackItem = ModItems.itemJetpack;
         ItemStack jetpackStack = new ItemStack(jetpackItem, 1, pack.ordinal());
-        if (pack.usesFuel) {
+        if (pack.usesEnergy) {
             NBTHelper.setInt(jetpackStack, ItemJetpack.TAG_ENERGY, 0);
         } else {
-            jetpackItem.addFuel(jetpackStack, jetpackItem.getMaxEnergyStored(jetpackStack), false);
+            jetpackItem.addEnergy(jetpackStack, jetpackItem.getMaxEnergyStored(jetpackStack), false);
         }
         jetpackItem.setParticleType(jetpackStack, ParticleType.DEFAULT);
         List.add(jetpackStack);
@@ -214,14 +214,14 @@ public class ItemHelper {
 
     public static void addFluxpacks(Fluxpack pack, NonNullList<ItemStack> List) {
         ItemStack stack;
-        ItemFluxpack fluxpackItem = ModItems.itemFluxPack;
+        ItemFluxpack fluxpackItem = ModItems.itemFluxpack;
         ItemStack fluxpackStack = new ItemStack(fluxpackItem, 1, pack.ordinal());
-        if (pack.usesFuel) {
+        if (pack.usesEnergy) {
             List.add(fluxpackStack);
             NBTHelper.setInt(fluxpackStack, ItemFluxpack.TAG_ENERGY, 0);
         } else {
             stack = new ItemStack(fluxpackItem, 1, pack.ordinal());
-            fluxpackItem.addFuel(stack, fluxpackItem.getMaxEnergyStored(stack), false);
+            fluxpackItem.addEnergy(stack, fluxpackItem.getMaxEnergyStored(stack), false);
             List.add(stack);
         }
     }

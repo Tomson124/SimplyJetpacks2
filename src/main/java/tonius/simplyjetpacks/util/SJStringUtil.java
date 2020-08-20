@@ -5,7 +5,6 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
-import tonius.simplyjetpacks.setup.FuelType;
 import tonius.simplyjetpacks.setup.ParticleType;
 
 import java.text.DecimalFormat;
@@ -32,11 +31,11 @@ public abstract class SJStringUtil {
 		return localize("tooltip.", ".tier", tier);
 	}
 
-	public static String getFuelText(FuelType fuelType, int amount, int max, boolean infinite) {
+	public static String getEnergyText(int amount, int max, boolean infinite) {
 		if (infinite) {
-			return TextFormatting.GRAY + localize("tooltip.", ".fuel.infinite." + fuelType.toString().toLowerCase());
+			return TextFormatting.GRAY + localize("tooltip.", ".energyInfinite");
 		}
-		return TextFormatting.GRAY + getFormattedNumber(amount) + " / " + getFormattedNumber(max) + fuelType.suffix;
+		return TextFormatting.GRAY + localize("tooltip.", ".energyWithMax", getFormattedNumber(amount), getFormattedNumber(max));
 	}
 
 	public static String getStateText(boolean state) {
@@ -54,13 +53,13 @@ public abstract class SJStringUtil {
 		return TextFormatting.GOLD + localize("tooltip.", "chargerState") + ": " + onOrOff;
 	}
 
-	public static String getFuelUsageText(FuelType fuelType, int usage) {
-		String usageText = getFormattedNumber(usage) + fuelType.suffix + "/t";
-		return TextFormatting.GOLD + localize("tooltip.", ".fuelUsage") + ": " + TextFormatting.GRAY + usageText;
+	public static String getEnergyUsageText(int usage) {
+		String usageText = localize("tooltip.", ".energyPerTick", getFormattedNumber(usage));
+		return TextFormatting.GOLD + localize("tooltip.", ".energyUsage") + ": " + TextFormatting.GRAY + usageText;
 	}
 
 	public static String getChargerRateText(int rate) {
-		String rateText = rate > 0 ? getFormattedNumber(rate) + " RF/t" : localize("tooltip.", ".energy.none");
+		String rateText = rate > 0 ? getFormattedNumber(rate) + " RF/t" : localize("tooltip.", ".energyNone");
 		return TextFormatting.GOLD + localize("tooltip.", ".chargerRate") + ": " + TextFormatting.GRAY + rateText;
 	}
 
@@ -69,7 +68,7 @@ public abstract class SJStringUtil {
 	}
 
 	public static String getEnergyReceiveText(int receive) {
-		String usageText = receive < Integer.MAX_VALUE ? getFormattedNumber(receive) + " RF/t" : localize("tooltip.", ".energy.none");
+		String usageText = receive < Integer.MAX_VALUE ? getFormattedNumber(receive) + " RF/t" : localize("tooltip.", ".energyNone");
 		return TextFormatting.GOLD + localize("tooltip.", ".energyReceive") + ": " + TextFormatting.GRAY + usageText;
 	}
 
@@ -81,23 +80,23 @@ public abstract class SJStringUtil {
 		return TextFormatting.AQUA.toString() + TextFormatting.ITALIC + localize("tooltip.", ".packGUIKey", key);
 	}
 
-	public static String getHUDFuelText(String packType, int percent, int fuel) {
+	public static String getHUDEnergyText(String packType, int percent, int energy) {
 		String text = "";
-		if (!Config.minimalFuelHUD) {
-			text += localize("gui.", ".hud." + packType + ".fuel") + ": ";
+		if (!Config.minimalEnergyHUD) {
+			text += localize("gui.", ".hud." + packType + ".energy") + ": ";
 		}
 		if (percent > 0) {
 			text += getColoredPercent(percent) + "%";
 		} else {
-			text += TextFormatting.DARK_RED + localize("gui.", ".hud.fuel.depleted");
+			text += TextFormatting.DARK_RED + localize("gui.", ".hud.energy.depleted");
 		}
-		if (Config.showExactFuelInHUD) {
-			text += " (" + getFormattedNumber(fuel) + " RF" + ")";
+		if (Config.showExactEnergyInHUD) {
+			text += " (" + getFormattedNumber(energy) + " RF" + ")";
 		}
 		return text;
 	}
 
-	public static String getHUDStateText(Boolean engine, Boolean hover, Boolean charger) {
+	public static String getHUDStateText(Boolean engine, Boolean hover, Boolean charger, Boolean eHover) {
 		String text = "";
 		if (engine != null) {
 			text += (engine ? TextFormatting.GREEN : TextFormatting.DARK_RED) + localize("gui.", ".hud.state.engine") + TextFormatting.RESET;
@@ -113,6 +112,12 @@ public abstract class SJStringUtil {
 				text += TextFormatting.GRAY + " - ";
 			}
 			text += (charger ? TextFormatting.GREEN : TextFormatting.DARK_RED) + localize("gui.", ".hud.state.charger");
+		}
+		if (eHover != null) {
+			if (hover != null || engine != null || charger != null) {
+				text += TextFormatting.GRAY + " - ";
+			}
+			text += (eHover ? TextFormatting.GREEN : TextFormatting.DARK_RED) + localize("gui.", ".hud.state.eHover");
 		}
 		return text;
 	}
@@ -180,6 +185,6 @@ public abstract class SJStringUtil {
 	}
 
 	public static String getEnderiumBonusText() {
-		return TextFormatting.BLUE + localize("tooltip.", ".enderium_fuel_bonus", Config.gelidEnderiumFuelUsageBonus);
+		return TextFormatting.BLUE + localize("tooltip.", ".enderium_energy_bonus", Config.gelidEnderiumEnergyUsageBonus);
 	}
 }

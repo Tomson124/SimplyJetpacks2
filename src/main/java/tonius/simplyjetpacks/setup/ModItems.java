@@ -20,7 +20,7 @@ import tonius.simplyjetpacks.util.crafting.RecipeHelper;
 public abstract class ModItems {
 
 	public static ItemJetpack itemJetpack;
-	public static ItemFluxpack itemFluxPack;
+	public static ItemFluxpack itemFluxpack;
 	public static ItemMeta metaItem;
 	public static ItemMetaMods metaItemMods;
 
@@ -196,7 +196,7 @@ public abstract class ModItems {
 
 		// Jetpacks / Fluxpacks
 		itemJetpack = register(new ItemJetpack("itemJetpack"));
-		itemFluxPack = register(new ItemFluxpack("itemFluxpack"));
+		itemFluxpack = register(new ItemFluxpack("itemFluxpack"));
 		jetpackCreative = Jetpack.JETPACK_CREATIVE.getStackJetpack();
 		fluxpackCreative = Fluxpack.FLUXPACK_CREATIVE.getStackFluxpack();
 

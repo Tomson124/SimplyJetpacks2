@@ -102,7 +102,7 @@ public class JetpackGuiScreen extends GuiScreen {
                 return 78;
             }*/
             int i = jetpack.getEnergyStored(stack);
-            int j = jetpack.getMaxFuelStored(stack);
+            int j = jetpack.getMaxEnergyStored(stack);
             return (int) (j != 0 && i != 0 ? (long) i * 78 / j : 0);
         } else if (item instanceof ItemFluxpack) {
             ItemFluxpack fluxpack = (ItemFluxpack) item;
@@ -110,7 +110,7 @@ public class JetpackGuiScreen extends GuiScreen {
                 return 78;
             }*/
             int i = fluxpack.getEnergyStored(stack);
-            int j = fluxpack.getMaxFuelStored(stack);
+            int j = fluxpack.getMaxEnergyStored(stack);
             return (int) (j != 0 && i != 0 ? (long) i * 78 / j : 0);
         } else {
             return 0;

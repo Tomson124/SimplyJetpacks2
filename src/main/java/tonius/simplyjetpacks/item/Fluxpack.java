@@ -49,41 +49,41 @@ public enum Fluxpack implements IStringSerializable {
 	@Nonnull
 	public final String unlocalisedName;
 	public final int tier;
-	public int fuelCapacity;
-	public int fuelPerTickIn;
-	public int fuelPerTickOut;
-	public int armorFuelPerHit;
+	public int energyCapacity;
+	public int energyPerTickIn;
+	public int energyPerTickOut;
+	public int armorEnergyPerHit;
 	public int armorReduction;
-	public int fuelUsage;
+	public int energyUsage;
 	public int platingMeta;
-	public boolean usesFuel;
+	public boolean usesEnergy;
 	public boolean isArmored;
 	public EnumRarity rarity;
 	public PackModelType armorModel = PackModelType.FLAT;
 	public int enchantability;
 
-	Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity, boolean usesFuel) {
-		this(baseName, defaultConfigKey, tier, rarity);
-		this.usesFuel = usesFuel;
+	Fluxpack(@Nonnull String baseName, String configKey, int tier, EnumRarity rarity, boolean usesEnergy) {
+		this(baseName, configKey, tier, rarity);
+		this.usesEnergy = usesEnergy;
 	}
 
-	Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity, boolean usesFuel, boolean isArmored) {
-		this(baseName, defaultConfigKey, tier, rarity, usesFuel);
+	Fluxpack(@Nonnull String baseName, String configKey, int tier, EnumRarity rarity, boolean usesEnergy, boolean isArmored) {
+		this(baseName, configKey, tier, rarity, usesEnergy);
 		this.isArmored = isArmored;
 	}
 
-	Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity, boolean usesFuel, boolean isArmored, int platingMeta) {
-		this(baseName, defaultConfigKey, tier, rarity, usesFuel);
+	Fluxpack(@Nonnull String baseName, String configKey, int tier, EnumRarity rarity, boolean usesEnergy, boolean isArmored, int platingMeta) {
+		this(baseName, configKey, tier, rarity, usesEnergy);
 		this.isArmored = isArmored;
 		this.platingMeta = platingMeta;
 	}
 
-	Fluxpack(@Nonnull String baseName, String defaultConfigKey, int tier, EnumRarity rarity) {
+	Fluxpack(@Nonnull String baseName, String configKey, int tier, EnumRarity rarity) {
 		this.baseName = baseName;
-		this.defaults = PackDefaults.get(defaultConfigKey);
+		this.defaults = PackDefaults.get(configKey);
 		this.tier = tier;
 		this.unlocalisedName = "item.simplyjetpacks." + baseName;
-		this.usesFuel = true;
+		this.usesEnergy = true;
 		this.rarity = rarity;
 		this.setArmorModel(PackModelType.FLUXPACK);
 	}
@@ -93,32 +93,32 @@ public enum Fluxpack implements IStringSerializable {
 		return baseName;
 	}
 
-	public int getFuelCapacity() {
-		return fuelCapacity;
+	public int getEnergyCapacity() {
+		return energyCapacity;
 	}
 
 	public int getTier() {
 		return tier;
 	}
 
-	public int getFuelPerTickIn() {
-		return fuelPerTickIn;
+	public int getEnergyPerTickIn() {
+		return energyPerTickIn;
 	}
 
-	public int getFuelPerTickOut() {
-		return fuelPerTickOut;
+	public int getEnergyPerTickOut() {
+		return energyPerTickOut;
 	}
 
-	public int getArmorFuelPerHit() {
-		return armorFuelPerHit;
+	public int getArmorEnergyPerHit() {
+		return armorEnergyPerHit;
 	}
 
 	public int getArmorReduction() {
 		return armorReduction;
 	}
 
-	public int getFuelUsage() {
-		return fuelUsage;
+	public int getEnergyUsage() {
+		return energyUsage;
 	}
 
 	@Override
@@ -140,7 +140,7 @@ public enum Fluxpack implements IStringSerializable {
 
 	@Nonnull
 	public ItemStack getStackFluxpack() {
-		return new ItemStack(ModItems.itemFluxPack, 1, ordinal());
+		return new ItemStack(ModItems.itemFluxpack, 1, ordinal());
 	}
 
 	@Nonnull
@@ -182,23 +182,23 @@ public enum Fluxpack implements IStringSerializable {
 	}
 
 	protected void loadConfig(Configuration config) {
-		if (this.defaults.fuelCapacity != null) {
-			this.fuelCapacity = config.get(this.defaults.section.key, I18n.format(getKey() + "fuelCapacity"), this.defaults.fuelCapacity, I18n.format(getKey() + "fuelCapacity.tooltip")).setMinValue(1).getInt(this.defaults.fuelCapacity);
+		if (this.defaults.energyCapacity != null) {
+			this.energyCapacity = config.get(this.defaults.section.key, I18n.format(getKey() + "energyCapacity"), this.defaults.energyCapacity, I18n.format(getKey() + "energyCapacity.tooltip")).setMinValue(1).getInt(this.defaults.energyCapacity);
 		}
-		if (this.defaults.fuelUsage != null) {
-			this.fuelUsage = config.get(this.defaults.section.key, I18n.format(getKey() + "fuelUsage"), this.defaults.fuelUsage, I18n.format(getKey() + "fuelUsage.tooltip")).setMinValue(0).getInt(this.defaults.fuelUsage);
+		if (this.defaults.energyUsage != null) {
+			this.energyUsage = config.get(this.defaults.section.key, I18n.format(getKey() + "energyUsage"), this.defaults.energyUsage, I18n.format(getKey() + "energyUsage.tooltip")).setMinValue(0).getInt(this.defaults.energyUsage);
 		}
-		if (this.defaults.fuelPerTickIn != null) {
-			this.fuelPerTickIn = config.get(this.defaults.section.key, I18n.format(getKey() + "fuelPerTickIn"), this.defaults.fuelPerTickIn, I18n.format(getKey() + "fuelPerTickIn.tooltip")).setMinValue(0).getInt(this.defaults.fuelPerTickIn);
+		if (this.defaults.energyPerTickIn != null) {
+			this.energyPerTickIn = config.get(this.defaults.section.key, I18n.format(getKey() + "energyPerTickIn"), this.defaults.energyPerTickIn, I18n.format(getKey() + "energyPerTickIn.tooltip")).setMinValue(0).getInt(this.defaults.energyPerTickIn);
 		}
-		if (this.defaults.fuelPerTickOut != null) {
-			this.fuelPerTickOut = config.get(this.defaults.section.key, I18n.format(getKey() + "fuelPerTickOut"), this.defaults.fuelPerTickOut, I18n.format(getKey() + "fuelPerTickOut.tooltip")).setMinValue(0).getInt(this.defaults.fuelPerTickOut);
+		if (this.defaults.energyPerTickOut != null) {
+			this.energyPerTickOut = config.get(this.defaults.section.key, I18n.format(getKey() + "energyPerTickOut"), this.defaults.energyPerTickOut, I18n.format(getKey() + "energyPerTickOut.tooltip")).setMinValue(0).getInt(this.defaults.energyPerTickOut);
 		}
 		if (this.defaults.armorReduction != null) {
 			this.armorReduction = config.get(this.defaults.section.key, I18n.format(getKey() + "armorReduction"), this.defaults.armorReduction, I18n.format(getKey() + "armorReduction.tooltip")).setMinValue(0).setMaxValue(20).getInt(this.defaults.armorReduction);
 		}
-		if (this.defaults.armorFuelPerHit != null) {
-			this.armorFuelPerHit = config.get(this.defaults.section.key, I18n.format(getKey() + "armorFuelPerHit"), this.defaults.armorFuelPerHit, I18n.format(getKey() + "armorFuelPerHit.tooltip")).setMinValue(0).getInt(this.defaults.armorFuelPerHit);
+		if (this.defaults.armorEnergyPerHit != null) {
+			this.armorEnergyPerHit = config.get(this.defaults.section.key, I18n.format(getKey() + "armorFuelPerHit"), this.defaults.armorEnergyPerHit, I18n.format(getKey() + "armorEnergyPerHit.tooltip")).setMinValue(0).getInt(this.defaults.armorEnergyPerHit);
 		}
 		if(this.defaults.enchantability != null) {
 			this.enchantability = config.get(this.defaults.section.key, I18n.format(getKey() + "enchantability"), this.defaults.enchantability, I18n.format(getKey() + "enchantability.tooltip")).setMinValue(0).getInt(this.defaults.enchantability);

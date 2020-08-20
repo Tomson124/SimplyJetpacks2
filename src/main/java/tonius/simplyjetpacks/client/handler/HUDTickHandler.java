@@ -26,7 +26,7 @@ public class HUDTickHandler {
 				if (chestplate.getItem() instanceof IHUDInfoProvider) {
 					IHUDInfoProvider provider = (IHUDInfoProvider) chestplate.getItem();
 					List<String> info = new ArrayList<>();
-					provider.addHUDInfo(info, chestplate, Config.enableFuelHUD, Config.enableStateHUD);
+					provider.addHUDInfo(info, chestplate, Config.enableEnergyHUD, Config.enableStateHUD);
 					if (info.isEmpty()) return;
 					GL11.glPushMatrix();
 					mc.entityRenderer.setupOverlayRendering();
