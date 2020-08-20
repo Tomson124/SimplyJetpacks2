@@ -14,10 +14,11 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
+import tonius.simplyjetpacks.gui.JetpackGuiScreen;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.item.ItemFluxpack;
 import tonius.simplyjetpacks.item.ItemJetpack;
-import tonius.simplyjetpacks.network.PacketHandler;
+import tonius.simplyjetpacks.network.NetworkHandler;
 import tonius.simplyjetpacks.network.message.MessageKeybind;
 import tonius.simplyjetpacks.network.message.MessageKeyboardSync;
 import tonius.simplyjetpacks.util.StackUtil;
@@ -66,31 +67,33 @@ public class KeybindHandler {
 		if (chestItem instanceof ItemJetpack) {
 			ItemJetpack jetpack = (ItemJetpack) chestItem;
 			if (JETPACK_GUI_KEY.isPressed()) {
-				//Minecraft.getInstance().displayGuiScreen(new JetpackGuiScreen());
-				SimplyJetpacks.logger.info("Jetpack GUI Key was pressed.");
+				Minecraft.getMinecraft().displayGuiScreen(new JetpackGuiScreen());
 			}
 			if (JETPACK_ENGINE_KEY.isPressed()) {
 				jetpack.toggleState(jetpack.isOn(chestStack), chestStack, "engine_mode", ItemJetpack.TAG_ON, player, Config.enableStateMessages);
-				PacketHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.ENGINE));
+				NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.ENGINE));
 			}
 			if (JETPACK_CHARGER_KEY.isPressed()) {
 				jetpack.toggleState(jetpack.isChargerOn(chestStack), chestStack, "charger_mode", ItemJetpack.TAG_CHARGER_ON, player, Config.enableStateMessages);
-				PacketHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.CHARGER));
+				NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.CHARGER));
 			}
 			if (JETPACK_HOVER_KEY.isPressed()) {
 				jetpack.toggleState(jetpack.isHoverModeOn(chestStack), chestStack, "hover_mode", ItemJetpack.TAG_HOVERMODE_ON, player, Config.enableStateMessages);
-				PacketHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.HOVER));
+				NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.HOVER));
 			}
 			if (JETPACK_EHOVER_KEY.isPressed()) {
 				jetpack.toggleState(jetpack.isEHoverModeOn(chestStack), chestStack, "emergency_hover_mode", ItemJetpack.TAG_EHOVER_ON, player, Config.enableStateMessages);
-				PacketHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.E_HOVER));
+				NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.E_HOVER));
 			}
 		}
 		if (chestItem instanceof ItemFluxpack) {
 			ItemFluxpack fluxpack = (ItemFluxpack) chestItem;
+			if (JETPACK_GUI_KEY.isPressed()) {
+				Minecraft.getMinecraft().displayGuiScreen(new JetpackGuiScreen());
+			}
 			if (JETPACK_ENGINE_KEY.isPressed()) {
 				fluxpack.toggleState(fluxpack.isOn(chestStack), chestStack, "engine_mode", ItemFluxpack.TAG_ON, player, Config.enableStateMessages);
-				PacketHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.ENGINE));
+				NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.ENGINE));
 			}
 		}
 	}
@@ -124,7 +127,7 @@ public class KeybindHandler {
 				lastBackwardState = backwardState;
 				lastLeftState = leftState;
 				lastRightState = rightState;
-				PacketHandler.instance.sendToServer(new MessageKeyboardSync(flyState, descendState, forwardState, backwardState, leftState, rightState));
+				NetworkHandler.instance.sendToServer(new MessageKeyboardSync(flyState, descendState, forwardState, backwardState, leftState, rightState));
 				SyncHandler.processKeyUpdate(mc.player, flyState, descendState, forwardState, backwardState, leftState, rightState);
 			}
 		}

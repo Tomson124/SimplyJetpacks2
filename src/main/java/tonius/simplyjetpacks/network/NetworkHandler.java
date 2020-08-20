@@ -10,7 +10,7 @@ import tonius.simplyjetpacks.network.message.MessageJetpackSync;
 import tonius.simplyjetpacks.network.message.MessageKeybind;
 import tonius.simplyjetpacks.network.message.MessageKeyboardSync;
 
-public abstract class PacketHandler {
+public abstract class NetworkHandler {
 
 	private static int ID = 0;
 

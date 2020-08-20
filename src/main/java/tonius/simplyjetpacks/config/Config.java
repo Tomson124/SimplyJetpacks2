@@ -1,5 +1,6 @@
 package tonius.simplyjetpacks.config;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import tonius.simplyjetpacks.SimplyJetpacks;
@@ -73,7 +74,7 @@ public class Config {
     }
 
     public static void processConfig() {
-        enableFuelEfficiencyEnchantment = configCommon.get(sectionItems.key, getKey(sectionItems) + "enableFuelEfficiencyEnchantment", Defaults.enableFuelEfficiencyEnchantment, getKey(sectionItems) + "enableFuelEfficiency.tooltip").getBoolean(Defaults.enableFuelEfficiencyEnchantment);
+        enableFuelEfficiencyEnchantment = configCommon.get(sectionItems.key, getKey(sectionItems) + "enableFuelEfficiencyEnchantment", Defaults.enableFuelEfficiencyEnchantment, getKey(sectionItems) + "enableFuelEfficiency.tooltip").setRequiresMcRestart(true).getBoolean(Defaults.enableFuelEfficiencyEnchantment);
         addRAItemsIfNotInstalled = configCommon.get(sectionItems.key, getKey(sectionItems) + "addRAItemsIfNotInstalled", Defaults.addRAItemsIfNotInstalled, getKey(sectionItems) + "addRAItemsIfNotInstalled.tooltip").setRequiresMcRestart(true).getBoolean(Defaults.addRAItemsIfNotInstalled);
 
         enableIntegrationVanilla = configCommon.get(sectionIntegration.key, getKey(sectionIntegration) + "enableIntegrationVanilla", Defaults.enableIntegrationVanilla, getKey(sectionIntegration) + "enableIntegrationVanilla.tooltip").setRequiresMcRestart(true).getBoolean(Defaults.enableIntegrationVanilla);
@@ -96,7 +97,8 @@ public class Config {
 
         jetpackSounds = configClient.get(sectionSounds.key, getKey(sectionSounds) + "jetpackSounds", Defaults.jetpackSounds, getKey(sectionSounds) + "jetpackSounds.tooltip").getBoolean(Defaults.jetpackSounds);
 
-        holdShiftForDetails = configClient.get(sectionGui.key, getKey(sectionGui) + "holdShiftForDetails", Defaults.holdShiftForDetails, getKey(sectionGui) + "holdShiftForDetails.tooltip").getBoolean(Defaults.holdShiftForDetails);
+        // TODO: put some I18n.format() here...
+        holdShiftForDetails = configClient.get(sectionGui.key, getKey(sectionGui) + "holdShiftForDetails", Defaults.holdShiftForDetails, I18n.format(getKey(sectionGui) + "holdShiftForDetails.tooltip")).getBoolean(Defaults.holdShiftForDetails);
         HUDPosition = HUDPositions.valueOf(configClient.get(sectionGui.key, getKey(sectionGui) + "hudPosition", HUDPositions.TOP_LEFT.name(), getKey(sectionGui) + "hudPosition.tooltip", new String[]{"TOP_LEFT", "TOP_CENTER", "TOP_RIGHT", "LEFT", "RIGHT", "BOTTOM_LEFT", "BOTTOM_RIGHT"}).getString());
         HUDOffsetX = configClient.get(sectionGui.key, getKey(sectionGui) + "HUDOffsetX", Defaults.HUDOffsetX, getKey(sectionGui) + "HUDOffsetX.tooltip").getInt(Defaults.HUDOffsetX);
         HUDOffsetY = configClient.get(sectionGui.key, getKey(sectionGui) + "HUDOffsetY", Defaults.HUDOffsetY, getKey(sectionGui) + "HUDOffsetY.tooltip").getInt(Defaults.HUDOffsetY);

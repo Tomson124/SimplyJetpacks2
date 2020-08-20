@@ -1,5 +1,6 @@
 package tonius.simplyjetpacks.item;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
@@ -290,52 +291,52 @@ public enum Jetpack implements IStringSerializable {
 
 	protected void loadConfig(Configuration config) {
 		if (this.defaults.fuelCapacity != null) {
-			this.fuelCapacity = config.get(this.defaults.section.key, getKey() + "fuelCapacity", this.defaults.fuelCapacity, getKey() + "fuelCapacity.tooltip").setMinValue(1).getInt(this.defaults.fuelCapacity);
+			this.fuelCapacity = config.get(this.defaults.section.key, I18n.format(getKey() + "fuelCapacity"), this.defaults.fuelCapacity, I18n.format(getKey() + "fuelCapacity.tooltip")).setMinValue(1).getInt(this.defaults.fuelCapacity);
 		}
 		if (this.defaults.fuelUsage != null) {
-			this.fuelUsage = config.get(this.defaults.section.key, getKey() + "fuelUsage", this.defaults.fuelUsage, getKey() + "fuelUsage.tooltip").setMinValue(0).getInt(this.defaults.fuelUsage);
+			this.fuelUsage = config.get(this.defaults.section.key, I18n.format(getKey() + "fuelUsage"), this.defaults.fuelUsage, I18n.format(getKey() + "fuelUsage.tooltip")).setMinValue(0).getInt(this.defaults.fuelUsage);
 		}
 		if (this.defaults.fuelPerTickIn != null) {
-			this.fuelPerTickIn = config.get(this.defaults.section.key, getKey() + "fuelPerTickIn", this.defaults.fuelPerTickIn, getKey() + "fuelPerTickIn.tooltip").setMinValue(0).getInt(this.defaults.fuelPerTickIn);
+			this.fuelPerTickIn = config.get(this.defaults.section.key, I18n.format(getKey() + "fuelPerTickIn"), this.defaults.fuelPerTickIn, I18n.format(getKey() + "fuelPerTickIn.tooltip")).setMinValue(0).getInt(this.defaults.fuelPerTickIn);
 		}
 		if (this.defaults.fuelPerTickOut != null) {
-			this.fuelPerTickOut = config.get(this.defaults.section.key, getKey() + "fuelPerTickOut", this.defaults.fuelPerTickOut, getKey() + "fuelPerTickOut.tooltip").setMinValue(0).getInt(this.defaults.fuelPerTickOut);
+			this.fuelPerTickOut = config.get(this.defaults.section.key, I18n.format(getKey() + "fuelPerTickOut"), this.defaults.fuelPerTickOut, I18n.format(getKey() + "fuelPerTickOut.tooltip")).setMinValue(0).getInt(this.defaults.fuelPerTickOut);
 		}
 		if (this.defaults.armorReduction != null) {
-			this.armorReduction = config.get(this.defaults.section.key, getKey() + "armorReduction", this.defaults.armorReduction, getKey() + "armorReduction.tooltip").setMinValue(0).setMaxValue(20).getInt(this.defaults.armorReduction);
+			this.armorReduction = config.get(this.defaults.section.key, I18n.format(getKey() + "armorReduction"), this.defaults.armorReduction, I18n.format(getKey() + "armorReduction.tooltip")).setMinValue(0).setMaxValue(20).getInt(this.defaults.armorReduction);
 		}
 		if (this.defaults.armorFuelPerHit != null) {
-			this.armorFuelPerHit = config.get(this.defaults.section.key, getKey() + "armorFuelPerHit", this.defaults.armorFuelPerHit, getKey() + "armorFuelPerHit.tooltip").setMinValue(0).getInt(this.defaults.armorFuelPerHit);
+			this.armorFuelPerHit = config.get(this.defaults.section.key, I18n.format(getKey() + "armorFuelPerHit"), this.defaults.armorFuelPerHit, I18n.format(getKey() + "armorFuelPerHit.tooltip")).setMinValue(0).getInt(this.defaults.armorFuelPerHit);
 		}
 		if (this.defaults.speedVertical != null) {
-			this.speedVertical = config.get(this.defaults.section.key, getKey() + "speedVertical", this.defaults.speedVertical, getKey() + "speedVertical.tooltip").setMinValue(0.0D).getDouble(this.defaults.speedVertical);
+			this.speedVertical = config.get(this.defaults.section.key, I18n.format(getKey() + "speedVertical"), this.defaults.speedVertical, I18n.format(getKey() + "speedVertical.tooltip")).setMinValue(0.0D).getDouble(this.defaults.speedVertical);
 		}
 		if (this.defaults.accelVertical != null) {
-			this.accelVertical = config.get(this.defaults.section.key, getKey() + "accelVertical", this.defaults.accelVertical, getKey() + "accelVertical.tooltip").setMinValue(0.0D).getDouble(this.defaults.accelVertical);
+			this.accelVertical = config.get(this.defaults.section.key, I18n.format(getKey() + "accelVertical"), this.defaults.accelVertical, I18n.format(getKey() + "accelVertical.tooltip")).setMinValue(0.0D).getDouble(this.defaults.accelVertical);
 		}
 		if (this.defaults.speedVerticalHover != null) {
-			this.speedVerticalHover = config.get(this.defaults.section.key, getKey() + "speedVerticalHover", this.defaults.speedVerticalHover, getKey() + "speedVerticalHover.tooltip").setMinValue(0.0D).getDouble(this.defaults.speedVerticalHover);
+			this.speedVerticalHover = config.get(this.defaults.section.key, I18n.format(getKey() + "speedVerticalHover"), this.defaults.speedVerticalHover, I18n.format(getKey() + "speedVerticalHover.tooltip")).setMinValue(0.0D).getDouble(this.defaults.speedVerticalHover);
 		}
 		if (this.defaults.speedVerticalHoverSlow != null) {
-			this.speedVerticalHoverSlow = config.get(this.defaults.section.key, getKey() + "speedVerticalHoverSlow", this.defaults.speedVerticalHoverSlow, getKey() + "speedVerticalHoverSlow.tooltip").setMinValue(0.0D).getDouble(this.defaults.speedVerticalHoverSlow);
+			this.speedVerticalHoverSlow = config.get(this.defaults.section.key, I18n.format(getKey() + "speedVerticalHoverSlow"), this.defaults.speedVerticalHoverSlow, I18n.format(getKey() + "speedVerticalHoverSlow.tooltip")).setMinValue(0.0D).getDouble(this.defaults.speedVerticalHoverSlow);
 		}
 		if (this.defaults.speedSideways != null) {
-			this.speedSideways = config.get(this.defaults.section.key, getKey() + "speedSideways", this.defaults.speedSideways, getKey() + "speedSideways.tooltip").setMinValue(0.0D).getDouble(this.defaults.speedSideways);
+			this.speedSideways = config.get(this.defaults.section.key, I18n.format(getKey() + "speedSideways"), this.defaults.speedSideways, I18n.format(getKey() + "speedSideways.tooltip")).setMinValue(0.0D).getDouble(this.defaults.speedSideways);
 		}
 		if (this.defaults.sprintSpeedModifier != null) {
-			this.sprintSpeedModifier = config.get(this.defaults.section.key, getKey() + "sprintSpeedModifier", this.defaults.sprintSpeedModifier, getKey() + "sprintSpeedModifier.tooltip").setMinValue(0.0D).getDouble(this.defaults.sprintSpeedModifier);
+			this.sprintSpeedModifier = config.get(this.defaults.section.key, I18n.format(getKey() + "sprintSpeedModifier"), this.defaults.sprintSpeedModifier, I18n.format(getKey() + "sprintSpeedModifier.tooltip")).setMinValue(0.0D).getDouble(this.defaults.sprintSpeedModifier);
 		}
 		if (this.defaults.sprintFuelModifier != null) {
-			this.sprintFuelModifier = config.get(this.defaults.section.key, getKey() + "sprintFuelModifier", this.defaults.sprintFuelModifier, getKey() + "sprintFuelModifier.tooltip").setMinValue(0.0D).getDouble(this.defaults.sprintFuelModifier);
+			this.sprintFuelModifier = config.get(this.defaults.section.key, I18n.format(getKey() + "sprintFuelModifier"), this.defaults.sprintFuelModifier, I18n.format(getKey() + "sprintFuelModifier.tooltip")).setMinValue(0.0D).getDouble(this.defaults.sprintFuelModifier);
 		}
 		if (this.defaults.emergencyHoverMode != null) {
-			this.emergencyHoverMode = config.get(this.defaults.section.key, getKey() + "emergencyHoverMode", this.defaults.emergencyHoverMode, getKey() + "emergencyHoverMode.tooltip").getBoolean(this.defaults.emergencyHoverMode);
+			this.emergencyHoverMode = config.get(this.defaults.section.key, I18n.format(getKey() + "emergencyHoverMode"), this.defaults.emergencyHoverMode, I18n.format(getKey() + "emergencyHoverMode.tooltip")).getBoolean(this.defaults.emergencyHoverMode);
 		}
 		if (this.defaults.chargerMode != null) {
-			this.chargerMode = config.get(this.defaults.section.key, getKey() + "chargerMode", this.defaults.chargerMode, getKey() + "chargerMode.tooltip").getBoolean(this.defaults.emergencyHoverMode);
+			this.chargerMode = config.get(this.defaults.section.key, I18n.format(getKey() + "chargerMode"), this.defaults.chargerMode, I18n.format(getKey() + "chargerMode.tooltip")).getBoolean(this.defaults.emergencyHoverMode);
 		}
 		if (this.defaults.enchantability != null) {
-			this.enchantability = config.get(this.defaults.section.key, getKey() + "enchantability", this.defaults.enchantability, getKey() + "enchantability.tooltip").setMinValue(0).getInt(this.defaults.enchantability);
+			this.enchantability = config.get(this.defaults.section.key, I18n.format(getKey() + "enchantability"), this.defaults.enchantability, I18n.format(getKey() + "enchantability.tooltip")).setMinValue(0).getInt(this.defaults.enchantability);
 		}
 	}
 }

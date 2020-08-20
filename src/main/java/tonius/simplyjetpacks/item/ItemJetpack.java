@@ -166,6 +166,11 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
         return Jetpack.values()[i].chargerMode;
     }
 
+	public boolean canEHover(ItemStack stack) {
+		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
+		return Jetpack.values()[i].emergencyHoverMode;
+	}
+
 	public boolean isChargerOn(ItemStack stack) {
 		return NBTHelper.getBoolean(stack, TAG_CHARGER_ON, true);
 	}

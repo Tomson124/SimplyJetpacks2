@@ -11,7 +11,7 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.item.ItemJetpack;
 import tonius.simplyjetpacks.item.Jetpack;
-import tonius.simplyjetpacks.network.PacketHandler;
+import tonius.simplyjetpacks.network.NetworkHandler;
 import tonius.simplyjetpacks.network.message.MessageJetpackSync;
 import tonius.simplyjetpacks.setup.ParticleType;
 
@@ -53,9 +53,9 @@ public class LivingTickHandler {
                 } else {
                     lastJetpackState.put(event.getEntityLiving().getEntityId(), jetpackState);
                 }
-                PacketHandler.instance.sendToAllAround(new MessageJetpackSync(event.getEntityLiving().getEntityId(), jetpackState != null ? jetpackState.ordinal() : -1), new TargetPoint(event.getEntityLiving().dimension, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, 256));
+                NetworkHandler.instance.sendToAllAround(new MessageJetpackSync(event.getEntityLiving().getEntityId(), jetpackState != null ? jetpackState.ordinal() : -1), new TargetPoint(event.getEntityLiving().dimension, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, 256));
             } else if (jetpack != null && event.getEntityLiving().world.getTotalWorldTime() % 160L == 0) {
-                PacketHandler.instance.sendToAllAround(new MessageJetpackSync(event.getEntityLiving().getEntityId(), jetpackState != null ? jetpackState.ordinal() : -1), new TargetPoint(event.getEntityLiving().dimension, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, 256));
+                NetworkHandler.instance.sendToAllAround(new MessageJetpackSync(event.getEntityLiving().getEntityId(), jetpackState != null ? jetpackState.ordinal() : -1), new TargetPoint(event.getEntityLiving().dimension, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, 256));
             }
 
             if (event.getEntityLiving().world.getTotalWorldTime() % 200L == 0) {

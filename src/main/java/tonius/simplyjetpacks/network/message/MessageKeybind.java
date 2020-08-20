@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import tonius.simplyjetpacks.item.ItemFluxpack;
 import tonius.simplyjetpacks.item.ItemJetpack;
-import tonius.simplyjetpacks.network.PacketHandler;
+import tonius.simplyjetpacks.network.NetworkHandler;
 
 public class MessageKeybind implements IMessage, IMessageHandler<MessageKeybind, IMessage> {
 
@@ -43,7 +43,7 @@ public class MessageKeybind implements IMessage, IMessageHandler<MessageKeybind,
 	}
 
 	public void handleMessage(MessageKeybind msg, MessageContext ctx) {
-		EntityPlayer player = PacketHandler.getPlayer(ctx);
+		EntityPlayer player = NetworkHandler.getPlayer(ctx);
 		ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
 		if (stack.getItem() instanceof ItemJetpack) {

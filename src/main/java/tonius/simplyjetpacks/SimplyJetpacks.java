@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.handler.RegistryHandler;
 import tonius.simplyjetpacks.handler.SyncHandler;
-import tonius.simplyjetpacks.network.PacketHandler;
+import tonius.simplyjetpacks.network.NetworkHandler;
 import tonius.simplyjetpacks.proxy.CommonProxy;
 import tonius.simplyjetpacks.setup.CreativeTabSimplyJetpacks;
 import tonius.simplyjetpacks.setup.ModEnchantments;
@@ -59,7 +59,7 @@ public class SimplyJetpacks {
     public static void init(FMLInitializationEvent event) {
         proxy.registerHandlers();
         proxy.initKeys();
-        PacketHandler.init();
+        NetworkHandler.init();
         ModItems.init();
         proxy.init();
     }
