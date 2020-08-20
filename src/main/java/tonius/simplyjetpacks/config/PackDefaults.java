@@ -9,6 +9,7 @@ public class PackDefaults {
 
     private static final Map<String, PackDefaults> DEFAULTS = new HashMap<>();
     public final Section section;
+
     // Base
     public Integer energyCapacity;
     public Integer energyUsage;
@@ -29,7 +30,7 @@ public class PackDefaults {
     public Boolean chargerMode;
 
     public PackDefaults(String modid, String key) {
-        this.section = new Section(false, "tuning." + modid + "." + key, "tuning." + key, "item.simplyjetpacks." + key + ".name");
+        this.section = new Section(false, "tuning." + modid + "." + key, "x", "item.simplyjetpacks." + key + ".name");
         DEFAULTS.put(key, this);
     }
 
@@ -121,6 +122,7 @@ public class PackDefaults {
 
             d = new PackDefaults("enderio", "jetpack_eio4");
             d.energyCapacity = 20000000;
+
             d.energyUsage = 450;
             d.energyPerTickIn = 50000;
             d.armorReduction = 8;

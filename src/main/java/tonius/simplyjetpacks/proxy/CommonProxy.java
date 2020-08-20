@@ -12,7 +12,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.oredict.OreDictionary;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.crafting.PlatingReturnHandler;
-import tonius.simplyjetpacks.handler.EntityInteractHandler;
 import tonius.simplyjetpacks.handler.LivingTickHandler;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.setup.ParticleType;
@@ -28,7 +27,7 @@ public class CommonProxy {
         //NetworkRegistry.INSTANCE.registerGuiHandler(SimplyJetpacks.instance, new GuiHandler());
         FMLCommonHandler.instance().bus().register(new SyncHandler());
         FMLCommonHandler.instance().bus().register(new PlatingReturnHandler());
-        MinecraftForge.EVENT_BUS.register(new EntityInteractHandler());
+        //MinecraftForge.EVENT_BUS.register(new EntityInteractHandler());
         MinecraftForge.EVENT_BUS.register(new LivingTickHandler());
     }
 

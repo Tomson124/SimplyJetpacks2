@@ -26,7 +26,7 @@ public class SimplyJetpacks {
     public static final String MODID = "simplyjetpacks";
     public static final String MODNAME = "Simply Jetpacks 2";
     public static final String VERSION = "${version}";
-    
+
     public static final String PREFIX = MODID + ".";
     public static final String RESOURCE_PREFIX = MODID + ":";
     // TODO: Put dependencies back in.

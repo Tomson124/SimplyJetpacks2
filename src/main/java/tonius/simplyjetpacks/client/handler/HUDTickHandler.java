@@ -33,7 +33,7 @@ public class HUDTickHandler {
 					GL11.glScaled(Config.HUDScale, Config.HUDScale, 1.0D);
 					int i = 0;
 					for (String s : info) {
-						RenderUtils.drawStringAtHUDPosition(s, Config.HUDPosition, mc.fontRenderer, Config.HUDOffsetX, Config.HUDOffsetY, Config.HUDScale, 0xeeeeee, true, i);
+						RenderUtils.drawStringAtHUDPosition(s, Config.HUDPosition, mc.fontRenderer, Config.HUDOffsetX, Config.HUDOffsetY, Config.HUDScale, Config.HUDTextColor, true, i);
 						i++;
 					}
 					GL11.glPopMatrix();

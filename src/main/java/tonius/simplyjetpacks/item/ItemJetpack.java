@@ -282,7 +282,6 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public int addEnergy(ItemStack stack, int maxAdd, boolean simulate) {
 		return this.receiveEnergy(stack, maxAdd, simulate);
 	}
-
 	public int useEnergy(ItemStack stack, int maxUse, boolean simulate) {
 		return this.extractEnergy(stack, maxUse, simulate);
 	}

@@ -55,7 +55,6 @@ public class LivingTickHandler {
             } else if (jetpack != null && event.getEntityLiving().world.getTotalWorldTime() % 160L == 0) {
                 NetworkHandler.instance.sendToAllAround(new MessageJetpackSync(event.getEntityLiving().getEntityId(), jetpackState != null ? jetpackState.ordinal() : -1), new TargetPoint(event.getEntityLiving().dimension, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, 256));
             }
-
             if (event.getEntityLiving().world.getTotalWorldTime() % 200L == 0) {
                 lastJetpackState.keySet().removeIf(entityId -> event.getEntityLiving().world.getEntityByID(entityId) == null);
             }

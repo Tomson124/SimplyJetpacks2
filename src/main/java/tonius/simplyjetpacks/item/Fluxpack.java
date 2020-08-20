@@ -1,12 +1,10 @@
 package tonius.simplyjetpacks.item;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
-import net.minecraftforge.common.config.Configuration;
-import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.client.model.PackModelType;
+import tonius.simplyjetpacks.config.ConfigWrapper;
 import tonius.simplyjetpacks.config.PackDefaults;
 import tonius.simplyjetpacks.setup.ModItems;
 
@@ -161,7 +159,7 @@ public enum Fluxpack implements IStringSerializable {
 		return this.baseName.contains("creative");
 	}
 
-	public static void loadAllConfigs(Configuration config) {
+	public static void loadAllConfigs(ConfigWrapper config) {
 		for (Fluxpack pack : FLUXPACKS_SJ) {
 			pack.loadConfig(config);
 		}
@@ -177,31 +175,27 @@ public enum Fluxpack implements IStringSerializable {
 		}
 	}
 
-	private static String getKey() {
-		return "config." + SimplyJetpacks.PREFIX + "tuning.";
-	}
-
-	protected void loadConfig(Configuration config) {
+	protected void loadConfig(ConfigWrapper config) {
 		if (this.defaults.energyCapacity != null) {
-			this.energyCapacity = config.get(this.defaults.section.key, I18n.format(getKey() + "energyCapacity"), this.defaults.energyCapacity, I18n.format(getKey() + "energyCapacity.tooltip")).setMinValue(1).getInt(this.defaults.energyCapacity);
+			this.energyCapacity = config.getIntS(this.defaults.section.category, "energyCapacity", "tuning", this.defaults.energyCapacity, 1, null, false);
 		}
 		if (this.defaults.energyUsage != null) {
-			this.energyUsage = config.get(this.defaults.section.key, I18n.format(getKey() + "energyUsage"), this.defaults.energyUsage, I18n.format(getKey() + "energyUsage.tooltip")).setMinValue(0).getInt(this.defaults.energyUsage);
+			this.energyUsage = config.getIntS(this.defaults.section.category, "energyUsage", "tuning", this.defaults.energyUsage, 0, null, false);
 		}
 		if (this.defaults.energyPerTickIn != null) {
-			this.energyPerTickIn = config.get(this.defaults.section.key, I18n.format(getKey() + "energyPerTickIn"), this.defaults.energyPerTickIn, I18n.format(getKey() + "energyPerTickIn.tooltip")).setMinValue(0).getInt(this.defaults.energyPerTickIn);
+			this.energyPerTickIn = config.getIntS(this.defaults.section.category, "energyPerTickIn", "tuning", this.defaults.energyPerTickIn, 0, null, false);
 		}
 		if (this.defaults.energyPerTickOut != null) {
-			this.energyPerTickOut = config.get(this.defaults.section.key, I18n.format(getKey() + "energyPerTickOut"), this.defaults.energyPerTickOut, I18n.format(getKey() + "energyPerTickOut.tooltip")).setMinValue(0).getInt(this.defaults.energyPerTickOut);
+			this.energyPerTickOut = config.getIntS(this.defaults.section.category, "energyPerTickOut", "tuning", this.defaults.energyPerTickOut, 0, null, false);
 		}
 		if (this.defaults.armorReduction != null) {
-			this.armorReduction = config.get(this.defaults.section.key, I18n.format(getKey() + "armorReduction"), this.defaults.armorReduction, I18n.format(getKey() + "armorReduction.tooltip")).setMinValue(0).setMaxValue(20).getInt(this.defaults.armorReduction);
+			this.armorReduction = config.getIntS(this.defaults.section.category, "armorReduction", "tuning", this.defaults.armorReduction, 0, 20, false);
 		}
 		if (this.defaults.armorEnergyPerHit != null) {
-			this.armorEnergyPerHit = config.get(this.defaults.section.key, I18n.format(getKey() + "armorFuelPerHit"), this.defaults.armorEnergyPerHit, I18n.format(getKey() + "armorEnergyPerHit.tooltip")).setMinValue(0).getInt(this.defaults.armorEnergyPerHit);
+			this.armorEnergyPerHit = config.getIntS(this.defaults.section.category, "armorEnergyPerHit", "tuning", this.defaults.armorEnergyPerHit, 0, null, false);
 		}
-		if(this.defaults.enchantability != null) {
-			this.enchantability = config.get(this.defaults.section.key, I18n.format(getKey() + "enchantability"), this.defaults.enchantability, I18n.format(getKey() + "enchantability.tooltip")).setMinValue(0).getInt(this.defaults.enchantability);
+		if (this.defaults.enchantability != null) {
+			this.enchantability = config.getIntS(this.defaults.section.category, "enchantability", "tuning", this.defaults.enchantability, 0, null, false);
 		}
 	}
 }

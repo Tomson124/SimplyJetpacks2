@@ -33,7 +33,7 @@ public abstract class SJStringUtil {
 
 	public static String getEnergyText(int amount, int max, boolean infinite) {
 		if (infinite) {
-			return TextFormatting.GRAY + localize("tooltip.", ".energyInfinite");
+			return TextFormatting.GRAY + localize("tooltip.", ".energy.infinite");
 		}
 		return TextFormatting.GRAY + localize("tooltip.", ".energyWithMax", getFormattedNumber(amount), getFormattedNumber(max));
 	}
@@ -59,25 +59,21 @@ public abstract class SJStringUtil {
 	}
 
 	public static String getChargerRateText(int rate) {
-		String rateText = rate > 0 ? getFormattedNumber(rate) + " RF/t" : localize("tooltip.", ".energyNone");
+		String rateText = rate > 0 ? localize("tooltip.", ".energyPerTick", getFormattedNumber(rate)) : localize("tooltip.", ".energy.none");
 		return TextFormatting.GOLD + localize("tooltip.", ".chargerRate") + ": " + TextFormatting.GRAY + rateText;
 	}
 
 	public static String getEnergySendText(int send) {
-		return TextFormatting.GOLD + localize("tooltip.", ".energySend") + ": " + TextFormatting.GRAY + getFormattedNumber(send) + " RF/t";
+		return TextFormatting.GOLD + localize("tooltip.", ".energySend") + ": " + TextFormatting.GRAY + localize("tooltip.", ".energyPerTick", getFormattedNumber(send));
 	}
 
 	public static String getEnergyReceiveText(int receive) {
-		String usageText = receive < Integer.MAX_VALUE ? getFormattedNumber(receive) + " RF/t" : localize("tooltip.", ".energyNone");
+		String usageText = receive < Integer.MAX_VALUE ? localize("tooltip.", ".energyPerTick", getFormattedNumber(receive)) : localize("tooltip.", ".energy.none");
 		return TextFormatting.GOLD + localize("tooltip.", ".energyReceive") + ": " + TextFormatting.GRAY + usageText;
 	}
 
 	public static String getParticlesText(ParticleType particle) {
 		return TextFormatting.GOLD + localize("tooltip.", ".particles") + ": " + TextFormatting.GRAY + localize("tooltip.", ".particles." + particle.ordinal());
-	}
-
-	public static String getPackGUIText(String key) {
-		return TextFormatting.AQUA.toString() + TextFormatting.ITALIC + localize("tooltip.", ".packGUIKey", key);
 	}
 
 	public static String getHUDEnergyText(String packType, int percent, int energy) {
@@ -174,7 +170,7 @@ public abstract class SJStringUtil {
 	public static void addDescriptionLines(List<String> list, String base, String color) {
 		int i = 1;
 		while (true) {
-			String unlocalized = "tooltip." + SimplyJetpacks.MODID + "." + base + ".description." + i;
+			String unlocalized = "tooltip." + SimplyJetpacks.PREFIX + base + ".description." + i;
 			String localized = translateToLocal(unlocalized);
 			if (unlocalized.equals(localized)) {
 				break;

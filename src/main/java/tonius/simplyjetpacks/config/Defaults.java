@@ -3,7 +3,7 @@ package tonius.simplyjetpacks.config;
 import tonius.simplyjetpacks.client.util.RenderUtils.HUDPositions;
 import tonius.simplyjetpacks.integration.ModType;
 
-public abstract class Defaults {
+public class Defaults {
 
     // Item
     public static final boolean enableFuelEfficiencyEnchantment = true;
@@ -40,4 +40,5 @@ public abstract class Defaults {
     public static final boolean showExactEnergyInHUD = false;
     public static final boolean enableStateHUD = true;
     public static final boolean enableStateMessages = true;
+    public static final int HUDTextColor = 0xeeeeee;
 }
