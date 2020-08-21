@@ -1,6 +1,5 @@
 package tonius.simplyjetpacks.item;
 
-import cofh.redstoneflux.api.IEnergyContainerItem;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.util.ITooltipFlag;
@@ -32,6 +31,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.capability.CapabilityProviderEnergy;
 import tonius.simplyjetpacks.capability.EnergyConversionStorage;
+import tonius.simplyjetpacks.capability.IEnergyContainerItem;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.client.util.RenderUtils;
 import tonius.simplyjetpacks.config.Config;
@@ -53,7 +53,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	public boolean isFluxBased = false;
 	public boolean showTier = true;
 	public static final String TAG_ENERGY = "Energy";
-	public static final String TAG_ON = "PackOn";
+	public static final String TAG_ENGINE = "FluxpackEngine";
 
 	public String name;
 	private final int numItems;
@@ -66,7 +66,6 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		this.setMaxDamage(0);
 		this.setCreativeTab(SimplyJetpacks.tabSimplyJetpacks);
 		this.setRegistryName(name);
-
 		numItems = Fluxpack.values().length;
 	}
 
@@ -196,7 +195,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	}
 
 	public boolean isOn(ItemStack stack) {
-		return NBTHelper.getBoolean(stack, TAG_ON, true);
+		return NBTHelper.getBoolean(stack, TAG_ENGINE, true);
 	}
 
 	@Nonnull

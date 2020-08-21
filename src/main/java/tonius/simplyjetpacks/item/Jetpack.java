@@ -72,7 +72,7 @@ public enum Jetpack implements IStringSerializable {
 	JETPACK_IE_2_ARMORED("jetpack_ie2_armored", 2, "jetpack_ie2", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_IE_2.ordinal()),
 	JETPACK_IE_3_ARMORED("jetpack_ie3_armored", 3, "jetpack_ie3", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_IE_3.ordinal());
 
-	protected static final String TAG_PARTICLE = "JetpackParticleType";
+	protected static final String TAG_PARTICLE = "JetpackParticle";
 	public ParticleType defaultParticleType;
 
 	protected final PackDefaults defaults;

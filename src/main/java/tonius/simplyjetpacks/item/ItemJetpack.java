@@ -2,7 +2,6 @@ package tonius.simplyjetpacks.item;
 
 import cofh.core.init.CoreProps;
 import cofh.core.item.IEnchantableItem;
-import cofh.redstoneflux.api.IEnergyContainerItem;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.util.ITooltipFlag;
@@ -15,7 +14,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
@@ -32,7 +30,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.common.Optional;
@@ -42,6 +39,7 @@ import thundr.redstonerepository.api.IArmorEnderium;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.capability.CapabilityProviderEnergy;
 import tonius.simplyjetpacks.capability.EnergyConversionStorage;
+import tonius.simplyjetpacks.capability.IEnergyContainerItem;
 import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.client.util.RenderUtils;
 import tonius.simplyjetpacks.config.Config;
@@ -63,10 +61,10 @@ import static tonius.simplyjetpacks.handler.LivingTickHandler.floatingTickCount;
 public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider, IArmorEnderium, IEnchantableItem {
 
 	public static final String TAG_ENERGY = "Energy";
-	public static final String TAG_ON = "PackOn";
-	public static final String TAG_HOVERMODE_ON = "JetpackHoverModeOn";
-	public static final String TAG_EHOVER_ON = "JetpackEHoverOn";
-	public static final String TAG_CHARGER_ON = "JetpackChargerOn";
+	public static final String TAG_ENGINE = "JetpackEngine";
+	public static final String TAG_HOVER = "JetpackHover";
+	public static final String TAG_E_HOVER = "JetpackEHover";
+	public static final String TAG_CHARGER = "JetpackCharger";
 
 	protected static final UUID ARMOR_MODIFIER = UUID.fromString("0819e549-a0f9-49d3-a199-53662799c67b");
 
@@ -75,11 +73,11 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public boolean hasEnergyIndicator = true;
 	public boolean hasStateIndicators = true;
 	public boolean isFluxBased = false;
-
 	private final int numItems;
 
 	public ItemJetpack(String name) {
-		super(EnumHelper.addArmorMaterial("JETPACK_SJ", "jetpack", 0, new int[]{0, 0, 0, 0}, 0, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0), 2, EntityEquipmentSlot.CHEST);
+		//super(EnumHelper.addArmorMaterial("JETPACK_SJ", "jetpack", 0, new int[]{0, 0, 0, 0}, 0, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0), 2, EntityEquipmentSlot.CHEST);
+		super(ArmorMaterial.IRON, 2, EntityEquipmentSlot.CHEST);
 		this.name = name;
 		this.setUnlocalizedName(SimplyJetpacks.PREFIX + name);
 		this.setHasSubtypes(true);
@@ -169,7 +167,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	}
 
 	public boolean isChargerOn(ItemStack stack) {
-		return NBTHelper.getBoolean(stack, TAG_CHARGER_ON, true);
+		return NBTHelper.getBoolean(stack, TAG_CHARGER, true);
 	}
 
 	public void setParticleType(ItemStack stack, ParticleType particle) {
@@ -265,7 +263,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	}
 
 	public boolean isOn(ItemStack stack) {
-		return NBTHelper.getBoolean(stack, TAG_ON, true);
+		return NBTHelper.getBoolean(stack, TAG_ENGINE, true);
 	}
 
 	protected int getEnergyUsage(ItemStack stack) {
@@ -349,16 +347,16 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	}
 
 	public boolean isHoverModeOn(ItemStack stack) {
-		return NBTHelper.getBoolean(stack, TAG_HOVERMODE_ON, false);
+		return NBTHelper.getBoolean(stack, TAG_HOVER, false);
 	}
 
 	public boolean isEHoverModeOn(ItemStack stack) {
-		return NBTHelper.getBoolean(stack, TAG_EHOVER_ON, true);
+		return NBTHelper.getBoolean(stack, TAG_E_HOVER, true);
 	}
 
 	public void doEHover(ItemStack armor, EntityLivingBase user) {
-		NBTHelper.setBoolean(armor, TAG_ON, true);
-		NBTHelper.setBoolean(armor, TAG_HOVERMODE_ON, true);
+		NBTHelper.setBoolean(armor, TAG_ENGINE, true);
+		NBTHelper.setBoolean(armor, TAG_HOVER, true);
 		if (user instanceof EntityPlayer) {
 			ITextComponent msg = SJStringUtil.localizeNew("chat.", ".jetpack.emergency_hover_mode.msg");
 			msg.setStyle(new Style().setColor(TextFormatting.RED));

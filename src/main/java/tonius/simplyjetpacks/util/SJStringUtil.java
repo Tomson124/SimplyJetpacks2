@@ -84,7 +84,7 @@ public abstract class SJStringUtil {
 		if (percent > 0) {
 			text += getColoredPercent(percent) + "%";
 		} else {
-			text += TextFormatting.DARK_RED + localize("gui.", ".hud.energy.depleted");
+			text += TextFormatting.RED + localize("gui.", ".hud.energy.depleted");
 		}
 		if (Config.showExactEnergyInHUD) {
 			text += " (" + getFormattedNumber(energy) + " RF" + ")";
@@ -95,25 +95,25 @@ public abstract class SJStringUtil {
 	public static String getHUDStateText(Boolean engine, Boolean hover, Boolean charger, Boolean eHover) {
 		String text = "";
 		if (engine != null) {
-			text += (engine ? TextFormatting.GREEN : TextFormatting.DARK_RED) + localize("gui.", ".hud.state.engine") + TextFormatting.RESET;
+			text += (engine ? TextFormatting.GREEN : TextFormatting.RED) + localize("gui.", ".hud.state.engine") + TextFormatting.RESET;
 		}
 		if (hover != null) {
 			if (engine != null) {
 				text += TextFormatting.GRAY + " - ";
 			}
-			text += (hover ? TextFormatting.GREEN : TextFormatting.DARK_RED) + localize("gui.", ".hud.state.hover") + TextFormatting.RESET;
+			text += (hover ? TextFormatting.GREEN : TextFormatting.RED) + localize("gui.", ".hud.state.hover") + TextFormatting.RESET;
 		}
 		if (charger != null) {
 			if (hover != null || engine != null) {
 				text += TextFormatting.GRAY + " - ";
 			}
-			text += (charger ? TextFormatting.GREEN : TextFormatting.DARK_RED) + localize("gui.", ".hud.state.charger");
+			text += (charger ? TextFormatting.GREEN : TextFormatting.RED) + localize("gui.", ".hud.state.charger");
 		}
 		if (eHover != null) {
 			if (hover != null || engine != null || charger != null) {
 				text += TextFormatting.GRAY + " - ";
 			}
-			text += (eHover ? TextFormatting.GREEN : TextFormatting.DARK_RED) + localize("gui.", ".hud.state.eHover");
+			text += (eHover ? TextFormatting.GREEN : TextFormatting.RED) + localize("gui.", ".hud.state.eHover");
 		}
 		return text;
 	}

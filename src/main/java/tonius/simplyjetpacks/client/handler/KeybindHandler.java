@@ -64,34 +64,27 @@ public class KeybindHandler {
 		Item chestItem = StackUtil.getItem(chestStack);
 
 		if (chestItem instanceof ItemJetpack) {
-			ItemJetpack jetpack = (ItemJetpack) chestItem;
 			if (JETPACK_GUI_KEY.isPressed()) {
 				Minecraft.getMinecraft().displayGuiScreen(new JetpackGuiScreen());
 			}
 			if (JETPACK_ENGINE_KEY.isPressed()) {
-				jetpack.toggleState(jetpack.isOn(chestStack), chestStack, "engine_mode", ItemJetpack.TAG_ON, player, Config.enableStateMessages);
 				NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.ENGINE));
 			}
 			if (JETPACK_CHARGER_KEY.isPressed()) {
-				jetpack.toggleState(jetpack.isChargerOn(chestStack), chestStack, "charger_mode", ItemJetpack.TAG_CHARGER_ON, player, Config.enableStateMessages);
 				NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.CHARGER));
 			}
 			if (JETPACK_HOVER_KEY.isPressed()) {
-				jetpack.toggleState(jetpack.isHoverModeOn(chestStack), chestStack, "hover_mode", ItemJetpack.TAG_HOVERMODE_ON, player, Config.enableStateMessages);
 				NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.HOVER));
 			}
 			if (JETPACK_EHOVER_KEY.isPressed()) {
-				jetpack.toggleState(jetpack.isEHoverModeOn(chestStack), chestStack, "emergency_hover_mode", ItemJetpack.TAG_EHOVER_ON, player, Config.enableStateMessages);
 				NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.E_HOVER));
 			}
 		}
 		if (chestItem instanceof ItemFluxpack) {
-			ItemFluxpack fluxpack = (ItemFluxpack) chestItem;
 			if (JETPACK_GUI_KEY.isPressed()) {
 				Minecraft.getMinecraft().displayGuiScreen(new JetpackGuiScreen());
 			}
 			if (JETPACK_ENGINE_KEY.isPressed()) {
-				fluxpack.toggleState(fluxpack.isOn(chestStack), chestStack, "engine_mode", ItemFluxpack.TAG_ON, player, Config.enableStateMessages);
 				NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.ENGINE));
 			}
 		}

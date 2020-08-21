@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
 import tonius.simplyjetpacks.client.util.RenderUtils;
 import tonius.simplyjetpacks.config.Config;
+import tonius.simplyjetpacks.gui.JetpackGuiScreen;
 import tonius.simplyjetpacks.item.IHUDInfoProvider;
 
 import java.util.ArrayList;
@@ -17,11 +18,11 @@ import java.util.List;
 public class HUDTickHandler {
 	private static final Minecraft mc = Minecraft.getMinecraft();
 
-	@SubscribeEvent(receiveCanceled = true)
-	public void onOverlayRender(RenderGameOverlayEvent.Post event) {
+	@SubscribeEvent()
+	public void onOverlayRender(RenderGameOverlayEvent event) {
 		if (event.getType() != RenderGameOverlayEvent.ElementType.ALL) return;
 		if (mc.player != null) {
-			if ((mc.currentScreen == null || Config.showHUDWhileChatting && mc.currentScreen instanceof GuiChat) && !mc.gameSettings.hideGUI && !mc.gameSettings.showDebugInfo) {
+			if ((mc.currentScreen == null || mc.currentScreen instanceof JetpackGuiScreen || Config.showHUDWhileChatting && mc.currentScreen instanceof GuiChat) && !mc.gameSettings.hideGUI && !mc.gameSettings.showDebugInfo) {
 				ItemStack chestplate = mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 				if (chestplate.getItem() instanceof IHUDInfoProvider) {
 					IHUDInfoProvider provider = (IHUDInfoProvider) chestplate.getItem();

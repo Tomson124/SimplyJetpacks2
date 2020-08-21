@@ -23,11 +23,8 @@ public class CommonProxy {
 
     public void registerHandlers() {
         SimplyJetpacks.logger.info("Registering Handlers...");
-        // TODO: Re-add GUIs
-        //NetworkRegistry.INSTANCE.registerGuiHandler(SimplyJetpacks.instance, new GuiHandler());
         FMLCommonHandler.instance().bus().register(new SyncHandler());
         FMLCommonHandler.instance().bus().register(new PlatingReturnHandler());
-        //MinecraftForge.EVENT_BUS.register(new EntityInteractHandler());
         MinecraftForge.EVENT_BUS.register(new LivingTickHandler());
     }
 

@@ -9,6 +9,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.item.ItemFluxpack;
 import tonius.simplyjetpacks.item.ItemJetpack;
 import tonius.simplyjetpacks.network.NetworkHandler;
@@ -25,13 +26,13 @@ public class MessageKeybind implements IMessage, IMessageHandler<MessageKeybind,
 	}
 
 	@Override
-	public void toBytes(ByteBuf dataStream) {
-		dataStream.writeInt(packetType.ordinal());
+	public void toBytes(ByteBuf buf) {
+		buf.writeInt(packetType.ordinal());
 	}
 
 	@Override
-	public void fromBytes(ByteBuf dataStream) {
-		packetType = JetpackPacket.values()[dataStream.readInt()];
+	public void fromBytes(ByteBuf buf) {
+		packetType = JetpackPacket.values()[buf.readInt()];
 	}
 
 	@Override
@@ -48,22 +49,20 @@ public class MessageKeybind implements IMessage, IMessageHandler<MessageKeybind,
 
 		if (stack.getItem() instanceof ItemJetpack) {
 			ItemJetpack jetpack = (ItemJetpack) stack.getItem();
-			switch (msg.packetType) {
-				case ENGINE:
-					jetpack.toggleState(jetpack.isOn(stack), stack, null, ItemJetpack.TAG_ON, player, false);
-				case CHARGER:
-					jetpack.toggleState(jetpack.isChargerOn(stack), stack, null, ItemJetpack.TAG_CHARGER_ON, player, false);
-				case HOVER:
-					jetpack.toggleState(jetpack.isHoverModeOn(stack), stack, null, ItemJetpack.TAG_HOVERMODE_ON, player, false);
-				case E_HOVER:
-					jetpack.toggleState(jetpack.isEHoverModeOn(stack), stack, null, ItemJetpack.TAG_EHOVER_ON, player, false);
-				default:
+			if (msg.packetType == JetpackPacket.ENGINE) {
+				jetpack.toggleState(jetpack.isOn(stack), stack, "engine_mode", ItemJetpack.TAG_ENGINE, player, Config.enableStateMessages);
+			} else if (msg.packetType == JetpackPacket.CHARGER) {
+				jetpack.toggleState(jetpack.isChargerOn(stack), stack, "charger_mode", ItemJetpack.TAG_CHARGER, player, Config.enableStateMessages);
+			} else if (msg.packetType == JetpackPacket.HOVER) {
+				jetpack.toggleState(jetpack.isHoverModeOn(stack), stack, "hover_mode", ItemJetpack.TAG_HOVER, player, Config.enableStateMessages);
+			} else if (msg.packetType == JetpackPacket.E_HOVER) {
+				jetpack.toggleState(jetpack.isEHoverModeOn(stack), stack, "emergency_hover_mode", ItemJetpack.TAG_E_HOVER, player, Config.enableStateMessages);
 			}
 		}
 		else if (stack.getItem() instanceof ItemFluxpack) {
 			ItemFluxpack fluxpack = (ItemFluxpack) stack.getItem();
 			if (msg.packetType == JetpackPacket.ENGINE) {
-				fluxpack.toggleState(fluxpack.isOn(stack), stack, null, ItemFluxpack.TAG_ON, player, false);
+				fluxpack.toggleState(fluxpack.isOn(stack), stack, "engine_mode", ItemFluxpack.TAG_ENGINE, player, false);
 			}
 		}
 	}

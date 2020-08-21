@@ -29,8 +29,8 @@ public class JetpackGuiScreen extends GuiScreen {
 
     private static final Minecraft minecraft = Minecraft.getMinecraft();
 
-    private final ResourceLocation GUI_BASE = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/gui_base_extra.png");
-    private final ResourceLocation ENERGY_BAR = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/elements/energy_bar.png");
+    private final ResourceLocation GUI_BASE = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/gui_base.png");
+    private final ResourceLocation ENERGY_BAR = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/energy_bar.png");
 
     public JetpackGuiScreen() {
         this.width = WIDTH;
@@ -119,19 +119,22 @@ public class JetpackGuiScreen extends GuiScreen {
 
     @Override
     protected void actionPerformed(@Nonnull GuiButton button) throws IOException {
-        switch (button.id) {
-            case 0:
-                SimplyJetpacks.logger.info("Not Available");
-            case 1:
+        ItemStack stack = minecraft.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+        Item item = stack.getItem();
+        if (item instanceof ItemFluxpack) {
+            if (button.id == 1) {
                 NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.ENGINE));
-            case 2:
+            }
+        } else if (item instanceof ItemJetpack) {
+            if (button.id == 1) {
+                NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.ENGINE));
+            } else if (button.id == 2) {
                 NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.CHARGER));
-            case 3:
+            } else if (button.id == 3) {
                 NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.HOVER));
-            case 4:
+            } else if (button.id == 4) {
                 NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.E_HOVER));
-            default:
-                super.actionPerformed(button);
+            }
         }
     }
 

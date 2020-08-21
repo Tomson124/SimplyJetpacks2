@@ -1,6 +1,5 @@
 package tonius.simplyjetpacks.crafting;
 
-import cofh.redstoneflux.api.IEnergyContainerItem;
 import com.google.common.collect.Lists;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -10,6 +9,7 @@ import net.minecraftforge.common.util.RecipeMatcher;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.capability.IEnergyContainerItem;
 import tonius.simplyjetpacks.item.ItemFluxpack;
 import tonius.simplyjetpacks.item.ItemJetpack;
 import tonius.simplyjetpacks.proxy.CommonProxy;

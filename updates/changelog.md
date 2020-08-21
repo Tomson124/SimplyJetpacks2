@@ -4,6 +4,7 @@
     - Renamed some things internally
     - Updated Vanilla Jetpack textures
     - Updated EnderIO textures - Thank you to CyberCat5555
+    - Transitioned to Forge's Energy System - No longer dependent on RedstoneFlux
 
 - **Added**
     - Mekanism Jetpack Integration
