@@ -4,7 +4,6 @@ import tonius.simplyjetpacks.client.util.RenderUtils.HUDPositions;
 import tonius.simplyjetpacks.integration.ModType;
 
 public class Defaults {
-
     // Item
     public static final boolean enableFuelEfficiencyEnchantment = true;
     public static final boolean addRAItemsIfNotInstalled = true;

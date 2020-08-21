@@ -97,8 +97,7 @@ public class Config {
         jetpackSounds = configClient.getBooleanS(sectionSounds.category, "jetpackSounds", null, Defaults.jetpackSounds, false);
 
         holdShiftForDetails = configClient.getBooleanS(sectionGui.category, "holdShiftForDetails", null, Defaults.holdShiftForDetails, false);
-        //HUDPosition = HUDPositions.valueOf(configClient.get(sectionGui.category, "config.simplyjetpacks.gui.hudPosition", HUDPositions.TOP_LEFT.name(), I18n.format("config.simplyjetpacks.gui.hudPosition.comment"), new String[]{"TOP_LEFT", "TOP_CENTER", "TOP_RIGHT", "LEFT", "RIGHT", "BOTTOM_LEFT", "BOTTOM_RIGHT"}).getString());
-        HUDPosition = HUDPositions.valueOf(configClient.getStringListS(sectionGui.category, "hudPosition", null, HUDPositions.TOP_LEFT.name(), new String[]{"TOP_LEFT", "TOP_CENTER", "TOP_RIGHT", "LEFT", "RIGHT", "BOTTOM_LEFT", "BOTTOM_RIGHT"}, false));
+        HUDPosition = HUDPositions.valueOf(configClient.getStringListS(sectionGui.category, "hudPosition", null, Defaults.HUDPosition.name(), new String[]{"TOP_LEFT", "TOP_CENTER", "TOP_RIGHT", "LEFT", "RIGHT", "BOTTOM_LEFT", "BOTTOM_RIGHT"}, false));
         HUDOffsetX = configClient.getIntS(sectionGui.category, "HUDOffsetX", null, Defaults.HUDOffsetX, null, null, false);
         HUDOffsetY = configClient.getIntS(sectionGui.category, "HUDOffsetY", null, Defaults.HUDOffsetY, null, null, false);
         HUDScale = configClient.getDoubleS(sectionGui.category, "HUDScale", null, Defaults.HUDScale, 0.001D, null, false);

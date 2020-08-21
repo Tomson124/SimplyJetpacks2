@@ -9,7 +9,6 @@ public class PackDefaults {
 
     private static final Map<String, PackDefaults> DEFAULTS = new HashMap<>();
     public final Section section;
-
     // Base
     public Integer energyCapacity;
     public Integer energyUsage;

@@ -17,14 +17,6 @@ public class ConfigWrapper extends Configuration {
         super(file, configVersion, caseSensitive);
     }
 
-    public void addCategory(String categoryName) {
-        String categoryKey = keyPrefix + categoryName;
-        String commentKey = categoryKey + commentSuffix;
-        String comment = I18n.format(commentKey);
-        setCategoryComment(categoryName, comment);
-        setCategoryLanguageKey(categoryName, categoryKey);
-    }
-
     public boolean getBooleanS(String category, String name, @Nullable String bonus, boolean defaultValue, boolean requiresRestart) {
         String langKey = keyPrefix + category + '.' + name;
         if (bonus != null) {
