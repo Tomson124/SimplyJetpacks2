@@ -141,11 +141,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		NBTHelper.setBoolean(stack, tag, !on);
 		if (player != null && showState) {
 			ITextComponent state = on ? SJStringUtil.localizeNew("chat.", ".disabled") : SJStringUtil.localizeNew("chat.", ".enabled");
-			if (on) {
-				state.setStyle(new Style().setColor(TextFormatting.RED));
-			} else {
-				state.setStyle(new Style().setColor(TextFormatting.GREEN));
-			}
+			state.setStyle(on ? new Style().setColor(TextFormatting.RED) : new Style().setColor(TextFormatting.GREEN));
 			ITextComponent msg = SJStringUtil.localizeNew("chat.", ".jetpack." + type, state);
 			player.sendStatusMessage(msg, true);
 		}
@@ -371,6 +367,11 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		Boolean charger = this.isChargerOn(stack);
 		Boolean eHover = this.isEHoverModeOn(stack);
 		if (this.canCharge(stack)) {
+			return SJStringUtil.getHUDStateText(engine, hover, charger, null);
+		} else {
+			return SJStringUtil.getHUDStateText(engine, hover, null, null);
+		}
+/*		if (this.canCharge(stack)) {
 			if (this.canEHover(stack)) {
 				return SJStringUtil.getHUDStateText(engine, hover, charger, eHover);
 			} else {
@@ -380,7 +381,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 			return SJStringUtil.getHUDStateText(engine, hover, null, eHover);
 		} else {
 			return SJStringUtil.getHUDStateText(engine, hover, null, null);
-		}
+		}*/
 	}
 
 	@Override

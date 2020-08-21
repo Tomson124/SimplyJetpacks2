@@ -106,11 +106,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		NBTHelper.setBoolean(stack, tag, !on);
 		if (player != null && showState) {
 			ITextComponent state = on ? SJStringUtil.localizeNew("chat.", ".disabled") : SJStringUtil.localizeNew("chat.", ".enabled");
-			if (on) {
-				state.setStyle(new Style().setColor(TextFormatting.RED));
-			} else {
-				state.setStyle(new Style().setColor(TextFormatting.GREEN));
-			}
+			state.setStyle(on ? new Style().setColor(TextFormatting.RED) : new Style().setColor(TextFormatting.GREEN));
 			ITextComponent msg = SJStringUtil.localizeNew("chat.", ".fluxpack." + type, state);
 			player.sendStatusMessage(msg, true);
 		}

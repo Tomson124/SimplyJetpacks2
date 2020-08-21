@@ -63,7 +63,7 @@ public abstract class EIORecipes {
     }
 
     public static void addSoulBinderRecipe(String recipeID, int energy, int xp, String soulTypes, ItemStack input, ItemStack output) {
-        SimplyJetpacks.logger.info("Registering EIO Soul Binder recipe");
+        SimplyJetpacks.logger.info("Registering EIO Soul Binder Recipe");
 
         NBTTagCompound toSend = new NBTTagCompound();
 
