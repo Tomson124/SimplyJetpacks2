@@ -27,5 +27,5 @@
   "rewards": {
     "experience": 1
   },
-  "parent": "simplyjetpacks:main/root_simplyjetpacks"
+  "parent": "simplyjetpacks:root"
 }
