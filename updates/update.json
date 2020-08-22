@@ -1,0 +1,57 @@
+{
+  "homepage": "https://www.curseforge.com/minecraft/mc-mods/simply-Jetpacks-2",
+  "promos": {
+    "1.10.2-latest" : "2.1.3.55",
+    "1.10.2-recommended" : "2.1.3.55",
+    "1.12.2-latest" : "2.2.16.1",
+    "1.12.2-recommended" : "2.2.16.1",
+    "1.15.2-latest" : "2.5.1.1",
+    "1.15.2-recommended" : "2.5.1.1",
+    "1.16.1-latest" : "2.6.1.1",
+    "1.16.1-recommended" : "2.6.1.1"
+  },
+  "1.16.1" : {
+    "2.6.1.1" : "Cleaned up a lot of things in preparation for full release",
+    "2.6.0.1" : "Update to Minecraft Version 1.16.1"
+  },
+  "1.15.2" : {
+    "2.5.1.1" : "Cleaned up a lot of things in preparation for full release",
+    "2.5.0.1" : "Update to Minecraft Version 1.15.2"
+  },
+  "1.12.2" : {
+    "2.2.16.1" : "Added Mekanism and Immersive Engineering Integration",
+    "2.2.15.69" : "Gelid Jetpack Tweaks, Bugfixes",
+    "2.2.14.67" : "Fixed unexpected crashing when charging items",
+    "2.2.13.66" : "Fixed JetPlate not charging items",
+    "2.2.12.65" : "Fixed integration bug and recipes",
+    "2.2.11.64" : "Fixed charging bug",
+    "2.2.10.63" : "Bugfixes and work on enchantment compatibility",
+    "2.2.9.58" : "Bugfixes and HUD fix",
+    "2.2.8.56" : "Gelid Jetpack Tweaks, Bugfixes",
+    "2.2.7.45" : "Fixed missing textures for EnderIO integration",
+    "2.2.6.43" : "Added EnderIO and Redstone Repository support. TE no dependency anymore",
+    "2.2.5.39" : "Fixed TD integrations, rewrite mod integrations and rewrite config system",
+    "2.2.4.34" : "Fixed Armorplating recipes",
+    "2.2.3.31" : "Fixed ThermalExpansion dependency and RedstoneArsenal integration",
+    "2.2.2.28" : "Fix for NBTs, crafting recipes and translation",
+    "2.2.1.20" : "Fixed Fluxpack naming again",
+    "2.2.1.19" : "Fixed Fluxpack naming and recipe, fix recipe for tier 5 Jetpack",
+    "2.2.0.18" : "Update to Minecraft Version 1.12.2"
+  },
+  "1.10.2" : {
+    "2.1.3.55" : "Fixed Jetpacks not using energy when flying",
+    "2.1.2.53" : "Added first part of ThermalExpansion integration, Bugfixes",
+    "2.1.1.47" : "Fixed Jetpacks not draining power, finished Forge Version Checker",
+    "2.1.1.46" : "Fixed recipes not working",
+    "2.1.1.43" : "Localization updates, added ForgeEnergy support",
+    "2.1.0.39" : "Balancing, starting re-texture and JetPlates",
+    "2.0.3.32" : "Added Fluxpacks",
+    "2.0.3.29" : "Groundwork for Fluxpacks",
+    "2.0.3.26" : "Fixed Packet handling",
+    "2.0.3.23" : "Fixed particles",
+    "2.0.3.19" : "Bugfixes and EmergencyHoverMode",
+    "2.0.3.14" : "Bugfixes and Armored Jetpacks",
+    "2.0.2.9" : "Bugfixes",
+    "2.0.2.6" : "Update to Minecraft Version 1.10.2"
+  }
+}
