@@ -1,13 +1,13 @@
 {
   "display": {
     "icon": {
-      "item": "immersiveengineering:wirecoil_copper"
+      "item": "mekanism:alloy_atomic"
     },
     "title": {
-      "translate": "advancements.simplyjetpacks.immersiveengineering.title"
+      "translate": "advancements.simplyjetpacks.mek.title"
     },
     "description": {
-      "translate": "advancements.simplyjetpacks.immersiveengineering.description"
+      "translate": "advancements.simplyjetpacks.mek.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -27,11 +27,11 @@
   "rewards": {
     "experience": 1
   },
-  "parent": "simplyjetpacks:main/root_simplyjetpacks",
+  "parent": "simplyjetpacks:root",
   "conditions": [
     {
       "type": "forge:mod_loaded",
-      "modid": "immersiveengineering"
+      "modid": "mekanism"
     }
   ]
 }

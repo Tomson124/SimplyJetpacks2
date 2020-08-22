@@ -31,7 +31,7 @@ public class JetpackGuiScreen extends Screen {
 
     private static final Minecraft minecraft = Minecraft.getInstance();
 
-    private final ResourceLocation GUI_BASE = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/jetpack_gui_pack.png");
+    private final ResourceLocation GUI_BASE = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/gui_base.png");
     private final ResourceLocation ENERGY_BAR = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/energy_bar.png");
 
     private static final ITextComponent energyStorageTooltip = new TranslationTextComponent("tooltips.simplyjetpacks.jetpack_gui.energyStorage");

@@ -1,13 +1,13 @@
 {
   "display": {
     "icon": {
-      "item": "simplyjetpacks:jetpack_mek4_armored"
+      "item": "simplyjetpacks:jetpack_ie3"
     },
     "title": {
-      "translate": "advancements.simplyjetpacks.jetpack_mek4_armored.title"
+      "translate": "advancements.simplyjetpacks.jetpack_ie3.title"
     },
     "description": {
-      "translate": "advancements.simplyjetpacks.jetpack_mek4_armored.description"
+      "translate": "advancements.simplyjetpacks.jetpack_ie3.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -15,12 +15,12 @@
     "hidden": false
   },
   "criteria": {
-    "jetpack_mek4_armored": {
+    "jetpack_ie3": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "simplyjetpacks:jetpack_mek4_armored",
+            "item": "simplyjetpacks:jetpack_ie3",
             "count": {
               "min": 1,
               "max": 1
@@ -33,11 +33,11 @@
   "rewards": {
     "experience": 1
   },
-  "parent": "simplyjetpacks:mekanism/jetpack_mek4",
+  "parent": "simplyjetpacks:ie/jetpack_ie2",
   "conditions": [
     {
       "type": "forge:mod_loaded",
-      "modid": "mekanism"
+      "modid": "immersiveengineering"
     }
   ]
 }
