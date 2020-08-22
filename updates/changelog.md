@@ -1,3 +1,17 @@
+# 2.6.0 - 07-08-2020
+- **General**
+    - Update to Minecraft Version 1.16.1
+    
+- **Removed**
+    - Integration for mods that haven't yet updated
+    
+# 2.5.0 - 13-08-2020
+- **General**
+    - Update to Minecraft Version 1.15.2
+    
+- **Removed**
+    - Integration for mods that haven't yet updated
+    
 # 2.2.16 - 22-08-2020
 - **General**
     - Tweaked some code, making it more efficient
@@ -16,7 +30,7 @@
     - Config Gui + added Config Version data
     - Jetpack texture names not matching Jetpack name
     
-# 2.2.15 - 00-08-2020
+# 2.2.15 - 28-07-2020
 - **General**
     - Changed Redstone Repository chestplate craft to use gelid armor plates instead of ingots
     - Tweaked TE5 Jetpack recipes a bit
