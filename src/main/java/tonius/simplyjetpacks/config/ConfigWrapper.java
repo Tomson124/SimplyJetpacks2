@@ -1,6 +1,5 @@
 package tonius.simplyjetpacks.config;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import tonius.simplyjetpacks.SimplyJetpacks;
@@ -24,9 +23,7 @@ public class ConfigWrapper extends Configuration {
             langKey = keyPrefix + "tuning." + name;
         }
         String commentKey = langKey + commentSuffix;
-        String comment = I18n.format(commentKey);
-
-        Property prop = get(category, name, defaultValue, comment);
+        Property prop = get(category, name, defaultValue, commentKey);
         prop.setRequiresMcRestart(requiresRestart);
         prop.setLanguageKey(langKey);
         return prop.getBoolean(defaultValue);
@@ -39,9 +36,7 @@ public class ConfigWrapper extends Configuration {
                 langKey = keyPrefix + "tuning." + name;
         }
         String commentKey = langKey + commentSuffix;
-        String comment = I18n.format(commentKey);
-
-        Property prop = get(category, name, defaultValue, comment);
+        Property prop = get(category, name, defaultValue, commentKey);
         prop.setRequiresMcRestart(requiresRestart);
         prop.setLanguageKey(langKey);
         return prop.getString();
@@ -54,12 +49,9 @@ public class ConfigWrapper extends Configuration {
                 langKey = keyPrefix + "tuning." + name;
         }
         String commentKey = langKey + commentSuffix;
-        String comment = I18n.format(commentKey);
-
-        Property prop = get(category, name, defaultValue, comment);
+        Property prop = get(category, name, defaultValue, commentKey);
         if (minValue != null) prop.setMinValue(minValue);
         if (maxValue != null) prop.setMaxValue(maxValue);
-
         prop.setRequiresMcRestart(requiresRestart);
         prop.setLanguageKey(langKey);
         return prop.getInt((int) defaultValue);
@@ -72,12 +64,9 @@ public class ConfigWrapper extends Configuration {
                 langKey = keyPrefix + "tuning." + name;
         }
         String commentKey = langKey + commentSuffix;
-        String comment = I18n.format(commentKey);
-
-        Property prop = get(category, name, defaultValue, comment);
+        Property prop = get(category, name, defaultValue, commentKey);
         if (minValue != null) prop.setMinValue(minValue);
         if (maxValue != null) prop.setMaxValue(maxValue);
-
         prop.setRequiresMcRestart(requiresRestart);
         prop.setLanguageKey(langKey);
         return prop.getInt(defaultValue);
@@ -90,12 +79,9 @@ public class ConfigWrapper extends Configuration {
                 langKey = keyPrefix + "tuning." + name;
         }
         String commentKey = langKey + commentSuffix;
-        String comment = I18n.format(commentKey);
-
-        Property prop = get(category, name, defaultValue, comment);
+        Property prop = get(category, name, defaultValue, commentKey);
         if (minValue != null) prop.setMinValue(minValue);
         if (maxValue != null) prop.setMaxValue(maxValue);
-
         prop.setRequiresMcRestart(requiresRestart);
         prop.setLanguageKey(langKey);
         return prop.getDouble(defaultValue);
@@ -104,9 +90,7 @@ public class ConfigWrapper extends Configuration {
     public String getStringListS(String category, String name, @Nullable String bonus, String defaultValue, String[] validValues, boolean requiresRestart) {
         String langKey = keyPrefix + category + '.' + name;
         String commentKey = langKey + commentSuffix;
-        String comment = I18n.format(commentKey);
-
-        Property prop = get(category, name, defaultValue, comment);
+        Property prop = get(category, name, defaultValue, commentKey);
         prop.setValidValues(validValues);
         prop.setRequiresMcRestart(requiresRestart);
         prop.setLanguageKey(langKey);
