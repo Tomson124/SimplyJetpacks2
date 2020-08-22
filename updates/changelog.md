@@ -1,9 +1,17 @@
+# 2.6.1 - 22-08-2020
+- **General**
+    - Cleaned up a lot of things in preparation for full release
+    
 # 2.6.0 - 07-08-2020
 - **General**
     - Update to Minecraft Version 1.16.1
     
 - **Removed**
     - Integration for mods that haven't yet updated
+
+# 2.5.1 - 22-08-2020
+- **General**
+    - Cleaned up a lot of things in preparation for full release
     
 # 2.5.0 - 13-08-2020
 - **General**
