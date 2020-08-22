@@ -1,18 +1,4 @@
-# 2.6.0 - 07-08-2020
-- **General**
-    - Update to Minecraft Version 1.16.1
-    
-- **Removed**
-    - Integration for mods that haven't yet updated
-    
-# 2.5.0 - 13-08-2020
-- **General**
-    - Update to Minecraft Version 1.15.2
-    
-- **Removed**
-    - Integration for mods that haven't yet updated
-    
-# 2.2.16 - 22-08-2020
+# 2.2.16 - 00-08-2020
 - **General**
     - Tweaked some code, making it more efficient
     - Renamed some things internally
@@ -30,9 +16,9 @@
     - Config Gui + added Config Version data
     - Jetpack texture names not matching Jetpack name
     
-# 2.2.15 - 28-07-2020
+# 2.2.15 - 00-08-2020
 - **General**
-    - Changed Redstone Repository chestplate craft to use gelid armor plates instead of ingots
+    - Changed RedstoneRepository chestplate craft to use gelid armor plates instead of ingots
     - Tweaked TE5 Jetpack recipes a bit
 
 - **Added**
@@ -108,8 +94,8 @@
     - Cleanup and rewrite of mod integrations. Huge thank you to @thundR
 
 - **Fixed**
-    - Crafting with enchanted Jetpacks not possible - #81
-    - Thermal Dynamics integration
+    - Crafting with entchanted Jetpacks not possible - #81
+    - ThermalDynamics integration
     - Complete refactor of config system. Again huge thank you to @thundR - #82 #83 #85
 
 # 2.2.4 - 05-05-2018
@@ -120,7 +106,7 @@
 - **Fixed**
     - Not removing SJ2 Flux Plates when Redstone Arsenal is installed - Fix #68
     - Plate return recipe showing twice for Fluxpacks
-    - SimplyJetpacks2 not loading with Thermal Expansion beyond version 5.3.x - Fixes #75
+    - SimplyJetpacks2 not loading with ThermalExpansion beyond version 5.3.x - Fixes #75
 
 # 2.2.2 - 28-01-2018
 - **General**
@@ -169,7 +155,7 @@
     - Crash when holding a Creative Capacitor Bank in your hand
 
 - **Added**
-    - Thermal Expansion (and Thermal Dynamics) integration, Tier 5 Jetpack not craftable yet, no armored versions yet, no Fluxpacks yet; Those things will come soon.
+    - ThermalExpansion (and ThermalDynamics) integration, Tier 5 Jetpack not craftable yet, no armored versions yet, no Fluxpacks yet; Those things will come soon.
     - Textures for TE Jetpacks
     - Optional recipes when ThermalDynamics is not installed (Instead of Fluxducts, Hardened Glass is required)
     - Config option to disable TE integration
