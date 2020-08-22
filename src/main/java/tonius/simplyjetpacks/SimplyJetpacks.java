@@ -29,8 +29,7 @@ public class SimplyJetpacks {
 
     public static final String PREFIX = MODID + ".";
     public static final String RESOURCE_PREFIX = MODID + ":";
-    // TODO: Put dependencies back in.
-    public static final String DEPENDENCIES = "";//"required-after:redstoneflux@[2.0.1,);" + "after:thermalexpansion;" + "after:redstonearsenal;" + "after:thermaldynamics;" + "after:enderio;" + "after:redstonerepository;";
+    public static final String DEPENDENCIES = "after:thermalexpansion;" + "after:thermaldynamics;" + "after:enderio;" + "after:redstonearsenal;" + "after:redstonerepository;" + "after:immersiveengineering;" + "after:mekanism;";
 
     @Mod.Instance(MODID)
     public static SimplyJetpacks instance;

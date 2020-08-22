@@ -52,8 +52,8 @@ public class JetpackGuiScreen extends GuiScreen {
         ItemStack stack = minecraft.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
         Item item = stack.getItem();
         if (item instanceof ItemJetpack) {
-            this.addButton(new GuiButtonImage(3, relX + 120, relY + 38, 20, 20, 216, 0, 20, GUI_BASE));
             ItemJetpack jetpack = (ItemJetpack) item;
+            this.addButton(new GuiButtonImage(3, relX + 120, relY + 38, 20, 20, 216, 0, 20, GUI_BASE));
             if (jetpack.canCharge(stack)) {
                 this.addButton(new GuiButtonImage(2, relX + 142, relY + 16, 20, 20, 196, 0, 20, GUI_BASE));
             } else {
@@ -64,9 +64,6 @@ public class JetpackGuiScreen extends GuiScreen {
             } else {
                 this.addButton(new GuiButtonImage(0, relX + 142, relY + 38, 20, 20, 236, 40, 0, GUI_BASE));
             }
-        } else if (item instanceof ItemFluxpack) {
-            ItemFluxpack fluxpack = (ItemFluxpack) item;
-            // TODO: Add Fluxpack buttons here.
         }
         super.initGui();
     }
