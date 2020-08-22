@@ -3,7 +3,7 @@
 [![Discord Tomson124](https://img.shields.io/badge/Discord-Tomson124-738bd7.svg?style=flat-square)](https://discord.gg/CcbJjRh)
 [![Discord SimplyJetpacks](https://img.shields.io/badge/Discord-SimplyJetpacks-738bd7.svg?style=flat-square)](https://discord.gg/v5qJysC)
 
-![Simply Jetpacks 2 Logo](https://raw.githubusercontent.com/Tomson124/SimplyJetpacks2/1.15/src/main/resources/assets/simplyjetpacks/logo.png "Simply Jetpacks 2 Logo")
+![Simply Jetpacks 2 Logo](https://raw.githubusercontent.com/Tomson124/SimplyJetpacks2/1.10/src/main/resources/assets/simplyjetpacks/logo.png "Simply Jetpacks 2 Logo")
 
 # Simply Jetpacks 2
 
