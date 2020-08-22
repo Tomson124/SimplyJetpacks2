@@ -6,13 +6,15 @@ issueTrackerURL="https://github.com/Tomson124/SimplyJetpacks2/issues"
 modId="simplyjetpacks"
 version="${file.jarVersion}"
 displayName="Simply Jetpacks 2"
-updateJSONURL="https://github.com/Tomson124/SimplyJetpacks2/blob/1.16/updates/update.json"
+updateJSONURL="https://raw.githubusercontent.com/Tomson124/SimplyJetpacks2/1.16/updates/update.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/simply-jetpacks-2"
-logoFile="assets/simplyjetpacks/simplyjetpacks-logo.png"
+logoFile="assets/simplyjetpacks/logo.png"
 credits="cybercat5555"
 authors="StormedPanda, Tomson124"
 description='''
 Simply Jetpacks 2
+
+Jetpacks and Fluxpacks powered by Forge Energy!
 
 Previous Author: tonius11
 '''

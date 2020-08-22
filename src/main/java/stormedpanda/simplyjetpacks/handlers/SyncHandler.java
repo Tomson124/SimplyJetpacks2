@@ -70,10 +70,10 @@ public class SyncHandler {
             AdvancementUtil.unlockAdvancement(player, "vanilla/root_vanilla");
         }
         if (IntegrationList.integrateImmersiveEngineering) {
-            AdvancementUtil.unlockAdvancement(player, "immersiveengineering/root_immersiveengineering");
+            AdvancementUtil.unlockAdvancement(player, "ie/root_ie");
         }
         if (IntegrationList.integrateMekanism) {
-            AdvancementUtil.unlockAdvancement(player, "mekanism/root_mekanism");
+            AdvancementUtil.unlockAdvancement(player, "mek/root_mek");
         }
     }
 
