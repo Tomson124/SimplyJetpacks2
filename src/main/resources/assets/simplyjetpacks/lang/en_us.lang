@@ -123,7 +123,7 @@ chat.simplyjetpacks.jetpack.hover_mode=Hover Mode %s
 chat.simplyjetpacks.jetpack.charger_mode=Charger Mode %s
 chat.simplyjetpacks.jetpack.emergency_hover_mode=Emergency Hover Mode %s
 chat.simplyjetpacks.jetpack.emergency_hover_mode.msg=WARNING: User about to die, Emergency Hover Activated!
-chat.simplyjetpacks.fluxpack.engine_mode=Fluxpack Charger %s
+chat.simplyjetpacks.fluxpack.engine_mode=Fluxpack Engine %s
 
 tooltip.simplyjetpacks.holdShift=Hold %s for Details
 tooltip.simplyjetpacks.holdShift.shift=Shift

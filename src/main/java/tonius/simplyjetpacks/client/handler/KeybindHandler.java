@@ -45,7 +45,7 @@ public class KeybindHandler {
 	private static final String category = "keybind.simplyjetpacks.category";
 
 	public static void setup() {
-		JETPACK_GUI_KEY = new KeyBinding("keybind.simplyjetpacks.gui", Keyboard.KEY_NONE, category);
+		JETPACK_GUI_KEY = new KeyBinding("keybind.simplyjetpacks.gui", Keyboard.KEY_Z, category);
 		ClientRegistry.registerKeyBinding(JETPACK_GUI_KEY);
 		JETPACK_ENGINE_KEY = new KeyBinding("keybind.simplyjetpacks.engine", Keyboard.KEY_G, category);
 		ClientRegistry.registerKeyBinding(JETPACK_ENGINE_KEY);
@@ -53,7 +53,7 @@ public class KeybindHandler {
 		ClientRegistry.registerKeyBinding(JETPACK_CHARGER_KEY);
 		JETPACK_HOVER_KEY = new KeyBinding("keybind.simplyjetpacks.hover", Keyboard.KEY_L, category);
 		ClientRegistry.registerKeyBinding(JETPACK_HOVER_KEY);
-		JETPACK_EHOVER_KEY = new KeyBinding("keybind.simplyjetpacks.emergency_hover", Keyboard.KEY_R, category);
+		JETPACK_EHOVER_KEY = new KeyBinding("keybind.simplyjetpacks.emergency_hover", Keyboard.KEY_NONE, category);
 		ClientRegistry.registerKeyBinding(JETPACK_EHOVER_KEY);
 	}
 

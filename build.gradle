@@ -29,7 +29,9 @@ minecraft {
     mappings = "${mappings_version}"
 
     //makeObfSourceJar = false
-    //accessTransformer = file('src/main/resources/META-INF/simplyjetpacks_at.cfg')
+    //useDepAts = true
+
+    replace '${version}', project.version
 }
 
 repositories {
@@ -71,11 +73,11 @@ dependencies {
     deobfCompile("com.enderio.core:EnderCore:${endercore_version}")
     deobfCompile("info.loenwind.autoconfig:AutoConfig:1.12.2-1.0.2")
     deobfCompile("info.loenwind.autosave:AutoSave:1.12.2-1.0.11")*/
-    //runtime "com.enderio.core:EnderCore:${endercore_version}"
-    //runtime "com.enderio.core:EnderCore:${endercore_version}:core"
-    //runtime "com.enderio:EnderIO:${enderio_version}"
-    //runtime "info.loenwind.autoconfig:AutoConfig:1.12.2-1.0.2"
-    //runtime "info.loenwind.autosave:AutoSave:1.12.2-1.0.11"
+/*    runtime "com.enderio.core:EnderCore:${endercore_version}"
+    runtime "com.enderio.core:EnderCore:${endercore_version}:core"
+    runtime "com.enderio:EnderIO:${enderio_version}"
+    runtime "info.loenwind.autoconfig:AutoConfig:1.12.2-1.0.2"
+    runtime "info.loenwind.autosave:AutoSave:1.12.2-1.0.11"*/
 
     deobfProvided "curse.maven:mekanism:2835176"
     runtime "curse.maven:mekanism:2835175"

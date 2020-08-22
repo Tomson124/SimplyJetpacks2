@@ -91,7 +91,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	@Override
 	public void onArmorTick(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull ItemStack stack) {
-		if(this.isOn(stack)) {
+		if (this.isOn(stack)) {
 			this.chargeInventory(player, stack, this);
 		}
 	}

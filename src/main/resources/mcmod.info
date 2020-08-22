@@ -2,7 +2,7 @@
 	{
 		"modid": "simplyjetpacks",
 		"name": "Simply Jetpacks 2",
-		"description": "Redstone Flux Jetpacks and more!",
+		"description": "Jetpacks and Fluxpacks powered by RedstoneFlux and Forge Energy!",
 		"version": "${version}",
 		"mcversion": "${mcversion}",
 		"url": "https://www.curseforge.com/minecraft/mc-mods/simply-jetpacks-2",

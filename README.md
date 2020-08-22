@@ -15,10 +15,10 @@ Downloads for the mod can be found on [CurseForge](https://www.curseforge.com/mi
 - EnderIO
 - Mekanism
 - Immersive Engineering
-- Redstone Arsenal
-- Redstone Repository
 - Thermal Dynamics
 - Thermal Expansion
+- Redstone Arsenal
+- Redstone Repository
 
 Authors: Tomson124 and StormedPanda
 

@@ -22,12 +22,13 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LivingTickHandler {
 
     private static final Map<Integer, ParticleType> lastJetpackState = new ConcurrentHashMap<>();
-    public static Field floatingTickCount = null;
     private final int numItems = Jetpack.values().length;
+
+    public static Field floatingTickCount = null;
 
     public LivingTickHandler() {
         try {
-            floatingTickCount = ReflectionHelper.findField(NetHandlerPlayServer.class, "floatingTickCount", "field_147365_f");
+            floatingTickCount = ReflectionHelper.findField(NetHandlerPlayServer.class,  "floatingTickCount", "field_147365_f");
         } catch (Exception e) {
             SimplyJetpacks.logger.error("Unable to find field 'floatingTickCount'");
             e.printStackTrace();
@@ -60,25 +61,4 @@ public class LivingTickHandler {
             }
         }
     }
-
-    // TODO: Investigate and update this
-    /*@SubscribeEvent
-	public void mobUseJetpack(LivingUpdateEvent event) {
-        if (!event.getEntityLiving().worldObj.isRemote && event.getEntityLiving() instanceof EntityMob) {
-            ItemStack armor = event.getEntityLiving().getEquipmentInSlot(3);
-            if (armor != null && armor.getItem() instanceof ItemJetpack) {
-                ItemJetpack jetpackItem = (ItemJetpack) armor.getItem();
-                Jetpack jetpack = jetpackItem.getPack(armor);
-                if (jetpack != null) {
-                    if (jetpack instanceof JetpackPotato || MathHelper.RANDOM.nextInt(3) == 0) {
-                        jetpack.setMobMode(armor);
-                        jetpack.flyUser(event.getEntityLiving(), armor, jetpackItem, false);
-                    }
-                }
-                if (event.getEntityLiving().posY > event.getEntityLiving().worldObj.getActualHeight() + 10) {
-                    event.getEntityLiving().attackEntityFrom(DamageSource.generic, 80);
-                }
-            }
-        }
-    }*/
 }

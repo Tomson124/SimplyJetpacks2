@@ -29,10 +29,9 @@ public class ClientTickHandler {
 	private static ParticleType lastJetpackState = null;
 	private static boolean wearingJetpack = false;
 	private static boolean sprintKeyCheck = false;
+	private static final int numItems = Jetpack.values().length;
 
 	private static Field sprintToggleTimer = null;
-
-	private static final int numItems = Jetpack.values().length;
 
 	public ClientTickHandler() {
 		try {
@@ -74,7 +73,9 @@ public class ClientTickHandler {
 				} else {
 					ParticleType particle = SyncHandler.getJetpackStates().get(currentEntity);
 					if (particle != null) {
+						SimplyJetpacks.logger.info("IN WATER {}", entity.isInWater());
 						if (entity.isInWater() && particle != ParticleType.NONE) {
+							SimplyJetpacks.logger.info("IN WATER");
 							particle = ParticleType.BUBBLE;
 						}
 						SimplyJetpacks.proxy.showJetpackParticles(mc.world, (EntityLivingBase) entity, particle);

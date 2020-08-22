@@ -62,7 +62,7 @@ public class MessageKeybind implements IMessage, IMessageHandler<MessageKeybind,
 		else if (stack.getItem() instanceof ItemFluxpack) {
 			ItemFluxpack fluxpack = (ItemFluxpack) stack.getItem();
 			if (msg.packetType == JetpackPacket.ENGINE) {
-				fluxpack.toggleState(fluxpack.isOn(stack), stack, "engine_mode", ItemFluxpack.TAG_ENGINE, player, false);
+				fluxpack.toggleState(fluxpack.isOn(stack), stack, "engine_mode", ItemFluxpack.TAG_ENGINE, player, Config.enableStateMessages);
 			}
 		}
 	}

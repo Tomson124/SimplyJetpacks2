@@ -19,11 +19,7 @@
     "location": {
       "trigger": "minecraft:location",
       "conditions": {
-        "dimension":"overworld",
-        "position": {
-          "y": {
-            "max": 5
-          }
+        "dimension":"overworld"
         }
       }
     }

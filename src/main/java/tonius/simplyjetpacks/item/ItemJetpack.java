@@ -445,7 +445,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	public void damageArmor(EntityLivingBase entity, ItemStack armor, DamageSource source, int damage, int slot) {
 		int i = MathHelper.clamp(armor.getItemDamage(), 0, numItems - 1);
 		if (Jetpack.values()[i].getIsArmored()) {
-			if(Jetpack.values()[i].usesEnergy) {
+			if (Jetpack.values()[i].usesEnergy) {
 				if (this.isFluxBased && source.damageType.equals("flux")) {
 					this.addEnergy(armor, damage * (source.getImmediateSource() == null ? Jetpack.values()[i].getArmorEnergyPerHit() / 2 : this.getEnergyPerDamage(armor)), false);
 				} else {

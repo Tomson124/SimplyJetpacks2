@@ -394,8 +394,8 @@ public abstract class ModItems {
 
 		if (integrateTE) {
 			if (!integrateRA && Config.addRAItemsIfNotInstalled) {
-				RecipeHandler.addOreDictRecipe(fluxPlate, "NNN", "GIG", "NNN", 'G', Items.DIAMOND, 'I', "ingotSignalum", 'N', "nuggetSignalum");
-				RecipeHandler.addOreDictRecipe(fluxArmorplating, "I I", "III", "III", 'I', fluxPlate);
+				RecipeHandler.addOreDictRecipe(fluxPlate, "I I", "III", "III", 'I', fluxArmorplating);
+				RecipeHandler.addOreDictRecipe(fluxArmorplating, "NNN", "GIG", "NNN", 'G', Items.DIAMOND, 'I', "ingotSignalum", 'N', "nuggetSignalum");
 				RecipeHandler.addOreDictRecipe(unitGlowstoneEmpty, "FLF", "LHL", "FLF", 'L', "ingotLumium", 'F', "ingotSignalum", 'H', TEItems.signalumGlass);
 				RecipeHandler.addOreDictRecipe(unitCryotheumEmpty, "FTF", "THT", "FTF", 'T', "ingotTin", 'F', "ingotSignalum", 'H', "blockGlassHardened");
 			}

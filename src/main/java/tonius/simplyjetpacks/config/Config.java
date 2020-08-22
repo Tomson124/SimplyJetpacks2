@@ -24,9 +24,6 @@ public class Config {
     public static ConfigWrapper configCommon;
     public static ConfigWrapper configClient;
 
-    public static final String version = SimplyJetpacks.VERSION;
-    private static final String configVersion = version.substring(0, version.indexOf(".") + 4);
-
     // Item
     public static boolean enableFuelEfficiencyEnchantment = Defaults.enableFuelEfficiencyEnchantment;
     public static boolean addRAItemsIfNotInstalled = Defaults.addRAItemsIfNotInstalled;
@@ -65,8 +62,8 @@ public class Config {
     public static boolean enableStateMessages = Defaults.enableStateMessages;
 
     public static void preInit(FMLPreInitializationEvent event) {
-        configCommon = new ConfigWrapper(new File(event.getModConfigurationDirectory(), SimplyJetpacks.MODID + "/common.cfg"), configVersion, true);
-        configClient = new ConfigWrapper(new File(event.getModConfigurationDirectory(), SimplyJetpacks.MODID + "/client.cfg"), configVersion, true);
+        configCommon = new ConfigWrapper(new File(event.getModConfigurationDirectory(), SimplyJetpacks.MODID + "/common.cfg"), SimplyJetpacks.VERSION, true);
+        configClient = new ConfigWrapper(new File(event.getModConfigurationDirectory(), SimplyJetpacks.MODID + "/client.cfg"), SimplyJetpacks.VERSION, true);
         syncConfig();
         SimplyJetpacks.proxy.updateCustomKeybinds(flyKey, descendKey);
     }
