@@ -1,3 +1,11 @@
+# 2.6.2 - 24-08-2020
+- **Fixed**
+    - Access Transformer not loading or being applied - Thankyou @srs-bsns#
+    
+# 2.5.2 - 24-08-2020
+- **Fixed**
+    - Access Transformer not loading or being applied - Thankyou @srs-bsns
+    
 # 2.6.1 - 22-08-2020
 - **General**
     - Cleaned up a lot of things in preparation for full release
@@ -25,7 +33,7 @@
     - Tweaked some code, making it more efficient
     - Renamed some things internally
     - Updated Vanilla Jetpack textures
-    - Updated EnderIO textures - Thank you to CyberCat5555
+    - Updated EnderIO textures - Thank you to @CyberCat5555
     - Transitioned to Forge's Energy System - No longer dependent on RedstoneFlux
 
 - **Added**
