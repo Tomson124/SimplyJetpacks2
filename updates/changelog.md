@@ -1,6 +1,6 @@
 # 2.6.2 - 24-08-2020
 - **Fixed**
-    - Access Transformer not loading or being applied - Thankyou @srs-bsns#
+    - Access Transformer not loading or being applied - Thankyou @srs-bsns
     
 # 2.5.2 - 24-08-2020
 - **Fixed**
