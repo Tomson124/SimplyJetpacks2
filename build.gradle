@@ -66,11 +66,11 @@ minecraft {
 
 repositories {
     maven {
-        name = "Curse Maven"
+        name = "curse maven"
         url = "https://www.cursemaven.com/"
     }
     maven {
-        name = "Progwm16 maven"
+        name = "progwm16 maven"
         url = "http://dvs1.progwml6.com/files/maven/"
     }
     maven {
