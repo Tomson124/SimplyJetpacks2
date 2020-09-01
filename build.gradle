@@ -2,7 +2,10 @@ buildscript {
     repositories {
         jcenter()
         mavenCentral()
-        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven {
+            name = 'forge'
+            url = 'https://files.minecraftforge.net/maven/'
+        }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
@@ -63,12 +66,12 @@ minecraft {
 
 repositories {
     maven {
-        name = "ModMaven"
+        name = "mod maven"
         url = "https://modmaven.k-4u.nl/"
     }
     maven {
-        name = "Progwm16 maven"
-        url = "http://dvs1.progwml6.com/files/maven/"
+        name = "progwm16 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
     }
     maven {
         name = "tterrag maven"

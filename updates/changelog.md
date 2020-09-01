@@ -1,3 +1,7 @@
+# 2.5.3 - 01-09-2020
+- **Added**
+    - Added Russian translation - Thankyou @Toil
+    
 # 2.6.2 - 24-08-2020
 - **Fixed**
     - Access Transformer not loading or being applied - Thankyou @srs-bsns
