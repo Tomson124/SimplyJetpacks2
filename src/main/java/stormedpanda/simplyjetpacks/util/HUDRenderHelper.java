@@ -62,14 +62,26 @@ public class HUDRenderHelper {
         }
     }
     public static void drawStringLeft(MatrixStack matrix, ITextComponent text, int x, int y, int color, boolean shadow) {
-        fontRenderer.func_238407_a_(matrix, text, x, y, color);
+        if (shadow) {
+            fontRenderer.func_238407_a_(matrix, text, x, y, color);
+        } else {
+            fontRenderer.func_238422_b_(matrix, text, x, y, color);
+        }
     }
     public static void drawStringCenter(MatrixStack matrix, ITextComponent text, int x, int y, int color, boolean shadow) {
         float textWidth = fontRenderer.func_238414_a_(text);
-        fontRenderer.func_238407_a_(matrix, text, x - (textWidth / 2), y, color);
+        if (shadow) {
+            fontRenderer.func_238407_a_(matrix, text, x - (textWidth / 2), y, color);
+        } else {
+            fontRenderer.func_238422_b_(matrix, text, x - (textWidth / 2), y, color);
+        }
     }
     public static void drawStringRight(MatrixStack matrix, ITextComponent text, int x, int y, int color, boolean shadow) {
         float textWidth = fontRenderer.func_238414_a_(text);
-        fontRenderer.func_238407_a_(matrix, text, x - textWidth, y, color);
+        if (shadow) {
+            fontRenderer.func_238407_a_(matrix, text, x - textWidth, y, color);
+        } else {
+            fontRenderer.func_238422_b_(matrix, text, x - textWidth, y, color);
+        }
     }
 }
