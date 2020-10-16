@@ -177,25 +177,25 @@ public enum Fluxpack implements IStringSerializable {
 
 	protected void loadConfig(ConfigWrapper config) {
 		if (this.defaults.energyCapacity != null) {
-			this.energyCapacity = config.getIntS(this.defaults.section.category, "energyCapacity", "tuning", this.defaults.energyCapacity, 1, null, false);
+			this.energyCapacity = config.getIntS(this.defaults.section.category, "energyCapacity", "tuning", this.defaults.energyCapacity, 1, null, false, "The maximum amount of energy that this pack can hold.");
 		}
 		if (this.defaults.energyUsage != null) {
-			this.energyUsage = config.getIntS(this.defaults.section.category, "energyUsage", "tuning", this.defaults.energyUsage, 0, null, false);
+			this.energyUsage = config.getIntS(this.defaults.section.category, "energyUsage", "tuning", this.defaults.energyUsage, 0, null, false, "The amount of energy that this Jetpack/Fluxpack uses every tick, when being used.");
 		}
 		if (this.defaults.energyPerTickIn != null) {
-			this.energyPerTickIn = config.getIntS(this.defaults.section.category, "energyPerTickIn", "tuning", this.defaults.energyPerTickIn, 0, null, false);
+			this.energyPerTickIn = config.getIntS(this.defaults.section.category, "energyPerTickIn", "tuning", this.defaults.energyPerTickIn, 0, null, false, "The amount of energy that can be inserted into this Jetpack/Fluxpack per tick from external sources.");
 		}
 		if (this.defaults.energyPerTickOut != null) {
-			this.energyPerTickOut = config.getIntS(this.defaults.section.category, "energyPerTickOut", "tuning", this.defaults.energyPerTickOut, 0, null, false);
+			this.energyPerTickOut = config.getIntS(this.defaults.section.category, "energyPerTickOut", "tuning", this.defaults.energyPerTickOut, 0, null, false, "The amount of energy that can be extracted from this Jetpack/Fluxpack per tick by external sources. Also determines how quickly Jetpacks/Fluxpacks can charge other items.");
 		}
 		if (this.defaults.armorReduction != null) {
-			this.armorReduction = config.getIntS(this.defaults.section.category, "armorReduction", "tuning", this.defaults.armorReduction, 0, 20, false);
+			this.armorReduction = config.getIntS(this.defaults.section.category, "armorReduction", "tuning", this.defaults.armorReduction, 0, 20, false, "How well this Jetpack/Fluxpack can protect the user from damage, if armored. The higher the value, the stronger the armor will be.");
 		}
 		if (this.defaults.armorEnergyPerHit != null) {
-			this.armorEnergyPerHit = config.getIntS(this.defaults.section.category, "armorEnergyPerHit", "tuning", this.defaults.armorEnergyPerHit, 0, null, false);
+			this.armorEnergyPerHit = config.getIntS(this.defaults.section.category, "armorEnergyPerHit", "tuning", this.defaults.armorEnergyPerHit, 0, null, false, "How much energy is lost from this Jetpack/Fluxpack when the user is hit, if armored.");
 		}
 		if (this.defaults.enchantability != null) {
-			this.enchantability = config.getIntS(this.defaults.section.category, "enchantability", "tuning", this.defaults.enchantability, 0, null, false);
+			this.enchantability = config.getIntS(this.defaults.section.category, "enchantability", "tuning", this.defaults.enchantability, 0, null, false, "The enchantability of this Jetpack/Fluxpack. If set to 0, no enchantments can be applied.");
 		}
 	}
 }

@@ -285,52 +285,52 @@ public enum Jetpack implements IStringSerializable {
 
 	protected void loadConfig(ConfigWrapper config) {
 		if (this.defaults.energyCapacity != null) {
-			this.energyCapacity = config.getIntS(this.defaults.section.category, "energyCapacity", "tuning", this.defaults.energyCapacity, 1, null, false);
+			this.energyCapacity = config.getIntS(this.defaults.section.category, "energyCapacity", "tuning", this.defaults.energyCapacity, 1, null, false, "The maximum amount of energy that this pack can hold.");
 		}
 		if (this.defaults.energyUsage != null) {
-			this.energyUsage = config.getIntS(this.defaults.section.category, "energyUsage", "tuning", this.defaults.energyUsage, 0, null, false);
+			this.energyUsage = config.getIntS(this.defaults.section.category, "energyUsage", "tuning", this.defaults.energyUsage, 0, null, false, "The amount of energy that this Jetpack/Fluxpack uses every tick, when being used.");
 		}
 		if (this.defaults.energyPerTickIn != null) {
-			this.energyPerTickIn = config.getIntS(this.defaults.section.category, "energyPerTickIn", "tuning", this.defaults.energyPerTickIn, 0, null, false);
+			this.energyPerTickIn = config.getIntS(this.defaults.section.category, "energyPerTickIn", "tuning", this.defaults.energyPerTickIn, 0, null, false, "The amount of energy that can be inserted into this Jetpack/Fluxpack per tick from external sources.");
 		}
 		if (this.defaults.energyPerTickOut != null) {
-			this.energyPerTickOut = config.getIntS(this.defaults.section.category, "energyPerTickOut", "tuning", this.defaults.energyPerTickOut, 0, null, false);
+			this.energyPerTickOut = config.getIntS(this.defaults.section.category, "energyPerTickOut", "tuning", this.defaults.energyPerTickOut, 0, null, false, "The amount of energy that can be extracted from this Jetpack/Fluxpack per tick by external sources. Also determines how quickly Jetpacks/Fluxpacks can charge other items.");
 		}
 		if (this.defaults.armorReduction != null) {
-			this.armorReduction = config.getIntS(this.defaults.section.category, "armorReduction", "tuning", this.defaults.armorReduction, 0, 20, false);
+			this.armorReduction = config.getIntS(this.defaults.section.category, "armorReduction", "tuning", this.defaults.armorReduction, 0, 20, false, "How well this Jetpack/Fluxpack can protect the user from damage, if armored. The higher the value, the stronger the armor will be.");
 		}
 		if (this.defaults.armorEnergyPerHit != null) {
-			this.armorEnergyPerHit = config.getIntS(this.defaults.section.category, "armorEnergyPerHit", "tuning", this.defaults.armorEnergyPerHit, 0, null, false);
+			this.armorEnergyPerHit = config.getIntS(this.defaults.section.category, "armorEnergyPerHit", "tuning", this.defaults.armorEnergyPerHit, 0, null, false, "How much energy is lost from this Jetpack/Fluxpack when the user is hit, if armored.");
 		}
 		if (this.defaults.speedVertical != null) {
-			this.speedVertical = config.getDoubleS(this.defaults.section.category, "speedVertical", "tuning", this.defaults.speedVertical, 0D, null, false);
+			this.speedVertical = config.getDoubleS(this.defaults.section.category, "speedVertical", "tuning", this.defaults.speedVertical, 0D, null, false, "The maximum vertical speed of this Jetpack when flying.");
 		}
 		if (this.defaults.accelVertical != null) {
-			this.accelVertical = config.getDoubleS(this.defaults.section.category, "accelVertical", "tuning", this.defaults.accelVertical, 0D, null, false);
+			this.accelVertical = config.getDoubleS(this.defaults.section.category, "accelVertical", "tuning", this.defaults.accelVertical, 0D, null, false, "The vertical acceleration of this Jetpack when flying, every tick, this amount of vertical speed will be added until maximum speed is reached.");
 		}
 		if (this.defaults.speedVerticalHover != null) {
-			this.speedVerticalHover = config.getDoubleS(this.defaults.section.category, "speedVerticalHover", "tuning", this.defaults.speedVerticalHover, 0D, null, false);
+			this.speedVerticalHover = config.getDoubleS(this.defaults.section.category, "speedVerticalHover", "tuning", this.defaults.speedVerticalHover, 0D, null, false, "The maximum vertical speed of this Jetpack when flying in Hover Mode.");
 		}
 		if (this.defaults.speedVerticalHoverSlow != null) {
-			this.speedVerticalHoverSlow = config.getDoubleS(this.defaults.section.category, "speedVerticalHoverSlow", "tuning", this.defaults.speedVerticalHoverSlow, 0D, null, false);
+			this.speedVerticalHoverSlow = config.getDoubleS(this.defaults.section.category, "speedVerticalHoverSlow", "tuning", this.defaults.speedVerticalHoverSlow, 0D, null, false, "The maximum vertical speed of this Jetpack when slowly descending in Hover Mode.");
 		}
 		if (this.defaults.speedSideways != null) {
-			this.speedSideways = config.getDoubleS(this.defaults.section.category, "speedSideways", "tuning", this.defaults.speedSideways, 0D, null, false);
+			this.speedSideways = config.getDoubleS(this.defaults.section.category, "speedSideways", "tuning", this.defaults.speedSideways, 0D, null, false, "The speed of this Jetpack when flying sideways. This is mostly noticeable in Hover Mode.");
 		}
 		if (this.defaults.sprintSpeedModifier != null) {
-			this.sprintSpeedModifier = config.getDoubleS(this.defaults.section.category, "sprintSpeedModifier", "tuning", this.defaults.sprintSpeedModifier, 0D, null, false);
+			this.sprintSpeedModifier = config.getDoubleS(this.defaults.section.category, "sprintSpeedModifier", "tuning", this.defaults.sprintSpeedModifier, 0D, null, false, "How much faster this Jetpack will fly forward when sprinting. Setting this to 1.0 will make sprinting have no effect apart from the added speed from vanilla.");
 		}
 		if (this.defaults.sprintEnergyModifier != null) {
-			this.sprintEnergyModifier = config.getDoubleS(this.defaults.section.category, "sprintEnergyModifier", "tuning", this.defaults.sprintEnergyModifier, 0D, null, false);
+			this.sprintEnergyModifier = config.getDoubleS(this.defaults.section.category, "sprintEnergyModifier", "tuning", this.defaults.sprintEnergyModifier, 0D, null, false, "How much more energy this Jetpack will use when sprinting. Setting this to 1.0 will make sprinting have no effect on energy usage.");
 		}
 		if (this.defaults.emergencyHoverMode != null) {
-			this.emergencyHoverMode = config.getBooleanS(this.defaults.section.category, "emergencyHoverMode", "tuning", this.defaults.emergencyHoverMode, false);
+			this.emergencyHoverMode = config.getBooleanS(this.defaults.section.category, "emergencyHoverMode", "tuning", this.defaults.emergencyHoverMode, false, "When enabled, this Jetpack will be able to activate Hover Mode automatically when the wearer is about to die from a fall.");
 		}
 		if (this.defaults.chargerMode != null) {
-			this.chargerMode = config.getBooleanS(this.defaults.section.category, "chargerMode", "tuning", this.defaults.chargerMode, false);
+			this.chargerMode = config.getBooleanS(this.defaults.section.category, "chargerMode", "tuning", this.defaults.chargerMode, false, "When enabled, this Jetpack will be able to activate Charger Mode.");
 		}
 		if (this.defaults.enchantability != null) {
-			this.enchantability = config.getIntS(this.defaults.section.category, "enchantability", "tuning", this.defaults.enchantability, 0, null, false);
+			this.enchantability = config.getIntS(this.defaults.section.category, "enchantability", "tuning", this.defaults.enchantability, 0, null, false, "The enchantability of this Jetpack/Fluxpack. If set to 0, no enchantments can be applied.");
 		}
 	}
 }

@@ -35,7 +35,6 @@ public class ConfigGui extends GuiConfig {
             }
 
             category.setLanguageKey(langKey);
-            category.setComment(I18n.format(langKey + ".comment"));
 
             if (!category.isChild()) {
                 list.add(new ConfigElement(category));
