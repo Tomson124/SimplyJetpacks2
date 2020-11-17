@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import tonius.simplyjetpacks.client.audio.SoundJetpack;
+import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.setup.ParticleType;
 import tonius.simplyjetpacks.util.AdvancementUtil;
@@ -108,7 +109,7 @@ public class SyncHandler {
 
     @SubscribeEvent
     public void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-        checkAdvancements(event.player);
+        if (Config.joinAdvancements) checkAdvancements(event.player);
     }
 
     @SubscribeEvent
