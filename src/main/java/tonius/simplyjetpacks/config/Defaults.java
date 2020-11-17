@@ -40,4 +40,6 @@ public class Defaults {
     public static final boolean enableStateHUD = true;
     public static final boolean enableStateMessages = true;
     public static final int HUDTextColor = 0xeeeeee;
+    // Misc
+    public static final boolean joinAdvancements = true;
 }
