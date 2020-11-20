@@ -214,8 +214,6 @@ config.simplyjetpacks.sounds.tooltip=Adjust Sound Settings.
 config.simplyjetpacks.tuning=Tuning Settings
 config.simplyjetpacks.tuning.tooltip=Tune Jetpack and Fluxpack values.
 
-config.simplyjetpacks.te=Thermal Expansion Tuning Settings
-
 config.simplyjetpacks.controls.customControls=Custom Controls
 config.simplyjetpacks.controls.customControls.tooltip=When enabled, the key codes specified here will be used for the fly and descend keys. Otherwise, the vanilla jump and sneak keys will be used.
 config.simplyjetpacks.controls.flyKey=Custom Fly key
@@ -314,6 +312,11 @@ config.simplyjetpacks.tuning.chargerMode=Charger Mode
 config.simplyjetpacks.tuning.chargerMode.tooltip=When enabled, this Jetpack will be able to activate Charger Mode.
 config.simplyjetpacks.tuning.enchantability=Enchantability
 config.simplyjetpacks.tuning.enchantability.tooltip=The enchantability of this Jetpack/Fluxpack. If set to 0, no enchantments can be applied.
+
+config.simplyjetpacks.misc=Misc
+config.simplyjetpacks.misc.tooltip=Adjust various variables
+config.simplyjetpacks.misc.joinAdvancements=Join Advancements
+config.simplyjetpacks.misc.joinAdvancements.tooltip=When enabled, you will get several advancements when joining a world for the first time.
 
 subtitle.simplyjetpacks.jetpack=*Jetpack Noises*
 subtitle.simplyjetpacks.jetpack_other=*Jetpack Other Noises*
