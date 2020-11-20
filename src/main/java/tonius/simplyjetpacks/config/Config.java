@@ -20,6 +20,7 @@ public class Config {
     private static final Section sectionAesthetics = new Section(true, "aesthetics");
     private static final Section sectionSounds = new Section(true, "sounds");
     private static final Section sectionGui = new Section(true, "gui");
+    private static final Section sectionMisc = new Section(true, "misc");
 
     public static ConfigWrapper configCommon;
     public static ConfigWrapper configClient;
@@ -60,6 +61,8 @@ public class Config {
     public static boolean showExactEnergyInHUD = Defaults.showExactEnergyInHUD;
     public static boolean enableStateHUD = Defaults.enableStateHUD;
     public static boolean enableStateMessages = Defaults.enableStateMessages;
+    // Misc
+    public static boolean joinAdvancements = Defaults.joinAdvancements;
 
     public static void preInit(FMLPreInitializationEvent event) {
         configCommon = new ConfigWrapper(new File(event.getModConfigurationDirectory(), SimplyJetpacks.MODID + "/common.cfg"), SimplyJetpacks.VERSION, true);
@@ -71,7 +74,7 @@ public class Config {
     public static void processConfig() {
         enableFuelEfficiencyEnchantment = configCommon.getBooleanS(sectionItems.category, "enableFuelEfficiencyEnchantment", null, Defaults.enableFuelEfficiencyEnchantment, true, "Enable the Fuel Efficiency enchantment.");
         addRAItemsIfNotInstalled = configCommon.getBooleanS(sectionItems.category, "addRAItemsIfNotInstalled", null, Defaults.addRAItemsIfNotInstalled, true, "hen enabled, Simply Jetpacks will register some crafting components from Redstone Arsenal to make the Flux-Infused JetPlate craftable if Redstone Arsenal is not installed.");
-        
+
         enableIntegrationVanilla = configCommon.getBooleanS(sectionIntegration.category, "enableIntegrationVanilla", null, Defaults.enableIntegrationVanilla, true, "When enabled, Simply Jetpacks will register its Vanilla Jetpacks.");
         enableIntegrationEIO = configCommon.getBooleanS(sectionIntegration.category, "enableIntegrationEIO", null, Defaults.enableIntegrationEIO, true, "When enabled, Simply Jetpacks will register its EnderIO Jetpacks and Fluxpacks.");
         enableIntegrationTE = configCommon.getBooleanS(sectionIntegration.category, "enableIntegrationTE", null, Defaults.enableIntegrationTE, true, "When enabled, Simply Jetpacks will register its Thermal Expansion Jetpacks and Fluxpacks.");
@@ -104,6 +107,8 @@ public class Config {
         enableStateHUD = configClient.getBooleanS(sectionGui.category, "enableStateHUD", null, Defaults.enableStateHUD, false, "When enabled, the HUD that displays the states (engine/hover/charger) of the currently worn Jetpack or Fluxpack will show.");
         enableStateMessages = configClient.getBooleanS(sectionGui.category, "enableStateMessages", null, Defaults.enableStateMessages, false, "When enabled, switching Jetpacks or Fluxpacks on or off, or changing their modes will display a status message above the inventory bar.");
         HUDTextColor = configClient.getIntS(sectionGui.category, "HUDTextColor", null, Defaults.HUDTextColor, Integer.MIN_VALUE, Integer.MAX_VALUE, false, "Change the text color in the HUD. (Note: Color is in Integer form)");
+
+        joinAdvancements = configClient.getBooleanS(sectionMisc.category, "joinAdvancements", null, Defaults.joinAdvancements, false, "When enabled, you will get several advancements when joining a world for the first time.");
 
         Jetpack.loadAllConfigs(configCommon);
         Fluxpack.loadAllConfigs(configCommon);
