@@ -27,7 +27,7 @@
 
 # 2.5.3 - 01-09-2020
 - **Fixed**
-    - Some minor bugs
+    - Added Russian translation - Thankyou @Toil
 
 # 2.5.2 - 24-08-2020
 - **Fixed**
