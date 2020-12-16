@@ -165,6 +165,7 @@
   "config.simplyjetpacks.hudTextPosition": "Set the HUD position",
   "config.simplyjetpacks.hudScale": "Set the HUD Scale",
   "config.simplyjetpacks.hudTextShadow": "Set the HUD text shadow",
+  "config.simplyjetpacks.enableJoinAdvancements": "Enable Join Advancements",
 
   "enchantment.simplyjetpacks.fuelEfficiency": "Fuel Efficiency",
 

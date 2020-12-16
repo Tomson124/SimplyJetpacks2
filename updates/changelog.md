@@ -1,37 +1,61 @@
-# 2.5.3 - 01-09-2020
-- **Added**
-    - Added Russian translation - Thankyou @Toil
-    
+# 2.6.4 - 16-12-2020
+- **Fixed**
+    - Spectator Mode allowing jetpacks to function
+
+# 2.6.3 - 18-10-2020
+- **Fixed**
+    - Some minor bugs
+
 # 2.6.2 - 24-08-2020
 - **Fixed**
     - Access Transformer not loading or being applied - Thankyou @srs-bsns
-    
-# 2.5.2 - 24-08-2020
-- **Fixed**
-    - Access Transformer not loading or being applied - Thankyou @srs-bsns
-    
+
 # 2.6.1 - 22-08-2020
 - **General**
     - Cleaned up a lot of things in preparation for full release
-    
+
 # 2.6.0 - 07-08-2020
 - **General**
     - Update to Minecraft Version 1.16.1
-    
+
 - **Removed**
     - Integration for mods that haven't yet updated
+
+# 2.5.4 - 16-12-2020
+- **Fixed**
+    - Spectator Mode allowing jetpacks to function
+
+# 2.5.3 - 01-09-2020
+- **Fixed**
+    - Added Russian translation - Thankyou @Toil
+
+# 2.5.2 - 24-08-2020
+- **Fixed**
+    - Access Transformer not loading or being applied - Thankyou @srs-bsns
 
 # 2.5.1 - 22-08-2020
 - **General**
     - Cleaned up a lot of things in preparation for full release
-    
+
 # 2.5.0 - 13-08-2020
 - **General**
     - Update to Minecraft Version 1.15.2
-    
+
 - **Removed**
     - Integration for mods that haven't yet updated
-    
+
+# 2.2.18 - 16-12-2020
+- **Fixed**
+    - EnderIO recipes not registering through IMC and updated recipe methods
+    - Spectator Mode allowing jetpacks to function
+
+# 2.2.17 - 20-11-2020
+- **Added**
+    - Config option for advancements on world join
+
+- **Fixed**
+    - Localization of In-Game Configs
+
 # 2.2.16 - 22-08-2020
 - **General**
     - Tweaked some code, making it more efficient
@@ -45,11 +69,11 @@
     - Immersive Engineering Jetpack Integration
     - All new flashy Pilot Goggles
     - Added new armor variants to some jetpacks
- 
+
 - **Fixed**
     - Config Gui + added Config Version data
     - Jetpack texture names not matching Jetpack name
-    
+
 # 2.2.15 - 28-07-2020
 - **General**
     - Changed Redstone Repository chestplate craft to use gelid armor plates instead of ingots
@@ -60,18 +84,18 @@
     - Blue durability bar for gelid TE5 Jetpack
 
 - **Fixed**
-    - HoverMode tooltip in ru_ru.lang 
+    - HoverMode tooltip in ru_ru.lang
     - TE5 particle customizer recipes
     - Thanks to @Radviger for the pull-request with the fixes
 
 # 2.2.14 - 19-09-2019
 - **Fixed**
     - Crash when charging items and Redstone Repository is not installed - #143 #144
-    
+
 # 2.2.13 - 13-08-2019
 - **Fixed**
     - JetPlate not charging items - #138
-    
+
 # 2.2.12 - 12-05-2019
 - **Fixed**
     - Bug where Jetpacks would not show up if TD integration was disabled - #126 #136

@@ -31,7 +31,7 @@ public class ClientJetpackHandler {
                 if (!minecraft.isGamePaused()) {
                     ItemStack chest = minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
                     Item item = chest.getItem();
-                    if (!chest.isEmpty() && item instanceof JetpackItem) {
+                    if (!chest.isEmpty() && item instanceof JetpackItem && !minecraft.player.isSpectator()) {
                         if (isFlying(minecraft.player)) {
                             JetpackParticleType particleType;
                             if (minecraft.player.isInWaterOrBubbleColumn()) {

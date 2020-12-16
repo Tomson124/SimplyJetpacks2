@@ -31,6 +31,9 @@ public class JetpackSound extends TickableSound {
 
     @Override
     public void tick() {
+        if (this.player.isSpectator()) {
+            this.finishPlaying();
+        }
         BlockPos pos = this.player.getPosition();
         this.x = (float) pos.getX();
         this.y = (float) pos.getY();// - 10;

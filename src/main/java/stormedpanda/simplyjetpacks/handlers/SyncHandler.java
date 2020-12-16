@@ -4,6 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.integration.IntegrationList;
 import stormedpanda.simplyjetpacks.util.AdvancementUtil;
 
@@ -87,6 +88,8 @@ public class SyncHandler {
     }
     @SubscribeEvent
     public void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        checkAdvancements(event.getPlayer());
+        if (SimplyJetpacksConfig.COMMON.enableJoinAdvancements.get()) {
+            checkAdvancements(event.getPlayer());
+        }
     }
 }

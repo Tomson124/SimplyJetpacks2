@@ -27,6 +27,9 @@ public abstract class ConfigDefaults {
     public static final long hudScale = 1;
     public static final boolean hudTextShadow = true;
 
+    // Misc
+    public static final boolean enableJoinAdvancements = true;
+
     public enum HUDPosition {
         TOP_LEFT,
         TOP_CENTER,
