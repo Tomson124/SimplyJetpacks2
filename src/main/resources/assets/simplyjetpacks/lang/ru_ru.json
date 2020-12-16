@@ -160,6 +160,7 @@
   "config.simplyjetpacks.hudTextPosition": "Установите положение HUD",
   "config.simplyjetpacks.hudScale": "Установите масштаб HUD",
   "config.simplyjetpacks.hudTextShadow": "Установить тень текста HUD",
+  "config.simplyjetpacks.enableJoinAdvancements": "Enable Join Advancements",
 
   "enchantment.simplyjetpacks.fuelEfficiency": "Эффективность топлива",
 

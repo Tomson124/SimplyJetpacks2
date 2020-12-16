@@ -98,9 +98,11 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         super.onArmorTick(stack, world, player);
-        flyUser(player, stack, this);
-        if (this.type.canCharge() && this.isChargerOn(stack)) {
-            chargeInventory(player, stack);
+        if (!player.isSpectator()) {
+            flyUser(player, stack, this);
+            if (this.type.canCharge() && this.isChargerOn(stack)) {
+                chargeInventory(player, stack);
+            }
         }
     }
 
