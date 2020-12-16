@@ -525,21 +525,21 @@ public abstract class ModItems {
 		if (integrateEIO) {
 			ItemStack ingotConductiveIron = OreDictionary.getOres("ingotConductiveIron").get(0).copy();
 			ingotConductiveIron.setCount(10);
-			EIORecipes.addAlloySmelterRecipe("Conductive Iron Armor Plating", 3200, armorplatingEIO1, ingotConductiveIron, null, armorplatingEIO2);
+			EIORecipes.addAlloySmelterRecipe("Alloy: Conductive Iron Armor Plating", 3200, 1, armorplatingEIO1, ingotConductiveIron, null, armorplatingEIO2);
 
 			ItemStack ingotElectricalSteel = OreDictionary.getOres("ingotElectricalSteel").get(0).copy();
 			ingotElectricalSteel.setCount(10);
-			EIORecipes.addAlloySmelterRecipe("Electrical Steel Armor Plating", 4800, armorplatingEIO2, ingotElectricalSteel, null, armorplatingEIO3);
+			EIORecipes.addAlloySmelterRecipe("Alloy: Electrical Steel Armor Plating", 4800, 1, armorplatingEIO2, ingotElectricalSteel, null, armorplatingEIO3);
 
 			ItemStack ingotDarkSteel = OreDictionary.getOres("ingotDarkSteel").get(0).copy();
 			ingotDarkSteel.setCount(10);
-			EIORecipes.addAlloySmelterRecipe("Dark Steel Armor Plating", 6400, armorplatingEIO3, ingotDarkSteel, null, armorplatingEIO4);
+			EIORecipes.addAlloySmelterRecipe("Alloy: Dark Steel Armor Plating", 6400, 1, armorplatingEIO3, ingotDarkSteel, null, armorplatingEIO4);
 
 			ItemStack ingotSoularium = OreDictionary.getOres("ingotSoularium").get(0).copy();
 			ingotDarkSteel.setCount(10);
-			EIORecipes.addAlloySmelterRecipe("Dark Soularium Alloy", 32000, ingotDarkSteel, ingotSoularium, EIOItems.pulsatingCrystal, ingotDarkSoularium);
+			EIORecipes.addAlloySmelterRecipe("Alloy: Dark Soularium Alloy", 32000, 1, ingotDarkSteel, ingotSoularium, EIOItems.pulsatingCrystal, ingotDarkSoularium);
 
-			EIORecipes.addSoulBinderRecipe("Flight Control Unit", 75000, 8, "Bat", unitFlightControlEmpty, unitFlightControl);
+			EIORecipes.addSoulBinderRecipe("Soul Binder: Flight Control Unit",true, 75000, 8, "minecraft:bat", unitFlightControlEmpty, unitFlightControl);
 		}
 
 		if (integrateTE) {

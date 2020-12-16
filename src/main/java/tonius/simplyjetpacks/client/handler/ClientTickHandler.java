@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -68,7 +69,7 @@ public class ClientTickHandler {
 			while (itr.hasNext()) {
 				currentEntity = itr.next();
 				Entity entity = mc.world.getEntityByID(currentEntity);
-				if (!(entity instanceof EntityLivingBase) || entity.dimension != mc.player.dimension) {
+				if (!(entity instanceof EntityLivingBase) || entity.dimension != mc.player.dimension || ((EntityPlayer) entity).isSpectator()) {
 					itr.remove();
 				} else {
 					ParticleType particle = SyncHandler.getJetpackStates().get(currentEntity);

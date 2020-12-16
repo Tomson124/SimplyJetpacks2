@@ -131,9 +131,11 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 
 	@Override
 	public void onArmorTick(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull ItemStack stack) {
-		flyUser(player, stack, this, false);
-		if (this.canCharge(stack) && this.isChargerOn(stack)) {
-			chargeInventory(player, stack, this);
+		if (!player.isSpectator()) {
+			flyUser(player, stack, this, false);
+			if (this.canCharge(stack) && this.isChargerOn(stack)) {
+				chargeInventory(player, stack, this);
+			}
 		}
 	}
 
