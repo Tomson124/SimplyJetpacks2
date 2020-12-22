@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ici",
+    "fdf",
+    "iri"
+  ],
+  "key": {
+    "i": { "tag": "forge:ingots/enderium" },
+    "c": { "item": "thermal:rf_coil" },
+    "f": { "item": "thermal:fluxduct_resonant" },
+    "d": { "item": "thermal:dynamo_numismatic" },
+    "r": { "tag": "forge:dusts/redstone" }
+  },
+  "result": {
+    "item": "simplyjetpacks:thruster_te4",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "thermal"
+    }
+  ]
+}

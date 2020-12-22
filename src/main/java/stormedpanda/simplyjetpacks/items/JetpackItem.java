@@ -223,6 +223,14 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
                     items.add(full);
                 }
             }
+            if (IntegrationList.integrateThermalExpansion) {
+                if (getBaseName().contains("te")) {
+                    items.add(new ItemStack(this));
+                    ItemStack full = new ItemStack(this);
+                    full.getOrCreateTag().putInt(TAG_ENERGY, capacity);
+                    items.add(full);
+                }
+            }
         }
     }
 

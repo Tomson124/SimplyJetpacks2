@@ -9,8 +9,9 @@ public enum ModType {
     MEKANISM("mekanism"),
     IMMERSIVE_ENGINEERING("immersiveengineering"),
     ENDER_IO("enderio"),
-    THERMAL_EXPANSION("thermalexpansion"),
-    THERMAL_DYNAMICS("thermaldynamics");
+    THERMAL_FOUNDATION("thermal"),
+    THERMAL_EXPANSION("thermal_expansion"),
+    THERMAL_DYNAMICS("thermal_dynamics");
 
     public final String[] modids;
     public final boolean loaded;

@@ -48,6 +48,10 @@ public class PlatingReturnHandler {
         if (id == 8) { return RegistryHandler.ARMORPLATING_MEK2.get(); }
         if (id == 9) { return RegistryHandler.ARMORPLATING_MEK3.get(); }
         if (id == 10) { return RegistryHandler.ARMORPLATING_MEK4.get(); }
+        if (id == 11) { return RegistryHandler.ARMORPLATING_TE1.get(); }
+        if (id == 12) { return RegistryHandler.ARMORPLATING_TE2.get(); }
+        if (id == 13) { return RegistryHandler.ARMORPLATING_TE3.get(); }
+        if (id == 14) { return RegistryHandler.ARMORPLATING_TE4.get(); }
 
         return Items.DIAMOND.getItem();
     }

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "nnn",
+    "did",
+    "nnn"
+  ],
+  "key": {
+    "n": { "tag": "forge:nuggets/signalum" },
+    "d": { "tag": "forge:gems/diamond" },
+    "i": { "tag": "forge:ingots/signalum" }
+  },
+  "result": {
+    "item": "simplyjetpacks:armorplating_te5",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "thermal"
+    }
+  ]
+}

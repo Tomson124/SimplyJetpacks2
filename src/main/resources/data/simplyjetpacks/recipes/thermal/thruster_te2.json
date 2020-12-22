@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ici",
+    "fdf",
+    "iri"
+  ],
+  "key": {
+    "i": { "tag": "forge:ingots/invar" },
+    "c": { "item": "thermal:rf_coil" },
+    "f": { "item": "thermal:fluxduct_hardened" },
+    "d": { "item": "thermal:dynamo_compression" },
+    "r": { "tag": "forge:dusts/redstone" }
+  },
+  "result": {
+    "item": "simplyjetpacks:thruster_te2",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "thermal"
+    }
+  ]
+}

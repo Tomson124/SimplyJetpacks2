@@ -76,6 +76,9 @@ public class SyncHandler {
         if (IntegrationList.integrateMekanism) {
             AdvancementUtil.unlockAdvancement(player, "mek/root_mek");
         }
+        if (IntegrationList.integrateThermalExpansion) {
+            AdvancementUtil.unlockAdvancement(player, "thermal/root_thermal");
+        }
     }
 
     @SubscribeEvent

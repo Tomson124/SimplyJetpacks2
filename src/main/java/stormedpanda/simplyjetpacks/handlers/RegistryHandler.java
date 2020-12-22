@@ -140,4 +140,51 @@ public class RegistryHandler {
             new JetpackItem(JetpackType.MEK4));
     public static final RegistryObject<JetpackItem> JETPACK_MEK4_ARMORED = ITEMS.register("jetpack_mek4_armored", () ->
             new JetpackItem(JetpackType.MEK4_ARMORED));
+
+    // Thermal Expansion:
+    public static final RegistryObject<MetaItem> UNIT_CRYOTHEUM = ITEMS.register("unit_cryotheum", () ->
+            new MetaItem("te"));
+    public static final RegistryObject<MetaItem> UNIT_CRYOTHEUM_EMPTY = ITEMS.register("unit_cryotheum_empty", () ->
+            new MetaItem("te"));
+    public static final RegistryObject<MetaItem> UNIT_GLOWSTONE = ITEMS.register("unit_glowstone", () ->
+            new MetaItem("te"));
+    public static final RegistryObject<MetaItem> UNIT_GLOWSTONE_EMPTY = ITEMS.register("unit_glowstone_empty", () ->
+            new MetaItem("te"));
+    public static final RegistryObject<MetaItem> THRUSTER_TE1 = ITEMS.register("thruster_te1", () ->
+            new MetaItem("te"));
+    public static final RegistryObject<MetaItem> THRUSTER_TE2 = ITEMS.register("thruster_te2", () ->
+            new MetaItem("te"));
+    public static final RegistryObject<MetaItem> THRUSTER_TE3 = ITEMS.register("thruster_te3", () ->
+            new MetaItem("te"));
+    public static final RegistryObject<MetaItem> THRUSTER_TE4 = ITEMS.register("thruster_te4", () ->
+            new MetaItem("te"));
+    public static final RegistryObject<MetaItem> THRUSTER_TE5 = ITEMS.register("thruster_te5", () ->
+            new MetaItem("te"));
+    public static final RegistryObject<MetaItem> ARMORPLATING_TE1 = ITEMS.register("armorplating_te1", () ->
+            new MetaItem("te"));
+    public static final RegistryObject<MetaItem> ARMORPLATING_TE2 = ITEMS.register("armorplating_te2", () ->
+            new MetaItem("te"));
+    public static final RegistryObject<MetaItem> ARMORPLATING_TE3 = ITEMS.register("armorplating_te3", () ->
+            new MetaItem("te"));
+    public static final RegistryObject<MetaItem> ARMORPLATING_TE4 = ITEMS.register("armorplating_te4", () ->
+            new MetaItem("te"));
+
+    public static final RegistryObject<JetpackItem> JETPACK_TE1 = ITEMS.register("jetpack_te1", () ->
+            new JetpackItem(JetpackType.TE1));
+    public static final RegistryObject<JetpackItem> JETPACK_TE1_ARMORED = ITEMS.register("jetpack_te1_armored", () ->
+            new JetpackItem(JetpackType.TE1_ARMORED));
+    public static final RegistryObject<JetpackItem> JETPACK_TE2 = ITEMS.register("jetpack_te2", () ->
+            new JetpackItem(JetpackType.TE2));
+    public static final RegistryObject<JetpackItem> JETPACK_TE2_ARMORED = ITEMS.register("jetpack_te2_armored", () ->
+            new JetpackItem(JetpackType.TE2_ARMORED));
+    public static final RegistryObject<JetpackItem> JETPACK_TE3 = ITEMS.register("jetpack_te3", () ->
+            new JetpackItem(JetpackType.TE3));
+    public static final RegistryObject<JetpackItem> JETPACK_TE3_ARMORED = ITEMS.register("jetpack_te3_armored", () ->
+            new JetpackItem(JetpackType.TE3_ARMORED));
+    public static final RegistryObject<JetpackItem> JETPACK_TE4 = ITEMS.register("jetpack_te4", () ->
+            new JetpackItem(JetpackType.TE4));
+    public static final RegistryObject<JetpackItem> JETPACK_TE4_ARMORED = ITEMS.register("jetpack_te4_armored", () ->
+            new JetpackItem(JetpackType.TE4_ARMORED));
+    public static final RegistryObject<JetpackItem> JETPACK_TE5 = ITEMS.register("jetpack_te5", () ->
+            new JetpackItem(JetpackType.TE5));
 }

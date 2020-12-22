@@ -7,10 +7,11 @@
     "1.12.2-recommended" : "2.2.18.1",
     "1.15.2-latest" : "2.5.4.1",
     "1.15.2-recommended" : "2.5.4.1",
-    "1.16.1-latest" : "2.6.4.1",
-    "1.16.1-recommended" : "2.6.4.1"
+    "1.16.4-latest" : "2.6.5.2",
+    "1.16.4-recommended" : "2.6.5.2"
   },
-  "1.16.1" : {
+  "1.16.4" : {
+    "2.6.5.2" : "Update to Minecraft Version 1.16.4",
     "2.6.4.1" : "Fixed Spectator Mode allowing jetpacks to function",
     "2.6.3.0" : "Fixed some minor bugs",
     "2.6.2.2" : "Fixed AT Bug",

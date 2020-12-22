@@ -41,13 +41,24 @@ public enum JetpackType {
     MEK3("jetpack_mek3", 3, "jetpack3"),
     MEK3_ARMORED("jetpack_mek3_armored", 3, "jetpack3", true, 9),
     MEK4("jetpack_mek4", 4, "jetpack4"),
-    MEK4_ARMORED("jetpack_mek4_armored", 4, "jetpack4", true, 10);
+    MEK4_ARMORED("jetpack_mek4_armored", 4, "jetpack4", true, 10),
+
+    TE1("jetpack_te1", 1, "jetpack1"),
+    TE1_ARMORED("jetpack_te1_armored", 1, "jetpack1", true, 11),
+    TE2("jetpack_te2", 2, "jetpack2"),
+    TE2_ARMORED("jetpack_te2_armored", 2, "jetpack2", true, 12),
+    TE3("jetpack_te3", 3, "jetpack3"),
+    TE3_ARMORED("jetpack_te3_armored", 3, "jetpack3", true, 13),
+    TE4("jetpack_te4", 4, "jetpack4"),
+    TE4_ARMORED("jetpack_te4_armored", 4, "jetpack4", true, 14),
+    TE5("jetpack_te5", 5, "jetpack5", true);
 
     protected static final EnumSet<JetpackType> JETPACK_ALL = EnumSet.allOf(JetpackType.class);
     public static final EnumSet<JetpackType> JETPACK_SJ = EnumSet.range(CREATIVE, CREATIVE_ARMORED);
     public static final EnumSet<JetpackType> JETPACK_VANILLA = EnumSet.range(VANILLA1, VANILLA4_ARMORED);
     public static final EnumSet<JetpackType> JETPACK_IE = EnumSet.range(IE1, IE3_ARMORED);
     public static final EnumSet<JetpackType> JETPACK_MEK = EnumSet.range(MEK1, MEK4_ARMORED);
+    public static final EnumSet<JetpackType> JETPACK_TE = EnumSet.range(TE1, TE5);
 
     private final String name;
     private final int tier;
@@ -247,6 +258,11 @@ public enum JetpackType {
         }
         if (IntegrationList.integrateMekanism) {
             for (JetpackType jetpackType : JETPACK_MEK) {
+                jetpackType.loadJetpackConfigurations();
+            }
+        }
+        if (IntegrationList.integrateThermalExpansion) {
+            for (JetpackType jetpackType : JETPACK_TE) {
                 jetpackType.loadJetpackConfigurations();
             }
         }

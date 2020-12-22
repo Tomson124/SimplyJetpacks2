@@ -16,7 +16,9 @@ public class IntegrationList {
         integrateImmersiveEngineering = ModType.IMMERSIVE_ENGINEERING.loaded && SimplyJetpacksConfig.COMMON.enableIntegrationImmersiveEngineering.get();
         integrateMekanism = ModType.MEKANISM.loaded && SimplyJetpacksConfig.COMMON.enableIntegrationMekanism.get();
         integrateEnderIO = ModType.ENDER_IO.loaded && SimplyJetpacksConfig.COMMON.enableIntegrationEnderIO.get();
-        integrateThermalExpansion = ModType.THERMAL_EXPANSION.loaded && SimplyJetpacksConfig.COMMON.enableIntegrationThermalExpansion.get();
-        integrateThermalDynamics = ModType.THERMAL_DYNAMICS.loaded && SimplyJetpacksConfig.COMMON.enableIntegrationThermalDynamics.get();
+        if (ModType.THERMAL_FOUNDATION.loaded) {
+            integrateThermalExpansion = ModType.THERMAL_EXPANSION.loaded && SimplyJetpacksConfig.COMMON.enableIntegrationThermalExpansion.get();
+            integrateThermalDynamics = ModType.THERMAL_DYNAMICS.loaded && SimplyJetpacksConfig.COMMON.enableIntegrationThermalDynamics.get();
+        }
     }
 }

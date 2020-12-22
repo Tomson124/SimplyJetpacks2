@@ -54,7 +54,7 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
-            args '--mod', 'simplyjetpacks', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'simplyjetpacks', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
             mods {
                 simplyjetpacks {
                     source sourceSets.main
@@ -85,7 +85,13 @@ repositories {
         name = "gigaherz maven"
         url = 'https://www.dogforce-games.com/maven/'
     }
+    maven {
+        name = "curse maven"
+        url = "https://www.cursemaven.com/"
+    }
 }
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
@@ -102,7 +108,13 @@ dependencies {
     runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:generators")
     runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:tools")
 
-    runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${immersiveengineering_version}")
+    //runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${immersiveengineering_version}")
+    //runtimeOnly fg.deobf("curse.maven:immersiveengineering-231951:3141693")
+
+    runtimeOnly fg.deobf("curse.maven:cofhcore-69162:3104353")
+    runtimeOnly fg.deobf("curse.maven:thermalfoundation-222880:3104383")
+    runtimeOnly fg.deobf("curse.maven:thermalexpansion-69163:3104355")
+    //runtimeOnly fg.deobf("curse.maven:thermaldynamics-227443:x") // Not yet...
 }
 
 jar {

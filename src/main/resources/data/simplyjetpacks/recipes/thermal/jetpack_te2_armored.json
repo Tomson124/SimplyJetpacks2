@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "simplyjetpacks:jetpack_te2"
+    },
+    {
+      "item": "simplyjetpacks:armorplating_te2"
+    }
+  ],
+  "result": {
+    "item": "simplyjetpacks:jetpack_te2_armored",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "simplyjetpacks:mod_integration",
+      "modid": "thermal"
+    }
+  ]
+}

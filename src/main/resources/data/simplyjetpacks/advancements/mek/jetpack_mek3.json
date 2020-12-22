@@ -33,7 +33,7 @@
   "rewards": {
     "experience": 1
   },
-  "parent": "simplyjetpacks:mekanism/jetpack_mek2",
+  "parent": "simplyjetpacks:mek/jetpack_mek2",
   "conditions": [
     {
       "type": "forge:mod_loaded",

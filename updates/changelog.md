@@ -1,3 +1,8 @@
+# 2.6.5 - 22-12-2020
+- **General**
+    - Update to Minecraft Version 1.16.4
+    - Added foundations for Thermal Expansion integration
+
 # 2.6.4 - 16-12-2020
 - **Fixed**
     - Spectator Mode allowing jetpacks to function

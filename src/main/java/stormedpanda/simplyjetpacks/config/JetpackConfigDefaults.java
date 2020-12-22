@@ -62,7 +62,7 @@ public class JetpackConfigDefaults {
         d.emergencyHoverMode = true;
         d.chargerMode = true;
 
-        if(true) {
+        if (true) {
             d = new JetpackConfigDefaults("jetpack1", "Tier 1 Jetpack");
             d.energyCapacity = 80000;
             d.energyUsage = 32;

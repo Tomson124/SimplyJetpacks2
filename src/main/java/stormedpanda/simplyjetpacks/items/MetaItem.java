@@ -36,6 +36,11 @@ public class MetaItem extends Item {
                     items.add(new ItemStack(this));
                 }
             }
+            if (IntegrationList.integrateThermalExpansion) {
+                if (fromMod.equals("te")) {
+                    items.add(new ItemStack(this));
+                }
+            }
         }
     }
 }

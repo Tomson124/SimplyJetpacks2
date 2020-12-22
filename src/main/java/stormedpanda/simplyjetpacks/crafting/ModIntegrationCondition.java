@@ -34,6 +34,9 @@ public class ModIntegrationCondition implements ICondition {
         if (modid.equals("mekanism")) {
             return ModList.get().isLoaded(modid) && SimplyJetpacksConfig.COMMON.enableIntegrationMekanism.get();
         }
+        if (modid.equals("thermal")) {
+            return ModList.get().isLoaded(modid) && SimplyJetpacksConfig.COMMON.enableIntegrationThermalExpansion.get();
+        }
         return false;
 /*        switch (modid) {
             case "vanilla":
