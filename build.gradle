@@ -111,9 +111,9 @@ dependencies {
     //runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${immersiveengineering_version}")
     //runtimeOnly fg.deobf("curse.maven:immersiveengineering-231951:3141693")
 
-    runtimeOnly fg.deobf("curse.maven:cofhcore-69162:3104353")
-    runtimeOnly fg.deobf("curse.maven:thermalfoundation-222880:3104383")
-    runtimeOnly fg.deobf("curse.maven:thermalexpansion-69163:3104355")
+    runtimeOnly fg.deobf("curse.maven:cofhcore-69162:3151513")
+    runtimeOnly fg.deobf("curse.maven:thermalfoundation-222880:3154872")
+    runtimeOnly fg.deobf("curse.maven:thermalexpansion-69163:3151753")
     //runtimeOnly fg.deobf("curse.maven:thermaldynamics-227443:x") // Not yet...
 }
 

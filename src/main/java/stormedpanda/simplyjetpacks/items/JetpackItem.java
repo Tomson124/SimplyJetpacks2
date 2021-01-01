@@ -2,6 +2,7 @@ package stormedpanda.simplyjetpacks.items;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -24,6 +25,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.capability.CapabilityProviderEnergy;
 import stormedpanda.simplyjetpacks.capability.EnergyConversionStorage;
 import stormedpanda.simplyjetpacks.capability.IEnergyContainerItem;
@@ -41,6 +43,7 @@ import stormedpanda.simplyjetpacks.util.SJTextUtil;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Map;
 
 public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyContainerItem {
 
@@ -164,6 +167,12 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     @Override
     public int getMaxEnergyStored(ItemStack container) {
+        Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(container);
+        for (Map.Entry<Enchantment, Integer> entry : enchants.entrySet()) {
+            if (entry.getKey().getName().equals("enchantment.cofh_core.holding")) {
+                return capacity + capacity * entry.getValue() / 2;
+            }
+        }
         return capacity;
     }
 
