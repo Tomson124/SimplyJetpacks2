@@ -406,7 +406,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
             }
         }
         if (!player.world.isRemote && this.isEHoverOn(stack)) {
-            if (item.getEnergyStored(stack) > 0 && (!this.isHoverOn(stack) || !this.isEngineOn(stack))) {
+            if ((item.getEnergyStored(stack) > 0 || this.isCreative()) && (!this.isHoverOn(stack) || !this.isEngineOn(stack))) {
                 if (player.getPositionVec().getY() < -5) {
                     this.doEHover(stack, player);
                 } else {

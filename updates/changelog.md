@@ -1,3 +1,8 @@
+# 2.6.6 - 18-01-2021
+- **Fixed**
+  - Issue with creative jetpacks not being able to emergency hover
+  - Logo file not working
+  
 # 2.6.5 - 22-12-2020
 - **General**
     - Update to Minecraft Version 1.16.4
