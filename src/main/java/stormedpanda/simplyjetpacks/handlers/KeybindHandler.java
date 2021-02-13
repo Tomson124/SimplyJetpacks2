@@ -72,15 +72,15 @@ public class KeybindHandler {
         }
     }
 
-    private static void tickStart() {
+    private static void tickEnd() {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player != null) {
-            boolean flyState = mc.gameSettings.keyBindJump.isKeyDown();
-            boolean descendState = mc.gameSettings.keyBindSneak.isKeyDown();
-            boolean forwardState = mc.gameSettings.keyBindForward.isKeyDown();
-            boolean backwardState = mc.gameSettings.keyBindBack.isKeyDown();
-            boolean leftState = mc.gameSettings.keyBindLeft.isKeyDown();
-            boolean rightState = mc.gameSettings.keyBindRight.isKeyDown();
+            boolean flyState = mc.player.movementInput.jump;
+            boolean descendState = mc.player.movementInput.sneaking;
+            boolean forwardState = mc.player.movementInput.forwardKeyDown;
+            boolean backwardState = mc.player.movementInput.backKeyDown;
+            boolean leftState = mc.player.movementInput.leftKeyDown;
+            boolean rightState = mc.player.movementInput.rightKeyDown;
             if (flyState != lastFlyState || descendState != lastDescendState || forwardState != lastForwardState || backwardState != lastBackwardState || leftState != lastLeftState || rightState != lastRightState) {
                 lastFlyState = flyState;
                 lastDescendState = descendState;
@@ -96,8 +96,8 @@ public class KeybindHandler {
 
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent evt) {
-        if (evt.phase == TickEvent.Phase.START) {
-            tickStart();
+        if (evt.phase == TickEvent.Phase.END) {
+            tickEnd();
         }
     }
 }
