@@ -10,7 +10,8 @@
     "1.16.4-latest" : "2.6.6.0",
     "1.16.4-recommended" : "2.6.6.0"
   },
-  "1.16.4" : {
+  "1.16.5" : {
+    "2.6.7.1" : "Updated to Minecraft Version 1.16.5",
     "2.6.6.0" : "Fixed issue with creative jetpacks not being able to emergency hover",
     "2.6.5.2" : "Update to Minecraft Version 1.16.4",
     "2.6.4.1" : "Fixed Spectator Mode allowing jetpacks to function",

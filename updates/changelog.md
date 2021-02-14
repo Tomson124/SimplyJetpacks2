@@ -1,8 +1,14 @@
+# 2.6.7 - 13-02-2021
+- **General**
+    - Updated to Minecraft Version 1.16.5
+- **Added**
+    - Added support for Controllable (by MrCrayfish) - Thankyou @MrCrayfish
+
 # 2.6.6 - 18-01-2021
 - **Fixed**
-  - Issue with creative jetpacks not being able to emergency hover
-  - Logo file not working
-  
+    - Issue with creative jetpacks not being able to emergency hover
+    - Logo file not working
+
 # 2.6.5 - 22-12-2020
 - **General**
     - Update to Minecraft Version 1.16.4
