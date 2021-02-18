@@ -1,8 +1,16 @@
 package stormedpanda.simplyjetpacks;
 
-import net.minecraft.item.crafting.IRecipeSerializer;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
@@ -27,12 +35,20 @@ import stormedpanda.simplyjetpacks.crafting.PlatingReturnHandler;
 import stormedpanda.simplyjetpacks.handlers.KeybindHandler;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.handlers.SyncHandler;
+import stormedpanda.simplyjetpacks.integration.CurioJetpack;
 import stormedpanda.simplyjetpacks.integration.IntegrationList;
+import stormedpanda.simplyjetpacks.items.JetpackItem;
 import stormedpanda.simplyjetpacks.items.JetpackType;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
 import stormedpanda.simplyjetpacks.sound.ModSounds;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.CuriosCapability;
+import top.theillusivec4.curios.api.SlotTypeMessage;
+import top.theillusivec4.curios.api.type.capability.ICurio;
 
-import java.util.stream.Collectors;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.util.Direction;
 
 @Mod(SimplyJetpacks.MODID)
 public class SimplyJetpacks {
@@ -59,6 +75,7 @@ public class SimplyJetpacks {
         MinecraftForge.EVENT_BUS.register(new EnergyTransferHandler());
         MinecraftForge.EVENT_BUS.register(new ModSounds());
         MinecraftForge.EVENT_BUS.register(SimplyJetpacksConfig.class);
+        MinecraftForge.EVENT_BUS.addGenericListener(ItemStack.class, this::addCaps);
 
         // TODO: Get all configs in one folder?
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SimplyJetpacksConfig.CLIENT_SPEC, "simplyjetpacks-client.toml");
@@ -87,6 +104,7 @@ public class SimplyJetpacks {
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
         InterModComms.sendTo(MODID, "helloworld", () -> { LOGGER.info("Hello from Simply Jetpacks 2"); return "Hello!";});
+        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("jetpack").size(1).build());
     }
 
     private void processIMC(final InterModProcessEvent event) {
@@ -109,4 +127,21 @@ public class SimplyJetpacks {
         LOGGER.info("Recipe Serializers Registered.");
         CraftingHelper.register(ModIntegrationCondition.Serializer.INSTANCE);
     }
+
+    private void addCaps(AttachCapabilitiesEvent<ItemStack> event) {
+        ItemStack stack = event.getObject();
+        if (stack.getItem() instanceof JetpackItem) {
+            CurioJetpack jetpackItem = new CurioJetpack(stack);
+            event.addCapability(CuriosCapability.ID_ITEM, new ICapabilityProvider() {
+                final LazyOptional<ICurio> curio = LazyOptional.of(() -> jetpackItem);
+
+                @Nonnull
+                @Override
+                public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+                    return CuriosCapability.ITEM.orEmpty(cap, curio);
+                }
+            });
+        }
+    }
+
 }

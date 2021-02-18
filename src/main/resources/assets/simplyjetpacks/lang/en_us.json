@@ -205,5 +205,7 @@
 
   "subtitle.simplyjetpacks.jetpack": "*Jetpack Noises*",
   "subtitle.simplyjetpacks.jetpack_other": "*Jetpack Other Noises*",
-  "subtitle.simplyjetpacks.rocket": "*Rocket Noises*"
+  "subtitle.simplyjetpacks.rocket": "*Rocket Noises*",
+
+  "curios.identifier.jetpack": "Jetpack"
 }

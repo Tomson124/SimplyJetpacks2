@@ -1,20 +1,22 @@
 package stormedpanda.simplyjetpacks.client.hud;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
+import stormedpanda.simplyjetpacks.items.JetpackItem;
+import stormedpanda.simplyjetpacks.util.HUDRenderHelper;
+import stormedpanda.simplyjetpacks.util.JetpackUtil;
+
 import net.minecraft.client.MainWindow;
 import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
-import stormedpanda.simplyjetpacks.items.JetpackItem;
-import stormedpanda.simplyjetpacks.util.HUDRenderHelper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HUDHandler {
 
@@ -27,7 +29,7 @@ public class HUDHandler {
         }
         if (SimplyJetpacksConfig.CLIENT.enableJetpackHud.get() && !minecraft.gameSettings.hideGUI && !minecraft.gameSettings.showDebugInfo) {
             if (minecraft.player != null) {
-                ItemStack chestplate = minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+                ItemStack chestplate = JetpackUtil.getJetpackFromBothSlots(minecraft.player);
                 Item item = chestplate.getItem();
 
                 if (!chestplate.isEmpty() && item instanceof JetpackItem) {

@@ -1,0 +1,10 @@
+{
+  "required": true,
+  "package": "stormedpanda.simplyjetpacks.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "simplyjetpacks.refmap.json",
+  "mixins": [
+    "MixinBipedArmorLayer"
+  ],
+  "minVersion": "0.8"
+}
