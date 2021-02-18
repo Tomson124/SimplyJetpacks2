@@ -23,6 +23,7 @@ import stormedpanda.simplyjetpacks.network.packets.PacketToggleCharger;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleEHover;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleEngine;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleHover;
+import stormedpanda.simplyjetpacks.util.JetpackUtil;
 
 import javax.annotation.Nonnull;
 
@@ -53,7 +54,7 @@ public class JetpackGuiScreen extends Screen {
         this.addButton(new ImageButton(relX + 120, relY + 16, 20, 20, 176, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleEngine())));
         this.addButton(new ImageButton(relX + 120, relY + 38, 20, 20, 216, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleHover())));
 
-        ItemStack stack = minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+        ItemStack stack = JetpackUtil.getJetpackFromBothSlots(minecraft.player);
         Item item = stack.getItem();
         if (item instanceof JetpackItem) {
             JetpackItem jetpack = (JetpackItem) item;
@@ -84,7 +85,7 @@ public class JetpackGuiScreen extends Screen {
         float mousePosY = (float) mouseY;
         minecraft.getTextureManager().bindTexture(GUI_BASE);
         this.blit(stack, relX, relY, 0, 0, WIDTH, HEIGHT);
-        drawCenteredString(stack, fontRenderer, new TranslationTextComponent(minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST).getTranslationKey()), relX + 88, relY + 5, 0xFFFFFF);
+        drawCenteredString(stack, fontRenderer, new TranslationTextComponent(JetpackUtil.getJetpackFromBothSlots(minecraft.player).getTranslationKey()), relX + 88, relY + 5, 0xFFFFFF);
         InventoryScreen.drawEntityOnScreen(relX + 80, relY + 90, 40, (float)(relX + 51) - mousePosX, (float)(relY + 75 - 50) - mousePosY, minecraft.player);
         minecraft.getTextureManager().bindTexture(ENERGY_BAR);
         blit(stack, relX + 10, relY + 16, 0, 0, 14, 78, 128, 128);
@@ -95,7 +96,7 @@ public class JetpackGuiScreen extends Screen {
     }
 
     private int getEnergyBarAmount() {
-        ItemStack stack = minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+        ItemStack stack = JetpackUtil.getJetpackFromBothSlots(minecraft.player);
         Item item = stack.getItem();
         if (item instanceof JetpackItem) {
             JetpackItem jetpack = (JetpackItem) item;
