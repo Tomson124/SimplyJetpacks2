@@ -84,6 +84,7 @@ public class Config {
         enableIntegrationIE = configCommon.getBooleanS(sectionIntegration.category, "enableIntegrationIE", null, Defaults.enableIntegrationIE, true, "When enabled, Simply Jetpacks will register its Immersive Engineering Jetpacks.");
         enableIntegrationRR = configCommon.getBooleanS(sectionIntegration.category, "enableIntegrationRR", null, Defaults.enableIntegrationRR, true, "When enabled, Simply Jetpacks will register its Redstone Repository Tier5 JetPlate recipes.");
         gelidEnderiumEnergyUsageBonus = configCommon.getIntS(sectionIntegration.category, "gelidEnderiumEnergyUsageBonus", null, Defaults.gelidEnderiumEnergyUsageBonus, 0, 100, true, "When set to a value between 0-100, changes the energy efficiency bonus of the Enderium Armored Jetplate (Example: 80 uses energy at 80% rate).");
+        joinAdvancements = configCommon.getBooleanS(sectionMisc.category, "joinAdvancements", null, Defaults.joinAdvancements, false, "When enabled, you will get several advancements when joining a world for the first time.");
 
         customControls = configClient.getBooleanS(sectionControls.category, "customControls", null, Defaults.customControls, false, "When enabled, the key codes specified here will be used for the fly and descend keys. Otherwise, the vanilla jump and sneak keys will be used.");
         flyKey = configClient.getStringS(sectionControls.category, "flyKey", null, Defaults.flyKey, false, "The name of the Fly key when Custom Controls are enabled.");
@@ -107,8 +108,6 @@ public class Config {
         enableStateHUD = configClient.getBooleanS(sectionGui.category, "enableStateHUD", null, Defaults.enableStateHUD, false, "When enabled, the HUD that displays the states (engine/hover/charger) of the currently worn Jetpack or Fluxpack will show.");
         enableStateMessages = configClient.getBooleanS(sectionGui.category, "enableStateMessages", null, Defaults.enableStateMessages, false, "When enabled, switching Jetpacks or Fluxpacks on or off, or changing their modes will display a status message above the inventory bar.");
         HUDTextColor = configClient.getIntS(sectionGui.category, "HUDTextColor", null, Defaults.HUDTextColor, Integer.MIN_VALUE, Integer.MAX_VALUE, false, "Change the text color in the HUD. (Note: Color is in Integer form)");
-
-        joinAdvancements = configClient.getBooleanS(sectionMisc.category, "joinAdvancements", null, Defaults.joinAdvancements, false, "When enabled, you will get several advancements when joining a world for the first time.");
 
         Jetpack.loadAllConfigs(configCommon);
         Fluxpack.loadAllConfigs(configCommon);
