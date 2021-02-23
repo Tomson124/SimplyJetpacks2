@@ -1,3 +1,19 @@
+# 2.6.7 - 13-02-2021
+- **General**
+    - Updated to Minecraft Version 1.16.5
+- **Added**
+    - Added support for Controllable (by MrCrayfish) - Thankyou @MrCrayfish
+
+# 2.6.6 - 18-01-2021
+- **Fixed**
+    - Issue with creative jetpacks not being able to emergency hover
+    - Logo file not working
+
+# 2.6.5 - 22-12-2020
+- **General**
+    - Update to Minecraft Version 1.16.4
+    - Added foundations for Thermal Expansion integration
+
 # 2.6.4 - 16-12-2020
 - **Fixed**
     - Spectator Mode allowing jetpacks to function
@@ -44,6 +60,12 @@
 - **Removed**
     - Integration for mods that haven't yet updated
 
+# 2.2.19 - 23-02-2021
+- **Fixed**
+    - joinAdvancement config being on wrong side
+    - Curse Maven dependency
+    - Spectator checks
+    
 # 2.2.18 - 16-12-2020
 - **Fixed**
     - EnderIO recipes not registering through IMC and updated recipe methods

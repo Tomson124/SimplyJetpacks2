@@ -3,14 +3,17 @@
   "promos": {
     "1.10.2-latest" : "2.1.3.55",
     "1.10.2-recommended" : "2.1.3.55",
-    "1.12.2-latest" : "2.2.18.1",
-    "1.12.2-recommended" : "2.2.18.1",
+    "1.12.2-latest" : "2.2.19.0",
+    "1.12.2-recommended" : "2.2.19.0",
     "1.15.2-latest" : "2.5.4.1",
     "1.15.2-recommended" : "2.5.4.1",
-    "1.16.1-latest" : "2.6.4.1",
-    "1.16.1-recommended" : "2.6.4.1"
+    "1.16.4-latest" : "2.6.6.0",
+    "1.16.4-recommended" : "2.6.6.0"
   },
-  "1.16.1" : {
+  "1.16.5" : {
+    "2.6.7.1" : "Updated to Minecraft Version 1.16.5",
+    "2.6.6.0" : "Fixed issue with creative jetpacks not being able to emergency hover",
+    "2.6.5.2" : "Update to Minecraft Version 1.16.4",
     "2.6.4.1" : "Fixed Spectator Mode allowing jetpacks to function",
     "2.6.3.0" : "Fixed some minor bugs",
     "2.6.2.2" : "Fixed AT Bug",
@@ -25,6 +28,7 @@
     "2.5.0.1" : "Update to Minecraft Version 1.15.2"
   },
   "1.12.2" : {
+    "2.2.19.0" : "Fixed some bugs",
     "2.2.18.1" : "Fixed EnderIO recipes not registering",
     "2.2.17.0" : "Added config option for advancements on world join",
     "2.2.16.1" : "Added Mekanism and Immersive Engineering Integration",
