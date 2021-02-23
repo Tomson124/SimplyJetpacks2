@@ -12,6 +12,10 @@ buildscript {
     }
 }
 
+plugins {
+  id "com.wynprice.cursemaven" version "2.1.5"
+}
+
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'idea'
 apply plugin: 'maven'
