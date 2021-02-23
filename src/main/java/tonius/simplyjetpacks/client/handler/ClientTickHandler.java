@@ -73,7 +73,8 @@ public class ClientTickHandler {
                     itr.remove();
                 } else {
                     ParticleType particle = SyncHandler.getJetpackStates().get(currentEntity);
-                    if (particle != null && !((EntityPlayer) entity).isSpectator()) {
+                    final boolean isSpectator = entity instanceof EntityPlayer && ((EntityPlayer) entity).isSpectator();
+                    if (particle != null && !isSpectator) {
                         if (entity.isInWater() && particle != ParticleType.NONE) {
                             particle = ParticleType.BUBBLE;
                         }
