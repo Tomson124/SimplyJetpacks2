@@ -34,6 +34,7 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+            properties 'mixin.env.disableRefMap': 'true'
             mods {
                 simplyjetpacks {
                     source sourceSets.main
@@ -110,11 +111,14 @@ dependencies {
 
     //runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${immersiveengineering_version}")
     //runtimeOnly fg.deobf("curse.maven:immersiveengineering-231951:3141693")
+    runtimeOnly fg.deobf("curse.maven:immersiveengineering-231951:3189063")
 
     runtimeOnly fg.deobf("curse.maven:cofhcore-69162:3155824")
     runtimeOnly fg.deobf("curse.maven:thermalfoundation-222880:3155830")
     runtimeOnly fg.deobf("curse.maven:thermalexpansion-69163:3155832")
     //runtimeOnly fg.deobf("curse.maven:thermaldynamics-227443:x")
+
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
 }
 
 jar {
