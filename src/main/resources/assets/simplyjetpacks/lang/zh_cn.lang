@@ -172,7 +172,7 @@ tooltip.simplyjetpacks.mysterious_potato.description=能用来做些什么...
 
 gui.simplyjetpacks.hud.jetpack.energy=喷气背包能源
 gui.simplyjetpacks.hud.fluxpack.energy=储能背包能源
-gui.simplyjetpacks.hud.energy.depleted=能量耗尽
+gui.simplyjetpacks.hud.energy.depleted=能源耗尽
 gui.simplyjetpacks.hud.state.engine=引擎
 gui.simplyjetpacks.hud.state.charger=充能
 gui.simplyjetpacks.hud.state.hover=悬停
