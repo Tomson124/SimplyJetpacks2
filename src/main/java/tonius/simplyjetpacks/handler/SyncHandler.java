@@ -90,6 +90,8 @@ public class SyncHandler {
 
     // This is here because it does not want to be lonely.
     public static void checkAdvancements(EntityPlayer player) {
+        AdvancementUtil.unlockAdvancement(player, "root");
+
         if (ModItems.integrateVanilla) {
             AdvancementUtil.unlockAdvancement(player, "vanilla/root_vanilla");
         }
