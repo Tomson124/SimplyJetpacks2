@@ -28,6 +28,7 @@
     "2.5.0.1" : "Update to Minecraft Version 1.15.2"
   },
   "1.12.2" : {
+    "2.2.20.0" : "Fixed bug with joinAdvancements",
     "2.2.19.0" : "Fixed some bugs",
     "2.2.18.1" : "Fixed EnderIO recipes not registering",
     "2.2.17.0" : "Added config option for advancements on world join",
