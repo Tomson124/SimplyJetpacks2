@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import org.apache.commons.lang3.tuple.Pair;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
-import stormedpanda.simplyjetpacks.integration.IntegrationList;
 
 @Mod.EventBusSubscriber(modid = SimplyJetpacks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SimplyJetpacksConfig {
@@ -200,11 +199,11 @@ public class SimplyJetpacksConfig {
 
     @SubscribeEvent
     public static void onLoad(final ModConfig.Loading event) {
-        IntegrationList.init();
+        //IntegrationList.init();
     }
 
     @SubscribeEvent
     public static void onFileChange(final ModConfig.Reloading event) {
-        IntegrationList.init();
+        //IntegrationList.init();
     }
 }

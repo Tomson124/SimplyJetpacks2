@@ -6,7 +6,6 @@ import java.util.Map;
 public class JetpackConfigDefaults {
     
     private static final Map<String, JetpackConfigDefaults> DEFAULTS = new HashMap<>();
-    //public final Section section;
 
     // Base
     public int energyCapacity;
@@ -29,26 +28,39 @@ public class JetpackConfigDefaults {
     public boolean chargerMode;
 
     public JetpackConfigDefaults(String key, String sectionTitle) {
-        //this.section = new Section(false, "Tuning - " + sectionTitle, "tuning." + key);
         DEFAULTS.put(key, this);
     }
 
-    public static JetpackConfigDefaults get(String key)
-    {
+    public static JetpackConfigDefaults get(String key) {
         return DEFAULTS.get(key);
     }
 
     // TODO: add other jetpack values back in
     static {
         // Simply Jetpacks
-        JetpackConfigDefaults d = new JetpackConfigDefaults("jetpackPotato", "Potato Jetpack");
+        JetpackConfigDefaults d = new JetpackConfigDefaults("jetpack_potato", "Potato Jetpack");
         d.energyCapacity = 1200;
         d.energyUsage = 45;
         d.speedVertical = 0.9D;
         d.accelVertical = 0.5D;
 
-        d = new JetpackConfigDefaults("jetpackCreative", "Creative Jetpack");
+        d = new JetpackConfigDefaults("jetpack_creative", "Creative Jetpack");
         d.energyCapacity = 0;
+        d.energyPerTickOut = 0;
+        d.energyPerTickIn = 0;
+        d.armorReduction = 12;
+        d.enchantability = 20;
+        d.speedVertical = 0.9D;
+        d.accelVertical = 0.15D;
+        d.speedVerticalHover = 0.45D;
+        d.speedVerticalHoverSlow = 0.0D;
+        d.speedSideways = 0.21D;
+        d.sprintSpeedModifier = 2.5D;
+        d.emergencyHoverMode = true;
+        d.chargerMode = true;
+
+        d = new JetpackConfigDefaults("jetpack_creative_armored", "Creative Jetpack Armored");
+        d.energyCapacity = 500;
         d.energyPerTickOut = 0;
         d.energyPerTickIn = 0;
         d.armorReduction = 12;

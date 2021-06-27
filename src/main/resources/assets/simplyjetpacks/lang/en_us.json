@@ -201,9 +201,46 @@
   "config.simplyjetpacks.hudTextShadow": "Set the HUD text shadow",
   "config.simplyjetpacks.enableJoinAdvancements": "Enable Join Advancements",
 
+  "config.simplyjetpacks.tuning.energyCapacity": "Energy Capacity",
+  "config.simplyjetpacks.tuning.energyCapacity.tooltip": "The maximum amount of energy that this pack can hold.",
+  "config.simplyjetpacks.tuning.energyUsage": "Energy Usage",
+  "config.simplyjetpacks.tuning.energyUsage.tooltip": "The amount of energy that this Jetpack/Fluxpack uses every tick, when being used.",
+  "config.simplyjetpacks.tuning.energyPerTickIn": "Energy Per Tick In",
+  "config.simplyjetpacks.tuning.energyPerTickIn.tooltip": "The amount of energy that can be inserted into this Jetpack/Fluxpack per tick from external sources.",
+  "config.simplyjetpacks.tuning.energyPerTickOut": "Energy Per Tick Out",
+  "config.simplyjetpacks.tuning.energyPerTickOut.tooltip": "The amount of energy that can be extracted from this Jetpack/Fluxpack per tick by external sources. Also determines how quickly Jetpacks/Fluxpacks can charge other items.",
+  "config.simplyjetpacks.tuning.armorReduction": "Armor Reduction",
+  "config.simplyjetpacks.tuning.armorReduction.tooltip": "How well this Jetpack/Fluxpack can protect the user from damage, if armored. The higher the value, the stronger the armor will be.",
+  "config.simplyjetpacks.tuning.armorEnergyPerHit": "Armor Energy Per Hit",
+  "config.simplyjetpacks.tuning.armorEnergyPerHit.tooltip": "How much energy is lost from this Jetpack/Fluxpack when the user is hit, if armored.",
+  "config.simplyjetpacks.tuning.enchantability": "Enchantability",
+  "config.simplyjetpacks.tuning.enchantability.tooltip": "The enchantability of this Jetpack/Fluxpack. If set to 0, no enchantments can be applied.",
+
+  "config.simplyjetpacks.tuning.speedVertical": "Vertical Speed",
+  "config.simplyjetpacks.tuning.speedVertical.tooltip": "The maximum vertical speed of this Jetpack when flying.",
+  "config.simplyjetpacks.tuning.accelVertical": "Vertical Acceleration",
+  "config.simplyjetpacks.tuning.accelVertical.tooltip": "The vertical acceleration of this Jetpack when flying, every tick, this amount of vertical speed will be added until maximum speed is reached.",
+  "config.simplyjetpacks.tuning.speedVerticalHover": "Vertical Speed (Hover Mode)",
+  "config.simplyjetpacks.tuning.speedVerticalHover.tooltip": "The maximum vertical speed of this Jetpack when flying in Hover Mode.",
+  "config.simplyjetpacks.tuning.speedVerticalHoverSlow": "Vertical Speed (Hover Mode / Slow Descent)",
+  "config.simplyjetpacks.tuning.speedVerticalHoverSlow.tooltip": "The maximum vertical speed of this Jetpack when slowly descending in Hover Mode.",
+  "config.simplyjetpacks.tuning.speedSideways": "Sideways Speed",
+  "config.simplyjetpacks.tuning.speedSideways.tooltip": "The speed of this Jetpack when flying sideways. This is mostly noticeable in Hover Mode.",
+  "config.simplyjetpacks.tuning.sprintSpeedModifier": "Sprint Speed Multiplier",
+  "config.simplyjetpacks.tuning.sprintSpeedModifier.tooltip": "How much faster this Jetpack will fly forward when sprinting. Setting this to 1.0 will make sprinting have no effect apart from the added speed from vanilla.",
+  "config.simplyjetpacks.tuning.sprintEnergyModifier": "Sprint Energy Usage Multiplier",
+  "config.simplyjetpacks.tuning.sprintEnergyModifier.tooltip": "How much more energy this Jetpack will use when sprinting. Setting this to 1.0 will make sprinting have no effect on energy usage.",
+  "config.simplyjetpacks.tuning.emergencyHoverMode": "Emergency Hover Mode",
+  "config.simplyjetpacks.tuning.emergencyHoverMode.tooltip": "When enabled, this Jetpack will be able to activate Hover Mode automatically when the wearer is about to die from a fall.",
+  "config.simplyjetpacks.tuning.chargerMode": "Charger Mode",
+  "config.simplyjetpacks.tuning.chargerMode.tooltip": "When enabled, this Jetpack will be able to activate Charger Mode.",
+
   "enchantment.simplyjetpacks.fuelEfficiency": "Fuel Efficiency",
 
   "subtitle.simplyjetpacks.jetpack": "*Jetpack Noises*",
   "subtitle.simplyjetpacks.jetpack_other": "*Jetpack Other Noises*",
-  "subtitle.simplyjetpacks.rocket": "*Rocket Noises*"
+  "subtitle.simplyjetpacks.rocket": "*Rocket Noises*",
+
+  "test.tooltip.energyCapacity": "energy capacity: %s",
+  "test.tooltip.energyUsage": "energy usage: %s"
 }
