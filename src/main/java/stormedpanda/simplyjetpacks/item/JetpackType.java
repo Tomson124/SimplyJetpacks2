@@ -1,6 +1,6 @@
 package stormedpanda.simplyjetpacks.item;
 
-import stormedpanda.simplyjetpacks.config.NewJetpackConfig;
+import stormedpanda.simplyjetpacks.config.JetpackDataHolder;
 
 import java.util.EnumSet;
 
@@ -112,22 +112,21 @@ public enum JetpackType {
     }
 
     public void LoadConfig() {
-        this.energyCapacity = NewJetpackConfig.packs.get("jetpack_" + this.name).energyCapacity.get();
-        this.energyUsage = NewJetpackConfig.packs.get("jetpack_" + this.name).energyUsage.get();
-        this.energyPerTickIn = NewJetpackConfig.packs.get("jetpack_" + this.name).energyPerTickIn.get();
-        this.energyPerTickOut = NewJetpackConfig.packs.get("jetpack_" + this.name).energyPerTickOut.get();
-        this.armorReduction = NewJetpackConfig.packs.get("jetpack_" + this.name).armorReduction.get();
-        this.armorEnergyPerHit = NewJetpackConfig.packs.get("jetpack_" + this.name).armorEnergyPerHit.get();
-        this.enchantability = NewJetpackConfig.packs.get("jetpack_" + this.name).enchantability.get();
-
-        this.speedVertical = NewJetpackConfig.packs.get("jetpack_" + this.name).speedVertical.get();
-        this.accelVertical = NewJetpackConfig.packs.get("jetpack_" + this.name).accelVertical.get();
-        this.speedVerticalHover = NewJetpackConfig.packs.get("jetpack_" + this.name).speedVerticalHover.get();
-        this.speedVerticalHoverSlow = NewJetpackConfig.packs.get("jetpack_" + this.name).speedVerticalHoverSlow.get();
-        this.speedSideways = NewJetpackConfig.packs.get("jetpack_" + this.name).speedSideways.get();
-        this.sprintSpeedModifier = NewJetpackConfig.packs.get("jetpack_" + this.name).sprintSpeedModifier.get();
-        this.sprintEnergyModifier = NewJetpackConfig.packs.get("jetpack_" + this.name).sprintEnergyModifier.get();
-        this.emergencyHoverMode = NewJetpackConfig.packs.get("jetpack_" + this.name).emergencyHoverMode.get();
-        this.chargerMode = NewJetpackConfig.packs.get("jetpack_" + this.name).chargerMode.get();
+        this.energyCapacity = JetpackDataHolder.DEFAULTS.get(this.name).energyCapacity;
+        this.energyUsage = JetpackDataHolder.DEFAULTS.get(this.name).energyUsage;
+        this.energyPerTickIn = JetpackDataHolder.DEFAULTS.get(this.name).energyPerTickIn;
+        this.energyPerTickOut = JetpackDataHolder.DEFAULTS.get(this.name).energyPerTickOut;
+        this.armorReduction = JetpackDataHolder.DEFAULTS.get(this.name).armorReduction;
+        this.armorEnergyPerHit = JetpackDataHolder.DEFAULTS.get(this.name).armorEnergyPerHit;
+        this.enchantability = JetpackDataHolder.DEFAULTS.get(this.name).enchantability;
+        this.speedVertical = JetpackDataHolder.DEFAULTS.get(this.name).speedVertical;
+        this.accelVertical = JetpackDataHolder.DEFAULTS.get(this.name).accelVertical;
+        this.speedVerticalHover = JetpackDataHolder.DEFAULTS.get(this.name).speedVerticalHover;
+        this.speedVerticalHoverSlow = JetpackDataHolder.DEFAULTS.get(this.name).speedVerticalHoverSlow;
+        this.speedSideways = JetpackDataHolder.DEFAULTS.get(this.name).speedSideways;
+        this.sprintSpeedModifier = JetpackDataHolder.DEFAULTS.get(this.name).sprintSpeedModifier;
+        this.sprintEnergyModifier = JetpackDataHolder.DEFAULTS.get(this.name).sprintEnergyModifier;
+        this.emergencyHoverMode = JetpackDataHolder.DEFAULTS.get(this.name).emergencyHoverMode;
+        this.chargerMode = JetpackDataHolder.DEFAULTS.get(this.name).chargerMode;
     }
 }

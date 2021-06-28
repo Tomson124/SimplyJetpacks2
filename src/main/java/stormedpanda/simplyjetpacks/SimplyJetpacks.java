@@ -18,7 +18,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import stormedpanda.simplyjetpacks.config.NewConfig;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.init.RegistryHandler;
 import stormedpanda.simplyjetpacks.item.JetpackType;
@@ -48,17 +47,14 @@ public class SimplyJetpacks {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(SimplyJetpacksConfig.class);
 
-/*        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SimplyJetpacksConfig.CLIENT_SPEC, "simplyjetpacks-client.toml");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks-common.toml");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SimplyJetpacksConfig.SERVER_SPEC, "simplyjetpacks-server.toml");*/
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SimplyJetpacksConfig.CLIENT_CONFIG);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_CONFIG);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SimplyJetpacksConfig.SERVER_CONFIG);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, NewConfig.server_config);//, "simplyjetpacks-server-2.toml");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, NewConfig.client_config);//, "simplyjetpacks-client-2.toml");
-
-        NewConfig.LoadConfig(NewConfig.server_config, FMLPaths.CONFIGDIR.get().resolve("simplyjetpacks-server.toml").toString());
-        NewConfig.LoadConfig(NewConfig.client_config, FMLPaths.CONFIGDIR.get().resolve("simplyjetpacks-client.toml").toString());
+        SimplyJetpacksConfig.LoadConfig(SimplyJetpacksConfig.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve("simplyjetpacks-client.toml"));
+        SimplyJetpacksConfig.LoadConfig(SimplyJetpacksConfig.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("simplyjetpacks-common.toml"));
+        SimplyJetpacksConfig.LoadConfig(SimplyJetpacksConfig.SERVER_CONFIG, FMLPaths.CONFIGDIR.get().resolve("simplyjetpacks-server.toml"));
 
         JetpackType.LoadAllConfigs();
         RegistryHandler.init();

@@ -202,7 +202,7 @@
   "config.simplyjetpacks.enableJoinAdvancements": "Enable Join Advancements",
 
   "config.simplyjetpacks.tuning.energyCapacity": "Energy Capacity",
-  "config.simplyjetpacks.tuning.energyCapacity.tooltip": "The maximum amount of energy that this pack can hold.",
+  "config.simplyjetpacks.tuning.energyCapacity.tooltip": "The maximum amount of energy that this Jetpack/Fluxpack can hold.",
   "config.simplyjetpacks.tuning.energyUsage": "Energy Usage",
   "config.simplyjetpacks.tuning.energyUsage.tooltip": "The amount of energy that this Jetpack/Fluxpack uses every tick, when being used.",
   "config.simplyjetpacks.tuning.energyPerTickIn": "Energy Per Tick In",
@@ -215,7 +215,6 @@
   "config.simplyjetpacks.tuning.armorEnergyPerHit.tooltip": "How much energy is lost from this Jetpack/Fluxpack when the user is hit, if armored.",
   "config.simplyjetpacks.tuning.enchantability": "Enchantability",
   "config.simplyjetpacks.tuning.enchantability.tooltip": "The enchantability of this Jetpack/Fluxpack. If set to 0, no enchantments can be applied.",
-
   "config.simplyjetpacks.tuning.speedVertical": "Vertical Speed",
   "config.simplyjetpacks.tuning.speedVertical.tooltip": "The maximum vertical speed of this Jetpack when flying.",
   "config.simplyjetpacks.tuning.accelVertical": "Vertical Acceleration",
