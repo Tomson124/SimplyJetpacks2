@@ -1,46 +1,37 @@
 package stormedpanda.simplyjetpacks.config;
 
-import com.electronwill.nightconfig.core.file.CommentedFileConfig;
-import com.electronwill.nightconfig.core.io.WritingMode;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.Builder;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import stormedpanda.simplyjetpacks.SimplyJetpacks;
+import stormedpanda.simplyjetpacks.item.JetpackType;
 
-import java.nio.file.Path;
-
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = SimplyJetpacks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SimplyJetpacksConfig {
 
-    private static final Builder CLIENT_BUILDER = new Builder();
-    public static final ForgeConfigSpec CLIENT_CONFIG;
+    public static final Builder CLIENT_BUILDER = new Builder();
+    public static final Builder COMMON_BUILDER = new Builder();
+    public static final Builder SERVER_BUILDER = new Builder();
 
-    private static final Builder COMMON_BUILDER = new Builder();
-    public static final ForgeConfigSpec COMMON_CONFIG;
+    public static ForgeConfigSpec CLIENT_CONFIG;
+    public static ForgeConfigSpec COMMON_CONFIG;
+    public static ForgeConfigSpec SERVER_CONFIG;
 
-    private static final Builder SERVER_BUILDER = new Builder();
-    public static final ForgeConfigSpec SERVER_CONFIG;
-
-    static {
+    public static void register() {
         setupClientConfig();
         setupCommonConfig();
         setupServerConfig();
 
-        //JetpackConfig.createJetpackConfig(SERVER_BUILDER);
-
         CLIENT_CONFIG = CLIENT_BUILDER.build();
         COMMON_CONFIG = COMMON_BUILDER.build();
         SERVER_CONFIG = SERVER_BUILDER.build();
-    }
 
-    public static void LoadConfig(ForgeConfigSpec spec, Path path) {
-        final CommentedFileConfig file = CommentedFileConfig.builder(path)
-                .sync()
-                .autosave()
-                .writingMode(WritingMode.REPLACE)
-                .build();
-        file.load();
-        spec.setConfig(file);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG);
     }
 
     private static void setupClientConfig() {
@@ -159,7 +150,7 @@ public class SimplyJetpacksConfig {
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.comment("Jetpack Tuning Configurations").push("tuning");
-
+        JetpackConfig.createJetpackConfig(COMMON_BUILDER);
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.comment("Misc Configurations").push("misc");
@@ -175,31 +166,41 @@ public class SimplyJetpacksConfig {
 
     private static void setupServerConfig() {
         SERVER_BUILDER.comment("Simply Jetpacks 2 - Server Configurations").push("simplyjetpacks-server");
-        JetpackConfig.createJetpackConfig(SERVER_BUILDER);
+        //JetpackConfig.createJetpackConfig(SERVER_BUILDER);
         SERVER_BUILDER.pop();
     }
 
+    @SubscribeEvent
+    public static void onLoad(final ModConfig.Loading configEvent) {
+        SimplyJetpacks.LOGGER.info("SJ: CONFIG LOADED: {}", configEvent.getConfig().getFileName());
+        JetpackType.LoadAllConfigs();
+    }
+
+    @SubscribeEvent
+    public static void onFileChange(final ModConfig.Reloading configEvent) {
+        SimplyJetpacks.LOGGER.info("SJ: CONFIG RE-LOADED: {}", configEvent.getConfig().getFileName());
+        JetpackType.LoadAllConfigs();
+    }
+
     // Client
-    public static BooleanValue invertHoverSneakingBehavior;
-    public static BooleanValue enableJetpackSounds;
-    public static BooleanValue showExactEnergy;
-    public static BooleanValue enableStateMessages;
-    public static BooleanValue enableJetpackHud;
-    public static BooleanValue hudTextShadow;
+    public static ForgeConfigSpec.BooleanValue invertHoverSneakingBehavior;
+    public static ForgeConfigSpec.BooleanValue enableJetpackSounds;
+    public static ForgeConfigSpec.BooleanValue showExactEnergy;
+    public static ForgeConfigSpec.BooleanValue enableStateMessages;
+    public static ForgeConfigSpec.BooleanValue enableJetpackHud;
+    public static ForgeConfigSpec.BooleanValue hudTextShadow;
     public static ForgeConfigSpec.IntValue hudTextColor;
     public static ForgeConfigSpec.IntValue hudXOffset;
     public static ForgeConfigSpec.IntValue hudYOffset;
     public static ForgeConfigSpec.LongValue hudScale;
     public static ForgeConfigSpec.EnumValue<ConfigDefaults.HUDPosition> hudTextPosition;
-
     // Common
-    public static BooleanValue enableIntegrationVanilla;
-    public static BooleanValue enableIntegrationImmersiveEngineering;
-    public static BooleanValue enableIntegrationMekanism;
-    public static BooleanValue enableIntegrationEnderIO;
-    public static BooleanValue enableIntegrationThermalExpansion;
-    public static BooleanValue enableIntegrationThermalDynamics;
-    public static BooleanValue enableJoinAdvancements;
-
+    public static ForgeConfigSpec.BooleanValue enableIntegrationVanilla;
+    public static ForgeConfigSpec.BooleanValue enableIntegrationImmersiveEngineering;
+    public static ForgeConfigSpec.BooleanValue enableIntegrationMekanism;
+    public static ForgeConfigSpec.BooleanValue enableIntegrationEnderIO;
+    public static ForgeConfigSpec.BooleanValue enableIntegrationThermalExpansion;
+    public static ForgeConfigSpec.BooleanValue enableIntegrationThermalDynamics;
+    public static ForgeConfigSpec.BooleanValue enableJoinAdvancements;
     // Server
 }

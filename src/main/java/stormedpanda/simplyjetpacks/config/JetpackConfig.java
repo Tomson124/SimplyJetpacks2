@@ -5,7 +5,6 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public class JetpackConfig {
 
     public static void createJetpackConfig(ForgeConfigSpec.Builder builder) {
-        builder.comment("Jetpack Configurations").push("jetpacks");
 
         for (JetpackDataHolder pack : JetpackDataHolder.DEFAULTS.values()) {
             builder.comment(pack.mod).push(pack.mod);
@@ -93,6 +92,5 @@ public class JetpackConfig {
 
             builder.pop(2);
         }
-        builder.pop();
     }
 }

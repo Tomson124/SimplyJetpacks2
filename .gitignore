@@ -21,3 +21,4 @@ build
 # other
 run
 extras
+src/generated/resources/.cache

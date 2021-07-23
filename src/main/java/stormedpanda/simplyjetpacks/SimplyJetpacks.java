@@ -5,9 +5,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
@@ -15,13 +13,13 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.init.RegistryHandler;
 import stormedpanda.simplyjetpacks.item.JetpackType;
 import stormedpanda.simplyjetpacks.item.SimplyJetpacksItemGroup;
+import stormedpanda.simplyjetpacks.network.NetworkHandler;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
@@ -41,31 +39,27 @@ public class SimplyJetpacks {
     public static final SimplyJetpacksItemGroup tabSimplyJetpacks = new SimplyJetpacksItemGroup();
 
     public SimplyJetpacks() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::CommonSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::ClientSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 
         MinecraftForge.EVENT_BUS.register(this);
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SimplyJetpacksConfig.CLIENT_CONFIG);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_CONFIG);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SimplyJetpacksConfig.SERVER_CONFIG);
-
-        SimplyJetpacksConfig.LoadConfig(SimplyJetpacksConfig.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve("simplyjetpacks-client.toml"));
-        SimplyJetpacksConfig.LoadConfig(SimplyJetpacksConfig.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("simplyjetpacks-common.toml"));
-        SimplyJetpacksConfig.LoadConfig(SimplyJetpacksConfig.SERVER_CONFIG, FMLPaths.CONFIGDIR.get().resolve("simplyjetpacks-server.toml"));
-
+        SimplyJetpacksConfig.register();
         JetpackType.LoadAllConfigs();
         RegistryHandler.init();
     }
 
-    private void CommonSetup(final FMLCommonSetupEvent event) {
+    private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.info("Common Setup Method registered.");
+        NetworkHandler.registerMessages();
     }
 
-    private void ClientSetup(final FMLClientSetupEvent event) {
+    private void clientSetup(final FMLClientSetupEvent event) {
         LOGGER.info("Client Setup Method registered.");
+        MinecraftForge.EVENT_BUS.register(new Keybinds());
+        Keybinds.setup();
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
@@ -90,5 +84,6 @@ public class SimplyJetpacks {
     @SubscribeEvent
     public void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
         LOGGER.info("Recipe Serializers Registered.");
+        //CraftingHelper.register(ModIntegrationCondition.Serializer.INSTANCE);
     }
 }

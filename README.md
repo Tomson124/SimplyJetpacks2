@@ -11,10 +11,10 @@ Simply Jetpacks is a Minecraft Mod that adds Jetpacks and Fluxpacks with various
 
 Downloads for the mod can be found on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/simply-jetpacks-2 "CurseForge - Simply Jetpacks 2")
 
-**List of Supported Mods**
+**Supported Mods**
 - Mekanism
 - Immersive Engineering
-- Thermal Expansion (beta)
+- Thermal Series (beta)
 
 Authors: Tomson124 and StormedPanda
 

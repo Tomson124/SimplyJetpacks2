@@ -7,10 +7,11 @@
     "1.12.2-recommended" : "2.2.18.1",
     "1.15.2-latest" : "2.5.4.1",
     "1.15.2-recommended" : "2.5.4.1",
-    "1.16.4-latest" : "2.6.6.0",
-    "1.16.4-recommended" : "2.6.6.0"
+    "1.16.5-latest" : "2.6.8.0",
+    "1.16.5-recommended" : "2.6.8.0"
   },
   "1.16.5" : {
+    "2.6.8.0" : "New improvements to Simply Jetpacks 2",
     "2.6.7.1" : "Updated to Minecraft Version 1.16.5",
     "2.6.6.0" : "Fixed issue with creative jetpacks not being able to emergency hover",
     "2.6.5.2" : "Update to Minecraft Version 1.16.4",

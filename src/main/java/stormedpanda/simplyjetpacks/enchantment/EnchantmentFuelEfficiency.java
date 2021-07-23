@@ -4,6 +4,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
 
 import javax.annotation.Nonnull;
@@ -32,8 +33,8 @@ public class EnchantmentFuelEfficiency extends Enchantment {
     @Nonnull
     @Override
     public ITextComponent getFullname(int id) {
-        //return "enchantment.simplyjetpacks.fuelEfficiency";
-        return super.getFullname(id);
+        return new TranslationTextComponent("enchantment.simplyjetpacks.fuel_efficiency");
+        //return super.getFullname(id);
     }
 
     @Override

@@ -1,3 +1,14 @@
+# 2.6.8 - 23-07-2021
+- **General**
+    - New improvements to Simply Jetpacks 2
+    - Now uses data gen for resources 
+    - Patchouli is now fully supported
+    - Curios is now fully supported
+- **Added**
+    - Jetpack Particle Customizers are now available
+- **Updated**
+    - Jetpack GUI reworked (added tooltips)
+
 # 2.6.7 - 13-02-2021
 - **General**
     - Updated to Minecraft Version 1.16.5
