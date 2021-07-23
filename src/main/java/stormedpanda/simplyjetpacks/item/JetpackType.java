@@ -7,8 +7,45 @@ import java.util.EnumSet;
 
 public enum JetpackType {
 
+    POTATO("potato"),
+
     CREATIVE("creative"),
-    CREATIVE_ARMORED("creative_armored");
+    CREATIVE_ARMORED("creative_armored"),
+
+    VANILLA1("vanilla1"),
+    VANILLA1_ARMORED("vanilla1_armored"),
+    VANILLA2("vanilla2"),
+    VANILLA2_ARMORED("vanilla2_armored"),
+    VANILLA3("vanilla3"),
+    VANILLA3_ARMORED("vanilla3_armored"),
+    VANILLA4("vanilla4"),
+    VANILLA4_ARMORED("vanilla4_armored"),
+
+    MEK1("mek1"),
+    MEK1_ARMORED("mek1_armored"),
+    MEK2("mek2"),
+    MEK2_ARMORED("mek2_armored"),
+    MEK3("mek3"),
+    MEK3_ARMORED("mek3_armored"),
+    MEK4("mek4"),
+    MEK4_ARMORED("mek4_armored"),
+
+    TE1("te1"),
+    TE1_ARMORED("te1_armored"),
+    TE2("te2"),
+    TE2_ARMORED("te2_armored"),
+    TE3("te3"),
+    TE3_ARMORED("te3_armored"),
+    TE4("te4"),
+    TE4_ARMORED("te4_armored"),
+
+    IE1("ie1"),
+    IE1_ARMORED("ie1_armored"),
+    IE2("ie2"),
+    IE2_ARMORED("ie2_armored"),
+    IE3("ie3"),
+    IE3_ARMORED("ie3_armored"),
+    ;
 
     protected static final EnumSet<JetpackType> JETPACK_ALL = EnumSet.allOf(JetpackType.class);
 

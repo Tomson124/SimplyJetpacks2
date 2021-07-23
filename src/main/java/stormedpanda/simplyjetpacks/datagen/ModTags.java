@@ -9,6 +9,7 @@ import stormedpanda.simplyjetpacks.SimplyJetpacks;
 public class ModTags {
 
     public static final ITag.INamedTag<Item> PARTICLES = mod("particles");
+    public static final ITag.INamedTag<Item> JETPACK = mod("jetpack");
 
     public static final ITag.INamedTag<Item> HEAD = curios("head");
     public static final ITag.INamedTag<Item> BACK = curios("back");
