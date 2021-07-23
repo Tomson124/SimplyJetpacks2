@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "simplyjetpacks:particle_default",
+    "simplyjetpacks:particle_none",
+    "simplyjetpacks:particle_smoke",
+    "simplyjetpacks:particle_rainbow"
+  ]
+}

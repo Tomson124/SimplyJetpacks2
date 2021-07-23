@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "item": "simplyjetpacks:jetpack_creative"
+    },
+    "title": {
+      "translate": "advancement.simplyjetpacks.root.title"
+    },
+    "description": {
+      "translate": "advancement.simplyjetpacks.root.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "crafting_table": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:crafting_table"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "crafting_table"
+    ]
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "simplyjetpacks:root",
+  "display": {
+    "icon": {
+      "item": "simplyjetpacks:jetpack_creative"
+    },
+    "title": {
+      "translate": "advancement.simplyjetpacks.jetpack_creative.title"
+    },
+    "description": {
+      "translate": "advancement.simplyjetpacks.jetpack_creative.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_jetpack": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "simplyjetpacks:jetpack_creative"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_jetpack"
+    ]
+  ]
+}
