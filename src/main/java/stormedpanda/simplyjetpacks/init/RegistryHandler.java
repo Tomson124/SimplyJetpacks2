@@ -86,6 +86,7 @@ public class RegistryHandler {
     public static final RegistryObject<JetpackItem> JETPACK_TE3_ARMORED = ITEMS.register("jetpack_te3_armored", () -> new JetpackItem(JetpackType.TE3_ARMORED));
     public static final RegistryObject<JetpackItem> JETPACK_TE4 = ITEMS.register("jetpack_te4", () -> new JetpackItem(JetpackType.TE4));
     public static final RegistryObject<JetpackItem> JETPACK_TE4_ARMORED = ITEMS.register("jetpack_te4_armored", () -> new JetpackItem(JetpackType.TE4_ARMORED));
+    public static final RegistryObject<JetpackItem> JETPACK_TE5 = ITEMS.register("jetpack_te5", () -> new JetpackItem(JetpackType.TE5));
 
     public static final RegistryObject<JetpackItem> JETPACK_IE1 = ITEMS.register("jetpack_ie1", () -> new JetpackItem(JetpackType.IE1));
     public static final RegistryObject<JetpackItem> JETPACK_IE1_ARMORED = ITEMS.register("jetpack_ie1_armored", () -> new JetpackItem(JetpackType.IE1_ARMORED));
@@ -94,6 +95,58 @@ public class RegistryHandler {
     public static final RegistryObject<JetpackItem> JETPACK_IE3 = ITEMS.register("jetpack_ie3", () -> new JetpackItem(JetpackType.IE3));
     public static final RegistryObject<JetpackItem> JETPACK_IE3_ARMORED = ITEMS.register("jetpack_ie3_armored", () -> new JetpackItem(JetpackType.IE3_ARMORED));
 
+    public static final RegistryObject<Item> ARMORPLATING_MEK1 = ITEMS.register("armorplating_mek1", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> ARMORPLATING_MEK2 = ITEMS.register("armorplating_mek2", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> ARMORPLATING_MEK3 = ITEMS.register("armorplating_mek3", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> ARMORPLATING_MEK4 = ITEMS.register("armorplating_mek4", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+
+    public static final RegistryObject<Item> ARMORPLATING_TE1 = ITEMS.register("armorplating_te1", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> ARMORPLATING_TE2 = ITEMS.register("armorplating_te2", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> ARMORPLATING_TE3 = ITEMS.register("armorplating_te3", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> ARMORPLATING_TE4 = ITEMS.register("armorplating_te4", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+
+    public static final RegistryObject<Item> ARMORPLATING_IE1 = ITEMS.register("armorplating_ie1", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> ARMORPLATING_IE2 = ITEMS.register("armorplating_ie2", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> ARMORPLATING_IE3 = ITEMS.register("armorplating_ie3", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+
+    public static final RegistryObject<Item> THRUSTER_MEK1 = ITEMS.register("thruster_mek1", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> THRUSTER_MEK2 = ITEMS.register("thruster_mek2", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> THRUSTER_MEK3 = ITEMS.register("thruster_mek3", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> THRUSTER_MEK4 = ITEMS.register("thruster_mek4", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+
+    public static final RegistryObject<Item> THRUSTER_TE1 = ITEMS.register("thruster_te1", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> THRUSTER_TE2 = ITEMS.register("thruster_te2", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> THRUSTER_TE3 = ITEMS.register("thruster_te3", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> THRUSTER_TE4 = ITEMS.register("thruster_te4", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> THRUSTER_TE5 = ITEMS.register("thruster_te5", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+
+    public static final RegistryObject<Item> THRUSTER_IE1 = ITEMS.register("thruster_ie1", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> THRUSTER_IE2 = ITEMS.register("thruster_ie2", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> THRUSTER_IE3 = ITEMS.register("thruster_ie3", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    
     // testing:
     public static final RegistryObject<TestEnergyItem> TEST_ENERGY_ITEM = ITEMS.register("test_energy_item", TestEnergyItem::new);
     public static final RegistryObject<TestEnergyItemTwo> TEST_ENERGY_ITEM_TWO = ITEMS.register("test_energy_item_two",

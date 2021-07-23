@@ -80,7 +80,7 @@ public class JetpackDataHolder {
         d.emergencyHoverMode = true;
         d.chargerMode = true;
 
-        d = new JetpackDataHolder("jetpack1", "simplyjetpacks");
+        d = new JetpackDataHolder("vanilla1", "simplyjetpacks");
         d.energyCapacity = 80000;
         d.energyUsage = 32;
         d.energyPerTickIn = 400;
@@ -97,7 +97,7 @@ public class JetpackDataHolder {
         d.emergencyHoverMode = false;
         d.chargerMode = false;
 
-        d = new JetpackDataHolder("jetpack2", "simplyjetpacks");
+        d = new JetpackDataHolder("vanilla2", "simplyjetpacks");
         d.energyCapacity = 400000;
         d.energyUsage = 50;
         d.energyPerTickIn = 2000;
@@ -114,7 +114,7 @@ public class JetpackDataHolder {
         d.emergencyHoverMode = false;
         d.chargerMode = false;
 
-        d = new JetpackDataHolder("jetpack3", "simplyjetpacks");
+        d = new JetpackDataHolder("vanilla3", "simplyjetpacks");
         d.energyCapacity = 4000000;
         d.energyUsage = 200;
         d.energyPerTickIn = 20000;
@@ -131,7 +131,7 @@ public class JetpackDataHolder {
         d.emergencyHoverMode = true;
         d.chargerMode = false;
 
-        d = new JetpackDataHolder("jetpack4", "simplyjetpacks");
+        d = new JetpackDataHolder("vanilla4", "simplyjetpacks");
         d.energyCapacity = 20000000;
         d.energyUsage = 450;
         d.energyPerTickIn = 50000;
@@ -148,25 +148,7 @@ public class JetpackDataHolder {
         d.emergencyHoverMode = true;
         d.chargerMode = true;
 
-        d = new JetpackDataHolder("jetpack5", "simplyjetpacks");
-        d.energyCapacity = 60000000;
-        d.energyUsage = 850;
-        d.energyPerTickIn = 200000;
-        d.energyPerTickOut = 32000;
-        d.armorReduction = 12;
-        d.armorEnergyPerHit = 240;
-        d.enchantability = 20;
-        d.speedVertical = 0.9D;
-        d.accelVertical = 0.15D;
-        d.speedVerticalHover = 0.45D;
-        d.speedVerticalHoverSlow = 0.0D;
-        d.speedSideways = 0.21D;
-        d.sprintSpeedModifier = 2.4D;
-        d.sprintEnergyModifier = 6.0D;
-        d.emergencyHoverMode = true;
-        d.chargerMode = true;
-
-        if (ModList.get().isLoaded("mekanism")) {
+        if (true || ModList.get().isLoaded("mekanism")) {
             d = new JetpackDataHolder("mek1", "mekanism");
             d.energyCapacity = 80000;
             d.energyUsage = 32;
@@ -236,7 +218,7 @@ public class JetpackDataHolder {
             d.chargerMode = false;
         }
 
-        if (ModList.get().isLoaded("thermal")) {
+        if (true || ModList.get().isLoaded("thermal")) {
             d = new JetpackDataHolder("te1", "thermal");
             d.energyCapacity = 800000;
             d.energyUsage = 32;
@@ -322,9 +304,27 @@ public class JetpackDataHolder {
             d.sprintEnergyModifier = 6.0D;
             d.emergencyHoverMode = true;
             d.chargerMode = true;
+
+            d = new JetpackDataHolder("te6", "thermal");
+            d.energyCapacity = 50000000;
+            d.energyUsage = 850;
+            d.energyPerTickIn = 30000;
+            d.energyPerTickOut = 30000;
+            d.armorReduction = 12;
+            d.armorEnergyPerHit = 4500;
+            d.enchantability = 20;
+            d.speedVertical = 0.9D;
+            d.accelVertical = 0.15D;
+            d.speedVerticalHover = 0.45D;
+            d.speedVerticalHoverSlow = 0.0D;
+            d.speedSideways = 0.21D;
+            d.sprintSpeedModifier = 2.4D;
+            d.sprintEnergyModifier = 6.0D;
+            d.emergencyHoverMode = true;
+            d.chargerMode = true;
         }
 
-        if (ModList.get().isLoaded("immersiveengineering")) {
+        if (true || ModList.get().isLoaded("immersiveengineering")) {
             d = new JetpackDataHolder("ie1", "immersiveengineering");
             d.energyCapacity = 80000;
             d.energyUsage = 32;

@@ -60,6 +60,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         builder(itemGenerated, "jetpack_te3_armored");
         builder(itemGenerated, "jetpack_te4");
         builder(itemGenerated, "jetpack_te4_armored");
+        builder(itemGenerated, "jetpack_te5");
 
         builder(itemGenerated, "jetpack_ie1");
         builder(itemGenerated, "jetpack_ie1_armored");
@@ -67,6 +68,35 @@ public class ModItemModelProvider extends ItemModelProvider {
         builder(itemGenerated, "jetpack_ie2_armored");
         builder(itemGenerated, "jetpack_ie3");
         builder(itemGenerated, "jetpack_ie3_armored");
+        
+        builder(itemGenerated, "armorplating_mek1");
+        builder(itemGenerated, "armorplating_mek2");
+        builder(itemGenerated, "armorplating_mek3");
+        builder(itemGenerated, "armorplating_mek4");
+
+        builder(itemGenerated, "armorplating_te1");
+        builder(itemGenerated, "armorplating_te2");
+        builder(itemGenerated, "armorplating_te3");
+        builder(itemGenerated, "armorplating_te4");
+
+        builder(itemGenerated, "armorplating_ie1");
+        builder(itemGenerated, "armorplating_ie2");
+        builder(itemGenerated, "armorplating_ie3");
+
+        builder(itemGenerated, "thruster_mek1");
+        builder(itemGenerated, "thruster_mek2");
+        builder(itemGenerated, "thruster_mek3");
+        builder(itemGenerated, "thruster_mek4");
+
+        builder(itemGenerated, "thruster_te1");
+        builder(itemGenerated, "thruster_te2");
+        builder(itemGenerated, "thruster_te3");
+        builder(itemGenerated, "thruster_te4");
+        builder(itemGenerated, "thruster_te5");
+
+        builder(itemGenerated, "thruster_ie1");
+        builder(itemGenerated, "thruster_ie2");
+        builder(itemGenerated, "thruster_ie3");
     }
 
     private ItemModelBuilder builder(ModelFile itemGenerated, String name) {

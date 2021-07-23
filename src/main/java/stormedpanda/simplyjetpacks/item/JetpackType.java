@@ -8,43 +8,43 @@ import java.util.EnumSet;
 public enum JetpackType {
 
     POTATO("potato"),
-
     CREATIVE("creative"),
-    CREATIVE_ARMORED("creative_armored"),
+    CREATIVE_ARMORED("creative"),
 
     VANILLA1("vanilla1"),
-    VANILLA1_ARMORED("vanilla1_armored"),
+    VANILLA1_ARMORED("vanilla1"),
     VANILLA2("vanilla2"),
-    VANILLA2_ARMORED("vanilla2_armored"),
+    VANILLA2_ARMORED("vanilla2"),
     VANILLA3("vanilla3"),
-    VANILLA3_ARMORED("vanilla3_armored"),
+    VANILLA3_ARMORED("vanilla3"),
     VANILLA4("vanilla4"),
-    VANILLA4_ARMORED("vanilla4_armored"),
+    VANILLA4_ARMORED("vanilla4"),
 
     MEK1("mek1"),
-    MEK1_ARMORED("mek1_armored"),
+    MEK1_ARMORED("mek1"),
     MEK2("mek2"),
-    MEK2_ARMORED("mek2_armored"),
+    MEK2_ARMORED("mek2"),
     MEK3("mek3"),
-    MEK3_ARMORED("mek3_armored"),
+    MEK3_ARMORED("mek3"),
     MEK4("mek4"),
-    MEK4_ARMORED("mek4_armored"),
+    MEK4_ARMORED("mek4"),
 
     TE1("te1"),
-    TE1_ARMORED("te1_armored"),
+    TE1_ARMORED("te1"),
     TE2("te2"),
-    TE2_ARMORED("te2_armored"),
+    TE2_ARMORED("te2"),
     TE3("te3"),
-    TE3_ARMORED("te3_armored"),
+    TE3_ARMORED("te3"),
     TE4("te4"),
-    TE4_ARMORED("te4_armored"),
+    TE4_ARMORED("te4"),
+    TE5("te5"),
 
     IE1("ie1"),
-    IE1_ARMORED("ie1_armored"),
+    IE1_ARMORED("ie1"),
     IE2("ie2"),
-    IE2_ARMORED("ie2_armored"),
+    IE2_ARMORED("ie2"),
     IE3("ie3"),
-    IE3_ARMORED("ie3_armored"),
+    IE3_ARMORED("ie3"),
     ;
 
     protected static final EnumSet<JetpackType> JETPACK_ALL = EnumSet.allOf(JetpackType.class);
@@ -72,6 +72,7 @@ public enum JetpackType {
 
     JetpackType(String name) {
         this.name = name;
+        // TODO: *this*
         this.platingId = 0;
     }
 
