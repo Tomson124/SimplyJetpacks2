@@ -3,6 +3,7 @@ package stormedpanda.simplyjetpacks.item;
 import net.minecraft.util.ResourceLocation;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.config.JetpackDataHolder;
+import stormedpanda.simplyjetpacks.particle.JetpackParticleType;
 
 import java.util.EnumSet;
 
@@ -182,6 +183,13 @@ public enum JetpackType {
                 jetpackType.loadConfig();
             }
         }
+    }
+
+    public int getDefaultParticles() {
+        if (name.contains("creative")) {
+            return JetpackParticleType.RAINBOW.ordinal();
+        }
+        return JetpackParticleType.DEFAULT.ordinal();
     }
 
     public void loadConfig() {

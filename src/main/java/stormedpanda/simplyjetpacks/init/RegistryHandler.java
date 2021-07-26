@@ -17,7 +17,6 @@ import stormedpanda.simplyjetpacks.enchantment.EnchantmentFuelEfficiency;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
 import stormedpanda.simplyjetpacks.item.JetpackType;
 import stormedpanda.simplyjetpacks.item.PilotGogglesItem;
-import stormedpanda.simplyjetpacks.energy.EnergyItem;
 
 public class RegistryHandler {
 
@@ -34,12 +33,6 @@ public class RegistryHandler {
         PARTICLE_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
         CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
-
-    // Testing:
-    //public static final RegistryObject<NewJetpackItem> JETPACK_TEST = ITEMS.register("jetpack_test", () -> new NewJetpackItem(JetpackType.IE3_ARMORED));
-    //public static final RegistryObject<NewJetpackItemOld> JETPACK_TEST_TWO = ITEMS.register("jetpack_test_two", () -> new NewJetpackItemOld(JetpackType.IE3_ARMORED));
-    //public static final RegistryObject<TestEnergyItemOld> TEST_ENERGY_ITEM = ITEMS.register("test_energy_item", () -> new TestEnergyItemOld(JetpackType.IE3_ARMORED));
-    public static final RegistryObject<EnergyItem> TEST_ENERGY_ITEM = ITEMS.register("test_energy_item", () -> new EnergyItem(JetpackType.IE3_ARMORED));
 
     // Particles:
     public static final RegistryObject<BasicParticleType> RAINBOW_PARTICLE = PARTICLE_TYPES.register("rainbow_particle", () -> new BasicParticleType(false));

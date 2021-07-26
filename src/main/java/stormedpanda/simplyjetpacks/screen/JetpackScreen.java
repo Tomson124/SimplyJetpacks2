@@ -29,6 +29,7 @@ public class JetpackScreen extends Screen {
     private static final int HEIGHT = 100;
 
     private final JetpackItem jetpackItem;
+    private ImageButton engine, hover, ehover, charger;
 
     public JetpackScreen() {
         super(new TranslationTextComponent("screen.simplyjetpacks.jetpack_screen.title"));
@@ -52,14 +53,18 @@ public class JetpackScreen extends Screen {
         if (item instanceof JetpackItem) {
             JetpackItem jetpack = (JetpackItem) item;
             if (jetpack.getJetpackType().getChargerMode()) {
-                addButton(new ImageButton(relX + 142, relY + 16, 20, 20, 196, 0, 20, GUI_BASE, button -> buttonClicked("E HOVER NOT AVAILABLE")));
+                addButton(this.charger = new ImageButton(relX + 142, relY + 16, 20, 20, 196, 0, 20, GUI_BASE, button -> buttonClicked("E HOVER NOT AVAILABLE")));
+                this.charger.active = true;
             } else {
-                addButton(new ImageButton(relX + 142, relY + 16, 20, 20, 196, 40, 0, GUI_BASE, button -> buttonClicked("CHARGER NOT AVAILABLE")));
+                addButton(this.charger = new ImageButton(relX + 142, relY + 16, 20, 20, 196, 40, 0, GUI_BASE, button -> buttonClicked("CHARGER NOT AVAILABLE")));
+                this.charger.active = false;
             }
             if (jetpack.getJetpackType().getEmergencyHoverMode()) {
-                addButton(new ImageButton(relX + 142, relY + 38, 20, 20, 236, 0, 20, GUI_BASE, button -> buttonClicked("E HOVER NOT AVAILABLE")));
+                addButton(this.ehover = new ImageButton(relX + 142, relY + 38, 20, 20, 236, 0, 20, GUI_BASE, button -> buttonClicked("E HOVER NOT AVAILABLE")));
+                this.ehover.active = true;
             } else {
-                addButton(new ImageButton(relX + 142, relY + 38, 20, 20, 236, 40, 0, GUI_BASE, button -> buttonClicked("E HOVER NOT AVAILABLE")));
+                addButton(this.ehover = new ImageButton(relX + 142, relY + 38, 20, 20, 236, 40, 0, GUI_BASE, button -> buttonClicked("E HOVER NOT AVAILABLE")));
+                this.ehover.active = false;
             }
         }
     }
@@ -118,8 +123,8 @@ public class JetpackScreen extends Screen {
             if (jetpack.isCreative() || true) {
                 return 78;
             }
-            int i = jetpack.getEnergyStored();
-            int j = jetpack.getEnergyCapacity();
+            int i = jetpack.getEnergy(stack);
+            int j = jetpack.getCapacity(stack);
             return (int) (j != 0 && i != 0 ? (long) i * 78 / j : 0);
         } else {
             return 0;

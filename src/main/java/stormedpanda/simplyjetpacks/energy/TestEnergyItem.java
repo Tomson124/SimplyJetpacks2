@@ -29,11 +29,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class EnergyItem extends ArmorItem implements IEnergyContainer {
+public class TestEnergyItem extends ArmorItem implements IEnergyContainer {
 
     private final JetpackType jetpackType;
 
-    public EnergyItem(JetpackType jetpackType) {
+    public TestEnergyItem(JetpackType jetpackType) {
         super(JetpackArmorMaterial.JETPACK, EquipmentSlotType.CHEST, new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks));
         this.jetpackType = jetpackType;
     }
