@@ -56,6 +56,7 @@ public class SJItemTagsProvider extends ItemTagsProvider {
                 .add(RegistryHandler.JETPACK_TE4.get())
                 .add(RegistryHandler.JETPACK_TE4_ARMORED.get())
                 .add(RegistryHandler.JETPACK_TE5.get())
+                .add(RegistryHandler.JETPACK_TE5_ARMORED.get())
 
                 .add(RegistryHandler.JETPACK_IE1.get())
                 .add(RegistryHandler.JETPACK_IE1_ARMORED.get())
@@ -63,7 +64,7 @@ public class SJItemTagsProvider extends ItemTagsProvider {
                 .add(RegistryHandler.JETPACK_IE2_ARMORED.get())
                 .add(RegistryHandler.JETPACK_IE3.get())
                 .add(RegistryHandler.JETPACK_IE3_ARMORED.get())
-                ;
+        ;
 
         // Curios:
         tag(SJTags.HEAD).add(RegistryHandler.PILOT_GOGGLES.get());
@@ -98,6 +99,7 @@ public class SJItemTagsProvider extends ItemTagsProvider {
                 .add(RegistryHandler.JETPACK_TE3_ARMORED.get())
                 .add(RegistryHandler.JETPACK_TE4.get())
                 .add(RegistryHandler.JETPACK_TE5.get())
+                .add(RegistryHandler.JETPACK_TE5_ARMORED.get())
 
                 .add(RegistryHandler.JETPACK_IE1.get())
                 .add(RegistryHandler.JETPACK_IE1_ARMORED.get())

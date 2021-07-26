@@ -40,6 +40,7 @@ public class JetpackItem extends ArmorItem {
         this.energyCapacity_ = jetpackType::getEnergyCapacity;
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<ITextComponent> list, @Nonnull ITooltipFlag flag) {
         super.appendHoverText(stack, world, list, flag);
@@ -47,7 +48,7 @@ public class JetpackItem extends ArmorItem {
         list.add(new TranslationTextComponent("test.tooltip.energyCapacity", jetpackType.getEnergyCapacity()));
         list.add(new TranslationTextComponent("test.tooltip.energyCapacity2", energyCapacity_.get()));
         list.add(new TranslationTextComponent("test.tooltip.energyUsage", jetpackType.getEnergyUsage()));
-        list.add(new TranslationTextComponent("test.tooltip.particle2", getParticleId(stack)));
+        list.add(new TranslationTextComponent("test.tooltip.particle", getParticleId(stack)));
     }
 
     public int getEnergyCapacity() {

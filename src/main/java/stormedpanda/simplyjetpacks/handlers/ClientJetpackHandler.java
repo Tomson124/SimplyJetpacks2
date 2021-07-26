@@ -89,7 +89,6 @@ public class ClientJetpackHandler {
                 }*/
             }
         }
-        //return false;
-        return true;
+        return false;
     }
 }

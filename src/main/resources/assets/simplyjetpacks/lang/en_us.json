@@ -72,11 +72,12 @@
   "item.simplyjetpacks.jetpack_te4": "Resonant Jetpack",
   "item.simplyjetpacks.jetpack_te4_armored": "Resonant Jetpack (Armored)",
   "item.simplyjetpacks.jetpack_te5": "Flux-Infused JetPlate",
+  "item.simplyjetpacks.jetpack_te5_enderium": "Flux-Infused JetPlate (Enderium)",
 
   "advancement.simplyjetpacks.root.title": "Simply Jetpacks 2",
   "advancement.simplyjetpacks.root.description": "Install Simply Jetpacks 2",
   "advancement.simplyjetpacks.jetpack_creative.title": "Creative Jetpack",
-  "advancement.simplyjetpacks.jetpack_creative.description": "Obtain a Gold Jetpack",
+  "advancement.simplyjetpacks.jetpack_creative.description": "Obtain a Creative Jetpack",
   "advancement.simplyjetpacks.jetpack_creative_armored.title": "Creative Jetpack (Armored)",
   "advancement.simplyjetpacks.jetpack_creative_armored.description": "Obtain an Armored Creative Jetpack",
   "advancement.simplyjetpacks.jetpack_potato.title": "Potato Jetpack",
@@ -121,6 +122,8 @@
   "advancement.simplyjetpacks.jetpack_te4.description": "Obtain a Resonant Jetpack",
   "advancement.simplyjetpacks.jetpack_te5.title": "Flux-Infused JetPlate",
   "advancement.simplyjetpacks.jetpack_te5.description": "Obtain a Flux-Infused JetPlate",
+  "advancement.simplyjetpacks.jetpack_te5_enderium.title": "Flux-Infused JetPlate (Enderium)",
+  "advancement.simplyjetpacks.jetpack_te5_enderium.description": "Obtain a Flux-Infused JetPlate (Enderium)",
 
   "keybind.categories.simplyjetpacks": "Simply Jetpacks 2",
   "keybind.simplyjetpacks.jetpack_gui": "Toggle Jetpack GUI",
@@ -249,8 +252,7 @@
   "test.tooltip.energyCapacity2": "energy capacity TeST: %s",
   "test.tooltip.energyUsage": "energy usage: %s",
   "test.tooltip.configValue": "config energy capacity: %s",
-  "test.tooltip.particle": "Particle String: %s",
-  "test.tooltip.particle2": "Particle Int: %s",
+  "test.tooltip.particle": "Particle ID: %s",
   "screen.simplyjetpacks.test_screen_title": "Test Screen",
 
   "misc2.simplyjetpacks.empty": "Empty",
@@ -258,7 +260,5 @@
   "misc2.simplyjetpacks.energyPerTick": "%s FE/t",
   "misc2.simplyjetpacks.energyWithMax": "%s / %s FE",
   "misc2.simplyjetpacks.fluidWithMax": "%s: %s / %s mB",
-  "misc2.simplyjetpacks.redstoneMode": "Redstone Mode: %s",
-  "misc2.simplyjetpacks.timeInSeconds": "Time: %ss",
-  "misc2.simplyjetpacks.upgradeSlot": "Upgrade Slot"
+  "misc2.simplyjetpacks.timeInSeconds": "Time: %ss"
 }

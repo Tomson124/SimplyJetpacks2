@@ -14,11 +14,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.crafting.JetpackSpecialRecipe;
 import stormedpanda.simplyjetpacks.enchantment.EnchantmentFuelEfficiency;
-import stormedpanda.simplyjetpacks.energy.TestEnergyItem;
-import stormedpanda.simplyjetpacks.energy.TestEnergyItemTwo;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
 import stormedpanda.simplyjetpacks.item.JetpackType;
 import stormedpanda.simplyjetpacks.item.PilotGogglesItem;
+import stormedpanda.simplyjetpacks.energy.EnergyItem;
 
 public class RegistryHandler {
 
@@ -36,11 +35,14 @@ public class RegistryHandler {
         CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
-    //public static final BasicParticleType RAINBOW = new BasicParticleType(false);
+    // Testing:
+    //public static final RegistryObject<NewJetpackItem> JETPACK_TEST = ITEMS.register("jetpack_test", () -> new NewJetpackItem(JetpackType.IE3_ARMORED));
+    //public static final RegistryObject<NewJetpackItemOld> JETPACK_TEST_TWO = ITEMS.register("jetpack_test_two", () -> new NewJetpackItemOld(JetpackType.IE3_ARMORED));
+    //public static final RegistryObject<TestEnergyItemOld> TEST_ENERGY_ITEM = ITEMS.register("test_energy_item", () -> new TestEnergyItemOld(JetpackType.IE3_ARMORED));
+    public static final RegistryObject<EnergyItem> TEST_ENERGY_ITEM = ITEMS.register("test_energy_item", () -> new EnergyItem(JetpackType.IE3_ARMORED));
 
     // Particles:
-    //public static final RegistryObject<ParticleType<BasicParticleType>> RAINBOW_PARTICLE = PARTICLE_TYPES.register("sj_particle", () -> new BasicParticleType(false));
-    public static final RegistryObject<BasicParticleType> RAINBOW_PARTICLE = PARTICLE_TYPES.register("rainbow", () -> new BasicParticleType(false));
+    public static final RegistryObject<BasicParticleType> RAINBOW_PARTICLE = PARTICLE_TYPES.register("rainbow_particle", () -> new BasicParticleType(false));
 
     // Recipes:
     public static final RegistryObject<SpecialRecipeSerializer<JetpackSpecialRecipe>> JETPACK_SPECIAL_RECIPE = RECIPE_SERIALIZERS.register("jetpack_special_recipe",() -> new SpecialRecipeSerializer<>(JetpackSpecialRecipe::new));
@@ -94,6 +96,7 @@ public class RegistryHandler {
     public static final RegistryObject<JetpackItem> JETPACK_TE4 = ITEMS.register("jetpack_te4", () -> new JetpackItem(JetpackType.TE4));
     public static final RegistryObject<JetpackItem> JETPACK_TE4_ARMORED = ITEMS.register("jetpack_te4_armored", () -> new JetpackItem(JetpackType.TE4_ARMORED));
     public static final RegistryObject<JetpackItem> JETPACK_TE5 = ITEMS.register("jetpack_te5", () -> new JetpackItem(JetpackType.TE5));
+    public static final RegistryObject<JetpackItem> JETPACK_TE5_ARMORED = ITEMS.register("jetpack_te5_enderium", () -> new JetpackItem(JetpackType.TE5_ARMORED));
 
     public static final RegistryObject<JetpackItem> JETPACK_IE1 = ITEMS.register("jetpack_ie1", () -> new JetpackItem(JetpackType.IE1));
     public static final RegistryObject<JetpackItem> JETPACK_IE1_ARMORED = ITEMS.register("jetpack_ie1_armored", () -> new JetpackItem(JetpackType.IE1_ARMORED));
@@ -153,9 +156,4 @@ public class RegistryHandler {
             new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
     public static final RegistryObject<Item> THRUSTER_IE3 = ITEMS.register("thruster_ie3", () ->
             new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    
-    // testing:
-    public static final RegistryObject<TestEnergyItem> TEST_ENERGY_ITEM = ITEMS.register("test_energy_item", TestEnergyItem::new);
-    public static final RegistryObject<TestEnergyItemTwo> TEST_ENERGY_ITEM_TWO = ITEMS.register("test_energy_item_two",
-            () -> new TestEnergyItemTwo(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks), 1000, 10));
 }

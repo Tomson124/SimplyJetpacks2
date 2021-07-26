@@ -17,10 +17,6 @@ public class SJItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
         ModelFile itemGenerated = getExistingFile(mcLoc("item/generated"));
 
-        // Testing:
-        builder(itemGenerated, "test_energy_item");
-        builder(itemGenerated, "test_energy_item_two");
-
         // Simply Jetpacks:
         builder(itemGenerated, "particle_none");
         builder(itemGenerated, "particle_default");
@@ -61,6 +57,7 @@ public class SJItemModelProvider extends ItemModelProvider {
         builder(itemGenerated, "jetpack_te4");
         builder(itemGenerated, "jetpack_te4_armored");
         builder(itemGenerated, "jetpack_te5");
+        builder(itemGenerated, "jetpack_te5_enderium");
 
         builder(itemGenerated, "jetpack_ie1");
         builder(itemGenerated, "jetpack_ie1_armored");
