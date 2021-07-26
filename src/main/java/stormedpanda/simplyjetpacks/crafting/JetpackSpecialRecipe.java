@@ -64,7 +64,7 @@ public class JetpackSpecialRecipe extends SpecialRecipe {
                 }
             }
         }
-        return !jetpack.isEmpty() && !particle.isEmpty() ? JetpackItem.setParticles(jetpack, particle) : ItemStack.EMPTY;
+        return !jetpack.isEmpty() && !particle.isEmpty() ? JetpackItem.setParticleId(jetpack, particle) : ItemStack.EMPTY;
     }
 
     @Override

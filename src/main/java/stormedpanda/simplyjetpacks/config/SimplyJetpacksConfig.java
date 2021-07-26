@@ -55,6 +55,15 @@ public class SimplyJetpacksConfig {
 
         CLIENT_BUILDER.pop();
 
+        CLIENT_BUILDER.comment("Audio Configurations").push("visual");
+
+        enableJetpackParticles = CLIENT_BUILDER
+                .comment("This sets whether jetpack particles will be displayed.")
+                .translation("config.simplyjetpacks.enableJetpackParticles")
+                .define("enableJetpackParticles", ConfigDefaults.enableJetpackParticles);
+
+        CLIENT_BUILDER.pop();
+
         CLIENT_BUILDER.comment("GUI Configurations").push("gui");
 
         showExactEnergy = CLIENT_BUILDER
@@ -173,18 +182,19 @@ public class SimplyJetpacksConfig {
     @SubscribeEvent
     public static void onLoad(final ModConfig.Loading configEvent) {
         SimplyJetpacks.LOGGER.info("SJ: CONFIG LOADED: {}", configEvent.getConfig().getFileName());
-        JetpackType.LoadAllConfigs();
+        JetpackType.loadAllConfigs();
     }
 
     @SubscribeEvent
     public static void onFileChange(final ModConfig.Reloading configEvent) {
         SimplyJetpacks.LOGGER.info("SJ: CONFIG RE-LOADED: {}", configEvent.getConfig().getFileName());
-        JetpackType.LoadAllConfigs();
+        JetpackType.loadAllConfigs();
     }
 
     // Client
     public static ForgeConfigSpec.BooleanValue invertHoverSneakingBehavior;
     public static ForgeConfigSpec.BooleanValue enableJetpackSounds;
+    public static ForgeConfigSpec.BooleanValue enableJetpackParticles;
     public static ForgeConfigSpec.BooleanValue showExactEnergy;
     public static ForgeConfigSpec.BooleanValue enableStateMessages;
     public static ForgeConfigSpec.BooleanValue enableJetpackHud;

@@ -1,6 +1,9 @@
 package stormedpanda.simplyjetpacks.item;
 
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
@@ -8,7 +11,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
+import stormedpanda.simplyjetpacks.model.JetpackModel;
+import stormedpanda.simplyjetpacks.particle.JetpackParticleType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,7 +47,7 @@ public class JetpackItem extends ArmorItem {
         list.add(new TranslationTextComponent("test.tooltip.energyCapacity", jetpackType.getEnergyCapacity()));
         list.add(new TranslationTextComponent("test.tooltip.energyCapacity2", energyCapacity_.get()));
         list.add(new TranslationTextComponent("test.tooltip.energyUsage", jetpackType.getEnergyUsage()));
-        list.add(new TranslationTextComponent("test.tooltip.particle", getParticles(stack)));
+        list.add(new TranslationTextComponent("test.tooltip.particle2", getParticleId(stack)));
     }
 
     public int getEnergyCapacity() {
@@ -71,12 +78,26 @@ public class JetpackItem extends ArmorItem {
         }
     }
 
-    public static String getParticles(ItemStack stack) {
-        return stack.getOrCreateTag().contains("Particles") ? stack.getOrCreateTag().getString("Particles") : "none";
+    public static ItemStack setParticleId(ItemStack stack, ItemStack particle) {
+        String key = particle.getDescriptionId().split("item.simplyjetpacks.particle_")[1].toUpperCase();
+        int id = JetpackParticleType.valueOf(key).ordinal();
+        stack.getOrCreateTag().putInt("ParticleId", id);
+        return stack;
     }
 
-    public static ItemStack setParticles(ItemStack stack, ItemStack particle) {
-        stack.getOrCreateTag().putString("Particles", particle.getDescriptionId());
-        return stack;
+    public static int getParticleId(ItemStack stack) {
+        return stack.getOrCreateTag().contains("ParticleId") ? stack.getOrCreateTag().getInt("ParticleId") : 0;
+    }
+
+    @Nullable
+    @Override
+    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
+        return jetpackType.getArmorTexture();
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, BipedModel _default) {
+        return new JetpackModel().applyData(_default);
     }
 }

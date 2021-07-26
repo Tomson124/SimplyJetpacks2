@@ -249,7 +249,8 @@
   "test.tooltip.energyCapacity2": "energy capacity TeST: %s",
   "test.tooltip.energyUsage": "energy usage: %s",
   "test.tooltip.configValue": "config energy capacity: %s",
-  "test.tooltip.particle": "Particles: %s",
+  "test.tooltip.particle": "Particle String: %s",
+  "test.tooltip.particle2": "Particle Int: %s",
   "screen.simplyjetpacks.test_screen_title": "Test Screen",
 
   "misc2.simplyjetpacks.empty": "Empty",

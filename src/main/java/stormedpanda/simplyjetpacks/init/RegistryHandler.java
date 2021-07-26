@@ -5,6 +5,7 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
+import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.ParticleType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -35,6 +36,12 @@ public class RegistryHandler {
         CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
+    //public static final BasicParticleType RAINBOW = new BasicParticleType(false);
+
+    // Particles:
+    //public static final RegistryObject<ParticleType<BasicParticleType>> RAINBOW_PARTICLE = PARTICLE_TYPES.register("sj_particle", () -> new BasicParticleType(false));
+    public static final RegistryObject<BasicParticleType> RAINBOW_PARTICLE = PARTICLE_TYPES.register("rainbow", () -> new BasicParticleType(false));
+
     // Recipes:
     public static final RegistryObject<SpecialRecipeSerializer<JetpackSpecialRecipe>> JETPACK_SPECIAL_RECIPE = RECIPE_SERIALIZERS.register("jetpack_special_recipe",() -> new SpecialRecipeSerializer<>(JetpackSpecialRecipe::new));
     //public static final RegistryObject<IRecipeSerializer<JetpackRecipe>> JETPACK_SHAPED_RECIPE = RECIPE_SERIALIZERS.register("jetpack_shaped_recipe", new JetpackRecipe<>.Serializer());
@@ -42,7 +49,7 @@ public class RegistryHandler {
     // Enchantments:
     public static final RegistryObject<EnchantmentFuelEfficiency> FUEL_EFFICIENCY = ENCHANTMENTS.register("fuel_efficiency", EnchantmentFuelEfficiency::new);
 
-    // Simply Jetpacks:
+    // Items:
     public static final RegistryObject<Item> PILOT_GOGGLES = ITEMS.register("pilot_goggles", PilotGogglesItem::new);
     public static final RegistryObject<Item> LEATHER_STRAP = ITEMS.register("leather_strap", () ->
             new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));

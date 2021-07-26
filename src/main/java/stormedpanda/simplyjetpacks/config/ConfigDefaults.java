@@ -37,5 +37,6 @@ public class ConfigDefaults {
     }
 
     // Misc
+    public static final boolean enableJetpackParticles = true;
     public static final boolean enableJoinAdvancements = true;
 }
