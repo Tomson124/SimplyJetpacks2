@@ -7,7 +7,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 
-public class ModSounds {
+public class SJSounds {
 
     public static final SoundEvent JETPACK = new SoundEvent(new ResourceLocation(SimplyJetpacks.MODID, "jetpack"));
     public static final SoundEvent JETPACK_OTHER = new SoundEvent(new ResourceLocation(SimplyJetpacks.MODID, "jetpack_other"));

@@ -9,7 +9,6 @@ public enum JetpackParticleType {
     NONE(null),
     DEFAULT(ParticleTypes.FLAME),
     SMOKE(ParticleTypes.SMOKE),
-    //RAINBOW(SJParticles.RAINBOW),
     RAINBOW(RegistryHandler.RAINBOW_PARTICLE.get()),
     BUBBLES(ParticleTypes.BUBBLE),
     HEARTS(ParticleTypes.HEART);

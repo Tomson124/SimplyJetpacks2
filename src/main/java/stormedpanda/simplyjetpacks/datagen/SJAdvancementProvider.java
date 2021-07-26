@@ -13,24 +13,25 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Set;
 import java.util.function.Consumer;
 
-public class ModAdvancementProvider extends AdvancementProvider {
+public class SJAdvancementProvider extends AdvancementProvider {
 
     private static final Logger LOGGER = LogManager.getLogger();
     private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().create();
     private final DataGenerator generator;
 
-    public ModAdvancementProvider(DataGenerator generatorIn) {
+    public SJAdvancementProvider(DataGenerator generatorIn) {
         super(generatorIn);
         generator = generatorIn;
     }
 
     @Override
-    public void run(DirectoryCache cache) throws IOException {
+    public void run(@Nonnull DirectoryCache cache) throws IOException {
         Path path = this.generator.getOutputFolder();
         Set<ResourceLocation> set = Sets.newHashSet();
         Consumer<Advancement> consumer = (advancement) -> {
@@ -45,7 +46,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
                 }
             }
         };
-        new ModAdvancements().accept(consumer);
+        new SJAdvancements().accept(consumer);
     }
 
     private static Path createPath(Path path, Advancement advancement) {

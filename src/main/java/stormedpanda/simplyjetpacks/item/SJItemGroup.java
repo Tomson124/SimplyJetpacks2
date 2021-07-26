@@ -9,9 +9,9 @@ import stormedpanda.simplyjetpacks.init.RegistryHandler;
 
 import javax.annotation.Nonnull;
 
-public class SimplyJetpacksItemGroup extends ItemGroup {
+public class SJItemGroup extends ItemGroup {
 
-    public SimplyJetpacksItemGroup() {
+    public SJItemGroup() {
         super(SimplyJetpacks.MODID + ".main");
     }
 

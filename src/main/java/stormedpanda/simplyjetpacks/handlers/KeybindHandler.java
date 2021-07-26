@@ -1,4 +1,4 @@
-package stormedpanda.simplyjetpacks;
+package stormedpanda.simplyjetpacks.handlers;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
@@ -13,7 +13,7 @@ import org.lwjgl.glfw.GLFW;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
 import stormedpanda.simplyjetpacks.screen.JetpackScreen;
 
-public class Keybinds {
+public class KeybindHandler {
 
     public static KeyBinding JETPACK_GUI_KEY;
 

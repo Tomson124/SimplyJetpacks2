@@ -19,9 +19,9 @@ public final class DataGenerators {
         DataGenerator gen = event.getGenerator();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
-        gen.addProvider(new ModItemModelProvider(gen, existingFileHelper));
-        gen.addProvider(new ModItemTagsProvider(gen, new BlockTagsProvider(gen, SimplyJetpacks.MODID, existingFileHelper), existingFileHelper));
-        gen.addProvider(new ModRecipeProvider(gen));
-        gen.addProvider(new ModAdvancementProvider(gen));
+        gen.addProvider(new SJItemModelProvider(gen, existingFileHelper));
+        gen.addProvider(new SJItemTagsProvider(gen, new BlockTagsProvider(gen, SimplyJetpacks.MODID, existingFileHelper), existingFileHelper));
+        gen.addProvider(new SJRecipeProvider(gen));
+        gen.addProvider(new SJAdvancementProvider(gen));
     }
 }

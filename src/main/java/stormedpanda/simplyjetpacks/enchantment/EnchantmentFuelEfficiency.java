@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 public class EnchantmentFuelEfficiency extends Enchantment {
 
     public EnchantmentFuelEfficiency() {
-        super(Rarity.RARE, CustomEnchantmentType.JETPACK, new EquipmentSlotType[]{ EquipmentSlotType.CHEST });
+        super(Rarity.RARE, SJEnchantmentType.JETPACK, new EquipmentSlotType[]{ EquipmentSlotType.CHEST });
     }
 
     @Override

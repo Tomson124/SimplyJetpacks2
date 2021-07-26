@@ -6,7 +6,7 @@ import stormedpanda.simplyjetpacks.item.JetpackItem;
 
 import java.util.function.Predicate;
 
-public class CustomEnchantmentType {
+public class SJEnchantmentType {
 
     public static final EnchantmentType JETPACK = addEnchantment("jetpack", JetpackItem.class::isInstance);
 

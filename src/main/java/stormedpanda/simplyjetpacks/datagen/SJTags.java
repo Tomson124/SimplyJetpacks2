@@ -6,7 +6,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 
-public class ModTags {
+public class SJTags {
 
     public static final ITag.INamedTag<Item> PARTICLES = mod("particles");
     public static final ITag.INamedTag<Item> JETPACK = mod("jetpack");

@@ -11,9 +11,9 @@ import stormedpanda.simplyjetpacks.init.RegistryHandler;
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
-public class ModRecipeProvider extends RecipeProvider {
+public class SJRecipeProvider extends RecipeProvider {
 
-    public ModRecipeProvider(DataGenerator generatorIn) {
+    public SJRecipeProvider(DataGenerator generatorIn) {
         super(generatorIn);
     }
 

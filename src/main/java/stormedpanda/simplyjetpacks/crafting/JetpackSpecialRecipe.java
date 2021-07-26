@@ -7,7 +7,7 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import stormedpanda.simplyjetpacks.datagen.ModTags;
+import stormedpanda.simplyjetpacks.datagen.SJTags;
 import stormedpanda.simplyjetpacks.init.RegistryHandler;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
 
@@ -31,7 +31,7 @@ public class JetpackSpecialRecipe extends SpecialRecipe {
                     }
                     jetpack = currentStack.copy();
                 }
-                if (item.getItem().getTags().contains(ModTags.PARTICLES.getName())) {
+                if (item.getItem().getTags().contains(SJTags.PARTICLES.getName())) {
                     if (!particle.isEmpty()) {
                         return false;
                     }
@@ -56,7 +56,7 @@ public class JetpackSpecialRecipe extends SpecialRecipe {
                     }
                     jetpack = currentStack.copy();
                 }
-                if (item.getItem().getTags().contains(ModTags.PARTICLES.getName())) {
+                if (item.getItem().getTags().contains(SJTags.PARTICLES.getName())) {
                     if (!particle.isEmpty()) {
                         return ItemStack.EMPTY;
                     }

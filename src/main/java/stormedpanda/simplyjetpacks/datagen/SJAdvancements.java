@@ -14,11 +14,11 @@ import stormedpanda.simplyjetpacks.init.RegistryHandler;
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
-public class ModAdvancements implements Consumer<Consumer<Advancement>> {
+public class SJAdvancements implements Consumer<Consumer<Advancement>> {
 
     // showToast, announceChat, hidden
 
-    public ModAdvancements() {
+    public SJAdvancements() {
     }
 
     @Override

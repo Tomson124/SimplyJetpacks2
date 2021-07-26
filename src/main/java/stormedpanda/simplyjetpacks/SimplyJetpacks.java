@@ -17,9 +17,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.handlers.ClientJetpackHandler;
+import stormedpanda.simplyjetpacks.handlers.KeybindHandler;
 import stormedpanda.simplyjetpacks.init.RegistryHandler;
 import stormedpanda.simplyjetpacks.item.JetpackType;
-import stormedpanda.simplyjetpacks.item.SimplyJetpacksItemGroup;
+import stormedpanda.simplyjetpacks.item.SJItemGroup;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
@@ -37,7 +38,7 @@ public class SimplyJetpacks {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public static final SimplyJetpacksItemGroup tabSimplyJetpacks = new SimplyJetpacksItemGroup();
+    public static final SJItemGroup tabSimplyJetpacks = new SJItemGroup();
 
     public SimplyJetpacks() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
@@ -59,9 +60,9 @@ public class SimplyJetpacks {
 
     private void clientSetup(final FMLClientSetupEvent event) {
         LOGGER.info("Client Setup Method registered.");
-        MinecraftForge.EVENT_BUS.register(new Keybinds());
+        MinecraftForge.EVENT_BUS.register(new KeybindHandler());
         MinecraftForge.EVENT_BUS.register(new ClientJetpackHandler());
-        Keybinds.setup();
+        KeybindHandler.setup();
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {

@@ -13,8 +13,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import stormedpanda.simplyjetpacks.Keybinds;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
+import stormedpanda.simplyjetpacks.handlers.KeybindHandler;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
 
 import javax.annotation.Nonnull;
@@ -133,7 +133,7 @@ public class JetpackScreen extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (Keybinds.JETPACK_GUI_KEY.matches(keyCode, scanCode)) {
+        if (KeybindHandler.JETPACK_GUI_KEY.matches(keyCode, scanCode)) {
             minecraft.setScreen(null);
             return true;
         } else {

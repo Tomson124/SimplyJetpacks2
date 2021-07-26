@@ -7,9 +7,9 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 
-public class ModItemModelProvider extends ItemModelProvider {
+public class SJItemModelProvider extends ItemModelProvider {
 
-    public ModItemModelProvider(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
+    public SJItemModelProvider(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
         super(generatorIn, SimplyJetpacks.MODID, existingFileHelper);
     }
 

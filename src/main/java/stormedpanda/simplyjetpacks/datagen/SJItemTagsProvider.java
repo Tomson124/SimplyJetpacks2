@@ -9,22 +9,22 @@ import stormedpanda.simplyjetpacks.init.RegistryHandler;
 
 import javax.annotation.Nullable;
 
-public class ModItemTagsProvider extends ItemTagsProvider {
+public class SJItemTagsProvider extends ItemTagsProvider {
 
-    public ModItemTagsProvider(DataGenerator generatorIn, BlockTagsProvider blockTagProvider, @Nullable ExistingFileHelper existingFileHelper) {
+    public SJItemTagsProvider(DataGenerator generatorIn, BlockTagsProvider blockTagProvider, @Nullable ExistingFileHelper existingFileHelper) {
         super(generatorIn, blockTagProvider, SimplyJetpacks.MODID, existingFileHelper);
     }
 
     @Override
     protected void addTags() {
         // Simply Jetpacks:
-        tag(ModTags.PARTICLES)
+        tag(SJTags.PARTICLES)
                 .add(RegistryHandler.PARTICLE_DEFAULT.get())
                 .add(RegistryHandler.PARTICLE_NONE.get())
                 .add(RegistryHandler.PARTICLE_SMOKE.get())
                 .add(RegistryHandler.PARTICLE_RAINBOW.get());
 
-        tag(ModTags.JETPACK)
+        tag(SJTags.JETPACK)
                 //.add(RegistryHandler.JETPACK_POTATO.get())
                 .add(RegistryHandler.JETPACK_CREATIVE.get())
                 .add(RegistryHandler.JETPACK_CREATIVE_ARMORED.get())
@@ -66,8 +66,8 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 ;
 
         // Curios:
-        tag(ModTags.HEAD).add(RegistryHandler.PILOT_GOGGLES.get());
-        tag(ModTags.BACK)
+        tag(SJTags.HEAD).add(RegistryHandler.PILOT_GOGGLES.get());
+        tag(SJTags.BACK)
                 //.add(RegistryHandler.JETPACK_POTATO.get())
                 .add(RegistryHandler.JETPACK_CREATIVE.get())
                 .add(RegistryHandler.JETPACK_CREATIVE_ARMORED.get())
