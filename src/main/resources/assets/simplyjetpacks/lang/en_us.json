@@ -125,7 +125,7 @@
   "advancement.simplyjetpacks.jetpack_te5_enderium.title": "Flux-Infused JetPlate (Enderium)",
   "advancement.simplyjetpacks.jetpack_te5_enderium.description": "Obtain a Flux-Infused JetPlate (Enderium)",
 
-  "keybind.categories.simplyjetpacks": "Simply Jetpacks 2",
+  "keybind.simplyjetpacks.category": "Simply Jetpacks 2",
   "keybind.simplyjetpacks.jetpack_gui": "Toggle Jetpack GUI",
   "keybind.simplyjetpacks.jetpack_engine": "Toggle Jetpack Engine",
   "keybind.simplyjetpacks.jetpack_hover": "Toggle Jetpack Hover",

@@ -1,8 +1,6 @@
 package stormedpanda.simplyjetpacks;
 
-import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
@@ -18,11 +16,14 @@ import org.apache.logging.log4j.Logger;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.crafting.JetpackCraftingEvents;
 import stormedpanda.simplyjetpacks.handlers.ClientJetpackHandler;
+import stormedpanda.simplyjetpacks.handlers.CommonJetpackHandler;
 import stormedpanda.simplyjetpacks.handlers.KeybindHandler;
+import stormedpanda.simplyjetpacks.hud.HUDHandler;
 import stormedpanda.simplyjetpacks.init.RegistryHandler;
 import stormedpanda.simplyjetpacks.item.JetpackType;
 import stormedpanda.simplyjetpacks.item.SJItemGroup;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
+import stormedpanda.simplyjetpacks.sound.SJSounds;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
@@ -49,6 +50,8 @@ public class SimplyJetpacks {
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new JetpackCraftingEvents());
+        MinecraftForge.EVENT_BUS.register(new CommonJetpackHandler());
+        MinecraftForge.EVENT_BUS.register(new SJSounds());
 
         SimplyJetpacksConfig.register();
         JetpackType.loadAllConfigs();
@@ -64,6 +67,7 @@ public class SimplyJetpacks {
         LOGGER.info("Client Setup Method registered.");
         MinecraftForge.EVENT_BUS.register(new KeybindHandler());
         MinecraftForge.EVENT_BUS.register(new ClientJetpackHandler());
+        MinecraftForge.EVENT_BUS.register(new HUDHandler());
         KeybindHandler.setup();
     }
 
@@ -84,11 +88,6 @@ public class SimplyJetpacks {
     @SubscribeEvent
     public void onServerStopping(FMLServerStoppingEvent event) {
         LOGGER.info("Server stopping...");
-    }
-
-    @SubscribeEvent
-    public void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
-        LOGGER.info("Recipe Serializers Registered.");
-        //CraftingHelper.register(ModIntegrationCondition.Serializer.INSTANCE);
+        CommonJetpackHandler.clear();
     }
 }

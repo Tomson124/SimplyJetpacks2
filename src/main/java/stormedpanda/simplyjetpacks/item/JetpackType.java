@@ -1,5 +1,6 @@
 package stormedpanda.simplyjetpacks.item;
 
+import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.config.JetpackDataHolder;
@@ -57,6 +58,7 @@ public enum JetpackType {
     private final boolean armored;
     private final int platingId;
     private final ResourceLocation armorTexture;
+    private final int tier;
 
     private int energyCapacity;
     private int energyUsage;
@@ -82,6 +84,7 @@ public enum JetpackType {
         this.armored = armored;
         this.platingId = platingId;
         this.armorTexture = new ResourceLocation(("simplyjetpacks:textures/models/armor/jetpack_" + name + ".png"));
+        this.tier = 0;
     }
 
     JetpackType(String name, String configKey, boolean armored) {
@@ -90,6 +93,7 @@ public enum JetpackType {
         this.armored = armored;
         this.platingId = 0;
         this.armorTexture = new ResourceLocation(("simplyjetpacks:textures/models/armor/jetpack_" + name + ".png"));
+        this.tier = 0;
     }
 
     JetpackType(String name) {
@@ -98,6 +102,7 @@ public enum JetpackType {
         this.armored = false;
         this.platingId = 0;
         this.armorTexture = new ResourceLocation(("simplyjetpacks:textures/models/armor/jetpack_" + name + ".png"));
+        this.tier = 0;
     }
 
     public String getName() {
@@ -118,6 +123,23 @@ public enum JetpackType {
 
     public String getArmorTexture() {
         return armorTexture.toString();
+    }
+
+    public int getTier() {
+        return tier;
+    }
+
+    public Rarity getRarity() {
+        switch (tier) {
+            case 2:
+                return Rarity.UNCOMMON;
+            case 3:
+                return Rarity.RARE;
+            case 4:
+                return Rarity.EPIC;
+            default:
+                return Rarity.COMMON;
+        }
     }
 
     public int getEnergyCapacity() {
