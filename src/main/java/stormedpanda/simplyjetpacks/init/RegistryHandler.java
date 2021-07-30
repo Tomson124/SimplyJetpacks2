@@ -12,7 +12,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
-import stormedpanda.simplyjetpacks.crafting.JetpackParticleRecipe;
 import stormedpanda.simplyjetpacks.crafting.JetpackSpecialRecipe;
 import stormedpanda.simplyjetpacks.enchantment.EnchantmentFuelEfficiency;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
@@ -40,8 +39,6 @@ public class RegistryHandler {
 
     // Recipes:
     public static final RegistryObject<SpecialRecipeSerializer<JetpackSpecialRecipe>> JETPACK_SPECIAL_RECIPE = RECIPE_SERIALIZERS.register("jetpack_special_recipe",() -> new SpecialRecipeSerializer<>(JetpackSpecialRecipe::new));
-    public static final RegistryObject<JetpackParticleRecipe.Serializer> JETPACK_PARTICLE_RECIPE = RECIPE_SERIALIZERS.register("jetpack_particle_recipe", JetpackParticleRecipe.Serializer::new);
-    //public static final RegistryObject<IRecipeSerializer<JetpackRecipe>> JETPACK_SHAPED_RECIPE = RECIPE_SERIALIZERS.register("jetpack_shaped_recipe", new JetpackRecipe<>.Serializer());
 
     // Enchantments:
     public static final RegistryObject<EnchantmentFuelEfficiency> FUEL_EFFICIENCY = ENCHANTMENTS.register("fuel_efficiency", EnchantmentFuelEfficiency::new);

@@ -6,6 +6,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.datagen.SJTags;
 import stormedpanda.simplyjetpacks.init.RegistryHandler;
 
@@ -24,7 +25,7 @@ public final class JetpackParticleRecipeMaker {
         ItemStack baseStack = new ItemStack(RegistryHandler.JETPACK_CREATIVE.get());
         NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY, Ingredient.of(SJTags.PARTICLES), Ingredient.of(SJTags.JETPACK));
         ItemStack output = baseStack;
-        ResourceLocation id = new ResourceLocation("minecraft:particle_" + output.getItem());
+        ResourceLocation id = new ResourceLocation(SimplyJetpacks.MODID, "particle_" + output.getItem());
         ShapelessRecipe recipe = new ShapelessRecipe(id, group, output, inputs);
         recipes.add(recipe);
         return recipes;
