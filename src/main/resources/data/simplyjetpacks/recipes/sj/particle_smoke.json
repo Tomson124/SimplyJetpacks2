@@ -6,7 +6,7 @@
     " c "
   ],
   "key": {
-    "c": { "tag": "forge:dusts/coal" }
+    "c": { "tag": "minecraft:coals" }
   },
   "result": {
     "item": "simplyjetpacks:particle_smoke",

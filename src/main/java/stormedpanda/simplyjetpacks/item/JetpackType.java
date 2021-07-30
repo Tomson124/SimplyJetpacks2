@@ -14,40 +14,40 @@ public enum JetpackType {
     CREATIVE_ARMORED("creative_armored", "creative", true),
 
     VANILLA1("vanilla1"),
-    VANILLA1_ARMORED("vanilla1_armored", "vanilla1", true),
+    VANILLA1_ARMORED("vanilla1_armored", "vanilla1", true, 0),
     VANILLA2("vanilla2"),
-    VANILLA2_ARMORED("vanilla2_armored", "vanilla2", true),
+    VANILLA2_ARMORED("vanilla2_armored", "vanilla2", true, 1),
     VANILLA3("vanilla3"),
-    VANILLA3_ARMORED("vanilla3_armored", "vanilla3", true),
+    VANILLA3_ARMORED("vanilla3_armored", "vanilla3", true, 2),
     VANILLA4("vanilla4"),
-    VANILLA4_ARMORED("vanilla4_armored", "vanilla4", true),
-
-    MEK1("mek1"),
-    MEK1_ARMORED("mek1_armored", "mek1", true),
-    MEK2("mek2"),
-    MEK2_ARMORED("mek2_armored", "mek2", true),
-    MEK3("mek3"),
-    MEK3_ARMORED("mek3_armored", "mek3", true),
-    MEK4("mek4"),
-    MEK4_ARMORED("mek4_armored", "mek4", true),
-
-    TE1("te1"),
-    TE1_ARMORED("te1_armored", "te1", true),
-    TE2("te2"),
-    TE2_ARMORED("te2_armored", "te2", true),
-    TE3("te3"),
-    TE3_ARMORED("te3_armored", "te3", true),
-    TE4("te4"),
-    TE4_ARMORED("te4_armored", "te4", true),
-    TE5("te5", "te5", true),
-    TE5_ARMORED("te5_enderium", "te5", true),
+    VANILLA4_ARMORED("vanilla4_armored", "vanilla4", true, 3),
 
     IE1("ie1"),
-    IE1_ARMORED("ie1_armored", "ie1", true),
+    IE1_ARMORED("ie1_armored", "ie1", true, 4),
     IE2("ie2"),
-    IE2_ARMORED("ie2_armored", "ie2", true),
+    IE2_ARMORED("ie2_armored", "ie2", true, 5),
     IE3("ie3"),
-    IE3_ARMORED("ie3_armored", "ie3", true),
+    IE3_ARMORED("ie3_armored", "ie3", true, 6),
+
+    MEK1("mek1"),
+    MEK1_ARMORED("mek1_armored", "mek1", true, 7),
+    MEK2("mek2"),
+    MEK2_ARMORED("mek2_armored", "mek2", true, 8),
+    MEK3("mek3"),
+    MEK3_ARMORED("mek3_armored", "mek3", true, 9),
+    MEK4("mek4"),
+    MEK4_ARMORED("mek4_armored", "mek4", true, 10),
+
+    TE1("te1"),
+    TE1_ARMORED("te1_armored", "te1", true, 11),
+    TE2("te2"),
+    TE2_ARMORED("te2_armored", "te2", true, 12),
+    TE3("te3"),
+    TE3_ARMORED("te3_armored", "te3", true, 13),
+    TE4("te4"),
+    TE4_ARMORED("te4_armored", "te4", true, 14),
+    TE5("te5", "te5", true),
+    TE5_ARMORED("te5_enderium", "te5", true),
     ;
 
     protected static final EnumSet<JetpackType> JETPACK_ALL = EnumSet.allOf(JetpackType.class);
@@ -75,6 +75,14 @@ public enum JetpackType {
     private double sprintEnergyModifier;
     private boolean emergencyHoverMode;
     private boolean chargerMode;
+
+    JetpackType(String name, String configKey, boolean armored, int platingId) {
+        this.name = name;
+        this.configKey = configKey;
+        this.armored = armored;
+        this.platingId = platingId;
+        this.armorTexture = new ResourceLocation(("simplyjetpacks:textures/models/armor/jetpack_" + name + ".png"));
+    }
 
     JetpackType(String name, String configKey, boolean armored) {
         this.name = name;

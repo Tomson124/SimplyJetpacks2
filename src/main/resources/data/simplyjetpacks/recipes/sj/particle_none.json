@@ -9,7 +9,7 @@
     "g": {
       "tag": "forge:glass"
     },
-    "c": { "tag": "forge:dusts/coal" }
+    "c": { "tag": "minecraft:coals" }
   },
   "result": {
     "item": "simplyjetpacks:particle_none",

@@ -19,7 +19,7 @@
   },
   "conditions": [
     {
-      "type": "simplyjetpacks:mod_integration",
+      "type": "forge:mod_loaded",
       "modid": "thermal"
     }
   ]

@@ -1,5 +1,5 @@
 package stormedpanda.simplyjetpacks.integration;
 
-public class Curios {
+public class SJPluginCurios {
     // TODO: *this*
 }

@@ -14,6 +14,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -52,7 +53,6 @@ public class JetpackItem extends ArmorItem implements IEnergyContainer {
 
     public boolean isCreative() {
         return jetpackType.getName().contains("creative");
-        //return false;
     }
 
     @Override
@@ -100,11 +100,12 @@ public class JetpackItem extends ArmorItem implements IEnergyContainer {
         if (CapabilityEnergy.ENERGY == null) return;
         stack.getCapability(CapabilityEnergy.ENERGY).ifPresent(e ->
                 tooltip.add(TextUtil.energyWithMax(e.getEnergyStored(), e.getMaxEnergyStored())));
+        tooltip.add(new TranslationTextComponent("test.tooltip.particle", getParticleId(stack)));
     }
 
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
-        return true;
+        return !isCreative();
     }
 
     @Override
@@ -114,17 +115,20 @@ public class JetpackItem extends ArmorItem implements IEnergyContainer {
 
     @Override
     public int getRGBDurabilityForDisplay(ItemStack stack) {
-        return MathHelper.hsvToRgb((1 + getChargeRatio(stack)) / 3.0F, 1.0F, 1.0F);
+        //return MathHelper.hsvToRgb((1 + getChargeRatio(stack)) / 3.0F, 1.0F, 1.0F);
+        return 0x03fc49;
     }
 
     @Override
     public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
         if (this.allowdedIn(group)) {
             items.add(new ItemStack(this));
-            ItemStack full = new ItemStack(this);
-            //full.getOrCreateTag().putInt(Constants.TAG_ENERGY, jetpackType.getEnergyCapacity());
-            NBTUtil.setInt(full, Constants.TAG_ENERGY, jetpackType.getEnergyCapacity());
-            items.add(full);
+            if (!isCreative()) {
+                ItemStack full = new ItemStack(this);
+                //full.getOrCreateTag().putInt(Constants.TAG_ENERGY, jetpackType.getEnergyCapacity());
+                NBTUtil.setInt(full, Constants.TAG_ENERGY, jetpackType.getEnergyCapacity());
+                items.add(full);
+            }
         }
     }
 
@@ -175,6 +179,10 @@ public class JetpackItem extends ArmorItem implements IEnergyContainer {
         //stack.getOrCreateTag().putInt(Constants.TAG_PARTICLE, id);
         NBTUtil.setInt(stack, Constants.TAG_PARTICLE, id);
         return stack;
+    }
+
+    public static void setParticleId(ItemStack stack, int id) {
+        NBTUtil.setInt(stack, Constants.TAG_PARTICLE, id);
     }
 
     public static int getParticleId(ItemStack stack) {

@@ -7,12 +7,12 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import stormedpanda.simplyjetpacks.SimplyJetpacks;
+import stormedpanda.simplyjetpacks.datagen.SJTags;
+import stormedpanda.simplyjetpacks.init.RegistryHandler;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
 import stormedpanda.simplyjetpacks.item.JetpackType;
+import stormedpanda.simplyjetpacks.util.NBTUtil;
 
-@Mod.EventBusSubscriber(modid = SimplyJetpacks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class JetpackCraftingEvents {
 
     // TODO: improve this
@@ -20,12 +20,18 @@ public class JetpackCraftingEvents {
     public void onItemCrafted(PlayerEvent.ItemCraftedEvent event) {
         ItemStack craftedStack = event.getCrafting();
         Item craftedItem = event.getCrafting().getItem();
-        int storedEnergy = 0;
-        CompoundNBT tags = null;
+        int storedEnergy;
+        CompoundNBT tags;
+        boolean particleRecipe; // if particle as ingredient, then true
 
         if (craftedItem instanceof JetpackItem) {
             for (int i = 0; i < event.getInventory().getContainerSize(); i++) {
                 ItemStack input = event.getInventory().getItem(i);
+
+                if (input.getItem().getTags().contains(SJTags.PARTICLES.getName())) {
+                    particleRecipe = true;
+                    break;
+                }
 
                 if (!(input.getItem() instanceof JetpackItem)) {
                     continue;
@@ -34,19 +40,23 @@ public class JetpackCraftingEvents {
                 if (input.getItem() instanceof JetpackItem) {
                     JetpackType inputJetpack = ((JetpackItem) input.getItem()).getJetpackType();
                     // ENERGY/PARTICLES:
-/*                    tags = NBTHelper.getTagCompound(input).copy();
-                    storedEnergy = NBTHelper.getInt(input, "Energy");
+                    tags = NBTUtil.getTagCompound(input).copy();
+                    storedEnergy = NBTUtil.getInt(input, "Energy");
                     craftedStack.setTag(tags);
-                    int energyToTransfer = Math.min(storedEnergy, ((JetpackItem) craftedItem).getEnergyCapacity());
-                    JetpackParticleType particleType = inputJetpack.getParticleType(input);
-                    ((JetpackItem) craftedItem).setParticleType(craftedStack, particleType);*/
+                    int energyToTransfer = Math.min(storedEnergy, ((JetpackItem) craftedItem).getCapacity(input));
+                    //JetpackParticleType particleType = inputJetpack.getParticleType(input);
+                    int particleId = JetpackItem.getParticleId(input);
+                    //((JetpackItem) craftedItem).setParticleType(craftedStack, particleType);
+                    JetpackItem.setParticleId(craftedStack, particleId);
 
                     // ARMORPLATING:
                     if (inputJetpack.isArmored()) {
                         Item itemToReturn = getPlating(inputJetpack.getPlatingId());
-                        ItemEntity item = event.getPlayer().drop(new ItemStack(itemToReturn, 1), false);
-                        if (item != null) {
-                            item.setNoPickUpDelay();
+                        if (itemToReturn != null) {
+                            ItemEntity item = event.getPlayer().drop(new ItemStack(itemToReturn, 1), false);
+                            if (item != null) {
+                                item.setNoPickUpDelay();
+                            }
                         }
                     }
                     break;
@@ -66,7 +76,7 @@ public class JetpackCraftingEvents {
                 return Items.DIAMOND_CHESTPLATE;
             case 3:
                 return Items.NETHERITE_CHESTPLATE;
-            /*case 4:
+            case 4:
                 return RegistryHandler.ARMORPLATING_IE1.get();
             case 5:
                 return RegistryHandler.ARMORPLATING_IE2.get();
@@ -87,9 +97,9 @@ public class JetpackCraftingEvents {
             case 13:
                 return RegistryHandler.ARMORPLATING_TE3.get();
             case 14:
-                return RegistryHandler.ARMORPLATING_TE4.get();*/
+                return RegistryHandler.ARMORPLATING_TE4.get();
             default:
-                return Items.DIAMOND.getItem();
+                return null;
         }
     }
 }

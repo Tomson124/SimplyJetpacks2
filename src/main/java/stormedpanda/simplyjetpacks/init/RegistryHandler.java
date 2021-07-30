@@ -12,6 +12,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
+import stormedpanda.simplyjetpacks.crafting.JetpackParticleRecipe;
 import stormedpanda.simplyjetpacks.crafting.JetpackSpecialRecipe;
 import stormedpanda.simplyjetpacks.enchantment.EnchantmentFuelEfficiency;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
@@ -39,6 +40,7 @@ public class RegistryHandler {
 
     // Recipes:
     public static final RegistryObject<SpecialRecipeSerializer<JetpackSpecialRecipe>> JETPACK_SPECIAL_RECIPE = RECIPE_SERIALIZERS.register("jetpack_special_recipe",() -> new SpecialRecipeSerializer<>(JetpackSpecialRecipe::new));
+    public static final RegistryObject<JetpackParticleRecipe.Serializer> JETPACK_PARTICLE_RECIPE = RECIPE_SERIALIZERS.register("jetpack_particle_recipe", JetpackParticleRecipe.Serializer::new);
     //public static final RegistryObject<IRecipeSerializer<JetpackRecipe>> JETPACK_SHAPED_RECIPE = RECIPE_SERIALIZERS.register("jetpack_shaped_recipe", new JetpackRecipe<>.Serializer());
 
     // Enchantments:
@@ -123,6 +125,15 @@ public class RegistryHandler {
     public static final RegistryObject<Item> ARMORPLATING_IE3 = ITEMS.register("armorplating_ie3", () ->
             new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
 
+    public static final RegistryObject<Item> THRUSTER_VANILLA1 = ITEMS.register("thruster_vanilla1", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> THRUSTER_VANILLA2 = ITEMS.register("thruster_vanilla2", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> THRUSTER_VANILLA3 = ITEMS.register("thruster_vanilla3", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> THRUSTER_VANILLA4 = ITEMS.register("thruster_vanilla4", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    
     public static final RegistryObject<Item> THRUSTER_MEK1 = ITEMS.register("thruster_mek1", () ->
             new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
     public static final RegistryObject<Item> THRUSTER_MEK2 = ITEMS.register("thruster_mek2", () ->

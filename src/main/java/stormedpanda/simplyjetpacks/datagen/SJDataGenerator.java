@@ -9,9 +9,9 @@ import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 
 @Mod.EventBusSubscriber(modid = SimplyJetpacks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public final class DataGenerators {
+public final class SJDataGenerator {
 
-    private DataGenerators() {
+    private SJDataGenerator() {
     }
 
     @SubscribeEvent

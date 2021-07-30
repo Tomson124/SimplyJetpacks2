@@ -11,11 +11,5 @@
   "result": {
     "item": "simplyjetpacks:jetpack_vanilla4_armored",
     "count": 1
-  },
-  "conditions": [
-    {
-      "type": "simplyjetpacks:mod_integration",
-      "modid": "vanilla"
-    }
-  ]
+  }
 }

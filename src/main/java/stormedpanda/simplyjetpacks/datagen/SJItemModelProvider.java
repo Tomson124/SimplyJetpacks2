@@ -80,6 +80,11 @@ public class SJItemModelProvider extends ItemModelProvider {
         builder(itemGenerated, "armorplating_ie2");
         builder(itemGenerated, "armorplating_ie3");
 
+        builder(itemGenerated, "thruster_vanilla1");
+        builder(itemGenerated, "thruster_vanilla2");
+        builder(itemGenerated, "thruster_vanilla3");
+        builder(itemGenerated, "thruster_vanilla4");
+        
         builder(itemGenerated, "thruster_mek1");
         builder(itemGenerated, "thruster_mek2");
         builder(itemGenerated, "thruster_mek3");

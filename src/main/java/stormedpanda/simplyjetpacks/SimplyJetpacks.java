@@ -16,6 +16,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
+import stormedpanda.simplyjetpacks.crafting.JetpackCraftingEvents;
 import stormedpanda.simplyjetpacks.handlers.ClientJetpackHandler;
 import stormedpanda.simplyjetpacks.handlers.KeybindHandler;
 import stormedpanda.simplyjetpacks.init.RegistryHandler;
@@ -47,6 +48,7 @@ public class SimplyJetpacks {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new JetpackCraftingEvents());
 
         SimplyJetpacksConfig.register();
         JetpackType.loadAllConfigs();
