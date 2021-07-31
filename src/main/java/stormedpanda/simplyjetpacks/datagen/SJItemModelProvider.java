@@ -99,6 +99,11 @@ public class SJItemModelProvider extends ItemModelProvider {
         builder(itemGenerated, "thruster_ie1");
         builder(itemGenerated, "thruster_ie2");
         builder(itemGenerated, "thruster_ie3");
+
+        builder(itemGenerated, "unit_cryotheum_empty");
+        builder(itemGenerated, "unit_cryotheum");
+        builder(itemGenerated, "unit_glowstone_empty");
+        builder(itemGenerated, "unit_glowstone");
     }
 
     private ItemModelBuilder builder(ModelFile itemGenerated, String name) {

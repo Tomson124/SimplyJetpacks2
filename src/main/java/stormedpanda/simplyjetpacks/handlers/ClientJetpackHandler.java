@@ -53,7 +53,6 @@ public class ClientJetpackHandler {
         }
     }
 
-    //@OnlyIn(Dist.CLIENT)
     public void showJetpackParticles(Minecraft minecraft, JetpackParticleType particleType) {
         IParticleData particle = particleType.getParticleData();
         Random rand = new Random();
@@ -72,14 +71,14 @@ public class ClientJetpackHandler {
         //minecraft.level.addParticle(particle, v.x, v.y, v.z, random, -0.2D, random); // alternative method
     }
 
-    //@OnlyIn(Dist.CLIENT)
     public static boolean isFlying(PlayerEntity player) {
         ItemStack stack = player.getItemBySlot(EquipmentSlotType.CHEST);
         if (!stack.isEmpty()) {
             Item item = stack.getItem();
             if (item instanceof JetpackItem) {
                 JetpackItem jetpack = (JetpackItem) item;
-                if (jetpack.isEngineOn(stack) && (jetpack.getEnergy(stack) > 0 || player.isCreative() || jetpack.isCreative())) {
+                //if (jetpack.isEngineOn(stack) && (jetpack.getEnergy(stack) > 0 || player.isCreative() || jetpack.isCreative())) {
+                if (jetpack.isEngineOn(stack) && (jetpack.getEnergy(stack) > 0 || jetpack.isCreative())) {
                     if (jetpack.isHoverOn(stack)) {
                         return !player.isOnGround();
                     } else {

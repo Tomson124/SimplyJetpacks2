@@ -10,6 +10,8 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -21,6 +23,7 @@ import stormedpanda.simplyjetpacks.network.packets.PacketToggleCharger;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleEHover;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleEngine;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleHover;
+import stormedpanda.simplyjetpacks.util.SJTextUtil;
 
 import javax.annotation.Nonnull;
 
@@ -34,6 +37,8 @@ public class JetpackScreen extends Screen {
     private static final int HEIGHT = 100;
 
     private final JetpackItem jetpackItem;
+    private final ItemStack jetpackStack;
+
     private ImageButton engine, hover, ehover, charger;
 
     public JetpackScreen() {
@@ -41,6 +46,7 @@ public class JetpackScreen extends Screen {
         this.width = WIDTH;
         this.height = HEIGHT;
         this.jetpackItem = (JetpackItem) minecraft.player.getItemBySlot(EquipmentSlotType.CHEST).getItem();
+        this.jetpackStack = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
     }
 
     @Override
@@ -51,9 +57,7 @@ public class JetpackScreen extends Screen {
         addButton(this.engine = new ImageButton(relX + 120, relY + 16, 20, 20, 176, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleEngine())));
         addButton(this.hover = new ImageButton(relX + 120, relY + 38, 20, 20, 216, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleHover())));
 
-        // TODO: clean up code that grabs the jetpack item from the slot.
-        ItemStack stack = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
-        Item item = stack.getItem();
+        Item item = jetpackStack.getItem();
         if (item instanceof JetpackItem) {
             JetpackItem jetpack = (JetpackItem) item;
             if (jetpack.getJetpackType().getChargerMode()) {
@@ -82,14 +86,12 @@ public class JetpackScreen extends Screen {
         minecraft.getTextureManager().bind(GUI_BASE);
         blit(matrixStack, relX, relY, 0, 0, WIDTH, HEIGHT);
         InventoryScreen.renderEntityInInventory(relX + 80, relY + 90, 40, (float)(relX + 51) - mouseX, (float)(relY + 75 - 50) - mouseY, minecraft.player);
-        drawCenteredString(matrixStack, minecraft.font, new TranslationTextComponent(minecraft.player.getItemBySlot(EquipmentSlotType.CHEST).getDescriptionId()), relX + 88, relY + 5, 0xFFFFFF);
+        drawCenteredString(matrixStack, minecraft.font, new TranslationTextComponent(jetpackStack.getDescriptionId()), relX + 88, relY + 5, 0xFFFFFF);
         minecraft.getTextureManager().bind(GUI_BASE);
 
-        int amount = getEnergyBarAmount();
+        int amount = getEnergyBarAmount(); // texture height
         int barOffset = 78 - amount;
-
         int barX = 0;
-        int barY = 0;
         boolean useGradient = false;
 
         switch (jetpackItem.getModId()) {
@@ -104,27 +106,42 @@ public class JetpackScreen extends Screen {
                 break;
         }
 
-        blit(matrixStack, relX + 10, relY + 16, barX, 178, 14, 78);
-        if (useGradient) {
-            // top left corner -> bottom right corner
-            fillGradient(matrixStack, relX + 12, relY + 18 + barOffset, relX + 22, relY + 14 + 78, 0xffb51500, 0xff600b00);
+        if (jetpackItem.isCreative()) {
+            blit(matrixStack, relX + 10, relY + 16, 70, 178, 14, 78);
         } else {
-            blit(matrixStack, relX + 10, relY + 14 + barOffset - 1, barX + 14, 178 + 1, 14, amount - 1);
+            blit(matrixStack, relX + 10, relY + 16, barX, 178, 14, 78);
+            if (useGradient) {
+                // top left corner -> bottom right corner
+                fillGradient(matrixStack, relX + 12, relY + 18 + barOffset, relX + 22, relY + 14 + 78, 0xffb51500, 0xff600b00);
+            } else {
+                // matrixStack, xPos, yPos, textureXPos, textureYPos, textureWidth, textureHeight
+                //blit(matrixStack, relX + 10, relY + 14 + barOffset - 1, barX + 14, 178 + 1, 14, amount - 1);
+                blit(matrixStack, relX + 10, relY + 16 + 1 + barOffset, barX + 14, 178 + 1, 14, amount - 2);
+            }
+        }
+        // this does not update like a screen container :(
+        if (mouseX >= relX + 10 && mouseY >= relY + 16 && mouseX < relX + 10 + 14 && mouseY < relY + 16 + 78) {
+            ITextComponent text;
+            //text = SJTextUtil.energyWithMax(jetpackItem.getEnergy(jetpackStack), jetpackItem.getCapacity(jetpackStack));
+            if (jetpackItem.isCreative()) {
+                text = SJTextUtil.translate("tooltip", "infiniteEnergy", TextFormatting.LIGHT_PURPLE);
+            } else if (jetpackItem.getEnergy(jetpackStack) == 0) {
+                text = SJTextUtil.translate("hud", "energyDepleted", TextFormatting.RED);
+            } else text = null;
+            if (text != null) renderTooltip(matrixStack, text, mouseX, mouseY);
         }
         super.render(matrixStack, mouseX, mouseY, partialTicks);
     }
 
     private int getEnergyBarAmount() {
-        // TODO: clean up code that grabs the jetpack item from the slot.
-        ItemStack stack = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
-        Item item = stack.getItem();
+        Item item = jetpackStack.getItem();
         if (item instanceof JetpackItem) {
             JetpackItem jetpack = (JetpackItem) item;
             if (jetpack.isCreative()) {
                 return 78;
             }
-            int i = jetpack.getEnergy(stack);
-            int j = jetpack.getCapacity(stack);
+            int i = jetpack.getEnergy(jetpackStack);
+            int j = jetpack.getCapacity(jetpackStack);
             return (int) (j != 0 && i != 0 ? (long) i * 78 / j : 0);
         } else {
             return 0;

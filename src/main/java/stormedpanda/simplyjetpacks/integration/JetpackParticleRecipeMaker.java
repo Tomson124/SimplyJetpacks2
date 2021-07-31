@@ -36,18 +36,4 @@ public final class JetpackParticleRecipeMaker {
         }
         return recipes;
     }
-
-    public static List<IRecipe<?>> createJetpackParticleRecipesBackup() {
-        List<IRecipe<?>> recipes = new ArrayList<>();
-        String group = "simplyjetpacks.particle_customization";
-        List<Item> jetpackList = SJTags.JETPACK.getValues();
-        for (Item jetpack : jetpackList) {
-            ItemStack stack = new ItemStack(jetpack);
-            NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY, Ingredient.of(SJTags.PARTICLES), Ingredient.of(stack));
-            ResourceLocation id = new ResourceLocation(SimplyJetpacks.MODID, "particle_" + stack.getItem());
-            ShapelessRecipe recipe = new ShapelessRecipe(id, group, stack, inputs);
-            recipes.add(recipe);
-        }
-        return recipes;
-    }
 }

@@ -157,4 +157,14 @@ public class RegistryHandler {
             new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
     public static final RegistryObject<Item> THRUSTER_IE3 = ITEMS.register("thruster_ie3", () ->
             new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+
+    public static final RegistryObject<Item> UNIT_CRYOTHEUM_EMPTY = ITEMS.register("unit_cryotheum_empty", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> UNIT_CRYOTHEUM = ITEMS.register("unit_cryotheum", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+
+    public static final RegistryObject<Item> UNIT_GLOWSTONE_EMPTY = ITEMS.register("unit_glowstone_empty", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<Item> UNIT_GLOWSTONE = ITEMS.register("unit_glowstone", () ->
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
 }
