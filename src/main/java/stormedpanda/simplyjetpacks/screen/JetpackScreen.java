@@ -16,6 +16,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.handlers.KeybindHandler;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
+import stormedpanda.simplyjetpacks.network.NetworkHandler;
+import stormedpanda.simplyjetpacks.network.packets.PacketToggleCharger;
+import stormedpanda.simplyjetpacks.network.packets.PacketToggleEHover;
+import stormedpanda.simplyjetpacks.network.packets.PacketToggleEngine;
+import stormedpanda.simplyjetpacks.network.packets.PacketToggleHover;
 
 import javax.annotation.Nonnull;
 
@@ -43,9 +48,8 @@ public class JetpackScreen extends Screen {
         int relX = (this.width - WIDTH) / 2;
         int relY = (this.height - HEIGHT) / 2;
 
-        //button -> NetworkHandler.sendToServer(new PacketToggleEHover());
-        addButton(new ImageButton(relX + 120, relY + 16, 20, 20, 176, 0, 20, GUI_BASE, button -> buttonClicked("E HOVER NOT AVAILABLE")));
-        addButton(new ImageButton(relX + 120, relY + 38, 20, 20, 216, 0, 20, GUI_BASE, button -> buttonClicked("E HOVER NOT AVAILABLE")));
+        addButton(this.engine = new ImageButton(relX + 120, relY + 16, 20, 20, 176, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleEngine())));
+        addButton(this.hover = new ImageButton(relX + 120, relY + 38, 20, 20, 216, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleHover())));
 
         // TODO: clean up code that grabs the jetpack item from the slot.
         ItemStack stack = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
@@ -53,24 +57,20 @@ public class JetpackScreen extends Screen {
         if (item instanceof JetpackItem) {
             JetpackItem jetpack = (JetpackItem) item;
             if (jetpack.getJetpackType().getChargerMode()) {
-                addButton(this.charger = new ImageButton(relX + 142, relY + 16, 20, 20, 196, 0, 20, GUI_BASE, button -> buttonClicked("E HOVER NOT AVAILABLE")));
+                addButton(this.charger = new ImageButton(relX + 142, relY + 16, 20, 20, 196, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleCharger())));
                 this.charger.active = true;
             } else {
-                addButton(this.charger = new ImageButton(relX + 142, relY + 16, 20, 20, 196, 40, 0, GUI_BASE, button -> buttonClicked("CHARGER NOT AVAILABLE")));
+                addButton(this.charger = new ImageButton(relX + 142, relY + 16, 20, 20, 196, 40, 0, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleCharger())));
                 this.charger.active = false;
             }
             if (jetpack.getJetpackType().getEmergencyHoverMode()) {
-                addButton(this.ehover = new ImageButton(relX + 142, relY + 38, 20, 20, 236, 0, 20, GUI_BASE, button -> buttonClicked("E HOVER NOT AVAILABLE")));
+                addButton(this.ehover = new ImageButton(relX + 142, relY + 38, 20, 20, 236, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleEHover())));
                 this.ehover.active = true;
             } else {
-                addButton(this.ehover = new ImageButton(relX + 142, relY + 38, 20, 20, 236, 40, 0, GUI_BASE, button -> buttonClicked("E HOVER NOT AVAILABLE")));
+                addButton(this.ehover = new ImageButton(relX + 142, relY + 38, 20, 20, 236, 40, 0, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleEHover())));
                 this.ehover.active = false;
             }
         }
-    }
-
-    private void buttonClicked(String name) {
-        SimplyJetpacks.LOGGER.info(name);
     }
 
     @Override
@@ -120,7 +120,7 @@ public class JetpackScreen extends Screen {
         Item item = stack.getItem();
         if (item instanceof JetpackItem) {
             JetpackItem jetpack = (JetpackItem) item;
-            if (jetpack.isCreative() || true) {
+            if (jetpack.isCreative()) {
                 return 78;
             }
             int i = jetpack.getEnergy(stack);
@@ -138,7 +138,7 @@ public class JetpackScreen extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (KeybindHandler.JETPACK_GUI_KEY.matches(keyCode, scanCode)) {
+        if (KeybindHandler.JETPACK_GUI_KEY.matches(keyCode, scanCode) || minecraft.options.keyInventory.matches(keyCode, scanCode)) {
             minecraft.setScreen(null);
             return true;
         } else {

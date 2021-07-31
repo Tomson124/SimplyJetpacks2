@@ -4,7 +4,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -68,31 +67,6 @@ public class CommonJetpackHandler {
         HOLDING_BACKWARDS.remove(player);
         HOLDING_LEFT.remove(player);
         HOLDING_RIGHT.remove(player);
-    }
-
-    /*// This is here because it does not want to be lonely.
-    public static void checkAdvancements(PlayerEntity player) {
-        AdvancementUtil.unlockAdvancement(player, "root");
-
-        if (IntegrationList.integrateVanilla) {
-            AdvancementUtil.unlockAdvancement(player, "vanilla/root_vanilla");
-        }
-        if (IntegrationList.integrateImmersiveEngineering) {
-            AdvancementUtil.unlockAdvancement(player, "ie/root_ie");
-        }
-        if (IntegrationList.integrateMekanism) {
-            AdvancementUtil.unlockAdvancement(player, "mek/root_mek");
-        }
-        if (IntegrationList.integrateThermalExpansion) {
-            AdvancementUtil.unlockAdvancement(player, "thermal/root_thermal");
-        }
-    }*/
-
-    @SubscribeEvent
-    public void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (SimplyJetpacksConfig.enableJoinAdvancements.get()) {
-            //checkAdvancements(event.getPlayer());
-        }
     }
 
     @SubscribeEvent

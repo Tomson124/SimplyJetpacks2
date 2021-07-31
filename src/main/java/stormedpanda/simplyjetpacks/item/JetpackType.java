@@ -1,5 +1,6 @@
 package stormedpanda.simplyjetpacks.item;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
@@ -215,8 +216,9 @@ public enum JetpackType {
         }
     }
 
-    public int getDefaultParticles() {
-        if (name.contains("creative")) {
+    public static int getDefaultParticles(ItemStack stack) {
+        JetpackItem item = (JetpackItem) stack.getItem();
+        if (item.isCreative()) {
             return JetpackParticleType.RAINBOW.ordinal();
         }
         return JetpackParticleType.DEFAULT.ordinal();

@@ -170,22 +170,27 @@
   "tooltip.simplyjetpacks.particle.3": "Rainbow",
   "tooltip.simplyjetpacks.particle.4": "Bubbles",
   "tooltip.simplyjetpacks.particle.5": "Hearts",
-
-  "hud.simplyjetpacks.energyDisplay": "Energy: %s",
-  "hud.simplyjetpacks.energyDisplayExtra": "Energy: %s (%s)",
-  "hud.simplyjetpacks.energyDepleted": "Depleted",
-  "hud.simplyjetpacks.infiniteEnergy": "Infinite",
-  "hud.simplyjetpacks.jetpackStates": "%s - %s - %s - %s",
-  "hud.simplyjetpacks.engine": "Engine",
-  "hud.simplyjetpacks.hover": "Hover",
-  "hud.simplyjetpacks.eHover": "EHover",
-  "hud.simplyjetpacks.charger": "Charger",
-  "screen.simplyjetpacks.jetpack_gui.title": "Jetpack GUI",
   "tooltip.simplyjetpacks.jetpack_gui.energyStorage": "%s/%s FE",
   "tooltip.simplyjetpacks.jetpack_gui.engine": "Toggle Jetpack Engine",
   "tooltip.simplyjetpacks.jetpack_gui.hover": "Toggle Hover",
   "tooltip.simplyjetpacks.jetpack_gui.emergencyHover": "Toggle Emergency Hover",
   "tooltip.simplyjetpacks.jetpack_gui.charger": "Toggle Charger",
+
+  "hud.simplyjetpacks.energyDisplay": "Energy: %s",
+  "hud.simplyjetpacks.energyDisplayExtra": "Energy: %s (%s)",
+  "hud.simplyjetpacks.energyDepleted": "Depleted",
+  "hud.simplyjetpacks.infiniteEnergy": "Infinite",
+  "hud.simplyjetpacks.jetpackStates.1": "%s",
+  "hud.simplyjetpacks.jetpackStates.2": "%s - %s",
+  "hud.simplyjetpacks.jetpackStates.3": "%s - %s - %s",
+  "hud.simplyjetpacks.jetpackStates.4": "%s - %s - %s - %s",
+  "hud.simplyjetpacks.engine": "Engine",
+  "hud.simplyjetpacks.hover": "Hover",
+  "hud.simplyjetpacks.eHover": "EHover",
+  "hud.simplyjetpacks.charger": "Charger",
+
+  "screen.simplyjetpacks.jetpack_gui.title": "Jetpack GUI",
+
   "button.simplyjetpacks.engineToggle": "Engine",
   "button.simplyjetpacks.hoverToggle": "Hover",
   "button.simplyjetpacks.eHoverToggle": "Emergency Hover",
@@ -207,7 +212,6 @@
   "config.simplyjetpacks.hudScale": "Set the HUD Scale",
   "config.simplyjetpacks.hudTextShadow": "Set the HUD text shadow",
   "config.simplyjetpacks.enableJoinAdvancements": "Enable Join Advancements",
-
   "config.simplyjetpacks.tuning.energyCapacity": "Energy Capacity",
   "config.simplyjetpacks.tuning.energyCapacity.tooltip": "The maximum amount of energy that this Jetpack/Fluxpack can hold.",
   "config.simplyjetpacks.tuning.energyUsage": "Energy Usage",
@@ -246,19 +250,5 @@
 
   "subtitle.simplyjetpacks.jetpack": "*Jetpack Noises*",
   "subtitle.simplyjetpacks.jetpack_other": "*Jetpack Other Noises*",
-  "subtitle.simplyjetpacks.rocket": "*Rocket Noises*",
-
-  "test.tooltip.energyCapacity": "energy capacity: %s",
-  "test.tooltip.energyCapacity2": "energy capacity TeST: %s",
-  "test.tooltip.energyUsage": "energy usage: %s",
-  "test.tooltip.configValue": "config energy capacity: %s",
-  "test.tooltip.particle": "Particle ID: %s",
-  "screen.simplyjetpacks.test_screen_title": "Test Screen",
-
-  "misc2.simplyjetpacks.empty": "Empty",
-  "misc2.simplyjetpacks.energy": "%s FE",
-  "misc2.simplyjetpacks.energyPerTick": "%s FE/t",
-  "misc2.simplyjetpacks.energyWithMax": "%s / %s FE",
-  "misc2.simplyjetpacks.fluidWithMax": "%s: %s / %s mB",
-  "misc2.simplyjetpacks.timeInSeconds": "Time: %ss"
+  "subtitle.simplyjetpacks.rocket": "*Rocket Noises*"
 }

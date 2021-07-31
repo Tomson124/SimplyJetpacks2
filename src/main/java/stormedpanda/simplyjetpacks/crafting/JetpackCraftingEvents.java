@@ -22,44 +22,45 @@ public class JetpackCraftingEvents {
         Item craftedItem = event.getCrafting().getItem();
         int storedEnergy;
         CompoundNBT tags;
-        boolean particleRecipe; // if particle as ingredient, then true
+        boolean particleRecipe = false; // if particle as ingredient, then true
 
         if (craftedItem instanceof JetpackItem) {
             for (int i = 0; i < event.getInventory().getContainerSize(); i++) {
                 ItemStack input = event.getInventory().getItem(i);
-
                 if (input.getItem().getTags().contains(SJTags.PARTICLES.getName())) {
                     particleRecipe = true;
                     break;
                 }
-
-                if (!(input.getItem() instanceof JetpackItem)) {
-                    continue;
-                }
-
-                if (input.getItem() instanceof JetpackItem) {
-                    JetpackType inputJetpack = ((JetpackItem) input.getItem()).getJetpackType();
-                    // ENERGY/PARTICLES:
-                    tags = NBTUtil.getTagCompound(input).copy();
-                    storedEnergy = NBTUtil.getInt(input, "Energy");
-                    craftedStack.setTag(tags);
-                    int energyToTransfer = Math.min(storedEnergy, ((JetpackItem) craftedItem).getCapacity(input));
-                    //JetpackParticleType particleType = inputJetpack.getParticleType(input);
-                    int particleId = JetpackItem.getParticleId(input);
-                    //((JetpackItem) craftedItem).setParticleType(craftedStack, particleType);
-                    JetpackItem.setParticleId(craftedStack, particleId);
-
-                    // ARMORPLATING:
-                    if (inputJetpack.isArmored()) {
-                        Item itemToReturn = getPlating(inputJetpack.getPlatingId());
-                        if (itemToReturn != null) {
-                            ItemEntity item = event.getPlayer().drop(new ItemStack(itemToReturn, 1), false);
-                            if (item != null) {
-                                item.setNoPickUpDelay();
+            }
+            if (!particleRecipe) {
+                for (int i = 0; i < event.getInventory().getContainerSize(); i++) {
+                    ItemStack input = event.getInventory().getItem(i);
+                    if (!(input.getItem() instanceof JetpackItem)) {
+                        continue;
+                    }
+                    if (input.getItem() instanceof JetpackItem) {
+                        JetpackType inputJetpack = ((JetpackItem) input.getItem()).getJetpackType();
+                        // ENERGY/PARTICLES:
+                        tags = NBTUtil.getTagCompound(input).copy();
+                        storedEnergy = NBTUtil.getInt(input, "Energy");
+                        craftedStack.setTag(tags);
+                        int energyToTransfer = Math.min(storedEnergy, ((JetpackItem) craftedItem).getCapacity(input));
+                        //JetpackParticleType particleType = inputJetpack.getParticleType(input);
+                        int particleId = JetpackItem.getParticleId(input);
+                        //((JetpackItem) craftedItem).setParticleType(craftedStack, particleType);
+                        JetpackItem.setParticleId(craftedStack, particleId);
+                        // ARMORPLATING:
+                        if (inputJetpack.isArmored()) {
+                            Item itemToReturn = getPlating(inputJetpack.getPlatingId());
+                            if (itemToReturn != null) {
+                                ItemEntity item = event.getPlayer().drop(new ItemStack(itemToReturn, 1), false);
+                                if (item != null) {
+                                    item.setNoPickUpDelay();
+                                }
                             }
                         }
+                        break;
                     }
-                    break;
                 }
             }
         }

@@ -79,14 +79,13 @@ public class ClientJetpackHandler {
             Item item = stack.getItem();
             if (item instanceof JetpackItem) {
                 JetpackItem jetpack = (JetpackItem) item;
-                return true;
-                /*if (jetpack.isEngineOn(stack) && (jetpack.getEnergyStored(stack) > 0 || player.isCreative() || jetpack.isCreative())) {
+                if (jetpack.isEngineOn(stack) && (jetpack.getEnergy(stack) > 0 || player.isCreative() || jetpack.isCreative())) {
                     if (jetpack.isHoverOn(stack)) {
                         return !player.isOnGround();
                     } else {
-                        return SyncHandler.isHoldingUp(player);
+                        return CommonJetpackHandler.isHoldingUp(player);
                     }
-                }*/
+                }
             }
         }
         return false;

@@ -15,7 +15,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -33,7 +32,10 @@ import stormedpanda.simplyjetpacks.hud.IHUDInfoProvider;
 import stormedpanda.simplyjetpacks.init.RegistryHandler;
 import stormedpanda.simplyjetpacks.model.JetpackModel;
 import stormedpanda.simplyjetpacks.particle.JetpackParticleType;
-import stormedpanda.simplyjetpacks.util.*;
+import stormedpanda.simplyjetpacks.util.Constants;
+import stormedpanda.simplyjetpacks.util.KeyboardUtil;
+import stormedpanda.simplyjetpacks.util.NBTUtil;
+import stormedpanda.simplyjetpacks.util.SJTextUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -48,8 +50,6 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         super(JetpackArmorMaterial.JETPACK, EquipmentSlotType.CHEST, new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks));
         this.jetpackType = jetpackType;
         this.tier = jetpackType.getTier();
-        // TODO: set initial particle id.
-        //jetpackType.getDefaultParticles();
     }
 
     @Override
@@ -99,7 +99,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         boolean current = NBTUtil.getBoolean(stack, Constants.TAG_ENGINE);
         NBTUtil.flipBoolean(stack, Constants.TAG_ENGINE);
         ITextComponent msg = SJTextUtil.getStateToggle("engineMode", !current);
-        //player.sendStatusMessage(msg, true);
+        player.displayClientMessage(msg, true);
     }
 
     public boolean isHoverOn(ItemStack stack) {
@@ -109,7 +109,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         boolean current = NBTUtil.getBoolean(stack, Constants.TAG_HOVER);
         NBTUtil.flipBoolean(stack, Constants.TAG_HOVER);
         ITextComponent msg = SJTextUtil.getStateToggle("hoverMode", !current);
-        //player.sendStatusMessage(msg, true);
+        player.displayClientMessage(msg, true);
     }
 
     public boolean isEHoverOn(ItemStack stack) {
@@ -120,14 +120,14 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
             boolean current = NBTUtil.getBoolean(stack, Constants.TAG_E_HOVER);
             NBTUtil.flipBoolean(stack, Constants.TAG_E_HOVER);
             ITextComponent msg = SJTextUtil.getStateToggle("emergencyHoverMode", !current);
-            //player.sendStatusMessage(msg, true);
+            player.displayClientMessage(msg, true);
         }
     }
     private void doEHover(ItemStack stack, PlayerEntity player) {
         NBTUtil.setBoolean(stack, Constants.TAG_ENGINE, true);
         NBTUtil.setBoolean(stack, Constants.TAG_HOVER, true);
         ITextComponent msg = SJTextUtil.getEmergencyText();
-        //player.sendStatusMessage(msg, true);
+        player.displayClientMessage(msg, true);
     }
 
     public boolean isChargerOn(ItemStack stack) {
@@ -138,7 +138,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
             boolean current = NBTUtil.getBoolean(stack, Constants.TAG_CHARGER);
             NBTUtil.flipBoolean(stack, Constants.TAG_CHARGER);
             ITextComponent msg = SJTextUtil.getStateToggle("chargerMode", !current);
-            //player.sendStatusMessage(msg, true);
+            player.displayClientMessage(msg, true);
         }
     }
 
@@ -169,10 +169,6 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if (CapabilityEnergy.ENERGY == null) return;
-        stack.getCapability(CapabilityEnergy.ENERGY).ifPresent(e ->
-                tooltip.add(TextUtil.energyWithMax(e.getEnergyStored(), e.getMaxEnergyStored())));
-        tooltip.add(new TranslationTextComponent("test.tooltip.particle", getParticleId(stack)));
-        if (CapabilityEnergy.ENERGY == null) return;
         SJTextUtil.addBaseInfo(stack, tooltip);
         if (KeyboardUtil.isHoldingShift()) {
             SJTextUtil.addShiftInfo(stack, tooltip);
@@ -183,7 +179,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
-        return !isCreative();
+        return !isCreative() && getEnergy(stack) > 0;
     }
 
     @Override
@@ -234,7 +230,6 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     private void setEnergyStored(ItemStack container, int value) {
-        //container.getOrCreateTag().putInt(Constants.TAG_ENERGY, MathHelper.clamp(value, 0, getCapacity(container)));
         NBTUtil.setInt(container, Constants.TAG_ENERGY, MathHelper.clamp(value, 0, getCapacity(container)));
     }
 
@@ -254,7 +249,6 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public static ItemStack setParticleId(ItemStack stack, ItemStack particle) {
         String key = particle.getDescriptionId().split("item.simplyjetpacks.particle_")[1].toUpperCase();
         int id = JetpackParticleType.valueOf(key).ordinal();
-        //stack.getOrCreateTag().putInt(Constants.TAG_PARTICLE, id);
         NBTUtil.setInt(stack, Constants.TAG_PARTICLE, id);
         return stack;
     }
@@ -264,8 +258,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     public static int getParticleId(ItemStack stack) {
-        //return stack.getOrCreateTag().contains(Constants.TAG_PARTICLE) ? stack.getOrCreateTag().getInt(Constants.TAG_PARTICLE) : 0;
-        return NBTUtil.getInt(stack, Constants.TAG_PARTICLE);
+        return stack.getOrCreateTag().contains(Constants.TAG_PARTICLE) ? stack.getOrCreateTag().getInt(Constants.TAG_PARTICLE) : JetpackType.getDefaultParticles(stack);
     }
 
     @Nullable

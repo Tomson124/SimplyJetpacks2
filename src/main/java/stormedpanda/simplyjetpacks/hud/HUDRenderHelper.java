@@ -11,8 +11,7 @@ import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 
 public class HUDRenderHelper {
 
-    private static final Minecraft minecraft = Minecraft.getInstance();
-    private static final FontRenderer fontRenderer = minecraft.font;
+    private static final FontRenderer fontRenderer = Minecraft.getInstance().font;
 
     public static void drawStringAtPosition(MainWindow window, MatrixStack matrix, ITextComponent text, int lineOffset) {
         int windowScaleHeight = window.getGuiScaledHeight();
@@ -61,14 +60,16 @@ public class HUDRenderHelper {
                 SimplyJetpacks.LOGGER.info("Invalid HUD Position passed to renderer.");
         }
     }
-    public static void drawStringLeft(MatrixStack matrix, ITextComponent text, int x, int y, int color, boolean shadow) {
+
+    private static void drawStringLeft(MatrixStack matrix, ITextComponent text, int x, int y, int color, boolean shadow) {
         if (shadow) {
             fontRenderer.drawShadow(matrix, text, x, y, color);
         } else {
             fontRenderer.draw(matrix, text, x, y, color);
         }
     }
-    public static void drawStringCenter(MatrixStack matrix, ITextComponent text, int x, int y, int color, boolean shadow) {
+
+    private static void drawStringCenter(MatrixStack matrix, ITextComponent text, int x, int y, int color, boolean shadow) {
         float textWidth = fontRenderer.width(text);
         if (shadow) {
             fontRenderer.drawShadow(matrix, text, x - (textWidth / 2), y, color);
@@ -76,7 +77,8 @@ public class HUDRenderHelper {
             fontRenderer.draw(matrix, text, x - (textWidth / 2), y, color);
         }
     }
-    public static void drawStringRight(MatrixStack matrix, ITextComponent text, int x, int y, int color, boolean shadow) {
+
+    private static void drawStringRight(MatrixStack matrix, ITextComponent text, int x, int y, int color, boolean shadow) {
         float textWidth = fontRenderer.width(text);
         if (shadow) {
             fontRenderer.drawShadow(matrix, text, x - textWidth, y, color);

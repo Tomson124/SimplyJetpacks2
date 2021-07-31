@@ -23,7 +23,7 @@ import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.item.JetpackArmorMaterial;
 import stormedpanda.simplyjetpacks.item.JetpackType;
 import stormedpanda.simplyjetpacks.util.Constants;
-import stormedpanda.simplyjetpacks.util.TextUtil;
+import stormedpanda.simplyjetpacks.util.SJTextUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -66,7 +66,7 @@ public class TestEnergyItem extends ArmorItem implements IEnergyContainer {
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if (CapabilityEnergy.ENERGY == null) return;
         stack.getCapability(CapabilityEnergy.ENERGY).ifPresent(e ->
-                tooltip.add(TextUtil.energyWithMax(e.getEnergyStored(), e.getMaxEnergyStored())));
+                tooltip.add(SJTextUtil.energyWithMax(e.getEnergyStored(), e.getMaxEnergyStored())));
     }
 
     @Override
