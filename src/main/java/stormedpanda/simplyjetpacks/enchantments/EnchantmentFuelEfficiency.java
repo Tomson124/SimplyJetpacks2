@@ -1,26 +1,24 @@
 package stormedpanda.simplyjetpacks.enchantments;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
-
-import javax.annotation.Nonnull;
 
 public class EnchantmentFuelEfficiency extends Enchantment {
 
     public EnchantmentFuelEfficiency() {
-        super(Rarity.RARE, CustomEnchantmentType.JETPACK, new EquipmentSlotType[]{ EquipmentSlotType.CHEST });
+        super(Rarity.RARE, CustomEnchantmentType.JETPACK, new EquipmentSlot[]{ EquipmentSlot.CHEST });
     }
 
     @Override
-    public int getMinEnchantability(int level) {
+    public int getMinCost(int level) {
         return 8 + (level - 1) * 8;
     }
 
     @Override
-    public int getMaxEnchantability(int level) {
-        return super.getMinEnchantability(level) + 50;
+    public int getMaxCost(int level) {
+        return super.getMinCost(level) + 50;
     }
 
     @Override
@@ -28,15 +26,15 @@ public class EnchantmentFuelEfficiency extends Enchantment {
         return 4;
     }
 
-    @Nonnull
     @Override
-    public String getName() {
+    public String getDescriptionId() {
+        //return super.getDescriptionId();
         return "enchantment.simplyjetpacks.fuelEfficiency";
     }
 
     @Override
-    public boolean canApply(ItemStack stack) {
-        return stack.getItem() instanceof JetpackItem && super.canApply(stack);
+    public boolean canEnchant(ItemStack stack) {
+        return stack.getItem() instanceof JetpackItem && super.canEnchant(stack);
     }
 
     @Override

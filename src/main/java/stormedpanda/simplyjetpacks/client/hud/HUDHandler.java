@@ -1,12 +1,12 @@
 package stormedpanda.simplyjetpacks.client.hud;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.MainWindow;
+import com.mojang.blaze3d.platform.Window;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
@@ -25,9 +25,9 @@ public class HUDHandler {
         if (event.getType() != RenderGameOverlayEvent.ElementType.ALL) {
             return;
         }
-        if (SimplyJetpacksConfig.CLIENT.enableJetpackHud.get() && !minecraft.gameSettings.hideGUI && !minecraft.gameSettings.showDebugInfo) {
+        if (SimplyJetpacksConfig.CLIENT.enableJetpackHud.get() && !minecraft.options.hideGui && !minecraft.options.renderDebug) {
             if (minecraft.player != null) {
-                ItemStack chestplate = minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+                ItemStack chestplate = minecraft.player.getItemBySlot(EquipmentSlot.CHEST);
                 Item item = chestplate.getItem();
 
                 if (!chestplate.isEmpty() && item instanceof JetpackItem) {
@@ -35,21 +35,21 @@ public class HUDHandler {
 
                     IHUDInfoProvider provider = (IHUDInfoProvider) chestplate.getItem();
 
-                    List<ITextComponent> renderStrings = new ArrayList<>();
+                    List<MutableComponent> renderStrings = new ArrayList<>();
                     provider.addHUDInfo(chestplate, renderStrings);
                     if (renderStrings.isEmpty()) {
                         return;
                     }
                     int count = 0;
-                    MatrixStack matrix = event.getMatrixStack();
-                    matrix.push();
+                    PoseStack matrix = event.getMatrixStack();
+                    matrix.pushPose();
                     matrix.scale(SimplyJetpacksConfig.CLIENT.hudScale.get(), SimplyJetpacksConfig.CLIENT.hudScale.get(), 1.0F);
-                    MainWindow window = event.getWindow();
-                    for (ITextComponent text : renderStrings) {
+                    Window window = event.getWindow();
+                    for (MutableComponent text : renderStrings) {
                         HUDRenderHelper.drawStringAtPosition(window, matrix, text, count);
                         count++;
                     }
-                    matrix.pop();
+                    matrix.popPose();
                 }
             }
         }

@@ -1,13 +1,12 @@
 package stormedpanda.simplyjetpacks.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.ParticleStatus;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.world.World;
+import net.minecraft.client.ParticleStatus;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.TickEvent;
@@ -27,22 +26,22 @@ public class ClientJetpackHandler {
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
-            if (minecraft.player != null && minecraft.world != null) {
-                if (!minecraft.isGamePaused()) {
-                    ItemStack chest = minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+            if (minecraft.player != null && minecraft.level != null) {
+                if (!minecraft.isPaused()) {
+                    ItemStack chest = minecraft.player.getItemBySlot(EquipmentSlot.CHEST);
                     Item item = chest.getItem();
                     if (!chest.isEmpty() && item instanceof JetpackItem && !minecraft.player.isSpectator()) {
                         if (isFlying(minecraft.player)) {
                             JetpackParticleType particleType;
-                            if (minecraft.player.isInWaterOrBubbleColumn()) {
+                            if (minecraft.player.isInWaterRainOrBubble()) {
                                 particleType = JetpackParticleType.BUBBLES;
                             } else {
                                 particleType = ((JetpackItem) item).getType().getParticleType(chest);
                             }
-                            showJetpackParticles(minecraft.world, minecraft.player, particleType);
+                            showJetpackParticles(minecraft.level, minecraft.player, particleType);
                             if (SimplyJetpacksConfig.CLIENT.enableJetpackSounds.get()) {
-                                if (!JetpackSound.playing(minecraft.player.getEntityId())) {
-                                    minecraft.getSoundHandler().play(new JetpackSound(minecraft.player));
+                                if (!JetpackSound.playing(minecraft.player.getId())) {
+                                    minecraft.getSoundManager().play(new JetpackSound(minecraft.player));
                                 }
                             }
                         }
@@ -53,9 +52,9 @@ public class ClientJetpackHandler {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void showJetpackParticles(World world, PlayerEntity player, JetpackParticleType particleType) {
-        IParticleData particle = particleType.getParticleData();
-        if (minecraft.gameSettings.particles != ParticleStatus.MINIMAL && particle != null) {
+    public void showJetpackParticles(Level world, Player player, JetpackParticleType particleType) {
+        ParticleDa particle = particleType.getParticleData();
+        if (minecraft.options.particles != ParticleStatus.MINIMAL && particle != null) {
             Random rand = new Random();
             Pos3D playerPos = new Pos3D(player).translate(0, 1.5, 0);
             float random = (rand.nextFloat() - 0.5F) * 0.1F;
@@ -72,8 +71,8 @@ public class ClientJetpackHandler {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static boolean isFlying(PlayerEntity player) {
-        ItemStack stack = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+    public static boolean isFlying(Player player) {
+        ItemStack stack = player.getItemBySlot(EquipmentSlot.CHEST);
         if (!stack.isEmpty()) {
             Item item = stack.getItem();
             if (item instanceof JetpackItem) {

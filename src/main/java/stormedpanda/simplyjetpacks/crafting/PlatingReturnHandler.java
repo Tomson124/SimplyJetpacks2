@@ -1,9 +1,9 @@
 package stormedpanda.simplyjetpacks.crafting;
 
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
@@ -16,16 +16,16 @@ public class PlatingReturnHandler {
     public void onItemCrafted(PlayerEvent.ItemCraftedEvent event) {
         Item craftedItem = event.getCrafting().getItem();
         if (craftedItem instanceof JetpackItem) {
-            for (int i = 0; i < event.getInventory().getSizeInventory(); i++) {
-                ItemStack input = event.getInventory().getStackInSlot(i);
+            for (int i = 0; i < event.getInventory().getContainerSize(); i++) {
+                ItemStack input = event.getInventory().getItem(i);
                 if (!(input.getItem() instanceof JetpackItem)) { continue; }
                 if (input.getItem() instanceof JetpackItem) {
                     JetpackType inputJetpack = ((JetpackItem) input.getItem()).getType();
                     if (inputJetpack.getIsArmored()) {
                         Item itemToReturn = getPlating(inputJetpack.getPlatingID());
-                        ItemEntity item = event.getPlayer().entityDropItem(new ItemStack(itemToReturn, 1), 0.0F);
+                        ItemEntity item = event.getPlayer().drop(new ItemStack(itemToReturn, 1), false);
                         if (item != null) {
-                            item.setNoPickupDelay();
+                            item.setNoPickUpDelay();
                         }
                         //item.setNoPickupDelay();
                         break;
@@ -53,6 +53,6 @@ public class PlatingReturnHandler {
         if (id == 13) { return RegistryHandler.ARMORPLATING_TE3.get(); }
         if (id == 14) { return RegistryHandler.ARMORPLATING_TE4.get(); }
 
-        return Items.DIAMOND.getItem();
+        return Items.DIAMOND.asItem();
     }
 }

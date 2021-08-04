@@ -1,7 +1,6 @@
 package stormedpanda.simplyjetpacks.client.particle;
 
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.core.particles.ParticleTypes;
 
 public enum JetpackParticleType {
 

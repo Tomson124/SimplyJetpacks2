@@ -1,15 +1,15 @@
 package stormedpanda.simplyjetpacks.handlers;
 
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fmlclient.registry.ClientRegistry;
 import org.lwjgl.glfw.GLFW;
 import stormedpanda.simplyjetpacks.gui.JetpackGuiScreen;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
@@ -25,48 +25,48 @@ public class KeybindHandler {
     private static boolean lastLeftState = false;
     private static boolean lastRightState = false;
 
-    public static KeyBinding JETPACK_GUI_KEY;
-    public static KeyBinding JETPACK_ENGINE_KEY;
-    public static KeyBinding JETPACK_HOVER_KEY;
-    public static KeyBinding JETPACK_EHOVER_KEY;
-    public static KeyBinding JETPACK_CHARGER_KEY;
+    public static KeyMapping JETPACK_GUI_KEY;
+    public static KeyMapping JETPACK_ENGINE_KEY;
+    public static KeyMapping JETPACK_HOVER_KEY;
+    public static KeyMapping JETPACK_EHOVER_KEY;
+    public static KeyMapping JETPACK_CHARGER_KEY;
 
     public static void setup() {
-        JETPACK_GUI_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_gui", GLFW.GLFW_KEY_K, "keybind.categories.simplyjetpacks");
+        JETPACK_GUI_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_gui", GLFW.GLFW_KEY_K, "keybind.categories.simplyjetpacks");
         ClientRegistry.registerKeyBinding(JETPACK_GUI_KEY);
-        JETPACK_ENGINE_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_engine", GLFW.GLFW_KEY_J, "keybind.categories.simplyjetpacks");
+        JETPACK_ENGINE_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_engine", GLFW.GLFW_KEY_J, "keybind.categories.simplyjetpacks");
         ClientRegistry.registerKeyBinding(JETPACK_ENGINE_KEY);
-        JETPACK_HOVER_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_hover", GLFW.GLFW_KEY_H, "keybind.categories.simplyjetpacks");
+        JETPACK_HOVER_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_hover", GLFW.GLFW_KEY_H, "keybind.categories.simplyjetpacks");
         ClientRegistry.registerKeyBinding(JETPACK_HOVER_KEY);
-        JETPACK_EHOVER_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_ehover", GLFW.GLFW_KEY_UNKNOWN, "keybind.categories.simplyjetpacks");
+        JETPACK_EHOVER_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_ehover", GLFW.GLFW_KEY_UNKNOWN, "keybind.categories.simplyjetpacks");
         ClientRegistry.registerKeyBinding(JETPACK_EHOVER_KEY);
-        JETPACK_CHARGER_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_charger", GLFW.GLFW_KEY_UNKNOWN, "keybind.categories.simplyjetpacks");
+        JETPACK_CHARGER_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_charger", GLFW.GLFW_KEY_UNKNOWN, "keybind.categories.simplyjetpacks");
         ClientRegistry.registerKeyBinding(JETPACK_CHARGER_KEY);
     }
 
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
-        PlayerEntity player = Minecraft.getInstance().player;
+        Player player = Minecraft.getInstance().player;
         if (player == null) return;
-        ItemStack chestStack = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+        ItemStack chestStack = player.getItemBySlot(EquipmentSlot.CHEST);
         Item chestItem = null;
         JetpackItem jetpack;
         if (!chestStack.isEmpty()) { chestItem = chestStack.getItem(); }
         if (chestItem instanceof JetpackItem) {
             jetpack = (JetpackItem) chestItem;
-            if (JETPACK_GUI_KEY.isPressed()) {
-                Minecraft.getInstance().displayGuiScreen(new JetpackGuiScreen());
+            if (JETPACK_GUI_KEY.isDown()) {
+                Minecraft.getInstance().setScreen(new JetpackGuiScreen());
             }
-            if (JETPACK_ENGINE_KEY.isPressed()) {
+            if (JETPACK_ENGINE_KEY.isDown()) {
                 NetworkHandler.sendToServer(new PacketToggleEngine());
             }
-            if (JETPACK_HOVER_KEY.isPressed()) {
+            if (JETPACK_HOVER_KEY.isDown()) {
                 NetworkHandler.sendToServer(new PacketToggleHover());
             }
-            if (JETPACK_EHOVER_KEY.isPressed()) {
+            if (JETPACK_EHOVER_KEY.isDown()) {
                 NetworkHandler.sendToServer(new PacketToggleEHover());
             }
-            if (JETPACK_CHARGER_KEY.isPressed()) {
+            if (JETPACK_CHARGER_KEY.isDown()) {
                 NetworkHandler.sendToServer(new PacketToggleCharger());
             }
         }
@@ -75,12 +75,12 @@ public class KeybindHandler {
     private static void tickEnd() {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player != null) {
-            boolean flyState = mc.player.movementInput.jump;
-            boolean descendState = mc.player.movementInput.sneaking;
-            boolean forwardState = mc.player.movementInput.forwardKeyDown;
-            boolean backwardState = mc.player.movementInput.backKeyDown;
-            boolean leftState = mc.player.movementInput.leftKeyDown;
-            boolean rightState = mc.player.movementInput.rightKeyDown;
+            boolean flyState = mc.player.input.jumping;
+            boolean descendState = mc.player.input.shiftKeyDown;
+            boolean forwardState = mc.player.input.up;
+            boolean backwardState = mc.player.input.down;
+            boolean leftState = mc.player.input.left;
+            boolean rightState = mc.player.input.right;
             if (flyState != lastFlyState || descendState != lastDescendState || forwardState != lastForwardState || backwardState != lastBackwardState || leftState != lastLeftState || rightState != lastRightState) {
                 lastFlyState = flyState;
                 lastDescendState = descendState;

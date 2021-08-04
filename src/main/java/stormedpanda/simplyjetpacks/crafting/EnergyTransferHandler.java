@@ -1,8 +1,8 @@
 package stormedpanda.simplyjetpacks.crafting;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import stormedpanda.simplyjetpacks.client.particle.JetpackParticleType;
@@ -17,11 +17,11 @@ public class EnergyTransferHandler {
         ItemStack craftedStack = event.getCrafting();
         Item craftedItem = event.getCrafting().getItem();
         int storedEnergy = 0;
-        CompoundNBT tags = null;
+        CompoundTag tags = null;
 
         if (craftedItem instanceof JetpackItem) {
-            for (int i = 0; i < event.getInventory().getSizeInventory(); i++) {
-                ItemStack input = event.getInventory().getStackInSlot(i);
+            for (int i = 0; i < event.getInventory().getContainerSize(); i++) {
+                ItemStack input = event.getInventory().getItem(i);
                 if (!(input.getItem() instanceof JetpackItem)) { continue; }
                 if (input.getItem() instanceof JetpackItem) {
                     JetpackType inputJetpack = ((JetpackItem) input.getItem()).getType();

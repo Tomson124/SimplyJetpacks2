@@ -1,10 +1,10 @@
 package stormedpanda.simplyjetpacks.items;
 
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Rarity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.client.particle.JetpackParticleType;
 import stormedpanda.simplyjetpacks.config.JetpackConfigDefaults;
@@ -118,7 +118,7 @@ public enum JetpackType {
         this.tier = tier;
         this.armorTexture = new ResourceLocation(("simplyjetpacks:textures/models/armor/" + name + ".png"));
         this.isArmored = false;
-        this.properties = new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks).maxStackSize(1);
+        this.properties = new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks).stacksTo(1);
         this.defaults = JetpackConfigDefaults.get(defaultConfigKey);
         this.particleType = JetpackParticleType.DEFAULT;
     }
@@ -199,7 +199,7 @@ public enum JetpackType {
         return armorTexture.toString();
     }
 
-    public IArmorMaterial getArmorMaterial() {
+    public ArmorMaterial getArmorMaterial() {
         //ArmorMaterialList.setArmorReduction(ArmorMaterialList.JETPACK_ARMORED, getArmorReduction());
         //return isArmored ? ArmorMaterialList.JETPACK_ARMORED : ArmorMaterialList.JETPACK;
         ArmorMaterialList armorMaterial = isArmored ? ArmorMaterialList.JETPACK_ARMORED : ArmorMaterialList.JETPACK;

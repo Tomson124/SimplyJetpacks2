@@ -1,14 +1,11 @@
 package stormedpanda.simplyjetpacks.util;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Direction.Axis;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3i;
+import com.mojang.math.Vector3d;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import javax.annotation.Nonnull;
 
@@ -44,8 +41,8 @@ public class Pos3D extends Vector3d {
         this(entity.getPosX(), entity.getPosY(), entity.getPosZ());
     }
 
-    public static Pos3D create(TileEntity tile) {
-        return create(tile.getPos());
+    public static Pos3D create(BlockEntity tile) {
+        return create(tile.getBlockPos());
     }
 
     public static Pos3D create(Vector3i vec) {
@@ -59,7 +56,7 @@ public class Pos3D extends Vector3d {
      *
      * @return the Pos3D from the tag compound
      */
-    public static Pos3D read(CompoundNBT tag) {
+    public static Pos3D read(CompoundTag tag) {
         return new Pos3D(tag.getDouble("x"), tag.getDouble("y"), tag.getDouble("z"));
     }
 
@@ -89,7 +86,7 @@ public class Pos3D extends Vector3d {
      *
      * @return the tag compound with this Pos3D's data
      */
-    public CompoundNBT write(CompoundNBT nbtTags) {
+    public CompoundTag write(CompoundTag nbtTags) {
         nbtTags.putDouble("x", x);
         nbtTags.putDouble("y", y);
         nbtTags.putDouble("z", z);
@@ -180,7 +177,7 @@ public class Pos3D extends Vector3d {
      */
     public Pos3D translateExcludingSide(Direction direction, double amount) {
         double xPos = x, yPos = y, zPos = z;
-        if (direction.getAxis() != Axis.X) {
+        if (direction.getAxis() != Direction.Axis.X) {
             xPos += amount;
         }
         if (direction.getAxis() != Axis.Y) {

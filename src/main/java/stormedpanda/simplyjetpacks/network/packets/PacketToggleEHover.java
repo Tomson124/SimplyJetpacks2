@@ -1,22 +1,22 @@
 package stormedpanda.simplyjetpacks.network.packets;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
 
 import java.util.function.Supplier;
 
 public class PacketToggleEHover {
 
-    public PacketToggleEHover(PacketBuffer buf) {
+    public PacketToggleEHover(FriendlyByteBuf buf) {
     }
 
-    public void toBytes(PacketBuffer buf) {
+    public void toBytes(FriendlyByteBuf buf) {
     }
 
     public PacketToggleEHover() {
@@ -24,13 +24,13 @@ public class PacketToggleEHover {
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            ServerPlayerEntity player = ctx.get().getSender();
+            ServerPlayer player = ctx.get().getSender();
             if (player != null) {
-                ItemStack stack = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+                ItemStack stack = player.getItemBySlot(EquipmentSlot.CHEST);
                 Item item = stack.getItem();
                 if (item instanceof JetpackItem) {
                     JetpackItem jetpack = (JetpackItem) item;
-                    jetpack.toggleEHover(stack, (PlayerEntity) player);
+                    jetpack.toggleEHover(stack, (Player) player);
                 }
             }
         });

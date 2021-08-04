@@ -1,18 +1,17 @@
 package stormedpanda.simplyjetpacks.gui;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.inventory.InventoryScreen;
-import net.minecraft.client.gui.widget.button.ImageButton;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
@@ -37,10 +36,10 @@ public class JetpackGuiScreen extends Screen {
     private final ResourceLocation GUI_BASE = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/gui_base.png");
     private final ResourceLocation ENERGY_BAR = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/energy_bar.png");
 
-    private static final ITextComponent energyStorageTooltip = new TranslationTextComponent("tooltips.simplyjetpacks.jetpack_gui.energyStorage");
+    private static final MutableComponent energyStorageTooltip = new TranslatableComponent("tooltips.simplyjetpacks.jetpack_gui.energyStorage");
 
     public JetpackGuiScreen() {
-        super(new TranslationTextComponent("screen.simplyjetpacks.jetpack_gui.title"));
+        super(new TranslatableComponent("screen.simplyjetpacks.jetpack_gui.title"));
         this.width = WIDTH;
         this.height = HEIGHT;
     }
@@ -50,22 +49,22 @@ public class JetpackGuiScreen extends Screen {
         int relX = (this.width - WIDTH) / 2;
         int relY = (this.height - HEIGHT) / 2;
 
-        this.addButton(new ImageButton(relX + 120, relY + 16, 20, 20, 176, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleEngine())));
-        this.addButton(new ImageButton(relX + 120, relY + 38, 20, 20, 216, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleHover())));
+        this.addRenderableWidget(new ImageButton(relX + 120, relY + 16, 20, 20, 176, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleEngine())));
+        this.addRenderableWidget(new ImageButton(relX + 120, relY + 38, 20, 20, 216, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleHover())));
 
-        ItemStack stack = minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+        ItemStack stack = minecraft.player.getItemBySlot(EquipmentSlot.CHEST);
         Item item = stack.getItem();
         if (item instanceof JetpackItem) {
             JetpackItem jetpack = (JetpackItem) item;
             if (jetpack.getType().canCharge()) {
-                this.addButton(new ImageButton(relX + 142, relY + 16, 20, 20, 196, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleCharger())));
+                this.addRenderableWidget(new ImageButton(relX + 142, relY + 16, 20, 20, 196, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleCharger())));
             } else {
-                this.addButton(new ImageButton(relX + 142, relY + 16, 20, 20, 196, 40, 0, GUI_BASE, button -> buttonClicked("CHARGER NOT AVAILABLE")));
+                this.addRenderableWidget(new ImageButton(relX + 142, relY + 16, 20, 20, 196, 40, 0, GUI_BASE, button -> buttonClicked("CHARGER NOT AVAILABLE")));
             }
             if (jetpack.getType().canEHover()) {
-                this.addButton(new ImageButton(relX + 142, relY + 38, 20, 20, 236, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleEHover())));
+                this.addRenderableWidget(new ImageButton(relX + 142, relY + 38, 20, 20, 236, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleEHover())));
             } else {
-                this.addButton(new ImageButton(relX + 142, relY + 38, 20, 20, 236, 40, 0, GUI_BASE, button -> buttonClicked("E HOVER NOT AVAILABLE")));
+                this.addRenderableWidget(new ImageButton(relX + 142, relY + 38, 20, 20, 236, 40, 0, GUI_BASE, button -> buttonClicked("E HOVER NOT AVAILABLE")));
             }
         }
     }
@@ -75,7 +74,12 @@ public class JetpackGuiScreen extends Screen {
     }
 
     @Override
-    public void render(@Nonnull MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
+    public void render(PoseStack p_96562_, int p_96563_, int p_96564_, float p_96565_) {
+        super.render(p_96562_, p_96563_, p_96564_, p_96565_);
+    }
+
+    @Override
+    public void render(@Nonnull PoseStack stack, int mouseX, int mouseY, float partialTicks) {
         FontRenderer fontRenderer = minecraft.fontRenderer;
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         int relX = (this.width - WIDTH) / 2;
@@ -84,8 +88,8 @@ public class JetpackGuiScreen extends Screen {
         float mousePosY = (float) mouseY;
         minecraft.getTextureManager().bindTexture(GUI_BASE);
         this.blit(stack, relX, relY, 0, 0, WIDTH, HEIGHT);
-        drawCenteredString(stack, fontRenderer, new TranslationTextComponent(minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST).getTranslationKey()), relX + 88, relY + 5, 0xFFFFFF);
-        InventoryScreen.drawEntityOnScreen(relX + 80, relY + 90, 40, (float)(relX + 51) - mousePosX, (float)(relY + 75 - 50) - mousePosY, minecraft.player);
+        drawCenteredString(stack, fontRenderer, new TranslationTextComponent(minecraft.player.getItemBySlot(EquipmentSlot.CHEST).get()), relX + 88, relY + 5, 0xFFFFFF);
+        InventoryScreen.renderEntityInInventory(relX + 80, relY + 90, 40, (float)(relX + 51) - mousePosX, (float)(relY + 75 - 50) - mousePosY, minecraft.player);
         minecraft.getTextureManager().bindTexture(ENERGY_BAR);
         blit(stack, relX + 10, relY + 16, 0, 0, 14, 78, 128, 128);
         int amount = getEnergyBarAmount();
@@ -95,7 +99,7 @@ public class JetpackGuiScreen extends Screen {
     }
 
     private int getEnergyBarAmount() {
-        ItemStack stack = minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+        ItemStack stack = minecraft.player.getItemBySlot(EquipmentSlot.CHEST);
         Item item = stack.getItem();
         if (item instanceof JetpackItem) {
             JetpackItem jetpack = (JetpackItem) item;
@@ -112,8 +116,8 @@ public class JetpackGuiScreen extends Screen {
     public boolean shouldCloseOnEsc() { return true; }
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (KeybindHandler.JETPACK_GUI_KEY.matchesKey(keyCode, scanCode)) {
-            minecraft.displayGuiScreen(null);
+        if (KeybindHandler.JETPACK_GUI_KEY.matches(keyCode, scanCode)) {
+            minecraft.setScreen(null);
             return true;
         } else {
             return super.keyPressed(keyCode, scanCode, modifiers);

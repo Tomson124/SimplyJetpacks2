@@ -1,9 +1,9 @@
 package stormedpanda.simplyjetpacks.items;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.integration.IntegrationList;
 
@@ -14,13 +14,13 @@ public class MetaItem extends Item {
     public String fromMod;
 
     public MetaItem(String fromMod) {
-        super(new Properties().group(SimplyJetpacks.tabSimplyJetpacks));
+        super(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks));
         this.fromMod = fromMod;
     }
 
     @Override
-    public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
-        if (this.isInGroup(group)) {
+    public void fillItemCategory(@Nonnull CreativeModeTab group, @Nonnull NonNullList<ItemStack> items) {
+        if (this.allowdedIn(group)) {
             if (IntegrationList.integrateVanilla) {
                 if (fromMod.equals("vanilla")) {
                     items.add(new ItemStack(this));

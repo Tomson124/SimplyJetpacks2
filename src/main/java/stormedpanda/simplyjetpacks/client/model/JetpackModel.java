@@ -1,22 +1,23 @@
 package stormedpanda.simplyjetpacks.client.model;
 
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.Model;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.world.entity.player.Player;
 
-public class JetpackModel extends BipedModel<PlayerEntity> {
+public class JetpackModel extends HumanoidModel<Player> {
 
-	private final ModelRenderer middle;
-	private final ModelRenderer leftCanister;
-	private final ModelRenderer rightCanister;
-	private final ModelRenderer leftTip1;
-	private final ModelRenderer leftTip2;
-	private final ModelRenderer rightTip1;
-	private final ModelRenderer rightTip2;
-	private final ModelRenderer leftExhaust1;
-	private final ModelRenderer leftExhaust2;
-	private final ModelRenderer rightExhaust1;
-	private final ModelRenderer rightExhaust2;
+	private final ModelPart middle;
+	private final ModelPart leftCanister;
+	private final ModelPart rightCanister;
+	private final ModelPart leftTip1;
+	private final ModelPart leftTip2;
+	private final ModelPart rightTip1;
+	private final ModelPart rightTip2;
+	private final ModelPart leftExhaust1;
+	private final ModelPart leftExhaust2;
+	private final ModelPart rightExhaust1;
+	private final ModelPart rightExhaust2;
 
 	public JetpackModel() {
 		super(1f, 0f, 64, 64);
@@ -58,7 +59,7 @@ public class JetpackModel extends BipedModel<PlayerEntity> {
 		rightTip2.mirror = true;
 		this.setRotation(rightTip2, 0F, 0F, 0F);
 
-		leftExhaust1 = new ModelRenderer(this, 35, 32);//.setTextureSize(64, 64);
+		leftExhaust1 = new Model(this, 35, 32);//.setTextureSize(64, 64);
 		leftExhaust1.addBox(1F, 9F, 3.1F, 3, 1, 3);
 		leftExhaust1.mirror = true;
 		this.setRotation(leftExhaust1, 0F, 0F, 0F);
@@ -107,7 +108,7 @@ public class JetpackModel extends BipedModel<PlayerEntity> {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public BipedModel<PlayerEntity> applyData(BipedModel defaultArmor) {
+	public BipedModel<Player> applyData(BipedModel defaultArmor) {
 		this.isChild = defaultArmor.isChild;
 		this.isSneak = defaultArmor.isSneak;
 		this.isSitting = defaultArmor.isSitting;

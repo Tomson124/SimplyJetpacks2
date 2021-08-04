@@ -1,9 +1,9 @@
 package stormedpanda.simplyjetpacks.client.particle;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.ParticleManager;
-import net.minecraft.particles.BasicParticleType;
-import net.minecraft.particles.ParticleType;
+import net.minecraft.client.particle.ParticleEngine;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -14,7 +14,7 @@ import stormedpanda.simplyjetpacks.SimplyJetpacks;
 @Mod.EventBusSubscriber(modid = SimplyJetpacks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class SJParticles {
 
-    public static final BasicParticleType RAINBOW = new BasicParticleType(false);
+    public static final SimpleParticleType RAINBOW = new SimpleParticleType(false);
 
     @SubscribeEvent
     public static void registerParticleTypes(RegistryEvent.Register<ParticleType<?>> evt) {
@@ -24,7 +24,7 @@ public class SJParticles {
 
     @SubscribeEvent
     public static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
-        ParticleManager manager = Minecraft.getInstance().particles;
-        manager.registerFactory(SJParticles.RAINBOW, ParticleRainbow.Factory::new);
+        ParticleEngine manager = Minecraft.getInstance().particleEngine;
+        manager.register(SJParticles.RAINBOW, ParticleRainbow.Factory::new);
     }
 }

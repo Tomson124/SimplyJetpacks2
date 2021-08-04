@@ -1,6 +1,6 @@
 package stormedpanda.simplyjetpacks;
 
-import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
@@ -13,9 +13,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
-import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fmlserverevents.FMLServerStartingEvent;
+import net.minecraftforge.fmlserverevents.FMLServerStoppingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import stormedpanda.simplyjetpacks.client.ClientJetpackHandler;
@@ -105,7 +105,7 @@ public class SimplyJetpacks {
     }
 
     @SubscribeEvent
-    public void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
+    public void registerRecipeSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
         LOGGER.info("Recipe Serializers Registered.");
         CraftingHelper.register(ModIntegrationCondition.Serializer.INSTANCE);
     }
