@@ -3,7 +3,6 @@ package stormedpanda.simplyjetpacks.network.packets;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
@@ -28,9 +27,8 @@ public class PacketToggleEHover {
             if (player != null) {
                 ItemStack stack = player.getItemBySlot(EquipmentSlot.CHEST);
                 Item item = stack.getItem();
-                if (item instanceof JetpackItem) {
-                    JetpackItem jetpack = (JetpackItem) item;
-                    jetpack.toggleEHover(stack, (Player) player);
+                if (item instanceof JetpackItem jetpack) {
+                    jetpack.toggleEHover(stack, player);
                 }
             }
         });

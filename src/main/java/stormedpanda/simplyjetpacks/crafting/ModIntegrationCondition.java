@@ -38,16 +38,12 @@ public class ModIntegrationCondition implements ICondition {
             return ModList.get().isLoaded(modid) && SimplyJetpacksConfig.COMMON.enableIntegrationThermalExpansion.get();
         }
         return false;
-/*        switch (modid) {
-            case "vanilla":
-                return SimplyJetpacksConfig.COMMON.enableIntegrationVanilla.get();
-            case "immersiveengineering":
-                return ModList.get().isLoaded(modid) && SimplyJetpacksConfig.COMMON.enableIntegrationImmersiveEngineering.get();
-            case "mekanism":
-                return ModList.get().isLoaded(modid) && SimplyJetpacksConfig.COMMON.enableIntegrationMekanism.get();
-            default:
-                return false;
-        }*/
+/*        return switch (modid) {
+            case "vanilla" -> SimplyJetpacksConfig.COMMON.enableIntegrationVanilla.get();
+            case "immersiveengineering" -> ModList.get().isLoaded(modid) && SimplyJetpacksConfig.COMMON.enableIntegrationImmersiveEngineering.get();
+            case "mekanism" -> ModList.get().isLoaded(modid) && SimplyJetpacksConfig.COMMON.enableIntegrationMekanism.get();
+            default -> false;
+        };*/
     }
 
     @Override

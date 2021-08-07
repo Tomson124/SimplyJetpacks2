@@ -51,7 +51,9 @@ public class KeybindHandler {
         ItemStack chestStack = player.getItemBySlot(EquipmentSlot.CHEST);
         Item chestItem = null;
         JetpackItem jetpack;
-        if (!chestStack.isEmpty()) { chestItem = chestStack.getItem(); }
+        if (!chestStack.isEmpty()) {
+            chestItem = chestStack.getItem();
+        }
         if (chestItem instanceof JetpackItem) {
             jetpack = (JetpackItem) chestItem;
             if (JETPACK_GUI_KEY.isDown()) {

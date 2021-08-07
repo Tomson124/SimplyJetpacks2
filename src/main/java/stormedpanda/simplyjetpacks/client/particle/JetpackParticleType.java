@@ -1,5 +1,6 @@
 package stormedpanda.simplyjetpacks.client.particle;
 
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 
 public enum JetpackParticleType {
@@ -11,13 +12,13 @@ public enum JetpackParticleType {
     BUBBLES(ParticleTypes.BUBBLE),
     HEARTS(ParticleTypes.HEART);
 
-    public IParticleData particleData;
+    public ParticleOptions particleData;
 
-    JetpackParticleType(IParticleData particleData) {
+    JetpackParticleType(ParticleOptions particleData) {
         this.particleData = particleData;
     }
 
-    public IParticleData getParticleData() {
+    public ParticleOptions getParticleData() {
         return particleData;
     }
 }

@@ -132,16 +132,12 @@ public enum JetpackType {
     }
 
     public Rarity getRarity() {
-        switch (tier) {
-            case 2:
-                return Rarity.UNCOMMON;
-            case 3:
-                return Rarity.RARE;
-            case 4:
-                return Rarity.EPIC;
-            default:
-                return Rarity.COMMON;
-        }
+        return switch (tier) {
+            case 2 -> Rarity.UNCOMMON;
+            case 3 -> Rarity.RARE;
+            case 4 -> Rarity.EPIC;
+            default -> Rarity.COMMON;
+        };
     }
 
     public int getCapacity() {

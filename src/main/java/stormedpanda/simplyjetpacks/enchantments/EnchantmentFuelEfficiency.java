@@ -28,7 +28,6 @@ public class EnchantmentFuelEfficiency extends Enchantment {
 
     @Override
     public String getDescriptionId() {
-        //return super.getDescriptionId();
         return "enchantment.simplyjetpacks.fuelEfficiency";
     }
 

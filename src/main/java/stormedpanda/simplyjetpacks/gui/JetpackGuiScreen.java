@@ -3,10 +3,11 @@ package stormedpanda.simplyjetpacks.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
-import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -36,7 +37,7 @@ public class JetpackGuiScreen extends Screen {
     private final ResourceLocation GUI_BASE = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/gui_base.png");
     private final ResourceLocation ENERGY_BAR = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/energy_bar.png");
 
-    private static final MutableComponent energyStorageTooltip = new TranslatableComponent("tooltips.simplyjetpacks.jetpack_gui.energyStorage");
+    private static final Component energyStorageTooltip = new TranslatableComponent("tooltips.simplyjetpacks.jetpack_gui.energyStorage");
 
     public JetpackGuiScreen() {
         super(new TranslatableComponent("screen.simplyjetpacks.jetpack_gui.title"));
@@ -54,8 +55,7 @@ public class JetpackGuiScreen extends Screen {
 
         ItemStack stack = minecraft.player.getItemBySlot(EquipmentSlot.CHEST);
         Item item = stack.getItem();
-        if (item instanceof JetpackItem) {
-            JetpackItem jetpack = (JetpackItem) item;
+        if (item instanceof JetpackItem jetpack) {
             if (jetpack.getType().canCharge()) {
                 this.addRenderableWidget(new ImageButton(relX + 142, relY + 16, 20, 20, 196, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleCharger())));
             } else {
@@ -74,23 +74,19 @@ public class JetpackGuiScreen extends Screen {
     }
 
     @Override
-    public void render(PoseStack p_96562_, int p_96563_, int p_96564_, float p_96565_) {
-        super.render(p_96562_, p_96563_, p_96564_, p_96565_);
-    }
-
-    @Override
     public void render(@Nonnull PoseStack stack, int mouseX, int mouseY, float partialTicks) {
-        FontRenderer fontRenderer = minecraft.fontRenderer;
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        Font fontRenderer = minecraft.font;
+        RenderSystem.setShaderTexture(0, GUI_BASE);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         int relX = (this.width - WIDTH) / 2;
         int relY = (this.height - HEIGHT) / 2;
         float mousePosX = (float) mouseX;
         float mousePosY = (float) mouseY;
-        minecraft.getTextureManager().bindTexture(GUI_BASE);
         this.blit(stack, relX, relY, 0, 0, WIDTH, HEIGHT);
-        drawCenteredString(stack, fontRenderer, new TranslationTextComponent(minecraft.player.getItemBySlot(EquipmentSlot.CHEST).get()), relX + 88, relY + 5, 0xFFFFFF);
+        drawCenteredString(stack, fontRenderer, new TranslatableComponent(minecraft.player.getItemBySlot(EquipmentSlot.CHEST).getDescriptionId()), relX + 88, relY + 5, 0xFFFFFF);
         InventoryScreen.renderEntityInInventory(relX + 80, relY + 90, 40, (float)(relX + 51) - mousePosX, (float)(relY + 75 - 50) - mousePosY, minecraft.player);
-        minecraft.getTextureManager().bindTexture(ENERGY_BAR);
+        RenderSystem.setShaderTexture(0, ENERGY_BAR);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         blit(stack, relX + 10, relY + 16, 0, 0, 14, 78, 128, 128);
         int amount = getEnergyBarAmount();
         int barOffset = 78-amount;
@@ -101,13 +97,16 @@ public class JetpackGuiScreen extends Screen {
     private int getEnergyBarAmount() {
         ItemStack stack = minecraft.player.getItemBySlot(EquipmentSlot.CHEST);
         Item item = stack.getItem();
-        if (item instanceof JetpackItem) {
-            JetpackItem jetpack = (JetpackItem) item;
-            if (jetpack.isCreative()) { return 78; }
+        if (item instanceof JetpackItem jetpack) {
+            if (jetpack.isCreative()) {
+                return 78;
+            }
             int i = jetpack.getEnergyStored(stack);
             int j = jetpack.getCapacity();
             return (int) (j != 0 && i != 0 ? (long) i * 78 / j : 0);
-        } else { return 0; }
+        } else {
+            return 0;
+        }
     }
 
     @Override

@@ -6,7 +6,7 @@ import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.integration.IntegrationList;
@@ -199,12 +199,12 @@ public class SimplyJetpacksConfig {
     }
 
     @SubscribeEvent
-    public static void onLoad(final ModConfig.Loading event) {
+    public static void onLoad(final ModConfigEvent.Loading event) {
         IntegrationList.init();
     }
 
     @SubscribeEvent
-    public static void onFileChange(final ModConfig.Reloading event) {
+    public static void onFileChange(final ModConfigEvent.Reloading event) {
         IntegrationList.init();
     }
 }

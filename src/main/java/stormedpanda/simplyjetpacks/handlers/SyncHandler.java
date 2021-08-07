@@ -24,18 +24,23 @@ public class SyncHandler {
     public static boolean isHoldingUp(Player player) {
         return HOLDING_UP.containsKey(player) && HOLDING_UP.get(player);
     }
+
     public static boolean isHoldingDown(Player player) {
         return HOLDING_DOWN.containsKey(player) && HOLDING_DOWN.get(player);
     }
+
     public static boolean isHoldingForwards(Player player) {
         return HOLDING_FORWARDS.containsKey(player) && HOLDING_FORWARDS.get(player);
     }
+
     public static boolean isHoldingBackwards(Player player) {
         return HOLDING_BACKWARDS.containsKey(player) && HOLDING_BACKWARDS.get(player);
     }
+
     public static boolean isHoldingLeft(Player player) {
         return HOLDING_LEFT.containsKey(player) && HOLDING_LEFT.get(player);
     }
+
     public static boolean isHoldingRight(Player player) {
         return HOLDING_RIGHT.containsKey(player) && HOLDING_RIGHT.get(player);
     }
@@ -48,6 +53,7 @@ public class SyncHandler {
         HOLDING_LEFT.put(player, left);
         HOLDING_RIGHT.put(player, right);
     }
+
     public static void clear() {
         HOLDING_UP.clear();
         HOLDING_FORWARDS.clear();
@@ -56,6 +62,7 @@ public class SyncHandler {
         HOLDING_LEFT.clear();
         HOLDING_RIGHT.clear();
     }
+
     public static void remove(Player player) {
         HOLDING_UP.remove(player);
         HOLDING_FORWARDS.remove(player);
@@ -87,10 +94,12 @@ public class SyncHandler {
     public void onLogout(PlayerEvent.PlayerLoggedOutEvent event) {
         remove(event.getPlayer());
     }
+
     @SubscribeEvent
     public void onChangeDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         remove(event.getPlayer());
     }
+
     @SubscribeEvent
     public void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (SimplyJetpacksConfig.COMMON.enableJoinAdvancements.get()) {

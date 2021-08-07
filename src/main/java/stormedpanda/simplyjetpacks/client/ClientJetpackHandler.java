@@ -2,6 +2,7 @@ package stormedpanda.simplyjetpacks.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ParticleStatus;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -53,19 +54,19 @@ public class ClientJetpackHandler {
 
     @OnlyIn(Dist.CLIENT)
     public void showJetpackParticles(Level world, Player player, JetpackParticleType particleType) {
-        ParticleDa particle = particleType.getParticleData();
+        ParticleOptions particle = particleType.getParticleData();
         if (minecraft.options.particles != ParticleStatus.MINIMAL && particle != null) {
             Random rand = new Random();
             Pos3D playerPos = new Pos3D(player).translate(0, 1.5, 0);
             float random = (rand.nextFloat() - 0.5F) * 0.1F;
-            Pos3D vLeft = new Pos3D(-0.28, -0.95, -0.35).rotatePitch(0).rotateYaw(player.renderYawOffset);
-            Pos3D vRight = new Pos3D(0.28, -0.95, -0.35).rotatePitch(0).rotateYaw(player.renderYawOffset);
-            Pos3D vCenter = new Pos3D((rand.nextFloat() - 0.5F) * 0.25F, -0.95, -0.38).rotatePitch(0).rotateYaw(player.renderYawOffset);
-            Pos3D v = playerPos.translate(vLeft).translate(new Pos3D(player.getMotion()));
+            Pos3D vLeft = new Pos3D(-0.28, -0.95, -0.35).rotate(player.yBodyRot, 0);
+            Pos3D vRight = new Pos3D(0.28, -0.95, -0.35).rotate(player.yBodyRot, 0);
+            Pos3D vCenter = new Pos3D((rand.nextFloat() - 0.5F) * 0.25F, -0.95, -0.38).rotate(player.yBodyRot, 0);
+            Pos3D v = playerPos.translate(vLeft).translate(new Pos3D(player.getDeltaMovement()));
             world.addParticle(particle, v.x, v.y, v.z, random, -0.2D, random);
-            v = playerPos.translate(vRight).translate(new Pos3D(player.getMotion()));
+            v = playerPos.translate(vRight).translate(new Pos3D(player.getDeltaMovement()));
             world.addParticle(particle, v.x, v.y, v.z, random, -0.2D, random);
-            v = playerPos.translate(vCenter).translate(new Pos3D(player.getMotion()));
+            v = playerPos.translate(vCenter).translate(new Pos3D(player.getDeltaMovement()));
             world.addParticle(particle, v.x, v.y, v.z, random, -0.2D, random);
         }
     }
@@ -77,7 +78,7 @@ public class ClientJetpackHandler {
             Item item = stack.getItem();
             if (item instanceof JetpackItem) {
                 JetpackItem jetpack = (JetpackItem) item;
-                if (jetpack.isEngineOn(stack) && (jetpack.getEnergyStored(stack) > 0 || player.isCreative() || jetpack.isCreative())) {
+                if (jetpack.isEngineOn(stack) && (jetpack.getEnergyStored(stack) > 0 || jetpack.isCreative())) {
                     if (jetpack.isHoverOn(stack)) {
                         return !player.isOnGround();
                     } else {

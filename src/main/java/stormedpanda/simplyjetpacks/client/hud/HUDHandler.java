@@ -3,7 +3,7 @@ package stormedpanda.simplyjetpacks.client.hud;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -35,7 +35,7 @@ public class HUDHandler {
 
                     IHUDInfoProvider provider = (IHUDInfoProvider) chestplate.getItem();
 
-                    List<MutableComponent> renderStrings = new ArrayList<>();
+                    List<Component> renderStrings = new ArrayList<>();
                     provider.addHUDInfo(chestplate, renderStrings);
                     if (renderStrings.isEmpty()) {
                         return;
@@ -45,7 +45,7 @@ public class HUDHandler {
                     matrix.pushPose();
                     matrix.scale(SimplyJetpacksConfig.CLIENT.hudScale.get(), SimplyJetpacksConfig.CLIENT.hudScale.get(), 1.0F);
                     Window window = event.getWindow();
-                    for (MutableComponent text : renderStrings) {
+                    for (Component text : renderStrings) {
                         HUDRenderHelper.drawStringAtPosition(window, matrix, text, count);
                         count++;
                     }

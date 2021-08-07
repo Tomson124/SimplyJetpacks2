@@ -1,23 +1,25 @@
 package stormedpanda.simplyjetpacks.items;
 
-import com.mojang.math.Vector3d;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -26,7 +28,7 @@ import stormedpanda.simplyjetpacks.capability.CapabilityProviderEnergy;
 import stormedpanda.simplyjetpacks.capability.EnergyConversionStorage;
 import stormedpanda.simplyjetpacks.capability.IEnergyContainerItem;
 import stormedpanda.simplyjetpacks.client.hud.IHUDInfoProvider;
-import stormedpanda.simplyjetpacks.client.model.JetpackModel;
+import stormedpanda.simplyjetpacks.client.model.JetpackModelLayers;
 import stormedpanda.simplyjetpacks.client.particle.JetpackParticleType;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
@@ -40,6 +42,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyContainerItem {
 
@@ -70,33 +73,52 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         this.maxExtract = type.getMaxExtract();
     }
 
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void initializeClient(Consumer<IItemRenderProperties> consumer) {
+        consumer.accept(Rendering.INSTANCE);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private static final class Rendering implements IItemRenderProperties {
+        private static final Rendering INSTANCE = new JetpackItem.Rendering();
+
+        private Rendering() {
+        }
+
+        @Override
+        public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
+            return (A) JetpackModelLayers.JETPACK_MODEL;
+        }
+    }
+
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
         return armorTexture;
     }
 
-
-    @SuppressWarnings("rawtypes")
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, BipedModel _default) {
-        return new JetpackModel().applyData(_default);
+    public String getBaseName() {
+        return name;
     }
 
-    public String getBaseName() { return name; }
+    public JetpackType getType() {
+        return type;
+    }
 
-    public JetpackType getType() { return type; }
+    public int getCapacity() {
+        return capacity;
+    }
 
-    public int getCapacity() { return capacity; }
-
-    public boolean isCreative() { return getBaseName().contains("creative"); }
+    public boolean isCreative() {
+        return getBaseName().contains("creative");
+    }
 
     @Override
-    public boolean hasEffect(@Nonnull ItemStack stack) {
+    public boolean isFoil(@Nonnull ItemStack stack) {
         return (isCreative() || stack.isEnchanted());
     }
 
     @Override
-    public void onArmorTick(ItemStack stack, World world, Player player) {
+    public void onArmorTick(ItemStack stack, Level world, Player player) {
         super.onArmorTick(stack, world, player);
         if (!player.isSpectator()) {
             flyUser(player, stack, this);
@@ -108,7 +130,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     public int getEnergyUsage(ItemStack stack) {
         int baseUsage = type.getEnergyUsage();
-        int level = EnchantmentHelper.getEnchantmentLevel(RegistryHandler.FUEL_EFFICIENCY.get(), stack);
+        int level = EnchantmentHelper.getItemEnchantmentLevel(RegistryHandler.FUEL_EFFICIENCY.get(), stack);
         return level != 0 ? (int) Math.round(baseUsage * (5 - level) / 5.0D) : baseUsage;
     }
 
@@ -128,7 +150,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     @Override
     public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
         if (!container.hasTag()) {
-            container.setTag(new CompoundNBT());
+            container.setTag(new CompoundTag());
         }
         int stored = Math.min(container.getTag().getInt(TAG_ENERGY), getMaxEnergyStored(container));
         int energyReceived = Math.min(capacity - stored, Math.min(this.maxReceive, maxReceive));
@@ -166,7 +188,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public int getMaxEnergyStored(ItemStack container) {
         Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(container);
         for (Map.Entry<Enchantment, Integer> entry : enchants.entrySet()) {
-            if (entry.getKey().getName().equals("enchantment.cofh_core.holding")) {
+            if (entry.getKey().getDescriptionId().equals("enchantment.cofh_core.holding")) {
                 return capacity + capacity * entry.getValue() / 2;
             }
         }
@@ -174,7 +196,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT nbt) {
+    public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag nbt) {
         return new CapabilityProviderEnergy(new EnergyConversionStorage(this, stack));
     }
 
@@ -189,7 +211,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<MutableComponent> tooltip, @Nonnull ITooltipFlag flagIn) {
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
         if (CapabilityEnergy.ENERGY == null) return;
         SJTextUtil.addBaseInfo(stack, tooltip);
         if (KeyboardUtil.isHoldingShift()) {
@@ -255,7 +277,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void addHUDInfo(ItemStack stack, List<MutableComponent> list) {
+    public void addHUDInfo(ItemStack stack, List<Component> list) {
         SJTextUtil.addHUDInfoText(stack, list);
     }
 
@@ -265,8 +287,8 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public void toggleEngine(ItemStack stack, Player player) {
         boolean current = NBTHelper.getBoolean(stack, TAG_ENGINE);
         NBTHelper.flipBoolean(stack, TAG_ENGINE);
-        MutableComponent msg = SJTextUtil.getStateToggle("engineMode", !current);
-        player.sendStatusMessage(msg, true);
+        Component msg = SJTextUtil.getStateToggle("engineMode", !current);
+        player.displayClientMessage(msg, true);
     }
 
     public boolean isHoverOn(ItemStack stack) {
@@ -275,8 +297,8 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public void toggleHover(ItemStack stack, Player player) {
         boolean current = NBTHelper.getBoolean(stack, TAG_HOVER);
         NBTHelper.flipBoolean(stack, TAG_HOVER);
-        MutableComponent msg = SJTextUtil.getStateToggle("hoverMode", !current);
-        player.sendStatusMessage(msg, true);
+        Component msg = SJTextUtil.getStateToggle("hoverMode", !current);
+        player.displayClientMessage(msg, true);
     }
 
     public boolean isEHoverOn(ItemStack stack) {
@@ -286,15 +308,15 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         if (type.canEHover()) {
             boolean current = NBTHelper.getBoolean(stack, TAG_E_HOVER);
             NBTHelper.flipBoolean(stack, TAG_E_HOVER);
-            MutableComponent msg = SJTextUtil.getStateToggle("emergencyHoverMode", !current);
-            player.sendStatusMessage(msg, true);
+            Component msg = SJTextUtil.getStateToggle("emergencyHoverMode", !current);
+            player.displayClientMessage(msg, true);
         }
     }
     private void doEHover(ItemStack stack, Player player) {
         NBTHelper.setBoolean(stack, TAG_ENGINE, true);
         NBTHelper.setBoolean(stack, TAG_HOVER, true);
-        MutableComponent msg = SJTextUtil.getEmergencyText();
-        player.sendStatusMessage(msg, true);
+        Component msg = SJTextUtil.getEmergencyText();
+        player.displayClientMessage(msg, true);
     }
 
     public boolean isChargerOn(ItemStack stack) {
@@ -304,8 +326,8 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         if (type.canCharge()) {
             boolean current = NBTHelper.getBoolean(stack, TAG_CHARGER);
             NBTHelper.flipBoolean(stack, TAG_CHARGER);
-            MutableComponent msg = SJTextUtil.getStateToggle("chargerMode", !current);
-            player.sendStatusMessage(msg, true);
+            Component msg = SJTextUtil.getStateToggle("chargerMode", !current);
+            player.displayClientMessage(msg, true);
         }
     }
     private void chargeInventory(Player player, ItemStack stack) {
@@ -341,8 +363,8 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     private void fly(Player player, double y) {
-        Vector3d motion = player.getDeltaMovement();
-        player.setMotion(motion.getX(), y, motion.getZ());
+        Vec3 motion = player.getDeltaMovement();
+        player.setDeltaMovement(motion.get(Axis.X), y, motion.get(Axis.Z));
     }
 
     private void flyUser(Player player, ItemStack stack, JetpackItem item) {
@@ -351,7 +373,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
             double hoverSpeed = SimplyJetpacksConfig.CLIENT.invertHoverSneakingBehavior.get() == SyncHandler.isHoldingDown(player) ? type.getSpeedVerticalHoverSlow() : type.getSpeedVerticalHover();
             boolean flyKeyDown = SyncHandler.isHoldingUp(player);
             boolean descendKeyDown = SyncHandler.isHoldingDown(player);
-            double currentAccel = type.getAccelVertical() * (player.getDeltaMovement().get(Direction.Axis.Y) < 0.3D ? 2.5D : 1.0D);
+            double currentAccel = type.getAccelVertical() * (player.getDeltaMovement().get(Axis.Y) < 0.3D ? 2.5D : 1.0D);
             double currentSpeedVertical = type.getSpeedVertical() * (player.isInWater() ? 0.4D : 1.0D);
             double speedVerticalHover = type.getSpeedVerticalHover();
             double speedVerticalHoverSlow = type.getSpeedVerticalHoverSlow();
@@ -364,16 +386,16 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
                 if (getEnergyStored(stack) > 0 || isCreative()) {
                     if (flyKeyDown) {
                         if (!hoverMode) {
-                            fly(player, Math.min(player.getMotion().getY() + currentAccel, currentSpeedVertical));
+                            fly(player, Math.min(player.getDeltaMovement().get(Axis.Y) + currentAccel, currentSpeedVertical));
                         } else {
                             if (descendKeyDown) {
-                                fly(player, Math.min(player.getMotion().getY() + currentAccel, -speedVerticalHoverSlow));
+                                fly(player, Math.min(player.getDeltaMovement().get(Axis.Y) + currentAccel, -speedVerticalHoverSlow));
                             } else {
-                                fly(player, Math.min(player.getMotion().getY() + currentAccel, speedVerticalHover));
+                                fly(player, Math.min(player.getDeltaMovement().get(Axis.Y) + currentAccel, speedVerticalHover));
                             }
                         }
                     } else {
-                        fly(player, Math.min(player.getMotion().getY() + currentAccel, -hoverSpeed));
+                        fly(player, Math.min(player.getDeltaMovement().get(Direction.Axis.Y) + currentAccel, -hoverSpeed));
                     }
 
                     double baseSpeedSideways = type.getSpeedSideways();
@@ -382,37 +404,38 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
                     float speedForward = (float) (player.isSprinting() ? speedSideways * baseSpeedForward : speedSideways);
 
                     if (SyncHandler.isHoldingForwards(player)) {
-                        player.moveRelative(1, new Vector3d(0, 0, speedForward));
+                        player.moveRelative(1, new Vec3(0, 0, speedForward));
                     }
                     if (SyncHandler.isHoldingBackwards(player)) {
-                        player.moveRelative(1, new Vector3d(0, 0, -speedSideways * 0.8F));
+                        player.moveRelative(1, new Vec3(0, 0, -speedSideways * 0.8F));
                     }
                     if (SyncHandler.isHoldingLeft(player)) {
-                        player.moveRelative(1, new Vector3d(speedSideways, 0, 0));
+                        player.moveRelative(1, new Vec3(speedSideways, 0, 0));
                     }
                     if (SyncHandler.isHoldingRight(player)) {
-                        player.moveRelative(1, new Vector3d(-speedSideways, 0, 0));
+                        player.moveRelative(1, new Vec3(-speedSideways, 0, 0));
                     }
-                    if (!player.world.isRemote()) {
+                    if (!player.level.isClientSide()) {
                         player.fallDistance = 0.0F;
                         if (player instanceof ServerPlayer) {
-                            ((ServerPlayer) player).connection.floatingTickCount = 0;
+                            ((ServerPlayer) player).connection.aboveGroundTickCount = 0;
                         }
                     }
                 }
             }
         }
-        if (!player.level.isRemote && this.isEHoverOn(stack)) {
+        if (!player.level.isClientSide() && this.isEHoverOn(stack)) {
             if ((item.getEnergyStored(stack) > 0 || this.isCreative()) && (!this.isHoverOn(stack) || !this.isEngineOn(stack))) {
-                if (player.getPositionVec().getY() < -5) {
+                if (player.position().get(Direction.Axis.Y) < -5) {
                     this.doEHover(stack, player);
                 } else {
                     if (!player.isCreative() && player.fallDistance - 1.2F >= player.getHealth()) {
                         for (int j = 0; j <= 16; j++) {
-                            int x = Math.round((float) player.getPositionVec().getX() - 0.5F);
-                            int y = Math.round((float) player.getPositionVec().getY()) - j;
-                            int z = Math.round((float) player.getPositionVec().getZ() - 0.5F);
-                            if (!player.level.isAirBlock(new BlockPos(x, y, z))) {
+                            int x = Math.round((float) player.position().get(Axis.X) - 0.5F);
+                            int y = Math.round((float) player.position().get(Axis.Y)) - j;
+                            int z = Math.round((float) player.position().get(Axis.Z) - 0.5F);
+                            //if (!player.level.isAirBlock(new BlockPos(x, y, z))) {
+                            if (!player.level.getBlockState(new BlockPos(x, y, z)).isAir()) {
                                 this.doEHover(stack, player);
                                 break;
                             }

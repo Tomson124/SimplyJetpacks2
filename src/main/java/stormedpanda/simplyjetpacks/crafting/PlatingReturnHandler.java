@@ -23,11 +23,12 @@ public class PlatingReturnHandler {
                     JetpackType inputJetpack = ((JetpackItem) input.getItem()).getType();
                     if (inputJetpack.getIsArmored()) {
                         Item itemToReturn = getPlating(inputJetpack.getPlatingID());
-                        ItemEntity item = event.getPlayer().drop(new ItemStack(itemToReturn, 1), false);
-                        if (item != null) {
-                            item.setNoPickUpDelay();
+                        if (itemToReturn != null) {
+                            ItemEntity item = event.getPlayer().drop(new ItemStack(itemToReturn, 1), false);
+                            if (item != null) {
+                                item.setNoPickUpDelay();
+                            }
                         }
-                        //item.setNoPickupDelay();
                         break;
                     }
                 }
@@ -35,24 +36,24 @@ public class PlatingReturnHandler {
         }
     }
 
-    // TODO: make this better
     public Item getPlating(int id) {
-        if (id == 0) { return Items.IRON_CHESTPLATE; }
-        if (id == 1) { return Items.GOLDEN_CHESTPLATE; }
-        if (id == 2) { return Items.DIAMOND_CHESTPLATE; }
-        if (id == 3) { return Items.NETHERITE_CHESTPLATE; }
-        if (id == 4) { return RegistryHandler.ARMORPLATING_IE1.get(); }
-        if (id == 5) { return RegistryHandler.ARMORPLATING_IE2.get(); }
-        if (id == 6) { return RegistryHandler.ARMORPLATING_IE3.get(); }
-        if (id == 7) { return RegistryHandler.ARMORPLATING_MEK1.get(); }
-        if (id == 8) { return RegistryHandler.ARMORPLATING_MEK2.get(); }
-        if (id == 9) { return RegistryHandler.ARMORPLATING_MEK3.get(); }
-        if (id == 10) { return RegistryHandler.ARMORPLATING_MEK4.get(); }
-        if (id == 11) { return RegistryHandler.ARMORPLATING_TE1.get(); }
-        if (id == 12) { return RegistryHandler.ARMORPLATING_TE2.get(); }
-        if (id == 13) { return RegistryHandler.ARMORPLATING_TE3.get(); }
-        if (id == 14) { return RegistryHandler.ARMORPLATING_TE4.get(); }
-
-        return Items.DIAMOND.asItem();
+        return switch (id) {
+            case 0 -> Items.IRON_CHESTPLATE;
+            case 1 -> Items.GOLDEN_CHESTPLATE;
+            case 2 -> Items.DIAMOND_CHESTPLATE;
+            case 3 -> Items.NETHERITE_CHESTPLATE;
+            case 4 -> RegistryHandler.ARMORPLATING_IE1.get();
+            case 5 -> RegistryHandler.ARMORPLATING_IE2.get();
+            case 6 -> RegistryHandler.ARMORPLATING_IE3.get();
+            case 7 -> RegistryHandler.ARMORPLATING_MEK1.get();
+            case 8 -> RegistryHandler.ARMORPLATING_MEK2.get();
+            case 9 -> RegistryHandler.ARMORPLATING_MEK3.get();
+            case 10 -> RegistryHandler.ARMORPLATING_MEK4.get();
+            case 11 -> RegistryHandler.ARMORPLATING_TE1.get();
+            case 12 -> RegistryHandler.ARMORPLATING_TE2.get();
+            case 13 -> RegistryHandler.ARMORPLATING_TE3.get();
+            case 14 -> RegistryHandler.ARMORPLATING_TE4.get();
+            default -> null;
+        };
     }
 }
