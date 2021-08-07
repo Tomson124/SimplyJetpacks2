@@ -1,4 +1,4 @@
-# 2.7.1 - 13-02-2021
+# 2.7.1 - 07-07-2021
 - **General**
   - Updated to Minecraft Version 1.17.1
   
