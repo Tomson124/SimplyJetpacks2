@@ -20,13 +20,14 @@ Jetpacks and Fluxpacks powered by Forge Energy!
 Previous Author: tonius11
 '''
 
-[[dependencies.examplemod]]
+[[dependencies.simplyjetpacks]]
 modId="forge"
 mandatory=true
 versionRange="[37,)"
 ordering="NONE"
 side="BOTH"
-[[dependencies.examplemod]]
+
+[[dependencies.simplyjetpacks]]
 modId="minecraft"
 mandatory=true
 versionRange="[1.17.1,1.18)"
