@@ -72,7 +72,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories {
     maven {
         name = "mod maven"
-        url = "https://modmaven.k-4u.nl/"
+        url = "https://modmaven.dev"
     }
     maven {
         name = "progwm16 maven"
@@ -87,10 +87,6 @@ repositories {
         url = "https://maven.blamejared.com/"
     }
     maven {
-        name = "gigaherz maven"
-        url = 'https://www.dogforce-games.com/maven/'
-    }
-    maven {
         name = "curse maven"
         url = "https://www.cursemaven.com/"
     }
@@ -99,28 +95,27 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-/*    compileOnly fg.deobf("mezz.jei:jei-1.16.4:${jei_version}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.16.4:${jei_version}")
+    //runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
+
+    //compileOnly fg.deobf("mezz.jei:jei-1.16.4:${jei_version}:api")
+    //runtimeOnly fg.deobf("mezz.jei:jei-1.16.4:${jei_version}")
 
     //compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${top_version}:api")
     //runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${top_version}")
 
-    compileOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:api")
-    runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")
-    runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:additions")
-    runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:generators")
-    runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:tools")
+    //compileOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:api")
+    //runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")
+    //runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:additions")
+    //runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:generators")
+    //runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:tools")
 
     //runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${immersiveengineering_version}")
-    //runtimeOnly fg.deobf("curse.maven:immersiveengineering-231951:3141693")
-    runtimeOnly fg.deobf("curse.maven:immersiveengineering-231951:3189063")
+    //runtimeOnly fg.deobf("curse.maven:immersiveengineering-231951:3189063")
 
-    runtimeOnly fg.deobf("curse.maven:cofhcore-69162:3155824")
-    runtimeOnly fg.deobf("curse.maven:thermalfoundation-222880:3155830")
-    runtimeOnly fg.deobf("curse.maven:thermalexpansion-69163:3155832")
+    //runtimeOnly fg.deobf("curse.maven:cofhcore-69162:3155824")
+    //runtimeOnly fg.deobf("curse.maven:thermalfoundation-222880:3155830")
+    //runtimeOnly fg.deobf("curse.maven:thermalexpansion-69163:3155832")
     //runtimeOnly fg.deobf("curse.maven:thermaldynamics-227443:x")
-
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")*/
 }
 
 jar {
