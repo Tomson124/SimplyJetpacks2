@@ -97,18 +97,19 @@ public class JetpackModel<T extends LivingEntity> extends HumanoidModel<T> {
     @Override
     protected Iterable<ModelPart> bodyParts() {
         this.middle.copyFrom(this.body);
-        this.leftCanister.copyFrom(this.body);
-        this.rightCanister.copyFrom(this.body);
-        this.leftTip1.copyFrom(this.body);
-        this.leftTip2.copyFrom(this.body);
-        this.rightTip1.copyFrom(this.body);
-        this.rightTip2.copyFrom(this.body);
-        this.leftExhaust1.copyFrom(this.body);
-        this.leftExhaust2.copyFrom(this.body);
-        this.rightExhaust1.copyFrom(this.body);
-        this.rightExhaust2.copyFrom(this.body);
+        this.leftCanister.copyFrom(this.middle);
+        this.rightCanister.copyFrom(this.middle);
+        this.leftTip1.copyFrom(this.middle);
+        this.leftTip2.copyFrom(this.middle);
+        this.rightTip1.copyFrom(this.middle);
+        this.rightTip2.copyFrom(this.middle);
+        this.leftExhaust1.copyFrom(this.middle);
+        this.leftExhaust2.copyFrom(this.middle);
+        this.rightExhaust1.copyFrom(this.middle);
+        this.rightExhaust2.copyFrom(this.middle);
 
         return ImmutableList.of(
+                this.body,
                 this.middle,
                 this.leftCanister,
                 this.rightCanister,
@@ -119,7 +120,9 @@ public class JetpackModel<T extends LivingEntity> extends HumanoidModel<T> {
                 this.leftExhaust1,
                 this.leftExhaust2,
                 this.rightExhaust1,
-                this.rightExhaust2
+                this.rightExhaust2,
+                this.leftArm,
+                this.rightArm
         );
     }
 
@@ -128,20 +131,11 @@ public class JetpackModel<T extends LivingEntity> extends HumanoidModel<T> {
         // Could be used to alter texture of some of the elements?
         //ResourceLocation TEXTURE = new ResourceLocation(SimplyJetpacks.MODID, "texture_path");
         //VertexConsumer vertexConsumer = Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderType.entityTranslucent(TEXTURE));
-        //super.renderToBuffer(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        this.middle.render(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        this.leftCanister.render(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        this.rightCanister.render(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        this.leftTip1.render(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        this.leftTip2.render(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        this.rightTip1.render(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        this.rightTip2.render(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        this.leftExhaust1.render(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        this.leftExhaust2.render(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        this.rightExhaust1.render(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        this.rightExhaust2.render(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        this.body.render(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        this.leftArm.render(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        this.rightArm.render(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+        super.renderToBuffer(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+    }
+
+    @Override
+    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
     }
 }
