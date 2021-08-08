@@ -29,6 +29,9 @@ minecraft {
         client {
             workingDirectory project.file('run')
 
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
@@ -101,7 +104,6 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    // TODO: fix this
     //compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
 
