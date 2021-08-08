@@ -1,6 +1,6 @@
 {
   "name": "General",
-  "description": "This is a test category for testing!",
+  "description": "This is the General Category",
   "icon": "minecraft:writable_book",
   "sortnum": -2
 }

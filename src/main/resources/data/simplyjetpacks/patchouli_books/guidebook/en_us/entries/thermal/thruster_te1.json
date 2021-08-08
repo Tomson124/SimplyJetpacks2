@@ -11,7 +11,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "simplyjetpacks:te/thruster_te1",
+      "recipe": "simplyjetpacks:thermal/thruster_te1",
       "text": "This is a test entry, but it should show up!"
     }
   ]

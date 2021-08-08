@@ -11,8 +11,8 @@
     },
     {
       "type": "crafting",
-      "recipe": "simplyjetpacks:te/jetpack_te3",
-      "recipe2": "simplyjetpacks:te/jetpack_te3_armored"
+      "recipe": "simplyjetpacks:thermal/jetpack_te3",
+      "recipe2": "simplyjetpacks:thermal/jetpack_te3_armored"
     }
   ]
 }

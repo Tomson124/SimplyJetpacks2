@@ -250,5 +250,10 @@
 
   "subtitle.simplyjetpacks.jetpack": "*Jetpack Noises*",
   "subtitle.simplyjetpacks.jetpack_other": "*Jetpack Other Noises*",
-  "subtitle.simplyjetpacks.rocket": "*Rocket Noises*"
+  "subtitle.simplyjetpacks.rocket": "*Rocket Noises*",
+
+  "guidebook.simplyjetpacks.name": "Simply Jetpacks 2",
+  "guidebook.simplyjetpacks.landing_text": "Welcome to the Simply Jetpacks 2 Patchouli Manual.",
+  "guidebook.simplyjetpacks.subtitle": "The Complete Guide"
+
 }
