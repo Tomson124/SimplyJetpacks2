@@ -6,11 +6,11 @@
   "read_by_default": true,
   "pages": [
     {
-      "type": "text",
+      "type": "patchouli:text",
       "text": "This is the Bronze Armor Plating"
     },
     {
-      "type": "crafting",
+      "type": "patchouli:crafting",
       "recipe": "simplyjetpacks:thermal/armorplating_te2",
       "text": "This is a test entry, but it should show up!"
     }
