@@ -7,7 +7,6 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.gui.widget.button.ImageButton;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -86,7 +85,9 @@ public class JetpackGuiScreen extends Screen {
         float mousePosY = (float) mouseY;
         minecraft.getTextureManager().bind(GUI_BASE);
         this.blit(stack, relX, relY, 0, 0, WIDTH, HEIGHT);
-        drawCenteredString(stack, fontRenderer, new TranslationTextComponent(minecraft.player.getItemBySlot(EquipmentSlotType.CHEST).getDescriptionId()), relX + 88, relY + 5, 0xFFFFFF);
+        //ITextComponent jetpackName = new TranslationTextComponent(minecraft.player.getItemBySlot(EquipmentSlotType.CHEST).getDescriptionId());
+        ITextComponent jetpackName = new TranslationTextComponent(JetpackUtil.getFromBothSlots(minecraft.player).getDescriptionId());
+        drawCenteredString(stack, fontRenderer, jetpackName, relX + 88, relY + 5, 0xFFFFFF);
         InventoryScreen.renderEntityInInventory(relX + 80, relY + 90, 40, (float)(relX + 51) - mousePosX, (float)(relY + 75 - 50) - mousePosY, minecraft.player);
         minecraft.getTextureManager().bind(ENERGY_BAR);
         blit(stack, relX + 10, relY + 16, 0, 0, 14, 78, 128, 128);
@@ -110,9 +111,15 @@ public class JetpackGuiScreen extends Screen {
     }
 
     @Override
-    public boolean isPauseScreen() { return false; }
+    public boolean isPauseScreen() {
+        return false;
+
+    }
     @Override
-    public boolean shouldCloseOnEsc() { return true; }
+    public boolean shouldCloseOnEsc() {
+        return true;
+    }
+
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (KeybindHandler.JETPACK_GUI_KEY.matches(keyCode, scanCode)) {

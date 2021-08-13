@@ -47,6 +47,7 @@ import stormedpanda.simplyjetpacks.integration.IntegrationList;
 import stormedpanda.simplyjetpacks.util.KeyboardUtil;
 import stormedpanda.simplyjetpacks.util.NBTHelper;
 import stormedpanda.simplyjetpacks.util.SJTextUtil;
+import top.theillusivec4.curios.api.type.capability.ICurio;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nonnull;
@@ -71,7 +72,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public String name;
     private final String armorTexture;
     public final int tier;
-    private JetpackModel jetpackModel;
+    private JetpackModel model;
 
     public JetpackItem(JetpackType type) {
         super(type.getArmorMaterial(), EquipmentSlotType.CHEST, type.getProperties());
@@ -476,17 +477,18 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     @Override
     public void render(String identifier, int index, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, ItemStack stack) {
-        if (this.jetpackModel == null) {
-            this.jetpackModel = new JetpackModel();
+        if (this.model == null) {
+            this.model = new JetpackModel();
         }
-        JetpackModel jetpackModel = this.jetpackModel;
-        //ICurio.RenderHelper.followHeadRotations(livingEntity, jetpackModel.jetpack);
-        //ICurio.RenderHelper.translateIfSneaking(matrixStack, livingEntity);
-        //ICurio.RenderHelper.rotateIfSneaking(matrixStack, livingEntity);
+        JetpackModel jetpackModel = this.model;
         //ICurio.RenderHelper.followBodyRotations(livingEntity, jetpackModel);
-        IVertexBuilder vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, jetpackModel.renderType(new ResourceLocation(("simplyjetpacks:textures/models/armor/" + name + ".png"))), false, stack.isEnchanted());
+        ICurio.RenderHelper.translateIfSneaking(matrixStack, livingEntity);
+        ICurio.RenderHelper.rotateIfSneaking(matrixStack, livingEntity);
+        IVertexBuilder vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, jetpackModel.renderType(new ResourceLocation(("simplyjetpacks:textures/models/armor/" + name + ".png"))), false, stack.isEnchanted());
         //jetpackModel.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-        jetpackModel.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        jetpackModel.body.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        jetpackModel.leftArm.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        jetpackModel.rightArm.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
     }
     /* ICurioItem end */
 }

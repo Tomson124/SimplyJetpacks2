@@ -35,10 +35,11 @@ public class PilotGogglesItem extends ArmorItem implements ICurioItem {
         if (this.model == null) {
             this.model = new BipedModel<>(1.0F);
         }
-        BipedModel<LivingEntity> model = this.model;
-        ICurio.RenderHelper.followHeadRotations(livingEntity, model.head);
-        IVertexBuilder vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, model.renderType(new ResourceLocation(("simplyjetpacks:textures/models/armor/pilot_goggles_layer_1.png"))), false, stack.getItem().isFoil(stack));
-        model.head.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        BipedModel<LivingEntity> gogglesModel = this.model;
+        ICurio.RenderHelper.followHeadRotations(livingEntity, gogglesModel.head);
+        IVertexBuilder vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, gogglesModel.renderType(new ResourceLocation(("simplyjetpacks:textures/models/armor/pilot_goggles_layer_1.png"))), false, stack.getItem().isFoil(stack));
+        //gogglesModel.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        gogglesModel.head.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
     }
     /* ICurioItem end */
 }

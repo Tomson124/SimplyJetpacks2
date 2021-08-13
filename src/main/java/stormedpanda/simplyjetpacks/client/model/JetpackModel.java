@@ -1,6 +1,5 @@
 package stormedpanda.simplyjetpacks.client.model;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
@@ -20,7 +19,7 @@ public class JetpackModel extends BipedModel<LivingEntity> {
 	private final ModelRenderer rightExhaust2;
 
 	public JetpackModel() {
-		super(1f, 0f, 64, 64);
+		super(1F, 0F, 64, 64);
 		texWidth = 64;
 		texHeight = 64;
 
@@ -107,8 +106,7 @@ public class JetpackModel extends BipedModel<LivingEntity> {
 		rightExhaust2.addBox(-4.5F, 10F, 2.6F, 4, 3, 4);
 	}
 
-	@SuppressWarnings("rawtypes")
-	public BipedModel<LivingEntity> applyData(BipedModel defaultArmor) {
+	public BipedModel<LivingEntity> applyData(BipedModel<?> defaultArmor) {
 		this.young = defaultArmor.young;
 		this.crouching = defaultArmor.crouching;
 		this.riding = defaultArmor.riding;
@@ -121,25 +119,5 @@ public class JetpackModel extends BipedModel<LivingEntity> {
 		model.xRot = x;
 		model.yRot = y;
 		model.zRot = z;
-	}
-
-	@Override
-	protected Iterable<ModelRenderer> bodyParts() {
-		return ImmutableList.of(
-				this.body,
-				this.middle,
-				this.leftCanister,
-				this.rightCanister,
-				this.leftTip1,
-				this.leftTip2,
-				this.rightTip1,
-				this.rightTip2,
-				this.leftExhaust1,
-				this.leftExhaust2,
-				this.rightExhaust1,
-				this.rightExhaust2,
-				this.leftArm,
-				this.rightArm
-		);
 	}
 }

@@ -3,7 +3,6 @@ package stormedpanda.simplyjetpacks.client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.ParticleStatus;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.IParticleData;
@@ -30,7 +29,8 @@ public class ClientJetpackHandler {
         if (event.phase == TickEvent.Phase.END) {
             if (minecraft.player != null && minecraft.level != null) {
                 if (!minecraft.isPaused()) {
-                    ItemStack chest = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
+                    //ItemStack chest = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
+                    ItemStack chest = JetpackUtil.getFromBothSlots(minecraft.player);
                     Item item = chest.getItem();
                     if (!chest.isEmpty() && item instanceof JetpackItem && !minecraft.player.isSpectator()) {
                         if (isFlying(minecraft.player)) {
