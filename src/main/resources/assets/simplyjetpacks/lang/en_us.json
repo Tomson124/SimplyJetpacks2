@@ -201,7 +201,7 @@
   "config.simplyjetpacks.hudTextShadow": "Set the HUD text shadow",
   "config.simplyjetpacks.enableJoinAdvancements": "Enable Join Advancements",
 
-  "enchantment.simplyjetpacks.fuelEfficiency": "Fuel Efficiency",
+  "enchantment.simplyjetpacks.fuel_efficiency": "Fuel Efficiency",
 
   "subtitle.simplyjetpacks.jetpack": "*Jetpack Noises*",
   "subtitle.simplyjetpacks.jetpack_other": "*Jetpack Other Noises*",

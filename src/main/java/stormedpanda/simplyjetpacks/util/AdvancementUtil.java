@@ -6,7 +6,6 @@ import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.server.ServerWorld;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 
 public class AdvancementUtil {
