@@ -2,6 +2,10 @@
 - **General**
     - Updated to Minecraft Version 1.17.1
 
+# 2.6.9 - 13-08-2021
+- **Fixed**
+  - Fixed a few bugs
+  
 # 2.6.8 - 13-08-2021
 - **Added**
     - Added support for Curios API
