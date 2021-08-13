@@ -3,7 +3,6 @@ package stormedpanda.simplyjetpacks.handlers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.InputEvent;
@@ -15,6 +14,7 @@ import stormedpanda.simplyjetpacks.gui.JetpackGuiScreen;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
 import stormedpanda.simplyjetpacks.network.packets.*;
+import stormedpanda.simplyjetpacks.util.JetpackUtil;
 
 public class KeybindHandler {
 
@@ -47,11 +47,16 @@ public class KeybindHandler {
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         PlayerEntity player = Minecraft.getInstance().player;
-        if (player == null) return;
-        ItemStack chestStack = player.getItemBySlot(EquipmentSlotType.CHEST);
+        if (player == null) {
+            return;
+        }
+        //ItemStack stack = player.getItemBySlot(EquipmentSlotType.CHEST);
+        ItemStack stack = JetpackUtil.getFromBothSlots(player);
         Item chestItem = null;
         JetpackItem jetpack;
-        if (!chestStack.isEmpty()) { chestItem = chestStack.getItem(); }
+        if (!stack.isEmpty()) {
+            chestItem = stack.getItem();
+        }
         if (chestItem instanceof JetpackItem) {
             jetpack = (JetpackItem) chestItem;
             if (JETPACK_GUI_KEY.isDown()) {

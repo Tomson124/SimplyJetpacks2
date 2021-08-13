@@ -23,6 +23,7 @@ import stormedpanda.simplyjetpacks.network.packets.PacketToggleCharger;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleEHover;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleEngine;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleHover;
+import stormedpanda.simplyjetpacks.util.JetpackUtil;
 
 import javax.annotation.Nonnull;
 
@@ -53,7 +54,8 @@ public class JetpackGuiScreen extends Screen {
         this.addButton(new ImageButton(relX + 120, relY + 16, 20, 20, 176, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleEngine())));
         this.addButton(new ImageButton(relX + 120, relY + 38, 20, 20, 216, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleHover())));
 
-        ItemStack stack = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
+        //ItemStack stack = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
+        ItemStack stack = JetpackUtil.getFromBothSlots(minecraft.player);
         Item item = stack.getItem();
         if (item instanceof JetpackItem) {
             JetpackItem jetpack = (JetpackItem) item;
@@ -95,7 +97,8 @@ public class JetpackGuiScreen extends Screen {
     }
 
     private int getEnergyBarAmount() {
-        ItemStack stack = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
+        //ItemStack stack = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
+        ItemStack stack = JetpackUtil.getFromBothSlots(minecraft.player);
         Item item = stack.getItem();
         if (item instanceof JetpackItem) {
             JetpackItem jetpack = (JetpackItem) item;

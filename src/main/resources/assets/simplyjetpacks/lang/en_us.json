@@ -118,7 +118,7 @@
   "advancements.simplyjetpacks.jetpack_te5.title": "Flux-Infused JetPlate",
   "advancements.simplyjetpacks.jetpack_te5.description": "Obtain a Flux-Infused JetPlate",
 
-  "keybind.categories.simplyjetpacks": "Simply Jetpacks 3",
+  "keybind.categories.simplyjetpacks": "Simply Jetpacks 2",
   "keybind.simplyjetpacks.jetpack_gui": "Toggle Jetpack GUI",
   "keybind.simplyjetpacks.jetpack_engine": "Toggle Jetpack Engine",
   "keybind.simplyjetpacks.jetpack_hover": "Toggle Jetpack Hover",
@@ -205,5 +205,7 @@
 
   "subtitle.simplyjetpacks.jetpack": "*Jetpack Noises*",
   "subtitle.simplyjetpacks.jetpack_other": "*Jetpack Other Noises*",
-  "subtitle.simplyjetpacks.rocket": "*Rocket Noises*"
+  "subtitle.simplyjetpacks.rocket": "*Rocket Noises*",
+
+  "curios.identifier.jetpack": "Jetpack"
 }

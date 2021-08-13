@@ -1,7 +1,12 @@
 package stormedpanda.simplyjetpacks.items;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -18,6 +23,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
@@ -41,13 +47,14 @@ import stormedpanda.simplyjetpacks.integration.IntegrationList;
 import stormedpanda.simplyjetpacks.util.KeyboardUtil;
 import stormedpanda.simplyjetpacks.util.NBTHelper;
 import stormedpanda.simplyjetpacks.util.SJTextUtil;
+import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 
-public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyContainerItem {
+public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyContainerItem, ICurioItem {
 
     public static final String TAG_ENERGY = "Energy";
     public static final String TAG_ENGINE = "Engine";
@@ -64,6 +71,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public String name;
     private final String armorTexture;
     public final int tier;
+    private JetpackModel jetpackModel;
 
     public JetpackItem(JetpackType type) {
         super(type.getArmorMaterial(), EquipmentSlotType.CHEST, type.getProperties());
@@ -80,29 +88,42 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         return armorTexture;
     }
 
-    @SuppressWarnings("rawtypes")
     @OnlyIn(Dist.CLIENT)
+    @Nullable
+    @Override
+    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
+        return (A) new JetpackModel().applyData(_default);
+    }
+
+/*    @OnlyIn(Dist.CLIENT)
     @Override
     public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, BipedModel _default) {
         return new JetpackModel().applyData(_default);
+    }*/
+
+    public String getBaseName() {
+        return name;
     }
 
-    public String getBaseName() { return name; }
+    public JetpackType getType() {
+        return type;
+    }
 
-    public JetpackType getType() { return type; }
+    public int getCapacity() {
+        return capacity;
+    }
 
-    public int getCapacity() { return capacity; }
-
-    public boolean isCreative() { return getBaseName().contains("creative"); }
+    public boolean isCreative() {
+        return getBaseName().contains("creative");
+    }
 
     @Override
     public boolean isFoil(@Nonnull ItemStack stack) {
-        return (isCreative() || stack.isEnchanted());
+        return isCreative() || stack.isEnchanted();
     }
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        super.onArmorTick(stack, world, player);
         if (!player.isSpectator()) {
             flyUser(player, stack, this);
             if (this.type.canCharge() && this.isChargerOn(stack)) {
@@ -131,54 +152,6 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     @Override
-    public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
-        if (!container.hasTag()) {
-            container.setTag(new CompoundNBT());
-        }
-        int stored = Math.min(container.getTag().getInt(TAG_ENERGY), getMaxEnergyStored(container));
-        int energyReceived = Math.min(capacity - stored, Math.min(this.maxReceive, maxReceive));
-        if (!simulate) {
-            stored += energyReceived;
-            container.getTag().putInt(TAG_ENERGY, stored);
-        }
-        return energyReceived;
-    }
-
-    @Override
-    public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
-        if (container.getTag() == null || !container.getTag().contains(TAG_ENERGY)) {
-            return 0;
-        }
-        int stored = Math.min(container.getTag().getInt(TAG_ENERGY), getMaxEnergyStored(container));
-        int energyExtracted = Math.min(stored, Math.min(this.maxExtract, maxExtract));
-
-        if (!simulate) {
-            stored -= energyExtracted;
-            container.getTag().putInt(TAG_ENERGY, stored);
-        }
-        return energyExtracted;
-    }
-
-    @Override
-    public int getEnergyStored(ItemStack container) {
-        if (container.getTag() == null || !container.getTag().contains(TAG_ENERGY)) {
-            return 0;
-        }
-        return Math.min(container.getTag().getInt(TAG_ENERGY), getMaxEnergyStored(container));
-    }
-
-    @Override
-    public int getMaxEnergyStored(ItemStack container) {
-        Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(container);
-        for (Map.Entry<Enchantment, Integer> entry : enchants.entrySet()) {
-            if (entry.getKey().getDescriptionId().equals("enchantment.cofh_core.holding")) {
-                return capacity + capacity * entry.getValue() / 2;
-            }
-        }
-        return capacity;
-    }
-
-    @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT nbt) {
         return new CapabilityProviderEnergy(new EnergyConversionStorage(this, stack));
     }
@@ -203,7 +176,6 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
             tooltip.add(SJTextUtil.getShiftText());
         }
     }
-
 
     @Override
     public void fillItemCategory(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
@@ -250,24 +222,21 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public boolean showDurabilityBar(ItemStack stack) {
         return !isCreative();
     }
+
     @Override
     public double getDurabilityForDisplay(ItemStack stack) {
         return 1 - getChargeRatio(stack);
     }
+
     @Override
     public int getRGBDurabilityForDisplay(ItemStack stack) {
         return 0x03fc49;
     }
 
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public void addHUDInfo(ItemStack stack, List<ITextComponent> list) {
-        SJTextUtil.addHUDInfoText(stack, list);
-    }
-
     public boolean isEngineOn(ItemStack stack) {
         return NBTHelper.getBoolean(stack, TAG_ENGINE);
     }
+
     public void toggleEngine(ItemStack stack, PlayerEntity player) {
         boolean current = NBTHelper.getBoolean(stack, TAG_ENGINE);
         NBTHelper.flipBoolean(stack, TAG_ENGINE);
@@ -278,6 +247,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public boolean isHoverOn(ItemStack stack) {
         return NBTHelper.getBoolean(stack, TAG_HOVER);
     }
+
     public void toggleHover(ItemStack stack, PlayerEntity player) {
         boolean current = NBTHelper.getBoolean(stack, TAG_HOVER);
         NBTHelper.flipBoolean(stack, TAG_HOVER);
@@ -288,6 +258,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public boolean isEHoverOn(ItemStack stack) {
         return NBTHelper.getBoolean(stack, TAG_E_HOVER);
     }
+
     public void toggleEHover(ItemStack stack, PlayerEntity player) {
         if (type.canEHover()) {
             boolean current = NBTHelper.getBoolean(stack, TAG_E_HOVER);
@@ -296,6 +267,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
             player.displayClientMessage(msg, true);
         }
     }
+
     private void doEHover(ItemStack stack, PlayerEntity player) {
         NBTHelper.setBoolean(stack, TAG_ENGINE, true);
         NBTHelper.setBoolean(stack, TAG_HOVER, true);
@@ -306,6 +278,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public boolean isChargerOn(ItemStack stack) {
         return NBTHelper.getBoolean(stack, TAG_CHARGER);
     }
+
     public void toggleCharger(ItemStack stack, PlayerEntity player) {
         if (type.canCharge()) {
             boolean current = NBTHelper.getBoolean(stack, TAG_CHARGER);
@@ -314,6 +287,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
             player.displayClientMessage(msg, true);
         }
     }
+
     private void chargeInventory(PlayerEntity player, ItemStack stack) {
         if (!player.level.isClientSide) {
             if (getEnergyStored(stack) > 0 || isCreative()) {
@@ -419,7 +393,6 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
                             int y = Math.round((float) player.position().get(Axis.Y)) - j;
                             int z = Math.round((float) player.position().get(Axis.Z) - 0.5F);
                             BlockState blockstate = player.level.getBlockState(new BlockPos(x, y, z));
-                            //if (!player.level.isAirBlock(new BlockPos(x, y, z))) {
                             if (!blockstate.isAir()) {
                                 this.doEHover(stack, player);
                                 break;
@@ -430,4 +403,90 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
             }
         }
     }
+
+    /* IHUDInfoProvider start */
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void addHUDInfo(ItemStack stack, List<ITextComponent> list) {
+        SJTextUtil.addHUDInfoText(stack, list);
+    }
+    /* IHUDInfoProvider end */
+
+    /* IEnergyContainerItem start */
+    @Override
+    public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
+        if (!container.hasTag()) {
+            container.setTag(new CompoundNBT());
+        }
+        int stored = Math.min(container.getTag().getInt(TAG_ENERGY), getMaxEnergyStored(container));
+        int energyReceived = Math.min(capacity - stored, Math.min(this.maxReceive, maxReceive));
+        if (!simulate) {
+            stored += energyReceived;
+            container.getTag().putInt(TAG_ENERGY, stored);
+        }
+        return energyReceived;
+    }
+
+    @Override
+    public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
+        if (container.getTag() == null || !container.getTag().contains(TAG_ENERGY)) {
+            return 0;
+        }
+        int stored = Math.min(container.getTag().getInt(TAG_ENERGY), getMaxEnergyStored(container));
+        int energyExtracted = Math.min(stored, Math.min(this.maxExtract, maxExtract));
+        if (!simulate) {
+            stored -= energyExtracted;
+            container.getTag().putInt(TAG_ENERGY, stored);
+        }
+        return energyExtracted;
+    }
+
+    @Override
+    public int getEnergyStored(ItemStack container) {
+        if (container.getTag() == null || !container.getTag().contains(TAG_ENERGY)) {
+            return 0;
+        }
+        return Math.min(container.getTag().getInt(TAG_ENERGY), getMaxEnergyStored(container));
+    }
+
+    @Override
+    public int getMaxEnergyStored(ItemStack container) {
+        Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(container);
+        for (Map.Entry<Enchantment, Integer> entry : enchants.entrySet()) {
+            if (entry.getKey().getDescriptionId().equals("enchantment.cofh_core.holding")) {
+                return capacity + capacity * entry.getValue() / 2;
+            }
+        }
+        return capacity;
+    }
+    /* IEnergyContainerItem end */
+
+    /* ICurioItem start */
+    @Override
+    public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
+        if (livingEntity instanceof PlayerEntity) {
+            this.onArmorTick(stack, livingEntity.level, (PlayerEntity) livingEntity);
+        }
+    }
+
+    @Override
+    public boolean canRender(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public void render(String identifier, int index, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, ItemStack stack) {
+        if (this.jetpackModel == null) {
+            this.jetpackModel = new JetpackModel();
+        }
+        JetpackModel jetpackModel = this.jetpackModel;
+        //ICurio.RenderHelper.followHeadRotations(livingEntity, jetpackModel.jetpack);
+        //ICurio.RenderHelper.translateIfSneaking(matrixStack, livingEntity);
+        //ICurio.RenderHelper.rotateIfSneaking(matrixStack, livingEntity);
+        //ICurio.RenderHelper.followBodyRotations(livingEntity, jetpackModel);
+        IVertexBuilder vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, jetpackModel.renderType(new ResourceLocation(("simplyjetpacks:textures/models/armor/" + name + ".png"))), false, stack.isEnchanted());
+        //jetpackModel.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        jetpackModel.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+    }
+    /* ICurioItem end */
 }

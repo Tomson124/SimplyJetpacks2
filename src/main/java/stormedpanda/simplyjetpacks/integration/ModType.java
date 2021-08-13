@@ -18,7 +18,6 @@ public enum ModType {
 
     ModType(String... modids) {
         this.modids = modids;
-
         for (String s : this.modids) {
             if (!ModList.get().isLoaded(s)) {
                 this.loaded = false;

@@ -1,10 +1,15 @@
 package stormedpanda.simplyjetpacks;
 
+import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -31,6 +36,9 @@ import stormedpanda.simplyjetpacks.integration.IntegrationList;
 import stormedpanda.simplyjetpacks.items.JetpackType;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
 import stormedpanda.simplyjetpacks.sound.ModSounds;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotTypeMessage;
+import top.theillusivec4.curios.api.SlotTypePreset;
 
 import java.util.stream.Collectors;
 
@@ -47,9 +55,13 @@ public class SimplyJetpacks {
 
     public static final CreativeTabSimplyJetpacks tabSimplyJetpacks = new CreativeTabSimplyJetpacks();
 
+    public static final ResourceLocation JETPACK_SLOT = new ResourceLocation(MODID, "item/empty_jetpack_slot");
+
     public SimplyJetpacks() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::CommonSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::ClientSetup);
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onTextureStitch));
+
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 
@@ -72,12 +84,12 @@ public class SimplyJetpacks {
         RegistryHandler.init();
     }
 
-    private void CommonSetup(final FMLCommonSetupEvent event) {
+    private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.info("Common Setup Method registered.");
         NetworkHandler.registerMessages();
     }
 
-    private void ClientSetup(final FMLClientSetupEvent event) {
+    private void clientSetup(final FMLClientSetupEvent event) {
         LOGGER.info("Client Setup Method registered.");
         MinecraftForge.EVENT_BUS.register(new KeybindHandler());
         MinecraftForge.EVENT_BUS.register(new ClientJetpackHandler());
@@ -85,8 +97,18 @@ public class SimplyJetpacks {
         KeybindHandler.setup();
     }
 
+    @SubscribeEvent
+    public void onTextureStitch(TextureStitchEvent.Pre event) {
+        if (event.getMap().location().equals(PlayerContainer.BLOCK_ATLAS)) {
+            event.addSprite(JETPACK_SLOT);
+        }
+    }
+
     private void enqueueIMC(final InterModEnqueueEvent event) {
-        InterModComms.sendTo(MODID, "helloworld", () -> { LOGGER.info("Hello from Simply Jetpacks 2"); return "Hello!";});
+        InterModComms.sendTo(MODID, CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HEAD.getMessageBuilder().build());
+        InterModComms.sendTo(MODID, CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BACK.getMessageBuilder().build());
+        InterModComms.sendTo(MODID, CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
+                () -> new SlotTypeMessage.Builder("jetpack").size(1).icon(JETPACK_SLOT).build());
     }
 
     private void processIMC(final InterModProcessEvent event) {

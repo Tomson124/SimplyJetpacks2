@@ -17,6 +17,7 @@ import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.handlers.SyncHandler;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
 import stormedpanda.simplyjetpacks.sound.JetpackSound;
+import stormedpanda.simplyjetpacks.util.JetpackUtil;
 import stormedpanda.simplyjetpacks.util.Pos3D;
 
 import java.util.Random;
@@ -73,14 +74,15 @@ public class ClientJetpackHandler {
 
     @OnlyIn(Dist.CLIENT)
     public static boolean isFlying(PlayerEntity player) {
-        ItemStack stack = player.getItemBySlot(EquipmentSlotType.CHEST);
+        //ItemStack stack = player.getItemBySlot(EquipmentSlotType.CHEST);
+        ItemStack stack = JetpackUtil.getFromBothSlots(player);
         if (!stack.isEmpty()) {
             Item item = stack.getItem();
             if (item instanceof JetpackItem) {
                 JetpackItem jetpack = (JetpackItem) item;
                 if (jetpack.isEngineOn(stack) && (jetpack.getEnergyStored(stack) > 0 || jetpack.isCreative())) {
                     if (jetpack.isHoverOn(stack)) {
-                        return !player.isOnGround();
+                        return (!player.isOnGround() && !player.isPassenger());
                     } else {
                         return SyncHandler.isHoldingUp(player);
                     }

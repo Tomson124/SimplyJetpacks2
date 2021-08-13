@@ -1,10 +1,11 @@
 package stormedpanda.simplyjetpacks.client.model;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.LivingEntity;
 
-public class JetpackModel extends BipedModel<PlayerEntity> {
+public class JetpackModel extends BipedModel<LivingEntity> {
 
 	private final ModelRenderer middle;
 	private final ModelRenderer leftCanister;
@@ -107,7 +108,7 @@ public class JetpackModel extends BipedModel<PlayerEntity> {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public BipedModel<PlayerEntity> applyData(BipedModel defaultArmor) {
+	public BipedModel<LivingEntity> applyData(BipedModel defaultArmor) {
 		this.young = defaultArmor.young;
 		this.crouching = defaultArmor.crouching;
 		this.riding = defaultArmor.riding;
@@ -120,5 +121,25 @@ public class JetpackModel extends BipedModel<PlayerEntity> {
 		model.xRot = x;
 		model.yRot = y;
 		model.zRot = z;
+	}
+
+	@Override
+	protected Iterable<ModelRenderer> bodyParts() {
+		return ImmutableList.of(
+				this.body,
+				this.middle,
+				this.leftCanister,
+				this.rightCanister,
+				this.leftTip1,
+				this.leftTip2,
+				this.rightTip1,
+				this.rightTip2,
+				this.leftExhaust1,
+				this.leftExhaust2,
+				this.rightExhaust1,
+				this.rightExhaust2,
+				this.leftArm,
+				this.rightArm
+		);
 	}
 }

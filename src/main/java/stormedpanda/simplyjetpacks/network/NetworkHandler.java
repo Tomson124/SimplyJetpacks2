@@ -18,7 +18,7 @@ public class NetworkHandler {
     }
 
     public static void registerMessages() {
-        CHANNEL_INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(SimplyJetpacks.MODID, "simplyjetpacks"), () -> "1.0", s -> true, s -> true);
+        CHANNEL_INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(SimplyJetpacks.MODID, SimplyJetpacks.MODID), () -> "1.0", s -> true, s -> true);
 
         CHANNEL_INSTANCE.messageBuilder(PacketToggleEngine.class, nextID())
                 .encoder(PacketToggleEngine::toBytes)
