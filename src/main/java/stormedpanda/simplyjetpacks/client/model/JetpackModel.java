@@ -106,14 +106,14 @@ public class JetpackModel extends BipedModel<LivingEntity> {
 		rightExhaust2.addBox(-4.5F, 10F, 2.6F, 4, 3, 4);
 	}
 
-	public BipedModel<LivingEntity> applyData(BipedModel<?> defaultArmor) {
+/*	public BipedModel<LivingEntity> applyData(BipedModel<?> defaultArmor) {
 		this.young = defaultArmor.young;
 		this.crouching = defaultArmor.crouching;
 		this.riding = defaultArmor.riding;
 		this.rightArmPose = defaultArmor.rightArmPose;
 		this.leftArmPose = defaultArmor.leftArmPose;
 		return this;
-	}
+	}*/
 
 	private void setRotation(ModelRenderer model, float x, float y, float z) {
 		model.xRot = x;

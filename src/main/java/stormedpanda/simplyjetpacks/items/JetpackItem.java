@@ -93,7 +93,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     @Nullable
     @Override
     public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
-        return (A) new JetpackModel().applyData(_default);
+        return (A) new JetpackModel();//.applyData(_default);
     }
 
 /*    @OnlyIn(Dist.CLIENT)
@@ -481,14 +481,9 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
             this.model = new JetpackModel();
         }
         JetpackModel jetpackModel = this.model;
-        //ICurio.RenderHelper.followBodyRotations(livingEntity, jetpackModel);
-        ICurio.RenderHelper.translateIfSneaking(matrixStack, livingEntity);
-        ICurio.RenderHelper.rotateIfSneaking(matrixStack, livingEntity);
-        IVertexBuilder vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, jetpackModel.renderType(new ResourceLocation(("simplyjetpacks:textures/models/armor/" + name + ".png"))), false, stack.isEnchanted());
-        //jetpackModel.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-        jetpackModel.body.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-        jetpackModel.leftArm.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-        jetpackModel.rightArm.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        ICurio.RenderHelper.followBodyRotations(livingEntity, jetpackModel);
+        IVertexBuilder vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, jetpackModel.renderType(new ResourceLocation(("simplyjetpacks:textures/models/armor/" + name + ".png"))), false, stack.getItem().isFoil(stack));
+        jetpackModel.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
     }
     /* ICurioItem end */
 }

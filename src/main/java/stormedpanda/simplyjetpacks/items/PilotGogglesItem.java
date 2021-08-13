@@ -19,9 +19,11 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 public class PilotGogglesItem extends ArmorItem implements ICurioItem {
 
     private BipedModel<LivingEntity> model;
+    private final String type;
 
-    public PilotGogglesItem() {
+    public PilotGogglesItem(String type) {
         super(ArmorMaterialList.PILOT_GOGGLES, EquipmentSlotType.HEAD, new Properties().tab(SimplyJetpacks.tabSimplyJetpacks));
+        this.type = type;
     }
 
     /* ICurioItem start */
@@ -37,7 +39,7 @@ public class PilotGogglesItem extends ArmorItem implements ICurioItem {
         }
         BipedModel<LivingEntity> gogglesModel = this.model;
         ICurio.RenderHelper.followHeadRotations(livingEntity, gogglesModel.head);
-        IVertexBuilder vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, gogglesModel.renderType(new ResourceLocation(("simplyjetpacks:textures/models/armor/pilot_goggles_layer_1.png"))), false, stack.getItem().isFoil(stack));
+        IVertexBuilder vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, gogglesModel.renderType(new ResourceLocation(("simplyjetpacks:textures/models/armor/pilot_goggles_" + type + "_layer_1.png"))), false, stack.getItem().isFoil(stack));
         //gogglesModel.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
         gogglesModel.head.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
     }

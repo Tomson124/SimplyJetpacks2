@@ -14,7 +14,7 @@ Downloads for the mod can be found on [CurseForge](https://www.curseforge.com/mi
 **List of Supported Mods**
 - Mekanism
 - Immersive Engineering
-- Thermal Expansion (beta)
+- Thermal Series (beta)
 
 Authors: Tomson124 and StormedPanda
 
