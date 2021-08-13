@@ -12,11 +12,11 @@ import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 public class HUDRenderHelper {
 
     private static final Minecraft minecraft = Minecraft.getInstance();
-    private static final FontRenderer fontRenderer = minecraft.fontRenderer;
+    private static final FontRenderer fontRenderer = minecraft.font;
 
     public static void drawStringAtPosition(MainWindow window, MatrixStack matrix, ITextComponent text, int lineOffset) {
-        int windowScaleHeight = window.getScaledHeight();
-        int windowScaleWidth = window.getScaledWidth();
+        int windowScaleHeight = window.getHeight();
+        int windowScaleWidth = window.getWidth();
 
         ConfigDefaults.HUDPosition position = SimplyJetpacksConfig.CLIENT.hudTextPosition.get();
         int color = SimplyJetpacksConfig.CLIENT.hudTextColor.get();
@@ -63,31 +63,25 @@ public class HUDRenderHelper {
     }
     public static void drawStringLeft(MatrixStack matrix, ITextComponent text, int x, int y, int color, boolean shadow) {
         if (shadow) {
-            //fontRenderer.func_238407_a_(matrix, text, x, y, color);
-            fontRenderer.func_243246_a(matrix, text, x, y, color);
+            fontRenderer.drawShadow(matrix, text, x, y, color);
         } else {
-            //fontRenderer.func_238422_b_(matrix, text, x, y, color);
-            fontRenderer.func_243248_b(matrix, text, x, y, color);
+            fontRenderer.draw(matrix, text, x, y, color);
         }
     }
     public static void drawStringCenter(MatrixStack matrix, ITextComponent text, int x, int y, int color, boolean shadow) {
-        float textWidth = fontRenderer.getStringPropertyWidth(text);
+        float textWidth = fontRenderer.width(text);
         if (shadow) {
-            //fontRenderer.func_238407_a_(matrix, text, x - (textWidth / 2), y, color);
-            fontRenderer.func_243246_a(matrix, text, x - (textWidth / 2), y, color);
+            fontRenderer.drawShadow(matrix, text, x - (textWidth / 2), y, color);
         } else {
-            //fontRenderer.func_238422_b_(matrix, text, x - (textWidth / 2), y, color);
-            fontRenderer.func_243248_b(matrix, text, x - (textWidth / 2), y, color);
+            fontRenderer.draw(matrix, text, x - (textWidth / 2), y, color);
         }
     }
     public static void drawStringRight(MatrixStack matrix, ITextComponent text, int x, int y, int color, boolean shadow) {
-        float textWidth = fontRenderer.getStringPropertyWidth(text);
+        float textWidth = fontRenderer.width(text);
         if (shadow) {
-            //fontRenderer.func_238407_a_(matrix, text, x - textWidth, y, color);
-            fontRenderer.func_243246_a(matrix, text, x - textWidth, y, color);
+            fontRenderer.drawShadow(matrix, text, x - textWidth, y, color);
         } else {
-            //fontRenderer.func_238422_b_(matrix, text, x - textWidth, y, color);
-            fontRenderer.func_243248_b(matrix, text, x - textWidth, y, color);
+            fontRenderer.draw(matrix, text, x - textWidth, y, color);
         }
     }
 }

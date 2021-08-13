@@ -118,7 +118,7 @@ public enum JetpackType {
         this.tier = tier;
         this.armorTexture = new ResourceLocation(("simplyjetpacks:textures/models/armor/" + name + ".png"));
         this.isArmored = false;
-        this.properties = new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks).maxStackSize(1);
+        this.properties = new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks).stacksTo(1);
         this.defaults = JetpackConfigDefaults.get(defaultConfigKey);
         this.particleType = JetpackParticleType.DEFAULT;
     }

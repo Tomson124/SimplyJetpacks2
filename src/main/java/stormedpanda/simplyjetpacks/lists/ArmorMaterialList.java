@@ -52,27 +52,28 @@ public enum ArmorMaterialList implements IArmorMaterial {
 	}
 
 	@Override
-	public int getDurability(EquipmentSlotType slotIn) {
+	public int getDurabilityForSlot(EquipmentSlotType slotIn) {
 		return max_damage_array[slotIn.getIndex()] * this.durability;
 	}
 
 	@Override
-	public int getDamageReductionAmount(EquipmentSlotType slotIn) {
+	public int getDefenseForSlot(EquipmentSlotType slotIn) {
 		return this.damageReductionAmounts[slotIn.getIndex()];
 	}
 
 	@Override
-	public int getEnchantability() {
+	public int getEnchantmentValue() {
 		return this.enchantability;
 	}
 
 	@Override
-	public Ingredient getRepairMaterial() {
-		return Ingredient.fromItems(this.repairItem);
+	public Ingredient getRepairIngredient() {
+		return Ingredient.of(this.repairItem);
 	}
 
+
 	@Override
-	public SoundEvent getSoundEvent() {
+	public SoundEvent getEquipSound() {
 		return new SoundEvent(new ResourceLocation(equipSound));
 	}
 

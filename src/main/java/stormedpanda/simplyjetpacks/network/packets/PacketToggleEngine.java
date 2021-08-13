@@ -26,7 +26,7 @@ public class PacketToggleEngine {
         ctx.get().enqueueWork(() -> {
             ServerPlayerEntity player = ctx.get().getSender();
             if (player != null) {
-                ItemStack stack = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+                ItemStack stack = player.getItemBySlot(EquipmentSlotType.CHEST);
                 Item item = stack.getItem();
                 if (item instanceof JetpackItem) {
                     JetpackItem jetpack = (JetpackItem) item;

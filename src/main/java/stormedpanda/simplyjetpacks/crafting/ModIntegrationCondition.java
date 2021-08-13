@@ -65,7 +65,7 @@ public class ModIntegrationCondition implements ICondition {
 
         @Override
         public ModIntegrationCondition read(JsonObject json) {
-            return new ModIntegrationCondition(JSONUtils.getString(json, "modid"));
+            return new ModIntegrationCondition(JSONUtils.getAsString(json, "modid"));
         }
 
         @Override

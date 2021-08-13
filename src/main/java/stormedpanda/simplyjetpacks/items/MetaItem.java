@@ -14,13 +14,13 @@ public class MetaItem extends Item {
     public String fromMod;
 
     public MetaItem(String fromMod) {
-        super(new Properties().group(SimplyJetpacks.tabSimplyJetpacks));
+        super(new Properties().tab(SimplyJetpacks.tabSimplyJetpacks));
         this.fromMod = fromMod;
     }
 
     @Override
-    public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
-        if (this.isInGroup(group)) {
+    public void fillItemCategory(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> items) {
+        if (this.allowdedIn(group)) {
             if (IntegrationList.integrateVanilla) {
                 if (fromMod.equals("vanilla")) {
                     items.add(new ItemStack(this));

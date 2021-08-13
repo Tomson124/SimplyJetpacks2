@@ -8,6 +8,6 @@ import stormedpanda.simplyjetpacks.lists.ArmorMaterialList;
 public class PilotGogglesItem extends ArmorItem {
 
     public PilotGogglesItem() {
-        super(ArmorMaterialList.PILOT_GOGGLES, EquipmentSlotType.HEAD, new Properties().group(SimplyJetpacks.tabSimplyJetpacks));
+        super(ArmorMaterialList.PILOT_GOGGLES, EquipmentSlotType.HEAD, new Properties().tab(SimplyJetpacks.tabSimplyJetpacks));
     }
 }

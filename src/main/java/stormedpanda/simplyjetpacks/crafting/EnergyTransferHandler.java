@@ -20,8 +20,8 @@ public class EnergyTransferHandler {
         CompoundNBT tags = null;
 
         if (craftedItem instanceof JetpackItem) {
-            for (int i = 0; i < event.getInventory().getSizeInventory(); i++) {
-                ItemStack input = event.getInventory().getStackInSlot(i);
+            for (int i = 0; i < event.getInventory().getContainerSize(); i++) {
+                ItemStack input = event.getInventory().getItem(i);
                 if (!(input.getItem() instanceof JetpackItem)) { continue; }
                 if (input.getItem() instanceof JetpackItem) {
                     JetpackType inputJetpack = ((JetpackItem) input.getItem()).getType();

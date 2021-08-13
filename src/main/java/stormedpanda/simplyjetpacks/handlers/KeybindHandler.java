@@ -48,25 +48,25 @@ public class KeybindHandler {
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         PlayerEntity player = Minecraft.getInstance().player;
         if (player == null) return;
-        ItemStack chestStack = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+        ItemStack chestStack = player.getItemBySlot(EquipmentSlotType.CHEST);
         Item chestItem = null;
         JetpackItem jetpack;
         if (!chestStack.isEmpty()) { chestItem = chestStack.getItem(); }
         if (chestItem instanceof JetpackItem) {
             jetpack = (JetpackItem) chestItem;
-            if (JETPACK_GUI_KEY.isPressed()) {
-                Minecraft.getInstance().displayGuiScreen(new JetpackGuiScreen());
+            if (JETPACK_GUI_KEY.isDown()) {
+                Minecraft.getInstance().setScreen(new JetpackGuiScreen());
             }
-            if (JETPACK_ENGINE_KEY.isPressed()) {
+            if (JETPACK_ENGINE_KEY.isDown()) {
                 NetworkHandler.sendToServer(new PacketToggleEngine());
             }
-            if (JETPACK_HOVER_KEY.isPressed()) {
+            if (JETPACK_HOVER_KEY.isDown()) {
                 NetworkHandler.sendToServer(new PacketToggleHover());
             }
-            if (JETPACK_EHOVER_KEY.isPressed()) {
+            if (JETPACK_EHOVER_KEY.isDown()) {
                 NetworkHandler.sendToServer(new PacketToggleEHover());
             }
-            if (JETPACK_CHARGER_KEY.isPressed()) {
+            if (JETPACK_CHARGER_KEY.isDown()) {
                 NetworkHandler.sendToServer(new PacketToggleCharger());
             }
         }
@@ -75,12 +75,12 @@ public class KeybindHandler {
     private static void tickEnd() {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player != null) {
-            boolean flyState = mc.player.movementInput.jump;
-            boolean descendState = mc.player.movementInput.sneaking;
-            boolean forwardState = mc.player.movementInput.forwardKeyDown;
-            boolean backwardState = mc.player.movementInput.backKeyDown;
-            boolean leftState = mc.player.movementInput.leftKeyDown;
-            boolean rightState = mc.player.movementInput.rightKeyDown;
+            boolean flyState = mc.player.input.jumping;
+            boolean descendState = mc.player.input.shiftKeyDown;
+            boolean forwardState = mc.player.input.up;
+            boolean backwardState = mc.player.input.down;
+            boolean leftState = mc.player.input.left;
+            boolean rightState = mc.player.input.right;
             if (flyState != lastFlyState || descendState != lastDescendState || forwardState != lastForwardState || backwardState != lastBackwardState || leftState != lastLeftState || rightState != lastRightState) {
                 lastFlyState = flyState;
                 lastDescendState = descendState;

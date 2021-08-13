@@ -3,6 +3,7 @@ package stormedpanda.simplyjetpacks.enchantments;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
 
 import javax.annotation.Nonnull;
@@ -14,13 +15,13 @@ public class EnchantmentFuelEfficiency extends Enchantment {
     }
 
     @Override
-    public int getMinEnchantability(int level) {
+    public int getMinCost(int level) {
         return 8 + (level - 1) * 8;
     }
 
     @Override
-    public int getMaxEnchantability(int level) {
-        return super.getMinEnchantability(level) + 50;
+    public int getMaxCost(int level) {
+        return super.getMinCost(level) + 50;
     }
 
     @Override
@@ -30,13 +31,14 @@ public class EnchantmentFuelEfficiency extends Enchantment {
 
     @Nonnull
     @Override
-    public String getName() {
-        return "enchantment.simplyjetpacks.fuelEfficiency";
+    public ITextComponent getFullname(int id) {
+        //return new TranslationTextComponent("enchantment.simplyjetpacks.fuel_efficiency");
+        return super.getFullname(id);
     }
 
     @Override
-    public boolean canApply(ItemStack stack) {
-        return stack.getItem() instanceof JetpackItem && super.canApply(stack);
+    public boolean canEnchant(ItemStack stack) {
+        return stack.getItem() instanceof JetpackItem && super.canEnchant(stack);
     }
 
     @Override

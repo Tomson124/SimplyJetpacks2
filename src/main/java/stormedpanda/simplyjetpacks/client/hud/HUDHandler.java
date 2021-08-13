@@ -25,9 +25,9 @@ public class HUDHandler {
         if (event.getType() != RenderGameOverlayEvent.ElementType.ALL) {
             return;
         }
-        if (SimplyJetpacksConfig.CLIENT.enableJetpackHud.get() && !minecraft.gameSettings.hideGUI && !minecraft.gameSettings.showDebugInfo) {
+        if (SimplyJetpacksConfig.CLIENT.enableJetpackHud.get() && !minecraft.options.hideGui && !minecraft.options.renderDebug) {
             if (minecraft.player != null) {
-                ItemStack chestplate = minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+                ItemStack chestplate = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
                 Item item = chestplate.getItem();
 
                 if (!chestplate.isEmpty() && item instanceof JetpackItem) {
@@ -42,14 +42,14 @@ public class HUDHandler {
                     }
                     int count = 0;
                     MatrixStack matrix = event.getMatrixStack();
-                    matrix.push();
+                    matrix.pushPose();
                     matrix.scale(SimplyJetpacksConfig.CLIENT.hudScale.get(), SimplyJetpacksConfig.CLIENT.hudScale.get(), 1.0F);
                     MainWindow window = event.getWindow();
                     for (ITextComponent text : renderStrings) {
                         HUDRenderHelper.drawStringAtPosition(window, matrix, text, count);
                         count++;
                     }
-                    matrix.pop();
+                    matrix.popPose();
                 }
             }
         }

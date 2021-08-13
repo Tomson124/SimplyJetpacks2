@@ -21,31 +21,31 @@ public class JetpackSound extends TickableSound {
     public JetpackSound(PlayerEntity player) {
         super(ModSounds.JETPACK, SoundCategory.PLAYERS);
         this.player = player;
-        this.repeat = true;
-        PLAYING_FOR.put(player.getEntityId(), this);
+        this.looping = true;
+        PLAYING_FOR.put(player.getId(), this);
     }
 
     public static boolean playing(int entityId) {
-        return PLAYING_FOR.containsKey(entityId) && PLAYING_FOR.get(entityId) != null && !PLAYING_FOR.get(entityId).isDonePlaying();
+        return PLAYING_FOR.containsKey(entityId) && PLAYING_FOR.get(entityId) != null && !PLAYING_FOR.get(entityId).isStopped();
     }
 
     @Override
     public void tick() {
         if (this.player.isSpectator()) {
-            this.finishPlaying();
+            this.stop();
         }
-        BlockPos pos = this.player.getPosition();
+        BlockPos pos = this.player.getEntity().blockPosition();
         this.x = (float) pos.getX();
         this.y = (float) pos.getY();// - 10;
         this.z = (float) pos.getZ();
         if (this.fadeOut < 0 && !ClientJetpackHandler.isFlying(this.player)) {
             this.fadeOut = 0;
             synchronized (PLAYING_FOR) {
-                PLAYING_FOR.remove(this.player.getEntityId());
+                PLAYING_FOR.remove(this.player.getId());
             }
         } else
         if (this.fadeOut >= 5) {
-            this.finishPlaying();
+            this.stop();
         } else
         if(this.fadeOut >= 0) {
             this.volume = 1.0F - this.fadeOut / 5F;

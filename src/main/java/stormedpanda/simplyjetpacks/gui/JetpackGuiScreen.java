@@ -53,7 +53,7 @@ public class JetpackGuiScreen extends Screen {
         this.addButton(new ImageButton(relX + 120, relY + 16, 20, 20, 176, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleEngine())));
         this.addButton(new ImageButton(relX + 120, relY + 38, 20, 20, 216, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleHover())));
 
-        ItemStack stack = minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+        ItemStack stack = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
         Item item = stack.getItem();
         if (item instanceof JetpackItem) {
             JetpackItem jetpack = (JetpackItem) item;
@@ -76,17 +76,17 @@ public class JetpackGuiScreen extends Screen {
 
     @Override
     public void render(@Nonnull MatrixStack stack, int mouseX, int mouseY, float partialTicks) {
-        FontRenderer fontRenderer = minecraft.fontRenderer;
+        FontRenderer fontRenderer = minecraft.font;
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         int relX = (this.width - WIDTH) / 2;
         int relY = (this.height - HEIGHT) / 2;
         float mousePosX = (float) mouseX;
         float mousePosY = (float) mouseY;
-        minecraft.getTextureManager().bindTexture(GUI_BASE);
+        minecraft.getTextureManager().bind(GUI_BASE);
         this.blit(stack, relX, relY, 0, 0, WIDTH, HEIGHT);
-        drawCenteredString(stack, fontRenderer, new TranslationTextComponent(minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST).getTranslationKey()), relX + 88, relY + 5, 0xFFFFFF);
-        InventoryScreen.drawEntityOnScreen(relX + 80, relY + 90, 40, (float)(relX + 51) - mousePosX, (float)(relY + 75 - 50) - mousePosY, minecraft.player);
-        minecraft.getTextureManager().bindTexture(ENERGY_BAR);
+        drawCenteredString(stack, fontRenderer, new TranslationTextComponent(minecraft.player.getItemBySlot(EquipmentSlotType.CHEST).getDescriptionId()), relX + 88, relY + 5, 0xFFFFFF);
+        InventoryScreen.renderEntityInInventory(relX + 80, relY + 90, 40, (float)(relX + 51) - mousePosX, (float)(relY + 75 - 50) - mousePosY, minecraft.player);
+        minecraft.getTextureManager().bind(ENERGY_BAR);
         blit(stack, relX + 10, relY + 16, 0, 0, 14, 78, 128, 128);
         int amount = getEnergyBarAmount();
         int barOffset = 78-amount;
@@ -95,7 +95,7 @@ public class JetpackGuiScreen extends Screen {
     }
 
     private int getEnergyBarAmount() {
-        ItemStack stack = minecraft.player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+        ItemStack stack = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
         Item item = stack.getItem();
         if (item instanceof JetpackItem) {
             JetpackItem jetpack = (JetpackItem) item;
@@ -112,8 +112,8 @@ public class JetpackGuiScreen extends Screen {
     public boolean shouldCloseOnEsc() { return true; }
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (KeybindHandler.JETPACK_GUI_KEY.matchesKey(keyCode, scanCode)) {
-            minecraft.displayGuiScreen(null);
+        if (KeybindHandler.JETPACK_GUI_KEY.matches(keyCode, scanCode)) {
+            minecraft.setScreen(null);
             return true;
         } else {
             return super.keyPressed(keyCode, scanCode, modifiers);

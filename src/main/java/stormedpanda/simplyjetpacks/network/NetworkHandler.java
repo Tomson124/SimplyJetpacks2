@@ -51,7 +51,7 @@ public class NetworkHandler {
     }
 
     public static void sendToClient(Object packet, ServerPlayerEntity player) {
-        CHANNEL_INSTANCE.sendTo(packet, player.connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
+        CHANNEL_INSTANCE.sendTo(packet, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
     }
 
     public static void sendToServer(Object packet) {
