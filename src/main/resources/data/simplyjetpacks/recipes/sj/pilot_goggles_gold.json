@@ -10,7 +10,7 @@
     "g": { "tag": "forge:glass_panes" }
   },
   "result": {
-    "item": "simplyjetpacks:pilot_goggles",
+    "item": "simplyjetpacks:pilot_goggles_gold",
     "count": 1
   }
 }

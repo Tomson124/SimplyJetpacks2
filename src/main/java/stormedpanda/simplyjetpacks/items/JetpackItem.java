@@ -34,6 +34,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.capability.CapabilityProviderEnergy;
 import stormedpanda.simplyjetpacks.capability.EnergyConversionStorage;
 import stormedpanda.simplyjetpacks.capability.IEnergyContainerItem;
@@ -93,14 +94,8 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     @Nullable
     @Override
     public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
-        return (A) new JetpackModel();//.applyData(_default);
+        return (A) new JetpackModel();
     }
-
-/*    @OnlyIn(Dist.CLIENT)
-    @Override
-    public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, BipedModel _default) {
-        return new JetpackModel().applyData(_default);
-    }*/
 
     public String getBaseName() {
         return name;
@@ -482,7 +477,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         }
         JetpackModel jetpackModel = this.model;
         ICurio.RenderHelper.followBodyRotations(livingEntity, jetpackModel);
-        IVertexBuilder vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, jetpackModel.renderType(new ResourceLocation(("simplyjetpacks:textures/models/armor/" + name + ".png"))), false, stack.getItem().isFoil(stack));
+        IVertexBuilder vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, jetpackModel.renderType(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/" + this.name + ".png")), false, stack.getItem().isFoil(stack));
         jetpackModel.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
     }
     /* ICurioItem end */

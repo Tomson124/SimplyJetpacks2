@@ -23,57 +23,57 @@ public class JetpackModel extends BipedModel<LivingEntity> {
 		texWidth = 64;
 		texHeight = 64;
 
-		middle = new ModelRenderer(this, 0, 54);//.setTextureSize(64, 64);
+		middle = new ModelRenderer(this, 0, 54);
 		middle.setPos(0F, 0F, 0F);
 		middle.mirror = true;
 		this.setRotation(middle, 0F, 0F, 0F);
 
-		leftCanister = new ModelRenderer(this, 0, 32);//.setTextureSize(64, 64);
+		leftCanister = new ModelRenderer(this, 0, 32);
 		leftCanister.setPos(0F, 0F, 0F);
 		leftCanister.mirror = true;
 		this.setRotation(leftCanister, 0F, 0F, 0F);
 
-		rightCanister = new ModelRenderer(this, 17, 32);//.setTextureSize(64, 64);
+		rightCanister = new ModelRenderer(this, 17, 32);
 		rightCanister.setPos(0F, 0F, 0F);
 		rightCanister.mirror = true;
 		this.setRotation(rightCanister, 0F, 0F, 0F);
 
-		leftTip1 = new ModelRenderer(this, 0, 45);//.setTextureSize(64, 64);
+		leftTip1 = new ModelRenderer(this, 0, 45);
 		leftTip1.setPos(0F, 0F, 0F);
 		leftTip1.mirror = true;
 		this.setRotation(leftTip1, 0F, 0F, 0F);
 
-		leftTip2 = new ModelRenderer(this, 0, 49);//.setTextureSize(64, 64);
+		leftTip2 = new ModelRenderer(this, 0, 49);
 		leftTip2.setPos(0F, 0F, 0F);
 		leftTip2.mirror = true;
 		this.setRotation(leftTip2, 0F, 0F, 0F);
 
-		rightTip1 = new ModelRenderer(this, 17, 45);//.setTextureSize(64, 64);
+		rightTip1 = new ModelRenderer(this, 17, 45);
 		rightTip1.setPos(0F, 0F, 0F);
 		rightTip1.mirror = true;
 		this.setRotation(rightTip1, 0F, 0F, 0F);
 
-		rightTip2 = new ModelRenderer(this, 17, 49);//.setTextureSize(64, 64);
+		rightTip2 = new ModelRenderer(this, 17, 49);
 		rightTip2.setPos(0F, 0F, 0F);
 		rightTip2.mirror = true;
 		this.setRotation(rightTip2, 0F, 0F, 0F);
 
-		leftExhaust1 = new ModelRenderer(this, 35, 32);//.setTextureSize(64, 64);
+		leftExhaust1 = new ModelRenderer(this, 35, 32);
 		leftExhaust1.addBox(1F, 9F, 3.1F, 3, 1, 3);
 		leftExhaust1.mirror = true;
 		this.setRotation(leftExhaust1, 0F, 0F, 0F);
 
-		leftExhaust2 = new ModelRenderer(this, 35, 37);//.setTextureSize(64, 64);
+		leftExhaust2 = new ModelRenderer(this, 35, 37);
 		leftExhaust2.setPos(0F, 0F, 0F);
 		leftExhaust2.mirror = true;
 		this.setRotation(leftExhaust2, 0F, 0F, 0F);
 
-		rightExhaust1 = new ModelRenderer(this, 48, 32);//.setTextureSize(64, 64);
+		rightExhaust1 = new ModelRenderer(this, 48, 32);
 		rightExhaust1.setPos(0F, 0F, 0F);
 		rightExhaust1.mirror = true;
 		this.setRotation(rightExhaust1, 0F, 0F, 0F);
 
-		rightExhaust2 = new ModelRenderer(this, 35, 45);//.setTextureSize(64, 64);
+		rightExhaust2 = new ModelRenderer(this, 35, 45);
 		rightExhaust2.setPos(0F, 0F, 0F);
 		rightExhaust2.mirror = true;
 		this.setRotation(rightExhaust2, 0F, 0F, 0F);
@@ -105,16 +105,7 @@ public class JetpackModel extends BipedModel<LivingEntity> {
 		body.addChild(rightExhaust2);
 		rightExhaust2.addBox(-4.5F, 10F, 2.6F, 4, 3, 4);
 	}
-
-/*	public BipedModel<LivingEntity> applyData(BipedModel<?> defaultArmor) {
-		this.young = defaultArmor.young;
-		this.crouching = defaultArmor.crouching;
-		this.riding = defaultArmor.riding;
-		this.rightArmPose = defaultArmor.rightArmPose;
-		this.leftArmPose = defaultArmor.leftArmPose;
-		return this;
-	}*/
-
+	
 	private void setRotation(ModelRenderer model, float x, float y, float z) {
 		model.xRot = x;
 		model.yRot = y;
