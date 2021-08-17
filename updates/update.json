@@ -7,8 +7,8 @@
     "1.12.2-recommended" : "2.2.18.1",
     "1.15.2-latest" : "2.5.4.1",
     "1.15.2-recommended" : "2.5.4.1",
-    "1.16.5-latest" : "2.6.9.1",
-    "1.16.5-recommended" : "2.6.9.1",
+    "1.16.5-latest" : "2.6.10.1",
+    "1.16.5-recommended" : "2.6.10.1",
     "1.17.1-latest" : "2.7.1.1",
     "1.17.1-recommended" : "2.7.1.1"
   },
@@ -16,6 +16,7 @@
     "2.7.1.1" : "Updated to Minecraft Version 1.17.1"
   },
   "1.16.5" : {
+    "2.6.10.1" : "Fixed crash when running server",
     "2.6.9.1" : "Fixed a few bugs",
     "2.6.8.0" : "Added support for Curios API",
     "2.6.7.1" : "Updated to Minecraft Version 1.16.5",

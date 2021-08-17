@@ -97,13 +97,6 @@ public class SimplyJetpacks {
         KeybindHandler.setup();
     }
 
-    @SubscribeEvent
-    public void onTextureStitch(TextureStitchEvent.Pre event) {
-        if (event.getMap().location().equals(PlayerContainer.BLOCK_ATLAS)) {
-            event.addSprite(JETPACK_SLOT);
-        }
-    }
-
     private void enqueueIMC(final InterModEnqueueEvent event) {
         InterModComms.sendTo(MODID, CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HEAD.getMessageBuilder().build());
         InterModComms.sendTo(MODID, CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("jetpack").size(1).icon(JETPACK_SLOT).build());
@@ -128,5 +121,11 @@ public class SimplyJetpacks {
     public void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
         LOGGER.info("Recipe Serializers Registered.");
         CraftingHelper.register(ModIntegrationCondition.Serializer.INSTANCE);
+    }
+
+    public void onTextureStitch(TextureStitchEvent.Pre event) {
+        if (event.getMap().location().equals(PlayerContainer.BLOCK_ATLAS)) {
+            event.addSprite(JETPACK_SLOT);
+        }
     }
 }
