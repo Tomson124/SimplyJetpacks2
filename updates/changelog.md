@@ -1,3 +1,20 @@
+# 2.7.1 - 07-07-2021
+- **General**
+    - Updated to Minecraft Version 1.17.1
+
+# 2.6.10 - 17-08-2021
+- **Fixed**
+  - Fixed crash when running server
+  
+# 2.6.9 - 13-08-2021
+- **Fixed**
+  - Fixed a few 
+  - Fixed crash when running server
+  
+# 2.6.8 - 13-08-2021
+- **Added**
+    - Added support for Curios API
+  
 # 2.6.7 - 13-02-2021
 - **General**
     - Updated to Minecraft Version 1.16.5
