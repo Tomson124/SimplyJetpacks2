@@ -2,6 +2,19 @@
 - **General**
   - Updated to Minecraft Version 1.17.1
 
+# 2.6.12 - xx-xx-2021
+- **General**
+  - New Features and Improved Systems
+  - Reworked jetpack config system
+  - Reworked Particle Customizer recipe system
+  - Now uses Data Generators
+- **Added**
+  - New Thermal Series textures
+  - New GUI textures for different energy sources
+  - Quality of Life changes
+- **Fixed**
+  - Fixed some bugs
+  
 # 2.6.11 - 19-08-2021
 - **General**
   - Removed Curios dependency, now works standalone
