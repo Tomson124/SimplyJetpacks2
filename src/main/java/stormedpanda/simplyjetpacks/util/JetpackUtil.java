@@ -10,19 +10,16 @@ import top.theillusivec4.curios.api.CuriosApi;
 
 public class JetpackUtil {
 
-    public static ItemStack getFromBothSlots(LivingEntity entity) {
+    public static ItemStack getFromBothSlots(LivingEntity livingEntity) {
         ItemStack jetpackItem = ItemStack.EMPTY;
         if (ModList.get().isLoaded("curios")) {
-             jetpackItem = CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof JetpackItem, entity).map(ImmutableTriple::getRight).orElse(ItemStack.EMPTY);
+             jetpackItem = CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof JetpackItem, livingEntity).map(ImmutableTriple::getRight).orElse(ItemStack.EMPTY);
         }
-        return jetpackItem == ItemStack.EMPTY ? getFromChest(entity) : jetpackItem;
+        return jetpackItem == ItemStack.EMPTY ? getFromChest(livingEntity) : jetpackItem;
     }
 
-    public static ItemStack getFromChest(LivingEntity entity) {
-        return entity.getItemBySlot(EquipmentSlotType.CHEST);
+    public static ItemStack getFromChest(LivingEntity livingEntity) {
+        return livingEntity.getItemBySlot(EquipmentSlotType.CHEST);
     }
 
-    public static ItemStack getFromCurio(LivingEntity entity) {
-        return CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof JetpackItem, entity).map(ImmutableTriple::getRight).orElse(ItemStack.EMPTY);
-    }
 }
