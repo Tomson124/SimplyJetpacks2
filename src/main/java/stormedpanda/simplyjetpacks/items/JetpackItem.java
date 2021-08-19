@@ -1,12 +1,7 @@
 package stormedpanda.simplyjetpacks.items;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -23,7 +18,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
@@ -34,7 +28,6 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.capability.CapabilityProviderEnergy;
 import stormedpanda.simplyjetpacks.capability.EnergyConversionStorage;
 import stormedpanda.simplyjetpacks.capability.IEnergyContainerItem;
@@ -45,18 +38,17 @@ import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.handlers.SyncHandler;
 import stormedpanda.simplyjetpacks.integration.IntegrationList;
+import stormedpanda.simplyjetpacks.util.JetpackUtil;
 import stormedpanda.simplyjetpacks.util.KeyboardUtil;
 import stormedpanda.simplyjetpacks.util.NBTHelper;
 import stormedpanda.simplyjetpacks.util.SJTextUtil;
-import top.theillusivec4.curios.api.type.capability.ICurio;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 
-public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyContainerItem, ICurioItem {
+public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyContainerItem {
 
     public static final String TAG_ENERGY = "Energy";
     public static final String TAG_ENGINE = "Engine";
@@ -73,7 +65,6 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public String name;
     private final String armorTexture;
     public final int tier;
-    private JetpackModel model;
 
     public JetpackItem(JetpackType type) {
         super(type.getArmorMaterial(), EquipmentSlotType.CHEST, type.getProperties());
@@ -120,7 +111,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        if (!player.isSpectator()) {
+        if (!player.isSpectator() && stack == JetpackUtil.getFromBothSlots(player)) {
             flyUser(player, stack, this);
             if (this.type.canCharge() && this.isChargerOn(stack)) {
                 chargeInventory(player, stack);
@@ -456,29 +447,4 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         return capacity;
     }
     /* IEnergyContainerItem end */
-
-    /* ICurioItem start */
-    @Override
-    public void curioTick(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
-        if (livingEntity instanceof PlayerEntity) {
-            this.onArmorTick(stack, livingEntity.level, (PlayerEntity) livingEntity);
-        }
-    }
-
-    @Override
-    public boolean canRender(String identifier, int index, LivingEntity livingEntity, ItemStack stack) {
-        return true;
-    }
-
-    @Override
-    public void render(String identifier, int index, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, ItemStack stack) {
-        if (this.model == null) {
-            this.model = new JetpackModel();
-        }
-        JetpackModel jetpackModel = this.model;
-        ICurio.RenderHelper.followBodyRotations(livingEntity, jetpackModel);
-        IVertexBuilder vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, jetpackModel.renderType(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/" + this.name + ".png")), false, stack.getItem().isFoil(stack));
-        jetpackModel.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-    }
-    /* ICurioItem end */
 }

@@ -11,7 +11,8 @@ public enum ModType {
     ENDER_IO("enderio"),
     THERMAL_FOUNDATION("thermal"),
     THERMAL_EXPANSION("thermal_expansion"),
-    THERMAL_DYNAMICS("thermal_dynamics");
+    THERMAL_DYNAMICS("thermal_dynamics"),
+    CURIOS("curios");
 
     public final String[] modids;
     public final boolean loaded;

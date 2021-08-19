@@ -53,7 +53,6 @@ public class JetpackGuiScreen extends Screen {
         this.addButton(new ImageButton(relX + 120, relY + 16, 20, 20, 176, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleEngine())));
         this.addButton(new ImageButton(relX + 120, relY + 38, 20, 20, 216, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleHover())));
 
-        //ItemStack stack = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
         ItemStack stack = JetpackUtil.getFromBothSlots(minecraft.player);
         Item item = stack.getItem();
         if (item instanceof JetpackItem) {
@@ -85,7 +84,6 @@ public class JetpackGuiScreen extends Screen {
         float mousePosY = (float) mouseY;
         minecraft.getTextureManager().bind(GUI_BASE);
         this.blit(stack, relX, relY, 0, 0, WIDTH, HEIGHT);
-        //ITextComponent jetpackName = new TranslationTextComponent(minecraft.player.getItemBySlot(EquipmentSlotType.CHEST).getDescriptionId());
         ITextComponent jetpackName = new TranslationTextComponent(JetpackUtil.getFromBothSlots(minecraft.player).getDescriptionId());
         drawCenteredString(stack, fontRenderer, jetpackName, relX + 88, relY + 5, 0xFFFFFF);
         InventoryScreen.renderEntityInInventory(relX + 80, relY + 90, 40, (float)(relX + 51) - mousePosX, (float)(relY + 75 - 50) - mousePosY, minecraft.player);
@@ -98,7 +96,6 @@ public class JetpackGuiScreen extends Screen {
     }
 
     private int getEnergyBarAmount() {
-        //ItemStack stack = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
         ItemStack stack = JetpackUtil.getFromBothSlots(minecraft.player);
         Item item = stack.getItem();
         if (item instanceof JetpackItem) {

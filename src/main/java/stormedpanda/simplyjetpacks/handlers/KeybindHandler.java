@@ -50,7 +50,6 @@ public class KeybindHandler {
         if (player == null) {
             return;
         }
-        //ItemStack stack = player.getItemBySlot(EquipmentSlotType.CHEST);
         ItemStack stack = JetpackUtil.getFromBothSlots(player);
         Item chestItem = null;
         JetpackItem jetpack;

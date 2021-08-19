@@ -29,7 +29,6 @@ public class ClientJetpackHandler {
         if (event.phase == TickEvent.Phase.END) {
             if (minecraft.player != null && minecraft.level != null) {
                 if (!minecraft.isPaused()) {
-                    //ItemStack chest = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
                     ItemStack chest = JetpackUtil.getFromBothSlots(minecraft.player);
                     Item item = chest.getItem();
                     if (!chest.isEmpty() && item instanceof JetpackItem && !minecraft.player.isSpectator()) {
@@ -74,7 +73,6 @@ public class ClientJetpackHandler {
 
     @OnlyIn(Dist.CLIENT)
     public static boolean isFlying(PlayerEntity player) {
-        //ItemStack stack = player.getItemBySlot(EquipmentSlotType.CHEST);
         ItemStack stack = JetpackUtil.getFromBothSlots(player);
         if (!stack.isEmpty()) {
             Item item = stack.getItem();
