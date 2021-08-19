@@ -11,8 +11,8 @@ public class SJTags {
     public static final ITag.INamedTag<Item> PARTICLES = mod("particles");
     public static final ITag.INamedTag<Item> JETPACK = mod("jetpack");
 
-    public static final ITag.INamedTag<Item> HEAD = curios("head");
-    public static final ITag.INamedTag<Item> BACK = curios("back");
+    public static final ITag.INamedTag<Item> CURIOS_HEAD = curios("head");
+    public static final ITag.INamedTag<Item> CURIOS_JETPACK = curios("jetpack");
 
     private static ITag.INamedTag<Item> forge(String path) {
         return ItemTags.createOptional(new ResourceLocation("forge", path));

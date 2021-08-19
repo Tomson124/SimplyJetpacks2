@@ -11,6 +11,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.lwjgl.system.CallbackI;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.crafting.JetpackSpecialRecipe;
 import stormedpanda.simplyjetpacks.enchantment.EnchantmentFuelEfficiency;
@@ -44,7 +45,8 @@ public class RegistryHandler {
     public static final RegistryObject<EnchantmentFuelEfficiency> FUEL_EFFICIENCY = ENCHANTMENTS.register("fuel_efficiency", EnchantmentFuelEfficiency::new);
 
     // Items:
-    public static final RegistryObject<Item> PILOT_GOGGLES = ITEMS.register("pilot_goggles", PilotGogglesItem::new);
+    public static final RegistryObject<Item> PILOT_GOGGLES_GOLD = ITEMS.register("pilot_goggles_gold", () -> new PilotGogglesItem("gold"));
+    public static final RegistryObject<Item> PILOT_GOGGLES_SILVER = ITEMS.register("pilot_goggles_silver", () -> new PilotGogglesItem("silver"));
     public static final RegistryObject<Item> LEATHER_STRAP = ITEMS.register("leather_strap", () ->
             new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
     public static final RegistryObject<Item> JETPACK_POTATO = ITEMS.register("jetpack_potato", () ->

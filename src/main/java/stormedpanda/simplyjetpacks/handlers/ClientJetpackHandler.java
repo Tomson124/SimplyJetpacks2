@@ -15,6 +15,7 @@ import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
 import stormedpanda.simplyjetpacks.particle.JetpackParticleType;
 import stormedpanda.simplyjetpacks.sound.JetpackSound;
+import stormedpanda.simplyjetpacks.util.JetpackUtil;
 import stormedpanda.simplyjetpacks.util.Pos3D;
 
 import java.util.Random;
@@ -28,7 +29,7 @@ public class ClientJetpackHandler {
         if (event.phase == TickEvent.Phase.END) {
             if (minecraft.player != null && minecraft.level != null) {
                 if (!minecraft.isPaused() && !minecraft.player.isSpectator()) {
-                    ItemStack chest = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
+                    ItemStack chest = JetpackUtil.getFromBothSlots(minecraft.player);
                     Item item = chest.getItem();
                     if (!chest.isEmpty() && item instanceof JetpackItem && isFlying(minecraft.player)) {
                         // Show particles:
@@ -72,12 +73,11 @@ public class ClientJetpackHandler {
     }
 
     public static boolean isFlying(PlayerEntity player) {
-        ItemStack stack = player.getItemBySlot(EquipmentSlotType.CHEST);
+        ItemStack stack = JetpackUtil.getFromBothSlots(player);
         if (!stack.isEmpty()) {
             Item item = stack.getItem();
             if (item instanceof JetpackItem) {
                 JetpackItem jetpack = (JetpackItem) item;
-                //if (jetpack.isEngineOn(stack) && (jetpack.getEnergy(stack) > 0 || player.isCreative() || jetpack.isCreative())) {
                 if (jetpack.isEngineOn(stack) && (jetpack.getEnergy(stack) > 0 || jetpack.isCreative())) {
                     if (jetpack.isHoverOn(stack)) {
                         return !player.isOnGround();

@@ -32,10 +32,7 @@ import stormedpanda.simplyjetpacks.hud.IHUDInfoProvider;
 import stormedpanda.simplyjetpacks.init.RegistryHandler;
 import stormedpanda.simplyjetpacks.model.JetpackModel;
 import stormedpanda.simplyjetpacks.particle.JetpackParticleType;
-import stormedpanda.simplyjetpacks.util.Constants;
-import stormedpanda.simplyjetpacks.util.KeyboardUtil;
-import stormedpanda.simplyjetpacks.util.NBTUtil;
-import stormedpanda.simplyjetpacks.util.SJTextUtil;
+import stormedpanda.simplyjetpacks.util.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -54,8 +51,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        super.onArmorTick(stack, world, player);
-        if (!player.isSpectator()) {
+        if (!player.isSpectator() && stack == JetpackUtil.getFromBothSlots(player)) {
             flyUser(player, stack, this);
             if (this.jetpackType.getChargerMode() && this.isChargerOn(stack)) {
                 chargeInventory(player, stack);
@@ -206,36 +202,8 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         }
     }
 
-    @Override
-    public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
-        //if (!canReceive()) return 0;
-        int energyStored = getEnergy(container);
-        int energyReceived = Math.min(getCapacity(container) - energyStored, Math.min(getEnergyReceive(), maxReceive));
-        if (!simulate) setEnergyStored(container, energyStored + energyReceived);
-        return energyReceived;
-    }
-
-    @Override
-    public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
-        //if (!canExtract()) return 0;
-        int energyStored = getEnergy(container);
-        int energyExtracted = Math.min(energyStored, Math.min(getEnergyExtract(), maxExtract));
-        if (!simulate) setEnergyStored(container, energyStored - energyExtracted);
-        return energyExtracted;
-    }
-
-    @Override
-    public int getEnergy(ItemStack container) {
-        return container.getOrCreateTag().getInt(Constants.TAG_ENERGY);
-    }
-
     private void setEnergyStored(ItemStack container, int value) {
         NBTUtil.setInt(container, Constants.TAG_ENERGY, MathHelper.clamp(value, 0, getCapacity(container)));
-    }
-
-    @Override
-    public int getCapacity(ItemStack container) {
-        return jetpackType.getEnergyCapacity();
     }
 
     public int getEnergyReceive() {
@@ -268,9 +236,10 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     @OnlyIn(Dist.CLIENT)
+    @Nullable
     @Override
-    public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, BipedModel _default) {
-        return new JetpackModel().applyData(_default);
+    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
+        return (A) new JetpackModel();
     }
 
     public void useEnergy(ItemStack container, int amount) {
@@ -392,9 +361,45 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         }
     }
 
+    /* IHUDInfoProvider start */
+
     @OnlyIn(Dist.CLIENT)
     @Override
     public void addHUDInfo(ItemStack stack, List<ITextComponent> list) {
         SJTextUtil.addHUDInfoText(stack, list);
     }
+
+    /* IHUDInfoProvider end */
+
+    /* IEnergyContainer start */
+
+    @Override
+    public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
+        //if (!canReceive()) return 0;
+        int energyStored = getEnergy(container);
+        int energyReceived = Math.min(getCapacity(container) - energyStored, Math.min(getEnergyReceive(), maxReceive));
+        if (!simulate) setEnergyStored(container, energyStored + energyReceived);
+        return energyReceived;
+    }
+
+    @Override
+    public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
+        //if (!canExtract()) return 0;
+        int energyStored = getEnergy(container);
+        int energyExtracted = Math.min(energyStored, Math.min(getEnergyExtract(), maxExtract));
+        if (!simulate) setEnergyStored(container, energyStored - energyExtracted);
+        return energyExtracted;
+    }
+
+    @Override
+    public int getEnergy(ItemStack container) {
+        return container.getOrCreateTag().getInt(Constants.TAG_ENERGY);
+    }
+
+    @Override
+    public int getCapacity(ItemStack container) {
+        return jetpackType.getEnergyCapacity();
+    }
+
+    /* IEnergyContainer end */
 }

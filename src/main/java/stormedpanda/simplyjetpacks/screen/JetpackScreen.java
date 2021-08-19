@@ -23,6 +23,7 @@ import stormedpanda.simplyjetpacks.network.packets.PacketToggleCharger;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleEHover;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleEngine;
 import stormedpanda.simplyjetpacks.network.packets.PacketToggleHover;
+import stormedpanda.simplyjetpacks.util.JetpackUtil;
 import stormedpanda.simplyjetpacks.util.SJTextUtil;
 
 import javax.annotation.Nonnull;
@@ -45,8 +46,8 @@ public class JetpackScreen extends Screen {
         super(new TranslationTextComponent("screen.simplyjetpacks.jetpack_screen.title"));
         this.width = WIDTH;
         this.height = HEIGHT;
-        this.jetpackItem = (JetpackItem) minecraft.player.getItemBySlot(EquipmentSlotType.CHEST).getItem();
-        this.jetpackStack = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
+        this.jetpackItem = (JetpackItem) JetpackUtil.getFromBothSlots(minecraft.player).getItem();
+        this.jetpackStack = JetpackUtil.getFromBothSlots(minecraft.player);
     }
 
     @Override
@@ -128,9 +129,9 @@ public class JetpackScreen extends Screen {
             } else if (jetpackItem.getEnergy(jetpackStack) == 0) {
                 text = SJTextUtil.translate("hud", "energyDepleted", TextFormatting.RED);
             } else text = null;
-            if (text != null) renderTooltip(matrixStack, text, mouseX, mouseY);
-
-            renderComponentTooltip(matrixStack, getTooltipFromItem(this.jetpackStack), mouseX, mouseY);
+            if (text != null) {
+                renderTooltip(matrixStack, text, mouseX, mouseY);
+            }
         }
         super.render(matrixStack, mouseX, mouseY, partialTicks);
     }

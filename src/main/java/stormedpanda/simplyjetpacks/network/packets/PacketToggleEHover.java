@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
+import stormedpanda.simplyjetpacks.util.JetpackUtil;
 
 import java.util.function.Supplier;
 
@@ -26,11 +27,11 @@ public class PacketToggleEHover {
         ctx.get().enqueueWork(() -> {
             ServerPlayerEntity player = ctx.get().getSender();
             if (player != null) {
-                ItemStack stack = player.getItemBySlot(EquipmentSlotType.CHEST);
+                ItemStack stack = JetpackUtil.getFromBothSlots(player);
                 Item item = stack.getItem();
                 if (item instanceof JetpackItem) {
                     JetpackItem jetpack = (JetpackItem) item;
-                    jetpack.toggleEHover(stack, (PlayerEntity) player);
+                    jetpack.toggleEHover(stack, player);
                 }
             }
         });

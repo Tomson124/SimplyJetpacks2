@@ -15,6 +15,7 @@ import stormedpanda.simplyjetpacks.item.JetpackItem;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
 import stormedpanda.simplyjetpacks.network.packets.*;
 import stormedpanda.simplyjetpacks.screen.JetpackScreen;
+import stormedpanda.simplyjetpacks.util.JetpackUtil;
 
 public class KeybindHandler {
 
@@ -47,11 +48,15 @@ public class KeybindHandler {
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         PlayerEntity player = Minecraft.getInstance().player;
-        if (player == null) return;
-        ItemStack chestStack = player.getItemBySlot(EquipmentSlotType.CHEST);
+        if (player == null) {
+            return;
+        }
+        ItemStack chestStack = JetpackUtil.getFromBothSlots(player);
         Item chestItem = null;
         JetpackItem jetpack;
-        if (!chestStack.isEmpty()) { chestItem = chestStack.getItem(); }
+        if (!chestStack.isEmpty()) {
+            chestItem = chestStack.getItem();
+        }
         if (chestItem instanceof JetpackItem) {
             jetpack = (JetpackItem) chestItem;
             if (JETPACK_GUI_KEY.isDown()) {

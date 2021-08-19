@@ -11,6 +11,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
+import stormedpanda.simplyjetpacks.util.JetpackUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class HUDHandler {
         }
         if (SimplyJetpacksConfig.enableJetpackHud.get() && !minecraft.options.hideGui && !minecraft.options.renderDebug) {
             if (minecraft.player != null) {
-                ItemStack chestplate = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
+                ItemStack chestplate = JetpackUtil.getFromBothSlots(minecraft.player);
                 Item item = chestplate.getItem();
 
                 if (!chestplate.isEmpty() && item instanceof JetpackItem) {

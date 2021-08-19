@@ -5,7 +5,7 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 
-// TODO: re-implement potato jetpack.
+// TODO: re-implement Potato Jetpack.
 public class PotatoJetpack extends ArmorItem {
 
     public PotatoJetpack() {
