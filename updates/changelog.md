@@ -6,7 +6,7 @@
 - **General**
     - Removed Curios dependency, now works standalone
 - **Fixed**
-    - Fixed a few bugs
+    - Fixed onArmorTick bug
 
 # 2.6.10 - 17-08-2021
 - **Fixed**

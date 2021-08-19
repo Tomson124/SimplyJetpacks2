@@ -26,12 +26,11 @@ public class PacketToggleEngine {
         ctx.get().enqueueWork(() -> {
             ServerPlayerEntity player = ctx.get().getSender();
             if (player != null) {
-                //ItemStack stack = player.getItemBySlot(EquipmentSlotType.CHEST);
                 ItemStack stack = JetpackUtil.getFromBothSlots(player);
                 Item item = stack.getItem();
                 if (item instanceof JetpackItem) {
                     JetpackItem jetpack = (JetpackItem) item;
-                    jetpack.toggleEngine(stack, (PlayerEntity) player);
+                    jetpack.toggleEngine(stack, player);
                 }
             }
         });

@@ -27,7 +27,6 @@ public class HUDHandler {
         }
         if (SimplyJetpacksConfig.CLIENT.enableJetpackHud.get() && !minecraft.options.hideGui && !minecraft.options.renderDebug) {
             if (minecraft.player != null) {
-                //ItemStack stack = minecraft.player.getItemBySlot(EquipmentSlotType.CHEST);
                 ItemStack stack = JetpackUtil.getFromBothSlots(minecraft.player);
                 Item item = stack.getItem();
 

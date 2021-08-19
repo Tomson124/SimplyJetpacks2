@@ -38,6 +38,7 @@ import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.handlers.SyncHandler;
 import stormedpanda.simplyjetpacks.integration.IntegrationList;
+import stormedpanda.simplyjetpacks.util.JetpackUtil;
 import stormedpanda.simplyjetpacks.util.KeyboardUtil;
 import stormedpanda.simplyjetpacks.util.NBTHelper;
 import stormedpanda.simplyjetpacks.util.SJTextUtil;
@@ -110,7 +111,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        if (!player.isSpectator()) {
+        if (!player.isSpectator() && stack == JetpackUtil.getFromBothSlots(player)) {
             flyUser(player, stack, this);
             if (this.type.canCharge() && this.isChargerOn(stack)) {
                 chargeInventory(player, stack);

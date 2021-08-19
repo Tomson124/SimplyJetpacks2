@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
 public class CuriosIntegration {
 
     public static ICapabilityProvider initGogglesCapabilities(ItemStack itemStack) {
-        ICurio curio = new ICurio() {
+        return getProvider(new ICurio() {
 
             @Override
             public void playRightClickEquipSound(LivingEntity livingEntity) {
@@ -53,21 +53,11 @@ public class CuriosIntegration {
                 IVertexBuilder vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, gogglesModel.renderType(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_" + ((PilotGogglesItem) itemStack.getItem()).getType() + "_layer_1.png")), false, itemStack.getItem().isFoil(itemStack));
                 gogglesModel.head.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
             }
-        };
-
-        return new ICapabilityProvider() {
-            private final LazyOptional<ICurio> curioOpt = LazyOptional.of(() -> curio);
-
-            @Nonnull
-            @Override
-            public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-                return CuriosCapability.ITEM.orEmpty(cap, curioOpt);
-            }
-        };
+        });
     }
 
     public static ICapabilityProvider initJetpackCapabilities(ItemStack itemStack) {
-        ICurio curio = new ICurio() {
+        return getProvider(new ICurio() {
 
             @Override
             public void playRightClickEquipSound(LivingEntity livingEntity) {
@@ -103,15 +93,17 @@ public class CuriosIntegration {
                 IVertexBuilder vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, jetpackModel.renderType(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/" + ((JetpackItem) itemStack.getItem()).getBaseName() + ".png")), false, itemStack.getItem().isFoil(itemStack));
                 jetpackModel.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
             }
-        };
+        });
+    }
 
+    private static ICapabilityProvider getProvider(ICurio curio) {
         return new ICapabilityProvider() {
-            private final LazyOptional<ICurio> curioOpt = LazyOptional.of(() -> curio);
+            private final LazyOptional<ICurio> curioOptional = LazyOptional.of(() -> curio);
 
             @Nonnull
             @Override
             public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-                return CuriosCapability.ITEM.orEmpty(cap, curioOpt);
+                return CuriosCapability.ITEM.orEmpty(cap, curioOptional);
             }
         };
     }

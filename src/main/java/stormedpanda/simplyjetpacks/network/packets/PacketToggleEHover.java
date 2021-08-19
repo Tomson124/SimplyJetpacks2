@@ -26,12 +26,11 @@ public class PacketToggleEHover {
         ctx.get().enqueueWork(() -> {
             ServerPlayerEntity player = ctx.get().getSender();
             if (player != null) {
-                //ItemStack stack = player.getItemBySlot(EquipmentSlotType.CHEST);
                 ItemStack stack = JetpackUtil.getFromBothSlots(player);
                 Item item = stack.getItem();
                 if (item instanceof JetpackItem) {
                     JetpackItem jetpack = (JetpackItem) item;
-                    jetpack.toggleEHover(stack, (PlayerEntity) player);
+                    jetpack.toggleEHover(stack, player);
                 }
             }
         });
