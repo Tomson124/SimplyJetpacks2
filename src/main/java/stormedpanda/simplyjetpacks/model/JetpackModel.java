@@ -3,7 +3,6 @@ package stormedpanda.simplyjetpacks.model;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 
 public class JetpackModel extends BipedModel<LivingEntity> {
 
