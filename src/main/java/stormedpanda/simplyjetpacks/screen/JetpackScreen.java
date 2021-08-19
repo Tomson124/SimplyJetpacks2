@@ -129,6 +129,8 @@ public class JetpackScreen extends Screen {
                 text = SJTextUtil.translate("hud", "energyDepleted", TextFormatting.RED);
             } else text = null;
             if (text != null) renderTooltip(matrixStack, text, mouseX, mouseY);
+
+            renderComponentTooltip(matrixStack, getTooltipFromItem(this.jetpackStack), mouseX, mouseY);
         }
         super.render(matrixStack, mouseX, mouseY, partialTicks);
     }
