@@ -3,7 +3,6 @@ package stormedpanda.simplyjetpacks.item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
-import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.config.JetpackDataHolder;
 import stormedpanda.simplyjetpacks.particle.JetpackParticleType;
 
