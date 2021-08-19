@@ -24,7 +24,8 @@ public class SJItemModelProvider extends ItemModelProvider {
         builder(itemGenerated, "particle_rainbow");
 
         builder(itemGenerated, "leather_strap");
-        builder(itemGenerated, "pilot_goggles");
+        builder(itemGenerated, "pilot_goggles_gold");
+        builder(itemGenerated, "pilot_goggles_silver");
 
         builder(itemGenerated, "jetpack_potato");
         builder(itemGenerated, "jetpack_creative");
