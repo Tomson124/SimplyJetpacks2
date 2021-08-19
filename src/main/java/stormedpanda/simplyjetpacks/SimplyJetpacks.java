@@ -1,11 +1,19 @@
 package stormedpanda.simplyjetpacks;
 
+import net.minecraft.inventory.container.PlayerContainer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -27,10 +35,17 @@ import stormedpanda.simplyjetpacks.crafting.PlatingReturnHandler;
 import stormedpanda.simplyjetpacks.handlers.KeybindHandler;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.handlers.SyncHandler;
+import stormedpanda.simplyjetpacks.integration.CuriosIntegration;
 import stormedpanda.simplyjetpacks.integration.IntegrationList;
+import stormedpanda.simplyjetpacks.items.JetpackItem;
 import stormedpanda.simplyjetpacks.items.JetpackType;
+import stormedpanda.simplyjetpacks.items.PilotGogglesItem;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
 import stormedpanda.simplyjetpacks.sound.ModSounds;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.CuriosCapability;
+import top.theillusivec4.curios.api.SlotTypeMessage;
+import top.theillusivec4.curios.api.SlotTypePreset;
 
 import java.util.stream.Collectors;
 
@@ -47,9 +62,13 @@ public class SimplyJetpacks {
 
     public static final CreativeTabSimplyJetpacks tabSimplyJetpacks = new CreativeTabSimplyJetpacks();
 
+    public static final ResourceLocation JETPACK_SLOT = new ResourceLocation(MODID, "item/empty_jetpack_slot");
+
     public SimplyJetpacks() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::CommonSetup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::ClientSetup);
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onTextureStitch));
+
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 
@@ -59,8 +78,10 @@ public class SimplyJetpacks {
         MinecraftForge.EVENT_BUS.register(new EnergyTransferHandler());
         MinecraftForge.EVENT_BUS.register(new ModSounds());
         MinecraftForge.EVENT_BUS.register(SimplyJetpacksConfig.class);
+        if (ModList.get().isLoaded("curios")) {
+            MinecraftForge.EVENT_BUS.addGenericListener(ItemStack.class, this::attachCapabilities);
+        }
 
-        // TODO: Get all configs in one folder?
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SimplyJetpacksConfig.CLIENT_SPEC, "simplyjetpacks-client.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks-common.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SimplyJetpacksConfig.SERVER_SPEC, "simplyjetpacks-server.toml");
@@ -72,12 +93,12 @@ public class SimplyJetpacks {
         RegistryHandler.init();
     }
 
-    private void CommonSetup(final FMLCommonSetupEvent event) {
+    private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.info("Common Setup Method registered.");
         NetworkHandler.registerMessages();
     }
 
-    private void ClientSetup(final FMLClientSetupEvent event) {
+    private void clientSetup(final FMLClientSetupEvent event) {
         LOGGER.info("Client Setup Method registered.");
         MinecraftForge.EVENT_BUS.register(new KeybindHandler());
         MinecraftForge.EVENT_BUS.register(new ClientJetpackHandler());
@@ -86,7 +107,10 @@ public class SimplyJetpacks {
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
-        InterModComms.sendTo(MODID, "helloworld", () -> { LOGGER.info("Hello from Simply Jetpacks 2"); return "Hello!";});
+        if (ModList.get().isLoaded("curios")) {
+            InterModComms.sendTo(MODID, CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HEAD.getMessageBuilder().build());
+            InterModComms.sendTo(MODID, CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("jetpack").size(1).icon(JETPACK_SLOT).build());
+        }
     }
 
     private void processIMC(final InterModProcessEvent event) {
@@ -108,5 +132,26 @@ public class SimplyJetpacks {
     public void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
         LOGGER.info("Recipe Serializers Registered.");
         CraftingHelper.register(ModIntegrationCondition.Serializer.INSTANCE);
+    }
+
+    private void onTextureStitch(TextureStitchEvent.Pre event) {
+        if (ModList.get().isLoaded("curios")) {
+            if (event.getMap().location().equals(PlayerContainer.BLOCK_ATLAS)) {
+                event.addSprite(JETPACK_SLOT);
+            }
+        }
+    }
+
+    private void attachCapabilities(AttachCapabilitiesEvent<ItemStack> event) {
+        if (!ModList.get().isLoaded("curios")) {
+            return;
+        }
+        ItemStack stack = event.getObject();
+        if (stack.getItem() instanceof JetpackItem) {
+            event.addCapability(CuriosCapability.ID_ITEM, CuriosIntegration.initJetpackCapabilities(stack));
+        }
+        if (stack.getItem() instanceof PilotGogglesItem) {
+            event.addCapability(CuriosCapability.ID_ITEM, CuriosIntegration.initGogglesCapabilities(stack));
+        }
     }
 }

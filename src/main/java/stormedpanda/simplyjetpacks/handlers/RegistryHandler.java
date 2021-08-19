@@ -33,19 +33,20 @@ public class RegistryHandler {
     public static final RegistryObject<EnchantmentFuelEfficiency> FUEL_EFFICIENCY = ENCHANTMENTS.register("fuel_efficiency", EnchantmentFuelEfficiency::new);
 
     // Simply Jetpacks:
-    public static final RegistryObject<Item> PILOT_GOGGLES = ITEMS.register("pilot_goggles", PilotGogglesItem::new);
+    public static final RegistryObject<Item> PILOT_GOGGLES_GOLD = ITEMS.register("pilot_goggles_gold", () -> new PilotGogglesItem("gold"));
+    public static final RegistryObject<Item> PILOT_GOGGLES_SILVER = ITEMS.register("pilot_goggles_silver", () -> new PilotGogglesItem("silver"));
     public static final RegistryObject<Item> LEATHER_STRAP = ITEMS.register("leather_strap", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
     public static final RegistryObject<Item> JETPACK_POTATO = ITEMS.register("jetpack_potato", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
     public static final RegistryObject<Item> PARTICLE_NONE = ITEMS.register("particle_none", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
     public static final RegistryObject<Item> PARTICLE_DEFAULT = ITEMS.register("particle_default", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
     public static final RegistryObject<Item> PARTICLE_SMOKE = ITEMS.register("particle_smoke", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
     public static final RegistryObject<Item> PARTICLE_RAINBOW = ITEMS.register("particle_rainbow", () ->
-            new Item(new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks)));
+            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
     
     public static final RegistryObject<JetpackItem> JETPACK_CREATIVE = ITEMS.register("jetpack_creative", () ->
             new JetpackItem(JetpackType.CREATIVE));

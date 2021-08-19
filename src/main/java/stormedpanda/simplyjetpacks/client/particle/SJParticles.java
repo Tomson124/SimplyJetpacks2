@@ -24,7 +24,7 @@ public class SJParticles {
 
     @SubscribeEvent
     public static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
-        ParticleManager manager = Minecraft.getInstance().particles;
-        manager.registerFactory(SJParticles.RAINBOW, ParticleRainbow.Factory::new);
+        ParticleManager manager = Minecraft.getInstance().particleEngine;
+        manager.register(SJParticles.RAINBOW, ParticleRainbow.Factory::new);
     }
 }

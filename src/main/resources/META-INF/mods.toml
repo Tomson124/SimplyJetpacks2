@@ -14,22 +14,27 @@ credits="cybercat5555"
 authors="StormedPanda, Tomson124"
 description='''
 Simply Jetpacks 2
-
 Jetpacks and Fluxpacks powered by Forge Energy!
-
 Previous Author: tonius11
 '''
 
 [[dependencies.simplyjetpacks]]
-    modId="forge"
-    mandatory=true
-    versionRange="[36,)"
-    ordering="NONE"
-    side="BOTH"
+modId="forge"
+mandatory=true
+versionRange="[36,)"
+ordering="NONE"
+side="BOTH"
 
 [[dependencies.simplyjetpacks]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.16.5,1.17)"
-    ordering="NONE"
-    side="BOTH"
+modId="minecraft"
+mandatory=true
+versionRange="[1.16.5,1.17)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.simplyjetpacks]]
+modId="curios"
+mandatory=false
+versionRange="[1.16.5-4.0.5.2,)"
+ordering="AFTER"
+side="BOTH"

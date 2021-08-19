@@ -1,13 +1,12 @@
 package stormedpanda.simplyjetpacks.network.packets;
 
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 import stormedpanda.simplyjetpacks.items.JetpackItem;
+import stormedpanda.simplyjetpacks.util.JetpackUtil;
 
 import java.util.function.Supplier;
 
@@ -26,11 +25,11 @@ public class PacketToggleEngine {
         ctx.get().enqueueWork(() -> {
             ServerPlayerEntity player = ctx.get().getSender();
             if (player != null) {
-                ItemStack stack = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+                ItemStack stack = JetpackUtil.getFromBothSlots(player);
                 Item item = stack.getItem();
                 if (item instanceof JetpackItem) {
                     JetpackItem jetpack = (JetpackItem) item;
-                    jetpack.toggleEngine(stack, (PlayerEntity) player);
+                    jetpack.toggleEngine(stack, player);
                 }
             }
         });

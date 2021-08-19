@@ -8,7 +8,7 @@ import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 
 import javax.annotation.Nonnull;
 
-public class CreativeTabSimplyJetpacks extends ItemGroup {
+public class CreativeTabSimplyJetpacks extends ItemGroup{
 
     public CreativeTabSimplyJetpacks() {
         super(SimplyJetpacks.MODID + ".main");
@@ -17,7 +17,7 @@ public class CreativeTabSimplyJetpacks extends ItemGroup {
     @Nonnull
     @OnlyIn(Dist.CLIENT)
     @Override
-    public ItemStack createIcon() {
+    public ItemStack makeIcon() {
         return new ItemStack(RegistryHandler.JETPACK_CREATIVE.get());
     }
 }

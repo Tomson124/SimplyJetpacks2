@@ -16,20 +16,21 @@ public class PlatingReturnHandler {
     public void onItemCrafted(PlayerEvent.ItemCraftedEvent event) {
         Item craftedItem = event.getCrafting().getItem();
         if (craftedItem instanceof JetpackItem) {
-            for (int i = 0; i < event.getInventory().getSizeInventory(); i++) {
-                ItemStack input = event.getInventory().getStackInSlot(i);
+            for (int i = 0; i < event.getInventory().getContainerSize(); i++) {
+                ItemStack input = event.getInventory().getItem(i);
                 if (!(input.getItem() instanceof JetpackItem)) { continue; }
                 if (input.getItem() instanceof JetpackItem) {
                     JetpackType inputJetpack = ((JetpackItem) input.getItem()).getType();
                     if (inputJetpack.getIsArmored()) {
                         Item itemToReturn = getPlating(inputJetpack.getPlatingID());
-                        ItemEntity item = event.getPlayer().entityDropItem(new ItemStack(itemToReturn, 1), 0.0F);
-                        if (item != null) {
-                            item.setNoPickupDelay();
+                        if (itemToReturn != null) {
+                            ItemEntity item = event.getPlayer().drop(new ItemStack(itemToReturn, 1), false);
+                            if (item != null) {
+                                item.setNoPickUpDelay();
+                            }
                         }
-                        //item.setNoPickupDelay();
-                        break;
                     }
+                    break;
                 }
             }
         }
@@ -52,7 +53,6 @@ public class PlatingReturnHandler {
         if (id == 12) { return RegistryHandler.ARMORPLATING_TE2.get(); }
         if (id == 13) { return RegistryHandler.ARMORPLATING_TE3.get(); }
         if (id == 14) { return RegistryHandler.ARMORPLATING_TE4.get(); }
-
-        return Items.DIAMOND.getItem();
+        return null;
     }
 }

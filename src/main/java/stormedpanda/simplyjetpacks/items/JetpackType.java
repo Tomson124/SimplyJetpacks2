@@ -116,9 +116,9 @@ public enum JetpackType {
     JetpackType(String name, int tier, String defaultConfigKey) {
         this.name = name;
         this.tier = tier;
-        this.armorTexture = new ResourceLocation(("simplyjetpacks:textures/models/armor/" + name + ".png"));
+        this.armorTexture = new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/" + name + ".png");
         this.isArmored = false;
-        this.properties = new Item.Properties().group(SimplyJetpacks.tabSimplyJetpacks).maxStackSize(1);
+        this.properties = new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks).stacksTo(1);
         this.defaults = JetpackConfigDefaults.get(defaultConfigKey);
         this.particleType = JetpackParticleType.DEFAULT;
     }
@@ -191,6 +191,7 @@ public enum JetpackType {
     public boolean canEHover() {
         return emergencyHoverMode;
     }
+
     public boolean canCharge() {
         return chargerMode;
     }

@@ -7,7 +7,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyboardUtil {
-    private static final long MINECRAFT_WINDOW = Minecraft.getInstance().getMainWindow().getHandle();
+    private static final long MINECRAFT_WINDOW = Minecraft.getInstance().getWindow().getWindow();
 
     @OnlyIn(Dist.CLIENT)
     public static boolean isHoldingShift() {
