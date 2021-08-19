@@ -8,6 +8,7 @@
   "item.simplyjetpacks.leather_strap": "Leather Strap",
   "item.simplyjetpacks.pilot_goggles_gold": "Pilot Goggles (Gold)",
   "item.simplyjetpacks.pilot_goggles_silver": "Pilot Goggles (Silver)",
+  "item.simplyjetpacks.mysterious_potato": "Mysterious Potato",
   "item.simplyjetpacks.jetpack_potato": "Potato Jetpack",
   "item.simplyjetpacks.jetpack_creative": "Creative Jetpack",
   "item.simplyjetpacks.jetpack_creative_armored": "Creative Jetpack (Armored)",
@@ -176,6 +177,9 @@
   "tooltip.simplyjetpacks.jetpack_gui.hover": "Toggle Hover",
   "tooltip.simplyjetpacks.jetpack_gui.emergencyHover": "Toggle Emergency Hover",
   "tooltip.simplyjetpacks.jetpack_gui.charger": "Toggle Charger",
+  "tooltip.simplyjetpacks.pilot_goggles": "Fly with style!",
+  "tooltip.simplyjetpacks.jetpack_potato": "A Jetpack made from potatoes.",
+  "tooltip.simplyjetpacks.mysterious_potato": "A Mysterious Potato...",
 
   "hud.simplyjetpacks.energyDisplay": "Energy: %s",
   "hud.simplyjetpacks.energyDisplayExtra": "Energy: %s (%s)",
@@ -255,6 +259,10 @@
 
   "guidebook.simplyjetpacks.name": "Simply Jetpacks 2",
   "guidebook.simplyjetpacks.landing_text": "Welcome to the Simply Jetpacks 2 Patchouli Manual.",
-  "guidebook.simplyjetpacks.subtitle": "The Complete Guide"
+  "guidebook.simplyjetpacks.subtitle": "The Complete Guide",
 
+  "curios.identifier.jetpack": "Jetpack",
+
+  "death.attack.jetpack_potato": "%s attempted to fly a potato",
+  "death.attack.jetpack_explode": "%s spontaneously detonated"
 }

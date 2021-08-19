@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "simplyjetpacks:jetpack_potato",
     "simplyjetpacks:jetpack_creative",
     "simplyjetpacks:jetpack_creative_armored",
     "simplyjetpacks:jetpack_vanilla1",

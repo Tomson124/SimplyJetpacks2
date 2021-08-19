@@ -17,6 +17,7 @@ import stormedpanda.simplyjetpacks.enchantment.EnchantmentFuelEfficiency;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
 import stormedpanda.simplyjetpacks.item.JetpackType;
 import stormedpanda.simplyjetpacks.item.PilotGogglesItem;
+import stormedpanda.simplyjetpacks.item.PotatoJetpackItem;
 
 public class RegistryHandler {
 
@@ -48,8 +49,6 @@ public class RegistryHandler {
     public static final RegistryObject<Item> PILOT_GOGGLES_SILVER = ITEMS.register("pilot_goggles_silver", () -> new PilotGogglesItem("silver"));
     public static final RegistryObject<Item> LEATHER_STRAP = ITEMS.register("leather_strap", () ->
             new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> JETPACK_POTATO = ITEMS.register("jetpack_potato", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
     public static final RegistryObject<Item> PARTICLE_NONE = ITEMS.register("particle_none", () ->
             new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
     public static final RegistryObject<Item> PARTICLE_DEFAULT = ITEMS.register("particle_default", () ->
@@ -59,6 +58,7 @@ public class RegistryHandler {
     public static final RegistryObject<Item> PARTICLE_RAINBOW = ITEMS.register("particle_rainbow", () ->
             new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
     
+    public static final RegistryObject<PotatoJetpackItem> JETPACK_POTATO = ITEMS.register("jetpack_potato", PotatoJetpackItem::new);
     public static final RegistryObject<JetpackItem> JETPACK_CREATIVE = ITEMS.register("jetpack_creative", () -> new JetpackItem(JetpackType.CREATIVE));
     public static final RegistryObject<JetpackItem> JETPACK_CREATIVE_ARMORED = ITEMS.register("jetpack_creative_armored", () -> new JetpackItem(JetpackType.CREATIVE_ARMORED));
 

@@ -91,6 +91,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public boolean isEngineOn(ItemStack stack) {
         return NBTUtil.getBoolean(stack, Constants.TAG_ENGINE);
     }
+
     public void toggleEngine(ItemStack stack, PlayerEntity player) {
         boolean current = NBTUtil.getBoolean(stack, Constants.TAG_ENGINE);
         NBTUtil.flipBoolean(stack, Constants.TAG_ENGINE);
@@ -101,6 +102,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public boolean isHoverOn(ItemStack stack) {
         return NBTUtil.getBoolean(stack, Constants.TAG_HOVER);
     }
+
     public void toggleHover(ItemStack stack, PlayerEntity player) {
         boolean current = NBTUtil.getBoolean(stack, Constants.TAG_HOVER);
         NBTUtil.flipBoolean(stack, Constants.TAG_HOVER);
@@ -111,6 +113,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public boolean isEHoverOn(ItemStack stack) {
         return NBTUtil.getBoolean(stack, Constants.TAG_E_HOVER);
     }
+
     public void toggleEHover(ItemStack stack, PlayerEntity player) {
         if (jetpackType.getEmergencyHoverMode()) {
             boolean current = NBTUtil.getBoolean(stack, Constants.TAG_E_HOVER);
@@ -119,6 +122,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
             player.displayClientMessage(msg, true);
         }
     }
+
     private void doEHover(ItemStack stack, PlayerEntity player) {
         NBTUtil.setBoolean(stack, Constants.TAG_ENGINE, true);
         NBTUtil.setBoolean(stack, Constants.TAG_HOVER, true);
@@ -129,6 +133,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public boolean isChargerOn(ItemStack stack) {
         return NBTUtil.getBoolean(stack, Constants.TAG_CHARGER);
     }
+
     public void toggleCharger(ItemStack stack, PlayerEntity player) {
         if (jetpackType.getChargerMode()) {
             boolean current = NBTUtil.getBoolean(stack, Constants.TAG_CHARGER);

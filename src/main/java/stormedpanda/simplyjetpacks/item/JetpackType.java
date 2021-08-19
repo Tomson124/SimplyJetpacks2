@@ -208,17 +208,14 @@ public enum JetpackType {
     }
 
     public static void loadAllConfigs() {
-        SimplyJetpacks.LOGGER.debug("SJ: loading configs to the jetpack type");
-        if (true) {
-            for (JetpackType jetpackType : JETPACK_ALL) {
-                jetpackType.loadConfig();
-            }
+        for (JetpackType jetpackType : JETPACK_ALL) {
+            jetpackType.loadConfig();
         }
     }
 
     public static int getDefaultParticles(ItemStack stack) {
         JetpackItem item = (JetpackItem) stack.getItem();
-        if (item.isCreative()) {
+        if (item.isCreative() || item.getJetpackType().getName().equals("potato")) {
             return JetpackParticleType.RAINBOW.ordinal();
         }
         return JetpackParticleType.DEFAULT.ordinal();
