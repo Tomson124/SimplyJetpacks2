@@ -2,12 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " r ",
-    " c ",
+    " p ",
     "g b"
   ],
   "key": {
+    "p": { "item": "simplyjetpacks:particle_blend" },
     "r": { "tag": "forge:dyes/red" },
-    "c": { "tag": "minecraft:coals" },
     "g": { "tag": "forge:dyes/green" },
     "b": { "tag": "forge:dyes/blue" }
   },

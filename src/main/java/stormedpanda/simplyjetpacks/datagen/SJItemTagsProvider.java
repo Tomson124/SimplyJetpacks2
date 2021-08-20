@@ -22,7 +22,8 @@ public class SJItemTagsProvider extends ItemTagsProvider {
                 .add(RegistryHandler.PARTICLE_DEFAULT.get())
                 .add(RegistryHandler.PARTICLE_NONE.get())
                 .add(RegistryHandler.PARTICLE_SMOKE.get())
-                .add(RegistryHandler.PARTICLE_RAINBOW.get());
+                .add(RegistryHandler.PARTICLE_RAINBOW.get())
+        ;
 
         tag(SJTags.JETPACK)
                 .add(RegistryHandler.JETPACK_POTATO.get())
@@ -72,7 +73,7 @@ public class SJItemTagsProvider extends ItemTagsProvider {
                 .add(RegistryHandler.PILOT_GOGGLES_SILVER.get())
         ;
         tag(SJTags.CURIOS_JETPACK)
-                .add(RegistryHandler.JETPACK_POTATO.get())
+                //.add(RegistryHandler.JETPACK_POTATO.get())
                 .add(RegistryHandler.JETPACK_CREATIVE.get())
                 .add(RegistryHandler.JETPACK_CREATIVE_ARMORED.get())
 

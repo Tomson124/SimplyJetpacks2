@@ -2,10 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " c ",
-    "ccc",
+    "cpc",
     " c "
   ],
   "key": {
+    "p": { "item": "simplyjetpacks:particle_blend" },
     "c": { "tag": "minecraft:coals" }
   },
   "result": {

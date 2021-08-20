@@ -1,6 +1,7 @@
 {
   "itemGroup.simplyjetpacks.main": "Simply Jetpacks 2",
 
+  "item.simplyjetpacks.particle_blend": "Particle Blend",
   "item.simplyjetpacks.particle_none": "Particle Customizer (None)",
   "item.simplyjetpacks.particle_default": "Particle Customizer (Default)",
   "item.simplyjetpacks.particle_smoke": "Particle Customizer (Smoke)",
@@ -181,6 +182,7 @@
   "tooltip.simplyjetpacks.jetpack_potato": "A Jetpack made from potatoes.",
   "tooltip.simplyjetpacks.jetpack_potato.warning": "WARNING: Highly Unstable!",
   "tooltip.simplyjetpacks.mysterious_potato": "A Mysterious Potato...",
+  "tooltip.simplyjetpacks.particle_blend": "Used to craft Particle Customizers",
 
   "hud.simplyjetpacks.energyDisplay": "Energy: %s",
   "hud.simplyjetpacks.energyDisplayExtra": "Energy: %s (%s)",

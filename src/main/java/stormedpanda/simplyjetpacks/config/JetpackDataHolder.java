@@ -61,7 +61,8 @@ public class JetpackDataHolder {
         JetpackDataHolder d = new JetpackDataHolder("potato", "simplyjetpacks");
         d.energyCapacity = 1200;
         d.energyUsage = 45;
-        d.energyPerTickIn = 400;
+        d.energyPerTickOut = 45;
+        d.energyPerTickIn = 45;
         d.armorReduction = 0;
         d.armorEnergyPerHit = 0;
         d.enchantability = 0;
@@ -76,9 +77,9 @@ public class JetpackDataHolder {
         d.chargerMode = false;
 
         d = new JetpackDataHolder("creative", "simplyjetpacks");
-        d.energyCapacity = 12;
-        d.energyUsage = 11;
-        d.energyPerTickOut = 0;
+        d.energyCapacity = 0;
+        d.energyUsage = 1000;
+        d.energyPerTickOut = 1000;
         d.energyPerTickIn = 0;
         d.armorReduction = 12;
         d.enchantability = 20;

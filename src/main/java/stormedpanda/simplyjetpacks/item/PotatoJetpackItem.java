@@ -30,7 +30,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
-// TODO: re-implement Potato Jetpack.
 public class PotatoJetpackItem extends JetpackItem {
 
     private static final String TAG_FIRED = "JetpackPotatoFired";
@@ -38,7 +37,7 @@ public class PotatoJetpackItem extends JetpackItem {
     private static final String TAG_ROCKET_TIMER_SET = "JetpackPotatoRocketTimerSet";
     
     public PotatoJetpackItem() {
-        super(JetpackType.POTATO);
+        super(JetpackType.POTATO, JetpackArmorMaterial.POTATO);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -69,7 +68,12 @@ public class PotatoJetpackItem extends JetpackItem {
 
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-        this.flyUser(player, stack, this, true);
+        if (!player.isSpectator() && stack == JetpackUtil.getFromBothSlots(player)) {
+            this.flyUser(player, stack, this, true);
+            if (getJetpackType().getChargerMode() && this.isChargerOn(stack)) {
+                super.chargeInventory(player, stack);
+            }
+        }
     }
 
     @Override

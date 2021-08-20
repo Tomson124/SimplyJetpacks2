@@ -49,6 +49,12 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         this.tier = jetpackType.getTier();
     }
 
+    public JetpackItem(JetpackType jetpackType, JetpackArmorMaterial material) {
+        super(material, EquipmentSlotType.CHEST, new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks));
+        this.jetpackType = jetpackType;
+        this.tier = jetpackType.getTier();
+    }
+
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (!player.isSpectator() && stack == JetpackUtil.getFromBothSlots(player)) {
@@ -262,7 +268,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         return level != 0 ? (int) Math.round(baseUsage * (5 - level) / 5.0D) : baseUsage;
     }
 
-    private void chargeInventory(PlayerEntity player, ItemStack stack) {
+    public void chargeInventory(PlayerEntity player, ItemStack stack) {
         if (!player.getCommandSenderWorld().isClientSide) {
             if (getEnergy(stack) > 0 || isCreative()) {
                 for (int i = 0; i < player.inventory.getContainerSize(); i++) {

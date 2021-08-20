@@ -18,6 +18,7 @@ public class SJItemModelProvider extends ItemModelProvider {
         ModelFile itemGenerated = getExistingFile(mcLoc("item/generated"));
 
         // Simply Jetpacks:
+        builder(itemGenerated, "particle_blend");
         builder(itemGenerated, "particle_none");
         builder(itemGenerated, "particle_default");
         builder(itemGenerated, "particle_smoke");
@@ -106,6 +107,9 @@ public class SJItemModelProvider extends ItemModelProvider {
         builder(itemGenerated, "unit_cryotheum");
         builder(itemGenerated, "unit_glowstone_empty");
         builder(itemGenerated, "unit_glowstone");
+
+        // Patchouli:
+        builder(itemGenerated, "guidebook");
     }
 
     private ItemModelBuilder builder(ModelFile itemGenerated, String name) {

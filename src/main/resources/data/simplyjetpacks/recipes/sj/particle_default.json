@@ -2,12 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " t ",
-    "tct",
+    "tpt",
     " t "
   ],
   "key": {
-    "t": { "item": "minecraft:torch" },
-    "c": { "tag": "minecraft:coals" }
+    "p": { "item": "simplyjetpacks:particle_blend" },
+    "t": { "item": "minecraft:torch" }
   },
   "result": {
     "item": "simplyjetpacks:particle_default",

@@ -2,14 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " g ",
-    "gcg",
+    "gpg",
     " g "
   ],
   "key": {
-    "g": {
-      "tag": "forge:glass"
-    },
-    "c": { "tag": "minecraft:coals" }
+    "p": { "item": "simplyjetpacks:particle_blend" },
+    "g": {"tag": "forge:glass"}
   },
   "result": {
     "item": "simplyjetpacks:particle_none",
