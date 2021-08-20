@@ -4,6 +4,9 @@
     "simplyjetpacks:particle_default",
     "simplyjetpacks:particle_none",
     "simplyjetpacks:particle_smoke",
-    "simplyjetpacks:particle_rainbow"
+    "simplyjetpacks:particle_rainbow",
+    "simplyjetpacks:particle_warped",
+    "simplyjetpacks:particle_crimson",
+    "simplyjetpacks:particle_portal"
   ]
 }

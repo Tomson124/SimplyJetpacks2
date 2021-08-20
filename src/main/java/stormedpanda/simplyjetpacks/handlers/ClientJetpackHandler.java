@@ -12,6 +12,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
+import stormedpanda.simplyjetpacks.item.PotatoJetpackItem;
 import stormedpanda.simplyjetpacks.particle.JetpackParticleType;
 import stormedpanda.simplyjetpacks.sound.JetpackSound;
 import stormedpanda.simplyjetpacks.util.JetpackUtil;
@@ -30,7 +31,8 @@ public class ClientJetpackHandler {
                 if (!minecraft.isPaused() && !minecraft.player.isSpectator()) {
                     ItemStack chest = JetpackUtil.getFromBothSlots(minecraft.player);
                     Item item = chest.getItem();
-                    if (!chest.isEmpty() && item instanceof JetpackItem && isFlying(minecraft.player)) {
+                    if ((!chest.isEmpty() && item instanceof JetpackItem && isFlying(minecraft.player)) ||
+                            (item instanceof PotatoJetpackItem && ((PotatoJetpackItem)item).isFired(chest))) {
                         // Show particles:
                         if (SimplyJetpacksConfig.enableJetpackParticles.get() && (minecraft.options.particles != ParticleStatus.MINIMAL)) {
                             JetpackParticleType particleType;

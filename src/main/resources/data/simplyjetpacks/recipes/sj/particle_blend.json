@@ -1,16 +1,21 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " c ",
-    "cgc",
-    " c "
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:coal"
+    },
+    {
+      "item": "minecraft:coal"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:bone_meal"
+    }
   ],
-  "key": {
-    "c": { "tag": "minecraft:coals" },
-    "g": { "item": "minecraft:gunpowder" }
-  },
   "result": {
     "item": "simplyjetpacks:particle_blend",
-    "count": 1
+    "count": 2
   }
 }

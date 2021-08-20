@@ -23,6 +23,9 @@ public class SJItemTagsProvider extends ItemTagsProvider {
                 .add(RegistryHandler.PARTICLE_NONE.get())
                 .add(RegistryHandler.PARTICLE_SMOKE.get())
                 .add(RegistryHandler.PARTICLE_RAINBOW.get())
+                .add(RegistryHandler.PARTICLE_WARPED.get())
+                .add(RegistryHandler.PARTICLE_CRIMSON.get())
+                .add(RegistryHandler.PARTICLE_PORTAL.get())
         ;
 
         tag(SJTags.JETPACK)

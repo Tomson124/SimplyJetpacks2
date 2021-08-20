@@ -14,10 +14,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.crafting.JetpackSpecialRecipe;
 import stormedpanda.simplyjetpacks.enchantment.EnchantmentFuelEfficiency;
-import stormedpanda.simplyjetpacks.item.JetpackItem;
-import stormedpanda.simplyjetpacks.item.JetpackType;
-import stormedpanda.simplyjetpacks.item.PilotGogglesItem;
-import stormedpanda.simplyjetpacks.item.PotatoJetpackItem;
+import stormedpanda.simplyjetpacks.item.*;
 
 public class RegistryHandler {
 
@@ -45,20 +42,17 @@ public class RegistryHandler {
     public static final RegistryObject<EnchantmentFuelEfficiency> FUEL_EFFICIENCY = ENCHANTMENTS.register("fuel_efficiency", EnchantmentFuelEfficiency::new);
 
     // Items:
-    public static final RegistryObject<Item> PILOT_GOGGLES_GOLD = ITEMS.register("pilot_goggles_gold", () -> new PilotGogglesItem("gold"));
-    public static final RegistryObject<Item> PILOT_GOGGLES_SILVER = ITEMS.register("pilot_goggles_silver", () -> new PilotGogglesItem("silver"));
-    public static final RegistryObject<Item> LEATHER_STRAP = ITEMS.register("leather_strap", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> PARTICLE_BLEND = ITEMS.register("particle_blend", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> PARTICLE_NONE = ITEMS.register("particle_none", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> PARTICLE_DEFAULT = ITEMS.register("particle_default", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> PARTICLE_SMOKE = ITEMS.register("particle_smoke", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> PARTICLE_RAINBOW = ITEMS.register("particle_rainbow", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<PilotGogglesItem> PILOT_GOGGLES_GOLD = ITEMS.register("pilot_goggles_gold", () -> new PilotGogglesItem("gold"));
+    public static final RegistryObject<PilotGogglesItem> PILOT_GOGGLES_SILVER = ITEMS.register("pilot_goggles_silver", () -> new PilotGogglesItem("silver"));
+    public static final RegistryObject<SJItem> LEATHER_STRAP = ITEMS.register("leather_strap", SJItem::new);
+    public static final RegistryObject<SJItem> PARTICLE_BLEND = ITEMS.register("particle_blend", SJItem::new);
+    public static final RegistryObject<SJItem> PARTICLE_NONE = ITEMS.register("particle_none", SJItem::new);
+    public static final RegistryObject<SJItem> PARTICLE_DEFAULT = ITEMS.register("particle_default", SJItem::new);
+    public static final RegistryObject<SJItem> PARTICLE_SMOKE = ITEMS.register("particle_smoke", SJItem::new);
+    public static final RegistryObject<SJItem> PARTICLE_RAINBOW = ITEMS.register("particle_rainbow", SJItem::new);
+    public static final RegistryObject<SJItem> PARTICLE_WARPED = ITEMS.register("particle_warped", SJItem::new);
+    public static final RegistryObject<SJItem> PARTICLE_CRIMSON = ITEMS.register("particle_crimson", SJItem::new);
+    public static final RegistryObject<SJItem> PARTICLE_PORTAL = ITEMS.register("particle_portal", SJItem::new);
     
     public static final RegistryObject<PotatoJetpackItem> JETPACK_POTATO = ITEMS.register("jetpack_potato", PotatoJetpackItem::new);
     public static final RegistryObject<JetpackItem> JETPACK_CREATIVE = ITEMS.register("jetpack_creative", () -> new JetpackItem(JetpackType.CREATIVE));
@@ -100,74 +94,43 @@ public class RegistryHandler {
     public static final RegistryObject<JetpackItem> JETPACK_IE3 = ITEMS.register("jetpack_ie3", () -> new JetpackItem(JetpackType.IE3));
     public static final RegistryObject<JetpackItem> JETPACK_IE3_ARMORED = ITEMS.register("jetpack_ie3_armored", () -> new JetpackItem(JetpackType.IE3_ARMORED));
 
-    public static final RegistryObject<Item> ARMORPLATING_MEK1 = ITEMS.register("armorplating_mek1", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> ARMORPLATING_MEK2 = ITEMS.register("armorplating_mek2", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> ARMORPLATING_MEK3 = ITEMS.register("armorplating_mek3", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> ARMORPLATING_MEK4 = ITEMS.register("armorplating_mek4", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<SJItem> ARMORPLATING_MEK1 = ITEMS.register("armorplating_mek1", SJItem::new);
+    public static final RegistryObject<SJItem> ARMORPLATING_MEK2 = ITEMS.register("armorplating_mek2", SJItem::new);
+    public static final RegistryObject<SJItem> ARMORPLATING_MEK3 = ITEMS.register("armorplating_mek3", SJItem::new);
+    public static final RegistryObject<SJItem> ARMORPLATING_MEK4 = ITEMS.register("armorplating_mek4", SJItem::new);
 
-    public static final RegistryObject<Item> ARMORPLATING_TE1 = ITEMS.register("armorplating_te1", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> ARMORPLATING_TE2 = ITEMS.register("armorplating_te2", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> ARMORPLATING_TE3 = ITEMS.register("armorplating_te3", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> ARMORPLATING_TE4 = ITEMS.register("armorplating_te4", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<SJItem> ARMORPLATING_TE1 = ITEMS.register("armorplating_te1", SJItem::new);
+    public static final RegistryObject<SJItem> ARMORPLATING_TE2 = ITEMS.register("armorplating_te2", SJItem::new);
+    public static final RegistryObject<SJItem> ARMORPLATING_TE3 = ITEMS.register("armorplating_te3", SJItem::new);
+    public static final RegistryObject<SJItem> ARMORPLATING_TE4 = ITEMS.register("armorplating_te4", SJItem::new);
 
-    public static final RegistryObject<Item> ARMORPLATING_IE1 = ITEMS.register("armorplating_ie1", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> ARMORPLATING_IE2 = ITEMS.register("armorplating_ie2", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> ARMORPLATING_IE3 = ITEMS.register("armorplating_ie3", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<SJItem> ARMORPLATING_IE1 = ITEMS.register("armorplating_ie1", SJItem::new);
+    public static final RegistryObject<SJItem> ARMORPLATING_IE2 = ITEMS.register("armorplating_ie2", SJItem::new);
+    public static final RegistryObject<SJItem> ARMORPLATING_IE3 = ITEMS.register("armorplating_ie3", SJItem::new);
 
-    public static final RegistryObject<Item> THRUSTER_VANILLA1 = ITEMS.register("thruster_vanilla1", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> THRUSTER_VANILLA2 = ITEMS.register("thruster_vanilla2", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> THRUSTER_VANILLA3 = ITEMS.register("thruster_vanilla3", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> THRUSTER_VANILLA4 = ITEMS.register("thruster_vanilla4", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<SJItem> THRUSTER_VANILLA1 = ITEMS.register("thruster_vanilla1", SJItem::new);
+    public static final RegistryObject<SJItem> THRUSTER_VANILLA2 = ITEMS.register("thruster_vanilla2", SJItem::new);
+    public static final RegistryObject<SJItem> THRUSTER_VANILLA3 = ITEMS.register("thruster_vanilla3", SJItem::new);
+    public static final RegistryObject<SJItem> THRUSTER_VANILLA4 = ITEMS.register("thruster_vanilla4", SJItem::new);
     
-    public static final RegistryObject<Item> THRUSTER_MEK1 = ITEMS.register("thruster_mek1", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> THRUSTER_MEK2 = ITEMS.register("thruster_mek2", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> THRUSTER_MEK3 = ITEMS.register("thruster_mek3", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> THRUSTER_MEK4 = ITEMS.register("thruster_mek4", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<SJItem> THRUSTER_MEK1 = ITEMS.register("thruster_mek1", SJItem::new);
+    public static final RegistryObject<SJItem> THRUSTER_MEK2 = ITEMS.register("thruster_mek2", SJItem::new);
+    public static final RegistryObject<SJItem> THRUSTER_MEK3 = ITEMS.register("thruster_mek3", SJItem::new);
+    public static final RegistryObject<SJItem> THRUSTER_MEK4 = ITEMS.register("thruster_mek4", SJItem::new);
 
-    public static final RegistryObject<Item> THRUSTER_TE1 = ITEMS.register("thruster_te1", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> THRUSTER_TE2 = ITEMS.register("thruster_te2", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> THRUSTER_TE3 = ITEMS.register("thruster_te3", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> THRUSTER_TE4 = ITEMS.register("thruster_te4", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> THRUSTER_TE5 = ITEMS.register("thruster_te5", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<SJItem> THRUSTER_TE1 = ITEMS.register("thruster_te1", SJItem::new);
+    public static final RegistryObject<SJItem> THRUSTER_TE2 = ITEMS.register("thruster_te2", SJItem::new);
+    public static final RegistryObject<SJItem> THRUSTER_TE3 = ITEMS.register("thruster_te3", SJItem::new);
+    public static final RegistryObject<SJItem> THRUSTER_TE4 = ITEMS.register("thruster_te4", SJItem::new);
+    public static final RegistryObject<SJItem> THRUSTER_TE5 = ITEMS.register("thruster_te5", SJItem::new);
 
-    public static final RegistryObject<Item> THRUSTER_IE1 = ITEMS.register("thruster_ie1", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> THRUSTER_IE2 = ITEMS.register("thruster_ie2", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> THRUSTER_IE3 = ITEMS.register("thruster_ie3", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-
-    public static final RegistryObject<Item> UNIT_CRYOTHEUM_EMPTY = ITEMS.register("unit_cryotheum_empty", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> UNIT_CRYOTHEUM = ITEMS.register("unit_cryotheum", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-
-    public static final RegistryObject<Item> UNIT_GLOWSTONE_EMPTY = ITEMS.register("unit_glowstone_empty", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
-    public static final RegistryObject<Item> UNIT_GLOWSTONE = ITEMS.register("unit_glowstone", () ->
-            new Item(new Item.Properties().tab(SimplyJetpacks.tabSimplyJetpacks)));
+    public static final RegistryObject<SJItem> THRUSTER_IE1 = ITEMS.register("thruster_ie1", SJItem::new);
+    public static final RegistryObject<SJItem> THRUSTER_IE2 = ITEMS.register("thruster_ie2", SJItem::new);
+    public static final RegistryObject<SJItem> THRUSTER_IE3 = ITEMS.register("thruster_ie3", SJItem::new);
+    
+    public static final RegistryObject<SJItem> UNIT_CRYOTHEUM_EMPTY = ITEMS.register("unit_cryotheum_empty", SJItem::new);
+    public static final RegistryObject<SJItem> UNIT_CRYOTHEUM = ITEMS.register("unit_cryotheum", SJItem::new);
+    
+    public static final RegistryObject<SJItem> UNIT_GLOWSTONE_EMPTY = ITEMS.register("unit_glowstone_empty", SJItem::new);
+    public static final RegistryObject<SJItem> UNIT_GLOWSTONE = ITEMS.register("unit_glowstone", SJItem::new);
 }

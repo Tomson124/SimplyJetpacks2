@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " g ",
-    "gpg",
-    " g "
+    " t ",
+    "tpt",
+    " t "
   ],
   "key": {
     "p": { "item": "simplyjetpacks:particle_blend" },
-    "g": { "tag": "forge:glass"}
+    "t": { "item": "minecraft:obsidian" }
   },
   "result": {
-    "item": "simplyjetpacks:particle_none",
+    "item": "simplyjetpacks:particle_portal",
     "count": 1
   }
 }

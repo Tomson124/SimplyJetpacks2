@@ -386,7 +386,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     @Override
     public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
-        //if (!canReceive()) return 0;
+        if (jetpackType.getEnergyPerTickIn() == 0) return 0;
         int energyStored = getEnergy(container);
         int energyReceived = Math.min(getCapacity(container) - energyStored, Math.min(getEnergyReceive(), maxReceive));
         if (!simulate) setEnergyStored(container, energyStored + energyReceived);
@@ -395,7 +395,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     @Override
     public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
-        //if (!canExtract()) return 0;
+        if (jetpackType.getEnergyPerTickOut() == 0) return 0;
         int energyStored = getEnergy(container);
         int energyExtracted = Math.min(energyStored, Math.min(getEnergyExtract(), maxExtract));
         if (!simulate) setEnergyStored(container, energyStored - energyExtracted);

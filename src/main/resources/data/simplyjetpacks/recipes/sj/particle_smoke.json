@@ -7,7 +7,7 @@
   ],
   "key": {
     "p": { "item": "simplyjetpacks:particle_blend" },
-    "c": { "tag": "minecraft:coals" }
+    "c": { "item": "minecraft:coal" }
   },
   "result": {
     "item": "simplyjetpacks:particle_smoke",
