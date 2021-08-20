@@ -2,14 +2,12 @@ package stormedpanda.simplyjetpacks.item;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -46,23 +44,11 @@ public class PotatoJetpackItem extends JetpackItem {
         }
     }
 
-    @Nullable
-    @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-        return new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/jetpack_potato.flat.png").toString();
-    }
-
     @OnlyIn(Dist.CLIENT)
     @Nullable
     @Override
     public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
         return null;
-    }
-
-    @Override
-    public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
-        SimplyJetpacks.LOGGER.info("RECEIVING ENERGY");
-        return super.receiveEnergy(container, maxReceive, simulate);
     }
 
     @Override
@@ -88,8 +74,9 @@ public class PotatoJetpackItem extends JetpackItem {
                         player.level.explode(player, player.getX(), player.getY(), player.getZ(), 4.0F, Explosion.Mode.NONE);
                     }
                     for (int i = 0; i <= random.nextInt(3) + 4; i++) {
+                        SimplyJetpacks.LOGGER.info("SJ2: CREATING FIREWORKS!");
+                        // TODO: create some fireworks.
                         //ItemStack firework = FireworksHelper.getRandomFireworks(0, 1, new Random().nextInt(6) + 1, 1);
-                        SimplyJetpacks.LOGGER.info("SJ2: CREATING FIREWORKS!!!");
                         //player.level.createFireworks(new ProjectileImpactEvent.FireworkRocket(player.level, player.getX() + new Random().nextDouble() * 6.0D - 3.0D, player.getY(), player.getZ() + new Random().nextDouble() * 6.0D - 3.0D, firework));
                     }
                     player.hurt(new EntityDamageSource(random.nextBoolean() ? "potato_jetpack" : "jetpack_explode", player), 100F);
@@ -139,9 +126,8 @@ public class PotatoJetpackItem extends JetpackItem {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void addHUDInfo(ItemStack stack, List<ITextComponent> list) {
-        //list.add(SJTextUtil.getEnergyText(stack));
         SJTextUtil.addHUDInfoText(stack, list);
-        // TODO: show "ERROR!" message.
+        //list.add(SJTextUtil.getEnergyText(stack));
         list.add(SJTextUtil.translate("misc", "error", TextFormatting.RED));
     }
 
