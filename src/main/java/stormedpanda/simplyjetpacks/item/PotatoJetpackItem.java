@@ -17,9 +17,11 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.energy.CapabilityEnergy;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.handlers.CommonJetpackHandler;
 import stormedpanda.simplyjetpacks.sound.SJSounds;
+import stormedpanda.simplyjetpacks.util.JetpackUtil;
 import stormedpanda.simplyjetpacks.util.KeyboardUtil;
 import stormedpanda.simplyjetpacks.util.NBTUtil;
 import stormedpanda.simplyjetpacks.util.SJTextUtil;
@@ -42,7 +44,9 @@ public class PotatoJetpackItem extends JetpackItem {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        if (CapabilityEnergy.ENERGY == null) return;
         tooltip.add(SJTextUtil.translate("tooltip", "jetpack_potato"));
+        SJTextUtil.addBaseInfo(stack, tooltip);
         if (KeyboardUtil.isHoldingShift()) {
             tooltip.add(SJTextUtil.translate("tooltip", "jetpack_potato.warning", TextFormatting.RED));
         } else {
@@ -53,7 +57,7 @@ public class PotatoJetpackItem extends JetpackItem {
     @Nullable
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-        return new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/jetpack_potato.flat").toString();
+        return new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/jetpack_potato.flat.png").toString();
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -74,7 +78,8 @@ public class PotatoJetpackItem extends JetpackItem {
             super.flyUser(player, stack, item, true);
             player.yHeadRot += 37.5F;
             if (item.getEnergy(stack) <= 0) {
-                player.inventory.setItem(player.inventory.findSlotMatchingItem(stack), ItemStack.EMPTY);
+                //player.inventory.setItem(player.inventory.findSlotMatchingItem(stack), ItemStack.EMPTY);
+                JetpackUtil.removeFromBothSlots(player);
                 if (!player.level.isClientSide()) {
                     player.level.explode(player, player.getX(), player.getY(), player.getZ(), 4.0F, Explosion.Mode.NONE);
                 }

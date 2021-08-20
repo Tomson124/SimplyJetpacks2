@@ -21,4 +21,13 @@ public class JetpackUtil {
     public static ItemStack getFromChest(PlayerEntity player) {
         return player.getItemBySlot(EquipmentSlotType.CHEST);
     }
+
+    public static void removeFromBothSlots(PlayerEntity player) {
+        if (ModList.get().isLoaded("curios")) {
+            ItemStack itemStack = CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof JetpackItem, player).map(ImmutableTriple::getRight).orElse(ItemStack.EMPTY);
+            CuriosApi.getCuriosHelper().getCurio(itemStack).ifPresent(p -> p.curioBreak(itemStack, player));
+        } else {
+            player.inventory.removeItem(getFromChest(player));
+        }
+    }
 }

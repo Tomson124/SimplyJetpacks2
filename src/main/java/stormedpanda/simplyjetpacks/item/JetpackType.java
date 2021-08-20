@@ -10,45 +10,45 @@ import java.util.EnumSet;
 
 public enum JetpackType {
 
-    POTATO("potato"),
-    CREATIVE("creative"),
-    CREATIVE_ARMORED("creative_armored", "creative", true),
+    POTATO("potato", 1),
+    CREATIVE("creative", 4),
+    CREATIVE_ARMORED("creative_armored", 4, "creative", true),
 
-    VANILLA1("vanilla1"),
-    VANILLA1_ARMORED("vanilla1_armored", "vanilla1", true, 0),
-    VANILLA2("vanilla2"),
-    VANILLA2_ARMORED("vanilla2_armored", "vanilla2", true, 1),
-    VANILLA3("vanilla3"),
-    VANILLA3_ARMORED("vanilla3_armored", "vanilla3", true, 2),
-    VANILLA4("vanilla4"),
-    VANILLA4_ARMORED("vanilla4_armored", "vanilla4", true, 3),
+    VANILLA1("vanilla1", 1),
+    VANILLA1_ARMORED("vanilla1_armored", 1, "vanilla1", true, 0),
+    VANILLA2("vanilla2", 1),
+    VANILLA2_ARMORED("vanilla2_armored", 1, "vanilla2", true, 1),
+    VANILLA3("vanilla3", 1),
+    VANILLA3_ARMORED("vanilla3_armored", 1, "vanilla3", true, 2),
+    VANILLA4("vanilla4", 2),
+    VANILLA4_ARMORED("vanilla4_armored", 2, "vanilla4", true, 3),
 
-    IE1("ie1"),
-    IE1_ARMORED("ie1_armored", "ie1", true, 4),
-    IE2("ie2"),
-    IE2_ARMORED("ie2_armored", "ie2", true, 5),
-    IE3("ie3"),
-    IE3_ARMORED("ie3_armored", "ie3", true, 6),
+    IE1("ie1", 1),
+    IE1_ARMORED("ie1_armored", 1, "ie1", true, 4),
+    IE2("ie2", 1),
+    IE2_ARMORED("ie2_armored", 1, "ie2", true, 5),
+    IE3("ie3", 1),
+    IE3_ARMORED("ie3_armored", 1, "ie3", true, 6),
 
-    MEK1("mek1"),
-    MEK1_ARMORED("mek1_armored", "mek1", true, 7),
-    MEK2("mek2"),
-    MEK2_ARMORED("mek2_armored", "mek2", true, 8),
-    MEK3("mek3"),
-    MEK3_ARMORED("mek3_armored", "mek3", true, 9),
-    MEK4("mek4"),
-    MEK4_ARMORED("mek4_armored", "mek4", true, 10),
+    MEK1("mek1", 1),
+    MEK1_ARMORED("mek1_armored", 1, "mek1", true, 7),
+    MEK2("mek2", 1),
+    MEK2_ARMORED("mek2_armored", 1, "mek2", true, 8),
+    MEK3("mek3", 1),
+    MEK3_ARMORED("mek3_armored", 1, "mek3", true, 9),
+    MEK4("mek4", 2),
+    MEK4_ARMORED("mek4_armored", 2, "mek4", true, 10),
 
-    TE1("te1"),
-    TE1_ARMORED("te1_armored", "te1", true, 11),
-    TE2("te2"),
-    TE2_ARMORED("te2_armored", "te2", true, 12),
-    TE3("te3"),
-    TE3_ARMORED("te3_armored", "te3", true, 13),
-    TE4("te4"),
-    TE4_ARMORED("te4_armored", "te4", true, 14),
-    TE5("te5", "te5", true),
-    TE5_ARMORED("te5_enderium", "te5", true),
+    TE1("te1", 1),
+    TE1_ARMORED("te1_armored", 1, "te1", true, 11),
+    TE2("te2", 1),
+    TE2_ARMORED("te2_armored", 1, "te2", true, 12),
+    TE3("te3", 1),
+    TE3_ARMORED("te3_armored", 1, "te3", true, 13),
+    TE4("te4", 2),
+    TE4_ARMORED("te4_armored", 2, "te4", true, 14),
+    TE5("te5", 3, "te5", true),
+    TE5_ARMORED("te5_enderium", 3, "te5", true),
     ;
 
     protected static final EnumSet<JetpackType> JETPACK_ALL = EnumSet.allOf(JetpackType.class);
@@ -78,31 +78,21 @@ public enum JetpackType {
     private boolean emergencyHoverMode;
     private boolean chargerMode;
 
-    JetpackType(String name, String configKey, boolean armored, int platingId) {
+    JetpackType(String name, int tier) {
+        this(name, tier, name, false, 0);
+    }
+
+    JetpackType(String name, int tier, String configKey, boolean armored) {
+        this(name, tier, configKey, armored, 0);
+    }
+
+    JetpackType(String name, int tier, String configKey, boolean armored, int platingId) {
         this.name = name;
+        this.tier = tier;
         this.configKey = configKey;
         this.armored = armored;
         this.platingId = platingId;
         this.armorTexture = new ResourceLocation(("simplyjetpacks:textures/models/armor/jetpack_" + name + ".png"));
-        this.tier = 0;
-    }
-
-    JetpackType(String name, String configKey, boolean armored) {
-        this.name = name;
-        this.configKey = configKey;
-        this.armored = armored;
-        this.platingId = 0;
-        this.armorTexture = new ResourceLocation(("simplyjetpacks:textures/models/armor/jetpack_" + name + ".png"));
-        this.tier = 0;
-    }
-
-    JetpackType(String name) {
-        this.name = name;
-        this.configKey = name;
-        this.armored = false;
-        this.platingId = 0;
-        this.armorTexture = new ResourceLocation(("simplyjetpacks:textures/models/armor/jetpack_" + name + ".png"));
-        this.tier = 0;
     }
 
     public String getName() {
