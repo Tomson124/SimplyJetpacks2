@@ -52,7 +52,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     @Override
     public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
         if (!player.isSpectator() && stack == JetpackUtil.getFromBothSlots(player)) {
-            flyUser(player, stack, this);
+            flyUser(player, stack, this, false);
             if (this.jetpackType.getChargerMode() && this.isChargerOn(stack)) {
                 chargeInventory(player, stack);
             }
@@ -288,11 +288,11 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         player.setDeltaMovement(motion.get(Direction.Axis.X), y, motion.get(Direction.Axis.Z));
     }
 
-    private void flyUser(PlayerEntity player, ItemStack stack, JetpackItem item) {
+    public void flyUser(PlayerEntity player, ItemStack stack, JetpackItem item, Boolean force) {
         if (isEngineOn(stack)) {
             boolean hoverMode = isHoverOn(stack);
             double hoverSpeed = SimplyJetpacksConfig.invertHoverSneakingBehavior.get() == CommonJetpackHandler.isHoldingDown(player) ? jetpackType.getSpeedVerticalHoverSlow() : jetpackType.getSpeedVerticalHover();
-            boolean flyKeyDown = CommonJetpackHandler.isHoldingUp(player);
+            boolean flyKeyDown = force || CommonJetpackHandler.isHoldingUp(player);
             boolean descendKeyDown = CommonJetpackHandler.isHoldingDown(player);
             double currentAccel = jetpackType.getAccelVertical() * (player.getDeltaMovement().get(Direction.Axis.Y) < 0.3D ? 2.5D : 1.0D);
             double currentSpeedVertical = jetpackType.getSpeedVertical() * (player.isInWater() ? 0.4D : 1.0D);

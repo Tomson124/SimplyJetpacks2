@@ -61,8 +61,19 @@ public class JetpackDataHolder {
         JetpackDataHolder d = new JetpackDataHolder("potato", "simplyjetpacks");
         d.energyCapacity = 1200;
         d.energyUsage = 45;
+        d.energyPerTickIn = 400;
+        d.armorReduction = 0;
+        d.armorEnergyPerHit = 0;
+        d.enchantability = 0;
         d.speedVertical = 0.9D;
         d.accelVertical = 0.5D;
+        d.speedVerticalHover = 0.18D;
+        d.speedVerticalHoverSlow = 0.14D;
+        d.speedSideways = 0.0D;
+        d.sprintSpeedModifier = 1.0D;
+        d.sprintEnergyModifier = 1.0D;
+        d.emergencyHoverMode = false;
+        d.chargerMode = false;
 
         d = new JetpackDataHolder("creative", "simplyjetpacks");
         d.energyCapacity = 12;

@@ -14,6 +14,7 @@ import java.util.Map;
 
 @OnlyIn(Dist.CLIENT)
 public class JetpackSound extends TickableSound {
+
     private static final Map<Integer, JetpackSound> PLAYING_FOR = Collections.synchronizedMap(new HashMap<>());
     private final PlayerEntity player;
     private int fadeOut = -1;

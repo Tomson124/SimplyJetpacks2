@@ -5,6 +5,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 
 public class NBTUtil {
+
     public static void setTag(ItemStack stack, String key, INBT value) {
         validateCompound(stack);
         stack.getTag().put(key, value);

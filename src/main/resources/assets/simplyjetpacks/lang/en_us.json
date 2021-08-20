@@ -179,6 +179,7 @@
   "tooltip.simplyjetpacks.jetpack_gui.charger": "Toggle Charger",
   "tooltip.simplyjetpacks.pilot_goggles": "Fly with style!",
   "tooltip.simplyjetpacks.jetpack_potato": "A Jetpack made from potatoes.",
+  "tooltip.simplyjetpacks.jetpack_potato.warning": "WARNING: Highly Unstable!",
   "tooltip.simplyjetpacks.mysterious_potato": "A Mysterious Potato...",
 
   "hud.simplyjetpacks.energyDisplay": "Energy: %s",
