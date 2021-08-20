@@ -126,8 +126,8 @@ public class PotatoJetpackItem extends JetpackItem {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void addHUDInfo(ItemStack stack, List<ITextComponent> list) {
-        SJTextUtil.addHUDInfoText(stack, list);
-        //list.add(SJTextUtil.getEnergyText(stack));
+        //SJTextUtil.addHUDInfoText(stack, list);
+        list.add(SJTextUtil.getEnergyText(stack));
         list.add(SJTextUtil.translate("misc", "error", TextFormatting.RED));
     }
 

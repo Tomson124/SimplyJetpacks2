@@ -75,6 +75,7 @@ public enum JetpackType {
     private double speedSideways;
     private double sprintSpeedModifier;
     private double sprintEnergyModifier;
+    private boolean hoverMode;
     private boolean emergencyHoverMode;
     private boolean chargerMode;
 
@@ -188,6 +189,10 @@ public enum JetpackType {
         return sprintEnergyModifier;
     }
 
+    public boolean getHoverMode() {
+        return hoverMode;
+    }
+
     public boolean getEmergencyHoverMode() {
         return emergencyHoverMode;
     }
@@ -225,6 +230,7 @@ public enum JetpackType {
         this.speedSideways = JetpackDataHolder.DEFAULTS.get(this.configKey)._speedSideways.get();
         this.sprintSpeedModifier = JetpackDataHolder.DEFAULTS.get(this.configKey)._sprintSpeedModifier.get();
         this.sprintEnergyModifier = JetpackDataHolder.DEFAULTS.get(this.configKey)._sprintEnergyModifier.get();
+        this.hoverMode = JetpackDataHolder.DEFAULTS.get(this.configKey)._hoverMode.get();
         this.emergencyHoverMode = JetpackDataHolder.DEFAULTS.get(this.configKey)._emergencyHoverMode.get();
         this.chargerMode = JetpackDataHolder.DEFAULTS.get(this.configKey)._chargerMode.get();
     }

@@ -256,6 +256,8 @@
   "config.simplyjetpacks.tuning.sprintSpeedModifier.tooltip": "How much faster this Jetpack will fly forward when sprinting. Setting this to 1.0 will make sprinting have no effect apart from the added speed from vanilla.",
   "config.simplyjetpacks.tuning.sprintEnergyModifier": "Sprint Energy Usage Multiplier",
   "config.simplyjetpacks.tuning.sprintEnergyModifier.tooltip": "How much more energy this Jetpack will use when sprinting. Setting this to 1.0 will make sprinting have no effect on energy usage.",
+  "config.simplyjetpacks.tuning.hoverMode": "Hover Mode",
+  "config.simplyjetpacks.tuning.hoverMode.tooltip": "When enabled, this Jetpack will be able to activate Hover Mode.",
   "config.simplyjetpacks.tuning.emergencyHoverMode": "Emergency Hover Mode",
   "config.simplyjetpacks.tuning.emergencyHoverMode.tooltip": "When enabled, this Jetpack will be able to activate Hover Mode automatically when the wearer is about to die from a fall.",
   "config.simplyjetpacks.tuning.chargerMode": "Charger Mode",

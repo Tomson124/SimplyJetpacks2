@@ -30,6 +30,7 @@ public class JetpackDataHolder {
     public double speedSideways;
     public double sprintSpeedModifier;
     public double sprintEnergyModifier;
+    public boolean hoverMode;
     public boolean emergencyHoverMode;
     public boolean chargerMode;
 
@@ -48,6 +49,7 @@ public class JetpackDataHolder {
     public DoubleValue _speedSideways;
     public DoubleValue _sprintSpeedModifier;
     public DoubleValue _sprintEnergyModifier;
+    public BooleanValue _hoverMode;
     public BooleanValue _emergencyHoverMode;
     public BooleanValue _chargerMode;
 
@@ -73,6 +75,7 @@ public class JetpackDataHolder {
         d.speedSideways = 0.0D;
         d.sprintSpeedModifier = 1.0D;
         d.sprintEnergyModifier = 1.0D;
+        d.hoverMode = false;
         d.emergencyHoverMode = false;
         d.chargerMode = false;
 
@@ -89,6 +92,7 @@ public class JetpackDataHolder {
         d.speedVerticalHoverSlow = 0.0D;
         d.speedSideways = 0.21D;
         d.sprintSpeedModifier = 2.5D;
+        d.hoverMode = true;
         d.emergencyHoverMode = true;
         d.chargerMode = true;
 
@@ -106,6 +110,7 @@ public class JetpackDataHolder {
         d.speedSideways = 0.0D;
         d.sprintSpeedModifier = 1.0D;
         d.sprintEnergyModifier = 1.0D;
+        d.hoverMode = true;
         d.emergencyHoverMode = false;
         d.chargerMode = false;
 
@@ -123,6 +128,7 @@ public class JetpackDataHolder {
         d.speedSideways = 0.08D;
         d.sprintSpeedModifier = 1.0D;
         d.sprintEnergyModifier = 1.0D;
+        d.hoverMode = true;
         d.emergencyHoverMode = false;
         d.chargerMode = false;
 
@@ -140,6 +146,7 @@ public class JetpackDataHolder {
         d.speedSideways = 0.14D;
         d.sprintSpeedModifier = 1.3D;
         d.sprintEnergyModifier = 2.5D;
+        d.hoverMode = true;
         d.emergencyHoverMode = true;
         d.chargerMode = false;
 
@@ -157,9 +164,11 @@ public class JetpackDataHolder {
         d.speedSideways = 0.19D;
         d.sprintSpeedModifier = 1.8D;
         d.sprintEnergyModifier = 4.0D;
+        d.hoverMode = true;
         d.emergencyHoverMode = true;
         d.chargerMode = true;
 
+        // TODO: remove!
         if (true || ModList.get().isLoaded("mekanism")) {
             d = new JetpackDataHolder("mek1", "mekanism");
             d.energyCapacity = 80000;
@@ -175,6 +184,7 @@ public class JetpackDataHolder {
             d.speedSideways = 0.0D;
             d.sprintSpeedModifier = 1.0D;
             d.sprintEnergyModifier = 1.0D;
+            d.hoverMode = true;
             d.emergencyHoverMode = false;
             d.chargerMode = false;
 
@@ -192,6 +202,7 @@ public class JetpackDataHolder {
             d.speedSideways = 0.08D;
             d.sprintSpeedModifier = 1.0D;
             d.sprintEnergyModifier = 1.0D;
+            d.hoverMode = true;
             d.emergencyHoverMode = false;
             d.chargerMode = false;
 
@@ -209,6 +220,7 @@ public class JetpackDataHolder {
             d.speedSideways = 0.14D;
             d.sprintSpeedModifier = 1.3D;
             d.sprintEnergyModifier = 2.5D;
+            d.hoverMode = true;
             d.emergencyHoverMode = true;
             d.chargerMode = false;
 
@@ -226,10 +238,12 @@ public class JetpackDataHolder {
             d.speedSideways = 0.19D;
             d.sprintSpeedModifier = 1.8D;
             d.sprintEnergyModifier = 4.0D;
+            d.hoverMode = true;
             d.emergencyHoverMode = true;
             d.chargerMode = false;
         }
 
+        // TODO: remove!
         if (true || ModList.get().isLoaded("thermal")) {
             d = new JetpackDataHolder("te1", "thermal");
             d.energyCapacity = 800000;
@@ -245,6 +259,7 @@ public class JetpackDataHolder {
             d.speedSideways = 0.0D;
             d.sprintSpeedModifier = 1.0D;
             d.sprintEnergyModifier = 1.0D;
+            d.hoverMode = true;
             d.emergencyHoverMode = false;
             d.chargerMode = false;
 
@@ -262,6 +277,7 @@ public class JetpackDataHolder {
             d.speedSideways = 0.08D;
             d.sprintSpeedModifier = 1.0D;
             d.sprintEnergyModifier = 1.0D;
+            d.hoverMode = true;
             d.emergencyHoverMode = false;
             d.chargerMode = false;
 
@@ -279,6 +295,7 @@ public class JetpackDataHolder {
             d.speedSideways = 0.14D;
             d.sprintSpeedModifier = 1.3D;
             d.sprintEnergyModifier = 2.5D;
+            d.hoverMode = true;
             d.emergencyHoverMode = true;
             d.chargerMode = false;
 
@@ -296,6 +313,7 @@ public class JetpackDataHolder {
             d.speedSideways = 0.19D;
             d.sprintSpeedModifier = 1.8D;
             d.sprintEnergyModifier = 4.0D;
+            d.hoverMode = true;
             d.emergencyHoverMode = true;
             d.chargerMode = false;
 
@@ -314,6 +332,7 @@ public class JetpackDataHolder {
             d.speedSideways = 0.21D;
             d.sprintSpeedModifier = 2.4D;
             d.sprintEnergyModifier = 6.0D;
+            d.hoverMode = true;
             d.emergencyHoverMode = true;
             d.chargerMode = true;
 
@@ -332,10 +351,12 @@ public class JetpackDataHolder {
             d.speedSideways = 0.21D;
             d.sprintSpeedModifier = 2.4D;
             d.sprintEnergyModifier = 6.0D;
+            d.hoverMode = true;
             d.emergencyHoverMode = true;
             d.chargerMode = true;
         }
 
+        // TODO: remove!
         if (true || ModList.get().isLoaded("immersiveengineering")) {
             d = new JetpackDataHolder("ie1", "immersiveengineering");
             d.energyCapacity = 80000;
@@ -351,6 +372,7 @@ public class JetpackDataHolder {
             d.speedSideways = 0.0D;
             d.sprintSpeedModifier = 1.0D;
             d.sprintEnergyModifier = 1.0D;
+            d.hoverMode = true;
             d.emergencyHoverMode = false;
             d.chargerMode = false;
 
@@ -368,6 +390,7 @@ public class JetpackDataHolder {
             d.speedSideways = 0.08D;
             d.sprintSpeedModifier = 1.0D;
             d.sprintEnergyModifier = 1.0D;
+            d.hoverMode = true;
             d.emergencyHoverMode = false;
             d.chargerMode = false;
 
@@ -385,6 +408,7 @@ public class JetpackDataHolder {
             d.speedSideways = 0.14D;
             d.sprintSpeedModifier = 1.3D;
             d.sprintEnergyModifier = 2.5D;
+            d.hoverMode = true;
             d.emergencyHoverMode = true;
             d.chargerMode = false;
         }

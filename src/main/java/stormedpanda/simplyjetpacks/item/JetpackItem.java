@@ -110,10 +110,12 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     public void toggleHover(ItemStack stack, PlayerEntity player) {
-        boolean current = NBTUtil.getBoolean(stack, Constants.TAG_HOVER);
-        NBTUtil.flipBoolean(stack, Constants.TAG_HOVER);
-        ITextComponent msg = SJTextUtil.getStateToggle("hoverMode", !current);
-        player.displayClientMessage(msg, true);
+        if (jetpackType.getHoverMode()) {
+            boolean current = NBTUtil.getBoolean(stack, Constants.TAG_HOVER);
+            NBTUtil.flipBoolean(stack, Constants.TAG_HOVER);
+            ITextComponent msg = SJTextUtil.getStateToggle("hoverMode", !current);
+            player.displayClientMessage(msg, true);
+        }
     }
 
     public boolean isEHoverOn(ItemStack stack) {
@@ -130,10 +132,12 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     private void doEHover(ItemStack stack, PlayerEntity player) {
-        NBTUtil.setBoolean(stack, Constants.TAG_ENGINE, true);
-        NBTUtil.setBoolean(stack, Constants.TAG_HOVER, true);
-        ITextComponent msg = SJTextUtil.getEmergencyText();
-        player.displayClientMessage(msg, true);
+        if (jetpackType.getHoverMode()) {
+            NBTUtil.setBoolean(stack, Constants.TAG_ENGINE, true);
+            NBTUtil.setBoolean(stack, Constants.TAG_HOVER, true);
+            ITextComponent msg = SJTextUtil.getEmergencyText();
+            player.displayClientMessage(msg, true);
+        }
     }
 
     public boolean isChargerOn(ItemStack stack) {
@@ -351,7 +355,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
                 }
             }
         }
-        if (!player.getCommandSenderWorld().isClientSide() && this.isEHoverOn(stack)) {
+        if (!player.level.isClientSide && this.isEHoverOn(stack)) {
             if ((item.getEnergy(stack) > 0 || this.isCreative()) && (!this.isHoverOn(stack) || !this.isEngineOn(stack))) {
                 if (player.position().get(Direction.Axis.Y) < -5) {
                     this.doEHover(stack, player);

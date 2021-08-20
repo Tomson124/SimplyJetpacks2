@@ -32,7 +32,7 @@ public class JetpackScreen extends Screen {
 
     private static final Minecraft minecraft = Minecraft.getInstance();
 
-    private final ResourceLocation GUI_BASE = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/jetpack_screen.png");
+    private final ResourceLocation JETPACK_TEXTURE = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/jetpack_screen.png");
     private static final int WIDTH = 176;
     private static final int HEIGHT = 100;
 
@@ -54,25 +54,29 @@ public class JetpackScreen extends Screen {
         int relX = (this.width - WIDTH) / 2;
         int relY = (this.height - HEIGHT) / 2;
 
-        addButton(this.engine = new ImageButton(relX + 120, relY + 16, 20, 20, 176, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleEngine())));
-        addButton(this.hover = new ImageButton(relX + 120, relY + 38, 20, 20, 216, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleHover())));
+        addButton(this.engine = new ImageButton(relX + 120, relY + 16, 20, 20, 176, 0, 20, JETPACK_TEXTURE, button -> NetworkHandler.sendToServer(new PacketToggleEngine())));
+        addButton(this.hover = new ImageButton(relX + 120, relY + 38, 20, 20, 216, 0, 20, JETPACK_TEXTURE, button -> NetworkHandler.sendToServer(new PacketToggleHover())));
 
         Item item = jetpackStack.getItem();
         if (item instanceof JetpackItem) {
             JetpackItem jetpack = (JetpackItem) item;
-            if (jetpack.getJetpackType().getChargerMode()) {
-                addButton(this.charger = new ImageButton(relX + 142, relY + 16, 20, 20, 196, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleCharger())));
-                this.charger.active = true;
+            this.hover.active = jetpack.getJetpackType().getHoverMode();
+            this.charger.active = jetpack.getJetpackType().getChargerMode();
+            this.ehover.active = jetpack.getJetpackType().getEmergencyHoverMode();
+            if (this.hover.active) {
+                addButton(this.hover = new ImageButton(relX + 120, relY + 38, 20, 20, 216, 0, 20, JETPACK_TEXTURE, button -> NetworkHandler.sendToServer(new PacketToggleHover())));
             } else {
-                addButton(this.charger = new ImageButton(relX + 142, relY + 16, 20, 20, 196, 40, 0, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleCharger())));
-                this.charger.active = false;
+                addButton(this.hover = new ImageButton(relX + 120, relY + 38, 20, 20, 196, 40, 0, JETPACK_TEXTURE, button -> NetworkHandler.sendToServer(new PacketToggleHover())));
             }
-            if (jetpack.getJetpackType().getEmergencyHoverMode()) {
-                addButton(this.ehover = new ImageButton(relX + 142, relY + 38, 20, 20, 236, 0, 20, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleEHover())));
-                this.ehover.active = true;
+            if (this.charger.active) {
+                addButton(this.charger = new ImageButton(relX + 142, relY + 16, 20, 20, 196, 0, 20, JETPACK_TEXTURE, button -> NetworkHandler.sendToServer(new PacketToggleCharger())));
             } else {
-                addButton(this.ehover = new ImageButton(relX + 142, relY + 38, 20, 20, 236, 40, 0, GUI_BASE, button -> NetworkHandler.sendToServer(new PacketToggleEHover())));
-                this.ehover.active = false;
+                addButton(this.charger = new ImageButton(relX + 142, relY + 16, 20, 20, 196, 40, 0, JETPACK_TEXTURE, button -> NetworkHandler.sendToServer(new PacketToggleCharger())));
+            }
+            if (this.ehover.active) {
+                addButton(this.ehover = new ImageButton(relX + 142, relY + 38, 20, 20, 236, 0, 20, JETPACK_TEXTURE, button -> NetworkHandler.sendToServer(new PacketToggleEHover())));
+            } else {
+                addButton(this.ehover = new ImageButton(relX + 142, relY + 38, 20, 20, 236, 40, 0, JETPACK_TEXTURE, button -> NetworkHandler.sendToServer(new PacketToggleEHover())));
             }
         }
     }
@@ -83,11 +87,11 @@ public class JetpackScreen extends Screen {
         int relY = (this.height - HEIGHT) / 2;
 
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        minecraft.getTextureManager().bind(GUI_BASE);
+        minecraft.getTextureManager().bind(JETPACK_TEXTURE);
         blit(matrixStack, relX, relY, 0, 0, WIDTH, HEIGHT);
         InventoryScreen.renderEntityInInventory(relX + 80, relY + 90, 40, (float)(relX + 51) - mouseX, (float)(relY + 75 - 50) - mouseY, minecraft.player);
         drawCenteredString(matrixStack, minecraft.font, new TranslationTextComponent(jetpackStack.getDescriptionId()), relX + 88, relY + 5, 0xFFFFFF);
-        minecraft.getTextureManager().bind(GUI_BASE);
+        minecraft.getTextureManager().bind(JETPACK_TEXTURE);
 
         int amount = getEnergyBarAmount(); // texture height
         int barOffset = 78 - amount;

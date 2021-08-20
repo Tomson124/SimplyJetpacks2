@@ -138,7 +138,10 @@ public class SJTextUtil {
         ITextComponent eHoverState = translate("hud", "eHover", jetpack.getJetpackType().getEmergencyHoverMode() ? (jetpack.isEHoverOn(stack) ? on : off) : notAvailable);
         ITextComponent chargerState = translate("hud", "charger", jetpack.getJetpackType().getChargerMode() ? (jetpack.isChargerOn(stack) ? on : off) : notAvailable);
         statesTexts.add(engineState);
-        statesTexts.add(hoverState);
+        if (jetpack.getJetpackType().getHoverMode()) {
+            statesTexts.add(hoverState);
+            stateCount++;
+        }
         if (jetpack.getJetpackType().getEmergencyHoverMode()) {
             statesTexts.add(eHoverState);
             stateCount++;

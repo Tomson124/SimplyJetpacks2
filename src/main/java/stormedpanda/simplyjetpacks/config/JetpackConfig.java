@@ -80,6 +80,11 @@ public class JetpackConfig {
                     .translation("config.simplyjetpacks.tuning.sprintEnergyModifier.tooltip")
                     .defineInRange("sprintEnergyModifier", pack.sprintEnergyModifier, 0, Double.MAX_VALUE);
 
+            pack._hoverMode = builder
+                    .comment("When enabled, this Jetpack will be able to activate Hover Mode.")
+                    .translation("config.simplyjetpacks.tuning.hoverMode.tooltip")
+                    .define("hoverMode", pack.hoverMode);
+
             pack._emergencyHoverMode = builder
                     .comment("When enabled, this Jetpack will be able to activate Hover Mode automatically when the wearer is about to die from a fall.")
                     .translation("config.simplyjetpacks.tuning.emergencyHoverMode.tooltip")
