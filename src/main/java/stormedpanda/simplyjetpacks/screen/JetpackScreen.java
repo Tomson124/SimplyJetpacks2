@@ -55,28 +55,31 @@ public class JetpackScreen extends Screen {
         int relY = (this.height - HEIGHT) / 2;
 
         addButton(this.engine = new ImageButton(relX + 120, relY + 16, 20, 20, 176, 0, 20, JETPACK_TEXTURE, button -> NetworkHandler.sendToServer(new PacketToggleEngine())));
-        addButton(this.hover = new ImageButton(relX + 120, relY + 38, 20, 20, 216, 0, 20, JETPACK_TEXTURE, button -> NetworkHandler.sendToServer(new PacketToggleHover())));
+        //addButton(this.hover = new ImageButton(relX + 120, relY + 38, 20, 20, 216, 0, 20, JETPACK_TEXTURE, button -> NetworkHandler.sendToServer(new PacketToggleHover())));
 
         Item item = jetpackStack.getItem();
         if (item instanceof JetpackItem) {
             JetpackItem jetpack = (JetpackItem) item;
-            this.hover.active = jetpack.getJetpackType().getHoverMode();
-            this.charger.active = jetpack.getJetpackType().getChargerMode();
-            this.ehover.active = jetpack.getJetpackType().getEmergencyHoverMode();
-            if (this.hover.active) {
+            if (jetpack.getJetpackType().getHoverMode()) {
                 addButton(this.hover = new ImageButton(relX + 120, relY + 38, 20, 20, 216, 0, 20, JETPACK_TEXTURE, button -> NetworkHandler.sendToServer(new PacketToggleHover())));
+                this.hover.active = true;
             } else {
                 addButton(this.hover = new ImageButton(relX + 120, relY + 38, 20, 20, 196, 40, 0, JETPACK_TEXTURE, button -> NetworkHandler.sendToServer(new PacketToggleHover())));
+                this.hover.active = false;
             }
-            if (this.charger.active) {
+            if (jetpack.getJetpackType().getChargerMode()) {
                 addButton(this.charger = new ImageButton(relX + 142, relY + 16, 20, 20, 196, 0, 20, JETPACK_TEXTURE, button -> NetworkHandler.sendToServer(new PacketToggleCharger())));
+                this.charger.active = true;
             } else {
                 addButton(this.charger = new ImageButton(relX + 142, relY + 16, 20, 20, 196, 40, 0, JETPACK_TEXTURE, button -> NetworkHandler.sendToServer(new PacketToggleCharger())));
+                this.charger.active = false;
             }
-            if (this.ehover.active) {
+            if (jetpack.getJetpackType().getEmergencyHoverMode()) {
                 addButton(this.ehover = new ImageButton(relX + 142, relY + 38, 20, 20, 236, 0, 20, JETPACK_TEXTURE, button -> NetworkHandler.sendToServer(new PacketToggleEHover())));
+                this.ehover.active = true;
             } else {
                 addButton(this.ehover = new ImageButton(relX + 142, relY + 38, 20, 20, 236, 40, 0, JETPACK_TEXTURE, button -> NetworkHandler.sendToServer(new PacketToggleEHover())));
+                this.ehover.active = false;
             }
         }
     }

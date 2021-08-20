@@ -120,16 +120,4 @@ public class PotatoJetpackItem extends JetpackItem {
             player.level.playSound(player, player, SJSounds.ROCKET, SoundCategory.PLAYERS, 1F, 1F);
         }
     }
-
-    /* IHUDInfoProvider start */
-
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public void addHUDInfo(ItemStack stack, List<ITextComponent> list) {
-        //SJTextUtil.addHUDInfoText(stack, list);
-        list.add(SJTextUtil.getEnergyText(stack));
-        list.add(SJTextUtil.translate("misc", "error", TextFormatting.RED));
-    }
-
-    /* IHUDInfoProvider end */
 }

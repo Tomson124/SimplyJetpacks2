@@ -74,6 +74,11 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     @Override
+    public int getEnchantmentValue() {
+        return super.getEnchantmentValue() + jetpackType.getEnchantability();
+    }
+
+    @Override
     public boolean isFoil(ItemStack stack) {
         return super.isFoil(stack) || isCreative();
     }

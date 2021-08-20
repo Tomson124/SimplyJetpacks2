@@ -129,7 +129,7 @@ public class SJTextUtil {
     public static ITextComponent getHUDStates(ItemStack stack) {
         JetpackItem jetpack = (JetpackItem) stack.getItem();
         ArrayList<ITextComponent> statesTexts = new ArrayList<>();
-        int stateCount = 2;
+        int stateCount = 1;
         TextFormatting on = TextFormatting.GREEN;
         TextFormatting off = TextFormatting.RED;
         TextFormatting notAvailable = TextFormatting.DARK_GRAY;
@@ -138,19 +138,18 @@ public class SJTextUtil {
         ITextComponent eHoverState = translate("hud", "eHover", jetpack.getJetpackType().getEmergencyHoverMode() ? (jetpack.isEHoverOn(stack) ? on : off) : notAvailable);
         ITextComponent chargerState = translate("hud", "charger", jetpack.getJetpackType().getChargerMode() ? (jetpack.isChargerOn(stack) ? on : off) : notAvailable);
         statesTexts.add(engineState);
-        if (jetpack.getJetpackType().getHoverMode()) {
+        if (SimplyJetpacksConfig.showHoverState.get() && jetpack.getJetpackType().getHoverMode()) {
             statesTexts.add(hoverState);
             stateCount++;
         }
-        if (jetpack.getJetpackType().getEmergencyHoverMode()) {
+        if (SimplyJetpacksConfig.showEHoverState.get() && jetpack.getJetpackType().getEmergencyHoverMode()) {
             statesTexts.add(eHoverState);
             stateCount++;
         }
-        if (jetpack.getJetpackType().getChargerMode()) {
+        if (SimplyJetpacksConfig.showChargerState.get() && jetpack.getJetpackType().getChargerMode()) {
             statesTexts.add(chargerState);
             stateCount++;
         }
-        //return translate("hud", "jetpackStates.4", engineState, hoverState, eHoverState, chargerState);
         return translate("hud", "jetpackStates." + stateCount, statesTexts.toArray());
     }
 

@@ -81,6 +81,21 @@ public class SimplyJetpacksConfig {
                 .translation("config.simplyjetpacks.enableJetpackHud")
                 .define("enableJetpackHud", ConfigDefaults.enableJetpackHud);
 
+        showHoverState = CLIENT_BUILDER
+                .comment("Show the Hover State in the HUD.")
+                .translation("config.simplyjetpacks.showHoverState")
+                .define("showHoverState", ConfigDefaults.showHoverState);
+
+        showEHoverState = CLIENT_BUILDER
+                .comment("Show the Emergency Hover State in the HUD.")
+                .translation("config.simplyjetpacks.showEHoverState")
+                .define("showEHoverState", ConfigDefaults.showEHoverState);
+
+        showChargerState = CLIENT_BUILDER
+                .comment("Show the Charger State in the HUD.")
+                .translation("config.simplyjetpacks.showChargerState")
+                .define("showChargerState", ConfigDefaults.showChargerState);
+
         hudTextColor = CLIENT_BUILDER
                 .comment("This sets the color of the Jetpack HUD.")
                 .translation("config.simplyjetpacks.hudTextColor")
@@ -198,6 +213,9 @@ public class SimplyJetpacksConfig {
     public static ForgeConfigSpec.BooleanValue showExactEnergy;
     public static ForgeConfigSpec.BooleanValue enableStateMessages;
     public static ForgeConfigSpec.BooleanValue enableJetpackHud;
+    public static ForgeConfigSpec.BooleanValue showHoverState;
+    public static ForgeConfigSpec.BooleanValue showEHoverState;
+    public static ForgeConfigSpec.BooleanValue showChargerState;
     public static ForgeConfigSpec.BooleanValue hudTextShadow;
     public static ForgeConfigSpec.IntValue hudTextColor;
     public static ForgeConfigSpec.IntValue hudXOffset;
