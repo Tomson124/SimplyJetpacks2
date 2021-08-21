@@ -212,7 +212,7 @@ public enum JetpackType {
         if (item.isCreative() || item.getJetpackType().getName().equals("potato")) {
             return JetpackParticleType.RAINBOW.ordinal();
         }
-        return JetpackParticleType.DEFAULT.ordinal();
+        return JetpackParticleType.FLAME.ordinal();
     }
 
     public void loadConfig() {

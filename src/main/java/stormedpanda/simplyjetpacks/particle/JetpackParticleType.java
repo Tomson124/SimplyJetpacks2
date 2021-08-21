@@ -7,7 +7,7 @@ import stormedpanda.simplyjetpacks.init.RegistryHandler;
 public enum JetpackParticleType {
 
     NONE(null),
-    DEFAULT(ParticleTypes.FLAME),
+    FLAME(ParticleTypes.FLAME),
     SMOKE(ParticleTypes.SMOKE),
     RAINBOW(RegistryHandler.RAINBOW_PARTICLE.get()),
     BUBBLES(ParticleTypes.BUBBLE),

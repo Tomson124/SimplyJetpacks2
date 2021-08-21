@@ -5,13 +5,15 @@
   "read_by_default": true,
   "pages": [
     {
-      "type": "patchouli:text",
+      "type": "simplyjetpacks:1_item_page",
+      "item": "simplyjetpacks:jetpack_potato",
       "text": "This is the Potato Jetpack."
     },
     {
       "type": "patchouli:crafting",
+      "text": "The recipe for this Jetpack.",
       "recipe": "simplyjetpacks:sj/jetpack_potato",
-      "text": "This is a test entry, but it should show up!"
+      "recipe2": "simplyjetpacks:sj/jetpack_potato_armored"
     }
   ]
 }

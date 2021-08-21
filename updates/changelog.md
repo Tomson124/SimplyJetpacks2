@@ -12,6 +12,7 @@
   - New Thermal Series textures
   - New GUI textures for different energy sources
   - Quality of Life changes
+  - New Particle Customizers
 - **Fixed**
   - Fixed some bugs
   

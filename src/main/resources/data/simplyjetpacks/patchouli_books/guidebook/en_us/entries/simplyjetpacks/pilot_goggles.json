@@ -5,26 +5,17 @@
   "read_by_default": true,
   "pages": [
     {
-      "type": "patchouli:text",
+      "type": "simplyjetpacks:1_1_item_page",
+      "item1": "simplyjetpacks:pilot_goggles_gold",
+      "item2": "simplyjetpacks:pilot_goggles_iron",
       "text": "These are the Pilot Goggles, they come in two varieties: Gold and Iron."
     },
     {
-      "type": "patchouli:spotlight",
-      "item": "simplyjetpacks:pilot_goggles_gold"
-    },
-    {
       "type": "patchouli:crafting",
+      "title": "Pilot Goggles",
       "recipe": "simplyjetpacks:sj/pilot_goggles_gold",
-      "text": "This is a test entry, but it should show up!"
-    },
-    {
-      "type": "patchouli:spotlight",
-      "item": "simplyjetpacks:pilot_goggles_iron"
-    },
-    {
-      "type": "patchouli:crafting",
-      "recipe": "simplyjetpacks:sj/pilot_goggles_iron",
-      "text": "This is a test entry, but it should show up!"
+      "recipe2": "simplyjetpacks:sj/pilot_goggles_iron",
+      "text": "These are the recipes."
     }
   ]
 }

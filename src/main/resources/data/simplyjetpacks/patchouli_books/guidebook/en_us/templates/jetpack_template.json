@@ -11,8 +11,7 @@
     {
       "type": "simplyjetpacks:1_1_item_page",
       "item1": "simplyjetpacks:jetpack_vanilla1",
-      "item2": "simplyjetpacks:jetpack_vanilla1_armored",
-      "text": "here is text"
+      "item2": "simplyjetpacks:jetpack_vanilla1_armored"
     },
     {
       "type": "patchouli:crafting",

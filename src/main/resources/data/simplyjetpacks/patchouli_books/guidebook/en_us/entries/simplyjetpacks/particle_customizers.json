@@ -1,32 +1,56 @@
 {
   "name": "Particle Customizers",
-  "icon": "simplyjetpacks:particle_default",
+  "icon": "simplyjetpacks:particle_flame",
   "category": "simplyjetpacks:simplyjetpacks",
   "read_by_default": true,
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "These are the Particle Customizers"
+      "type": "simplyjetpacks:1_6_item_page",
+      "A.item": "simplyjetpacks:particle_blend",
+      "A.text": "The Particle Blend is required to craft each Customizer.",
+      "B.item1": "simplyjetpacks:particle_none",
+      "B.item2": "simplyjetpacks:particle_flame",
+      "B.item3": "simplyjetpacks:particle_smoke",
+      "B.item4": "simplyjetpacks:particle_rainbow",
+      "B.item5": "simplyjetpacks:particle_soul",
+      "B.item6": "simplyjetpacks:particle_snow",
+      "B.text": "These are the Particle Customizers."
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "simplyjetpacks:sj/particle_default",
-      "text": "This is a test entry, but it should show up!"
+      "title": "Flame",
+      "recipe": "simplyjetpacks:sj/particle_flame",
+      "text": "This is the Flame Customizer."
     },
     {
       "type": "patchouli:crafting",
+      "title": "None",
       "recipe": "simplyjetpacks:sj/particle_none",
-      "text": "This is a test entry, but it should show up!"
+      "text": "This is the None Customizer."
     },
     {
       "type": "patchouli:crafting",
+      "title": "Rainbow",
       "recipe": "simplyjetpacks:sj/particle_rainbow",
-      "text": "This is a test entry, but it should show up!"
+      "text": "This is the Rainbow Customizer."
     },
     {
       "type": "patchouli:crafting",
+      "title": "Smoke",
       "recipe": "simplyjetpacks:sj/particle_smoke",
-      "text": "This is a test entry, but it should show up!"
+      "text": "This is the Smoke Customizer."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Soul",
+      "recipe": "simplyjetpacks:sj/particle_soul",
+      "text": "This is the Soul Customizer."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Snow",
+      "recipe": "simplyjetpacks:sj/particle_snow",
+      "text": "This is the Snow Customizer."
     }
   ]
 }

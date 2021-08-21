@@ -47,7 +47,7 @@ public class RegistryHandler {
     public static final RegistryObject<SJItem> LEATHER_STRAP = ITEMS.register("leather_strap", SJItem::new);
     public static final RegistryObject<SJItem> PARTICLE_BLEND = ITEMS.register("particle_blend", SJItem::new);
     public static final RegistryObject<SJItem> PARTICLE_NONE = ITEMS.register("particle_none", SJItem::new);
-    public static final RegistryObject<SJItem> PARTICLE_DEFAULT = ITEMS.register("particle_default", SJItem::new);
+    public static final RegistryObject<SJItem> PARTICLE_FLAME = ITEMS.register("particle_flame", SJItem::new);
     public static final RegistryObject<SJItem> PARTICLE_SMOKE = ITEMS.register("particle_smoke", SJItem::new);
     public static final RegistryObject<SJItem> PARTICLE_RAINBOW = ITEMS.register("particle_rainbow", SJItem::new);
     public static final RegistryObject<SJItem> PARTICLE_SOUL = ITEMS.register("particle_soul", SJItem::new);

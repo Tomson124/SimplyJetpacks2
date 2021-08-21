@@ -19,8 +19,8 @@ public class SJItemTagsProvider extends ItemTagsProvider {
     protected void addTags() {
         // Simply Jetpacks:
         tag(SJTags.PARTICLES)
-                .add(RegistryHandler.PARTICLE_DEFAULT.get())
                 .add(RegistryHandler.PARTICLE_NONE.get())
+                .add(RegistryHandler.PARTICLE_FLAME.get())
                 .add(RegistryHandler.PARTICLE_SMOKE.get())
                 .add(RegistryHandler.PARTICLE_RAINBOW.get())
                 .add(RegistryHandler.PARTICLE_SOUL.get())

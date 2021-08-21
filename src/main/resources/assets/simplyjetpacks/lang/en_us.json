@@ -3,7 +3,7 @@
 
   "item.simplyjetpacks.particle_blend": "Particle Blend",
   "item.simplyjetpacks.particle_none": "Particle Customizer (None)",
-  "item.simplyjetpacks.particle_default": "Particle Customizer (Default)",
+  "item.simplyjetpacks.particle_flame": "Particle Customizer (Flame)",
   "item.simplyjetpacks.particle_smoke": "Particle Customizer (Smoke)",
   "item.simplyjetpacks.particle_rainbow": "Particle Customizer (Rainbow)",
   "item.simplyjetpacks.particle_soul": "Particle Customizer (Soul)",
@@ -171,7 +171,7 @@
   "tooltip.simplyjetpacks.itemJetpack.charger": "Charger: %s",
   "tooltip.simplyjetpacks.itemJetpack.chargerMode": "Charger Mode: %s",
   "tooltip.simplyjetpacks.particle.0": "None",
-  "tooltip.simplyjetpacks.particle.1": "Default",
+  "tooltip.simplyjetpacks.particle.1": "Flame",
   "tooltip.simplyjetpacks.particle.2": "Smoke",
   "tooltip.simplyjetpacks.particle.3": "Rainbow",
   "tooltip.simplyjetpacks.particle.4": "Bubbles",

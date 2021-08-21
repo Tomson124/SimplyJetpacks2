@@ -20,7 +20,7 @@ public class SJItemModelProvider extends ItemModelProvider {
         // Simply Jetpacks:
         builder(itemGenerated, "particle_blend");
         builder(itemGenerated, "particle_none");
-        builder(itemGenerated, "particle_default");
+        builder(itemGenerated, "particle_flame");
         builder(itemGenerated, "particle_smoke");
         builder(itemGenerated, "particle_rainbow");
         builder(itemGenerated, "particle_soul");

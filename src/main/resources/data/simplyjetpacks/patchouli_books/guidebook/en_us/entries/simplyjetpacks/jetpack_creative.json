@@ -6,15 +6,14 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "This is the Creative Jetpack. It is only available in Creative Mode and cannot be crafted."
+      "text": "This is the Creative Jetpack. It is only available in Creative Mode and cannot be crafted. The Rainbow Particle Customizer is set as default."
     },
     {
-      "type": "patchouli:spotlight",
-      "item": "simplyjetpacks:jetpack_creative"
-    },
-    {
-      "type": "patchouli:spotlight",
-      "item": "simplyjetpacks:jetpack_creative_armored"
+      "type": "simplyjetpacks:1_1_item_page",
+      "A.item": "simplyjetpacks:jetpack_creative",
+      "A.text": "Creative Jetpack",
+      "B.item": "simplyjetpacks:jetpack_creative_armored",
+      "B.text": "Creative Jetpack (Armored)"
     }
   ]
 }
