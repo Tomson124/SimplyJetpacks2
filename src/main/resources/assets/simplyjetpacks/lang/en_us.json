@@ -10,8 +10,7 @@
   "item.simplyjetpacks.particle_snow": "Particle Customizer (Snow)",
   "item.simplyjetpacks.leather_strap": "Leather Strap",
   "item.simplyjetpacks.pilot_goggles_gold": "Pilot Goggles (Gold)",
-  "item.simplyjetpacks.pilot_goggles_silver": "Pilot Goggles (Silver)",
-  "item.simplyjetpacks.mysterious_potato": "Mysterious Potato",
+  "item.simplyjetpacks.pilot_goggles_iron": "Pilot Goggles (Iron)",
   "item.simplyjetpacks.jetpack_potato": "Potato Jetpack",
   "item.simplyjetpacks.jetpack_creative": "Creative Jetpack",
   "item.simplyjetpacks.jetpack_creative_armored": "Creative Jetpack (Armored)",
@@ -187,7 +186,6 @@
   "tooltip.simplyjetpacks.pilot_goggles": "Fly with style!",
   "tooltip.simplyjetpacks.jetpack_potato": "A Jetpack made from potatoes.",
   "tooltip.simplyjetpacks.jetpack_potato.warning": "WARNING: Highly Unstable!",
-  "tooltip.simplyjetpacks.mysterious_potato": "A Mysterious Potato...",
   "tooltip.simplyjetpacks.particle_blend": "Used to craft Particle Customizers",
 
   "hud.simplyjetpacks.energyDisplay": "Energy: %s",
@@ -277,6 +275,6 @@
 
   "curios.identifier.jetpack": "Jetpack",
 
-  "death.attack.jetpack_potato": "%s attempted to fly a potato",
-  "death.attack.jetpack_explode": "%s spontaneously detonated"
+  "death.attack.jetpack_potato": "%s attempted to fly a potato!",
+  "death.attack.jetpack_explode": "%s spontaneously detonated!"
 }

@@ -43,7 +43,7 @@ public class RegistryHandler {
 
     // Items:
     public static final RegistryObject<PilotGogglesItem> PILOT_GOGGLES_GOLD = ITEMS.register("pilot_goggles_gold", () -> new PilotGogglesItem("gold"));
-    public static final RegistryObject<PilotGogglesItem> PILOT_GOGGLES_SILVER = ITEMS.register("pilot_goggles_silver", () -> new PilotGogglesItem("silver"));
+    public static final RegistryObject<PilotGogglesItem> PILOT_GOGGLES_IRON = ITEMS.register("pilot_goggles_iron", () -> new PilotGogglesItem("iron"));
     public static final RegistryObject<SJItem> LEATHER_STRAP = ITEMS.register("leather_strap", SJItem::new);
     public static final RegistryObject<SJItem> PARTICLE_BLEND = ITEMS.register("particle_blend", SJItem::new);
     public static final RegistryObject<SJItem> PARTICLE_NONE = ITEMS.register("particle_none", SJItem::new);
