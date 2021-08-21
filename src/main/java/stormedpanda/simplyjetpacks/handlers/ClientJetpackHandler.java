@@ -18,6 +18,7 @@ import stormedpanda.simplyjetpacks.sound.JetpackSound;
 import stormedpanda.simplyjetpacks.util.JetpackUtil;
 import stormedpanda.simplyjetpacks.util.Pos3D;
 
+import java.time.LocalDate;
 import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
@@ -38,6 +39,8 @@ public class ClientJetpackHandler {
                             JetpackParticleType particleType;
                             if (minecraft.player.isInWaterRainOrBubble()) {
                                 particleType = JetpackParticleType.BUBBLES;
+                            } else if (checkValentines()) {
+                                particleType = JetpackParticleType.HEARTS;
                             } else {
                                 particleType = JetpackParticleType.values()[JetpackItem.getParticleId(chest)];
                             }
@@ -55,7 +58,7 @@ public class ClientJetpackHandler {
         }
     }
 
-    public void showJetpackParticles(Minecraft minecraft, JetpackParticleType particleType) {
+    private void showJetpackParticles(Minecraft minecraft, JetpackParticleType particleType) {
         IParticleData particle = particleType.getParticleData();
         Random rand = new Random();
         float random = (rand.nextFloat() - 0.5F) * 0.1F;
@@ -68,8 +71,10 @@ public class ClientJetpackHandler {
         minecraft.particleEngine.createParticle(particle, v.x, v.y, v.z, random, -0.2D, random);
         v = playerPos.translate(vRight).translate(new Pos3D(minecraft.player.getDeltaMovement()));
         minecraft.particleEngine.createParticle(particle, v.x, v.y, v.z, random, -0.2D, random);
-        v = playerPos.translate(vCenter).translate(new Pos3D(minecraft.player.getDeltaMovement()));
-        minecraft.particleEngine.createParticle(particle, v.x, v.y, v.z, random, -0.2D, random);
+        if (particleType != JetpackParticleType.HEARTS) {
+            v = playerPos.translate(vCenter).translate(new Pos3D(minecraft.player.getDeltaMovement()));
+            minecraft.particleEngine.createParticle(particle, v.x, v.y, v.z, random, -0.2D, random);
+        }
         //minecraft.level.addParticle(particle, v.x, v.y, v.z, random, -0.2D, random); // alternative method
     }
 
@@ -89,5 +94,12 @@ public class ClientJetpackHandler {
             }
         }
         return false;
+    }
+
+    private static boolean checkValentines() {
+        LocalDate today = LocalDate.now();
+        int day = today.getDayOfMonth();
+        int month = today.getMonthValue();
+        return day == 14 && month == 3;
     }
 }
