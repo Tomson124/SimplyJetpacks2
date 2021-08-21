@@ -7,10 +7,10 @@
   ],
   "key": {
     "p": { "item": "simplyjetpacks:particle_blend" },
-    "t": { "item": "minecraft:obsidian" }
+    "t": { "item": "minecraft:soul_torch" }
   },
   "result": {
-    "item": "simplyjetpacks:particle_portal",
+    "item": "simplyjetpacks:particle_soul",
     "count": 1
   }
 }

@@ -50,9 +50,8 @@ public class RegistryHandler {
     public static final RegistryObject<SJItem> PARTICLE_DEFAULT = ITEMS.register("particle_default", SJItem::new);
     public static final RegistryObject<SJItem> PARTICLE_SMOKE = ITEMS.register("particle_smoke", SJItem::new);
     public static final RegistryObject<SJItem> PARTICLE_RAINBOW = ITEMS.register("particle_rainbow", SJItem::new);
-    public static final RegistryObject<SJItem> PARTICLE_WARPED = ITEMS.register("particle_warped", SJItem::new);
-    public static final RegistryObject<SJItem> PARTICLE_CRIMSON = ITEMS.register("particle_crimson", SJItem::new);
-    public static final RegistryObject<SJItem> PARTICLE_PORTAL = ITEMS.register("particle_portal", SJItem::new);
+    public static final RegistryObject<SJItem> PARTICLE_SOUL = ITEMS.register("particle_soul", SJItem::new);
+    public static final RegistryObject<SJItem> PARTICLE_SNOW = ITEMS.register("particle_snow", SJItem::new);
     
     public static final RegistryObject<PotatoJetpackItem> JETPACK_POTATO = ITEMS.register("jetpack_potato", PotatoJetpackItem::new);
     public static final RegistryObject<JetpackItem> JETPACK_CREATIVE = ITEMS.register("jetpack_creative", () -> new JetpackItem(JetpackType.CREATIVE));

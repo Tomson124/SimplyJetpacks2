@@ -12,9 +12,8 @@ public enum JetpackParticleType {
     RAINBOW(RegistryHandler.RAINBOW_PARTICLE.get()),
     BUBBLES(ParticleTypes.BUBBLE),
     HEARTS(ParticleTypes.HEART),
-    WARPED(ParticleTypes.WARPED_SPORE),
-    CRIMSON(ParticleTypes.CRIMSON_SPORE),
-    PORTAL(ParticleTypes.PORTAL)
+    SOUL(ParticleTypes.SOUL_FIRE_FLAME),
+    SNOW(ParticleTypes.ITEM_SNOWBALL),
     ;
 
     public final IParticleData particleData;

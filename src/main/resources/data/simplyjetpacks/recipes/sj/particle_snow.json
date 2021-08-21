@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " t ",
-    "tpt",
-    " t "
+    " s ",
+    "sps",
+    " s "
   ],
   "key": {
     "p": { "item": "simplyjetpacks:particle_blend" },
-    "t": { "item": "minecraft:warped_fungus" }
+    "s": { "item": "minecraft:snowball" }
   },
   "result": {
-    "item": "simplyjetpacks:particle_warped",
+    "item": "simplyjetpacks:particle_snow",
     "count": 1
   }
 }
