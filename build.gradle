@@ -134,6 +134,8 @@ dependencies {
 
     //runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${immersiveengineering_version}")
     //runtimeOnly fg.deobf("curse.maven:immersiveengineering-231951:3189063")
+
+    runtimeOnly fg.deobf("curse.maven:configured-457570:3434071")
 }
 
 jar {
