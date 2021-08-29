@@ -8,7 +8,7 @@ import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import stormedpanda.simplyjetpacks.datagen.SJTags;
-import stormedpanda.simplyjetpacks.init.RegistryHandler;
+import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
 
 public class JetpackSpecialRecipe extends SpecialRecipe {

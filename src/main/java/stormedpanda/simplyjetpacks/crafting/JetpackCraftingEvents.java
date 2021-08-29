@@ -8,7 +8,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import stormedpanda.simplyjetpacks.datagen.SJTags;
-import stormedpanda.simplyjetpacks.init.RegistryHandler;
+import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
 import stormedpanda.simplyjetpacks.item.JetpackType;
 import stormedpanda.simplyjetpacks.util.NBTUtil;

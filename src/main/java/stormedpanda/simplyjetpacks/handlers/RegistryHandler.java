@@ -1,4 +1,4 @@
-package stormedpanda.simplyjetpacks.init;
+package stormedpanda.simplyjetpacks.handlers;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.container.ContainerType;
@@ -42,8 +42,6 @@ public class RegistryHandler {
     public static final RegistryObject<EnchantmentFuelEfficiency> FUEL_EFFICIENCY = ENCHANTMENTS.register("fuel_efficiency", EnchantmentFuelEfficiency::new);
 
     // Items:
-    public static final RegistryObject<PilotGogglesItem> PILOT_GOGGLES_GOLD = ITEMS.register("pilot_goggles_gold", () -> new PilotGogglesItem("gold"));
-    public static final RegistryObject<PilotGogglesItem> PILOT_GOGGLES_IRON = ITEMS.register("pilot_goggles_iron", () -> new PilotGogglesItem("iron"));
     public static final RegistryObject<SJItem> LEATHER_STRAP = ITEMS.register("leather_strap", SJItem::new);
     public static final RegistryObject<SJItem> PARTICLE_BLEND = ITEMS.register("particle_blend", SJItem::new);
     public static final RegistryObject<SJItem> PARTICLE_NONE = ITEMS.register("particle_none", SJItem::new);
@@ -52,6 +50,9 @@ public class RegistryHandler {
     public static final RegistryObject<SJItem> PARTICLE_RAINBOW = ITEMS.register("particle_rainbow", SJItem::new);
     public static final RegistryObject<SJItem> PARTICLE_SOUL = ITEMS.register("particle_soul", SJItem::new);
     public static final RegistryObject<SJItem> PARTICLE_SNOW = ITEMS.register("particle_snow", SJItem::new);
+
+    public static final RegistryObject<PilotGogglesItem> PILOT_GOGGLES_GOLD = ITEMS.register("pilot_goggles_gold", () -> new PilotGogglesItem("gold"));
+    public static final RegistryObject<PilotGogglesItem> PILOT_GOGGLES_IRON = ITEMS.register("pilot_goggles_iron", () -> new PilotGogglesItem("iron"));
     
     public static final RegistryObject<PotatoJetpackItem> JETPACK_POTATO = ITEMS.register("jetpack_potato", PotatoJetpackItem::new);
     public static final RegistryObject<JetpackItem> JETPACK_CREATIVE = ITEMS.register("jetpack_creative", () -> new JetpackItem(JetpackType.CREATIVE));

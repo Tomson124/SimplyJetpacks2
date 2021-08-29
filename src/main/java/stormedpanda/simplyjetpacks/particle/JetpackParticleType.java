@@ -2,7 +2,7 @@ package stormedpanda.simplyjetpacks.particle;
 
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
-import stormedpanda.simplyjetpacks.init.RegistryHandler;
+import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 
 public enum JetpackParticleType {
 

@@ -5,7 +5,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
-import stormedpanda.simplyjetpacks.init.RegistryHandler;
+import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 
 import javax.annotation.Nullable;
 

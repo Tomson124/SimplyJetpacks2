@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
-import stormedpanda.simplyjetpacks.init.RegistryHandler;
+import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
