@@ -5,7 +5,7 @@
 
 ![Simply Jetpacks 2 Logo](https://raw.githubusercontent.com/Tomson124/SimplyJetpacks2/1.16/src/main/resources/logo.png "Simply Jetpacks 2 Logo")
 
-# Simply Jetpacks 2
+# Simply Jetpacks 2 (Forge)
 
 Simply Jetpacks is a Minecraft Mod that adds Jetpacks and Fluxpacks with various recipes from other mods such as Thermal Expansion and EnderIO.
 
@@ -25,3 +25,5 @@ If you want to stay on the bleeding edge in terms of information you can also fo
 
 If you want to help and don't know how to code, donations are always a good way to support the devs.
 You can do that on [Patreon](https://www.patreon.com/Tomson124 "Tomson124 Patreon") or [PayPal](https://www.paypal.me/Tomson124 "Tomson124 PayPal")
+
+The Fabric version can be found here: [Simply Jetpacks 2 (Fabric)](https://www.curseforge.com/minecraft/mc-mods/simply-jetpacks-2-fabric "CurseForge - Simply Jetpacks 2 (Fabric)")
