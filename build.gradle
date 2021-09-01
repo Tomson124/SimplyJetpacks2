@@ -77,6 +77,8 @@ dependencies {
 
     runtime "vazkii.patchouli:Patchouli:${patchouli_version}"
 
+    compile "curse.maven:baubles-227083:2518667"
+
     //compile "cofh:RedstoneFlux:${redstoneflux_version}:deobf"
     compile "curse.maven:redstone-flux-270789:2920436"
 

@@ -7,7 +7,6 @@ import net.minecraft.client.gui.GuiButtonImage;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -17,6 +16,7 @@ import tonius.simplyjetpacks.item.ItemFluxpack;
 import tonius.simplyjetpacks.item.ItemJetpack;
 import tonius.simplyjetpacks.network.NetworkHandler;
 import tonius.simplyjetpacks.network.message.MessageKeybind;
+import tonius.simplyjetpacks.util.JetpackUtil;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
@@ -31,9 +31,12 @@ public class JetpackGuiScreen extends GuiScreen {
     private final ResourceLocation GUI_BASE = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/jetpack_screen.png");
     private final ResourceLocation ENERGY_BAR = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/energy_bar.png");
 
+    private final ItemStack jetpackStack;
+
     public JetpackGuiScreen() {
         this.width = WIDTH;
         this.height = HEIGHT;
+        this.jetpackStack = JetpackUtil.getFromBothSlots(minecraft.player);
     }
 
     private static void drawStringCenter(String string, FontRenderer fontRenderer, int x, int y, int color, boolean shadow) {
@@ -48,17 +51,17 @@ public class JetpackGuiScreen extends GuiScreen {
 
         this.addButton(new GuiButtonImage(1, relX + 120, relY + 16, 20, 20, 176, 0, 20, GUI_BASE));
 
-        ItemStack stack = minecraft.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-        Item item = stack.getItem();
+        //ItemStack stack = minecraft.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+        Item item = jetpackStack.getItem();
         if (item instanceof ItemJetpack) {
             ItemJetpack jetpack = (ItemJetpack) item;
             this.addButton(new GuiButtonImage(3, relX + 120, relY + 38, 20, 20, 216, 0, 20, GUI_BASE));
-            if (jetpack.canCharge(stack)) {
+            if (jetpack.canCharge(jetpackStack)) {
                 this.addButton(new GuiButtonImage(2, relX + 142, relY + 16, 20, 20, 196, 0, 20, GUI_BASE));
             } else {
                 this.addButton(new GuiButtonImage(0, relX + 142, relY + 16, 20, 20, 196, 40, 0, GUI_BASE));
             }
-            if (jetpack.canEHover(stack)) {
+            if (jetpack.canEHover(jetpackStack)) {
                 this.addButton(new GuiButtonImage(4, relX + 142, relY + 38, 20, 20, 236, 0, 20, GUI_BASE));
             } else {
                 this.addButton(new GuiButtonImage(0, relX + 142, relY + 38, 20, 20, 236, 40, 0, GUI_BASE));
@@ -79,7 +82,8 @@ public class JetpackGuiScreen extends GuiScreen {
         this.drawTexturedModalRect(relX, relY, 0, 0, WIDTH, HEIGHT);
 
         //drawStringCenter(I18n.format(minecraft.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getUnlocalizedName() + ".name"), fontRenderer, relX + 88, relY + 5, 0xFFFFFF, true);
-        drawStringCenter(minecraft.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getDisplayName(), fontRenderer, relX + 88, relY + 5, 0xFFFFFF, true);
+        //drawStringCenter(minecraft.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getDisplayName(), fontRenderer, relX + 88, relY + 5, 0xFFFFFF, true);
+        drawStringCenter(jetpackStack.getDisplayName(), fontRenderer, relX + 88, relY + 5, 0xFFFFFF, true);
         GuiInventory.drawEntityOnScreen(relX + 80, relY + 90, 40, (float) (relX + 51) - mousePosX, (float) (relY + 75 - 50) - mousePosY, minecraft.player);
 
         minecraft.getTextureManager().bindTexture(ENERGY_BAR);
@@ -91,23 +95,23 @@ public class JetpackGuiScreen extends GuiScreen {
     }
 
     private int getEnergyBarAmount() {
-        ItemStack stack = minecraft.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-        Item item = stack.getItem();
+        //ItemStack stack = minecraft.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+        Item item = jetpackStack.getItem();
         if (item instanceof ItemJetpack) {
             ItemJetpack jetpack = (ItemJetpack) item;
 /*            if (jetpack.isCreative) {
                 return 78;
             }*/
-            int i = jetpack.getEnergyStored(stack);
-            int j = jetpack.getMaxEnergyStored(stack);
+            int i = jetpack.getEnergyStored(jetpackStack);
+            int j = jetpack.getMaxEnergyStored(jetpackStack);
             return (int) (j != 0 && i != 0 ? (long) i * 78 / j : 0);
         } else if (item instanceof ItemFluxpack) {
             ItemFluxpack fluxpack = (ItemFluxpack) item;
 /*            if (fluxpack.isCreative) {
                 return 78;
             }*/
-            int i = fluxpack.getEnergyStored(stack);
-            int j = fluxpack.getMaxEnergyStored(stack);
+            int i = fluxpack.getEnergyStored(jetpackStack);
+            int j = fluxpack.getMaxEnergyStored(jetpackStack);
             return (int) (j != 0 && i != 0 ? (long) i * 78 / j : 0);
         } else {
             return 0;
@@ -116,8 +120,8 @@ public class JetpackGuiScreen extends GuiScreen {
 
     @Override
     protected void actionPerformed(@Nonnull GuiButton button) throws IOException {
-        ItemStack stack = minecraft.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-        Item item = stack.getItem();
+        //ItemStack stack = minecraft.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+        Item item = jetpackStack.getItem();
         if (item instanceof ItemFluxpack) {
             if (button.id == 1) {
                 NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.ENGINE));

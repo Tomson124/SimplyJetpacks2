@@ -3,7 +3,6 @@ package tonius.simplyjetpacks.network.message;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -14,6 +13,7 @@ import tonius.simplyjetpacks.item.ItemFluxpack;
 import tonius.simplyjetpacks.item.ItemJetpack;
 import tonius.simplyjetpacks.network.NetworkHandler;
 import tonius.simplyjetpacks.util.Constants;
+import tonius.simplyjetpacks.util.JetpackUtil;
 
 public class MessageKeybind implements IMessage, IMessageHandler<MessageKeybind, IMessage> {
 
@@ -46,7 +46,8 @@ public class MessageKeybind implements IMessage, IMessageHandler<MessageKeybind,
 
 	public void handleMessage(MessageKeybind msg, MessageContext ctx) {
 		EntityPlayer player = NetworkHandler.getPlayer(ctx);
-		ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+		//ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+		ItemStack stack = JetpackUtil.getFromBothSlots(player);
 
 		if (stack.getItem() instanceof ItemJetpack) {
 			ItemJetpack jetpack = (ItemJetpack) stack.getItem();

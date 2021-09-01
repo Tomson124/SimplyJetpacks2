@@ -6,7 +6,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -20,8 +19,10 @@ import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.item.ItemJetpack;
 import tonius.simplyjetpacks.item.Jetpack;
 import tonius.simplyjetpacks.setup.ParticleType;
+import tonius.simplyjetpacks.util.JetpackUtil;
 
 import java.lang.reflect.Field;
+import java.time.LocalDate;
 import java.util.Iterator;
 
 public class ClientTickHandler {
@@ -46,7 +47,8 @@ public class ClientTickHandler {
     private static void tickStart() {
         if (mc.player == null) return;
         ParticleType jetpackState = null;
-        ItemStack armor = mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+        //ItemStack armor = mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+        ItemStack armor = JetpackUtil.getFromBothSlots(mc.player);
         if (armor.getItem() instanceof ItemJetpack) {
             int i = MathHelper.clamp(armor.getItemDamage(), 0, numItems - 1);
             Jetpack jetpack = Jetpack.getTypeFromMeta(i);
@@ -77,6 +79,8 @@ public class ClientTickHandler {
                     if (particle != null && !isSpectator) {
                         if (entity.isInWater() && particle != ParticleType.NONE) {
                             particle = ParticleType.BUBBLE;
+                        } else if (checkValentines()) {
+                            particle = ParticleType.HEART;
                         }
                         SimplyJetpacks.PROXY.showJetpackParticles(mc.world, (EntityLivingBase) entity, particle);
                         if (Config.jetpackSounds && !SoundJetpack.isPlayingFor(entity.getEntityId())) {
@@ -115,5 +119,12 @@ public class ClientTickHandler {
         } else {
             tickEnd();
         }
+    }
+
+    private static boolean checkValentines() {
+        LocalDate today = LocalDate.now();
+        int day = today.getDayOfMonth();
+        int month = today.getMonthValue();
+        return day == 14 && month == 3;
     }
 }

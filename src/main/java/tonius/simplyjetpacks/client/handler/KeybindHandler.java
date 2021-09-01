@@ -3,7 +3,6 @@ package tonius.simplyjetpacks.client.handler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.client.FMLClientHandler;
@@ -20,6 +19,7 @@ import tonius.simplyjetpacks.item.ItemJetpack;
 import tonius.simplyjetpacks.network.NetworkHandler;
 import tonius.simplyjetpacks.network.message.MessageKeybind;
 import tonius.simplyjetpacks.network.message.MessageKeyboardSync;
+import tonius.simplyjetpacks.util.JetpackUtil;
 import tonius.simplyjetpacks.util.StackUtil;
 
 public class KeybindHandler {
@@ -60,7 +60,8 @@ public class KeybindHandler {
     @SubscribeEvent
     public void onKeyInput(KeyInputEvent event) {
         EntityPlayer player = FMLClientHandler.instance().getClient().player;
-        ItemStack chestStack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+        //ItemStack chestStack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+        ItemStack chestStack = JetpackUtil.getFromBothSlots(mc.player);
         Item chestItem = StackUtil.getItem(chestStack);
 
         if (chestItem instanceof ItemJetpack) {

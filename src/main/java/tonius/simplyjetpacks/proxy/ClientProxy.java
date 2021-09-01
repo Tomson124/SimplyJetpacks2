@@ -37,7 +37,6 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void showJetpackParticles(World world, EntityLivingBase wearer, ParticleType particle) {
 		if (mc.gameSettings.particleSetting == 0 || mc.gameSettings.particleSetting == 1 && mc.world.getTotalWorldTime() % 4L == 0) {
-
 			Random rand = new Random();
 			float random = (rand.nextFloat() - 0.5F) * 0.1F;
 

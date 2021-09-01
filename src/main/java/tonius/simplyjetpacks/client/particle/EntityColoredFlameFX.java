@@ -1,7 +1,7 @@
 package tonius.simplyjetpacks.client.particle;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.ParticleSmokeNormal;
+import net.minecraft.client.particle.ParticleFlame;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
@@ -10,24 +10,24 @@ import tonius.simplyjetpacks.util.math.MathHelper;
 import javax.annotation.Nonnull;
 import java.awt.*;
 
-//public class EntityColoredSmokeFX extends EntityCustomSmokeFX {
-public class EntityColoredSmokeFX extends ParticleSmokeNormal {
+public class EntityColoredFlameFX extends ParticleFlame {
 
 	private static final Minecraft mc = Minecraft.getMinecraft();
 
-	public EntityColoredSmokeFX(World world, double posX, double posY, double posZ, double velX, double velY, double velZ, float red, float green, float blue) {
-		super(world, posX, posY, posZ, velX, velY, velZ, 1.0F);
+	public EntityColoredFlameFX(World world, double posX, double posY, double posZ, double velX, double velY, double velZ, float red, float green, float blue) {
+		super(world, posX, posY, posZ, velX, velY, velZ);
 		this.particleRed = red;
 		this.particleGreen = green;
 		this.particleBlue = blue;
 	}
 
-	public static EntityColoredSmokeFX getRainbowSmoke(World world, double posX, double posY, double posZ, double velX, double velY, double velZ) {
+	public static EntityColoredFlameFX getSoulFlame(World world, double posX, double posY, double posZ, double velX, double velY, double velZ) {
+		// TODO: make the colours blue and white.
 		Color color = new Color(Color.HSBtoRGB(MathHelper.RANDOM.nextFloat() * 360, MathHelper.RANDOM.nextFloat() * 0.15F + 0.8F, 0.85F));
 		float red = color.getRed() / 255.0F;
 		float green = color.getGreen() / 255.0F;
 		float blue = color.getBlue() / 255.0F;
-		return new EntityColoredSmokeFX(world, posX, posY, posZ, velX, velY, velZ, red, green, blue);
+		return new EntityColoredFlameFX(world, posX, posY, posZ, velX, velY, velZ, red, green, blue);
 	}
 
 	@Override

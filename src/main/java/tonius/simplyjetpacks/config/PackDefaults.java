@@ -27,6 +27,7 @@ public class PackDefaults {
     public Double sprintEnergyModifier;
     public Boolean emergencyHoverMode;
     public Boolean chargerMode;
+    public Boolean hoverMode;
 
     public PackDefaults(String modid, String key) {
         this.section = new Section(false, "tuning." + modid + "." + key, "x", "item.simplyjetpacks." + key + ".name");
@@ -37,13 +38,24 @@ public class PackDefaults {
         return DEFAULTS.get(key);
     }
 
-    // The Great Mighty List of Defaults
+    // The Great Mighty List of Defaults!
     static {
         PackDefaults d = new PackDefaults("simplyjetpacks", "jetpack_potato");
         d.energyCapacity = 1200;
         d.energyUsage = 45;
+        d.energyPerTickOut = 45;
+        d.energyPerTickIn = 0;
+        d.armorReduction = 0;
+        d.enchantability = 0;
         d.speedVertical = 0.9D;
         d.accelVertical = 0.5D;
+        d.speedVerticalHover = 0.0D;
+        d.speedVerticalHoverSlow = 0.0D;
+        d.speedSideways = 0.0D;
+        d.sprintSpeedModifier = 0.0D;
+        d.emergencyHoverMode = false;
+        d.chargerMode = false;
+        d.hoverMode = false;
 
         d = new PackDefaults("simplyjetpacks", "jetpack_creative");
         d.energyCapacity = 200000;
@@ -59,6 +71,7 @@ public class PackDefaults {
         d.sprintSpeedModifier = 2.5D;
         d.emergencyHoverMode = true;
         d.chargerMode = true;
+        d.hoverMode = true;
 
         d = new PackDefaults("simplyjetpacks", "fluxpack_creative");
         d.energyCapacity = 200000;
@@ -84,6 +97,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 1.0D;
             d.emergencyHoverMode = false;
             d.chargerMode = false;
+            d.hoverMode = true;
 
             d = new PackDefaults("enderio", "jetpack_eio2");
             d.energyCapacity = 400000;
@@ -101,6 +115,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 1.0D;
             d.emergencyHoverMode = false;
             d.chargerMode = false;
+            d.hoverMode = true;
 
             d = new PackDefaults("enderio", "jetpack_eio3");
             d.energyCapacity = 4000000;
@@ -118,6 +133,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 2.5D;
             d.emergencyHoverMode = true;
             d.chargerMode = false;
+            d.hoverMode = true;
 
             d = new PackDefaults("enderio", "jetpack_eio4");
             d.energyCapacity = 20000000;
@@ -136,6 +152,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 4.0D;
             d.emergencyHoverMode = true;
             d.chargerMode = false;
+            d.hoverMode = true;
 
             d = new PackDefaults("enderio", "jetpack_eio5");
             d.energyCapacity = 60000000;
@@ -154,6 +171,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 6.0D;
             d.emergencyHoverMode = true;
             d.chargerMode = true;
+            d.hoverMode = true;
 
             d = new PackDefaults("enderio", "fluxpack_eio1");
             d.energyCapacity = 800000;
@@ -197,6 +215,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 1.0D;
             d.emergencyHoverMode = false;
             d.chargerMode = false;
+            d.hoverMode = true;
 
             d = new PackDefaults("te", "jetpack_te2");
             d.energyCapacity = 3000000;
@@ -214,6 +233,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 1.0D;
             d.emergencyHoverMode = false;
             d.chargerMode = false;
+            d.hoverMode = true;
 
             d = new PackDefaults("te", "jetpack_te3");
             d.energyCapacity = 6000000;
@@ -231,6 +251,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 2.5D;
             d.emergencyHoverMode = true;
             d.chargerMode = false;
+            d.hoverMode = true;
 
             d = new PackDefaults("te", "jetpack_te4");
             d.energyCapacity = 25000000;
@@ -248,6 +269,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 4.0D;
             d.emergencyHoverMode = true;
             d.chargerMode = false;
+            d.hoverMode = true;
 
             d = new PackDefaults("te", "jetpack_te5");
             d.energyCapacity = 50000000;
@@ -266,6 +288,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 6.0D;
             d.emergencyHoverMode = true;
             d.chargerMode = true;
+            d.hoverMode = true;
 
             if (ModType.REDSTONE_REPOSITORY.loaded) {
                 d = new PackDefaults("te", "jetpack_te5_enderium");
@@ -285,6 +308,7 @@ public class PackDefaults {
                 d.sprintEnergyModifier = 6.0D;
                 d.emergencyHoverMode = true;
                 d.chargerMode = true;
+                d.hoverMode = true;
             }
 
             d = new PackDefaults("te", "fluxpack_te1");
@@ -337,6 +361,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 1.0D;
             d.emergencyHoverMode = false;
             d.chargerMode = false;
+            d.hoverMode = true;
 
             d = new PackDefaults("mek", "jetpack_mek2");
             d.energyCapacity = 400000;
@@ -354,6 +379,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 1.0D;
             d.emergencyHoverMode = false;
             d.chargerMode = false;
+            d.hoverMode = true;
 
             d = new PackDefaults("mek", "jetpack_mek3");
             d.energyCapacity = 4000000;
@@ -371,6 +397,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 2.5D;
             d.emergencyHoverMode = true;
             d.chargerMode = false;
+            d.hoverMode = true;
 
             d = new PackDefaults("mek", "jetpack_mek4");
             d.energyCapacity = 20000000;
@@ -388,6 +415,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 4.0D;
             d.emergencyHoverMode = true;
             d.chargerMode = false;
+            d.hoverMode = true;
         }
 
         if (ModType.IMMERSIVE_ENGINEERING.loaded) {
@@ -407,6 +435,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 1.0D;
             d.emergencyHoverMode = false;
             d.chargerMode = false;
+            d.hoverMode = true;
 
             d = new PackDefaults("ie", "jetpack_ie2");
             d.energyCapacity = 400000;
@@ -424,6 +453,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 1.0D;
             d.emergencyHoverMode = false;
             d.chargerMode = false;
+            d.hoverMode = true;
 
             d = new PackDefaults("ie", "jetpack_ie3");
             d.energyCapacity = 4000000;
@@ -441,6 +471,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 2.5D;
             d.emergencyHoverMode = true;
             d.chargerMode = false;
+            d.hoverMode = true;
         }
 
         if (Config.enableIntegrationVanilla) {
@@ -460,6 +491,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 1.0D;
             d.emergencyHoverMode = false;
             d.chargerMode = false;
+            d.hoverMode = true;
 
             d = new PackDefaults("vanilla", "jetpack_vanilla2");
             d.energyCapacity = 400000;
@@ -477,6 +509,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 1.0D;
             d.emergencyHoverMode = false;
             d.chargerMode = false;
+            d.hoverMode = true;
 
             d = new PackDefaults("vanilla", "jetpack_vanilla3");
             d.energyCapacity = 20000000;
@@ -494,6 +527,7 @@ public class PackDefaults {
             d.sprintEnergyModifier = 4.0D;
             d.emergencyHoverMode = true;
             d.chargerMode = false;
+            d.hoverMode = true;
         }
     }
 }

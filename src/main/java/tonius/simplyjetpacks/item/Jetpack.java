@@ -114,6 +114,7 @@ public enum Jetpack implements IStringSerializable {
 	public double sprintEnergyModifier;
 	public boolean emergencyHoverMode;
 	public boolean chargerMode;
+	public boolean hoverMode;
 	public int enchantability;
 
 	@Nonnull
@@ -323,6 +324,9 @@ public enum Jetpack implements IStringSerializable {
 		}
 		if (this.defaults.sprintEnergyModifier != null) {
 			this.sprintEnergyModifier = config.getDoubleS(this.defaults.section.category, "sprintEnergyModifier", "tuning", this.defaults.sprintEnergyModifier, 0D, null, false, "How much more energy this Jetpack will use when sprinting. Setting this to 1.0 will make sprinting have no effect on energy usage.");
+		}
+		if (this.defaults.hoverMode != null) {
+			this.hoverMode = config.getBooleanS(this.defaults.section.category, "hoverMode", "tuning", this.defaults.hoverMode, false, "When enabled, this Jetpack will be able to activate Hover Mode.");
 		}
 		if (this.defaults.emergencyHoverMode != null) {
 			this.emergencyHoverMode = config.getBooleanS(this.defaults.section.category, "emergencyHoverMode", "tuning", this.defaults.emergencyHoverMode, false, "When enabled, this Jetpack will be able to activate Hover Mode automatically when the wearer is about to die from a fall.");

@@ -11,7 +11,7 @@ import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.item.Fluxpack;
 import tonius.simplyjetpacks.item.Jetpack;
 
-public abstract class RenderUtils {
+public class RenderUtils {
 
     private static final Minecraft mc = Minecraft.getMinecraft();
 

@@ -9,4 +9,5 @@ public enum ParticleType {
 	HEART,
 	SOUL,
 	SNOW
+	;
 }
