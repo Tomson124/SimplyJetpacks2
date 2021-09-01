@@ -1,9 +1,12 @@
 package tonius.simplyjetpacks.setup;
 
 public enum ParticleType {
-	DEFAULT,
+	FLAME,
 	NONE,
 	SMOKE,
 	RAINBOW,
-	BUBBLE
+	BUBBLE,
+	HEART,
+	SOUL,
+	SNOW
 }

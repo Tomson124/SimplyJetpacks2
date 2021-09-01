@@ -8,7 +8,6 @@ import tonius.simplyjetpacks.SimplyJetpacks;
 
 public enum SJSoundRegistry implements IModSound {
 
-	//ZOMBIE_BUBBLE(SoundCategory.BLOCKS, "generator.zombie.bubble"),
 	JETPACK(SoundCategory.PLAYERS, "jetpack"),
 	JETPACK_OTHER(SoundCategory.PLAYERS, "jetpack_other"),
 	ROCKET(SoundCategory.PLAYERS, "rocket");

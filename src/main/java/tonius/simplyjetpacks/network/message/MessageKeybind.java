@@ -13,6 +13,7 @@ import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.item.ItemFluxpack;
 import tonius.simplyjetpacks.item.ItemJetpack;
 import tonius.simplyjetpacks.network.NetworkHandler;
+import tonius.simplyjetpacks.util.Constants;
 
 public class MessageKeybind implements IMessage, IMessageHandler<MessageKeybind, IMessage> {
 
@@ -50,19 +51,19 @@ public class MessageKeybind implements IMessage, IMessageHandler<MessageKeybind,
 		if (stack.getItem() instanceof ItemJetpack) {
 			ItemJetpack jetpack = (ItemJetpack) stack.getItem();
 			if (msg.packetType == JetpackPacket.ENGINE) {
-				jetpack.toggleState(jetpack.isOn(stack), stack, "engine_mode", ItemJetpack.TAG_ENGINE, player, Config.enableStateMessages);
+				jetpack.toggleState(jetpack.isOn(stack), stack, "engine_mode", Constants.TAG_ENGINE, player, Config.enableStateMessages);
 			} else if (msg.packetType == JetpackPacket.CHARGER) {
-				jetpack.toggleState(jetpack.isChargerOn(stack), stack, "charger_mode", ItemJetpack.TAG_CHARGER, player, Config.enableStateMessages);
+				jetpack.toggleState(jetpack.isChargerOn(stack), stack, "charger_mode", Constants.TAG_CHARGER, player, Config.enableStateMessages);
 			} else if (msg.packetType == JetpackPacket.HOVER) {
-				jetpack.toggleState(jetpack.isHoverModeOn(stack), stack, "hover_mode", ItemJetpack.TAG_HOVER, player, Config.enableStateMessages);
+				jetpack.toggleState(jetpack.isHoverModeOn(stack), stack, "hover_mode", Constants.TAG_HOVER, player, Config.enableStateMessages);
 			} else if (msg.packetType == JetpackPacket.E_HOVER) {
-				jetpack.toggleState(jetpack.isEHoverModeOn(stack), stack, "emergency_hover_mode", ItemJetpack.TAG_E_HOVER, player, Config.enableStateMessages);
+				jetpack.toggleState(jetpack.isEHoverModeOn(stack), stack, "emergency_hover_mode", Constants.TAG_E_HOVER, player, Config.enableStateMessages);
 			}
 		}
 		else if (stack.getItem() instanceof ItemFluxpack) {
 			ItemFluxpack fluxpack = (ItemFluxpack) stack.getItem();
 			if (msg.packetType == JetpackPacket.ENGINE) {
-				fluxpack.toggleState(fluxpack.isOn(stack), stack, "engine_mode", ItemFluxpack.TAG_ENGINE, player, Config.enableStateMessages);
+				fluxpack.toggleState(fluxpack.isOn(stack), stack, "engine_mode", Constants.TAG_ENGINE_FLUX, player, Config.enableStateMessages);
 			}
 		}
 	}

@@ -16,6 +16,7 @@ import javax.annotation.Nonnull;
  * @author aidancbrady
  */
 public class Pos3D extends Vec3d {
+
 	public Pos3D() {
 		this(0, 0, 0);
 	}

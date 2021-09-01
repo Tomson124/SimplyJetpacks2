@@ -79,7 +79,7 @@ public class ItemMeta extends ItemRegistered {
 
 	public void registerItemModel() {
 		for (int i = 0; i < numItems; i++) {
-			SimplyJetpacks.proxy.registerItemRenderer(this, i, MetaItems.getTypeFromMeta(i).getName());
+			SimplyJetpacks.PROXY.registerItemRenderer(this, i, MetaItems.getTypeFromMeta(i).getName());
 		}
 	}
 }

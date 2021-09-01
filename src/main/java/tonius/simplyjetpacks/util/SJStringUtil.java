@@ -33,7 +33,7 @@ public abstract class SJStringUtil {
 
 	public static String getEnergyText(int amount, int max, boolean infinite) {
 		if (infinite) {
-			return TextFormatting.GRAY + localize("tooltip.", ".energy.infinite");
+			return TextFormatting.LIGHT_PURPLE + localize("tooltip.", ".energy.infinite");
 		}
 		return TextFormatting.GRAY + localize("tooltip.", ".energyWithMax", getFormattedNumber(amount), getFormattedNumber(max));
 	}

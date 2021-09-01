@@ -7,7 +7,6 @@ import net.minecraft.client.gui.GuiButtonImage;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,7 +28,7 @@ public class JetpackGuiScreen extends GuiScreen {
 
     private static final Minecraft minecraft = Minecraft.getMinecraft();
 
-    private final ResourceLocation GUI_BASE = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/gui_base.png");
+    private final ResourceLocation GUI_BASE = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/jetpack_screen.png");
     private final ResourceLocation ENERGY_BAR = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/energy_bar.png");
 
     public JetpackGuiScreen() {
@@ -79,7 +78,8 @@ public class JetpackGuiScreen extends GuiScreen {
         minecraft.getTextureManager().bindTexture(GUI_BASE);
         this.drawTexturedModalRect(relX, relY, 0, 0, WIDTH, HEIGHT);
 
-        drawStringCenter(I18n.format(minecraft.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getUnlocalizedName() + ".name"), fontRenderer, relX + 88, relY + 5, 0xFFFFFF, true);
+        //drawStringCenter(I18n.format(minecraft.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getUnlocalizedName() + ".name"), fontRenderer, relX + 88, relY + 5, 0xFFFFFF, true);
+        drawStringCenter(minecraft.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getDisplayName(), fontRenderer, relX + 88, relY + 5, 0xFFFFFF, true);
         GuiInventory.drawEntityOnScreen(relX + 80, relY + 90, 40, (float) (relX + 51) - mousePosX, (float) (relY + 75 - 50) - mousePosY, minecraft.player);
 
         minecraft.getTextureManager().bindTexture(ENERGY_BAR);

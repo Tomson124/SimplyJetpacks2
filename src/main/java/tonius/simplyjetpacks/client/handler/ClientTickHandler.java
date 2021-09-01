@@ -38,7 +38,7 @@ public class ClientTickHandler {
         try {
             sprintToggleTimer = ReflectionHelper.findField(EntityPlayerSP.class, "sprintToggleTimer", "field_71156_d");
         } catch (Exception e) {
-            SimplyJetpacks.logger.error("Unable to find field 'sprintToggleTimer'");
+            SimplyJetpacks.LOGGER.error("Unable to find field 'sprintToggleTimer'");
             e.printStackTrace();
         }
     }
@@ -78,7 +78,7 @@ public class ClientTickHandler {
                         if (entity.isInWater() && particle != ParticleType.NONE) {
                             particle = ParticleType.BUBBLE;
                         }
-                        SimplyJetpacks.proxy.showJetpackParticles(mc.world, (EntityLivingBase) entity, particle);
+                        SimplyJetpacks.PROXY.showJetpackParticles(mc.world, (EntityLivingBase) entity, particle);
                         if (Config.jetpackSounds && !SoundJetpack.isPlayingFor(entity.getEntityId())) {
                             Minecraft.getMinecraft().getSoundHandler().playSound(new SoundJetpack((EntityLivingBase) entity));
                         }

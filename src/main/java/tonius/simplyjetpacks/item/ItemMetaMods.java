@@ -116,7 +116,7 @@ public class ItemMetaMods extends ItemMeta {
 
 	public void registerItemModel() {
 		for (int i = 0; i < numItems; i++) {
-			SimplyJetpacks.proxy.registerItemRenderer(this, i, MetaItemsMods.getTypeFromMeta(i).getName());
+			SimplyJetpacks.PROXY.registerItemRenderer(this, i, MetaItemsMods.getTypeFromMeta(i).getName());
 		}
 	}
 }

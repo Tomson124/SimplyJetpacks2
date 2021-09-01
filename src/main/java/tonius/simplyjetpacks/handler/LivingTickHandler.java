@@ -30,7 +30,7 @@ public class LivingTickHandler {
         try {
             floatingTickCount = ReflectionHelper.findField(NetHandlerPlayServer.class,  "floatingTickCount", "field_147365_f");
         } catch (Exception e) {
-            SimplyJetpacks.logger.error("Unable to find field 'floatingTickCount'");
+            SimplyJetpacks.LOGGER.error("Unable to find field 'floatingTickCount'");
             e.printStackTrace();
         }
     }

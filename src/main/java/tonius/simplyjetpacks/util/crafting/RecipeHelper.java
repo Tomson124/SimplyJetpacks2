@@ -31,7 +31,7 @@ public final class RecipeHelper {
 	public static final List<IRecipe> RECIPE_LIST = RegistryHandler.RECIPES_TO_REGISTER;
 
 	/*
-	 * This adds the recipe to the list of crafting recipes.  Since who cares about names, it adds it as recipesX, where X is the current recipe you are adding.
+	 * This adds the recipe to the list of crafting recipes. Since whom cares about names, it adds it as recipesX, where X is the current recipe you are adding.
 	 */
 	public static void addRecipe(int j, IRecipe rec) {
 		addRecipe("recipes" + j, rec);

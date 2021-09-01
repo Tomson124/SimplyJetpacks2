@@ -37,10 +37,7 @@ import tonius.simplyjetpacks.client.util.RenderUtils;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.setup.ModEnchantments;
 import tonius.simplyjetpacks.setup.ModItems;
-import tonius.simplyjetpacks.util.EquipmentSlotHelper;
-import tonius.simplyjetpacks.util.ItemHelper;
-import tonius.simplyjetpacks.util.NBTHelper;
-import tonius.simplyjetpacks.util.SJStringUtil;
+import tonius.simplyjetpacks.util.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -52,8 +49,6 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	public boolean hasStateIndicators = true;
 	public boolean isFluxBased = false;
 	public boolean showTier = true;
-	public static final String TAG_ENERGY = "Energy";
-	public static final String TAG_ENGINE = "FluxpackEngine";
 
 	public String name;
 	private final int numItems;
@@ -115,7 +110,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	protected void chargeInventory(EntityLivingBase user, ItemStack stack, ItemFluxpack item) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		for (int j = 0; j <= 5; j++) {
-			ItemStack currentStack = user.getItemStackFromSlot(EquipmentSlotHelper.fromSlot(j));
+			ItemStack currentStack = user.getItemStackFromSlot(JetpackUtil.fromSlot(j));
 			if (currentStack != stack && getIEnergyStorage(currentStack) != null && (currentStack.hasCapability(CapabilityEnergy.ENERGY, null) || currentStack.getItem() instanceof IEnergyContainerItem)) {
 				if (Fluxpack.values()[i].usesEnergy) {
 					int energyToAdd = Math.min(item.useEnergy(stack, Fluxpack.values()[i].getEnergyPerTickOut(), true), getIEnergyStorage(currentStack).receiveEnergy(Fluxpack.values()[i].getEnergyPerTickOut(), true));
@@ -191,7 +186,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 	}
 
 	public boolean isOn(ItemStack stack) {
-		return NBTHelper.getBoolean(stack, TAG_ENGINE, true);
+		return NBTHelper.getBoolean(stack, Constants.TAG_ENGINE_FLUX, true);
 	}
 
 	@Nonnull
@@ -245,7 +240,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		}
 		if (!simulate) {
 			energy += energyReceived;
-			NBTHelper.setInt(container, TAG_ENERGY, energy);
+			NBTHelper.setInt(container, Constants.TAG_ENERGY, energy);
 		}
 		return energyReceived;
 	}
@@ -257,7 +252,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 		int energyExtracted = Math.min(energy, Math.min(maxExtract, Fluxpack.values()[i].getEnergyPerTickOut()));
 		if (!simulate) {
 			energy -= energyExtracted;
-			NBTHelper.setInt(container, TAG_ENERGY, energy);
+			NBTHelper.setInt(container, Constants.TAG_ENERGY, energy);
 		}
 		return energyExtracted;
 	}
@@ -270,7 +265,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	@Override
 	public int getEnergyStored(ItemStack container) {
-		return NBTHelper.getInt(container, TAG_ENERGY, 0);
+		return NBTHelper.getInt(container, Constants.TAG_ENERGY, 0);
 	}
 
 	@Override
@@ -366,7 +361,7 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
 
 	public void registerItemModel() {
 		for (int i = 0; i < numItems; i++) {
-			SimplyJetpacks.proxy.registerItemRenderer(this, i, Fluxpack.getTypeFromMeta(i).getBaseName());
+			SimplyJetpacks.PROXY.registerItemRenderer(this, i, Fluxpack.getTypeFromMeta(i).getBaseName());
 		}
 	}
 }

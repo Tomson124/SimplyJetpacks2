@@ -204,11 +204,11 @@ public class ItemHelper {
         ItemJetpack jetpackItem = ModItems.itemJetpack;
         ItemStack jetpackStack = new ItemStack(jetpackItem, 1, pack.ordinal());
         if (pack.usesEnergy) {
-            NBTHelper.setInt(jetpackStack, ItemJetpack.TAG_ENERGY, 0);
+            NBTHelper.setInt(jetpackStack, Constants.TAG_ENERGY, 0);
         } else {
             jetpackItem.addEnergy(jetpackStack, jetpackItem.getMaxEnergyStored(jetpackStack), false);
         }
-        jetpackItem.setParticleType(jetpackStack, ParticleType.DEFAULT);
+        jetpackItem.setParticleType(jetpackStack, ParticleType.FLAME);
         List.add(jetpackStack);
     }
 
@@ -218,7 +218,7 @@ public class ItemHelper {
         ItemStack fluxpackStack = new ItemStack(fluxpackItem, 1, pack.ordinal());
         if (pack.usesEnergy) {
             List.add(fluxpackStack);
-            NBTHelper.setInt(fluxpackStack, ItemFluxpack.TAG_ENERGY, 0);
+            NBTHelper.setInt(fluxpackStack, Constants.TAG_ENERGY, 0);
         } else {
             stack = new ItemStack(fluxpackItem, 1, pack.ordinal());
             fluxpackItem.addEnergy(stack, fluxpackItem.getMaxEnergyStored(stack), false);

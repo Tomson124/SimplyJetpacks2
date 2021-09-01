@@ -10,6 +10,7 @@ import tonius.simplyjetpacks.config.PackDefaults;
 import tonius.simplyjetpacks.handler.SyncHandler;
 import tonius.simplyjetpacks.setup.ModItems;
 import tonius.simplyjetpacks.setup.ParticleType;
+import tonius.simplyjetpacks.util.Constants;
 import tonius.simplyjetpacks.util.NBTHelper;
 
 import javax.annotation.Nonnull;
@@ -20,8 +21,9 @@ import java.util.Locale;
 
 public enum Jetpack implements IStringSerializable {
 
+	JETPACK_POTATO("jetpack_potato", 1, "jetpack_potato", EnumRarity.COMMON, ParticleType.FLAME, false),
 	JETPACK_CREATIVE("jetpack_creative", 6, "jetpack_creative", EnumRarity.EPIC, ParticleType.RAINBOW, false),
-	//JETPACK_POTATO("jetpack_potato", 1, "jetpack_potato", EnumRarity.COMMON, ParticleType.DEFAULT, false),
+	JETPACK_CREATIVE_ARMORED("jetpack_creative_armored", 6, "jetpack_creative", EnumRarity.EPIC, ParticleType.RAINBOW, false),
 
 	// Vanilla
 	JETPACK_VANILLA_1("jetpack_vanilla1", 1, "jetpack_vanilla1", EnumRarity.COMMON),
@@ -72,12 +74,11 @@ public enum Jetpack implements IStringSerializable {
 	JETPACK_IE_2_ARMORED("jetpack_ie2_armored", 2, "jetpack_ie2", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_IE_2.ordinal()),
 	JETPACK_IE_3_ARMORED("jetpack_ie3_armored", 3, "jetpack_ie3", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_IE_3.ordinal());
 
-	protected static final String TAG_PARTICLE = "JetpackParticle";
 	public ParticleType defaultParticleType;
 
 	protected final PackDefaults defaults;
 	protected static final EnumSet<Jetpack> JETPACKS_ALL = EnumSet.allOf(Jetpack.class);
-	protected static final EnumSet<Jetpack> JETPACKS_SJ = EnumSet.of(JETPACK_CREATIVE);
+	protected static final EnumSet<Jetpack> JETPACKS_SJ = EnumSet.of(JETPACK_POTATO, JETPACK_CREATIVE, JETPACK_CREATIVE_ARMORED);
 	public static final EnumSet<Jetpack> JETPACKS_VANILLA = EnumSet.range(JETPACK_VANILLA_1, JETPACK_VANILLA_3_ARMORED);
 	public static final EnumSet<Jetpack> JETPACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPLATE_EIO_5);
 	public static final EnumSet<Jetpack> JETPACKS_EIO_ARMORED = EnumSet.range(JETPACK_EIO_1_ARMORED, JETPACK_EIO_4_ARMORED);
@@ -139,7 +140,7 @@ public enum Jetpack implements IStringSerializable {
 		this.baseName = baseName;
 		this.tier = tier;
 		this.defaults = PackDefaults.get(defaultConfigKey);
-		this.defaultParticleType = ParticleType.DEFAULT;
+		this.defaultParticleType = ParticleType.FLAME;
 		this.unlocalisedName = "item.simplyjetpacks." + baseName;
 		this.jetpacks.add(baseName);
 		this.usesEnergy = true;
@@ -219,14 +220,14 @@ public enum Jetpack implements IStringSerializable {
 	}
 
 	public ParticleType getParticleType(ItemStack stack) {
-		if (stack.getTagCompound() != null && NBTHelper.keyExists(stack, TAG_PARTICLE)) {
-			int particle = NBTHelper.getInt(stack, TAG_PARTICLE, this.defaultParticleType.ordinal());
+		if (stack.getTagCompound() != null && NBTHelper.keyExists(stack, Constants.TAG_PARTICLE)) {
+			int particle = NBTHelper.getInt(stack, Constants.TAG_PARTICLE, this.defaultParticleType.ordinal());
 			ParticleType particleType = ParticleType.values()[particle];
 			if (particleType != null) {
 				return particleType;
 			}
 		}
-		NBTHelper.setInt(stack, TAG_PARTICLE, this.defaultParticleType.ordinal());
+		NBTHelper.setInt(stack, Constants.TAG_PARTICLE, this.defaultParticleType.ordinal());
 		return this.defaultParticleType;
 	}
 

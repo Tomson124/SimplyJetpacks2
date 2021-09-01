@@ -21,13 +21,13 @@ public abstract class NetworkHandler {
 	public static final SimpleNetworkWrapper instance = NetworkRegistry.INSTANCE.newSimpleChannel(SimplyJetpacks.MODID);
 
 	public static void init() {
-		SimplyJetpacks.logger.info("Registering Network Messages...");
+		SimplyJetpacks.LOGGER.info("Registering Network Messages...");
 		instance.registerMessage(MessageJetpackSync.class, MessageJetpackSync.class, nextID(), Side.CLIENT);
 		instance.registerMessage(MessageKeyboardSync.class, MessageKeyboardSync.class, nextID(), Side.SERVER);
 		instance.registerMessage(MessageKeybind.class, MessageKeybind.class, nextID(), Side.SERVER);
 	}
 
 	public static EntityPlayer getPlayer(MessageContext context) {
-		return SimplyJetpacks.proxy.getPlayer(context);
+		return SimplyJetpacks.PROXY.getPlayer(context);
 	}
 }

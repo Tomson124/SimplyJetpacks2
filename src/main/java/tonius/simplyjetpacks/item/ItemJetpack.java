@@ -60,12 +60,6 @@ import static tonius.simplyjetpacks.handler.LivingTickHandler.floatingTickCount;
 @Optional.Interface(iface = "cofh.core.item.IEnchantableItem", modid = "cofhcore")
 public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider, IArmorEnderium, IEnchantableItem {
 
-	public static final String TAG_ENERGY = "Energy";
-	public static final String TAG_ENGINE = "JetpackEngine";
-	public static final String TAG_HOVER = "JetpackHover";
-	public static final String TAG_E_HOVER = "JetpackEHover";
-	public static final String TAG_CHARGER = "JetpackCharger";
-
 	protected static final UUID ARMOR_MODIFIER = UUID.fromString("0819e549-a0f9-49d3-a199-53662799c67b");
 
 	public String name;
@@ -165,11 +159,11 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	}
 
 	public boolean isChargerOn(ItemStack stack) {
-		return NBTHelper.getBoolean(stack, TAG_CHARGER, true);
+		return NBTHelper.getBoolean(stack, Constants.TAG_CHARGER, true);
 	}
 
 	public void setParticleType(ItemStack stack, ParticleType particle) {
-		NBTHelper.setInt(stack, Jetpack.TAG_PARTICLE, particle.ordinal());
+		NBTHelper.setInt(stack, Constants.TAG_PARTICLE, particle.ordinal());
 	}
 
 	@Override
@@ -261,7 +255,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	}
 
 	public boolean isOn(ItemStack stack) {
-		return NBTHelper.getBoolean(stack, TAG_ENGINE, true);
+		return NBTHelper.getBoolean(stack, Constants.TAG_ENGINE, true);
 	}
 
 	protected int getEnergyUsage(ItemStack stack) {
@@ -293,7 +287,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		if (!simulate) {
 			energy += energyReceived;
 			//energy = MathHelper.clamp(0, Integer.MAX_VALUE, energy);
-			NBTHelper.setInt(container, TAG_ENERGY, energy);
+			NBTHelper.setInt(container, Constants.TAG_ENERGY, energy);
 		}
 		return energyReceived;
 	}
@@ -305,14 +299,14 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 		int energyExtracted = Math.min(energy, Math.min(maxExtract, Jetpack.values()[i].getEnergyPerTickOut() == 0 ? Jetpack.values()[i].getEnergyUsage() : Jetpack.values()[i].getEnergyPerTickOut()));
 		if (!simulate) {
 			energy -= energyExtracted;
-			NBTHelper.setInt(container, TAG_ENERGY, energy);
+			NBTHelper.setInt(container, Constants.TAG_ENERGY, energy);
 		}
 		return energyExtracted;
 	}
 
 	@Override
 	public int getEnergyStored(ItemStack container) {
-		return NBTHelper.getInt(container, TAG_ENERGY, 0);
+		return NBTHelper.getInt(container, Constants.TAG_ENERGY, 0);
 	}
 
 	@Override
@@ -345,16 +339,16 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	}
 
 	public boolean isHoverModeOn(ItemStack stack) {
-		return NBTHelper.getBoolean(stack, TAG_HOVER, false);
+		return NBTHelper.getBoolean(stack, Constants.TAG_HOVER, false);
 	}
 
 	public boolean isEHoverModeOn(ItemStack stack) {
-		return NBTHelper.getBoolean(stack, TAG_E_HOVER, true);
+		return NBTHelper.getBoolean(stack, Constants.TAG_E_HOVER, true);
 	}
 
 	public void doEHover(ItemStack armor, EntityLivingBase user) {
-		NBTHelper.setBoolean(armor, TAG_ENGINE, true);
-		NBTHelper.setBoolean(armor, TAG_HOVER, true);
+		NBTHelper.setBoolean(armor, Constants.TAG_ENGINE, true);
+		NBTHelper.setBoolean(armor, Constants.TAG_HOVER, true);
 		if (user instanceof EntityPlayer) {
 			ITextComponent msg = SJStringUtil.localizeNew("chat.", ".jetpack.emergency_hover_mode.msg");
 			msg.setStyle(new Style().setColor(TextFormatting.RED));
@@ -543,7 +537,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 	protected void chargeInventory(EntityLivingBase user, ItemStack stack, ItemJetpack item) {
 		int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
 		for (int j = 0; j <= 5; j++) {
-			ItemStack currentStack = user.getItemStackFromSlot(EquipmentSlotHelper.fromSlot(j));
+			ItemStack currentStack = user.getItemStackFromSlot(JetpackUtil.fromSlot(j));
 			if (currentStack != stack && getIEnergyStorage(currentStack) != null && (currentStack.hasCapability(CapabilityEnergy.ENERGY, null) || currentStack.getItem() instanceof IEnergyContainerItem && (!ModItems.integrateRR || !(stack.getItem() instanceof IArmorEnderium)))) {
 				if (Jetpack.values()[i].usesEnergy) {
 					int energyToAdd = Math.min(item.useEnergy(stack, Jetpack.values()[i].getEnergyPerTickOut(), true), getIEnergyStorage(currentStack).receiveEnergy(Jetpack.values()[i].getEnergyPerTickOut(), true));
@@ -572,7 +566,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
 
 	public void registerItemModel() {
 		for (int i = 0; i < numItems; i++) {
-			SimplyJetpacks.proxy.registerItemRenderer(this, i, Jetpack.getTypeFromMeta(i).getBaseName());
+			SimplyJetpacks.PROXY.registerItemRenderer(this, i, Jetpack.getTypeFromMeta(i).getBaseName());
 		}
 	}
 

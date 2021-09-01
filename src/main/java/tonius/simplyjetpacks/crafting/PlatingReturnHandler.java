@@ -26,9 +26,12 @@ public class PlatingReturnHandler {
                 if (!(input.getItem() instanceof ItemJetpack)) continue;
                 Jetpack inputJetpack = Jetpack.getTypeFromMeta(craftedItem.getMetadata(input));
                 if (inputJetpack.isArmored) {
-                    EntityItem item = event.player.entityDropItem(getPlatingItem(craftedItem, input), 0.0F);
-                    item.setNoPickupDelay();
-                    break;
+                    ItemStack itemToDrop = getPlatingItem(craftedItem, input);
+                    if (itemToDrop != null) {
+                        EntityItem item = event.player.entityDropItem(itemToDrop, 0.0F);
+                        item.setNoPickupDelay();
+                        break;
+                    }
                 }
             }
         } else if (craftedItem instanceof ItemFluxpack) {
@@ -39,9 +42,12 @@ public class PlatingReturnHandler {
                 if (!(input.getItem() instanceof ItemFluxpack)) continue;
                 Fluxpack inputFluxpack = Fluxpack.getTypeFromMeta(craftedItem.getMetadata(input));
                 if (inputFluxpack.isArmored) {
-                    EntityItem item = event.player.entityDropItem(getPlatingItem(craftedItem, input), 0.0F);
-                    item.setNoPickupDelay();
-                    break;
+                    ItemStack itemToDrop = getPlatingItem(craftedItem, input);
+                    if (itemToDrop != null) {
+                        EntityItem item = event.player.entityDropItem(itemToDrop, 0.0F);
+                        item.setNoPickupDelay();
+                        break;
+                    }
                 }
             }
         }
@@ -64,6 +70,6 @@ public class PlatingReturnHandler {
             Fluxpack inputFluxpack = Fluxpack.getTypeFromMeta(craftedItem.getMetadata(input));
             return new ItemStack(ModItems.metaItemMods, 1, inputFluxpack.getPlatingMeta());
         }
-        return new ItemStack(Items.DIAMOND, 64);
+        return null;
     }
 }

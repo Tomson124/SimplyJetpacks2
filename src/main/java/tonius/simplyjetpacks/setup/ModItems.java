@@ -26,13 +26,19 @@ public abstract class ModItems {
 
 	// Simply Jetpacks
 	public static ItemStack jetpackCreative;
+	public static ItemStack jetpackCreativeArmored;
 	public static ItemStack fluxpackCreative;
-	public static ItemStack particleDefault;
+	public static ItemStack fluxpackCreativeArmored;
+	public static ItemStack particleBlend;
+	public static ItemStack particleFlame;
 	public static ItemStack particleNone;
 	public static ItemStack particleSmoke;
 	public static ItemStack particleRainbow;
+	public static ItemStack particleSoul;
+	public static ItemStack particleSnow;
 	public static ItemStack leatherStrap;
-	public static ItemPilotGoggles pilotGoggles;
+	public static ItemPilotGoggles pilotGogglesGold;
+	public static ItemPilotGoggles pilotGogglesIron;
 
 	// Vanilla
 	public static ItemStack thrusterVanilla1;
@@ -192,7 +198,7 @@ public abstract class ModItems {
 	}
 
 	private static void registerItems() {
-		SimplyJetpacks.logger.info("Registering Items...");
+		SimplyJetpacks.LOGGER.info("Registering Items...");
 
 		// Jetpacks / Fluxpacks
 		itemJetpack = register(new ItemJetpack("itemJetpack"));
@@ -203,12 +209,16 @@ public abstract class ModItems {
 		// Meta Items
 		metaItem = register(new ItemMeta("metaItem"));
 		metaItemMods = register(new ItemMetaMods("metaItemMods"));
-		particleDefault = MetaItems.PARTICLE_DEFAULT.getStackMetaItem();
+		particleBlend = MetaItems.PARTICLE_BLEND.getStackMetaItem();
+		particleFlame = MetaItems.PARTICLE_FLAME.getStackMetaItem();
 		particleNone = MetaItems.PARTICLE_NONE.getStackMetaItem();
 		particleSmoke = MetaItems.PARTICLE_SMOKE.getStackMetaItem();
 		particleRainbow = MetaItems.PARTICLE_RAINBOW.getStackMetaItem();
+		particleSoul = MetaItems.PARTICLE_SOUL.getStackMetaItem();
+		particleSnow = MetaItems.PARTICLE_SNOW.getStackMetaItem();
 		leatherStrap = MetaItems.LEATHER_STRAP.getStackMetaItem();
-		pilotGoggles = register(new ItemPilotGoggles("pilot_goggles"));
+		pilotGogglesGold = register(new ItemPilotGoggles("pilot_goggles_gold", "gold"));
+		pilotGogglesIron = register(new ItemPilotGoggles("pilot_goggles_iron", "iron"));
 	}
 
 	public static void gatherIngredients() {
@@ -347,14 +357,17 @@ public abstract class ModItems {
 	public static void registerRecipes() {
 		gatherIngredients();
 		RecipeHandler.addOreDictRecipe(leatherStrap, "LIL", "LIL", 'L', Items.LEATHER, 'I', "ingotIron");
-		RecipeHandler.addOreDictRecipe(new ItemStack(pilotGoggles), " S ", "GIG", 'S', leatherStrap, 'I', "ingotGold", 'G', "paneGlass");
+		RecipeHandler.addOreDictRecipe(new ItemStack(pilotGogglesGold), " S ", "GIG", 'S', leatherStrap, 'I', "ingotGold", 'G', "paneGlass");
+		RecipeHandler.addOreDictRecipe(new ItemStack(pilotGogglesIron), " S ", "GIG", 'S', leatherStrap, 'I', "ingotIron", 'G', "paneGlass");
 		ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackCreative, jetpackCreative, "particle_customizer"));
 
-		Object dustCoal = OreDictionary.getOres("dustCoal").size() > 0 ? "dustCoal" : new ItemStack(Items.COAL);
-		RecipeHandler.addOreDictRecipe(particleDefault, " D ", "DCD", " D ", 'C', dustCoal, 'D', Blocks.TORCH);
-		RecipeHandler.addOreDictRecipe(particleNone, " D ", "DCD", " D ", 'C', dustCoal, 'D', "blockGlass");
-		RecipeHandler.addOreDictRecipe(particleSmoke, " C ", "CCC", " C ", 'C', dustCoal);
-		RecipeHandler.addOreDictRecipe(particleRainbow, " R ", " C ", "G B", 'C', dustCoal, 'R', "dyeRed", 'G', "dyeLime", 'B', "dyeBlue");
+		RecipeHandler.addOreDictRecipe(particleBlend, " D ", "DXD", " D ", 'X', particleBlend, 'D', Blocks.TORCH);
+		RecipeHandler.addOreDictRecipe(particleFlame, " D ", "DXD", " D ", 'X', particleBlend, 'D', Blocks.TORCH);
+		RecipeHandler.addOreDictRecipe(particleNone, " D ", "DXD", " D ", 'X', particleBlend, 'D', "blockGlass");
+		RecipeHandler.addOreDictRecipe(particleSmoke, " C ", "CXC", " C ", 'X', particleBlend, 'C', Items.COAL);
+		RecipeHandler.addOreDictRecipe(particleRainbow, " R ", " C ", "G B", 'X', Items.COAL, 'R', "dyeRed", 'G', "dyeLime", 'B', "dyeBlue");
+		RecipeHandler.addOreDictRecipe(particleSoul, " D ", "DXD", " D ", 'X', Items.COAL, 'D', "blockGlass");
+		RecipeHandler.addOreDictRecipe(particleSnow, " D ", "DXD", " D ", 'X', Items.COAL, 'D', "blockGlass");
 
 		if (integrateEIO) {
 			RecipeHandler.addOreDictRecipe(thrusterEIO1, "ICI", "PCP", "DSD", 'I', "ingotConductiveIron", 'P', EIOItems.redstoneConduit, 'C', EIOItems.basicCapacitor, 'D', "gearWood", 'S', "dustRedstone");
@@ -520,7 +533,7 @@ public abstract class ModItems {
 	}
 
 	private static void performIMC() {
-		SimplyJetpacks.logger.info("Performing IMC...");
+		SimplyJetpacks.LOGGER.info("Performing IMC...");
 
 		if (integrateEIO) {
 			ItemStack ingotConductiveIron = OreDictionary.getOres("ingotConductiveIron").get(0).copy();

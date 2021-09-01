@@ -7,11 +7,12 @@ public enum ModType {
 	SIMPLY_JETPACKS(SimplyJetpacks.MODID),
 	ENDER_IO("enderio"),
 	THERMAL_EXPANSION("thermalexpansion"),
-	REDSTONE_ARSENAL("redstonearsenal"),
 	THERMAL_DYNAMICS("thermaldynamics"),
+	REDSTONE_ARSENAL("redstonearsenal"),
 	REDSTONE_REPOSITORY("redstonerepository"),
 	MEKANISM("mekanism"),
-	IMMERSIVE_ENGINEERING("immersiveengineering");
+	IMMERSIVE_ENGINEERING("immersiveengineering"),
+	BAUBLES("baubles");
 
 	public final String[] modids;
 	public final boolean loaded;

@@ -22,7 +22,7 @@ public class CommonProxy {
     public static NonNullList<ItemStack> oresListParticles = null;
 
     public void registerHandlers() {
-        SimplyJetpacks.logger.info("Registering Handlers...");
+        SimplyJetpacks.LOGGER.info("Registering Handlers...");
         FMLCommonHandler.instance().bus().register(new SyncHandler());
         FMLCommonHandler.instance().bus().register(new PlatingReturnHandler());
         MinecraftForge.EVENT_BUS.register(new LivingTickHandler());
@@ -38,7 +38,7 @@ public class CommonProxy {
     }
 
     public void init() {
-        SimplyJetpacks.logger.info("Registering Sounds...");
+        SimplyJetpacks.LOGGER.info("Registering Sounds...");
         SJSoundRegistry.init();
         oresListParticles = OreDictionary.getOres("particle_customizer");
     }

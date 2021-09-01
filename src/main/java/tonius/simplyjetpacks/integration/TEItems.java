@@ -48,7 +48,7 @@ public abstract class TEItems {
 	public static ItemStack bucketRedstone = null;
 
 	public static void init() {
-		SimplyJetpacks.logger.info("Stealing Thermal Expansion's items");
+		SimplyJetpacks.LOGGER.info("Stealing Thermal Expansion's items");
 		if (cellBasic != null) {
 			cellBasic.setTagCompound(new NBTTagCompound());
 			cellBasic.getTagCompound().setByte("Level", (byte) 0);
