@@ -204,7 +204,9 @@ public abstract class ModItems {
 		itemJetpack = register(new ItemJetpack("itemJetpack"));
 		itemFluxpack = register(new ItemFluxpack("itemFluxpack"));
 		jetpackCreative = Jetpack.JETPACK_CREATIVE.getStackJetpack();
+		jetpackCreativeArmored = Jetpack.JETPACK_CREATIVE_ARMORED.getStackJetpack();
 		fluxpackCreative = Fluxpack.FLUXPACK_CREATIVE.getStackFluxpack();
+		fluxpackCreativeArmored = Fluxpack.FLUXPACK_CREATIVE_ARMORED.getStackFluxpack();
 
 		// Meta Items
 		metaItem = register(new ItemMeta("metaItem"));
@@ -359,15 +361,17 @@ public abstract class ModItems {
 		RecipeHandler.addOreDictRecipe(leatherStrap, "LIL", "LIL", 'L', Items.LEATHER, 'I', "ingotIron");
 		RecipeHandler.addOreDictRecipe(new ItemStack(pilotGogglesGold), " S ", "GIG", 'S', leatherStrap, 'I', "ingotGold", 'G', "paneGlass");
 		RecipeHandler.addOreDictRecipe(new ItemStack(pilotGogglesIron), " S ", "GIG", 'S', leatherStrap, 'I', "ingotIron", 'G', "paneGlass");
-		ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackCreative, jetpackCreative, "particle_customizer"));
 
-		RecipeHandler.addOreDictRecipe(particleBlend, " D ", "DXD", " D ", 'X', particleBlend, 'D', Blocks.TORCH);
+		ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackCreative, jetpackCreative, "particle_customizer"));
+		ForgeRegistries.RECIPES.register(new UpgradingRecipeShapeless(jetpackCreativeArmored, jetpackCreativeArmored, "particle_customizer"));
+
+		RecipeHandler.addShapelessOreDictRecipe(particleBlend, Items.COAL, Items.CLAY_BALL, Items.GUNPOWDER, "dyeWhite");
 		RecipeHandler.addOreDictRecipe(particleFlame, " D ", "DXD", " D ", 'X', particleBlend, 'D', Blocks.TORCH);
 		RecipeHandler.addOreDictRecipe(particleNone, " D ", "DXD", " D ", 'X', particleBlend, 'D', "blockGlass");
 		RecipeHandler.addOreDictRecipe(particleSmoke, " C ", "CXC", " C ", 'X', particleBlend, 'C', Items.COAL);
-		RecipeHandler.addOreDictRecipe(particleRainbow, " R ", " C ", "G B", 'X', Items.COAL, 'R', "dyeRed", 'G', "dyeLime", 'B', "dyeBlue");
-		RecipeHandler.addOreDictRecipe(particleSoul, " D ", "DXD", " D ", 'X', Items.COAL, 'D', "blockGlass");
-		RecipeHandler.addOreDictRecipe(particleSnow, " D ", "DXD", " D ", 'X', Items.COAL, 'D', "blockGlass");
+		RecipeHandler.addOreDictRecipe(particleRainbow, " R ", " X ", "G B", 'X', particleBlend, 'R', "dyeRed", 'G', "dyeLime", 'B', "dyeBlue");
+		RecipeHandler.addOreDictRecipe(particleSoul, " D ", "DXD", " D ", 'X', particleBlend, 'D', Blocks.REDSTONE_TORCH);
+		RecipeHandler.addOreDictRecipe(particleSnow, " D ", "DXD", " D ", 'X', particleBlend, 'D', Items.SNOWBALL);
 
 		if (integrateEIO) {
 			RecipeHandler.addOreDictRecipe(thrusterEIO1, "ICI", "PCP", "DSD", 'I', "ingotConductiveIron", 'P', EIOItems.redstoneConduit, 'C', EIOItems.basicCapacitor, 'D', "gearWood", 'S', "dustRedstone");
