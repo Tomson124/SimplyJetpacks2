@@ -1,6 +1,5 @@
 buildscript {
     repositories {
-        jcenter()
         mavenCentral()
         maven {
             name = 'forge'
@@ -21,7 +20,7 @@ apply plugin: 'idea'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
-version = "${minecraft_version}-${mod_version}" //." + (System.env.BUILD_NUMBER ?: "homebaked")
+version = "${minecraft_version}-${mod_version}"
 group = 'tonius.simplyjetpacks'
 archivesBaseName = 'SimplyJetpacks2'
 
@@ -35,32 +34,32 @@ minecraft {
     //makeObfSourceJar = false
     //useDepAts = true
 
-    replace '${version}', project.version
+    replace "${version}", project.version
 }
 
 repositories {
     maven {
-        name = "Progwml6 Maven"
+        name = "progwml6 maven"
         url = "https://dvs1.progwml6.com/files/maven/"
     }
     maven {
-        name = "ChickenBones Maven"
-        url = "http://chickenbones.net/maven/"
+        name = "chickenBones maven"
+        url = "https://chickenbones.net/maven/"
     }
     maven {
-        name = "Covers Maven"
+        name = "covers maven"
         url = "https://maven.covers1624.net/"
     }
     maven {
-        name = "Curse Maven"
+        name = "curse mven"
         url = "https://www.cursemaven.com/"
     }
     maven {
-        name = "Blamejared Maven"
+        name = "blamejared maven"
         url = "https://maven.blamejared.com/"
     }
     maven {
-        name = "Tterrag Maven"
+        name = "tterrag maven"
         url = "https://maven.tterrag.com/"
     }
 }
@@ -68,6 +67,7 @@ repositories {
 dependencies {
     deobfProvided "mezz.jei:jei_1.12.2:${jei_version}:api"
     runtime "mezz.jei:jei_1.12.2:${jei_version}"
+
     deobfProvided "mcjty.theoneprobe:TheOneProbe-1.12:${top_version}:api"
     runtime "mcjty.theoneprobe:TheOneProbe-1.12:${top_version}"
 
@@ -75,25 +75,31 @@ dependencies {
 
     deobfProvided "curse.maven:mekanism:2835176"
     runtime "curse.maven:mekanism:2835175"
+
     runtime "curse.maven:immersiveengineering:2974106"
     //runtime "blusunrize.Immersiveengineering:${immersiveengineering_version}:ImmersiveEngineering-${immersiveengineering_version}"
+
     runtime "codechicken:CodeChickenLib:${codechickenlib_version}:universal"
+
     compile "cofh:CoFHCore:${cofhcore_version}:deobf"
     runtime "cofh:CoFHWorld:${cofhworld_version}:universal"
     runtime "cofh:ThermalFoundation:${thermalfoundation_version}:universal"
     runtime "cofh:ThermalDynamics:${thermaldynamics_version}:universal"
     runtime "cofh:ThermalExpansion:${thermalexpansion_version}:universal"
     runtime "cofh:RedstoneArsenal:${redstonearsenal_version}:universal"
+
     compile "curse.maven:redstone-repository-revolved:2695517"
 }
 
 processResources {
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
+
     from (sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
+
     from (sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
