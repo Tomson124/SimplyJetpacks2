@@ -24,3 +24,4 @@ libs
 extras
 src/generated/resources/.cache
 src/generated/resources/
+src/main/resources/data

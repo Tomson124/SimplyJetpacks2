@@ -1,3 +1,40 @@
+# 2.7.1 - 07-07-2021
+- **General**
+    - Updated to Minecraft Version 1.17.1
+
+# 2.6.12 - xx-xx-2021
+- **General**
+    - New Features and Improved Systems
+    - Reworked jetpack config system
+    - Reworked Particle Customizer recipe system
+    - Now uses Data Generators
+- **Added**
+    - New Thermal Series textures
+    - New GUI textures for different energy sources
+    - Quality of Life changes
+    - New Particle Customizers
+- **Fixed**
+    - Fixed some bugs
+
+# 2.6.11 - 19-08-2021
+- **General**
+    - Removed Curios dependency, now works standalone
+- **Fixed**
+    - Fixed onArmorTick bug
+
+# 2.6.10 - 17-08-2021
+- **Fixed**
+    - Fixed crash when running server
+
+# 2.6.9 - 13-08-2021
+- **Fixed**
+    - Fixed a few
+    - Fixed crash when running server
+
+# 2.6.8 - 13-08-2021
+- **Added**
+    - Added support for Curios API
+
 # 2.6.7 - 13-02-2021
 - **General**
     - Updated to Minecraft Version 1.16.5
@@ -60,16 +97,15 @@
 - **Removed**
     - Integration for mods that haven't yet updated
 
-# 2.2.20 - 01-05-2021
+# 2.2.19 - xx-xx-2021
+- **General**
+    - New Features and Improved Systems
+- **Added**
+    - New GUI textures for different energy sources
+    - Quality of Life changes
 - **Fixed**
-  - joinAdvancements still showing even when config being set to false
+    - Fixed some bugs
 
-# 2.2.19 - 23-02-2021
-- **Fixed**
-    - joinAdvancement config being on wrong side
-    - Curse Maven dependency
-    - Spectator checks
-    
 # 2.2.18 - 16-12-2020
 - **Fixed**
     - EnderIO recipes not registering through IMC and updated recipe methods
