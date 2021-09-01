@@ -10,7 +10,6 @@ import tonius.simplyjetpacks.util.math.MathHelper;
 import javax.annotation.Nonnull;
 import java.awt.*;
 
-//public class EntityColoredSmokeFX extends EntityCustomSmokeFX {
 public class EntityColoredSmokeFX extends ParticleSmokeNormal {
 
 	private static final Minecraft mc = Minecraft.getMinecraft();
