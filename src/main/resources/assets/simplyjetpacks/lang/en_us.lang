@@ -1,11 +1,15 @@
 itemGroup.simplyjetpacks.main=Simply Jetpacks 2
 
-item.simplyjetpacks.jetpack_creative.name=Creative Jetpack
+item.simplyjetpacks.jetpack_creative.name=Creative Jetpack (Armored)
+item.simplyjetpacks.jetpack_creative_armored.name=Creative Jetpack (Armored)
 item.simplyjetpacks.fluxpack_creative.name=Creative Fluxpack
-item.simplyjetpacks.particle_default.name=Particle Customizer (Default)
+item.simplyjetpacks.fluxpack_creative_armored.name=Creative Fluxpack
+item.simplyjetpacks.particle_flame.name=Particle Customizer (Flame)
 item.simplyjetpacks.particle_none.name=Particle Customizer (None)
 item.simplyjetpacks.particle_smoke.name=Particle Customizer (Smoke)
 item.simplyjetpacks.particle_rainbow.name=Particle Customizer (Rainbow)
+item.simplyjetpacks.particle_soul.name=Particle Customizer (Soul)
+item.simplyjetpacks.particle_snow.name=Particle Customizer (Snow)
 item.simplyjetpacks.leather_strap.name=Leather Strap
 item.simplyjetpacks.pilot_goggles.name=Pilot Goggles
 item.simplyjetpacks.jetpack_potato.name=Potato Jetpack

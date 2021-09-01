@@ -43,7 +43,7 @@ repositories {
         url = "https://dvs1.progwml6.com/files/maven/"
     }
     maven {
-        name = "chickenBones maven"
+        name = "chickenbones maven"
         url = "https://chickenbones.net/maven/"
     }
     maven {
@@ -51,7 +51,7 @@ repositories {
         url = "https://maven.covers1624.net/"
     }
     maven {
-        name = "curse mven"
+        name = "curse maven"
         url = "https://www.cursemaven.com/"
     }
     maven {
@@ -62,6 +62,10 @@ repositories {
         name = "tterrag maven"
         url = "https://maven.tterrag.com/"
     }
+    maven {
+        name = "mod maven"
+        url = "https://modmaven.dev/"
+    }
 }
 
 dependencies {
@@ -71,24 +75,37 @@ dependencies {
     deobfProvided "mcjty.theoneprobe:TheOneProbe-1.12:${top_version}:api"
     runtime "mcjty.theoneprobe:TheOneProbe-1.12:${top_version}"
 
-    compile "cofh:RedstoneFlux:${redstoneflux_version}:deobf"
+    runtime "vazkii.patchouli:Patchouli:${patchouli_version}"
 
-    deobfProvided "curse.maven:mekanism:2835176"
-    runtime "curse.maven:mekanism:2835175"
+    //compile "cofh:RedstoneFlux:${redstoneflux_version}:deobf"
+    compile "curse.maven:redstone-flux-270789:2920436"
 
-    runtime "curse.maven:immersiveengineering:2974106"
+    deobfProvided "curse.maven:mekanism-268560:2835176" // API
+    runtime "curse.maven:mekanism-268560:2835175"
+    //runtime "curse.maven:mekanism-generators-268566:2835177"
+    //runtime "curse.maven:mekanism-tools-268567:2835178"
+
+    runtime "curse.maven:immersive-engineering-231951:2974106"
     //runtime "blusunrize.Immersiveengineering:${immersiveengineering_version}:ImmersiveEngineering-${immersiveengineering_version}"
 
-    runtime "codechicken:CodeChickenLib:${codechickenlib_version}:universal"
+    //runtime "codechicken:CodeChickenLib:${codechickenlib_version}:universal"
+    runtime "curse.maven:codechicken-lib-1-8-242818:2779848"
 
-    compile "cofh:CoFHCore:${cofhcore_version}:deobf"
-    runtime "cofh:CoFHWorld:${cofhworld_version}:universal"
-    runtime "cofh:ThermalFoundation:${thermalfoundation_version}:universal"
-    runtime "cofh:ThermalDynamics:${thermaldynamics_version}:universal"
-    runtime "cofh:ThermalExpansion:${thermalexpansion_version}:universal"
-    runtime "cofh:RedstoneArsenal:${redstonearsenal_version}:universal"
+//    compile "cofh:CoFHCore:${cofhcore_version}:deobf"
+//    runtime "cofh:CoFHWorld:${cofhworld_version}:universal"
+//    runtime "cofh:ThermalFoundation:${thermalfoundation_version}:universal"
+//    runtime "cofh:ThermalDynamics:${thermaldynamics_version}:universal"
+//    runtime "cofh:ThermalExpansion:${thermalexpansion_version}:universal"
+//    runtime "cofh:RedstoneArsenal:${redstonearsenal_version}:universal"
 
-    compile "curse.maven:redstone-repository-revolved:2695517"
+    compile "curse.maven:cofh-core-69162:2920433"
+    runtime "curse.maven:cofh-world-271384:2920434"
+    runtime "curse.maven:thermal-foundation-222880:2926428"
+    runtime "curse.maven:thermal-dynamics-227443:2920505"
+    runtime "curse.maven:thermal-expansion-69163:2926431"
+    runtime "curse.maven:redstone-arsenal-70631:2939416"
+
+    compile "curse.maven:redstone-repository-revolved-300750:2695517"
 }
 
 processResources {

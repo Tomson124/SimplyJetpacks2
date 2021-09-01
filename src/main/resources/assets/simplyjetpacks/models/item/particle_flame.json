@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "simplyjetpacks:item/pilot_goggles"
+    "layer0": "simplyjetpacks:item/particle_flame"
   }
 }
