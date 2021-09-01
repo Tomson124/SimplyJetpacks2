@@ -99,7 +99,9 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:immersive-engineering-231951:2974106")
     //runtimeOnly fg.deobf("blusunrize.Immersiveengineering:${immersiveengineering_version}:ImmersiveEngineering-${immersiveengineering_version}")
 
-    runtimeOnly fg.deobf("codechicken:CodeChickenLib:${codechickenlib_version}:universal")
+    //runtimeOnly fg.deobf("codechicken:CodeChickenLib:${codechickenlib_version}:universal")
+    //runtimeOnly fg.deobf("codechicken:CodeChickenLib:${codechickenlib_version}")
+    runtimeOnly fg.deobf("curse.maven:codechicken-lib-1-8-242818:2779848")
 
     //compileOnly fg.deobf("cofh:CoFHCore:${cofhcore_version}:deobf")
     //runtimeOnly fg.deobf("cofh:CoFHWorld:${cofhworld_version}:universal")
