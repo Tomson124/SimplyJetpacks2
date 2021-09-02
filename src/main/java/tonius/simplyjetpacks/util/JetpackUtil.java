@@ -3,6 +3,7 @@ package tonius.simplyjetpacks.util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import tonius.simplyjetpacks.integration.ModType;
 
 public class JetpackUtil {
@@ -35,5 +36,14 @@ public class JetpackUtil {
             }
         }
         throw new IllegalArgumentException("Invalid slot '" + slot + "'");
+    }
+
+    public static ItemStack setDefaultEnergyTag(ItemStack container, int energy) {
+        if (!container.hasTagCompound()) {
+            container.setTagCompound(new NBTTagCompound());
+        }
+        container.getTagCompound().setInteger(Constants.TAG_ENERGY, energy);
+
+        return container;
     }
 }

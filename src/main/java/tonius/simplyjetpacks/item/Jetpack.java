@@ -68,12 +68,14 @@ public enum Jetpack implements IStringSerializable {
 
     // Immersive Engineering
     JETPACK_IE_1("jetpack_ie1", 1, "jetpack_ie1", EnumRarity.COMMON),
-    JETPACK_IE_2("jetpack_ie2", 2, "jetpack_ie2", EnumRarity.COMMON),
-    JETPACK_IE_3("jetpack_ie3", 3, "jetpack_ie3", EnumRarity.UNCOMMON),
+    JETPACK_IE_2("jetpack_ie2", 2, "jetpack_ie2", EnumRarity.UNCOMMON),
+    JETPACK_IE_3("jetpack_ie3", 3, "jetpack_ie3", EnumRarity.RARE),
     JETPACK_IE_1_ARMORED("jetpack_ie1_armored", 1, "jetpack_ie1", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_IE_1.ordinal()),
-    JETPACK_IE_2_ARMORED("jetpack_ie2_armored", 2, "jetpack_ie2", EnumRarity.COMMON, true, MetaItemsMods.ARMOR_PLATING_IE_2.ordinal()),
-    JETPACK_IE_3_ARMORED("jetpack_ie3_armored", 3, "jetpack_ie3", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_IE_3.ordinal());
+    JETPACK_IE_2_ARMORED("jetpack_ie2_armored", 2, "jetpack_ie2", EnumRarity.UNCOMMON, true, MetaItemsMods.ARMOR_PLATING_IE_2.ordinal()),
+    JETPACK_IE_3_ARMORED("jetpack_ie3_armored", 3, "jetpack_ie3", EnumRarity.RARE, true, MetaItemsMods.ARMOR_PLATING_IE_3.ordinal());
 
+    protected static final EnumSet<Jetpack> JETPACKS_SJ = EnumSet.of(JETPACK_POTATO, JETPACK_CREATIVE, JETPACK_CREATIVE_ARMORED);
+    protected static final EnumSet<Jetpack> JETPACKS_ALL = EnumSet.allOf(Jetpack.class);
     public static final EnumSet<Jetpack> JETPACKS_VANILLA = EnumSet.range(JETPACK_VANILLA_1, JETPACK_VANILLA_3_ARMORED);
     public static final EnumSet<Jetpack> JETPACKS_EIO = EnumSet.range(JETPACK_EIO_1, JETPLATE_EIO_5);
     public static final EnumSet<Jetpack> JETPACKS_EIO_ARMORED = EnumSet.range(JETPACK_EIO_1_ARMORED, JETPACK_EIO_4_ARMORED);
@@ -82,8 +84,7 @@ public enum Jetpack implements IStringSerializable {
     public static final EnumSet<Jetpack> JETPACKS_MEK = EnumSet.range(JETPACK_MEK_1, JETPACK_MEK_4_ARMORED);
     public static final EnumSet<Jetpack> JETPACKS_IE = EnumSet.range(JETPACK_IE_1, JETPACK_IE_3_ARMORED);
     public static final EnumSet<Jetpack> JETPACKS_RR = EnumSet.of(JETPLATE_TE_5_ENDERIUM);
-    protected static final EnumSet<Jetpack> JETPACKS_ALL = EnumSet.allOf(Jetpack.class);
-    protected static final EnumSet<Jetpack> JETPACKS_SJ = EnumSet.of(JETPACK_POTATO, JETPACK_CREATIVE, JETPACK_CREATIVE_ARMORED);
+
     @Nonnull
     public final String baseName;
     @Nonnull
@@ -281,7 +282,7 @@ public enum Jetpack implements IStringSerializable {
         return null;
     }
 
-    protected void loadConfig(ConfigWrapper config) {
+    private void loadConfig(ConfigWrapper config) {
         if (this.defaults.energyCapacity != null) {
             this.energyCapacity = config.getIntS(this.defaults.section.category, "energyCapacity", "tuning", this.defaults.energyCapacity, 1, null, false, "The maximum amount of energy that this pack can hold.");
         }

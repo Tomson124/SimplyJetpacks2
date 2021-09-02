@@ -56,8 +56,7 @@ import java.util.UUID;
 
 import static tonius.simplyjetpacks.handler.LivingTickHandler.floatingTickCount;
 
-@Optional.Interface(iface = "thundr.redstonerepository.api.IArmorEnderium", modid = "redstonerepository")
-@Optional.Interface(iface = "cofh.core.item.IEnchantableItem", modid = "cofhcore")
+@Optional.InterfaceList ({ @Optional.Interface (iface = "thundr.redstonerepository.api.IArmorEnderium", modid = "redstonerepository"), @Optional.Interface (iface = "cofh.core.item.IEnchantableItem", modid = "cofhcore") })
 public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyContainerItem, IHUDInfoProvider, IArmorEnderium, IEnchantableItem {
 
     protected static final UUID ARMOR_MODIFIER = UUID.fromString("0819e549-a0f9-49d3-a199-53662799c67b");
@@ -88,9 +87,10 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
             }
             if (ModItems.integrateVanilla) {
                 for (Jetpack pack : Jetpack.JETPACKS_VANILLA) {
-                    ItemStack stack;
+                    ItemHelper.addJetpacks(pack, List, true);
+/*                    ItemStack stack;
                     stack = new ItemStack(this, 1, pack.ordinal());
-                    List.add(stack);
+                    List.add(stack);*/
                 }
             }
             if (ModItems.integrateEIO) {
@@ -121,6 +121,22 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
         }
     }
 
+    public String getModId(ItemStack itemStack) {
+        int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
+        String name = Jetpack.values()[i].getBaseName();
+        if (name.contains("eio")) {
+            return "eio";
+        } else if (name.contains("te")) {
+            return "te";
+        } else if (name.contains("mek")) {
+            return "mek";
+        } else if (name.contains("ie")) {
+            return "ie";
+        } else {
+            return "sj";
+        }
+    }
+
     @Override
     public void onArmorTick(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull ItemStack stack) {
         if (!player.isSpectator()) {
@@ -139,6 +155,11 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
             ITextComponent msg = SJStringUtil.localizeNew("chat.", ".jetpack." + type, state);
             player.sendStatusMessage(msg, true);
         }
+    }
+
+    public boolean isCreative(ItemStack stack) {
+        int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
+        return Jetpack.values()[i].getBaseName().contains("creative");
     }
 
     public boolean isJetplate(ItemStack stack) {
@@ -366,8 +387,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
         Boolean hover = this.isHoverModeOn(stack);
         Boolean charger = this.isChargerOn(stack);
         Boolean eHover = this.isEHoverModeOn(stack);
-        return SJStringUtil.getHUDStateText(
-                engine,
+        return SJStringUtil.getHUDStateText(engine,
                 canHover(stack) ? this.isHoverModeOn(stack) : null,
                 canCharge(stack) ? this.isEHoverModeOn(stack) : null,
                 //canEHover(stack) ? this.isChargerOn(stack) : null ,
@@ -416,7 +436,7 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
     @Override
     public ModelBiped getArmorModel(@Nonnull EntityLivingBase entityLiving, ItemStack itemStack, @Nonnull EntityEquipmentSlot armorSlot, @Nonnull ModelBiped _default) {
         int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
-        if (Config.enableArmor3DModels) {
+        if (Config.enableArmor3DModels && !Jetpack.values()[i].getBaseName().equals("jetpack_potato")) {
             ModelBiped model = RenderUtils.getArmorModel(Jetpack.values()[i], entityLiving);
             if (model != null) {
                 return model;
@@ -428,8 +448,10 @@ public class ItemJetpack extends ItemArmor implements ISpecialArmor, IEnergyCont
     @Override
     public String getArmorTexture(ItemStack stack, @Nonnull Entity entity, @Nonnull EntityEquipmentSlot slot, @Nonnull String type) {
         int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
-        String flat = Config.enableArmor3DModels || Jetpack.values()[i].armorModel == PackModelType.FLAT ? "" : ".flat";
-        return SimplyJetpacks.RESOURCE_PREFIX + "textures/armor/" + Jetpack.values()[i].getBaseName() + flat + ".png";
+        //String flat = Config.enableArmor3DModels || Jetpack.values()[i].armorModel == PackModelType.FLAT ? "" : ".flat";
+        //return SimplyJetpacks.RESOURCE_PREFIX + "textures/armor/" + Jetpack.values()[i].getBaseName() + flat + ".png";
+        boolean isFlat = (Jetpack.values()[i].armorModel == PackModelType.FLAT && !Config.enableArmor3DModels) || Jetpack.values()[i].getBaseName().equals("jetpack_potato");
+        return SimplyJetpacks.RESOURCE_PREFIX + "textures/armor/" + Jetpack.values()[i].getBaseName() + (isFlat ? ".flat" : "") + ".png";
     }
 
     @Override

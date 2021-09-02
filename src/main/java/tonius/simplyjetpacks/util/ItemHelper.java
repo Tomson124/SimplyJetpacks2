@@ -208,8 +208,18 @@ public class ItemHelper {
         } else {
             jetpackItem.addEnergy(jetpackStack, jetpackItem.getMaxEnergyStored(jetpackStack), false);
         }
-        jetpackItem.setParticleType(jetpackStack, ParticleType.FLAME);
+        if (jetpackItem.isCreative(jetpackStack)) {
+            jetpackItem.setParticleType(jetpackStack, ParticleType.RAINBOW);
+        } else {
+            jetpackItem.setParticleType(jetpackStack, ParticleType.FLAME);
+        }
         List.add(jetpackStack);
+
+        if (full) {
+            ItemStack jetpackStackFull = JetpackUtil.setDefaultEnergyTag(jetpackStack, pack.getEnergyCapacity());
+            //NBTHelper.setInt(jetpackStackFull, Constants.TAG_ENERGY, pack.getEnergyCapacity());
+            List.add((jetpackStackFull));
+        }
     }
 
     public static void addFluxpacks(Fluxpack pack, NonNullList<ItemStack> List, boolean full) {

@@ -5,8 +5,9 @@ public enum ParticleType {
     NONE,
     SMOKE,
     RAINBOW,
-    BUBBLE,
-    HEART,
     SOUL,
-    SNOW
+    SNOW,
+    BUBBLE,
+    HEART
+    ;
 }

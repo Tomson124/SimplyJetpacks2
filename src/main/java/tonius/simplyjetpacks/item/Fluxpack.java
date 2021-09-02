@@ -35,12 +35,13 @@ public enum Fluxpack implements IStringSerializable {
     FLUXPACK_TE3_ARMORED("fluxpack_te3_armored", "fluxpack_te3", 3, EnumRarity.UNCOMMON, true, true, MetaItemsMods.ARMOR_PLATING_TE_3.ordinal()),
     FLUXPACK_TE4_ARMORED("fluxpack_te4_armored", "fluxpack_te4", 4, EnumRarity.RARE, true, true, MetaItemsMods.ARMOR_PLATING_TE_4.ordinal());
 
+    protected static final EnumSet<Fluxpack> FLUXPACKS_ALL = EnumSet.allOf(Fluxpack.class);
+    protected static final EnumSet<Fluxpack> FLUXPACKS_SJ = EnumSet.of(FLUXPACK_CREATIVE, FLUXPACK_CREATIVE_ARMORED);
     public static final EnumSet<Fluxpack> FLUXPACKS_EIO = EnumSet.range(FLUXPACK_EIO1, FLUXPACK_EIO3_ARMORED);
     public static final EnumSet<Fluxpack> FLUXPACKS_EIO_ARMORED = EnumSet.range(FLUXPACK_EIO1_ARMORED, FLUXPACK_EIO3_ARMORED);
     public static final EnumSet<Fluxpack> FLUXPACKS_TE = EnumSet.range(FLUXPACK_TE1, FLUXPACK_TE4_ARMORED);
     public static final EnumSet<Fluxpack> FLUXPACKS_TE_ARMORED = EnumSet.range(FLUXPACK_TE1_ARMORED, FLUXPACK_TE4_ARMORED);
-    protected static final EnumSet<Fluxpack> FLUXPACKS_ALL = EnumSet.allOf(Fluxpack.class);
-    protected static final EnumSet<Fluxpack> FLUXPACKS_SJ = EnumSet.of(FLUXPACK_CREATIVE);
+
     @Nonnull
     public final String baseName;
     @Nonnull

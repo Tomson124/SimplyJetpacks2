@@ -61,8 +61,8 @@ public enum MetaItemsMods {
     ARMOR_PLATING_IE_2("armorplating_ie2", null, EnumRarity.COMMON),
     ARMOR_PLATING_IE_3("armorplating_ie3", null, EnumRarity.COMMON),
     THRUSTER_IE_1("thruster_ie1", null, EnumRarity.COMMON),
-    THRUSTER_IE_2("thruster_ie2", null, EnumRarity.COMMON),
-    THRUSTER_IE_3("thruster_ie3", null, EnumRarity.UNCOMMON);
+    THRUSTER_IE_2("thruster_ie2", null, EnumRarity.UNCOMMON),
+    THRUSTER_IE_3("thruster_ie3", null, EnumRarity.RARE);
 
     public static final EnumSet<MetaItemsMods> ITEMS_VANILLA = EnumSet.range(THRUSTER_VANILLA_1, THRUSTER_VANILLA_3);
     public static final EnumSet<MetaItemsMods> ITEMS_EIO = EnumSet.range(ARMOR_PLATING_EIO_1, UNIT_FLIGHT_CONTROL);

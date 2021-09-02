@@ -83,6 +83,18 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
         }
     }
 
+    public String getModId(ItemStack itemStack) {
+        int i = MathHelper.clamp(itemStack.getItemDamage(), 0, numItems - 1);
+        String name = Jetpack.values()[i].getBaseName();
+        if (name.contains("eio")) {
+            return "eio";
+        } else if (name.contains("te")) {
+            return "te";
+        } else {
+            return "sj";
+        }
+    }
+
     @Override
     public void onArmorTick(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull ItemStack stack) {
         if (this.isOn(stack)) {
@@ -120,6 +132,11 @@ public class ItemFluxpack extends ItemArmor implements ISpecialArmor, IEnergyCon
                 }
             }
         }
+    }
+
+    public boolean isCreative(ItemStack stack) {
+        int i = MathHelper.clamp(stack.getItemDamage(), 0, numItems - 1);
+        return Fluxpack.values()[i].getBaseName().contains("creative");
     }
 
     @Override
