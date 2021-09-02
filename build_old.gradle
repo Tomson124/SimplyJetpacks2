@@ -1,0 +1,106 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'forge'
+            url = 'https://files.minecraftforge.net/maven/'
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+}
+
+plugins {
+    id "com.wynprice.cursemaven" version "2.1.5"
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+version = "${minecraft_version}-${mod_version}"
+group = 'tonius.simplyjetpacks'
+archivesBaseName = 'SimplyJetpacks2'
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+
+minecraft {
+    version = "${minecraft_version}-${forge_version}"
+    mappings = "${mappings_version}"
+    runDir = "run"
+
+    //makeObfSourceJar = false
+    //useDepAts = true
+
+    replace "${version}", project.version
+}
+
+repositories {
+    maven {
+        name = "progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        name = "chickenBones maven"
+        url = "https://chickenbones.net/maven/"
+    }
+    maven {
+        name = "covers maven"
+        url = "https://maven.covers1624.net/"
+    }
+    maven {
+        name = "curse mven"
+        url = "https://www.cursemaven.com/"
+    }
+    maven {
+        name = "blamejared maven"
+        url = "https://maven.blamejared.com/"
+    }
+    maven {
+        name = "tterrag maven"
+        url = "https://maven.tterrag.com/"
+    }
+}
+
+dependencies {
+    /*deobfProvided "mezz.jei:jei_1.12.2:${jei_version}:api"
+    runtime "mezz.jei:jei_1.12.2:${jei_version}"*/
+
+    deobfProvided "mcjty.theoneprobe:TheOneProbe-1.12:${top_version}:api"
+    runtime "mcjty.theoneprobe:TheOneProbe-1.12:${top_version}"
+
+    compile "cofh:RedstoneFlux:${redstoneflux_version}:deobf"
+
+    deobfProvided "curse.maven:mekanism:2835176"
+    runtime "curse.maven:mekanism:2835175"
+
+    runtime "curse.maven:immersiveengineering:2974106"
+    //runtime "blusunrize.Immersiveengineering:${immersiveengineering_version}:ImmersiveEngineering-${immersiveengineering_version}"
+
+    runtime "codechicken:CodeChickenLib:${codechickenlib_version}:universal"
+
+    compile "cofh:CoFHCore:${cofhcore_version}:deobf"
+    runtime "cofh:CoFHWorld:${cofhworld_version}:universal"
+    runtime "cofh:ThermalFoundation:${thermalfoundation_version}:universal"
+    runtime "cofh:ThermalDynamics:${thermaldynamics_version}:universal"
+    runtime "cofh:ThermalExpansion:${thermalexpansion_version}:universal"
+    runtime "cofh:RedstoneArsenal:${redstonearsenal_version}:universal"
+
+    compile "curse.maven:redstone-repository-revolved:2695517"
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from (sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+
+    from (sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
