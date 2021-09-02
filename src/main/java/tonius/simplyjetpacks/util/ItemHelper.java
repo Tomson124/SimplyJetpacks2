@@ -200,25 +200,35 @@ public class ItemHelper {
 
     // END SURROUND
 
-    public static void addJetpacks(Jetpack pack, NonNullList<ItemStack> List) {
+    public static void addJetpacks(Jetpack pack, NonNullList<ItemStack> List, boolean full) {
         ItemJetpack jetpackItem = ModItems.itemJetpack;
         ItemStack jetpackStack = new ItemStack(jetpackItem, 1, pack.ordinal());
         if (pack.usesEnergy) {
-            NBTHelper.setInt(jetpackStack, ItemJetpack.TAG_ENERGY, 0);
+            NBTHelper.setInt(jetpackStack, Constants.TAG_ENERGY, 0);
         } else {
             jetpackItem.addEnergy(jetpackStack, jetpackItem.getMaxEnergyStored(jetpackStack), false);
         }
-        jetpackItem.setParticleType(jetpackStack, ParticleType.DEFAULT);
+        if (jetpackItem.isCreative(jetpackStack)) {
+            jetpackItem.setParticleType(jetpackStack, ParticleType.RAINBOW);
+        } else {
+            jetpackItem.setParticleType(jetpackStack, ParticleType.FLAME);
+        }
         List.add(jetpackStack);
+
+        if (full) {
+            ItemStack jetpackStackFull = JetpackUtil.setDefaultEnergyTag(jetpackStack, pack.getEnergyCapacity());
+            //NBTHelper.setInt(jetpackStackFull, Constants.TAG_ENERGY, pack.getEnergyCapacity());
+            List.add((jetpackStackFull));
+        }
     }
 
-    public static void addFluxpacks(Fluxpack pack, NonNullList<ItemStack> List) {
+    public static void addFluxpacks(Fluxpack pack, NonNullList<ItemStack> List, boolean full) {
         ItemStack stack;
         ItemFluxpack fluxpackItem = ModItems.itemFluxpack;
         ItemStack fluxpackStack = new ItemStack(fluxpackItem, 1, pack.ordinal());
         if (pack.usesEnergy) {
             List.add(fluxpackStack);
-            NBTHelper.setInt(fluxpackStack, ItemFluxpack.TAG_ENERGY, 0);
+            NBTHelper.setInt(fluxpackStack, Constants.TAG_ENERGY, 0);
         } else {
             stack = new ItemStack(fluxpackItem, 1, pack.ordinal());
             fluxpackItem.addEnergy(stack, fluxpackItem.getMaxEnergyStored(stack), false);

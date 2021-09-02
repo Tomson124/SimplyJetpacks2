@@ -9,19 +9,21 @@ import java.util.EnumSet;
 
 public enum MetaItems {
 
-    PARTICLE_DEFAULT("particle_default", "particle_customizers", EnumRarity.COMMON),
+    PARTICLE_FLAME("particle_flame", "particle_customizers", EnumRarity.COMMON),
     PARTICLE_NONE("particle_none", "particle_customizers", EnumRarity.COMMON),
     PARTICLE_SMOKE("particle_smoke", "particle_customizers", EnumRarity.COMMON),
     PARTICLE_RAINBOW("particle_rainbow", "particle_customizers", EnumRarity.COMMON),
+    PARTICLE_SOUL("particle_soul", "particle_customizers", EnumRarity.COMMON),
+    PARTICLE_SNOW("particle_snow", "particle_customizers", EnumRarity.COMMON),
 
-    LEATHER_STRAP("leather_strap", null, EnumRarity.COMMON);
+    LEATHER_STRAP("leather_strap", null, EnumRarity.COMMON),
+    PARTICLE_BLEND("particle_blend", null, EnumRarity.COMMON);
 
+    public static final EnumSet<MetaItems> PARTICLE_CUSTOMIZERS = EnumSet.range(PARTICLE_FLAME, PARTICLE_SNOW);
     private final String name;
     private final String keyTooltip;
     private final EnumRarity rarity;
     private boolean glow;
-
-    public static final EnumSet<MetaItems> PARTICLE_CUSTOMIZERS = EnumSet.range(PARTICLE_DEFAULT, PARTICLE_RAINBOW);
 
     MetaItems(String name, String keyTooltip, EnumRarity rarity) {
         this.name = name;
@@ -36,7 +38,7 @@ public enum MetaItems {
 
     public static MetaItems getFromName(String s) {
         for (MetaItems meta : values()) {
-            if (meta.name.toLowerCase().equals(s.toLowerCase())) {
+            if (meta.name.equalsIgnoreCase(s)) {
                 return meta;
             }
         }

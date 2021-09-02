@@ -16,6 +16,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import tonius.simplyjetpacks.SimplyJetpacks;
 import tonius.simplyjetpacks.config.Config;
 import tonius.simplyjetpacks.item.ItemJetpack;
+import tonius.simplyjetpacks.util.JetpackUtil;
 
 @Mod.EventBusSubscriber(modid = SimplyJetpacks.MODID)
 public class EventHandler {
@@ -30,8 +31,7 @@ public class EventHandler {
     @SubscribeEvent
     public static void onLivingDeathEvent(LivingDeathEvent event) {
         if (event.getEntity() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.getEntity();
-            ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+            ItemStack stack = JetpackUtil.getFromBothSlots((EntityPlayer) event.getEntity());
             Item item = stack.getItem();
             if (item instanceof ItemJetpack) {
                 ItemJetpack jetpack = (ItemJetpack) item;

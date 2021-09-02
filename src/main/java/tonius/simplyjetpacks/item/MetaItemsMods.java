@@ -61,13 +61,8 @@ public enum MetaItemsMods {
     ARMOR_PLATING_IE_2("armorplating_ie2", null, EnumRarity.COMMON),
     ARMOR_PLATING_IE_3("armorplating_ie3", null, EnumRarity.COMMON),
     THRUSTER_IE_1("thruster_ie1", null, EnumRarity.COMMON),
-    THRUSTER_IE_2("thruster_ie2", null, EnumRarity.COMMON),
-    THRUSTER_IE_3("thruster_ie3", null, EnumRarity.UNCOMMON);
-
-    private final String name;
-    private final String keyTooltip;
-    private final EnumRarity rarity;
-    private boolean glow;
+    THRUSTER_IE_2("thruster_ie2", null, EnumRarity.UNCOMMON),
+    THRUSTER_IE_3("thruster_ie3", null, EnumRarity.RARE);
 
     public static final EnumSet<MetaItemsMods> ITEMS_VANILLA = EnumSet.range(THRUSTER_VANILLA_1, THRUSTER_VANILLA_3);
     public static final EnumSet<MetaItemsMods> ITEMS_EIO = EnumSet.range(ARMOR_PLATING_EIO_1, UNIT_FLIGHT_CONTROL);
@@ -75,6 +70,10 @@ public enum MetaItemsMods {
     public static final EnumSet<MetaItemsMods> ITEMS_TE_RA = EnumSet.range(THRUSTER_TE_5, UNIT_CRYOTHEUM);
     public static final EnumSet<MetaItemsMods> ITEMS_MEK = EnumSet.range(ARMOR_PLATING_MEK_1, THRUSTER_MEK_4);
     public static final EnumSet<MetaItemsMods> ITEMS_IE = EnumSet.range(ARMOR_PLATING_IE_1, THRUSTER_IE_3);
+    private final String name;
+    private final String keyTooltip;
+    private final EnumRarity rarity;
+    private boolean glow;
 
     MetaItemsMods(String name, String keyTooltip, EnumRarity rarity) {
         this.name = name;
@@ -89,7 +88,7 @@ public enum MetaItemsMods {
 
     public static MetaItemsMods getFromName(String s) {
         for (MetaItemsMods meta : values()) {
-            if (meta.name.toLowerCase().equals(s.toLowerCase())) {
+            if (meta.name.equalsIgnoreCase(s)) {
                 return meta;
             }
         }

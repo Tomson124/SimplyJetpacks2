@@ -19,7 +19,7 @@ public class ConfigWrapper extends Configuration {
         String langKey = keyPrefix + category + '.' + name;
         if (bonus != null) {
             if (bonus.equals("tuning"))
-            langKey = keyPrefix + "tuning." + name;
+                langKey = keyPrefix + "tuning." + name;
         }
         Property prop = get(category, name, defaultValue, comment);
         prop.setRequiresMcRestart(requiresRestart);

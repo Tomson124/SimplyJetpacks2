@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tonius.simplyjetpacks.SimplyJetpacks;
+import tonius.simplyjetpacks.item.Jetpack;
 
 import javax.annotation.Nonnull;
 
@@ -18,6 +19,6 @@ public class CreativeTabSimplyJetpacks extends CreativeTabs {
     @Override
     @SideOnly(Side.CLIENT)
     public ItemStack getTabIconItem() {
-        return new ItemStack(ModItems.itemJetpack);
+        return Jetpack.JETPACK_CREATIVE.getStackJetpack();
     }
 }

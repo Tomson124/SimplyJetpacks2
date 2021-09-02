@@ -1,7 +1,9 @@
 itemGroup.simplyjetpacks.main=Simply Jetpacks 2
 
-item.simplyjetpacks.jetpack_creative.name=Creative Jetpack
+item.simplyjetpacks.jetpack_creative.name=Creative Jetpack (Armored)
+item.simplyjetpacks.jetpack_creative_armored.name=Creative Jetpack (Armored)
 item.simplyjetpacks.fluxpack_creative.name=Creative Fluxpack
+item.simplyjetpacks.fluxpack_creative_armored.name=Creative Fluxpack
 item.simplyjetpacks.particle_blend.name=Particle Blend
 item.simplyjetpacks.particle_flame.name=Particle Customizer (Flame)
 item.simplyjetpacks.particle_none.name=Particle Customizer (None)
@@ -10,7 +12,8 @@ item.simplyjetpacks.particle_rainbow.name=Particle Customizer (Rainbow)
 item.simplyjetpacks.particle_soul.name=Particle Customizer (Soul)
 item.simplyjetpacks.particle_snow.name=Particle Customizer (Snow)
 item.simplyjetpacks.leather_strap.name=Leather Strap
-item.simplyjetpacks.pilot_goggles.name=Pilot Goggles
+item.simplyjetpacks.pilot_goggles_gold.name=Pilot Goggles (Gold)
+item.simplyjetpacks.pilot_goggles_iron.name=Pilot Goggles (Iron)
 item.simplyjetpacks.jetpack_potato.name=Potato Jetpack
 item.simplyjetpacks.mysterious_potato.name=Mysterious Potato
 
@@ -156,6 +159,8 @@ tooltip.simplyjetpacks.particles.2=Smoke
 tooltip.simplyjetpacks.particles.3=Rainbow
 tooltip.simplyjetpacks.particles.4=Soul
 tooltip.simplyjetpacks.particles.5=Snow
+tooltip.simplyjetpacks.particles.6=Heart
+tooltip.simplyjetpacks.particles.7=Bubble
 tooltip.simplyjetpacks.enderium_energy_bonus=Supercooled! Energy Usage Rate %s%%
 
 tooltip.simplyjetpacks.jetpack.description.1=Allows flight when active.
@@ -173,7 +178,6 @@ tooltip.simplyjetpacks.enderium_upgrade.description.1=Makes a Flux-Infused JetPl
 tooltip.simplyjetpacks.enderium_upgrade.description.2=an Enderium Flux armor piece.
 tooltip.simplyjetpacks.pilot_goggles.description.1=Only the best goggles for the best pilot!
 tooltip.simplyjetpacks.jetpack_potato.warning=Clever! But not survivable.
-tooltip.simplyjetpacks.mysterious_potato.description=Can do the thing...
 
 gui.simplyjetpacks.hud.jetpack.energy=Jetpack Energy
 gui.simplyjetpacks.hud.fluxpack.energy=Fluxpack Energy

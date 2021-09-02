@@ -14,7 +14,7 @@ public abstract class TERecipes {
     private static final String output2 = "output2";
 
     public static void addSmelterRecipe(int energy, ItemStack primaryInput, ItemStack secondaryInput, ItemStack primaryOutput, ItemStack secondaryOutput, int chance) {
-        SimplyJetpacks.logger.info("Registering TE Induction Smelter Recipe...");
+        SimplyJetpacks.LOGGER.info("Registering TE Induction Smelter Recipe...");
         NBTTagCompound toSend = new NBTTagCompound();
         toSend.setInteger("energy", energy);
         toSend.setTag(input, new NBTTagCompound());
@@ -32,7 +32,7 @@ public abstract class TERecipes {
     }
 
     public static void addTransposerFill(int energy, ItemStack fluidInput, ItemStack fluidOutput, FluidStack fluid, boolean reversible) {
-        SimplyJetpacks.logger.info("Registering TE Fluid Transposer Fill Recipe...");
+        SimplyJetpacks.LOGGER.info("Registering TE Fluid Transposer Fill Recipe...");
         NBTTagCompound toSend = new NBTTagCompound();
         toSend.setInteger("energy", energy);
         toSend.setTag(input, new NBTTagCompound());

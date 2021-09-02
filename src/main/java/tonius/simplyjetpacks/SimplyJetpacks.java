@@ -30,16 +30,12 @@ public class SimplyJetpacks {
     public static final String PREFIX = MODID + ".";
     public static final String RESOURCE_PREFIX = MODID + ":";
     public static final String DEPENDENCIES = "after:thermalexpansion;" + "after:thermaldynamics;" + "after:enderio;" + "after:redstonearsenal;" + "after:redstonerepository;" + "after:immersiveengineering;" + "after:mekanism;";
-
-    @Mod.Instance(MODID)
-    public static SimplyJetpacks instance;
-
-    @SidedProxy(clientSide = "tonius.simplyjetpacks.proxy.ClientProxy", serverSide = "tonius.simplyjetpacks.proxy.CommonProxy")
-    public static CommonProxy proxy;
-
-    public static Logger logger = LogManager.getLogger(MODID);
-
     public static final CreativeTabSimplyJetpacks tabSimplyJetpacks = new CreativeTabSimplyJetpacks();
+    @Mod.Instance(MODID)
+    public static SimplyJetpacks INSTANCE;
+    @SidedProxy(clientSide = "tonius.simplyjetpacks.proxy.ClientProxy", serverSide = "tonius.simplyjetpacks.proxy.CommonProxy")
+    public static CommonProxy PROXY;
+    public static Logger LOGGER = LogManager.getLogger(MODID);
 
     public SimplyJetpacks() {
         FluidRegistry.enableUniversalBucket();
@@ -47,7 +43,7 @@ public class SimplyJetpacks {
 
     @EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
-        logger.info("Starting Simply Jetpacks 2...");
+        LOGGER.info("Starting Simply Jetpacks 2...");
         MinecraftForge.EVENT_BUS.register(new RegistryHandler());
         Config.preInit(event);
         ModItems.preInit();
@@ -56,11 +52,11 @@ public class SimplyJetpacks {
 
     @EventHandler
     public static void init(FMLInitializationEvent event) {
-        proxy.registerHandlers();
-        proxy.initKeys();
+        PROXY.registerHandlers();
+        PROXY.initKeys();
         NetworkHandler.init();
         ModItems.init();
-        proxy.init();
+        PROXY.init();
     }
 
     @EventHandler

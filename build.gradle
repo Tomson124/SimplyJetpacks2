@@ -83,25 +83,40 @@ dependencies {
     //compileOnly fg.deobf("mezz.jei:jei_${mc_version}:${jei_version}:api")
     //runtimeOnly fg.deobf("mezz.jei:jei_${mc_version}:${jei_version}")
 
-    compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.12:${top_version}:api")
-    runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.12:${top_version}")
+    runtime "vazkii.patchouli:Patchouli:${patchouli_version}"
 
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
+    compile "curse.maven:baubles-227083:2518667"
 
-    //compileOnly fg.deobf("cofh:RedstoneFlux:${redstoneflux_version}:deobf")
-    compile fg.deobf("curse.maven:redstone-flux-270789:2920436")
+    //compile "cofh:RedstoneFlux:${redstoneflux_version}:deobf"
+    compile "curse.maven:redstone-flux-270789:2920436"
 
-    compileOnly fg.deobf("curse.maven:mekanism-268560:2835176") // API
-    runtimeOnly fg.deobf("curse.maven:mekanism-268560:2835175")
-    //runtimeOnly fg.deobf("curse.maven:mekanism-generators-268566:2835177")
-    //runtimeOnly fg.deobf("curse.maven:mekanism-tools-268567:2835178")
+    deobfProvided "curse.maven:mekanism-268560:2835176" // API
+    runtime "curse.maven:mekanism-268560:2835175"
+    //runtime "curse.maven:mekanism-generators-268566:2835177"
+    //runtime "curse.maven:mekanism-tools-268567:2835178"
 
-    runtimeOnly fg.deobf("curse.maven:immersive-engineering-231951:2974106")
-    //runtimeOnly fg.deobf("blusunrize.Immersiveengineering:${immersiveengineering_version}:ImmersiveEngineering-${immersiveengineering_version}")
+    runtime "curse.maven:immersive-engineering-231951:2974106"
+    //runtime "blusunrize.Immersiveengineering:${immersiveengineering_version}:ImmersiveEngineering-${immersiveengineering_version}"
 
-    //runtimeOnly fg.deobf("codechicken:CodeChickenLib:${codechickenlib_version}:universal")
-    //runtimeOnly fg.deobf("codechicken:CodeChickenLib:${codechickenlib_version}")
-    runtimeOnly fg.deobf("curse.maven:codechicken-lib-1-8-242818:2779848")
+    //runtime "codechicken:CodeChickenLib:${codechickenlib_version}:universal"
+    runtime "curse.maven:codechicken-lib-1-8-242818:2779848"
+
+//    compile "cofh:CoFHCore:${cofhcore_version}:deobf"
+//    runtime "cofh:CoFHWorld:${cofhworld_version}:universal"
+//    runtime "cofh:ThermalFoundation:${thermalfoundation_version}:universal"
+//    runtime "cofh:ThermalDynamics:${thermaldynamics_version}:universal"
+//    runtime "cofh:ThermalExpansion:${thermalexpansion_version}:universal"
+//    runtime "cofh:RedstoneArsenal:${redstonearsenal_version}:universal"
+
+    compile "curse.maven:cofh-core-69162:2920433"
+    runtime "curse.maven:cofh-world-271384:2920434"
+    runtime "curse.maven:thermal-foundation-222880:2926428"
+    runtime "curse.maven:thermal-dynamics-227443:2920505"
+    runtime "curse.maven:thermal-expansion-69163:2926431"
+    runtime "curse.maven:redstone-arsenal-70631:2939416"
+
+    compile "curse.maven:redstone-repository-revolved-300750:2695517"
+}
 
     //compileOnly fg.deobf("cofh:CoFHCore:${cofhcore_version}:deobf")
     //runtimeOnly fg.deobf("cofh:CoFHWorld:${cofhworld_version}:universal")
@@ -134,7 +149,7 @@ jar {
     }
 }
 
-jar.finalizedBy('reobfJar') 
+jar.finalizedBy('reobfJar')
 //publish.dependsOn('reobfJar')
 
 publishing {

@@ -18,7 +18,9 @@ import java.util.List;
 
 public class ItemPilotGoggles extends ItemArmor {
 
-    public ItemPilotGoggles(String name) {
+    private final String type;
+
+    public ItemPilotGoggles(String name, String type) {
         super(ArmorMaterial.LEATHER, 1, EntityEquipmentSlot.HEAD);
         this.setUnlocalizedName(SimplyJetpacks.PREFIX + name);
         this.setHasSubtypes(false);
@@ -26,6 +28,11 @@ public class ItemPilotGoggles extends ItemArmor {
         this.setCreativeTab(SimplyJetpacks.tabSimplyJetpacks);
         this.setRegistryName(name);
         this.setMaxStackSize(1);
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
     }
 
     @Override
@@ -44,11 +51,11 @@ public class ItemPilotGoggles extends ItemArmor {
     }
 
     public void registerItemModel() {
-        SimplyJetpacks.proxy.registerItemRenderer(this, 0, "pilot_goggles");
+        SimplyJetpacks.PROXY.registerItemRenderer(this, 0, "pilot_goggles_" + this.type);
     }
 
     @Override
     public String getArmorTexture(@Nonnull ItemStack stack, @Nonnull Entity entity, @Nonnull EntityEquipmentSlot slot, @Nonnull String type) {
-        return SimplyJetpacks.RESOURCE_PREFIX + "textures/armor/pilot_goggles.png";
+        return SimplyJetpacks.RESOURCE_PREFIX + "textures/armor/pilot_goggles_" + this.type + ".png";
     }
 }

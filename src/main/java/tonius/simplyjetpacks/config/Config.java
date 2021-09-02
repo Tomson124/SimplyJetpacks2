@@ -68,7 +68,7 @@ public class Config {
         configCommon = new ConfigWrapper(new File(event.getModConfigurationDirectory(), SimplyJetpacks.MODID + "/common.cfg"), SimplyJetpacks.VERSION, true);
         configClient = new ConfigWrapper(new File(event.getModConfigurationDirectory(), SimplyJetpacks.MODID + "/client.cfg"), SimplyJetpacks.VERSION, true);
         syncConfig();
-        SimplyJetpacks.proxy.updateCustomKeybinds(flyKey, descendKey);
+        SimplyJetpacks.PROXY.updateCustomKeybinds(flyKey, descendKey);
     }
 
     public static void processConfig() {
@@ -114,7 +114,7 @@ public class Config {
     }
 
     private static void syncConfig() {
-        SimplyJetpacks.logger.info("Loading Configuration Files...");
+        SimplyJetpacks.LOGGER.info("Loading Configuration Files...");
         try {
             processConfig();
         } catch (Exception e) {
@@ -130,8 +130,8 @@ public class Config {
     }
 
     public static void onConfigChanged() {
-        SimplyJetpacks.logger.info("Simply Jetpacks Config Changed!");
+        SimplyJetpacks.LOGGER.info("Simply Jetpacks Config Changed!");
         syncConfig();
-        SimplyJetpacks.proxy.updateCustomKeybinds(flyKey, descendKey);
+        SimplyJetpacks.PROXY.updateCustomKeybinds(flyKey, descendKey);
     }
 }

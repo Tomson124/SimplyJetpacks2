@@ -11,16 +11,18 @@ import tonius.simplyjetpacks.client.model.PackModelType;
 import tonius.simplyjetpacks.item.Fluxpack;
 import tonius.simplyjetpacks.item.Jetpack;
 
-public abstract class RenderUtils {
+public class RenderUtils {
 
     private static final Minecraft mc = Minecraft.getMinecraft();
 
     public static void drawStringLeft(String string, FontRenderer fontRenderer, int x, int y, int color, boolean shadow) {
         fontRenderer.drawString(string, x, y, color, shadow);
     }
+
     public static void drawStringCenter(String string, FontRenderer fontRenderer, int x, int y, int color, boolean shadow) {
         fontRenderer.drawString(string, x - fontRenderer.getStringWidth(string) / 2.0f, y, color, shadow);
     }
+
     public static void drawStringRight(String string, FontRenderer fontRenderer, int x, int y, int color, boolean shadow) {
         fontRenderer.drawString(string, x - fontRenderer.getStringWidth(string), y, color, shadow);
     }
@@ -63,16 +65,6 @@ public abstract class RenderUtils {
         }
     }
 
-    public enum HUDPositions {
-        TOP_LEFT,
-        TOP_CENTER,
-        TOP_RIGHT,
-        LEFT,
-        RIGHT,
-        BOTTOM_LEFT,
-        BOTTOM_RIGHT
-    }
-
     public static ModelBiped getArmorModel(Jetpack pack, EntityLivingBase entity) {
         ModelBiped model = null;
         if (pack.armorModel == PackModelType.JETPACK) {
@@ -99,5 +91,15 @@ public abstract class RenderUtils {
         model.isRiding = entity.isRiding();
         model.isChild = entity.isChild();
         return model;
+    }
+
+    public enum HUDPositions {
+        TOP_LEFT,
+        TOP_CENTER,
+        TOP_RIGHT,
+        LEFT,
+        RIGHT,
+        BOTTOM_LEFT,
+        BOTTOM_RIGHT
     }
 }
