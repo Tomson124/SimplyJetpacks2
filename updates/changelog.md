@@ -97,7 +97,7 @@
 - **Removed**
     - Integration for mods that haven't yet updated
 
-# 2.2.19 - xx-xx-2021
+# 2.2.21 - xx-xx-2021
 - **General**
     - New Features and Improved Systems
 - **Added**
@@ -105,6 +105,16 @@
     - Quality of Life changes
 - **Fixed**
     - Fixed some bugs
+
+# 2.2.20 - 01-05-2021
+- **Fixed**
+    - joinAdvancements still showing even when config being set to false
+
+# 2.2.19 - 23-02-2021
+- **Fixed**
+    - joinAdvancement config being on wrong side
+    - Curse Maven dependency
+    - Spectator checks
 
 # 2.2.18 - 16-12-2020
 - **Fixed**
