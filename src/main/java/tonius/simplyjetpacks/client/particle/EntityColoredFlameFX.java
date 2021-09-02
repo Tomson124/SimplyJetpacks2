@@ -22,16 +22,16 @@ public class EntityColoredFlameFX extends ParticleFlame {
     }
 
     public static EntityColoredFlameFX getSoulFlame(World world, double posX, double posY, double posZ, double velX, double velY, double velZ) {
-        // TODO: make the colours blue and white.
-        Color color = new Color(Color.HSBtoRGB(MathHelper.RANDOM.nextFloat() * 360, MathHelper.RANDOM.nextFloat() * 0.15F + 0.8F, 0.85F));
-        float red = color.getRed() / 255.0F;
-        float green = color.getGreen() / 255.0F;
-        float blue = color.getBlue() / 255.0F;
+        // TODO: work on the colour.
+        Color color = new Color(Color.HSBtoRGB(MathHelper.RANDOM.nextInt(40) + 180, MathHelper.RANDOM.nextInt(100), 0.95F));
+        float red = color.getRed();
+        float green = color.getGreen();
+        float blue = color.getBlue();
         return new EntityColoredFlameFX(world, posX, posY, posZ, velX, velY, velZ, red, green, blue);
     }
 
     @Override
-    public int getBrightnessForRender(float p_70013_1_) {
+    public int getBrightnessForRender(float brightness) {
         return 190 + (int) (20F * (1.0F - mc.gameSettings.gammaSetting));
     }
 

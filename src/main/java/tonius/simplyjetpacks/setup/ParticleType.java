@@ -9,5 +9,4 @@ public enum ParticleType {
     SNOW,
     BUBBLE,
     HEART
-    ;
 }

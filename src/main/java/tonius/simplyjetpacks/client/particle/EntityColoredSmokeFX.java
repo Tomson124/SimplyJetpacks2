@@ -30,7 +30,7 @@ public class EntityColoredSmokeFX extends ParticleSmokeNormal {
     }
 
     @Override
-    public int getBrightnessForRender(float p_70013_1_) {
+    public int getBrightnessForRender(float brightness) {
         return 190 + (int) (20F * (1.0F - mc.gameSettings.gammaSetting));
     }
 
