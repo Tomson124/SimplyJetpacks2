@@ -1,9 +1,9 @@
 itemGroup.simplyjetpacks.main=Simply Jetpacks 2
 
-item.simplyjetpacks.jetpack_creative.name=Creative Jetpack (Armored)
+item.simplyjetpacks.jetpack_creative.name=Creative Jetpack
 item.simplyjetpacks.jetpack_creative_armored.name=Creative Jetpack (Armored)
 item.simplyjetpacks.fluxpack_creative.name=Creative Fluxpack
-item.simplyjetpacks.fluxpack_creative_armored.name=Creative Fluxpack
+item.simplyjetpacks.fluxpack_creative_armored.name=Creative Fluxpack (Armored)
 item.simplyjetpacks.particle_blend.name=Particle Blend
 item.simplyjetpacks.particle_flame.name=Particle Customizer (Flame)
 item.simplyjetpacks.particle_none.name=Particle Customizer (None)
