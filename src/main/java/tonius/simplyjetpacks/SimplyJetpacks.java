@@ -30,16 +30,12 @@ public class SimplyJetpacks {
     public static final String PREFIX = MODID + ".";
     public static final String RESOURCE_PREFIX = MODID + ":";
     public static final String DEPENDENCIES = "after:thermalexpansion;" + "after:thermaldynamics;" + "after:enderio;" + "after:redstonearsenal;" + "after:redstonerepository;" + "after:immersiveengineering;" + "after:mekanism;";
-
+    public static final CreativeTabSimplyJetpacks tabSimplyJetpacks = new CreativeTabSimplyJetpacks();
     @Mod.Instance(MODID)
     public static SimplyJetpacks INSTANCE;
-
     @SidedProxy(clientSide = "tonius.simplyjetpacks.proxy.ClientProxy", serverSide = "tonius.simplyjetpacks.proxy.CommonProxy")
     public static CommonProxy PROXY;
-
     public static Logger LOGGER = LogManager.getLogger(MODID);
-
-    public static final CreativeTabSimplyJetpacks tabSimplyJetpacks = new CreativeTabSimplyJetpacks();
 
     public SimplyJetpacks() {
         FluidRegistry.enableUniversalBucket();

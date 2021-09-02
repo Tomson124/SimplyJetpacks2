@@ -200,7 +200,7 @@ public class ItemHelper {
 
     // END SURROUND
 
-    public static void addJetpacks(Jetpack pack, NonNullList<ItemStack> List) {
+    public static void addJetpacks(Jetpack pack, NonNullList<ItemStack> List, boolean full) {
         ItemJetpack jetpackItem = ModItems.itemJetpack;
         ItemStack jetpackStack = new ItemStack(jetpackItem, 1, pack.ordinal());
         if (pack.usesEnergy) {
@@ -212,7 +212,7 @@ public class ItemHelper {
         List.add(jetpackStack);
     }
 
-    public static void addFluxpacks(Fluxpack pack, NonNullList<ItemStack> List) {
+    public static void addFluxpacks(Fluxpack pack, NonNullList<ItemStack> List, boolean full) {
         ItemStack stack;
         ItemFluxpack fluxpackItem = ModItems.itemFluxpack;
         ItemStack fluxpackStack = new ItemStack(fluxpackItem, 1, pack.ordinal());

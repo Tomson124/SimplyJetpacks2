@@ -23,13 +23,12 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LivingTickHandler {
 
     private static final Map<Integer, ParticleType> lastJetpackState = new ConcurrentHashMap<>();
-    private final int numItems = Jetpack.values().length;
-
     public static Field floatingTickCount = null;
+    private final int numItems = Jetpack.values().length;
 
     public LivingTickHandler() {
         try {
-            floatingTickCount = ReflectionHelper.findField(NetHandlerPlayServer.class,  "floatingTickCount", "field_147365_f");
+            floatingTickCount = ReflectionHelper.findField(NetHandlerPlayServer.class, "floatingTickCount", "field_147365_f");
         } catch (Exception e) {
             SimplyJetpacks.LOGGER.error("Unable to find field 'floatingTickCount'");
             e.printStackTrace();

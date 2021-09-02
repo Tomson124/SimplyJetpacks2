@@ -26,7 +26,12 @@ public class KeybindHandler {
 
     public static final KeybindHandler instance = new KeybindHandler();
     static final Minecraft mc = Minecraft.getMinecraft();
-
+    private static final String category = "keybind.simplyjetpacks.category";
+    public static KeyBinding JETPACK_GUI_KEY;
+    public static KeyBinding JETPACK_ENGINE_KEY;
+    public static KeyBinding JETPACK_CHARGER_KEY;
+    public static KeyBinding JETPACK_HOVER_KEY;
+    public static KeyBinding JETPACK_EHOVER_KEY;
     private static int flyKey;
     private static int descendKey;
     private static boolean lastFlyState = false;
@@ -35,14 +40,6 @@ public class KeybindHandler {
     private static boolean lastBackwardState = false;
     private static boolean lastLeftState = false;
     private static boolean lastRightState = false;
-
-    public static KeyBinding JETPACK_GUI_KEY;
-    public static KeyBinding JETPACK_ENGINE_KEY;
-    public static KeyBinding JETPACK_CHARGER_KEY;
-    public static KeyBinding JETPACK_HOVER_KEY;
-    public static KeyBinding JETPACK_EHOVER_KEY;
-
-    private static final String category = "keybind.simplyjetpacks.category";
 
     public static void setup() {
         JETPACK_GUI_KEY = new KeyBinding("keybind.simplyjetpacks.gui", Keyboard.KEY_K, category);
@@ -55,40 +52,6 @@ public class KeybindHandler {
         ClientRegistry.registerKeyBinding(JETPACK_CHARGER_KEY);
         JETPACK_EHOVER_KEY = new KeyBinding("keybind.simplyjetpacks.emergency_hover", Keyboard.KEY_NONE, category);
         ClientRegistry.registerKeyBinding(JETPACK_EHOVER_KEY);
-    }
-
-    @SubscribeEvent
-    public void onKeyInput(KeyInputEvent event) {
-        EntityPlayer player = FMLClientHandler.instance().getClient().player;
-        //ItemStack chestStack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-        ItemStack chestStack = JetpackUtil.getFromBothSlots(mc.player);
-        Item chestItem = StackUtil.getItem(chestStack);
-
-        if (chestItem instanceof ItemJetpack) {
-            if (JETPACK_GUI_KEY.isPressed()) {
-                Minecraft.getMinecraft().displayGuiScreen(new JetpackGuiScreen());
-            }
-            if (JETPACK_ENGINE_KEY.isPressed()) {
-                NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.ENGINE));
-            }
-            if (JETPACK_CHARGER_KEY.isPressed()) {
-                NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.CHARGER));
-            }
-            if (JETPACK_HOVER_KEY.isPressed()) {
-                NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.HOVER));
-            }
-            if (JETPACK_EHOVER_KEY.isPressed()) {
-                NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.E_HOVER));
-            }
-        }
-        if (chestItem instanceof ItemFluxpack) {
-            if (JETPACK_GUI_KEY.isPressed()) {
-                Minecraft.getMinecraft().displayGuiScreen(new JetpackGuiScreen());
-            }
-            if (JETPACK_ENGINE_KEY.isPressed()) {
-                NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.ENGINE));
-            }
-        }
     }
 
     public static void updateCustomKeybinds(String flyKeyName, String descendKeyName) {
@@ -122,6 +85,40 @@ public class KeybindHandler {
                 lastRightState = rightState;
                 NetworkHandler.instance.sendToServer(new MessageKeyboardSync(flyState, descendState, forwardState, backwardState, leftState, rightState));
                 SyncHandler.processKeyUpdate(mc.player, flyState, descendState, forwardState, backwardState, leftState, rightState);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onKeyInput(KeyInputEvent event) {
+        EntityPlayer player = FMLClientHandler.instance().getClient().player;
+        //ItemStack chestStack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+        ItemStack chestStack = JetpackUtil.getFromBothSlots(mc.player);
+        Item chestItem = StackUtil.getItem(chestStack);
+
+        if (chestItem instanceof ItemJetpack) {
+            if (JETPACK_GUI_KEY.isPressed()) {
+                Minecraft.getMinecraft().displayGuiScreen(new JetpackGuiScreen());
+            }
+            if (JETPACK_ENGINE_KEY.isPressed()) {
+                NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.ENGINE));
+            }
+            if (JETPACK_CHARGER_KEY.isPressed()) {
+                NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.CHARGER));
+            }
+            if (JETPACK_HOVER_KEY.isPressed()) {
+                NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.HOVER));
+            }
+            if (JETPACK_EHOVER_KEY.isPressed()) {
+                NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.E_HOVER));
+            }
+        }
+        if (chestItem instanceof ItemFluxpack) {
+            if (JETPACK_GUI_KEY.isPressed()) {
+                Minecraft.getMinecraft().displayGuiScreen(new JetpackGuiScreen());
+            }
+            if (JETPACK_ENGINE_KEY.isPressed()) {
+                NetworkHandler.instance.sendToServer(new MessageKeybind(MessageKeybind.JetpackPacket.ENGINE));
             }
         }
     }

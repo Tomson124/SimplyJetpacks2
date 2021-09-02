@@ -14,7 +14,6 @@ public class Defaults {
     public static final boolean enableIntegrationTD = ModType.THERMAL_DYNAMICS.loaded;
     public static final boolean enableIntegrationMek = ModType.MEKANISM.loaded;
     public static final boolean enableIntegrationIE = ModType.IMMERSIVE_ENGINEERING.loaded;
-    public static boolean enableIntegrationRA = ModType.REDSTONE_ARSENAL.loaded;
     public static final boolean enableIntegrationRR = ModType.REDSTONE_REPOSITORY.loaded;
     public static final int gelidEnderiumEnergyUsageBonus = 80;
     // Controls
@@ -42,4 +41,5 @@ public class Defaults {
     public static final int HUDTextColor = 0xeeeeee;
     // Misc
     public static final boolean joinAdvancements = true;
+    public static boolean enableIntegrationRA = ModType.REDSTONE_ARSENAL.loaded;
 }

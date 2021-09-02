@@ -28,11 +28,10 @@ import java.util.Iterator;
 public class ClientTickHandler {
 
     private static final Minecraft mc = Minecraft.getMinecraft();
+    private static final int numItems = Jetpack.values().length;
     private static ParticleType lastJetpackState = null;
     private static boolean wearingJetpack = false;
     private static boolean sprintKeyCheck = false;
-    private static final int numItems = Jetpack.values().length;
-
     private static Field sprintToggleTimer = null;
 
     public ClientTickHandler() {
@@ -112,6 +111,13 @@ public class ClientTickHandler {
         }
     }
 
+    private static boolean checkValentines() {
+        LocalDate today = LocalDate.now();
+        int day = today.getDayOfMonth();
+        int month = today.getMonthValue();
+        return day == 14 && month == 3;
+    }
+
     @SubscribeEvent
     public void onClientTick(ClientTickEvent evt) {
         if (evt.phase == Phase.START) {
@@ -119,12 +125,5 @@ public class ClientTickHandler {
         } else {
             tickEnd();
         }
-    }
-
-    private static boolean checkValentines() {
-        LocalDate today = LocalDate.now();
-        int day = today.getDayOfMonth();
-        int month = today.getMonthValue();
-        return day == 14 && month == 3;
     }
 }

@@ -89,7 +89,7 @@ public class JetpackGuiScreen extends GuiScreen {
         minecraft.getTextureManager().bindTexture(ENERGY_BAR);
         drawModalRectWithCustomSizedTexture(relX + 10, relY + 16, 0, 0, 14, 78, 128, 128);
         int amount = getEnergyBarAmount();
-        int barOffset = 78-amount;
+        int barOffset = 78 - amount;
         drawModalRectWithCustomSizedTexture(relX + 10, relY + 16 + barOffset, 14, 0, 14, amount, 128, 128);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }

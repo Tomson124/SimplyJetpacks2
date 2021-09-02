@@ -42,10 +42,10 @@ public final class FireworksHelper {
     }
 
     public static final class Explosion {
-        private boolean twinkle = false;
-        private boolean trail = false;
         private final List<Integer> primaryColors = new ArrayList<>();
         private final List<Integer> fadeColors = new ArrayList<>();
+        private boolean twinkle = false;
+        private boolean trail = false;
         private FireworksHelper.Explosion.Type type;
 
         public Explosion() {
@@ -147,7 +147,7 @@ public final class FireworksHelper {
             LARGE_BALL,
             STAR,
             CREEPER,
-            BURST;
+            BURST
         }
     }
 }

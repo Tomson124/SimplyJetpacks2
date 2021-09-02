@@ -8,35 +8,6 @@ import java.util.Map;
 public class PackDefaults {
 
     private static final Map<String, PackDefaults> DEFAULTS = new HashMap<>();
-    public final Section section;
-    // Base
-    public Integer energyCapacity;
-    public Integer energyUsage;
-    public Integer energyPerTickIn;
-    public Integer energyPerTickOut;
-    public Integer armorReduction;
-    public Integer armorEnergyPerHit;
-    public Integer enchantability;
-    // Jetpack
-    public Double speedVertical;
-    public Double accelVertical;
-    public Double speedVerticalHover;
-    public Double speedVerticalHoverSlow;
-    public Double speedSideways;
-    public Double sprintSpeedModifier;
-    public Double sprintEnergyModifier;
-    public Boolean emergencyHoverMode;
-    public Boolean chargerMode;
-    public Boolean hoverMode;
-
-    public PackDefaults(String modid, String key) {
-        this.section = new Section(false, "tuning." + modid + "." + key, "x", "item.simplyjetpacks." + key + ".name");
-        DEFAULTS.put(key, this);
-    }
-
-    public static PackDefaults get(String key) {
-        return DEFAULTS.get(key);
-    }
 
     // The Great Mighty List of Defaults!
     static {
@@ -529,5 +500,35 @@ public class PackDefaults {
             d.chargerMode = false;
             d.hoverMode = true;
         }
+    }
+
+    public final Section section;
+    // Base
+    public Integer energyCapacity;
+    public Integer energyUsage;
+    public Integer energyPerTickIn;
+    public Integer energyPerTickOut;
+    public Integer armorReduction;
+    public Integer armorEnergyPerHit;
+    public Integer enchantability;
+    // Jetpack
+    public Double speedVertical;
+    public Double accelVertical;
+    public Double speedVerticalHover;
+    public Double speedVerticalHoverSlow;
+    public Double speedSideways;
+    public Double sprintSpeedModifier;
+    public Double sprintEnergyModifier;
+    public Boolean emergencyHoverMode;
+    public Boolean chargerMode;
+    public Boolean hoverMode;
+
+    public PackDefaults(String modid, String key) {
+        this.section = new Section(false, "tuning." + modid + "." + key, "x", "item.simplyjetpacks." + key + ".name");
+        DEFAULTS.put(key, this);
+    }
+
+    public static PackDefaults get(String key) {
+        return DEFAULTS.get(key);
     }
 }

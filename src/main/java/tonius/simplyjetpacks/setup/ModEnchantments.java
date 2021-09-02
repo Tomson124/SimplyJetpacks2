@@ -10,12 +10,12 @@ import java.util.List;
 
 @Mod.EventBusSubscriber
 public class ModEnchantments {
-	public static final List<Enchantment> ENCHANTMENTS = new ArrayList<>();
-	public static Enchantment FUEL_EFFICIENCY = null;
+    public static final List<Enchantment> ENCHANTMENTS = new ArrayList<>();
+    public static Enchantment FUEL_EFFICIENCY = null;
 
-	public static void init() {
-		if (Config.enableFuelEfficiencyEnchantment) {
-			FUEL_EFFICIENCY = new EnchantmentFuelEfficiency();
-		}
-	}
+    public static void init() {
+        if (Config.enableFuelEfficiencyEnchantment) {
+            FUEL_EFFICIENCY = new EnchantmentFuelEfficiency();
+        }
+    }
 }

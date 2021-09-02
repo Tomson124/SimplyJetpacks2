@@ -17,338 +17,338 @@ import javax.annotation.Nonnull;
  */
 public class Pos3D extends Vec3d {
 
-	public Pos3D() {
-		this(0, 0, 0);
-	}
+    public Pos3D() {
+        this(0, 0, 0);
+    }
 
-	public Pos3D(Vec3d vec) {
-		super(vec.x, vec.y, vec.z);
-	}
+    public Pos3D(Vec3d vec) {
+        super(vec.x, vec.y, vec.z);
+    }
 
-	public Pos3D(Vec3i vec) {
-		super(vec);
-	}
+    public Pos3D(Vec3i vec) {
+        super(vec);
+    }
 
-	public Pos3D(RayTraceResult mop) {
-		this(mop.getBlockPos());
-	}
+    public Pos3D(RayTraceResult mop) {
+        this(mop.getBlockPos());
+    }
 
-	public Pos3D(double x, double y, double z) {
-		super(x, y, z);
-	}
+    public Pos3D(double x, double y, double z) {
+        super(x, y, z);
+    }
 
-	/**
-	 * Creates a Pos3D with an entity's posX, posY, and posZ values.
-	 *
-	 * @param entity - entity to create the Pos3D from
-	 */
-	public Pos3D(Entity entity) {
-		this(entity.posX, entity.posY, entity.posZ);
-	}
+    /**
+     * Creates a Pos3D with an entity's posX, posY, and posZ values.
+     *
+     * @param entity - entity to create the Pos3D from
+     */
+    public Pos3D(Entity entity) {
+        this(entity.posX, entity.posY, entity.posZ);
+    }
 
-	/**
-	 * Creates a Pos3D with a TileEntity's x, y and z values.
-	 *
-	 * @param tileEntity - TileEntity to create the Pos3D from
-	 */
-	public Pos3D(TileEntity tileEntity) {
-		this(tileEntity.getPos());
-	}
+    /**
+     * Creates a Pos3D with a TileEntity's x, y and z values.
+     *
+     * @param tileEntity - TileEntity to create the Pos3D from
+     */
+    public Pos3D(TileEntity tileEntity) {
+        this(tileEntity.getPos());
+    }
 
-	/**
-	 * Returns a new Pos3D from a tag compound.
-	 *
-	 * @param tag - tag compound to read from
-	 * @return the Pos3D from the tag compound
-	 */
-	public static Pos3D read(NBTTagCompound tag) {
-		return new Pos3D(tag.getDouble("x"), tag.getDouble("y"), tag.getDouble("z"));
-	}
+    /**
+     * Returns a new Pos3D from a tag compound.
+     *
+     * @param tag - tag compound to read from
+     * @return the Pos3D from the tag compound
+     */
+    public static Pos3D read(NBTTagCompound tag) {
+        return new Pos3D(tag.getDouble("x"), tag.getDouble("y"), tag.getDouble("z"));
+    }
 
-	/**
-	 * Writes this Pos3D's data to an NBTTagCompound.
-	 *
-	 * @param nbtTags - tag compound to write to
-	 * @return the tag compound with this Pos3D's data
-	 */
-	public NBTTagCompound write(NBTTagCompound nbtTags) {
-		nbtTags.setDouble("x", x);
-		nbtTags.setDouble("y", y);
-		nbtTags.setDouble("z", z);
+    /**
+     * Creates a new Pos3D from the motion of an entity.
+     *
+     * @param entity Entitiy to get the motion from
+     * @return Pos3D representing the motion of the given entity
+     */
+    public static Pos3D fromMotion(Entity entity) {
+        return new Pos3D(entity.motionX, entity.motionY, entity.motionZ);
+    }
 
-		return nbtTags;
-	}
+    public static Pos3D translateMatrix(double[] matrix, Pos3D translation) {
+        double x = translation.x * matrix[0] + translation.y * matrix[1] + translation.z * matrix[2] + matrix[3];
+        double y = translation.x * matrix[4] + translation.y * matrix[5] + translation.z * matrix[6] + matrix[7];
+        double z = translation.x * matrix[8] + translation.y * matrix[9] + translation.z * matrix[10] + matrix[11];
 
-	/**
-	 * Creates and returns a Pos3D with values representing the difference between this and the Pos3D in the parameters.
-	 *
-	 * @param vec - Vec3 to subtract
-	 * @return difference of the two Pos3Ds
-	 */
-	public Pos3D diff(Vec3d vec) {
-		return new Pos3D(x - vec.x, y - vec.y, z - vec.z);
-	}
+        return new Pos3D(x, y, z);
+    }
 
-	/**
-	 * Creates a new Pos3D from the motion of an entity.
-	 *
-	 * @param entity Entitiy to get the motion from
-	 * @return Pos3D representing the motion of the given entity
-	 */
-	public static Pos3D fromMotion(Entity entity) {
-		return new Pos3D(entity.motionX, entity.motionY, entity.motionZ);
-	}
+    public static double[] getRotationMatrix(float angle, Pos3D axis) {
+        return axis.getRotationMatrix(angle);
+    }
 
-	/**
-	 * Centres a block-derived Pos3D
-	 */
-	public Pos3D centre() {
-		return translate(0.5, 0.5, 0.5);
-	}
+    public static double anglePreNorm(Pos3D pos1, Pos3D pos2) {
+        return Math.acos(pos1.clone().dotProduct(pos2));
+    }
 
-	/**
-	 * Translates this Pos3D by the defined values.
-	 *
-	 * @param x - amount to translate on the x axis
-	 * @param y - amount to translate on the y axis
-	 * @param z - amount to translate on the z axis
-	 * @return the translated Pos3D
-	 */
-	public Pos3D translate(double x, double y, double z) {
-		return new Pos3D(this.x + x, this.y + y, this.z + z);
-	}
+    public static AxisAlignedBB getAABB(Pos3D pos1, Pos3D pos2) {
+        return new AxisAlignedBB(
+                pos1.x,
+                pos1.y,
+                pos1.z,
+                pos2.x,
+                pos2.y,
+                pos2.z
+        );
+    }
 
-	/**
-	 * Performs the same operation as translate(x, y, z), but with a Pos3D value instead.
-	 *
-	 * @param pos - Pos3D value to translate by
-	 * @return translated Pos3D
-	 */
-	public Pos3D translate(Vec3d pos) {
-		return translate(pos.x, pos.y, pos.z);
-	}
+    /**
+     * Writes this Pos3D's data to an NBTTagCompound.
+     *
+     * @param nbtTags - tag compound to write to
+     * @return the tag compound with this Pos3D's data
+     */
+    public NBTTagCompound write(NBTTagCompound nbtTags) {
+        nbtTags.setDouble("x", x);
+        nbtTags.setDouble("y", y);
+        nbtTags.setDouble("z", z);
 
-	/**
-	 * Performs the same operation as translate(x, y, z), but by a set amount in a EnumFacing
-	 */
-	public Pos3D translate(EnumFacing direction, double amount) {
-		return translate(direction.getDirectionVec().getX() * amount, direction.getDirectionVec().getY() * amount, direction.getDirectionVec().getZ() * amount);
-	}
+        return nbtTags;
+    }
 
-	/**
-	 * Performs the same operation as translate(x, y, z), but by a set amount in a EnumFacing
-	 */
-	public Pos3D translateExcludingSide(EnumFacing direction, double amount) {
-		double xPos = x, yPos = y, zPos = z;
-		if (direction.getAxis() != Axis.X) xPos += amount;
-		if (direction.getAxis() != Axis.Y) yPos += amount;
-		if (direction.getAxis() != Axis.Z) zPos += amount;
+    /**
+     * Creates and returns a Pos3D with values representing the difference between this and the Pos3D in the parameters.
+     *
+     * @param vec - Vec3 to subtract
+     * @return difference of the two Pos3Ds
+     */
+    public Pos3D diff(Vec3d vec) {
+        return new Pos3D(x - vec.x, y - vec.y, z - vec.z);
+    }
 
-		return new Pos3D(xPos, yPos, zPos);
-	}
+    /**
+     * Centres a block-derived Pos3D
+     */
+    public Pos3D centre() {
+        return translate(0.5, 0.5, 0.5);
+    }
 
-	/**
-	 * Returns the distance between this and the defined Pos3D.
-	 *
-	 * @param pos - the Pos3D to find the distance to
-	 * @return the distance between this and the defined Pos3D
-	 */
-	public double distance(Vec3d pos) {
-		double subX = x - pos.x;
-		double subY = y - pos.y;
-		double subZ = z - pos.z;
-		return MathHelper.sqrt(subX * subX + subY * subY + subZ * subZ);
-	}
+    /**
+     * Translates this Pos3D by the defined values.
+     *
+     * @param x - amount to translate on the x axis
+     * @param y - amount to translate on the y axis
+     * @param z - amount to translate on the z axis
+     * @return the translated Pos3D
+     */
+    public Pos3D translate(double x, double y, double z) {
+        return new Pos3D(this.x + x, this.y + y, this.z + z);
+    }
 
-	/**
-	 * Rotates this Pos3D by the defined yaw value.
-	 *
-	 * @param yaw - yaw to rotate by
-	 * @return rotated Pos3D
-	 */
-	@Nonnull
-	public Pos3D rotateYaw(float yaw) {
-		double yawRadians = Math.toRadians(yaw);
+    /**
+     * Performs the same operation as translate(x, y, z), but with a Pos3D value instead.
+     *
+     * @param pos - Pos3D value to translate by
+     * @return translated Pos3D
+     */
+    public Pos3D translate(Vec3d pos) {
+        return translate(pos.x, pos.y, pos.z);
+    }
 
-		double xPos = x;
-		double zPos = z;
+    /**
+     * Performs the same operation as translate(x, y, z), but by a set amount in a EnumFacing
+     */
+    public Pos3D translate(EnumFacing direction, double amount) {
+        return translate(direction.getDirectionVec().getX() * amount, direction.getDirectionVec().getY() * amount, direction.getDirectionVec().getZ() * amount);
+    }
 
-		if (yaw != 0) {
-			xPos = x * Math.cos(yawRadians) - z * Math.sin(yawRadians);
-			zPos = z * Math.cos(yawRadians) + x * Math.sin(yawRadians);
-		}
+    /**
+     * Performs the same operation as translate(x, y, z), but by a set amount in a EnumFacing
+     */
+    public Pos3D translateExcludingSide(EnumFacing direction, double amount) {
+        double xPos = x, yPos = y, zPos = z;
+        if (direction.getAxis() != Axis.X) xPos += amount;
+        if (direction.getAxis() != Axis.Y) yPos += amount;
+        if (direction.getAxis() != Axis.Z) zPos += amount;
 
-		return new Pos3D(xPos, y, zPos);
-	}
+        return new Pos3D(xPos, yPos, zPos);
+    }
 
-	@Nonnull
-	@Override
-	public Pos3D rotatePitch(float pitch) {
-		double pitchRadians = Math.toRadians(pitch);
+    /**
+     * Returns the distance between this and the defined Pos3D.
+     *
+     * @param pos - the Pos3D to find the distance to
+     * @return the distance between this and the defined Pos3D
+     */
+    public double distance(Vec3d pos) {
+        double subX = x - pos.x;
+        double subY = y - pos.y;
+        double subZ = z - pos.z;
+        return MathHelper.sqrt(subX * subX + subY * subY + subZ * subZ);
+    }
 
-		double yPos = y;
-		double zPos = z;
+    /**
+     * Rotates this Pos3D by the defined yaw value.
+     *
+     * @param yaw - yaw to rotate by
+     * @return rotated Pos3D
+     */
+    @Nonnull
+    public Pos3D rotateYaw(float yaw) {
+        double yawRadians = Math.toRadians(yaw);
 
-		if (pitch != 0) {
-			yPos = y * Math.cos(pitchRadians) - z * Math.sin(pitchRadians);
-			zPos = z * Math.cos(pitchRadians) + y * Math.sin(pitchRadians);
-		}
+        double xPos = x;
+        double zPos = z;
 
-		return new Pos3D(x, yPos, zPos);
-	}
+        if (yaw != 0) {
+            xPos = x * Math.cos(yawRadians) - z * Math.sin(yawRadians);
+            zPos = z * Math.cos(yawRadians) + x * Math.sin(yawRadians);
+        }
 
-	public Pos3D rotate(float yaw, float pitch) {
-		return rotate(yaw, pitch, 0);
-	}
+        return new Pos3D(xPos, y, zPos);
+    }
 
-	public Pos3D rotate(float yaw, float pitch, float roll) {
-		double yawRadians = Math.toRadians(yaw);
-		double pitchRadians = Math.toRadians(pitch);
-		double rollRadians = Math.toRadians(roll);
+    @Nonnull
+    @Override
+    public Pos3D rotatePitch(float pitch) {
+        double pitchRadians = Math.toRadians(pitch);
 
-		double xPos = x * Math.cos(yawRadians) * Math.cos(pitchRadians) + z * (Math.cos(yawRadians) * Math.sin(pitchRadians) * Math.sin(rollRadians) - Math.sin(yawRadians) * Math.cos(rollRadians)) + y * (Math.cos(yawRadians) * Math.sin(pitchRadians) * Math.cos(rollRadians) + Math.sin(yawRadians) * Math.sin(rollRadians));
-		double zPos = x * Math.sin(yawRadians) * Math.cos(pitchRadians) + z * (Math.sin(yawRadians) * Math.sin(pitchRadians) * Math.sin(rollRadians) + Math.cos(yawRadians) * Math.cos(rollRadians)) + y * (Math.sin(yawRadians) * Math.sin(pitchRadians) * Math.cos(rollRadians) - Math.cos(yawRadians) * Math.sin(rollRadians));
-		double yPos = -x * Math.sin(pitchRadians) + z * Math.cos(pitchRadians) * Math.sin(rollRadians) + y * Math.cos(pitchRadians) * Math.cos(rollRadians);
+        double yPos = y;
+        double zPos = z;
 
-		return new Pos3D(xPos, yPos, zPos);
-	}
+        if (pitch != 0) {
+            yPos = y * Math.cos(pitchRadians) - z * Math.sin(pitchRadians);
+            zPos = z * Math.cos(pitchRadians) + y * Math.sin(pitchRadians);
+        }
 
-	public Pos3D multiply(Vec3d pos) {
-		return scale(pos.x, pos.y, pos.z);
-	}
+        return new Pos3D(x, yPos, zPos);
+    }
 
-	/**
-	 * Scales this Pos3D by the defined x, y, an z values.
-	 *
-	 * @param x - x value to scale by
-	 * @param y - y value to scale by
-	 * @param z - z value to scale by
-	 * @return scaled Pos3D
-	 */
-	public Pos3D scale(double x, double y, double z) {
-		return new Pos3D(x * x, y * y, z * z);
-	}
+    public Pos3D rotate(float yaw, float pitch) {
+        return rotate(yaw, pitch, 0);
+    }
 
-	@Nonnull
-	@Override
-	public Pos3D scale(double scale) {
-		return scale(scale, scale, scale);
-	}
+    public Pos3D rotate(float yaw, float pitch, float roll) {
+        double yawRadians = Math.toRadians(yaw);
+        double pitchRadians = Math.toRadians(pitch);
+        double rollRadians = Math.toRadians(roll);
 
-	public Pos3D rotate(float angle, Pos3D axis) {
-		return translateMatrix(getRotationMatrix(angle, axis), this);
-	}
+        double xPos = x * Math.cos(yawRadians) * Math.cos(pitchRadians) + z * (Math.cos(yawRadians) * Math.sin(pitchRadians) * Math.sin(rollRadians) - Math.sin(yawRadians) * Math.cos(rollRadians)) + y * (Math.cos(yawRadians) * Math.sin(pitchRadians) * Math.cos(rollRadians) + Math.sin(yawRadians) * Math.sin(rollRadians));
+        double zPos = x * Math.sin(yawRadians) * Math.cos(pitchRadians) + z * (Math.sin(yawRadians) * Math.sin(pitchRadians) * Math.sin(rollRadians) + Math.cos(yawRadians) * Math.cos(rollRadians)) + y * (Math.sin(yawRadians) * Math.sin(pitchRadians) * Math.cos(rollRadians) - Math.cos(yawRadians) * Math.sin(rollRadians));
+        double yPos = -x * Math.sin(pitchRadians) + z * Math.cos(pitchRadians) * Math.sin(rollRadians) + y * Math.cos(pitchRadians) * Math.cos(rollRadians);
 
-	public double[] getRotationMatrix(float angle) {
-		double[] matrix = new double[16];
-		Pos3D axis = clone().normalize();
+        return new Pos3D(xPos, yPos, zPos);
+    }
 
-		double x = axis.x;
-		double y = axis.y;
-		double z = axis.z;
+    public Pos3D multiply(Vec3d pos) {
+        return scale(pos.x, pos.y, pos.z);
+    }
 
-		angle *= 0.0174532925D;
+    /**
+     * Scales this Pos3D by the defined x, y, an z values.
+     *
+     * @param x - x value to scale by
+     * @param y - y value to scale by
+     * @param z - z value to scale by
+     * @return scaled Pos3D
+     */
+    public Pos3D scale(double x, double y, double z) {
+        return new Pos3D(x * x, y * y, z * z);
+    }
 
-		float cos = (float) Math.cos(angle);
-		float ocos = 1.0F - cos;
-		float sin = (float) Math.sin(angle);
+    @Nonnull
+    @Override
+    public Pos3D scale(double scale) {
+        return scale(scale, scale, scale);
+    }
 
-		matrix[0] = (x * x * ocos + cos);
-		matrix[1] = (y * x * ocos + z * sin);
-		matrix[2] = (x * z * ocos - y * sin);
-		matrix[4] = (x * y * ocos - z * sin);
-		matrix[5] = (y * y * ocos + cos);
-		matrix[6] = (y * z * ocos + x * sin);
-		matrix[8] = (x * z * ocos + y * sin);
-		matrix[9] = (y * z * ocos - x * sin);
-		matrix[10] = (z * z * ocos + cos);
-		matrix[15] = 1.0F;
+    public Pos3D rotate(float angle, Pos3D axis) {
+        return translateMatrix(getRotationMatrix(angle, axis), this);
+    }
 
-		return matrix;
-	}
+    public double[] getRotationMatrix(float angle) {
+        double[] matrix = new double[16];
+        Pos3D axis = clone().normalize();
 
-	public static Pos3D translateMatrix(double[] matrix, Pos3D translation) {
-		double x = translation.x * matrix[0] + translation.y * matrix[1] + translation.z * matrix[2] + matrix[3];
-		double y = translation.x * matrix[4] + translation.y * matrix[5] + translation.z * matrix[6] + matrix[7];
-		double z = translation.x * matrix[8] + translation.y * matrix[9] + translation.z * matrix[10] + matrix[11];
+        double x = axis.x;
+        double y = axis.y;
+        double z = axis.z;
 
-		return new Pos3D(x, y, z);
-	}
+        angle *= 0.0174532925D;
 
-	public static double[] getRotationMatrix(float angle, Pos3D axis) {
-		return axis.getRotationMatrix(angle);
-	}
+        float cos = (float) Math.cos(angle);
+        float ocos = 1.0F - cos;
+        float sin = (float) Math.sin(angle);
 
-	public double anglePreNorm(Pos3D pos2) {
-		return Math.acos(dotProduct(pos2));
-	}
+        matrix[0] = (x * x * ocos + cos);
+        matrix[1] = (y * x * ocos + z * sin);
+        matrix[2] = (x * z * ocos - y * sin);
+        matrix[4] = (x * y * ocos - z * sin);
+        matrix[5] = (y * y * ocos + cos);
+        matrix[6] = (y * z * ocos + x * sin);
+        matrix[8] = (x * z * ocos + y * sin);
+        matrix[9] = (y * z * ocos - x * sin);
+        matrix[10] = (z * z * ocos + cos);
+        matrix[15] = 1.0F;
 
-	public static double anglePreNorm(Pos3D pos1, Pos3D pos2) {
-		return Math.acos(pos1.clone().dotProduct(pos2));
-	}
+        return matrix;
+    }
 
-	@Nonnull
-	@Override
-	public Pos3D normalize() {
-		return new Pos3D(super.normalize());
-	}
+    public double anglePreNorm(Pos3D pos2) {
+        return Math.acos(dotProduct(pos2));
+    }
 
-	public Pos3D xCrossProduct() {
-		return new Pos3D(0.0D, z, -y);
-	}
+    @Nonnull
+    @Override
+    public Pos3D normalize() {
+        return new Pos3D(super.normalize());
+    }
 
-	public Pos3D zCrossProduct() {
-		return new Pos3D(-y, x, 0.0D);
-	}
+    public Pos3D xCrossProduct() {
+        return new Pos3D(0.0D, z, -y);
+    }
 
-	public Pos3D getPerpendicular() {
-		if (z == 0) {
-			return zCrossProduct();
-		}
+    public Pos3D zCrossProduct() {
+        return new Pos3D(-y, x, 0.0D);
+    }
 
-		return xCrossProduct();
-	}
+    public Pos3D getPerpendicular() {
+        if (z == 0) {
+            return zCrossProduct();
+        }
 
-	public Pos3D floor() {
-		return new Pos3D(Math.floor(x), Math.floor(y), Math.floor(z));
-	}
+        return xCrossProduct();
+    }
 
-	public static AxisAlignedBB getAABB(Pos3D pos1, Pos3D pos2) {
-		return new AxisAlignedBB(
-				pos1.x,
-				pos1.y,
-				pos1.z,
-				pos2.x,
-				pos2.y,
-				pos2.z
-		);
-	}
+    public Pos3D floor() {
+        return new Pos3D(Math.floor(x), Math.floor(y), Math.floor(z));
+    }
 
-	@Override
-	public Pos3D clone() {
-		return new Pos3D(x, y, z);
-	}
+    @Override
+    public Pos3D clone() {
+        return new Pos3D(x, y, z);
+    }
 
-	@Nonnull
-	@Override
-	public String toString() {
-		return "[Pos3D: " + x + ", " + y + ", " + z + "]";
-	}
+    @Nonnull
+    @Override
+    public String toString() {
+        return "[Pos3D: " + x + ", " + y + ", " + z + "]";
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		return obj instanceof Vec3d &&
-				((Vec3d) obj).x == x &&
-				((Vec3d) obj).x == y &&
-				((Vec3d) obj).x == z;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Vec3d &&
+                ((Vec3d) obj).x == x &&
+                ((Vec3d) obj).x == y &&
+                ((Vec3d) obj).x == z;
+    }
 
-	@Override
-	public int hashCode() {
-		int code = 1;
-		code = 31 * code + new Double(x).hashCode();
-		code = 31 * code + new Double(y).hashCode();
-		code = 31 * code + new Double(z).hashCode();
-		return code;
-	}
+    @Override
+    public int hashCode() {
+        int code = 1;
+        code = 31 * code + new Double(x).hashCode();
+        code = 31 * code + new Double(y).hashCode();
+        code = 31 * code + new Double(z).hashCode();
+        return code;
+    }
 }

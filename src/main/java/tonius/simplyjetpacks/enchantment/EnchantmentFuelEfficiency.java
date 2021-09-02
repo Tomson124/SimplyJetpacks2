@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 public class EnchantmentFuelEfficiency extends Enchantment {
 
     public EnchantmentFuelEfficiency() {
-        super(Enchantment.Rarity.VERY_RARE, EnumEnchantmentType.ARMOR_CHEST, new EntityEquipmentSlot[] { EntityEquipmentSlot.CHEST });
+        super(Enchantment.Rarity.VERY_RARE, EnumEnchantmentType.ARMOR_CHEST, new EntityEquipmentSlot[]{EntityEquipmentSlot.CHEST});
         this.setName("fuel_efficiency");
         this.setRegistryName(new ResourceLocation(SimplyJetpacks.RESOURCE_PREFIX + "fuel_efficiency"));
         ModEnchantments.ENCHANTMENTS.add(this);

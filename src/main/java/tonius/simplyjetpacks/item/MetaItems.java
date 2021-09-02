@@ -19,12 +19,11 @@ public enum MetaItems {
     LEATHER_STRAP("leather_strap", null, EnumRarity.COMMON),
     PARTICLE_BLEND("particle_blend", null, EnumRarity.COMMON);
 
+    public static final EnumSet<MetaItems> PARTICLE_CUSTOMIZERS = EnumSet.range(PARTICLE_FLAME, PARTICLE_SNOW);
     private final String name;
     private final String keyTooltip;
     private final EnumRarity rarity;
     private boolean glow;
-
-    public static final EnumSet<MetaItems> PARTICLE_CUSTOMIZERS = EnumSet.range(PARTICLE_FLAME, PARTICLE_SNOW);
 
     MetaItems(String name, String keyTooltip, EnumRarity rarity) {
         this.name = name;
@@ -39,7 +38,7 @@ public enum MetaItems {
 
     public static MetaItems getFromName(String s) {
         for (MetaItems meta : values()) {
-            if (meta.name.toLowerCase().equals(s.toLowerCase())) {
+            if (meta.name.equalsIgnoreCase(s)) {
                 return meta;
             }
         }
