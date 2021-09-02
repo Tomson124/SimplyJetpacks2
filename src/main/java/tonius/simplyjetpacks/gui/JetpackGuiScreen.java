@@ -21,6 +21,8 @@ import tonius.simplyjetpacks.util.SJStringUtil;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class JetpackGuiScreen extends GuiScreen {
 
@@ -104,7 +106,6 @@ public class JetpackGuiScreen extends GuiScreen {
 
         String modId = null;
         String text = null;
-        String type = null;
         boolean isCreative = false;
         int energyMax = 0;
         int energyStored = 0;
@@ -113,31 +114,18 @@ public class JetpackGuiScreen extends GuiScreen {
             ItemJetpack jetpack = (ItemJetpack) item;
             modId = jetpack.getModId(itemStack);
             isCreative = jetpack.isCreative(itemStack);
-            energyMax = jetpack.getEnergyStored(itemStack);
-            energyStored = jetpack.getMaxEnergyStored(itemStack);
-            type = "jetpack";
-            /*if (isCreative) {
-                text = SJStringUtil.localize("tooltip", "infiniteEnergy", TextFormatting.LIGHT_PURPLE);
-            } else if (((ItemJetpack) item).getEnergyStored(itemStack) == 0) {
-                text = SJStringUtil.localize("hud", "energyDepleted", TextFormatting.RED);
-            }*/
+            energyStored = jetpack.getEnergyStored(itemStack);
+            energyMax = jetpack.getMaxEnergyStored(itemStack);
         }
 
         if (item instanceof ItemFluxpack) {
             ItemFluxpack fluxpack = (ItemFluxpack) item;
             modId = fluxpack.getModId(itemStack);
             isCreative = fluxpack.isCreative(itemStack);
-            energyMax = fluxpack.getEnergyStored(itemStack);
-            energyStored = fluxpack.getMaxEnergyStored(itemStack);
-            type = "fluxpack";
-            /*if (isCreative) {
-                text = SJStringUtil.localize("tooltip", "infiniteEnergy", TextFormatting.LIGHT_PURPLE);
-            } else if (((ItemFluxpack) item).getEnergyStored(itemStack) == 0) {
-                text = SJStringUtil.localize("hud", "energyDepleted", TextFormatting.RED);
-            }*/
+            energyStored = fluxpack.getEnergyStored(itemStack);
+            energyMax = fluxpack.getMaxEnergyStored(itemStack);
         }
 
-        SimplyJetpacks.LOGGER.info("SJ2: jetpack/fluxpack modid = {}", modId);
         switch (modId) {
             case ("mek"):
                 barX = 28;
@@ -147,7 +135,7 @@ public class JetpackGuiScreen extends GuiScreen {
                 useGradient = true;
                 break;
             case ("eio"):
-                barX = 28;
+                barX = 84;
                 break;
             default:
                 break;
@@ -163,19 +151,17 @@ public class JetpackGuiScreen extends GuiScreen {
                 drawTexturedModalRect(relX + 10, relY + 16 + 1 + barOffset, barX + 14, 178 + 1, 14, amount - 2);
             }
         }
+
         if (mouseX >= relX + 10 && mouseY >= relY + 16 && mouseX < relX + 10 + 14 && mouseY < relY + 16 + 78) {
             if (energyStored == 0 && !isCreative) {
                 text = SJStringUtil.getHUDEnergyText("jetpack", 0, 0);
+            } else if (isCreative) {
+                text = SJStringUtil.getEnergyText(energyStored, energyMax, isCreative);
             }
             if (text != null) {
-                drawHoveringText(text, mouseX, mouseY);
+                drawHoveringText(new ArrayList<>(Collections.singleton(text)), mouseX, mouseY, fontRenderer);
             }
         }
-
-/*        drawModalRectWithCustomSizedTexture(relX + 10, relY + 16, 0, 0, 14, 78, 128, 128);
-        int amount = getEnergyBarAmount();
-        int barOffset = 78 - amount;
-        drawModalRectWithCustomSizedTexture(relX + 10, relY + 16 + barOffset, 14, 0, 14, amount, 128, 128);*/
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
