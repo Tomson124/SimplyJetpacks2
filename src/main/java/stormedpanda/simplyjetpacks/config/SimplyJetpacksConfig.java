@@ -108,7 +108,6 @@ public class SimplyJetpacksConfig {
         public final BooleanValue enableIntegrationEnderIO;
         public final BooleanValue enableIntegrationThermalExpansion;
         public final BooleanValue enableIntegrationThermalDynamics;
-        public final BooleanValue enableJoinAdvancements;
 
         public Common(ForgeConfigSpec.Builder builder) {
             builder.comment("Simply Jetpacks 2 - Common Configurations").push("simplyjetpacks-common");
@@ -157,11 +156,6 @@ public class SimplyJetpacksConfig {
             builder.pop();
 
             builder.comment("Misc Configurations").push("misc");
-
-            enableJoinAdvancements = builder
-                    .comment("Enable Join Advancements")
-                    .translation("config.simplyjetpacks.enableJoinAdvancements")
-                    .define("enableJoinAdvancements", ConfigDefaults.enableJoinAdvancements);
 
             builder.pop();
         }

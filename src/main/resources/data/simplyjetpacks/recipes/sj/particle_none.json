@@ -6,10 +6,8 @@
     " g "
   ],
   "key": {
-    "g": {
-      "tag": "forge:glass"
-    },
-    "c": { "tag": "forge:dusts/coal" }
+    "g": { "tag": "forge:glass" },
+    "c": { "item": "minecraft:coal" }
   },
   "result": {
     "item": "simplyjetpacks:particle_none",

@@ -1,17 +1,21 @@
 buildscript {
     repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
         mavenCentral()
+        maven {
+            name = 'forge'
+            url = 'https://maven.minecraftforge.net/'
+        }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
     }
 }
+
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'idea'
 apply plugin: 'maven-publish'
 
-version = "${minecraft_version}-${mod_version}" //." + (System.env.BUILD_NUMBER ?: "homebaked")
+version = "${minecraft_version}-${mod_version}"
 group = 'stormedpanda.simplyjetpacks'
 archivesBaseName = "SimplyJetpacks2"
 
@@ -97,11 +101,12 @@ dependencies {
 
     //runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
 
-    //compileOnly fg.deobf("mezz.jei:jei-1.16.4:${jei_version}:api")
-    //runtimeOnly fg.deobf("mezz.jei:jei-1.16.4:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 
-    //compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${top_version}:api")
-    //runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${top_version}")
+    //compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.17:${top_version}:api")
+    //runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.17:${top_version}")
+    runtimeOnly fg.deobf("curse.maven:the-one-probe-245211:3430022")
 
     //compileOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:api")
     //runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")

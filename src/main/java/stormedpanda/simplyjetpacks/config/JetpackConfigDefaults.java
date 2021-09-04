@@ -6,7 +6,6 @@ import java.util.Map;
 public class JetpackConfigDefaults {
     
     private static final Map<String, JetpackConfigDefaults> DEFAULTS = new HashMap<>();
-    //public final Section section;
 
     // Base
     public int energyCapacity;

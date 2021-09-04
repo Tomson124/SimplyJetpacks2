@@ -4,7 +4,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.integration.IntegrationList;
 import stormedpanda.simplyjetpacks.util.AdvancementUtil;
 
@@ -75,7 +74,6 @@ public class SyncHandler {
     // This is here because it does not want to be lonely.
     public static void checkAdvancements(Player player) {
         AdvancementUtil.unlockAdvancement(player, "root");
-
         if (IntegrationList.integrateVanilla) {
             AdvancementUtil.unlockAdvancement(player, "vanilla/root_vanilla");
         }
@@ -102,8 +100,6 @@ public class SyncHandler {
 
     @SubscribeEvent
     public void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (SimplyJetpacksConfig.COMMON.enableJoinAdvancements.get()) {
-            checkAdvancements(event.getPlayer());
-        }
+        checkAdvancements(event.getPlayer());
     }
 }

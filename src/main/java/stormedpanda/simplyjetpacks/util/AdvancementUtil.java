@@ -16,7 +16,9 @@ public class AdvancementUtil {
             ServerAdvancementManager manager = ((ServerPlayer) player).getLevel().getServer().getAdvancements();
             Advancement advancement = manager.getAdvancement(new ResourceLocation(SimplyJetpacks.MODID, name));
             if (advancement != null) {
-                advancements.award(advancement, "code_trigger");
+                if (!advancements.getOrStartProgress(advancement).isDone()) {
+                    advancements.award(advancement, "code_trigger");
+                }
             }
         }
     }

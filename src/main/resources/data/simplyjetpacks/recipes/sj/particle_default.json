@@ -7,7 +7,7 @@
   ],
   "key": {
     "t": { "item": "minecraft:torch" },
-    "c": { "tag": "forge:dusts/coal" }
+    "c": { "item": "minecraft:coal" }
   },
   "result": {
     "item": "simplyjetpacks:particle_default",

@@ -7,7 +7,7 @@
   ],
   "key": {
     "r": { "tag": "forge:dyes/red" },
-    "c": { "tag": "forge:dusts/coal" },
+    "c": { "item": "minecraft:coal" },
     "g": { "tag": "forge:dyes/green" },
     "b": { "tag": "forge:dyes/blue" }
   },

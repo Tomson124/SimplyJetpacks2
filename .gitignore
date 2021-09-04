@@ -22,3 +22,4 @@ build
 run
 logs
 extras
+src/generated/resources/.cache

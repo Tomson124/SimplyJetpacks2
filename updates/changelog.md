@@ -1,7 +1,13 @@
+# 2.7.2 - 04-09-2021
+- **General**
+    - Update Forge version
+- **Fixed**
+    - Bug fixes
+
 # 2.7.1 - 07-07-2021
 - **General**
-  - Updated to Minecraft Version 1.17.1
-  
+    - Updated to Minecraft Version 1.17.1
+
 # 2.6.7 - 13-02-2021
 - **General**
     - Updated to Minecraft Version 1.16.5

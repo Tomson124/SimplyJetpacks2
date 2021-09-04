@@ -9,10 +9,11 @@
     "1.15.2-recommended" : "2.5.4.1",
     "1.16.5-latest" : "2.6.7.1",
     "1.16.5-recommended" : "2.6.7.1",
-    "1.17.1-latest" : "2.7.1.1",
-    "1.17.1-recommended" : "2.7.1.1"
+    "1.17.1-latest" : "2.7.2.1",
+    "1.17.1-recommended" : "2.7.2.1"
   },
   "1.17.1" : {
+    "2.7.2.1": "Bug fixes, Update Forge",
     "2.7.1.1": "Updated to Minecraft Version 1.17.1"
   },
   "1.16.5" : {
