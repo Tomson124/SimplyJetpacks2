@@ -1,13 +1,12 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "   ",
     "ipi",
     "utu"
   ],
   "key": {
     "i": { "tag": "forge:ingots/signalum" },
-    "p": { "item": "redstonearsenal:flux_armorplating" },
+    "p": { "item": "simplyjetpacks:armorplating_te5" },
     "u": { "item": "simplyjetpacks:unit_glowstone" },
     "t": { "item": "simplyjetpacks:thruster_te4" }
   },
@@ -21,8 +20,11 @@
       "modid": "thermal"
     },
     {
-      "type": "forge:mod_loaded",
-      "modid": "redstonearsenal"
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "redstonearsenal"
+      }
     }
   ]
 }

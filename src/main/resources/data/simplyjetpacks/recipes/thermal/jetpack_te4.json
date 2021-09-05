@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ici",
-    "cdc",
-    "iri"
+    "ibi",
+    "iji",
+    "t t"
   ],
   "key": {
     "i": { "tag": "forge:ingots/enderium" },
-    "c": { "item": "thermal:rf_coil" },
-    "d": { "item": "thermal:dynamo_numismatic" },
-    "r": { "tag": "forge:dusts/redstone" }
+    "b": { "item": "thermal:energy_cell" },
+    "j": { "item": "simplyjetpacks:jetpack_te3" },
+    "t": { "item": "simplyjetpacks:thruster_te4" }
   },
   "result": {
-    "item": "simplyjetpacks:thruster_te4",
+    "item": "simplyjetpacks:jetpack_te4",
     "count": 1
   },
   "conditions": [

@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
         maven {
             name = 'forge maven'
-            url = 'https://maven.minecraftforge.net'
+            url = 'https://maven.minecraftforge.net/'
         }
     }
     dependencies {
@@ -119,12 +119,13 @@ dependencies {
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}")
 
-    runtimeOnly fg.deobf("curse.maven:cofhcore-69162:3249453")
-    runtimeOnly fg.deobf("curse.maven:thermalfoundation-222880:3248150")
-    runtimeOnly fg.deobf("curse.maven:thermalexpansion-69163:3247000")
-    runtimeOnly fg.deobf("curse.maven:thermalinnovation-291737:3247002")
+    runtimeOnly fg.deobf("curse.maven:cofhcore-69162:3407019")
+    runtimeOnly fg.deobf("curse.maven:thermalfoundation-222880:3412300")
+    runtimeOnly fg.deobf("curse.maven:thermalexpansion-69163:3404884")
+    runtimeOnly fg.deobf("curse.maven:thermalinnovation-291737:3404886")
     //runtimeOnly fg.deobf("curse.maven:thermal-dynamics-227443:x")
     //runtimeOnly fg.deobf("curse.maven:redstone-arsenal-70631:x")
+    //runtimeOnly fg.deobf("curse.maven:redstone-repository-revolved-300750:x")
 
     //compileOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:api")
     //runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")
