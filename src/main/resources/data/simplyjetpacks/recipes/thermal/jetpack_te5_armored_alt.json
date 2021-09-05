@@ -1,17 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "nnn",
-    "did",
-    "nnn"
+    "ppp",
+    "pjp",
+    "ppp"
   ],
   "key": {
-    "n": { "tag": "forge:nuggets/signalum" },
-    "d": { "tag": "forge:gems/diamond" },
-    "i": { "tag": "forge:ingots/signalum" }
+    "p": { "item": "simplyjetpacks:armorplating_te5_enderium" },
+    "j": { "item": "simplyjetpacks:jetpack_te5" }
   },
   "result": {
-    "item": "simplyjetpacks:armorplating_te5",
+    "item": "simplyjetpacks:jetpack_te5_enderium",
     "count": 1
   },
   "conditions": [
@@ -23,7 +22,7 @@
       "type": "forge:not",
       "value": {
         "type": "forge:mod_loaded",
-        "modid": "redstonearsenal"
+        "modid": "redstonerepository"
       }
     }
   ]

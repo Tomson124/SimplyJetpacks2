@@ -79,6 +79,8 @@ public class SJItemModelProvider extends ItemModelProvider {
         builder(itemGenerated, "armorplating_te2");
         builder(itemGenerated, "armorplating_te3");
         builder(itemGenerated, "armorplating_te4");
+        builder(itemGenerated, "armorplating_te5");
+        builder(itemGenerated, "armorplating_te5_enderium");
 
         builder(itemGenerated, "armorplating_ie1");
         builder(itemGenerated, "armorplating_ie2");
@@ -108,6 +110,8 @@ public class SJItemModelProvider extends ItemModelProvider {
         builder(itemGenerated, "unit_cryotheum");
         builder(itemGenerated, "unit_glowstone_empty");
         builder(itemGenerated, "unit_glowstone");
+
+        builder(itemGenerated, "flux_chestplate");
 
         // Patchouli:
         builder(itemGenerated, "guidebook");

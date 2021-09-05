@@ -103,6 +103,8 @@ public class RegistryHandler {
     public static final RegistryObject<SJItem> ARMORPLATING_TE2 = ITEMS.register("armorplating_te2", SJItem::new);
     public static final RegistryObject<SJItem> ARMORPLATING_TE3 = ITEMS.register("armorplating_te3", SJItem::new);
     public static final RegistryObject<SJItem> ARMORPLATING_TE4 = ITEMS.register("armorplating_te4", SJItem::new);
+    public static final RegistryObject<SJItem> ARMORPLATING_TE5 = ITEMS.register("armorplating_te5", SJItem::new);
+    public static final RegistryObject<SJItem> ARMORPLATING_TE5_ENDERIUM = ITEMS.register("armorplating_te5_enderium", SJItem::new);
 
     public static final RegistryObject<SJItem> ARMORPLATING_IE1 = ITEMS.register("armorplating_ie1", SJItem::new);
     public static final RegistryObject<SJItem> ARMORPLATING_IE2 = ITEMS.register("armorplating_ie2", SJItem::new);

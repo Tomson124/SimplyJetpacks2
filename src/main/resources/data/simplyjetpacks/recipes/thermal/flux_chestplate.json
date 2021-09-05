@@ -1,17 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "nnn",
-    "did",
-    "nnn"
+    "p p",
+    "ppp",
+    "ppp"
   ],
   "key": {
-    "n": { "tag": "forge:nuggets/signalum" },
-    "d": { "tag": "forge:gems/diamond" },
-    "i": { "tag": "forge:ingots/signalum" }
+    "p": { "item": "simplyjetpacks:armorplating_te5" }
   },
   "result": {
-    "item": "simplyjetpacks:armorplating_te5",
+    "item": "simplyjetpacks:flux_chestplate",
     "count": 1
   },
   "conditions": [

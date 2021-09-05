@@ -6,8 +6,8 @@
     "tft"
   ],
   "key": {
-    "p": { "item": "thermal:flux_armorplating" },
-    "c": { "item": "thermal:flux_chestplate" },
+    "p": { "item": "simplyjetpacks:armorplating_te5" },
+    "c": { "item": "simplyjetpacks:flux_chestplate" },
     "u": { "item": "simplyjetpacks:unit_cryotheum" },
     "j": { "item": "simplyjetpacks:jetpack_te4_armored" },
     "t": { "item": "simplyjetpacks:thruster_te5" },
@@ -23,8 +23,11 @@
       "modid": "thermal"
     },
     {
-      "type": "forge:mod_loaded",
-      "modid": "redstonearsenal"
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "redstonearsenal"
+      }
     }
   ]
 }

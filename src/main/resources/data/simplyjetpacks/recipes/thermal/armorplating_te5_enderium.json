@@ -6,12 +6,12 @@
     "nnn"
   ],
   "key": {
-    "n": { "tag": "forge:nuggets/signalum" },
-    "d": { "tag": "forge:gems/diamond" },
-    "i": { "tag": "forge:ingots/signalum" }
+    "n": { "tag": "forge:nuggets/enderium" },
+    "d": { "tag": "forge:gems/emerald" },
+    "i": { "tag": "forge:ingots/enderium" }
   },
   "result": {
-    "item": "simplyjetpacks:armorplating_te5",
+    "item": "simplyjetpacks:armorplating_te5_enderium",
     "count": 1
   },
   "conditions": [
@@ -23,7 +23,7 @@
       "type": "forge:not",
       "value": {
         "type": "forge:mod_loaded",
-        "modid": "redstonearsenal"
+        "modid": "redstonerepository"
       }
     }
   ]
