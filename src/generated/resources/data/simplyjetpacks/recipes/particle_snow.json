@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " T ",
+    "TPT",
+    " T "
+  ],
+  "key": {
+    "T": {
+      "item": "minecraft:snowball"
+    },
+    "P": {
+      "item": "simplyjetpacks:particle_blend"
+    }
+  },
+  "result": {
+    "item": "simplyjetpacks:particle_snow"
+  }
+}
