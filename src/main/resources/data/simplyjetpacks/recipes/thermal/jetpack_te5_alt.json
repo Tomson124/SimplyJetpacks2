@@ -11,7 +11,7 @@
     "u": { "item": "simplyjetpacks:unit_cryotheum" },
     "j": { "item": "simplyjetpacks:jetpack_te4_armored" },
     "t": { "item": "simplyjetpacks:thruster_te5" },
-    "f": { "item": "simplyjetpacks:fluxpack_te4_armored" }
+    "f": { "item": "thermal:energy_cell" }
   },
   "result": {
     "item": "simplyjetpacks:jetpack_te5",

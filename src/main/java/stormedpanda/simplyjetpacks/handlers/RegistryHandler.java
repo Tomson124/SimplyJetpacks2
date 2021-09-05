@@ -132,7 +132,8 @@ public class RegistryHandler {
     
     public static final RegistryObject<SJItem> UNIT_CRYOTHEUM_EMPTY = ITEMS.register("unit_cryotheum_empty", SJItem::new);
     public static final RegistryObject<SJItem> UNIT_CRYOTHEUM = ITEMS.register("unit_cryotheum", SJItem::new);
-    
     public static final RegistryObject<SJItem> UNIT_GLOWSTONE_EMPTY = ITEMS.register("unit_glowstone_empty", SJItem::new);
     public static final RegistryObject<SJItem> UNIT_GLOWSTONE = ITEMS.register("unit_glowstone", SJItem::new);
+
+    public static final RegistryObject<SJItem> FLUX_CHESTPLATE = ITEMS.register("flux_chestplate", SJItem::new);
 }
