@@ -32,7 +32,6 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .pattern("LIL")
                 .define('I', forgeTag("ingots/iron"))
                 .define('L', forgeTag("leather"))
-                .unlockedBy("has_item", has(Items.LEATHER))
                 .save(consumer);
 
         CustomShapedRecipeBuilder.shaped(RegistryHandler.PILOT_GOGGLES_GOLD.get())
@@ -41,7 +40,6 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .define('S', RegistryHandler.LEATHER_STRAP.get())
                 .define('G', forgeTag("glass_panes"))
                 .define('I', forgeTag("ingots/gold"))
-                .unlockedBy("has_item", has(Items.GOLD_INGOT))
                 .save(consumer);
 
         CustomShapedRecipeBuilder.shaped(RegistryHandler.PILOT_GOGGLES_IRON.get())
@@ -50,7 +48,6 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .define('S', RegistryHandler.LEATHER_STRAP.get())
                 .define('G', forgeTag("glass_panes"))
                 .define('I', forgeTag("ingots/iron"))
-                .unlockedBy("has_item", has(Items.IRON_INGOT))
                 .save(consumer);
 
         CustomShapelessRecipeBuilder.shapeless(RegistryHandler.PARTICLE_BLEND.get(), 2)
@@ -58,7 +55,6 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .requires(Items.CLAY_BALL)
                 .requires(Items.GUNPOWDER)
                 .requires(Items.BONE_MEAL)
-                .unlockedBy("has_item", has(Items.GOLD_INGOT))
                 .save(consumer);
 
         CustomShapedRecipeBuilder.shaped(RegistryHandler.PARTICLE_NONE.get())
@@ -67,7 +63,6 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .pattern(" T ")
                 .define('T', Items.GLASS)
                 .define('P', RegistryHandler.PARTICLE_BLEND.get())
-                .unlockedBy("has_item", has(RegistryHandler.PARTICLE_BLEND.get()))
                 .save(consumer);
 
         CustomShapedRecipeBuilder.shaped(RegistryHandler.PARTICLE_FLAME.get())
@@ -76,7 +71,6 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .pattern(" T ")
                 .define('T', Items.TORCH)
                 .define('P', RegistryHandler.PARTICLE_BLEND.get())
-                .unlockedBy("has_item", has(RegistryHandler.PARTICLE_BLEND.get()))
                 .save(consumer);
 
         CustomShapedRecipeBuilder.shaped(RegistryHandler.PARTICLE_SMOKE.get())
@@ -85,7 +79,6 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .pattern(" T ")
                 .define('T', Items.COAL)
                 .define('P', RegistryHandler.PARTICLE_BLEND.get())
-                .unlockedBy("has_item", has(RegistryHandler.PARTICLE_BLEND.get()))
                 .save(consumer);
 
         CustomShapedRecipeBuilder.shaped(RegistryHandler.PARTICLE_RAINBOW.get())
@@ -96,7 +89,6 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .define('G', forgeTag("dyes/green"))
                 .define('B', forgeTag("dyes/blue"))
                 .define('P', RegistryHandler.PARTICLE_BLEND.get())
-                .unlockedBy("has_item", has(RegistryHandler.PARTICLE_BLEND.get()))
                 .save(consumer);
 
         CustomShapedRecipeBuilder.shaped(RegistryHandler.PARTICLE_SOUL.get())
@@ -105,7 +97,6 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .pattern(" T ")
                 .define('T', Items.SOUL_TORCH)
                 .define('P', RegistryHandler.PARTICLE_BLEND.get())
-                .unlockedBy("has_item", has(RegistryHandler.PARTICLE_BLEND.get()))
                 .save(consumer);
 
         CustomShapedRecipeBuilder.shaped(RegistryHandler.PARTICLE_SNOW.get())
@@ -114,7 +105,6 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .pattern(" T ")
                 .define('T', Items.SNOWBALL)
                 .define('P', RegistryHandler.PARTICLE_BLEND.get())
-                .unlockedBy("has_item", has(RegistryHandler.PARTICLE_BLEND.get()))
                 .save(consumer);
 
         CustomShapedRecipeBuilder.shaped(RegistryHandler.JETPACK_POTATO.get())
@@ -125,7 +115,6 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .define('G', forgeTag("nuggets/gold"))
                 .define('P', forgeTag("crops/potato"))
                 .define('R', forgeTag("dusts/redstone"))
-                .unlockedBy("has_item", has(Items.POTATO))
                 .save(consumer);
 
         // Testing:
@@ -144,7 +133,6 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .requires(Items.CLAY_BALL)
                 .requires(Items.GUNPOWDER)
                 .requires(Items.BONE_MEAL)
-                .unlockedBy("has_item", has(Items.GOLD_INGOT))
                 .save(consumer);
 
         // Vanilla:

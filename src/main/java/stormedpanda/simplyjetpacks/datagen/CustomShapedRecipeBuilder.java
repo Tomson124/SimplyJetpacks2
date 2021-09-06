@@ -128,9 +128,7 @@ public class CustomShapedRecipeBuilder extends ShapedRecipeBuilder {
                     .rewards(AdvancementRewards.Builder.recipe(id))
                     .requirements(IRequirementsStrategy.OR);
         }
-        consumer.accept(
-                new CustomShapedRecipeBuilder.Result(id, this.result, this.count, this.group == null ? "" : this.group, this.rows, this.key, this.advancement)
-        );
+        consumer.accept(new CustomShapedRecipeBuilder.Result(id, this.result, this.count, this.group == null ? "" : this.group, this.rows, this.key, this.advancement));
     }
 
     private void ensureValid(ResourceLocation id) {
@@ -217,6 +215,7 @@ public class CustomShapedRecipeBuilder extends ShapedRecipeBuilder {
                 }
                 jsonObject.add("conditions", conditionsArray);
             }
+
             this.serializeRecipeData(jsonObject);
             return jsonObject;
         }

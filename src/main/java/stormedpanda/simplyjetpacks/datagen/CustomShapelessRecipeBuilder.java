@@ -116,14 +116,12 @@ public class CustomShapelessRecipeBuilder extends ShapelessRecipeBuilder {
         this.ensureValid(id);
         if (hasCriteria()) {
             this.advancement
-                    .parent(new ResourceLocation("recipes/root"))
+                    .parent(new ResourceLocation(SimplyJetpacks.MODID, "root"))
                     .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
                     .rewards(AdvancementRewards.Builder.recipe(id))
                     .requirements(IRequirementsStrategy.OR);
         }
-        consumer.accept(
-                new CustomShapelessRecipeBuilder.Result(id, this.result, this.count, this.group == null ? "" : this.group, this.ingredients, this.advancement)
-        );
+        consumer.accept(new CustomShapelessRecipeBuilder.Result(id, this.result, this.count, this.group == null ? "" : this.group, this.ingredients, this.advancement));
     }
 
     private void ensureValid(ResourceLocation id) {
@@ -183,6 +181,7 @@ public class CustomShapelessRecipeBuilder extends ShapelessRecipeBuilder {
                 }
                 jsonObject.add("conditions", conditionsArray);
             }
+
             this.serializeRecipeData(jsonObject);
             return jsonObject;
         }
