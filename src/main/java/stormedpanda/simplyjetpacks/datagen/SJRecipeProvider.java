@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
@@ -25,7 +26,8 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
     protected void buildShapelessRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
         CustomRecipeBuilder.special(RegistryHandler.JETPACK_SPECIAL_RECIPE.get()).save(consumer, savePath("jetpack_special_recipe"));
 
-        ShapedRecipeBuilder.shaped(RegistryHandler.LEATHER_STRAP.get())
+        // Simply Jetpacks:
+        CustomShapedRecipeBuilder.shaped(RegistryHandler.LEATHER_STRAP.get())
                 .pattern("LIL")
                 .pattern("LIL")
                 .define('I', forgeTag("ingots/iron"))
@@ -33,18 +35,7 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .unlockedBy("has_item", has(Items.LEATHER))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(RegistryHandler.JETPACK_POTATO.get())
-                .pattern("S S")
-                .pattern("GPG")
-                .pattern("R R")
-                .define('S', forgeTag("string"))
-                .define('G', forgeTag("nuggets/gold"))
-                .define('P', forgeTag("crops/potato"))
-                .define('R', forgeTag("dusts/redstone"))
-                .unlockedBy("has_item", has(Items.POTATO))
-                .save(consumer);
-
-        ShapedRecipeBuilder.shaped(RegistryHandler.PILOT_GOGGLES_GOLD.get())
+        CustomShapedRecipeBuilder.shaped(RegistryHandler.PILOT_GOGGLES_GOLD.get())
                 .pattern(" S ")
                 .pattern("GIG")
                 .define('S', RegistryHandler.LEATHER_STRAP.get())
@@ -53,7 +44,7 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .unlockedBy("has_item", has(Items.GOLD_INGOT))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(RegistryHandler.PILOT_GOGGLES_IRON.get())
+        CustomShapedRecipeBuilder.shaped(RegistryHandler.PILOT_GOGGLES_IRON.get())
                 .pattern(" S ")
                 .pattern("GIG")
                 .define('S', RegistryHandler.LEATHER_STRAP.get())
@@ -62,7 +53,7 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .unlockedBy("has_item", has(Items.IRON_INGOT))
                 .save(consumer);
 
-        ShapelessRecipeBuilder.shapeless(RegistryHandler.PARTICLE_BLEND.get(), 2)
+        CustomShapelessRecipeBuilder.shapeless(RegistryHandler.PARTICLE_BLEND.get(), 2)
                 .requires(Items.COAL)
                 .requires(Items.CLAY_BALL)
                 .requires(Items.GUNPOWDER)
@@ -70,7 +61,7 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .unlockedBy("has_item", has(Items.GOLD_INGOT))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(RegistryHandler.PARTICLE_NONE.get())
+        CustomShapedRecipeBuilder.shaped(RegistryHandler.PARTICLE_NONE.get())
                 .pattern(" T ")
                 .pattern("TPT")
                 .pattern(" T ")
@@ -79,7 +70,7 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .unlockedBy("has_item", has(RegistryHandler.PARTICLE_BLEND.get()))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(RegistryHandler.PARTICLE_FLAME.get())
+        CustomShapedRecipeBuilder.shaped(RegistryHandler.PARTICLE_FLAME.get())
                 .pattern(" T ")
                 .pattern("TPT")
                 .pattern(" T ")
@@ -88,7 +79,7 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .unlockedBy("has_item", has(RegistryHandler.PARTICLE_BLEND.get()))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(RegistryHandler.PARTICLE_SMOKE.get())
+        CustomShapedRecipeBuilder.shaped(RegistryHandler.PARTICLE_SMOKE.get())
                 .pattern(" T ")
                 .pattern("TPT")
                 .pattern(" T ")
@@ -97,7 +88,7 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .unlockedBy("has_item", has(RegistryHandler.PARTICLE_BLEND.get()))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(RegistryHandler.PARTICLE_RAINBOW.get())
+        CustomShapedRecipeBuilder.shaped(RegistryHandler.PARTICLE_RAINBOW.get())
                 .pattern(" R ")
                 .pattern(" P ")
                 .pattern("G B")
@@ -108,7 +99,7 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .unlockedBy("has_item", has(RegistryHandler.PARTICLE_BLEND.get()))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(RegistryHandler.PARTICLE_SOUL.get())
+        CustomShapedRecipeBuilder.shaped(RegistryHandler.PARTICLE_SOUL.get())
                 .pattern(" T ")
                 .pattern("TPT")
                 .pattern(" T ")
@@ -117,7 +108,7 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .unlockedBy("has_item", has(RegistryHandler.PARTICLE_BLEND.get()))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(RegistryHandler.PARTICLE_SNOW.get())
+        CustomShapedRecipeBuilder.shaped(RegistryHandler.PARTICLE_SNOW.get())
                 .pattern(" T ")
                 .pattern("TPT")
                 .pattern(" T ")
@@ -125,6 +116,46 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .define('P', RegistryHandler.PARTICLE_BLEND.get())
                 .unlockedBy("has_item", has(RegistryHandler.PARTICLE_BLEND.get()))
                 .save(consumer);
+
+        CustomShapedRecipeBuilder.shaped(RegistryHandler.JETPACK_POTATO.get())
+                .pattern("S S")
+                .pattern("GPG")
+                .pattern("R R")
+                .define('S', forgeTag("string"))
+                .define('G', forgeTag("nuggets/gold"))
+                .define('P', forgeTag("crops/potato"))
+                .define('R', forgeTag("dusts/redstone"))
+                .unlockedBy("has_item", has(Items.POTATO))
+                .save(consumer);
+
+        // Testing:
+        CustomShapedRecipeBuilder.shaped(RegistryHandler.JETPACK_CREATIVE_ARMORED.get())
+                .pattern("S S")
+                .pattern("GPG")
+                .pattern("R R")
+                .define('S', forgeTag("string"))
+                .define('G', forgeTag("nuggets/gold"))
+                .define('P', forgeTag("crops/potato"))
+                .define('R', forgeTag("dusts/redstone"))
+                .save(consumer);
+
+        CustomShapelessRecipeBuilder.shapeless(RegistryHandler.JETPACK_CREATIVE.get(), 2)
+                .requires(Items.COAL)
+                .requires(Items.CLAY_BALL)
+                .requires(Items.GUNPOWDER)
+                .requires(Items.BONE_MEAL)
+                .unlockedBy("has_item", has(Items.GOLD_INGOT))
+                .save(consumer);
+
+        // Vanilla:
+        //ShapelessRecipeBuilder.shapeless(RegistryHandler.JETPACK_VANILLA1_ARMORED)
+        //deArmoredRecipe(consumer, RegistryHandler.JETPACK_VANILLA1_ARMORED.get(), RegistryHandler.JETPACK_VANILLA1.get(), "vanilla");
+
+        // Thermal:
+
+        // Mekanism:
+
+        // Immersive Engineering:
     }
 
     private static ResourceLocation modId(String path) {
@@ -143,5 +174,15 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
 
     private static String savePath(String path) {
         return new ResourceLocation(SimplyJetpacks.MODID, path).toString();
+    }
+
+    public void armoredRecipe(IItemProvider in, IItemProvider out) {
+    }
+
+    public void deArmoredRecipe(Consumer<IFinishedRecipe> consumer, IItemProvider in, IItemProvider out, String modid) {
+        ShapelessRecipeBuilder.shapeless(out)
+                .requires(in)
+                .unlockedBy("has_item", has(in))
+                .save(consumer, savePath(modid + "/" + out.asItem().getRegistryName().getPath() + "_from_armored"));
     }
 }

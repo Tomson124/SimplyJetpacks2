@@ -24,8 +24,8 @@ public class SJAdvancements implements Consumer<Consumer<Advancement>> {
     @Override
     public void accept(Consumer<Advancement> consumer) {
         Advancement root = rootAdvancement(consumer, RegistryHandler.JETPACK_CREATIVE.get(), "root", null, "stone", FrameType.TASK, "crafting_table", InventoryChangeTrigger.Instance.hasItems(Blocks.CRAFTING_TABLE));
-        Advancement creative = advancement(consumer, root, RegistryHandler.JETPACK_CREATIVE.get(), "jetpack_creative", "simplyjetpacks/", FrameType.CHALLENGE, "has_jetpack", null);
-        Advancement creative_armored = advancement(consumer, creative, RegistryHandler.JETPACK_CREATIVE_ARMORED.get(), "jetpack_creative_armored", "simplyjetpacks/", FrameType.CHALLENGE, "has_jetpack", null);
+        //Advancement creative = advancement(consumer, root, RegistryHandler.JETPACK_CREATIVE.get(), "jetpack_creative", "simplyjetpacks/", FrameType.CHALLENGE, "has_jetpack", null);
+        //Advancement creative_armored = advancement(consumer, creative, RegistryHandler.JETPACK_CREATIVE_ARMORED.get(), "jetpack_creative_armored", "simplyjetpacks/", FrameType.CHALLENGE, "has_jetpack", null);
     }
 
     private Advancement advancement(Consumer<Advancement> consumer, Advancement parent, IItemProvider icon, String key, String path, FrameType frame, String criterionId, @Nullable ICriterionInstance criterion) {
@@ -64,7 +64,6 @@ public class SJAdvancements implements Consumer<Consumer<Advancement>> {
                                 frame, true, true, false)
                         .addCriterion(criterionId, criterion)
                         .save(consumer, path + key);
-
     }
 
     private Advancement rootAdvancement(Consumer<Advancement> consumer, IItemProvider icon, String key, @Nullable String path, String background, FrameType frame, String criterionId, ICriterionInstance criterion) {
@@ -76,6 +75,7 @@ public class SJAdvancements implements Consumer<Consumer<Advancement>> {
                         frame, true, true, false)
                 //.addCriterion("any", PositionTrigger.Instance.located(LocationPredicate.ANY))
                 .addCriterion(criterionId, criterion)
-                .save(consumer, path == null ? SimplyJetpacks.MODID + ":" + key : SimplyJetpacks.MODID + ":" + path + key);
+                //.save(consumer, path == null ? SimplyJetpacks.MODID + ":" + key : SimplyJetpacks.MODID + ":" + path + key);
+                .save(consumer, SimplyJetpacks.MODID + ":" + (path == null ? "" : path) + key);
     }
 }
