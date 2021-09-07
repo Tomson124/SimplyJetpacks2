@@ -17,6 +17,7 @@ plugins {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'idea'
+apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
 version = "${minecraft_version}-${mod_version}"
