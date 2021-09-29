@@ -170,7 +170,7 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
 
     public void armorRecipeCombo(Consumer<IFinishedRecipe> consumer, IItemProvider armored, IItemProvider base, IItemProvider plating, String modid) {
         // armoring
-        CustomShapelessRecipeBuilder.shapeless(base).requires(base).requires(plating).unlockedBy("has_item", has(base)).save(consumer);
+        CustomShapelessRecipeBuilder.shapeless(armored).requires(base).requires(plating).unlockedBy("has_item", has(base)).save(consumer);
         // de-armoring
         CustomShapelessRecipeBuilder.shapeless(base).requires(armored).unlockedBy("has_item", has(armored)).save(consumer, savePath(modid + "/" + base.asItem().getRegistryName().getPath() + "_from_armored"));
     }
