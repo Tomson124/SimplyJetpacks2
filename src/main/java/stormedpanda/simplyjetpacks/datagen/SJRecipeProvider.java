@@ -1,7 +1,10 @@
 package stormedpanda.simplyjetpacks.datagen;
 
 import com.google.gson.JsonObject;
-import net.minecraft.data.*;
+import net.minecraft.data.CustomRecipeBuilder;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.RecipeProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
@@ -118,7 +121,7 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .save(consumer);
 
         // Testing:
-        CustomShapedRecipeBuilder.shaped(RegistryHandler.JETPACK_CREATIVE_ARMORED.get())
+        /*CustomShapedRecipeBuilder.shaped(RegistryHandler.JETPACK_CREATIVE_ARMORED.get())
                 .pattern("S S")
                 .pattern("GPG")
                 .pattern("R R")
@@ -133,12 +136,13 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
                 .requires(Items.CLAY_BALL)
                 .requires(Items.GUNPOWDER)
                 .requires(Items.BONE_MEAL)
-                .save(consumer);
+                .save(consumer);*/
 
         // Vanilla:
-        //ShapelessRecipeBuilder.shapeless(RegistryHandler.JETPACK_VANILLA1_ARMORED)
-        //deArmoredRecipe(consumer, RegistryHandler.JETPACK_VANILLA1_ARMORED.get(), RegistryHandler.JETPACK_VANILLA1.get(), "vanilla");
-
+        armorRecipeCombo(consumer, RegistryHandler.JETPACK_VANILLA1_ARMORED.get(), RegistryHandler.JETPACK_VANILLA1.get(), Items.IRON_CHESTPLATE, "vanilla");
+        armorRecipeCombo(consumer, RegistryHandler.JETPACK_VANILLA2_ARMORED.get(), RegistryHandler.JETPACK_VANILLA2.get(), Items.GOLDEN_CHESTPLATE, "vanilla");
+        armorRecipeCombo(consumer, RegistryHandler.JETPACK_VANILLA3_ARMORED.get(), RegistryHandler.JETPACK_VANILLA3.get(), Items.DIAMOND_CHESTPLATE, "vanilla");
+        armorRecipeCombo(consumer, RegistryHandler.JETPACK_VANILLA4_ARMORED.get(), RegistryHandler.JETPACK_VANILLA4.get(), Items.NETHERITE_CHESTPLATE, "vanilla");
         // Thermal:
 
         // Mekanism:
@@ -164,13 +168,10 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
         return new ResourceLocation(SimplyJetpacks.MODID, path).toString();
     }
 
-    public void armoredRecipe(IItemProvider in, IItemProvider out) {
-    }
-
-    public void deArmoredRecipe(Consumer<IFinishedRecipe> consumer, IItemProvider in, IItemProvider out, String modid) {
-        ShapelessRecipeBuilder.shapeless(out)
-                .requires(in)
-                .unlockedBy("has_item", has(in))
-                .save(consumer, savePath(modid + "/" + out.asItem().getRegistryName().getPath() + "_from_armored"));
+    public void armorRecipeCombo(Consumer<IFinishedRecipe> consumer, IItemProvider armored, IItemProvider base, IItemProvider plating, String modid) {
+        // armoring
+        CustomShapelessRecipeBuilder.shapeless(base).requires(base).requires(plating).unlockedBy("has_item", has(base)).save(consumer);
+        // de-armoring
+        CustomShapelessRecipeBuilder.shapeless(base).requires(armored).unlockedBy("has_item", has(armored)).save(consumer, savePath(modid + "/" + base.asItem().getRegistryName().getPath() + "_from_armored"));
     }
 }
