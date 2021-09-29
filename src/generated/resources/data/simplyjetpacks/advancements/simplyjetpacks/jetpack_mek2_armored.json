@@ -1,0 +1,35 @@
+{
+  "parent": "simplyjetpacks:simplyjetpacks/jetpack_mek2",
+  "display": {
+    "icon": {
+      "item": "simplyjetpacks:jetpack_mek2_armored"
+    },
+    "title": {
+      "translate": "advancement.simplyjetpacks.jetpack_mek2_armored.title"
+    },
+    "description": {
+      "translate": "advancement.simplyjetpacks.jetpack_mek2_armored.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_jetpack": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "simplyjetpacks:jetpack_mek2_armored"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_jetpack"
+    ]
+  ]
+}

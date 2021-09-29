@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "simplyjetpacks:jetpack_creative"
+    },
+    "title": {
+      "translate": "advancement.simplyjetpacks.root.title"
+    },
+    "description": {
+      "translate": "advancement.simplyjetpacks.root.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "any": {
+      "trigger": "minecraft:location",
+      "conditions": {}
+    }
+  },
+  "requirements": [
+    [
+      "any"
+    ]
+  ]
+}
