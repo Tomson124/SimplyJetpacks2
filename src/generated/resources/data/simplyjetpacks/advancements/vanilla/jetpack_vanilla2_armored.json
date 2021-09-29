@@ -2,7 +2,7 @@
   "parent": "simplyjetpacks:root",
   "rewards": {
     "recipes": [
-      "simplyjetpacks:jetpack_vanilla2_armored"
+      "simplyjetpacks:vanilla/jetpack_vanilla2_armored"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "simplyjetpacks:jetpack_vanilla2_armored"
+        "recipe": "simplyjetpacks:vanilla/jetpack_vanilla2_armored"
       }
     }
   },
