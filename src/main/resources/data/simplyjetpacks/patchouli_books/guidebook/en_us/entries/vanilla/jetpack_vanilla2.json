@@ -9,14 +9,7 @@
       "text": "This is the Gold Jetpack. The jetpack can become armored by applying the armor plating."
     },
     {
-      "type": "simplyjetpacks:2_2_item_page",
-      "item1": "simplyjetpacks:jetpack_vanilla2",
-      "item2": "simplyjetpacks:jetpack_vanilla2_armored"
-    },
-    {
       "type": "patchouli:crafting",
-      "title": "Recipes",
-      "text": "these are the recipes",
       "recipe": "simplyjetpacks:vanilla/jetpack_vanilla2",
       "recipe2": "simplyjetpacks:vanilla/jetpack_vanilla2_armored"
     }

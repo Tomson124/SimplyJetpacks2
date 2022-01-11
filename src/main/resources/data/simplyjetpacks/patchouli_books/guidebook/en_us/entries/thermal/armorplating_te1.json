@@ -7,12 +7,12 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "This is the Iron Alloy Armor Plating"
+      "text": "This is the Iron Alloy Armor Plating."
     },
     {
       "type": "patchouli:crafting",
       "recipe": "simplyjetpacks:thermal/armorplating_te1",
-      "text": "This is a test entry, but it should show up!"
+      "text": "This is the recipe."
     }
   ]
 }

@@ -10,7 +10,7 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "simplyjetpacks:sj/leather_strap",
+      "recipe": "simplyjetpacks:leather_strap",
       "text": "This is the recipe."
     }
   ]

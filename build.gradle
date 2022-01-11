@@ -125,7 +125,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:thermalinnovation-291737:3556270")
     //runtimeOnly fg.deobf("curse.maven:thermal-dynamics-227443:x")
     //runtimeOnly fg.deobf("curse.maven:redstone-arsenal-70631:x")
-    //runtimeOnly fg.deobf("curse.maven:redstone-repository-revolved-300750:x")
+    //runtimeOnly fg.deobf("curse.maven:redstone-repository-revolved-300750:x") // TODO: add this.
 
     compileOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:api")
     runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")

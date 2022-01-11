@@ -5,6 +5,10 @@
   "read_by_default": true,
   "pages": [
     {
+      "type": "patchouli:text",
+      "text": "Particle Customizers are used to customize a jetpacks thruster particles."
+    },
+    {
       "type": "simplyjetpacks:1_6_item_page",
       "A.item": "simplyjetpacks:particle_blend",
       "A.text": "The Particle Blend is required to craft each Customizer.",
@@ -19,37 +23,37 @@
     {
       "type": "patchouli:crafting",
       "title": "Flame",
-      "recipe": "simplyjetpacks:sj/particle_flame",
+      "recipe": "simplyjetpacks:particle_flame",
       "text": "This is the Flame Customizer."
     },
     {
       "type": "patchouli:crafting",
       "title": "None",
-      "recipe": "simplyjetpacks:sj/particle_none",
+      "recipe": "simplyjetpacks:particle_none",
       "text": "This is the None Customizer."
     },
     {
       "type": "patchouli:crafting",
       "title": "Rainbow",
-      "recipe": "simplyjetpacks:sj/particle_rainbow",
+      "recipe": "simplyjetpacks:particle_rainbow",
       "text": "This is the Rainbow Customizer."
     },
     {
       "type": "patchouli:crafting",
       "title": "Smoke",
-      "recipe": "simplyjetpacks:sj/particle_smoke",
+      "recipe": "simplyjetpacks:particle_smoke",
       "text": "This is the Smoke Customizer."
     },
     {
       "type": "patchouli:crafting",
       "title": "Soul",
-      "recipe": "simplyjetpacks:sj/particle_soul",
+      "recipe": "simplyjetpacks:particle_soul",
       "text": "This is the Soul Customizer."
     },
     {
       "type": "patchouli:crafting",
       "title": "Snow",
-      "recipe": "simplyjetpacks:sj/particle_snow",
+      "recipe": "simplyjetpacks:particle_snow",
       "text": "This is the Snow Customizer."
     }
   ]

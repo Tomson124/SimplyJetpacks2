@@ -1,6 +1,6 @@
 {
   "name": "Simply Jetpacks",
   "description": "Everything related to the Simply Jetpacks 2 Jetpacks",
-  "icon": "minecraft:writable_book",
+  "icon": "simplyjetpacks:jetpack_potato",
   "sortnum": -1
 }
