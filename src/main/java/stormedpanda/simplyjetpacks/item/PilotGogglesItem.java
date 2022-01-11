@@ -32,7 +32,7 @@ public class PilotGogglesItem extends ArmorItem {
     @Nullable
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-        return new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_" + this.type).toString();
+        return new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_" + this.type + ".png").toString();
     }
 
     @OnlyIn(Dist.CLIENT)
