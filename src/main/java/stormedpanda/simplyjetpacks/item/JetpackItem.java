@@ -282,25 +282,34 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public int getEnergyUsage(ItemStack stack) {
         int baseUsage = jetpackType.getEnergyUsage();
         int level = EnchantmentHelper.getItemEnchantmentLevel(RegistryHandler.FUEL_EFFICIENCY.get(), stack);
+        SimplyJetpacks.LOGGER.info("level: {}, baseusage: {}, maths: {}", level, baseUsage, (int) Math.round(baseUsage * (5 - level) / 5.0D));
         return level != 0 ? (int) Math.round(baseUsage * (5 - level) / 5.0D) : baseUsage;
     }
 
     public void chargeInventory(PlayerEntity player, ItemStack stack) {
         if (!player.getCommandSenderWorld().isClientSide) {
             if (getEnergy(stack) > 0 || isCreative()) {
-                for (int i = 0; i < player.inventory.getContainerSize(); i++) {
-                    ItemStack itemStack = player.inventory.getItem(i);
-                    if (!itemStack.equals(stack) && itemStack.getCapability(CapabilityEnergy.ENERGY).isPresent()) {
-                        LazyOptional<IEnergyStorage> optional = itemStack.getCapability(CapabilityEnergy.ENERGY);
-                        if (optional.isPresent()) {
-                            IEnergyStorage energyStorage = optional.orElseThrow(IllegalStateException::new);
-                            if (isCreative()) {
-                                energyStorage.receiveEnergy(1000, false);
-                            } else {
-                                useEnergy(stack, energyStorage.receiveEnergy(getEnergyUsage(stack),false));
-                            }
-                        }
-                    }
+                // Charge hands
+                for (ItemStack itemStack : player.getHandSlots()) {
+                    charge(stack, itemStack);
+                }
+                // Charge equipment
+                for (ItemStack itemStack : player.getArmorSlots()) {
+                    charge(stack, itemStack);
+                }
+            }
+        }
+    }
+
+    private void charge(ItemStack jetpack, ItemStack item) {
+        if (!item.equals(jetpack) && item.getCapability(CapabilityEnergy.ENERGY).isPresent()) {
+            LazyOptional<IEnergyStorage> optional = item.getCapability(CapabilityEnergy.ENERGY);
+            if (optional.isPresent()) {
+                IEnergyStorage energyStorage = optional.orElseThrow(IllegalStateException::new);
+                if (isCreative()) {
+                    energyStorage.receiveEnergy(1000, false);
+                } else {
+                    useEnergy(jetpack, energyStorage.receiveEnergy(getEnergyUsage(jetpack),false));
                 }
             }
         }

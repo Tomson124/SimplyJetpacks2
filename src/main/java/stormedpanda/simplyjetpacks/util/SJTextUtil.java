@@ -85,7 +85,7 @@ public class SJTextUtil {
             list.add(translate("tooltip", "itemJetpack.charger", TextFormatting.GOLD, jetpack.isChargerOn(stack) ? on : off));
         }
         if (!jetpack.isCreative()) {
-            list.add(translate("tooltip", "itemJetpack.energyUsage", TextFormatting.GOLD, energyPerTick(jetpack.getEnergyExtract())));
+            list.add(translate("tooltip", "itemJetpack.energyUsage", TextFormatting.GOLD, energyPerTick(jetpack.getEnergyUsage(stack))));
         }
         ITextComponent particle = translate("tooltip", "particle." + JetpackItem.getParticleId(stack), TextFormatting.WHITE);
         list.add(translate("tooltip", "itemJetpack.particleType", TextFormatting.GOLD, particle));
