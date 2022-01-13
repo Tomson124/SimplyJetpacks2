@@ -55,7 +55,7 @@ public class SimplyJetpacksConfig {
 
         CLIENT_BUILDER.pop();
 
-        CLIENT_BUILDER.comment("Audio Configurations").push("visual");
+        CLIENT_BUILDER.comment("Visual Configurations").push("visual");
 
         enableJetpackParticles = CLIENT_BUILDER
                 .comment("This sets whether jetpack particles will be displayed.")
