@@ -40,7 +40,7 @@ public class SimplyJetpacksConfig {
         CLIENT_BUILDER.comment("Controls Configurations").push("controls");
 
         invertHoverSneakingBehavior = CLIENT_BUILDER
-                .comment("Invert Hover Sneaking")
+                .comment("This sets whether you must hold sneak to hover.")
                 .translation("config.simplyjetpacks.invertHoverSneakingBehavior")
                 .define("invertHoverSneakingBehavior", ConfigDefaults.invertHoverSneakingBehavior);
 
@@ -49,7 +49,7 @@ public class SimplyJetpacksConfig {
         CLIENT_BUILDER.comment("Audio Configurations").push("audio");
 
         enableJetpackSounds = CLIENT_BUILDER
-                .comment("Enable Jetpack Sounds")
+                .comment("This sets whether Jetpack sounds will play.")
                 .translation("config.simplyjetpacks.enableJetpackSounds")
                 .define("enableJetpackSounds", ConfigDefaults.enableJetpackSounds);
 
@@ -58,7 +58,7 @@ public class SimplyJetpacksConfig {
         CLIENT_BUILDER.comment("Visual Configurations").push("visual");
 
         enableJetpackParticles = CLIENT_BUILDER
-                .comment("Enable Jetpack Particles")
+                .comment("This sets whether Jetpack particles will be displayed.")
                 .translation("config.simplyjetpacks.enableJetpackParticles")
                 .define("enableJetpackParticles", ConfigDefaults.enableJetpackParticles);
 
@@ -67,67 +67,67 @@ public class SimplyJetpacksConfig {
         CLIENT_BUILDER.comment("GUI Configurations").push("gui");
 
         showThrottle = CLIENT_BUILDER
-                .comment("Show Throttle in HUD")
+                .comment("Show the Throttle value in the Jetpack HUD.")
                 .translation("config.simplyjetpacks.showThrottle")
                 .define("showThrottle", ConfigDefaults.showThrottle);
 
         showExactEnergy = CLIENT_BUILDER
-                .comment("Show exact Energy in HUD")
+                .comment("Show the exact energy of the Jetpack in the HUD.")
                 .translation("config.simplyjetpacks.showExactEnergy")
                 .define("showExactEnergy", ConfigDefaults.showExactEnergy);
 
         enableStateMessages = CLIENT_BUILDER
-                .comment("Enable Jetpack State Messages")
+                .comment("This sets whether or not Jetpack state messages will show.")
                 .translation("config.simplyjetpacks.enableStateMessages")
                 .define("enableStateMessages", ConfigDefaults.enableStateMessages);
 
         enableJetpackHud = CLIENT_BUILDER
-                .comment("Enable Jetpack HUD")
+                .comment("This sets whether or not the Jetpack HUD will be visible.")
                 .translation("config.simplyjetpacks.enableJetpackHud")
                 .define("enableJetpackHud", ConfigDefaults.enableJetpackHud);
 
         showHoverState = CLIENT_BUILDER
-                .comment("Show Hover State")
+                .comment("Show the Hover State in the HUD.")
                 .translation("config.simplyjetpacks.showHoverState")
                 .define("showHoverState", ConfigDefaults.showHoverState);
 
         showEHoverState = CLIENT_BUILDER
-                .comment("Show Emergency Hover State")
+                .comment("Show the Emergency Hover State in the HUD.")
                 .translation("config.simplyjetpacks.showEHoverState")
                 .define("showEHoverState", ConfigDefaults.showEHoverState);
 
         showChargerState = CLIENT_BUILDER
-                .comment("Show Charger State")
+                .comment("Show the Charger State in the HUD.")
                 .translation("config.simplyjetpacks.showChargerState")
                 .define("showChargerState", ConfigDefaults.showChargerState);
 
         hudTextColor = CLIENT_BUILDER
-                .comment("Set the HUD color")
+                .comment("This sets the color of the Jetpack HUD.")
                 .translation("config.simplyjetpacks.hudTextColor")
                 .defineInRange("hudTextColor", ConfigDefaults.hudTextColor, Integer.MIN_VALUE, Integer.MAX_VALUE);
 
         hudTextPosition = CLIENT_BUILDER
-                .comment("HUD Position")
+                .comment("Set the position of the Jetpack HUD on the screen.")
                 .translation("config.simplyjetpacks.hudTextPosition")
                 .defineEnum("hudTextPosition", ConfigDefaults.hudTextPosition);
 
         hudXOffset = CLIENT_BUILDER
-                .comment("HUD Position X Offset")
+                .comment("Set the X offset of the Jetpack HUD on the screen.")
                 .translation("config.simplyjetpacks.hudXOffset")
                 .defineInRange("hudXOffset", ConfigDefaults.hudXOffset, Integer.MIN_VALUE, Integer.MAX_VALUE);
 
         hudYOffset = CLIENT_BUILDER
-                .comment("HUD Position Y Offset")
+                .comment("Set the Y offset of the Jetpack HUD on the screen.")
                 .translation("config.simplyjetpacks.hudYOffset")
                 .defineInRange("hudYOffset", ConfigDefaults.hudYOffset, Integer.MIN_VALUE, Integer.MAX_VALUE);
 
         hudScale = CLIENT_BUILDER
-                .comment("HUD Scale")
+                .comment("Set the scale of the Jetpack HUD on the screen.")
                 .translation("config.simplyjetpacks.hudScale")
                 .defineInRange("hudScale", ConfigDefaults.hudScale, 1, 100);
 
         hudTextShadow = CLIENT_BUILDER
-                .comment("HUD Text Shadow")
+                .comment("Set if the Jetpack HUD values have text shadows.")
                 .translation("config.simplyjetpacks.hudTextShadow")
                 .define("hudTextShadow", ConfigDefaults.hudTextShadow);
 
@@ -141,37 +141,37 @@ public class SimplyJetpacksConfig {
         COMMON_BUILDER.comment("Integration Configurations").push("integration");
 
         enableIntegrationVanilla = COMMON_BUILDER
-                .comment("Enable Vanilla Integration.")
+                .comment("Enable Vanilla Jetpacks Integration.")
                 .translation("config.simplyjetpacks.enableIntegrationVanilla")
                 .worldRestart()
                 .define("enableIntegrationVanilla", ConfigDefaults.enableIntegrationVanilla);
 
         enableIntegrationImmersiveEngineering = COMMON_BUILDER
-                .comment("Enable Immersive Engineering Integration.")
+                .comment("Enable Immersive Engineering Jetpacks Integration.")
                 .translation("config.simplyjetpacks.enableIntegrationImmersiveEngineering")
                 .worldRestart()
                 .define("enableIntegrationImmersiveEngineering", ConfigDefaults.enableIntegrationImmersiveEngineering);
 
         enableIntegrationMekanism = COMMON_BUILDER
-                .comment("Enable Mekanism Integration.")
+                .comment("Enable Mekanism Jetpacks Integration.")
                 .translation("config.simplyjetpacks.enableIntegrationMekanism")
                 .worldRestart()
                 .define("enableIntegrationMekanism", ConfigDefaults.enableIntegrationMekanism);
 
         enableIntegrationEnderIO = COMMON_BUILDER
-                .comment("Enable EnderIO Integration.")
+                .comment("Enable EnderIO Jetpacks Integration.")
                 .translation("config.simplyjetpacks.enableIntegrationEnderIO")
                 .worldRestart()
                 .define("enableIntegrationEnderIO", ConfigDefaults.enableIntegrationEnderIO);
 
         enableIntegrationThermalExpansion = COMMON_BUILDER
-                .comment("Enable Thermal Expansion Integration.")
+                .comment("Enable Thermal Expansion Jetpacks Integration.")
                 .translation("config.simplyjetpacks.enableIntegrationThermalExpansion")
                 .worldRestart()
                 .define("enableIntegrationThermalExpansion", ConfigDefaults.enableIntegrationThermalExpansion);
 
         enableIntegrationThermalDynamics = COMMON_BUILDER
-                .comment("Enable Thermal Dynamics Integration.")
+                .comment("Enable Thermal Dynamics Jetpacks Integration.")
                 .translation("config.simplyjetpacks.enableIntegrationThermalDynamics")
                 .worldRestart()
                 .define("enableIntegrationThermalDynamics", ConfigDefaults.enableIntegrationThermalDynamics);
@@ -185,7 +185,7 @@ public class SimplyJetpacksConfig {
         COMMON_BUILDER.comment("Misc Configurations").push("misc");
 
         enableJoinAdvancements = COMMON_BUILDER
-                .comment("Enable Join Advancements")
+                .comment("Enable Advancements on Player join.")
                 .translation("config.simplyjetpacks.enableJoinAdvancements")
                 .define("enableJoinAdvancements", ConfigDefaults.enableJoinAdvancements);
 

@@ -12,7 +12,7 @@ public class JetpackConfig {
 
             pack._energyCapacity = builder
                     .comment("The maximum amount of energy that this Jetpack/Fluxpack can hold.")
-                    .translation("config.simplyjetpacks.tuning.energyCapacity.tooltip")
+                    .translation("config.simplyjetpacks.tuning.energyCapacity")
                     .defineInRange("energyCapacity", pack.energyCapacity, 0, Integer.MAX_VALUE);
 
             pack._energyUsage = builder
