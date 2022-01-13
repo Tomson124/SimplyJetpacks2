@@ -85,11 +85,13 @@ public class SJTextUtil {
             list.add(translate("tooltip", "itemJetpack.charger", TextFormatting.GOLD, jetpack.isChargerOn(stack) ? on : off));
         }
         if (!jetpack.isCreative()) {
-            ITextComponent usage = translate("tooltip", "particle." + JetpackItem.getParticleId(stack), TextFormatting.WHITE);
             list.add(translate("tooltip", "itemJetpack.energyUsage", TextFormatting.GOLD, energyPerTick(jetpack.getEnergyExtract())));
         }
         ITextComponent particle = translate("tooltip", "particle." + JetpackItem.getParticleId(stack), TextFormatting.WHITE);
         list.add(translate("tooltip", "itemJetpack.particleType", TextFormatting.GOLD, particle));
+
+        ITextComponent throttle = new StringTextComponent(jetpack.getThrottle(stack) + "%").withStyle(TextFormatting.WHITE);
+        list.add(translate("tooltip", "itemJetpack.throttle", TextFormatting.GOLD, throttle));
     }
 
     public static void addHUDInfoText(ItemStack stack, List<ITextComponent> list) {

@@ -138,6 +138,8 @@
   "keybind.simplyjetpacks.jetpack_hover": "Toggle Jetpack Hover",
   "keybind.simplyjetpacks.jetpack_ehover": "Toggle Jetpack Emergency Hover",
   "keybind.simplyjetpacks.jetpack_charger": "Toggle Jetpack Charger",
+  "keybind.simplyjetpacks.jetpack_throttle_increase": "Increase Jetpack Throttle",
+  "keybind.simplyjetpacks.jetpack_throttle_decrease": "Decrease Jetpack Throttle",
 
   "misc.simplyjetpacks.enabled": "Enabled",
   "misc.simplyjetpacks.disabled": "Disabled",
@@ -173,6 +175,7 @@
   "tooltip.simplyjetpacks.itemJetpack.emergencyHoverMode": "EHover Mode: %s",
   "tooltip.simplyjetpacks.itemJetpack.charger": "Charger: %s",
   "tooltip.simplyjetpacks.itemJetpack.chargerMode": "Charger Mode: %s",
+  "tooltip.simplyjetpacks.itemJetpack.throttle": "Throttle: %s",
   "tooltip.simplyjetpacks.particle.0": "None",
   "tooltip.simplyjetpacks.particle.1": "Flame",
   "tooltip.simplyjetpacks.particle.2": "Smoke",
@@ -205,6 +208,7 @@
   "hud.simplyjetpacks.charger": "Charger",
 
   "screen.simplyjetpacks.jetpack_gui.title": "Jetpack GUI",
+  "screen.simplyjetpacks.throttle": "Throttle: ",
 
   "button.simplyjetpacks.engineToggle": "Engine",
   "button.simplyjetpacks.hoverToggle": "Hover",

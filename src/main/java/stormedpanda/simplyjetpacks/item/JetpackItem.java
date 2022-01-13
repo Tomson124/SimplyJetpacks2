@@ -90,13 +90,9 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     public String getModId() {
         String name = jetpackType.getName();
-        if (name.contains("mek")) {
-            return "mek";
-        } else if (name.contains("ie")) {
-            return "ie";
-        } else {
-            return "sj";
-        }
+        if (name.contains("mek")) return "mek";
+        if (name.contains("ie")) return "ie";
+        return "sj";
     }
 
     public boolean isEngineOn(ItemStack stack) {
@@ -249,6 +245,14 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         return stack.getOrCreateTag().contains(Constants.TAG_PARTICLE) ? stack.getOrCreateTag().getInt(Constants.TAG_PARTICLE) : JetpackType.getDefaultParticles(stack);
     }
 
+    public void setThrottle(ItemStack stack, int value) {
+        NBTUtil.setInt(stack, Constants.TAG_THROTTLE, value);
+    }
+
+    public int getThrottle(ItemStack stack) {
+        return stack.getOrCreateTag().contains(Constants.TAG_THROTTLE) ? stack.getOrCreateTag().getInt(Constants.TAG_THROTTLE) : 100;
+    }
+
     @Nullable
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
@@ -314,6 +318,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
             double speedVerticalHover = jetpackType.getSpeedVerticalHover();
             double speedVerticalHoverSlow = jetpackType.getSpeedVerticalHoverSlow();
 
+            // TODO: implement throttle for up and down flight;
             if ((flyKeyDown || hoverMode && !player.isOnGround())) {
                 if (!isCreative()) {
                     int amount = (int) (player.isSprinting() ? Math.round(getEnergyUsage(stack) * jetpackType.getSprintEnergyModifier()) : getEnergyUsage(stack));
@@ -334,10 +339,10 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
                         fly(player, Math.min(player.getDeltaMovement().get(Direction.Axis.Y) + currentAccel, -hoverSpeed));
                     }
 
-                    double baseSpeedSideways = jetpackType.getSpeedSideways();
-                    double baseSpeedForward = jetpackType.getSprintSpeedModifier();
-                    float speedSideways = (float) (player.isCrouching() ? baseSpeedSideways * 0.5F : baseSpeedSideways);
-                    float speedForward = (float) (player.isSprinting() ? speedSideways * baseSpeedForward : speedSideways);
+                    double baseSpeedSideways = jetpackType.getSpeedSideways() ;
+                    double sprintSpeedModifier = jetpackType.getSprintSpeedModifier();
+                    float speedSideways = (float) (player.isCrouching() ? baseSpeedSideways * 0.5F : baseSpeedSideways) * (getThrottle(stack) / 100.0F);
+                    float speedForward = (float) (player.isSprinting() ? speedSideways * sprintSpeedModifier : speedSideways) * (getThrottle(stack) / 100.0F);
 
                     if (CommonJetpackHandler.isHoldingForwards(player)) {
                         player.moveRelative(1, new Vector3d(0, 0, speedForward));
@@ -367,9 +372,6 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
                 } else {
                     if (!player.isCreative() && player.fallDistance - 1.2F >= player.getHealth()) {
                         for (int j = 0; j <= 16; j++) {
-                            int x = Math.round((float) player.position().get(Direction.Axis.X) - 0.5F);
-                            int y = Math.round((float) player.position().get(Direction.Axis.Y)) - j;
-                            int z = Math.round((float) player.position().get(Direction.Axis.Z) - 0.5F);
                             if (!player.isOnGround() && !player.isSwimming()) {
                                 this.doEHover(stack, player);
                                 break;
@@ -381,17 +383,11 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         }
     }
 
-    /* IHUDInfoProvider start */
-
     @OnlyIn(Dist.CLIENT)
     @Override
     public void addHUDInfo(ItemStack stack, List<ITextComponent> list) {
         SJTextUtil.addHUDInfoText(stack, list);
     }
-
-    /* IHUDInfoProvider end */
-
-    /* IEnergyContainer start */
 
     @Override
     public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
@@ -421,5 +417,4 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         return jetpackType.getEnergyCapacity();
     }
 
-    /* IEnergyContainer end */
 }

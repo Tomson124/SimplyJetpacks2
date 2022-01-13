@@ -11,4 +11,5 @@ public class Constants {
     public static final String TAG_FIRED = "Fired";
     public static final String TAG_ROCKET_TIMER = "RocketTimer";
     public static final String TAG_ROCKET_TIMER_SET = "RocketTimerSet";
+    public static final String TAG_THROTTLE = "Throttle";
 }

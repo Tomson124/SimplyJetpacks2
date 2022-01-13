@@ -30,6 +30,8 @@ public class KeybindHandler {
     public static KeyBinding JETPACK_HOVER_KEY;
     public static KeyBinding JETPACK_EHOVER_KEY;
     public static KeyBinding JETPACK_CHARGER_KEY;
+    public static KeyBinding JETPACK_THROTTLE_INCREASE;
+    public static KeyBinding JETPACK_THROTTLE_DECREASE;
 
     public static void setup() {
         JETPACK_GUI_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_gui", GLFW.GLFW_KEY_K, "keybind.simplyjetpacks.category");
@@ -42,6 +44,10 @@ public class KeybindHandler {
         ClientRegistry.registerKeyBinding(JETPACK_EHOVER_KEY);
         JETPACK_CHARGER_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_charger", GLFW.GLFW_KEY_UNKNOWN, "keybind.simplyjetpacks.category");
         ClientRegistry.registerKeyBinding(JETPACK_CHARGER_KEY);
+        JETPACK_THROTTLE_INCREASE = new KeyBinding("keybind.simplyjetpacks.jetpack_throttle_increase", GLFW.GLFW_KEY_PERIOD, "keybind.simplyjetpacks.category");
+        ClientRegistry.registerKeyBinding(JETPACK_THROTTLE_INCREASE);
+        JETPACK_THROTTLE_DECREASE = new KeyBinding("keybind.simplyjetpacks.jetpack_throttle_decrease", GLFW.GLFW_KEY_COMMA, "keybind.simplyjetpacks.category");
+        ClientRegistry.registerKeyBinding(JETPACK_THROTTLE_DECREASE);
     }
 
     @SubscribeEvent
@@ -72,6 +78,12 @@ public class KeybindHandler {
             }
             if (JETPACK_CHARGER_KEY.isDown()) {
                 NetworkHandler.sendToServer(new PacketToggleCharger());
+            }
+            if (JETPACK_THROTTLE_INCREASE.isDown()) {
+                NetworkHandler.sendToServer(new PacketUpdateThrottle(Math.max(0, Math.min(100,jetpack.getThrottle(chestStack) + 10))));
+            }
+            if (JETPACK_THROTTLE_DECREASE.isDown()) {
+                NetworkHandler.sendToServer(new PacketUpdateThrottle(Math.max(0, Math.min(100, jetpack.getThrottle(chestStack) - 10))));
             }
         }
     }

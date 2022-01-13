@@ -48,6 +48,12 @@ public class NetworkHandler {
                 .decoder(PacketUpdateInput::fromBytes)
                 .consumer(PacketUpdateInput::handle)
                 .add();
+
+        CHANNEL_INSTANCE.messageBuilder(PacketUpdateThrottle.class, nextID())
+                .encoder(PacketUpdateThrottle::toBytes)
+                .decoder(PacketUpdateThrottle::fromBytes)
+                .consumer(PacketUpdateThrottle::handle)
+                .add();
     }
 
     public static void sendToClient(Object packet, ServerPlayerEntity player) {
