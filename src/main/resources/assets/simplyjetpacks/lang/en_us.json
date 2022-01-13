@@ -284,6 +284,6 @@
 
   "curios.identifier.jetpack": "Jetpack",
 
-  "death.attack.jetpack_potato": "%s attempted to fly a potato!",
-  "death.attack.jetpack_explode": "%s spontaneously detonated!"
+  "death.attack.simplyjetpacks.jetpack_potato": "%1$s attempted to fly a potato!",
+  "death.attack.simplyjetpacks.jetpack_explode": "%1$s spontaneously detonated!"
 }
