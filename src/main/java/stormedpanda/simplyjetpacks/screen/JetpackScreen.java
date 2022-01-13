@@ -31,7 +31,7 @@ public class JetpackScreen extends Screen {
 
     private static final Minecraft minecraft = Minecraft.getInstance();
 
-    private final ResourceLocation JETPACK_TEXTURE = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/jetpack_screen_large.png");
+    private final ResourceLocation JETPACK_TEXTURE = new ResourceLocation(SimplyJetpacks.MODID, "textures/gui/jetpack_screen.png");
     private static final int WIDTH = 176;
     private static final int HEIGHT = 120;
 

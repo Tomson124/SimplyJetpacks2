@@ -322,7 +322,6 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
             double speedVerticalHover = jetpackType.getSpeedVerticalHover();
             double speedVerticalHoverSlow = jetpackType.getSpeedVerticalHoverSlow();
 
-            // TODO: implement throttle for up and down flight;
             if ((flyKeyDown || hoverMode && !player.isOnGround())) {
                 if (!isCreative()) {
                     int amount = (int) (player.isSprinting() ? Math.round(getEnergyUsage(stack) * jetpackType.getSprintEnergyModifier()) : getEnergyUsage(stack));
