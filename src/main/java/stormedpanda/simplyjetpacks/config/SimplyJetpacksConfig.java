@@ -201,13 +201,13 @@ public class SimplyJetpacksConfig {
 
     @SubscribeEvent
     public static void onLoad(final ModConfig.Loading configEvent) {
-        SimplyJetpacks.LOGGER.info("SJ: CONFIG LOADED: {}", configEvent.getConfig().getFileName());
+        SimplyJetpacks.LOGGER.info("Config Loaded: {}", configEvent.getConfig().getFileName());
         JetpackType.loadAllConfigs();
     }
 
     @SubscribeEvent
     public static void onFileChange(final ModConfig.Reloading configEvent) {
-        SimplyJetpacks.LOGGER.info("SJ: CONFIG RE-LOADED: {}", configEvent.getConfig().getFileName());
+        SimplyJetpacks.LOGGER.info("Config Re-Loaded: {}", configEvent.getConfig().getFileName());
         JetpackType.loadAllConfigs();
     }
 
