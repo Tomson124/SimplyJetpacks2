@@ -43,8 +43,6 @@ public class JetpackCraftingEvents {
                         // ENERGY/PARTICLES:
                         tags = NBTUtil.getTagCompound(input).copy();
                         storedEnergy = NBTUtil.getInt(input, "Energy");
-                        // TODO: transfer enchantments
-//                        CompoundNBT enchantments = NBTUtil.getString()
                         craftedStack.setTag(tags);
                         int energyToTransfer = Math.min(storedEnergy, ((JetpackItem) craftedItem).getCapacity(input));
                         //JetpackParticleType particleType = inputJetpack.getParticleType(input);
