@@ -17,6 +17,7 @@ public class ConfigDefaults {
     public static final boolean enableJetpackSounds = true;
 
     // GUI
+    public static final boolean showThrottle = true;
     public static final boolean showExactEnergy = false;
     public static final boolean enableStateMessages = true;
     public static final boolean enableJetpackHud = true;

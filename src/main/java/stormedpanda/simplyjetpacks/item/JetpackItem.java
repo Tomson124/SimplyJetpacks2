@@ -90,8 +90,12 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     public String getModId() {
         String name = jetpackType.getName();
-        if (name.contains("mek")) return "mek";
-        if (name.contains("ie")) return "ie";
+        if (name.contains("mek")) {
+            return "mek";
+        }
+        if (name.contains("ie")) {
+            return "ie";
+        }
         return "sj";
     }
 

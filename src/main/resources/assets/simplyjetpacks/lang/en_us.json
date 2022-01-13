@@ -194,6 +194,7 @@
   "tooltip.simplyjetpacks.jetpack_potato.warning": "WARNING: Highly Unstable!",
   "tooltip.simplyjetpacks.particle_blend": "Used to craft Particle Customizers",
 
+  "hud.simplyjetpacks.throttle": "Throttle: %s%%",
   "hud.simplyjetpacks.energyDisplay": "Energy: %s",
   "hud.simplyjetpacks.energyDisplayExtra": "Energy: %s (%s)",
   "hud.simplyjetpacks.energyDepleted": "Depleted",
@@ -223,7 +224,8 @@
   "config.simplyjetpacks.enableIntegrationThermalDynamics": "Enable Thermal Dynamics Jetpacks Integration",
   "config.simplyjetpacks.invertHoverSneakingBehavior": "Invert Hover Sneaking",
   "config.simplyjetpacks.enableJetpackSounds": "Enable Jetpack Sounds",
-  "config.simplyjetpacks.showExactEnergy": "Show exact Energy in Jetpack HUD",
+  "config.simplyjetpacks.showThrottle": "Show the Throttle in HUD",
+  "config.simplyjetpacks.showExactEnergy": "Show exact Energy of Jetpack in HUD",
   "config.simplyjetpacks.enableStateMessages": "Enable Jetpack State Messages",
   "config.simplyjetpacks.enableJetpackHud": "Enable Jetpack HUD",
   "config.simplyjetpacks.showHoverState": "Show Hover State",

@@ -66,18 +66,23 @@ public class SimplyJetpacksConfig {
 
         CLIENT_BUILDER.comment("GUI Configurations").push("gui");
 
+        showThrottle = CLIENT_BUILDER
+                .comment("Show the Throttle in HUD")
+                .translation("config.simplyjetpacks.showThrottle")
+                .define("showThrottle", ConfigDefaults.showThrottle);
+
         showExactEnergy = CLIENT_BUILDER
                 .comment("Show exact Energy of Jetpack in HUD")
                 .translation("config.simplyjetpacks.showExactEnergy")
                 .define("showExactEnergy", ConfigDefaults.showExactEnergy);
 
         enableStateMessages = CLIENT_BUILDER
-                .comment("This sets whether or not jetpack state messages will show.")
+                .comment("This sets whether or not Jetpack state messages will show.")
                 .translation("config.simplyjetpacks.enableStateMessages")
                 .define("enableStateMessages", ConfigDefaults.enableStateMessages);
 
         enableJetpackHud = CLIENT_BUILDER
-                .comment("This sets whether or not the jetpack HUD will be visible.")
+                .comment("This sets whether or not the Jetpack HUD will be visible.")
                 .translation("config.simplyjetpacks.enableJetpackHud")
                 .define("enableJetpackHud", ConfigDefaults.enableJetpackHud);
 
@@ -210,6 +215,7 @@ public class SimplyJetpacksConfig {
     public static ForgeConfigSpec.BooleanValue invertHoverSneakingBehavior;
     public static ForgeConfigSpec.BooleanValue enableJetpackSounds;
     public static ForgeConfigSpec.BooleanValue enableJetpackParticles;
+    public static ForgeConfigSpec.BooleanValue showThrottle;
     public static ForgeConfigSpec.BooleanValue showExactEnergy;
     public static ForgeConfigSpec.BooleanValue enableStateMessages;
     public static ForgeConfigSpec.BooleanValue enableJetpackHud;

@@ -95,6 +95,10 @@ public class SJTextUtil {
     }
 
     public static void addHUDInfoText(ItemStack stack, List<ITextComponent> list) {
+        if (SimplyJetpacksConfig.showThrottle.get()) {
+            JetpackItem jetpack = (JetpackItem) stack.getItem();
+            list.add(translate("hud", "throttle", jetpack.getThrottle(stack)));
+        }
         list.add(getEnergyText(stack));
         list.add(getHUDStates(stack));
     }
