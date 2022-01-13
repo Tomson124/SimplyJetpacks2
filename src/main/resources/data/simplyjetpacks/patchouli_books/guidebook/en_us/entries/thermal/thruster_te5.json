@@ -12,7 +12,7 @@
     {
       "type": "patchouli:crafting",
       "recipe": "simplyjetpacks:thermal/thruster_te5",
-      "text": "This is the recipe."
+      "recipe2": "simplyjetpacks:thermal/thruster_te5_alt"
     }
   ]
 }
