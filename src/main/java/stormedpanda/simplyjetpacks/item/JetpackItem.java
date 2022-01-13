@@ -282,7 +282,6 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public int getEnergyUsage(ItemStack stack) {
         int baseUsage = jetpackType.getEnergyUsage();
         int level = EnchantmentHelper.getItemEnchantmentLevel(RegistryHandler.FUEL_EFFICIENCY.get(), stack);
-        SimplyJetpacks.LOGGER.info("level: {}, baseusage: {}, maths: {}", level, baseUsage, (int) Math.round(baseUsage * (5 - level) / 5.0D));
         return level != 0 ? (int) Math.round(baseUsage * (5 - level) / 5.0D) : baseUsage;
     }
 

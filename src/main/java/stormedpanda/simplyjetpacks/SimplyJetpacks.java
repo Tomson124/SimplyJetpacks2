@@ -45,8 +45,6 @@ import java.util.stream.Collectors;
 @Mod(SimplyJetpacks.MODID)
 public class SimplyJetpacks {
 
-    public static SimplyJetpacks INSTANCE;
-
     public static final String MODID = "simplyjetpacks";
     public static final String MODNAME = "Simply Jetpacks 2";
     public static final String VERSION = "${version}";
