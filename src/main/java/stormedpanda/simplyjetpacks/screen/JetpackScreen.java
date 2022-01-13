@@ -83,7 +83,7 @@ public class JetpackScreen extends Screen {
             }
         }
         addButton(slider = new Slider(relX + 10, relY + 98, 152, 16, new TranslationTextComponent("screen.simplyjetpacks.throttle"), new StringTextComponent("%"),
-                0, 101, jetpackItem.getThrottle(jetpackStack), false, true, s -> {}));
+                0, 100, jetpackItem.getThrottle(jetpackStack), false, true, s -> {}));
     }
 
     @Override
@@ -98,9 +98,7 @@ public class JetpackScreen extends Screen {
         drawCenteredString(matrixStack, minecraft.font, new TranslationTextComponent(jetpackStack.getDescriptionId()), relX + 88, relY + 5, 0xFFFFFF);
         minecraft.getTextureManager().bind(JETPACK_TEXTURE);
 
-        if (slider.getValueInt() != jetpackItem.getThrottle(jetpackStack)) {
-            NetworkHandler.sendToServer(new PacketUpdateThrottle(slider.getValueInt()));
-        }
+        NetworkHandler.sendToServer(new PacketUpdateThrottle(slider.getValueInt()));
 
         int amount = getEnergyBarAmount(); // Texture height
         int barOffset = 78 - amount;
