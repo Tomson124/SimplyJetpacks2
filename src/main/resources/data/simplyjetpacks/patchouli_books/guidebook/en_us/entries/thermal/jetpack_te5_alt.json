@@ -35,7 +35,7 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "simplyjetpacks:thermal/flux_chestplate"
+      "recipe": "simplyjetpacks:thermal/jetpack_te5_alt"
     }
   ]
 }

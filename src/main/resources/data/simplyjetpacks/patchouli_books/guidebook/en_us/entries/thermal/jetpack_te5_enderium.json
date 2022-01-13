@@ -11,7 +11,7 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "simplyjetpacks:thermal/jetpack_te5_enderium"
+      "recipe": "simplyjetpacks:thermal/jetpack_te5_armored"
     }
   ]
 }
