@@ -30,6 +30,11 @@ public class ConfigDefaults {
     public static final int hudYOffset = 0;
     public static final long hudScale = 1;
     public static final HUDPosition hudTextPosition = HUDPosition.TOP_LEFT;
+
+    // Misc
+    public static final boolean enableJetpackParticles = true;
+    public static final boolean enableJoinAdvancements = true;
+
     public enum HUDPosition {
         TOP_LEFT,
         TOP_CENTER,
@@ -39,8 +44,4 @@ public class ConfigDefaults {
         BOTTOM_LEFT,
         BOTTOM_RIGHT;
     }
-
-    // Misc
-    public static final boolean enableJetpackParticles = true;
-    public static final boolean enableJoinAdvancements = true;
 }

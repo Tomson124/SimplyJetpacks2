@@ -83,7 +83,7 @@ public class JetpackScreen extends Screen {
             }
         }
         addButton(slider = new Slider(relX + 10, relY + 98, 152, 16, new TranslationTextComponent("screen.simplyjetpacks.throttle"), new StringTextComponent("%"),
-                0, 100, jetpackItem.getThrottle(jetpackStack), false, true, s -> {}));
+                0, 101, jetpackItem.getThrottle(jetpackStack), false, true, s -> {}));
     }
 
     @Override

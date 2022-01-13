@@ -15,7 +15,7 @@ public class HUDRenderHelper {
 
     public static void drawStringAtPosition(MainWindow window, MatrixStack matrix, ITextComponent text, int lineOffset) {
         int windowScaleHeight = window.getGuiScaledHeight();
-        int windowScaleWidth = window.getGuiScaledHeight();
+        int windowScaleWidth = window.getGuiScaledWidth();
 
         ConfigDefaults.HUDPosition position = SimplyJetpacksConfig.hudTextPosition.get();
         int color = SimplyJetpacksConfig.hudTextColor.get();
