@@ -51,7 +51,7 @@ public enum JetpackType {
     TE5_ARMORED("te5_enderium", 5, "te5", true),
     ;
 
-    protected static final EnumSet<JetpackType> JETPACK_ALL = EnumSet.allOf(JetpackType.class);
+    private static final EnumSet<JetpackType> JETPACK_ALL = EnumSet.allOf(JetpackType.class);
 
     private final String name;
     private final String configKey;
