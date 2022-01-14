@@ -133,8 +133,8 @@ dependencies {
     runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:generators")
     runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:tools")
 
-    //runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${immersiveengineering_version}")
-    //runtimeOnly fg.deobf("curse.maven:immersiveengineering-231951:3189063")
+    runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${immersiveengineering_version}")
+    //runtimeOnly fg.deobf("curse.maven:immersiveengineering-231951:3578181")
 
     runtimeOnly fg.deobf("curse.maven:configured-457570:3434071")
 }
