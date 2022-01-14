@@ -3,15 +3,13 @@ package stormedpanda.simplyjetpacks.enchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
+import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
-
-import javax.annotation.Nonnull;
 
 public class EnchantmentFuelEfficiency extends Enchantment {
 
     public EnchantmentFuelEfficiency() {
-        super(Rarity.RARE, SJEnchantmentType.JETPACK, new EquipmentSlotType[]{ EquipmentSlotType.CHEST });
+        super(Rarity.RARE, RegistryHandler.JETPACK_ENCHANTMENT_TYPE, new EquipmentSlotType[]{ EquipmentSlotType.CHEST });
     }
 
     @Override
@@ -27,13 +25,6 @@ public class EnchantmentFuelEfficiency extends Enchantment {
     @Override
     public int getMaxLevel() {
         return 4;
-    }
-
-    @Nonnull
-    @Override
-    public ITextComponent getFullname(int id) {
-        //return new TranslationTextComponent("enchantment.simplyjetpacks.fuel_efficiency");
-        return super.getFullname(id);
     }
 
     @Override

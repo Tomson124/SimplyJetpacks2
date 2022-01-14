@@ -51,7 +51,7 @@ public class SimplyJetpacks {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public static final SJItemGroup tabSimplyJetpacks = new SJItemGroup();
+    public static final SJItemGroup tabSimplyJetpacks = (SJItemGroup) new SJItemGroup().setEnchantmentCategories(RegistryHandler.JETPACK_ENCHANTMENT_TYPE);;
 
     public static final ResourceLocation JETPACK_SLOT = new ResourceLocation(MODID, "gui/empty_jetpack_slot");
 

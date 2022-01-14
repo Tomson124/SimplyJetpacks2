@@ -1,6 +1,7 @@
 package stormedpanda.simplyjetpacks.handlers;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -39,6 +40,7 @@ public class RegistryHandler {
     public static final RegistryObject<SpecialRecipeSerializer<JetpackSpecialRecipe>> JETPACK_SPECIAL_RECIPE = RECIPE_SERIALIZERS.register("jetpack_special_recipe",() -> new SpecialRecipeSerializer<>(JetpackSpecialRecipe::new));
 
     // Enchantments:
+    public static final EnchantmentType JETPACK_ENCHANTMENT_TYPE = EnchantmentType.create("JETPACK", (item -> item instanceof JetpackItem));
     public static final RegistryObject<EnchantmentFuelEfficiency> FUEL_EFFICIENCY = ENCHANTMENTS.register("fuel_efficiency", EnchantmentFuelEfficiency::new);
 
     // Items:

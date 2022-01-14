@@ -319,6 +319,11 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         player.setDeltaMovement(motion.get(Direction.Axis.X), y, motion.get(Direction.Axis.Z));
     }
 
+    @Override
+    public boolean isEnchantable(ItemStack itemStack) {
+        return itemStack.getItem() instanceof JetpackItem;
+    }
+
     public void flyUser(PlayerEntity player, ItemStack stack, JetpackItem item, Boolean force) {
         if (isEngineOn(stack)) {
             boolean hoverMode = isHoverOn(stack);

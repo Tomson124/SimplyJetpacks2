@@ -298,7 +298,9 @@
   "config.simplyjetpacks.tuning.chargerMode.tooltip": "When enabled, this Jetpack will be able to activate Charger Mode.",
 
   "enchantment.simplyjetpacks.fuel_efficiency": "Fuel Efficiency",
+  "enchantment.simplyjetpacks.fuel_efficiency.desc": "Increases the efficiency of Jetpack fuel consumption.",
   "enchantment.simplyjetpacks.energy_efficiency": "Energy Efficiency",
+  "enchantment.simplyjetpacks.energy_efficiency.desc": "Increases the efficiency of Jetpack energy consumption.",
 
   "subtitle.simplyjetpacks.jetpack": "*Jetpack Noises*",
   "subtitle.simplyjetpacks.jetpack_other": "*Jetpack Other Noises*",
