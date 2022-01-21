@@ -37,6 +37,7 @@ public class ParticleRainbow extends SmokeParticle {
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     public static class Factory implements IParticleFactory<BasicParticleType> {
 
         private final IAnimatedSprite spriteSet;
