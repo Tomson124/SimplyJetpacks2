@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "pcp",
+    "uju",
+    "tft"
+  ],
+  "key": {
+    "p": { "item": "simplyjetpacks:armorplating_te5" },
+    "c": { "item": "simplyjetpacks:flux_chestplate" },
+    "u": { "item": "simplyjetpacks:unit_cryotheum" },
+    "j": { "item": "simplyjetpacks:jetpack_te4_armored" },
+    "t": { "item": "simplyjetpacks:thruster_te5" },
+    "f": { "item": "thermal:energy_cell" }
+  },
+  "result": {
+    "item": "simplyjetpacks:jetpack_te5",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "redstonearsenal"
+      }
+    }
+  ]
+}

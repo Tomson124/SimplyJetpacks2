@@ -2,21 +2,16 @@ package stormedpanda.simplyjetpacks;
 
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
@@ -26,22 +21,20 @@ import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import stormedpanda.simplyjetpacks.client.ClientJetpackHandler;
-import stormedpanda.simplyjetpacks.client.hud.HUDHandler;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
-import stormedpanda.simplyjetpacks.crafting.EnergyTransferHandler;
-import stormedpanda.simplyjetpacks.crafting.ModIntegrationCondition;
-import stormedpanda.simplyjetpacks.crafting.PlatingReturnHandler;
+import stormedpanda.simplyjetpacks.crafting.JetpackCraftingEvents;
+import stormedpanda.simplyjetpacks.handlers.ClientJetpackHandler;
+import stormedpanda.simplyjetpacks.handlers.CommonJetpackHandler;
 import stormedpanda.simplyjetpacks.handlers.KeybindHandler;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
-import stormedpanda.simplyjetpacks.handlers.SyncHandler;
+import stormedpanda.simplyjetpacks.hud.HUDHandler;
 import stormedpanda.simplyjetpacks.integration.CuriosIntegration;
-import stormedpanda.simplyjetpacks.integration.IntegrationList;
-import stormedpanda.simplyjetpacks.items.JetpackItem;
-import stormedpanda.simplyjetpacks.items.JetpackType;
-import stormedpanda.simplyjetpacks.items.PilotGogglesItem;
+import stormedpanda.simplyjetpacks.item.JetpackItem;
+import stormedpanda.simplyjetpacks.item.JetpackType;
+import stormedpanda.simplyjetpacks.item.PilotGogglesItem;
+import stormedpanda.simplyjetpacks.item.SJItemGroup;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
-import stormedpanda.simplyjetpacks.sound.ModSounds;
+import stormedpanda.simplyjetpacks.sound.SJSounds;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.SlotTypeMessage;
@@ -52,17 +45,15 @@ import java.util.stream.Collectors;
 @Mod(SimplyJetpacks.MODID)
 public class SimplyJetpacks {
 
-    public static SimplyJetpacks INSTANCE;
-
     public static final String MODID = "simplyjetpacks";
     public static final String MODNAME = "Simply Jetpacks 2";
     public static final String VERSION = "${version}";
 
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public static final CreativeTabSimplyJetpacks tabSimplyJetpacks = new CreativeTabSimplyJetpacks();
+    public static final SJItemGroup tabSimplyJetpacks = (SJItemGroup) new SJItemGroup().setEnchantmentCategories(RegistryHandler.JETPACK_ENCHANTMENT_TYPE);;
 
-    public static final ResourceLocation JETPACK_SLOT = new ResourceLocation(MODID, "item/empty_jetpack_slot");
+    public static final ResourceLocation JETPACK_SLOT = new ResourceLocation(MODID, "gui/empty_jetpack_slot");
 
     public SimplyJetpacks() {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onTextureStitch));
@@ -71,24 +62,16 @@ public class SimplyJetpacks {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
-
-        MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new SyncHandler());
-        MinecraftForge.EVENT_BUS.register(new PlatingReturnHandler());
-        MinecraftForge.EVENT_BUS.register(new EnergyTransferHandler());
-        MinecraftForge.EVENT_BUS.register(new ModSounds());
-        MinecraftForge.EVENT_BUS.register(SimplyJetpacksConfig.class);
         if (ModList.get().isLoaded("curios")) {
             MinecraftForge.EVENT_BUS.addGenericListener(ItemStack.class, this::attachCapabilities);
         }
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SimplyJetpacksConfig.CLIENT_SPEC, "simplyjetpacks-client.toml");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SimplyJetpacksConfig.COMMON_SPEC, "simplyjetpacks-common.toml");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SimplyJetpacksConfig.SERVER_SPEC, "simplyjetpacks-server.toml");
+        MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new JetpackCraftingEvents());
+        MinecraftForge.EVENT_BUS.register(new CommonJetpackHandler());
+        MinecraftForge.EVENT_BUS.register(new SJSounds());
 
-        CraftingHelper.register(ModIntegrationCondition.Serializer.INSTANCE);
-
-        IntegrationList.init();
+        SimplyJetpacksConfig.register();
         JetpackType.loadAllConfigs();
         RegistryHandler.init();
     }
@@ -125,13 +108,7 @@ public class SimplyJetpacks {
     @SubscribeEvent
     public void onServerStopping(FMLServerStoppingEvent event) {
         LOGGER.info("Server stopping...");
-        SyncHandler.clear();
-    }
-
-    @SubscribeEvent
-    public void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
-        LOGGER.info("Recipe Serializers Registered.");
-        CraftingHelper.register(ModIntegrationCondition.Serializer.INSTANCE);
+        CommonJetpackHandler.clear();
     }
 
     private void onTextureStitch(TextureStitchEvent.Pre event) {

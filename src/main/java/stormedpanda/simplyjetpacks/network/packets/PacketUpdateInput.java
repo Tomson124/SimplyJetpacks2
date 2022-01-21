@@ -3,11 +3,12 @@ package stormedpanda.simplyjetpacks.network.packets;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
-import stormedpanda.simplyjetpacks.handlers.SyncHandler;
+import stormedpanda.simplyjetpacks.handlers.CommonJetpackHandler;
 
 import java.util.function.Supplier;
 
 public class PacketUpdateInput {
+
     private final boolean up;
     private final boolean down;
     private final boolean forwards;
@@ -41,7 +42,7 @@ public class PacketUpdateInput {
         ctx.get().enqueueWork(() -> {
             PlayerEntity player = ctx.get().getSender();
             if (player != null) {
-                SyncHandler.update(player, message.up, message.down, message.forwards, message.backwards, message.left, message.right);
+                CommonJetpackHandler.update(player, message.up, message.down, message.forwards, message.backwards, message.left, message.right);
             }
         });
         ctx.get().setPacketHandled(true);

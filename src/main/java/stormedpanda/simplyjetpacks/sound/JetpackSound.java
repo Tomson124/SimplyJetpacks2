@@ -6,7 +6,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import stormedpanda.simplyjetpacks.client.ClientJetpackHandler;
+import stormedpanda.simplyjetpacks.handlers.ClientJetpackHandler;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,12 +14,13 @@ import java.util.Map;
 
 @OnlyIn(Dist.CLIENT)
 public class JetpackSound extends TickableSound {
+
     private static final Map<Integer, JetpackSound> PLAYING_FOR = Collections.synchronizedMap(new HashMap<>());
     private final PlayerEntity player;
     private int fadeOut = -1;
 
     public JetpackSound(PlayerEntity player) {
-        super(ModSounds.JETPACK, SoundCategory.PLAYERS);
+        super(SJSounds.JETPACK, SoundCategory.PLAYERS);
         this.player = player;
         this.looping = true;
         PLAYING_FOR.put(player.getId(), this);
@@ -47,7 +48,7 @@ public class JetpackSound extends TickableSound {
         if (this.fadeOut >= 5) {
             this.stop();
         } else
-        if(this.fadeOut >= 0) {
+        if (this.fadeOut >= 0) {
             this.volume = 1.0F - this.fadeOut / 5F;
             this.fadeOut++;
         }

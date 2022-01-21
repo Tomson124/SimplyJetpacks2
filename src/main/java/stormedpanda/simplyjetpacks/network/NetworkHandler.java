@@ -18,7 +18,7 @@ public class NetworkHandler {
     }
 
     public static void registerMessages() {
-        CHANNEL_INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(SimplyJetpacks.MODID, SimplyJetpacks.MODID), () -> "1.0", s -> true, s -> true);
+        CHANNEL_INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(SimplyJetpacks.MODID, "simplyjetpacks"), () -> "1.0", s -> true, s -> true);
 
         CHANNEL_INSTANCE.messageBuilder(PacketToggleEngine.class, nextID())
                 .encoder(PacketToggleEngine::toBytes)
@@ -48,10 +48,16 @@ public class NetworkHandler {
                 .decoder(PacketUpdateInput::fromBytes)
                 .consumer(PacketUpdateInput::handle)
                 .add();
+
+        CHANNEL_INSTANCE.messageBuilder(PacketUpdateThrottle.class, nextID())
+                .encoder(PacketUpdateThrottle::toBytes)
+                .decoder(PacketUpdateThrottle::fromBytes)
+                .consumer(PacketUpdateThrottle::handle)
+                .add();
     }
 
     public static void sendToClient(Object packet, ServerPlayerEntity player) {
-        CHANNEL_INSTANCE.sendTo(packet, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
+        CHANNEL_INSTANCE.sendTo(packet, player.connection.getConnection(), NetworkDirection.PLAY_TO_CLIENT);
     }
 
     public static void sendToServer(Object packet) {

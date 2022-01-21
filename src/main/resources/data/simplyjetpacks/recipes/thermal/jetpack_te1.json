@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ibi",
+    "iji",
+    "t t"
+  ],
+  "key": {
+    "i": { "tag": "forge:ingots/lead" },
+    "b": { "item": "thermal:energy_cell" },
+    "j": { "item": "simplyjetpacks:leather_strap" },
+    "t": { "item": "simplyjetpacks:thruster_te1" }
+  },
+  "result": {
+    "item": "simplyjetpacks:jetpack_te1",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    }
+  ]
+}

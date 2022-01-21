@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "nnn",
+    "did",
+    "nnn"
+  ],
+  "key": {
+    "n": { "tag": "forge:nuggets/enderium" },
+    "d": { "tag": "forge:gems/emerald" },
+    "i": { "tag": "forge:ingots/enderium" }
+  },
+  "result": {
+    "item": "simplyjetpacks:armorplating_te5_enderium",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "redstonerepository"
+      }
+    }
+  ]
+}

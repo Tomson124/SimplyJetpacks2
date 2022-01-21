@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ppp",
+    "pjp",
+    "ppp"
+  ],
+  "key": {
+    "p": { "item": "simplyjetpacks:armorplating_te5_enderium" },
+    "j": { "item": "simplyjetpacks:jetpack_te5" }
+  },
+  "result": {
+    "item": "simplyjetpacks:jetpack_te5_enderium",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "redstonerepository"
+      }
+    }
+  ]
+}

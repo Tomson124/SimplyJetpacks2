@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "simplyjetpacks:jetpack_vanilla2_armored"
+    }
+  ],
+  "result": {
+    "item": "simplyjetpacks:jetpack_vanilla2"
+  }
+}

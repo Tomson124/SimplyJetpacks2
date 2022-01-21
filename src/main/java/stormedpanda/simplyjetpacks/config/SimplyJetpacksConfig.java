@@ -1,210 +1,242 @@
 package stormedpanda.simplyjetpacks.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
-import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
-import net.minecraftforge.common.ForgeConfigSpec.IntValue;
+import net.minecraftforge.common.ForgeConfigSpec.Builder;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import org.apache.commons.lang3.tuple.Pair;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
-import stormedpanda.simplyjetpacks.integration.IntegrationList;
+import stormedpanda.simplyjetpacks.item.JetpackType;
 
 @Mod.EventBusSubscriber(modid = SimplyJetpacks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SimplyJetpacksConfig {
 
-    public static class Client {
+    public static final Builder CLIENT_BUILDER = new Builder();
+    public static final Builder COMMON_BUILDER = new Builder();
+    public static final Builder SERVER_BUILDER = new Builder();
 
-        public final BooleanValue invertHoverSneakingBehavior;
-        public final BooleanValue enableJetpackSounds;
-        public final BooleanValue showExactEnergy;
-        public final BooleanValue enableStateMessages;
-        public final BooleanValue enableJetpackHud;
-        public final IntValue hudTextColor;
-        public final EnumValue<ConfigDefaults.HUDPosition> hudTextPosition;
-        public final IntValue hudXOffset;
-        public final IntValue hudYOffset;
-        public final ForgeConfigSpec.LongValue hudScale;
-        public final BooleanValue hudTextShadow;
+    public static ForgeConfigSpec CLIENT_CONFIG;
+    public static ForgeConfigSpec COMMON_CONFIG;
+    public static ForgeConfigSpec SERVER_CONFIG;
 
-        public Client(ForgeConfigSpec.Builder builder) {
-            builder.comment("Simply Jetpacks 2 - Client Configurations").push("simplyjetpacks-client");
+    public static void register() {
+        setupClientConfig();
+        setupCommonConfig();
+        setupServerConfig();
 
-            builder.comment("Controls Configurations").push("controls");
+        CLIENT_CONFIG = CLIENT_BUILDER.build();
+        COMMON_CONFIG = COMMON_BUILDER.build();
+        SERVER_CONFIG = SERVER_BUILDER.build();
 
-            invertHoverSneakingBehavior = builder
-                    .comment("This sets whether you must hold sneak to hover.")
-                    .translation("config.simplyjetpacks.invertHoverSneakingBehavior")
-                    .define("invertHoverSneakingBehavior", ConfigDefaults.invertHoverSneakingBehavior);
-
-            builder.pop();
-
-            builder.comment("Audio Configurations").push("audio");
-
-            enableJetpackSounds = builder
-                    .comment("This sets whether jetpack sounds will play.")
-                    .translation("config.simplyjetpacks.enableJetpackSounds")
-                    .define("enableJetpackSounds", ConfigDefaults.enableJetpackSounds);
-
-            builder.pop();
-
-            builder.comment("GUI Configurations").push("gui");
-
-            showExactEnergy = builder
-                    .comment("Show exact Energy of Jetpack in HUD")
-                    .translation("config.simplyjetpacks.showExactEnergy")
-                    .define("showExactEnergy", ConfigDefaults.showExactEnergy);
-
-            enableStateMessages = builder
-                    .comment("This sets whether or not jetpack state messages will show.")
-                    .translation("config.simplyjetpacks.enableStateMessages")
-                    .define("enableStateMessages", ConfigDefaults.enableStateMessages);
-
-            enableJetpackHud = builder
-                    .comment("This sets whether or not the jetpack HUD will be visible.")
-                    .translation("config.simplyjetpacks.enableJetpackHud")
-                    .define("enableJetpackHud", ConfigDefaults.enableJetpackHud);
-
-            hudTextColor = builder
-                    .comment("This sets the color of the Jetpack HUD.")
-                    .translation("config.simplyjetpacks.hudTextColor")
-                    .defineInRange("hudTextColor", ConfigDefaults.hudTextColor, Integer.MIN_VALUE, Integer.MAX_VALUE);
-
-            hudTextPosition = builder
-                    .comment("HUD Position")
-                    .translation("config.simplyjetpacks.hudTextPosition")
-                    .defineEnum("hudTextPosition", ConfigDefaults.hudTextPosition);
-
-            hudXOffset = builder
-                    .comment("HUD Position X Offset")
-                    .translation("config.simplyjetpacks.hudXOffset")
-                    .defineInRange("hudXOffset", ConfigDefaults.hudXOffset, Integer.MIN_VALUE, Integer.MAX_VALUE);
-
-            hudYOffset = builder
-                    .comment("HUD Position Y Offset")
-                    .translation("config.simplyjetpacks.hudYOffset")
-                    .defineInRange("hudYOffset", ConfigDefaults.hudYOffset, Integer.MIN_VALUE, Integer.MAX_VALUE);
-
-            hudScale = builder
-                    .comment("HUD Scale")
-                    .translation("config.simplyjetpacks.hudScale")
-                    .defineInRange("hudScale", ConfigDefaults.hudScale, 1, 100);
-
-            hudTextShadow = builder
-                    .comment("HUD Text Shadow")
-                    .translation("config.simplyjetpacks.hudTextShadow")
-                    .define("hudTextShadow", ConfigDefaults.hudTextShadow);
-
-            builder.pop();
-        }
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG);
     }
 
-    public static class Common {
+    private static void setupClientConfig() {
+        CLIENT_BUILDER.comment("Simply Jetpacks 2 - Client Configurations").push("simplyjetpacks-client");
 
-        public final BooleanValue enableIntegrationVanilla;
-        public final BooleanValue enableIntegrationImmersiveEngineering;
-        public final BooleanValue enableIntegrationMekanism;
-        public final BooleanValue enableIntegrationEnderIO;
-        public final BooleanValue enableIntegrationThermalExpansion;
-        public final BooleanValue enableIntegrationThermalDynamics;
-        public final BooleanValue enableJoinAdvancements;
+        CLIENT_BUILDER.comment("Controls Configurations").push("controls");
 
-        public Common(ForgeConfigSpec.Builder builder) {
-            builder.comment("Simply Jetpacks 2 - Common Configurations").push("simplyjetpacks-common");
+        invertHoverSneakingBehavior = CLIENT_BUILDER
+                .comment("This sets whether you must hold sneak to hover.")
+                .translation("config.simplyjetpacks.invertHoverSneakingBehavior")
+                .define("invertHoverSneakingBehavior", ConfigDefaults.invertHoverSneakingBehavior);
 
-            builder.comment("Integration Configurations").push("integration");
-            enableIntegrationVanilla = builder
-                    .comment("Enable Vanilla Jetpacks Integration.")
-                    .translation("config.simplyjetpacks.enableIntegrationVanilla")
-                    .worldRestart()
-                    .define("enableIntegrationVanilla", ConfigDefaults.enableIntegrationVanilla);
+        CLIENT_BUILDER.pop();
 
-            enableIntegrationImmersiveEngineering = builder
-                    .comment("Enable Immersive Engineering Jetpacks Integration.")
-                    .translation("config.simplyjetpacks.enableIntegrationImmersiveEngineering")
-                    .worldRestart()
-                    .define("enableIntegrationImmersiveEngineering", ConfigDefaults.enableIntegrationImmersiveEngineering);
+        CLIENT_BUILDER.comment("Audio Configurations").push("audio");
 
-            enableIntegrationMekanism = builder
-                    .comment("Enable Mekanism Jetpacks Integration.")
-                    .translation("config.simplyjetpacks.enableIntegrationMekanism")
-                    .worldRestart()
-                    .define("enableIntegrationMekanism", ConfigDefaults.enableIntegrationMekanism);
+        enableJetpackSounds = CLIENT_BUILDER
+                .comment("This sets whether Jetpack sounds will play.")
+                .translation("config.simplyjetpacks.enableJetpackSounds")
+                .define("enableJetpackSounds", ConfigDefaults.enableJetpackSounds);
 
-            enableIntegrationEnderIO = builder
-                    .comment("Enable EnderIO Jetpacks Integration.")
-                    .translation("config.simplyjetpacks.enableIntegrationEnderIO")
-                    .worldRestart()
-                    .define("enableIntegrationEnderIO", ConfigDefaults.enableIntegrationEnderIO);
+        CLIENT_BUILDER.pop();
 
-            enableIntegrationThermalExpansion = builder
-                    .comment("Enable Thermal Expansion Jetpacks Integration.")
-                    .translation("config.simplyjetpacks.enableIntegrationThermalExpansion")
-                    .worldRestart()
-                    .define("enableIntegrationThermalExpansion", ConfigDefaults.enableIntegrationThermalExpansion);
+        CLIENT_BUILDER.comment("Visual Configurations").push("visual");
 
-            enableIntegrationThermalDynamics = builder
-                    .comment("Enable Thermal Dynamics Jetpacks Integration.")
-                    .translation("config.simplyjetpacks.enableIntegrationThermalDynamics")
-                    .worldRestart()
-                    .define("enableIntegrationThermalDynamics", ConfigDefaults.enableIntegrationThermalDynamics);
+        enableJetpackParticles = CLIENT_BUILDER
+                .comment("This sets whether Jetpack particles will be displayed.")
+                .translation("config.simplyjetpacks.enableJetpackParticles")
+                .define("enableJetpackParticles", ConfigDefaults.enableJetpackParticles);
 
-            builder.pop();
+        CLIENT_BUILDER.pop();
 
-            builder.comment("Jetpack Tuning Configurations").push("tuning");
+        CLIENT_BUILDER.comment("GUI Configurations").push("gui");
 
-            builder.pop();
+        showThrottle = CLIENT_BUILDER
+                .comment("Show the Throttle value in the Jetpack HUD.")
+                .translation("config.simplyjetpacks.showThrottle")
+                .define("showThrottle", ConfigDefaults.showThrottle);
 
-            builder.comment("Misc Configurations").push("misc");
+        showExactEnergy = CLIENT_BUILDER
+                .comment("Show the exact energy of the Jetpack in the HUD.")
+                .translation("config.simplyjetpacks.showExactEnergy")
+                .define("showExactEnergy", ConfigDefaults.showExactEnergy);
 
-            enableJoinAdvancements = builder
-                    .comment("Enable Join Advancements")
-                    .translation("config.simplyjetpacks.enableJoinAdvancements")
-                    .define("enableJoinAdvancements", ConfigDefaults.enableJoinAdvancements);
+        enableStateMessages = CLIENT_BUILDER
+                .comment("This sets whether or not Jetpack state messages will show.")
+                .translation("config.simplyjetpacks.enableStateMessages")
+                .define("enableStateMessages", ConfigDefaults.enableStateMessages);
 
-            builder.pop();
-        }
+        enableJetpackHud = CLIENT_BUILDER
+                .comment("This sets whether or not the Jetpack HUD will be visible.")
+                .translation("config.simplyjetpacks.enableJetpackHud")
+                .define("enableJetpackHud", ConfigDefaults.enableJetpackHud);
+
+        showHoverState = CLIENT_BUILDER
+                .comment("Show the Hover State in the HUD.")
+                .translation("config.simplyjetpacks.showHoverState")
+                .define("showHoverState", ConfigDefaults.showHoverState);
+
+        showEHoverState = CLIENT_BUILDER
+                .comment("Show the Emergency Hover State in the HUD.")
+                .translation("config.simplyjetpacks.showEHoverState")
+                .define("showEHoverState", ConfigDefaults.showEHoverState);
+
+        showChargerState = CLIENT_BUILDER
+                .comment("Show the Charger State in the HUD.")
+                .translation("config.simplyjetpacks.showChargerState")
+                .define("showChargerState", ConfigDefaults.showChargerState);
+
+        hudTextColor = CLIENT_BUILDER
+                .comment("This sets the color of the Jetpack HUD.")
+                .translation("config.simplyjetpacks.hudTextColor")
+                .defineInRange("hudTextColor", ConfigDefaults.hudTextColor, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+        hudTextPosition = CLIENT_BUILDER
+                .comment("Set the position of the Jetpack HUD on the screen.")
+                .translation("config.simplyjetpacks.hudTextPosition")
+                .defineEnum("hudTextPosition", ConfigDefaults.hudTextPosition);
+
+        hudXOffset = CLIENT_BUILDER
+                .comment("Set the X offset of the Jetpack HUD on the screen.")
+                .translation("config.simplyjetpacks.hudXOffset")
+                .defineInRange("hudXOffset", ConfigDefaults.hudXOffset, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+        hudYOffset = CLIENT_BUILDER
+                .comment("Set the Y offset of the Jetpack HUD on the screen.")
+                .translation("config.simplyjetpacks.hudYOffset")
+                .defineInRange("hudYOffset", ConfigDefaults.hudYOffset, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+        hudScale = CLIENT_BUILDER
+                .comment("Set the scale of the Jetpack HUD on the screen.")
+                .translation("config.simplyjetpacks.hudScale")
+                .defineInRange("hudScale", ConfigDefaults.hudScale, 1, 100);
+
+        hudTextShadow = CLIENT_BUILDER
+                .comment("Set if the Jetpack HUD values have text shadows.")
+                .translation("config.simplyjetpacks.hudTextShadow")
+                .define("hudTextShadow", ConfigDefaults.hudTextShadow);
+
+        CLIENT_BUILDER.pop();
+        CLIENT_BUILDER.pop();
     }
 
-    public static class Server {
-        public Server(ForgeConfigSpec.Builder builder) {
-            builder.comment("Simply Jetpacks 2 - Server Configurations").push("simplyjetpacks-server");
-            builder.pop();
-        }
+    private static void setupCommonConfig() {
+        COMMON_BUILDER.comment("Simply Jetpacks 2 - Common Configurations").push("simplyjetpacks-common");
+
+        COMMON_BUILDER.comment("Integration Configurations").push("integration");
+
+        enableIntegrationVanilla = COMMON_BUILDER
+                .comment("Enable Vanilla Jetpacks Integration.")
+                .translation("config.simplyjetpacks.enableIntegrationVanilla")
+                .worldRestart()
+                .define("enableIntegrationVanilla", ConfigDefaults.enableIntegrationVanilla);
+
+        enableIntegrationImmersiveEngineering = COMMON_BUILDER
+                .comment("Enable Immersive Engineering Jetpacks Integration.")
+                .translation("config.simplyjetpacks.enableIntegrationImmersiveEngineering")
+                .worldRestart()
+                .define("enableIntegrationImmersiveEngineering", ConfigDefaults.enableIntegrationImmersiveEngineering);
+
+        enableIntegrationMekanism = COMMON_BUILDER
+                .comment("Enable Mekanism Jetpacks Integration.")
+                .translation("config.simplyjetpacks.enableIntegrationMekanism")
+                .worldRestart()
+                .define("enableIntegrationMekanism", ConfigDefaults.enableIntegrationMekanism);
+
+        enableIntegrationEnderIO = COMMON_BUILDER
+                .comment("Enable EnderIO Jetpacks Integration.")
+                .translation("config.simplyjetpacks.enableIntegrationEnderIO")
+                .worldRestart()
+                .define("enableIntegrationEnderIO", ConfigDefaults.enableIntegrationEnderIO);
+
+        enableIntegrationThermalExpansion = COMMON_BUILDER
+                .comment("Enable Thermal Expansion Jetpacks Integration.")
+                .translation("config.simplyjetpacks.enableIntegrationThermalExpansion")
+                .worldRestart()
+                .define("enableIntegrationThermalExpansion", ConfigDefaults.enableIntegrationThermalExpansion);
+
+        enableIntegrationThermalDynamics = COMMON_BUILDER
+                .comment("Enable Thermal Dynamics Jetpacks Integration.")
+                .translation("config.simplyjetpacks.enableIntegrationThermalDynamics")
+                .worldRestart()
+                .define("enableIntegrationThermalDynamics", ConfigDefaults.enableIntegrationThermalDynamics);
+
+        COMMON_BUILDER.pop();
+
+        COMMON_BUILDER.comment("Jetpack Tuning Configurations").push("tuning");
+        JetpackConfig.createJetpackConfig(COMMON_BUILDER);
+        COMMON_BUILDER.pop();
+
+        COMMON_BUILDER.comment("Misc Configurations").push("misc");
+
+        enableJoinAdvancements = COMMON_BUILDER
+                .comment("Enable Advancements on Player join.")
+                .translation("config.simplyjetpacks.enableJoinAdvancements")
+                .define("enableJoinAdvancements", ConfigDefaults.enableJoinAdvancements);
+
+        COMMON_BUILDER.pop();
+        COMMON_BUILDER.pop();
     }
 
-    public static final ForgeConfigSpec CLIENT_SPEC;
-    public static final Client CLIENT;
-    static {
-        final Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
-        CLIENT_SPEC = specPair.getRight();
-        CLIENT = specPair.getLeft();
-    }
-
-    public static final ForgeConfigSpec COMMON_SPEC;
-    public static final Common COMMON;
-    static {
-        final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
-        COMMON_SPEC = specPair.getRight();
-        COMMON = specPair.getLeft();
-    }
-
-    public static final ForgeConfigSpec SERVER_SPEC;
-    public static final Server SERVER;
-    static {
-        final Pair<Server, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Server::new);
-        SERVER_SPEC = specPair.getRight();
-        SERVER = specPair.getLeft();
+    private static void setupServerConfig() {
+        SERVER_BUILDER.comment("Simply Jetpacks 2 - Server Configurations").push("simplyjetpacks-server");
+        //JetpackConfig.createJetpackConfig(SERVER_BUILDER);
+        SERVER_BUILDER.pop();
     }
 
     @SubscribeEvent
-    public static void onLoad(final ModConfig.Loading event) {
-        IntegrationList.init();
+    public static void onLoad(final ModConfig.Loading configEvent) {
+        SimplyJetpacks.LOGGER.info("Config Loaded: {}", configEvent.getConfig().getFileName());
+        JetpackType.loadAllConfigs();
     }
 
     @SubscribeEvent
-    public static void onFileChange(final ModConfig.Reloading event) {
-        IntegrationList.init();
+    public static void onFileChange(final ModConfig.Reloading configEvent) {
+        SimplyJetpacks.LOGGER.info("Config Re-Loaded: {}", configEvent.getConfig().getFileName());
+        JetpackType.loadAllConfigs();
     }
+
+    // Client
+    public static ForgeConfigSpec.BooleanValue invertHoverSneakingBehavior;
+    public static ForgeConfigSpec.BooleanValue enableJetpackSounds;
+    public static ForgeConfigSpec.BooleanValue enableJetpackParticles;
+    public static ForgeConfigSpec.BooleanValue showThrottle;
+    public static ForgeConfigSpec.BooleanValue showExactEnergy;
+    public static ForgeConfigSpec.BooleanValue enableStateMessages;
+    public static ForgeConfigSpec.BooleanValue enableJetpackHud;
+    public static ForgeConfigSpec.BooleanValue showHoverState;
+    public static ForgeConfigSpec.BooleanValue showEHoverState;
+    public static ForgeConfigSpec.BooleanValue showChargerState;
+    public static ForgeConfigSpec.BooleanValue hudTextShadow;
+    public static ForgeConfigSpec.IntValue hudTextColor;
+    public static ForgeConfigSpec.IntValue hudXOffset;
+    public static ForgeConfigSpec.IntValue hudYOffset;
+    public static ForgeConfigSpec.LongValue hudScale;
+    public static ForgeConfigSpec.EnumValue<ConfigDefaults.HUDPosition> hudTextPosition;
+
+    // Common
+    public static ForgeConfigSpec.BooleanValue enableIntegrationVanilla;
+    public static ForgeConfigSpec.BooleanValue enableIntegrationImmersiveEngineering;
+    public static ForgeConfigSpec.BooleanValue enableIntegrationMekanism;
+    public static ForgeConfigSpec.BooleanValue enableIntegrationEnderIO;
+    public static ForgeConfigSpec.BooleanValue enableIntegrationThermalExpansion;
+    public static ForgeConfigSpec.BooleanValue enableIntegrationThermalDynamics;
+    public static ForgeConfigSpec.BooleanValue enableJoinAdvancements;
+
+    // Server
 }

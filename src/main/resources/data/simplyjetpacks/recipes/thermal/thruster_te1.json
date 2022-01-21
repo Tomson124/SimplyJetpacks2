@@ -2,13 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "ici",
-    "fdf",
+    "cdc",
     "iri"
   ],
   "key": {
     "i": { "tag": "forge:ingots/lead" },
     "c": { "item": "thermal:rf_coil" },
-    "f": { "item": "thermal:fluxduct_leadstone" },
     "d": { "item": "thermal:dynamo_stirling" },
     "r": { "tag": "forge:dusts/redstone" }
   },
@@ -18,7 +17,7 @@
   },
   "conditions": [
     {
-      "type": "simplyjetpacks:mod_integration",
+      "type": "forge:mod_loaded",
       "modid": "thermal"
     }
   ]

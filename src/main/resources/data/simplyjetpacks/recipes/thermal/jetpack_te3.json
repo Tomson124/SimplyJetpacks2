@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ibi",
+    "iji",
+    "t t"
+  ],
+  "key": {
+    "i": { "tag": "forge:ingots/electrum" },
+    "b": { "item": "thermal:energy_cell" },
+    "j": { "item": "simplyjetpacks:jetpack_te2" },
+    "t": { "item": "simplyjetpacks:thruster_te3" }
+  },
+  "result": {
+    "item": "simplyjetpacks:jetpack_te3",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    }
+  ]
+}

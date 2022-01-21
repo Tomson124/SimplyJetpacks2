@@ -1,6 +1,6 @@
 package stormedpanda.simplyjetpacks.config;
 
-public abstract class ConfigDefaults {
+public class ConfigDefaults {
 
     // Mod Integration
     public static final boolean enableIntegrationVanilla = true;
@@ -17,17 +17,22 @@ public abstract class ConfigDefaults {
     public static final boolean enableJetpackSounds = true;
 
     // GUI
+    public static final boolean showThrottle = true;
     public static final boolean showExactEnergy = false;
     public static final boolean enableStateMessages = true;
     public static final boolean enableJetpackHud = true;
+    public static final boolean showHoverState = true;
+    public static final boolean showEHoverState = true;
+    public static final boolean showChargerState = true;
+    public static final boolean hudTextShadow = true;
     public static final int hudTextColor = 0xFFFFFF;
-    public static final HUDPosition hudTextPosition = HUDPosition.TOP_LEFT;
     public static final int hudXOffset = 0;
     public static final int hudYOffset = 0;
     public static final long hudScale = 1;
-    public static final boolean hudTextShadow = true;
+    public static final HUDPosition hudTextPosition = HUDPosition.TOP_LEFT;
 
     // Misc
+    public static final boolean enableJetpackParticles = true;
     public static final boolean enableJoinAdvancements = true;
 
     public enum HUDPosition {
@@ -37,6 +42,6 @@ public abstract class ConfigDefaults {
         LEFT,
         RIGHT,
         BOTTOM_LEFT,
-        BOTTOM_RIGHT,
+        BOTTOM_RIGHT;
     }
 }

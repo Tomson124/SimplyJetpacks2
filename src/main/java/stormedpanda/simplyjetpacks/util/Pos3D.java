@@ -7,6 +7,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
 
@@ -26,10 +27,6 @@ public class Pos3D extends Vector3d {
     public Pos3D(Vector3d vec) {
         super(vec.x, vec.y, vec.z);
     }
-
-/*    public Pos3D(Coord4D coord) {
-        super(coord.getX(), coord.getY(), coord.getZ());
-    }*/
 
     public Pos3D(double x, double y, double z) {
         super(x, y, z);
@@ -78,7 +75,7 @@ public class Pos3D extends Vector3d {
         return Math.acos(pos1.dot(pos2));
     }
 
-    public static AxisAlignedBB getAABB(Pos3D pos1, Pos3D pos2) {
+    public static AxisAlignedBB getAABB(Vector3d pos1, Vector3d pos2) {
         return new AxisAlignedBB(pos1.x, pos1.y, pos1.z, pos2.x, pos2.y, pos2.z);
     }
 
@@ -107,16 +104,6 @@ public class Pos3D extends Vector3d {
         return new Pos3D(x - vec.x, y - vec.y, z - vec.z);
     }
 
-    /**
-     * Creates a new Coord4D representing this Pos3D in the provided dimension.
-     *
-     * @param dimension - the dimension this Pos3D is in
-     *
-     * @return Coord4D representing this Pos3D
-     */
-/*    public Coord4D getCoord(RegistryKey<World> dimension) {
-        return new Coord4D((int) x, (int) y, (int) z, dimension);
-    }*/
 
     /**
      * Centres a block-derived Pos3D
@@ -232,8 +219,10 @@ public class Pos3D extends Vector3d {
         double xPos = x;
         double zPos = z;
         if (yaw != 0) {
-            xPos = x * Math.cos(yawRadians) - z * Math.sin(yawRadians);
-            zPos = z * Math.cos(yawRadians) + x * Math.sin(yawRadians);
+            double cos = Math.cos(yawRadians);
+            double sin = Math.sin(yawRadians);
+            xPos = x * cos - z * sin;
+            zPos = z * cos + x * sin;
         }
         return new Pos3D(xPos, y, zPos);
     }
@@ -245,8 +234,10 @@ public class Pos3D extends Vector3d {
         double yPos = y;
         double zPos = z;
         if (pitch != 0) {
-            yPos = y * Math.cos(pitchRadians) - z * Math.sin(pitchRadians);
-            zPos = z * Math.cos(pitchRadians) + y * Math.sin(pitchRadians);
+            double cos = Math.cos(pitchRadians);
+            double sin = Math.sin(pitchRadians);
+            yPos = y * cos - z * sin;
+            zPos = z * cos + y * sin;
         }
         return new Pos3D(x, yPos, zPos);
     }
@@ -270,8 +261,10 @@ public class Pos3D extends Vector3d {
         return new Pos3D(xPos, yPos, zPos);
     }
 
+    @Nonnull
+    @Override
     public Pos3D multiply(Vector3d pos) {
-        return scale(pos.x, pos.y, pos.z);
+        return multiply(pos.x, pos.y, pos.z);
     }
 
     /**
@@ -283,30 +276,35 @@ public class Pos3D extends Vector3d {
      *
      * @return scaled Pos3D
      */
-    public Pos3D scale(double x, double y, double z) {
+    @Nonnull
+    @Override
+    public Pos3D multiply(double x, double y, double z) {
         return new Pos3D(this.x * x, this.y * y, this.z * z);
     }
 
     @Nonnull
     @Override
     public Pos3D scale(double scale) {
-        return scale(scale, scale, scale);
+        return multiply(scale, scale, scale);
     }
 
     public Pos3D rotate(float angle, Pos3D axis) {
         return translateMatrix(getRotationMatrix(angle, axis), this);
     }
 
-/*    public Pos3D transform(Quaternion quaternion) {
+    public Pos3D transform(Quaternion quaternion) {
         Quaternion q = quaternion.copy();
-        q.multiply(new Quaternion(x, y, z, 0.0F));
-        q.multiply(quaternion.copy().conjugate());
-        return new Pos3D(q.getX(), q.getY(), q.getZ());
-    }*/
+        q.mul(new Quaternion((float)x, (float)y, (float)z, 0.0F));
+        Quaternion q2 = quaternion.copy();
+        q2.conj();
+        q.mul(q2);
+        return new Pos3D(q.i(), q.j(), q.k());
+    }
 
     public double[] getRotationMatrix(float angle) {
         double[] matrix = new double[16];
-        Pos3D axis = clone().normalize();
+        //Note: We don't need to bother cloning it here as normalize will return a new object regardless
+        Vector3d axis = normalize();
 
         double x = axis.x;
         double y = axis.y;
@@ -376,9 +374,9 @@ public class Pos3D extends Vector3d {
     @Override
     public int hashCode() {
         int code = 1;
-        code = 31 * code + new Double(x).hashCode();
-        code = 31 * code + new Double(y).hashCode();
-        code = 31 * code + new Double(z).hashCode();
+        code = 31 * code + Double.hashCode(x);
+        code = 31 * code + Double.hashCode(y);
+        code = 31 * code + Double.hashCode(z);
         return code;
     }
 }

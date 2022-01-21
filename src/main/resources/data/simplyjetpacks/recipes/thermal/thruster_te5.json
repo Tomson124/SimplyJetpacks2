@@ -7,7 +7,7 @@
   ],
   "key": {
     "i": { "tag": "forge:ingots/signalum" },
-    "p": { "item": "simplyjetpacks:armorplating_te5" },
+    "p": { "item": "redstonearsenal:flux_armorplating" },
     "u": { "item": "simplyjetpacks:unit_glowstone" },
     "t": { "item": "simplyjetpacks:thruster_te4" }
   },
@@ -17,8 +17,12 @@
   },
   "conditions": [
     {
-      "type": "simplyjetpacks:mod_integration",
+      "type": "forge:mod_loaded",
       "modid": "thermal"
+    },
+    {
+      "type": "forge:mod_loaded",
+      "modid": "redstonearsenal"
     }
   ]
 }

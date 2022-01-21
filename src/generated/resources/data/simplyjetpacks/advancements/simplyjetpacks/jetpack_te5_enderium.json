@@ -1,0 +1,35 @@
+{
+  "parent": "simplyjetpacks:simplyjetpacks/jetpack_te5",
+  "display": {
+    "icon": {
+      "item": "simplyjetpacks:jetpack_te5_enderium"
+    },
+    "title": {
+      "translate": "advancement.simplyjetpacks.jetpack_te5_enderium.title"
+    },
+    "description": {
+      "translate": "advancement.simplyjetpacks.jetpack_te5_enderium.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_jetpack": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "simplyjetpacks:jetpack_te5_enderium"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_jetpack"
+    ]
+  ]
+}

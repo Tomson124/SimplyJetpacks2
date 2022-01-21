@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "p p",
+    "ppp",
+    "ppp"
+  ],
+  "key": {
+    "p": { "item": "simplyjetpacks:armorplating_te5" }
+  },
+  "result": {
+    "item": "simplyjetpacks:flux_chestplate",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "redstonearsenal"
+      }
+    }
+  ]
+}

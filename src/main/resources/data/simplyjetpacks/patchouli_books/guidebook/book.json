@@ -1,8 +1,19 @@
 {
-  "name": "Simply Jetpacks 2",
-  "landing_text": "This book is a Work-In-Progress, the information is not yet complete. Welcome to the Simply Jetpacks 2 Patchouli Manual.",
+  "name": "guidebook.simplyjetpacks.name",
+  "landing_text": "guidebook.simplyjetpacks.landing_text",
+  "subtitle" : "guidebook.simplyjetpacks.subtitle",
   "creative_tab": "simplyjetpacks.main",
-  "subtitle" : "The Complete Guide (WIP)",
+  "book_texture" : "simplyjetpacks:textures/gui/guidebook/book_texture.png",
+  "filler_texture": "simplyjetpacks:textures/gui/guidebook/filler_texture.png",
+  "model" : "simplyjetpacks:guidebook",
+  "text_color": "000000",
+  "header_color": "333333",
+  "nameplate_color": "FFDD00",
+  "link_color": "0000EE",
+  "link_hover_color": "8800EE",
+  "progress_bar_color": "FFFF55",
+  "progress_bar_background": "DDDDDD",
+  "advancements_tab": "simplyjetpacks",
   "show_progress": false,
   "version": 0
 }
