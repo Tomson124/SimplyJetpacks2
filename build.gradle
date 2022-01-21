@@ -31,9 +31,9 @@ minecraft {
         client {
             workingDirectory project.file('run')
 
-            // needed for Patchouli in dev
-//            property 'mixin.env.remapRefMap', 'true'
-//            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            // Needed for Patchouli in dev.
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
@@ -107,36 +107,37 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    //compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
-    //runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
+//    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
 
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 
-    //compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${top_version}:api")
-    //runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${top_version}")
+//    compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${top_version}:api")
+    runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${top_version}")
 
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}:api")
-    //runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}")
 
-    //runtimeOnly fg.deobf("curse.maven:cofhcore-69162:3556973")
-    //runtimeOnly fg.deobf("curse.maven:thermalfoundation-222880:3556953")
-    //runtimeOnly fg.deobf("curse.maven:thermalexpansion-69163:3556990")
-    //runtimeOnly fg.deobf("curse.maven:thermalinnovation-291737:3556270")
-    //runtimeOnly fg.deobf("curse.maven:thermal-dynamics-227443:x")
-    //runtimeOnly fg.deobf("curse.maven:redstone-arsenal-70631:x")
-    //runtimeOnly fg.deobf("curse.maven:redstone-repository-revolved-300750:x") // TODO: add this.
+    runtimeOnly fg.deobf("curse.maven:cofhcore-69162:3556973")
+    runtimeOnly fg.deobf("curse.maven:thermalfoundation-222880:3556953")
+    runtimeOnly fg.deobf("curse.maven:thermalexpansion-69163:3556990")
+    runtimeOnly fg.deobf("curse.maven:thermalinnovation-291737:3556270")
+//    runtimeOnly fg.deobf("curse.maven:thermal-dynamics-227443:x")
+//    runtimeOnly fg.deobf("curse.maven:redstone-arsenal-70631:x")
+//    runtimeOnly fg.deobf("curse.maven:redstone-repository-revolved-300750:x") // TODO: add this.
 
     //compileOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:api")
-    //runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")
-    //runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:additions")
-    //runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:generators")
-    //runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:tools")
+    runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")
+    runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:additions")
+    runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:generators")
+    runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:tools")
 
-    //runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${immersiveengineering_version}")
-    //runtimeOnly fg.deobf("curse.maven:immersiveengineering-231951:3578181")
+    // FIXME: Immersive Engineering breaks data gen.
+//    runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${immersiveengineering_version}")
+//    runtimeOnly fg.deobf("curse.maven:immersiveengcineering-231951:3578181")
 
-    //runtimeOnly fg.deobf("curse.maven:configured-457570:3434071")
+    runtimeOnly fg.deobf("curse.maven:configured-457570:3434071")
 }
 
 jar {
