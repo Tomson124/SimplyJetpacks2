@@ -133,8 +133,8 @@ dependencies {
     runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:generators")
     runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:tools")
 
-    // FIXME: Immersive Engineering breaks data gen.
-//    runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${immersiveengineering_version}")
+    // FIXME: Immersive Engineering breaks data gen, comment out before using `runData`.
+    runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${immersiveengineering_version}")
 //    runtimeOnly fg.deobf("curse.maven:immersiveengcineering-231951:3578181")
 
     runtimeOnly fg.deobf("curse.maven:configured-457570:3434071")
