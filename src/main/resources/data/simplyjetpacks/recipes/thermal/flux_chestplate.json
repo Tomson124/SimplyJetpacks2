@@ -21,7 +21,7 @@
       "type": "forge:not",
       "value": {
         "type": "forge:mod_loaded",
-        "modid": "redstonearsenal"
+        "modid": "redstone_arsenal"
       }
     }
   ]
