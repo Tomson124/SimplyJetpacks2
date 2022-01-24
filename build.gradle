@@ -128,7 +128,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:thermalinnovation-291737:3556270")
 //    runtimeOnly fg.deobf("curse.maven:thermal-dynamics-227443:x")
     runtimeOnly fg.deobf("curse.maven:redstone-arsenal-70631:3621740")
-//    runtimeOnly fg.deobf("curse.maven:redstone-repository-revolved-300750:x") // TODO: add this.
+    runtimeOnly fg.deobf("curse.maven:redstone-repository-revolved-300750:3622366")
 
     //compileOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}:api")
     runtimeOnly fg.deobf("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")
@@ -138,7 +138,6 @@ dependencies {
 
     // FIXME: Immersive Engineering breaks data gen, comment out before using `runData`.
     runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${immersiveengineering_version}")
-//    runtimeOnly fg.deobf("curse.maven:immersiveengcineering-231951:3578181")
 
     runtimeOnly fg.deobf("curse.maven:configured-457570:3546348")
 }
