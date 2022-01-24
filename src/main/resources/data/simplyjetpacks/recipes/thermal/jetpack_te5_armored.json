@@ -6,7 +6,7 @@
     "ppp"
   ],
   "key": {
-    "p": { "item": "redstonerepository:enderium_armorplating" },
+    "p": { "item": "redstonerepository:gelid_plating" },
     "j": { "item": "simplyjetpacks:jetpack_te5" }
   },
   "result": {
