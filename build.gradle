@@ -96,7 +96,10 @@ repositories {
     }
     maven {
         name = "curse maven"
-        url = "https://www.cursemaven.com/"
+        url = "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
     }
     maven {
         name = "theillusivec4 maven"
