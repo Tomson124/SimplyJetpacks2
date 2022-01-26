@@ -1,0 +1,18 @@
+{
+  "name": "Набивка из прочной ткани",
+  "icon": "simplyjetpacks:armorplating_ie1",
+  "category": "simplyjetpacks:immersiveengineering",
+  "flag": "mod:immersiveengineering",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Набивка из прочной ткани»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:ie/armorplating_ie1",
+      "text": "Это рецепт."
+    }
+  ]
+}

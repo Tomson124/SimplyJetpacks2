@@ -1,0 +1,17 @@
+{
+  "name": "Незерит. реакт. ранец",
+  "icon": "simplyjetpacks:jetpack_vanilla4",
+  "category": "simplyjetpacks:vanilla",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Незеритовый реактивный ранец». Реактивный ранец может стать бронированным, применив «Броневую обшивку»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:vanilla/jetpack_vanilla4",
+      "recipe2": "simplyjetpacks:vanilla/jetpack_vanilla4_armored"
+    }
+  ]
+}

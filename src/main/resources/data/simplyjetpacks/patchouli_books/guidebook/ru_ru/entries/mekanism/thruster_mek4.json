@@ -1,0 +1,18 @@
+{
+  "name": "Маневр. двигат. высш. степени",
+  "icon": "simplyjetpacks:thruster_mek4",
+  "category": "simplyjetpacks:mekanism",
+  "flag": "mod:mekanism",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Маневровый двигатель высшей степени»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:mek/thruster_mek4",
+      "text": "Это рецепт."
+    }
+  ]
+}

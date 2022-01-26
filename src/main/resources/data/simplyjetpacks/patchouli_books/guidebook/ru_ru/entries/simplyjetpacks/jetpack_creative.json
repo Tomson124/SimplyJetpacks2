@@ -1,0 +1,19 @@
+{
+  "name": "Творчес. реакт. ранец",
+  "icon": "simplyjetpacks:jetpack_creative",
+  "category": "simplyjetpacks:simplyjetpacks",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Творческий реактивный ранец». Он доступен только в Творческом режиме и не может быть создан. «Радужный настройщик частиц» установлен по-умолчанию."
+    },
+    {
+      "type": "simplyjetpacks:1_1_item_page",
+      "A.item": "simplyjetpacks:jetpack_creative",
+      "A.text": "Творческий реактивный ранец",
+      "B.item": "simplyjetpacks:jetpack_creative_armored",
+      "B.text": "Творчес. реакт. ранец (Бронированный)"
+    }
+  ]
+}

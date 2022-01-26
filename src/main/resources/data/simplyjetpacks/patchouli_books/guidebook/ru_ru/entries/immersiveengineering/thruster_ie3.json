@@ -1,0 +1,18 @@
+{
+  "name": "Высоковольт. маневр. двигат.",
+  "icon": "simplyjetpacks:thruster_ie3",
+  "category": "simplyjetpacks:immersiveengineering",
+  "flag": "mod:immersiveengineering",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Высоковольтный маневровый двигатель»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:ie/thruster_ie3",
+      "text": "Это рецепт."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "Железный реактивный ранец",
+  "icon": "simplyjetpacks:jetpack_vanilla1",
+  "category": "simplyjetpacks:vanilla",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Железный реактивный ранец». Реактивный ранец может стать бронированным, применив «Броневую обшивку»."
+    },
+    {
+      "type": "simplyjetpacks:1_1_item_page",
+      "item1": "simplyjetpacks:jetpack_vanilla1",
+      "item2": "simplyjetpacks:jetpack_vanilla1_armored"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Рецепты",
+      "text": "Вот рецепты",
+      "recipe": "simplyjetpacks:vanilla/jetpack_vanilla1",
+      "recipe2": "simplyjetpacks:vanilla/jetpack_vanilla1_armored"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Базов. маневр. двигатель",
+  "icon": "simplyjetpacks:thruster_mek1",
+  "category": "simplyjetpacks:mekanism",
+  "flag": "mod:mekanism",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Базовый маневровый двигатель»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:mek/thruster_mek1",
+      "text": "Это рецепт."
+    }
+  ]
+}

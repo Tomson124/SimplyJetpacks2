@@ -1,0 +1,41 @@
+{
+  "name": "Наполнен. флаксом реакт. жилет",
+  "icon": "simplyjetpacks:jetpack_te5",
+  "category": "simplyjetpacks:thermal",
+  "flag": "mod:thermal",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Наполненный флаксом реактивный жилет». Следующие несколько страниц расскажут тебе о том, как создать жилет, если у тебя не установлен «Redstone Arsenal»."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "simplyjetpacks:jetpack_te5"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Тебе понадобится создать несколько «Броневых обшивок из флаксового сплава»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:thermal/armorplating_te5"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Тебе также понадобится создать «Флаксовый нагрудник.»"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:thermal/flux_chestplate"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Используется это рецепт, если «Redstone Arsenal» не установлен."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:thermal/jetpack_te5_alt"
+    }
+  ]
+}

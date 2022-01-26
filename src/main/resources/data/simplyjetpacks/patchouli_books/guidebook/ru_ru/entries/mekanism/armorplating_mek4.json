@@ -1,0 +1,18 @@
+{
+  "name": "Броневая обшивка высшей степени",
+  "icon": "simplyjetpacks:armorplating_mek4",
+  "category": "simplyjetpacks:mekanism",
+  "flag": "mod:mekanism",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Броневая обшивка высшей степени»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:mek/armorplating_mek4",
+      "text": "Это рецепт."
+    }
+  ]
+}

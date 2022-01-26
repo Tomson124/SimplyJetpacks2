@@ -1,0 +1,17 @@
+{
+  "name": "Золот. маневр. двигатель",
+  "icon": "simplyjetpacks:thruster_vanilla2",
+  "category": "simplyjetpacks:vanilla",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Золотой маневровый двигатель»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:vanilla/thruster_vanilla2",
+      "text": "Это рецепт создания."
+    }
+  ]
+}

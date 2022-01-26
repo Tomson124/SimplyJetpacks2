@@ -1,0 +1,33 @@
+{
+  "name": "(Студёный) Наполн. флаксом реакт. жилет.",
+  "icon": "simplyjetpacks:jetpack_te5_enderium",
+  "category": "simplyjetpacks:thermal",
+  "flag": "mod:thermal",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «(Студёный) Наполненный флаксом реактивный жилет». Следующие несколько страниц расскажут тебе о том, как создать жилет, если у тебя не установлен «Redstone Repository»."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "simplyjetpacks:jetpack_te5_enderium"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Тебе понадобится создать несколько «Студёной броневой обшивки»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:thermal/armorplating_te5_enderium"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Используется это рецепт, если «Redstone Repository» не установлен."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:thermal/jetpack_te5_armored_alt"
+    }
+  ]
+}

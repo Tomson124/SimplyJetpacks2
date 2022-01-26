@@ -1,0 +1,17 @@
+{
+  "name": "Наполнен. флаксом реакт. жилет",
+  "icon": "simplyjetpacks:jetpack_te5",
+  "category": "simplyjetpacks:thermal",
+  "flag": "mod:thermal",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Наполненный флаксом реактивный жилет»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:thermal/jetpack_te5"
+    }
+  ]
+}

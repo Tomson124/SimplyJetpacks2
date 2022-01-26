@@ -1,0 +1,18 @@
+{
+  "name": "Закалён. маневр. двигатель",
+  "icon": "simplyjetpacks:thruster_te2",
+  "category": "simplyjetpacks:thermal",
+  "flag": "mod:thermal",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Закалённый маневровый двигатель»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:thermal/thruster_te2",
+      "text": "Это рецепт."
+    }
+  ]
+}

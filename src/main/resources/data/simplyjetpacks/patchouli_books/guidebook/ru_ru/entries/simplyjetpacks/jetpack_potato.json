@@ -1,0 +1,17 @@
+{
+  "name": "Картоф. реакт. ранец",
+  "icon": "simplyjetpacks:jetpack_potato",
+  "category": "simplyjetpacks:simplyjetpacks",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Картофельный реактивный ранец». Необходимо проявлять осторожность при полёте на этом реактивном ранце!"
+    },
+    {
+      "type": "patchouli:crafting",
+      "text": "Рецепт для данного «Реактивного ранца».",
+      "recipe": "simplyjetpacks:jetpack_potato"
+    }
+  ]
+}

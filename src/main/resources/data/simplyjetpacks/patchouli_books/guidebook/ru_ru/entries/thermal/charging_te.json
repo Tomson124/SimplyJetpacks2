@@ -1,0 +1,21 @@
+{
+  "name": "Thermal Series - Зарядка",
+  "icon": "minecraft:writable_book",
+  "category": "simplyjetpacks:thermal",
+  "flag": "mod:thermal",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Следующие предметы, которых можно использовать для зарядки «Реактивных ранцев»."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "thermal:tinker_bench"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "thermal:charge_bench"
+    }
+  ]
+}
