@@ -1,0 +1,60 @@
+{
+  "name": "Настройщики частиц",
+  "icon": "simplyjetpacks:particle_flame",
+  "category": "simplyjetpacks:simplyjetpacks",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "«Настройщики частиц» используются для настройки частиц в «Маневровом двигателе»."
+    },
+    {
+      "type": "simplyjetpacks:1_6_item_page",
+      "A.item": "simplyjetpacks:particle_blend",
+      "A.text": "Для создания каждого «Настройщика» потребуется «Смесь частиц».",
+      "B.item1": "simplyjetpacks:particle_none",
+      "B.item2": "simplyjetpacks:particle_flame",
+      "B.item3": "simplyjetpacks:particle_smoke",
+      "B.item4": "simplyjetpacks:particle_rainbow",
+      "B.item5": "simplyjetpacks:particle_soul",
+      "B.item6": "simplyjetpacks:particle_snow",
+      "B.text": "Вот «Настройщики частиц»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Пламя",
+      "recipe": "simplyjetpacks:particle_flame",
+      "text": "Это «Настройщик пламени»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Ничего",
+      "recipe": "simplyjetpacks:particle_none",
+      "text": "Это «Настройщик никаких частиц»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Радуга",
+      "recipe": "simplyjetpacks:particle_rainbow",
+      "text": "Это «Настройщик радуги»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Дым",
+      "recipe": "simplyjetpacks:particle_smoke",
+      "text": "Это «Настройщик дыма»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Душа",
+      "recipe": "simplyjetpacks:particle_soul",
+      "text": "Это «Настройщик души»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Снег",
+      "recipe": "simplyjetpacks:particle_snow",
+      "text": "Это «Настройщик снега»."
+    }
+  ]
+}

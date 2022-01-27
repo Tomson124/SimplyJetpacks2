@@ -1,0 +1,18 @@
+{
+  "name": "Продв. маневр. двигатель",
+  "icon": "simplyjetpacks:thruster_mek2",
+  "category": "simplyjetpacks:mekanism",
+  "flag": "mod:mekanism",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Продвинутый маневровый двигатель»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:mek/thruster_mek2",
+      "text": "Это рецепт."
+    }
+  ]
+}

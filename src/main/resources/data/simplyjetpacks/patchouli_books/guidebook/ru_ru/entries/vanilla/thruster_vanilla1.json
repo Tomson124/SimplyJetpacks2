@@ -1,0 +1,17 @@
+{
+  "name": "Железн. маневр. двигатель",
+  "icon": "simplyjetpacks:thruster_vanilla1",
+  "category": "simplyjetpacks:vanilla",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Железный маневровый двигатель»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:vanilla/thruster_vanilla1",
+      "text": "Это рецепт создания."
+    }
+  ]
+}

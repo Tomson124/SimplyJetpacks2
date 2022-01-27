@@ -1,0 +1,17 @@
+{
+  "name": "Незерит. маневр. двигатель",
+  "icon": "simplyjetpacks:thruster_vanilla4",
+  "category": "simplyjetpacks:vanilla",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Незеритовый маневровый двигатель»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:vanilla/thruster_vanilla4",
+      "text": "Это рецепт создания."
+    }
+  ]
+}

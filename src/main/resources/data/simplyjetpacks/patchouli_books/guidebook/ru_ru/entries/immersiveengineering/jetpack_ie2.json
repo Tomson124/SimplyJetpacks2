@@ -1,0 +1,18 @@
+{
+  "name": "Средневольт. реакт. ранец",
+  "icon": "simplyjetpacks:jetpack_ie2",
+  "category": "simplyjetpacks:immersiveengineering",
+  "flag": "mod:immersiveengineering",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Средневольтный реактивный ранец». «Реактивный ранец» может стать бронированным, применив обшивку."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:ie/jetpack_ie2",
+      "recipe2": "simplyjetpacks:ie/jetpack_ie2_armored"
+    }
+  ]
+}

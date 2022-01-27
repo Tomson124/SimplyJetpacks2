@@ -1,0 +1,19 @@
+{
+  "name": "Очки пилота",
+  "icon": "simplyjetpacks:pilot_goggles_gold",
+  "category": "simplyjetpacks:simplyjetpacks",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Вот очки пилота, они бывают в двух вариантах: Золотые и Железные."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Очки пилота",
+      "recipe": "simplyjetpacks:pilot_goggles_gold",
+      "recipe2": "simplyjetpacks:pilot_goggles_iron",
+      "text": "Вот рецепты."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Кожаный ремень",
+  "icon": "simplyjetpacks:leather_strap",
+  "category": "simplyjetpacks:simplyjetpacks",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это кожаный ремень. Он используется в каждом рецепте Реактивного ранца, поскольку он позволяет тебе прикреплять Реактивный ранец к телу."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:leather_strap",
+      "text": "Это рецепт."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Реакт. ранец высшей степени",
+  "icon": "simplyjetpacks:jetpack_mek4",
+  "category": "simplyjetpacks:mekanism",
+  "flag": "mod:mekanism",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Реактивный ранец высшей степени». «Реактивный ранец» может стать бронированным, применив обшивку."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:mek/jetpack_mek4",
+      "recipe2": "simplyjetpacks:mek/jetpack_mek4_armored"
+    }
+  ]
+}

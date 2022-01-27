@@ -1,0 +1,18 @@
+{
+  "name": "Светокаменный П.С.П.У.В",
+  "icon": "simplyjetpacks:unit_glowstone",
+  "category": "simplyjetpacks:thermal",
+  "flag": "mod:thermal",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Светокаменный прибор синхронной передачи угла возвышения». Прибор можно наполнить жидким «Светокамнем» с использованием «Жидкостного капсулонаполнителя» из Thermal Series."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:thermal/unit_glowstone_empty",
+      "text": "Это рецепт."
+    }
+  ]
+}

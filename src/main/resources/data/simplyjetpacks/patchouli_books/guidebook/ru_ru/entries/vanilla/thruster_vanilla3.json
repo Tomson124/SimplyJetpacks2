@@ -1,0 +1,17 @@
+{
+  "name": "Алмаз. маневр. двигатель",
+  "icon": "simplyjetpacks:thruster_vanilla3",
+  "category": "simplyjetpacks:vanilla",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Алмазный маневровый двигатель»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:vanilla/thruster_vanilla3",
+      "text": "Это рецепт создания."
+    }
+  ]
+}

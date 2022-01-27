@@ -1,0 +1,18 @@
+{
+  "name": "Флаксован. маневр. двигатель",
+  "icon": "simplyjetpacks:thruster_te5",
+  "category": "simplyjetpacks:thermal",
+  "flag": "mod:thermal",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Флаксованный маневровый двигатель»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:thermal/thruster_te5",
+      "recipe2": "simplyjetpacks:thermal/thruster_te5_alt"
+    }
+  ]
+}

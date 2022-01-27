@@ -1,0 +1,18 @@
+{
+  "name": "Укреплён. маневр. двигатель",
+  "icon": "simplyjetpacks:thruster_te3",
+  "category": "simplyjetpacks:thermal",
+  "flag": "mod:thermal",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Укреплённый маневровый двигатель»."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:thermal/thruster_te3",
+      "text": "Это рецепт."
+    }
+  ]
+}

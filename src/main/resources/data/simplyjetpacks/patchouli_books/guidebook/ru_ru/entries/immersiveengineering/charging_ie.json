@@ -1,0 +1,18 @@
+{
+  "name": "Immersive Engineering — Зарядка",
+  "icon": "minecraft:writable_book",
+  "category": "simplyjetpacks:immersiveengineering",
+  "flag": "mod:immersiveengineering",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Следующие предметы, которых можно использовать для зарядки «Реактивных ранцев»."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "immersiveengineering:charging_station",
+      "text": "Это можно использовать для зарядки «Реактивных ранцев»."
+    }
+  ]
+}

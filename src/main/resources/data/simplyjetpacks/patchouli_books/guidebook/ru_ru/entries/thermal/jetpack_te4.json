@@ -1,0 +1,18 @@
+{
+  "name": "Резонир. реакт. ранец",
+  "icon": "simplyjetpacks:jetpack_te4",
+  "category": "simplyjetpacks:thermal",
+  "flag": "mod:thermal",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Это «Резонирующий реактивный ранец». Этот реактивный ранец может стать бронированным, применив обшивку."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "simplyjetpacks:thermal/jetpack_te4",
+      "recipe2": "simplyjetpacks:thermal/jetpack_te4_armored"
+    }
+  ]
+}
