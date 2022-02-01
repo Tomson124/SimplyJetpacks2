@@ -77,6 +77,6 @@ side="BOTH"
 [[dependencies.simplyjetpacks]]
 modId="immersiveengineering"
 mandatory=false
-versionRange="[10,)"
+versionRange="[1.16.5-5,)"
 ordering="NONE"
 side="BOTH"
