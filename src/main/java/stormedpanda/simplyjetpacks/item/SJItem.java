@@ -1,6 +1,6 @@
 package stormedpanda.simplyjetpacks.item;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 
 public class SJItem extends Item {

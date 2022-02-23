@@ -1,12 +1,12 @@
 package stormedpanda.simplyjetpacks.util;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.world.item.ItemStack;
 
 public class NBTUtil {
 
-    public static void setTag(ItemStack stack, String key, INBT value) {
+    public static void setTag(ItemStack stack, String key, Tag value) {
         validateCompound(stack);
         stack.getTag().put(key, value);
     }
@@ -61,7 +61,7 @@ public class NBTUtil {
         stack.getTag().putBoolean(key, value);
     }
 
-    public static INBT getTag(ItemStack stack, String key) {
+    public static Tag getTag(ItemStack stack, String key) {
         return stack.hasTag() ? stack.getTag().get(key) : null;
     }
 
@@ -122,12 +122,12 @@ public class NBTUtil {
 
     public static void validateCompound(ItemStack stack) {
         if (!stack.hasTag()) {
-            CompoundNBT tag = new CompoundNBT();
+            CompoundTag tag = new CompoundTag();
             stack.setTag(tag);
         }
     }
 
-    public static CompoundNBT getTagCompound(ItemStack stack) {
+    public static CompoundTag getTagCompound(ItemStack stack) {
         validateCompound(stack);
         return stack.getTag();
     }

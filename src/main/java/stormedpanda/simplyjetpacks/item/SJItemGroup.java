@@ -1,7 +1,7 @@
 package stormedpanda.simplyjetpacks.item;
 
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
@@ -9,7 +9,7 @@ import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 
 import javax.annotation.Nonnull;
 
-public class SJItemGroup extends ItemGroup {
+public class SJItemGroup extends CreativeModeTab {
 
     public SJItemGroup() {
         super(SimplyJetpacks.MODID + ".main");

@@ -1,18 +1,8 @@
 package stormedpanda.simplyjetpacks.item;
 
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.Explosion;
-import net.minecraft.world.World;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -33,7 +23,7 @@ public class PotatoJetpackItem extends JetpackItem {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    public void appendHoverText(ItemStack stack, @Nullable Level levelIn, List<TextComponent> tooltip, TooltipFlag flagIn) {
         if (CapabilityEnergy.ENERGY == null) return;
         tooltip.add(SJTextUtil.translate("tooltip", "jetpack_potato"));
         SJTextUtil.addBaseInfo(stack, tooltip);

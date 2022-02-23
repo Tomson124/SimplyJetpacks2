@@ -1,15 +1,15 @@
 package stormedpanda.simplyjetpacks.enchantment;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
 
 public class EnchantmentFuelEfficiency extends Enchantment {
 
     public EnchantmentFuelEfficiency() {
-        super(Rarity.RARE, RegistryHandler.JETPACK_ENCHANTMENT_TYPE, new EquipmentSlotType[]{ EquipmentSlotType.CHEST });
+        super(Rarity.RARE, RegistryHandler.JETPACK_ENCHANTMENT_TYPE, new EquipmentSlot[]{ EquipmentSlot.CHEST });
     }
 
     @Override

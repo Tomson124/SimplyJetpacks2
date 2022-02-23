@@ -1,6 +1,7 @@
 package stormedpanda.simplyjetpacks;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -50,7 +51,7 @@ public class SimplyJetpacks {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public static final SJItemGroup tabSimplyJetpacks = (SJItemGroup) new SJItemGroup().setEnchantmentCategories(RegistryHandler.JETPACK_ENCHANTMENT_TYPE);;
+    public static final SJItemGroup tabSimplyJetpacks = (SJItemGroup) new SJItemGroup().set(RegistryHandler.JETPACK_ENCHANTMENT_TYPE);;
 
     public static final ResourceLocation JETPACK_SLOT = new ResourceLocation(MODID, "gui/empty_jetpack_slot");
 
@@ -73,7 +74,6 @@ public class SimplyJetpacks {
         SimplyJetpacksConfig.register();
         JetpackType.loadAllConfigs();
         RegistryHandler.init();
-
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -113,7 +113,7 @@ public class SimplyJetpacks {
 
     private void onTextureStitch(TextureStitchEvent.Pre event) {
         if (ModList.get().isLoaded("curios")) {
-            if (event.getMap().location().equals(PlayerContainer.BLOCK_ATLAS)) {
+            if (event.getMap().location().equals(InventoryMenu.BLOCK_ATLAS)) {
                 event.addSprite(JETPACK_SLOT);
             }
         }

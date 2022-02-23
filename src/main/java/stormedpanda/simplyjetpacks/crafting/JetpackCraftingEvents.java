@@ -5,6 +5,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import stormedpanda.simplyjetpacks.datagen.SJTags;
@@ -21,7 +24,7 @@ public class JetpackCraftingEvents {
         ItemStack craftedStack = event.getCrafting();
         Item craftedItem = event.getCrafting().getItem();
         int storedEnergy;
-        CompoundNBT tags;
+        CompoundTag tags;
         boolean particleRecipe = false; // if particle as ingredient, then true
 
         if (craftedItem instanceof JetpackItem) {

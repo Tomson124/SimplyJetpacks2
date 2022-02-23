@@ -6,6 +6,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.item.JetpackType;
 
@@ -200,13 +201,13 @@ public class SimplyJetpacksConfig {
     }
 
     @SubscribeEvent
-    public static void onLoad(final ModConfig.Loading configEvent) {
+    public static void onLoad(final ModConfigEvent.Loading configEvent) {
         SimplyJetpacks.LOGGER.info("Config Loaded: {}", configEvent.getConfig().getFileName());
         JetpackType.loadAllConfigs();
     }
 
     @SubscribeEvent
-    public static void onFileChange(final ModConfig.Reloading configEvent) {
+    public static void onFileChange(final ModConfigEvent.Reloading configEvent) {
         SimplyJetpacks.LOGGER.info("Config Re-Loaded: {}", configEvent.getConfig().getFileName());
         JetpackType.loadAllConfigs();
     }

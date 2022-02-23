@@ -1,12 +1,8 @@
 package stormedpanda.simplyjetpacks.crafting;
 
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import stormedpanda.simplyjetpacks.datagen.SJTags;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
@@ -73,7 +69,7 @@ public class JetpackSpecialRecipe extends SpecialRecipe {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return RegistryHandler.JETPACK_SPECIAL_RECIPE.get();
     }
 }

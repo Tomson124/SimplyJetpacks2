@@ -1,15 +1,13 @@
 package stormedpanda.simplyjetpacks.handlers;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentType;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipeSerializer;
-import net.minecraft.particles.BasicParticleType;
-import net.minecraft.particles.ParticleType;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
@@ -21,9 +19,9 @@ public class RegistryHandler {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, SimplyJetpacks.MODID);
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, SimplyJetpacks.MODID);
-    public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, SimplyJetpacks.MODID);
+    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, SimplyJetpacks.MODID);
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, SimplyJetpacks.MODID);
-    public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, SimplyJetpacks.MODID);
+    public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, SimplyJetpacks.MODID);
 
     public static void init() {
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -40,7 +38,7 @@ public class RegistryHandler {
     public static final RegistryObject<SpecialRecipeSerializer<JetpackSpecialRecipe>> JETPACK_SPECIAL_RECIPE = RECIPE_SERIALIZERS.register("jetpack_special_recipe",() -> new SpecialRecipeSerializer<>(JetpackSpecialRecipe::new));
 
     // Enchantments:
-    public static final EnchantmentType JETPACK_ENCHANTMENT_TYPE = EnchantmentType.create("JETPACK", (item -> item instanceof JetpackItem));
+    public static final EnchantmentCategory JETPACK_ENCHANTMENT_TYPE = EnchantmentCategory.create("JETPACK", (item -> item instanceof JetpackItem));
     public static final RegistryObject<EnchantmentFuelEfficiency> FUEL_EFFICIENCY = ENCHANTMENTS.register("fuel_efficiency", EnchantmentFuelEfficiency::new);
 
     // Items:
