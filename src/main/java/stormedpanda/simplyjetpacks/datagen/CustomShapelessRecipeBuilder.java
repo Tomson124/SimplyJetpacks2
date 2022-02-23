@@ -3,21 +3,21 @@ package stormedpanda.simplyjetpacks.datagen;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.ICriterionInstance;
-import net.minecraft.advancements.IRequirementsStrategy;
-import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.RequirementsStrategy;
+import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.Registry;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
@@ -40,7 +40,7 @@ public class CustomShapelessRecipeBuilder extends ShapelessRecipeBuilder {
     private String group;
     private final List<ICondition> conditions = new ArrayList<>();
 
-    public CustomShapelessRecipeBuilder(IItemProvider result, int count) {
+    public CustomShapelessRecipeBuilder(ItemLike result, int count) {
         super(result, count);
         this.result = result.asItem();
         this.count = count;
@@ -55,23 +55,23 @@ public class CustomShapelessRecipeBuilder extends ShapelessRecipeBuilder {
         return !advancement.getCriteria().isEmpty();
     }
 
-    public static CustomShapelessRecipeBuilder shapeless(IItemProvider item) {
+    public static CustomShapelessRecipeBuilder shapeless(ItemLike item) {
         return new CustomShapelessRecipeBuilder(item, 1);
     }
 
-    public static CustomShapelessRecipeBuilder shapeless(IItemProvider item, int count) {
+    public static CustomShapelessRecipeBuilder shapeless(ItemLike item, int count) {
         return new CustomShapelessRecipeBuilder(item, count);
     }
 
-    public CustomShapelessRecipeBuilder requires(ITag<Item> item) {
+    public CustomShapelessRecipeBuilder requires(Tag<Item> item) {
         return this.requires(Ingredient.of(item));
     }
 
-    public CustomShapelessRecipeBuilder requires(IItemProvider item) {
+    public CustomShapelessRecipeBuilder requires(ItemLike item) {
         return this.requires(item, 1);
     }
 
-    public CustomShapelessRecipeBuilder requires(IItemProvider item, int count) {
+    public CustomShapelessRecipeBuilder requires(ItemLike item, int count) {
         for (int i = 0; i < count; ++i) {
             this.requires(Ingredient.of(item));
         }
@@ -89,7 +89,7 @@ public class CustomShapelessRecipeBuilder extends ShapelessRecipeBuilder {
         return this;
     }
 
-    public CustomShapelessRecipeBuilder unlockedBy(String name, ICriterionInstance criteria) {
+    public CustomShapelessRecipeBuilder unlockedBy(String name, Criterion criteria) {
         this.advancement.addCriterion(name, criteria);
         return this;
     }
@@ -99,11 +99,11 @@ public class CustomShapelessRecipeBuilder extends ShapelessRecipeBuilder {
         return this;
     }
 
-    public void save(Consumer<IFinishedRecipe> consumer) {
+    public void save(Consumer<FinishedRecipe> consumer) {
         this.save(consumer, Registry.ITEM.getKey(this.result));
     }
 
-    public void save(Consumer<IFinishedRecipe> consumer, String id) {
+    public void save(Consumer<FinishedRecipe> consumer, String id) {
         ResourceLocation resourceLocation = Registry.ITEM.getKey(this.result);
         if ((new ResourceLocation(id)).equals(resourceLocation)) {
             throw new IllegalStateException("Shapeless Recipe " + id + " should remove its 'save' argument");
@@ -112,14 +112,14 @@ public class CustomShapelessRecipeBuilder extends ShapelessRecipeBuilder {
         }
     }
 
-    public void save(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
+    public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
         this.ensureValid(id);
         if (hasCriteria()) {
             this.advancement
                     .parent(new ResourceLocation(SimplyJetpacks.MODID, "root"))
                     .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
                     .rewards(AdvancementRewards.Builder.recipe(id))
-                    .requirements(IRequirementsStrategy.OR);
+                    .requirements(RequirementsStrategy.OR);
         }
         consumer.accept(new CustomShapelessRecipeBuilder.Result(id, this.result, this.count, this.group == null ? "" : this.group, this.ingredients, this.advancement));
     }
@@ -130,7 +130,7 @@ public class CustomShapelessRecipeBuilder extends ShapelessRecipeBuilder {
         }*/
     }
 
-    public class Result implements IFinishedRecipe {
+    public class Result implements FinishedRecipe {
 
         private final ResourceLocation id;
         private final Item result;
@@ -188,8 +188,8 @@ public class CustomShapelessRecipeBuilder extends ShapelessRecipeBuilder {
 
         @Nonnull
         @Override
-        public IRecipeSerializer<?> getType() {
-            return IRecipeSerializer.SHAPELESS_RECIPE;
+        public RecipeSerializer<?> getType() {
+            return RecipeSerializer.SHAPELESS_RECIPE;
         }
 
         @Nonnull

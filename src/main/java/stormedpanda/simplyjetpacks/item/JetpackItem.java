@@ -1,12 +1,9 @@
 package stormedpanda.simplyjetpacks.item;
 
-import com.mojang.math.Vector3d;
-import com.sun.javafx.util.Utils;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -25,7 +22,6 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import org.lwjgl.system.MathUtil;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.energy.EnergyStorageImpl;
@@ -33,7 +29,6 @@ import stormedpanda.simplyjetpacks.energy.IEnergyContainer;
 import stormedpanda.simplyjetpacks.handlers.CommonJetpackHandler;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.hud.IHUDInfoProvider;
-import stormedpanda.simplyjetpacks.model.JetpackModel;
 import stormedpanda.simplyjetpacks.model.JetpackModelLayers;
 import stormedpanda.simplyjetpacks.particle.JetpackParticleType;
 import stormedpanda.simplyjetpacks.util.*;
@@ -263,8 +258,15 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         }
     }
 
+    // TODO: find where MathHelper went and remove this.
+    public static int clamp(int min, int value, int max) {
+        if (value < min) return min;
+        if (value > max) return max;
+        return value;
+    }
+
     private void setEnergyStored(ItemStack container, int value) {
-        NBTUtil.setInt(container, Constants.TAG_ENERGY, Utils.clamp(value, 0, getCapacity(container)));
+        NBTUtil.setInt(container, Constants.TAG_ENERGY, clamp(value, 0, getCapacity(container)));
     }
 
     public int getEnergyReceive() {

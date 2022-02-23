@@ -1,15 +1,15 @@
 package stormedpanda.simplyjetpacks.datagen;
 
 import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.ICriterionInstance;
-import net.minecraft.advancements.criterion.InventoryChangeTrigger;
-import net.minecraft.advancements.criterion.LocationPredicate;
-import net.minecraft.advancements.criterion.PositionTrigger;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.critereon.LocationPredicate;
+import net.minecraft.advancements.critereon.LocationTrigger;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 
@@ -26,7 +26,7 @@ public class SJAdvancements implements Consumer<Consumer<Advancement>> {
     @Override
     public void accept(Consumer<Advancement> consumer) {
         // Simply Jetpacks:
-        Advancement root = rootAdvancement(consumer, RegistryHandler.JETPACK_CREATIVE.get(), "crafting_table", InventoryChangeTrigger.Instance.hasItems(Blocks.CRAFTING_TABLE));
+        Advancement root = rootAdvancement(consumer, RegistryHandler.JETPACK_CREATIVE.get(), "crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Blocks.CRAFTING_TABLE));
         // Vanilla:
         Advancement vanilla1 = jetpackAdvancement(consumer, root, RegistryHandler.JETPACK_VANILLA1.get());
         Advancement vanilla2 = jetpackAdvancement(consumer, vanilla1, RegistryHandler.JETPACK_VANILLA2.get());
@@ -50,38 +50,38 @@ public class SJAdvancements implements Consumer<Consumer<Advancement>> {
         Advancement te5_armored = jetpackAdvancement(consumer, te5, RegistryHandler.JETPACK_TE5_ARMORED.get());
     }
 
-    private Advancement jetpackAdvancement(Consumer<Advancement> consumer, Advancement parent, IItemProvider item) {
+    private Advancement jetpackAdvancement(Consumer<Advancement> consumer, Advancement parent, ItemLike item) {
         String name = item.asItem().getRegistryName().getPath();
         return Advancement.Builder.advancement().parent(parent)
                 .display(item,
-                        new TranslationTextComponent("advancement.simplyjetpacks." + name + ".title"),
-                        new TranslationTextComponent("advancement.simplyjetpacks." + name + ".description"),
+                        new TranslatableComponent("advancement.simplyjetpacks." + name + ".title"),
+                        new TranslatableComponent("advancement.simplyjetpacks." + name + ".description"),
                         null, FrameType.TASK, true, true, false
                 )
-                .addCriterion("has_jetpack", InventoryChangeTrigger.Instance.hasItems(item))
+                .addCriterion("has_jetpack", InventoryChangeTrigger.TriggerInstance.hasItems(item))
                 .save(consumer, new ResourceLocation(SimplyJetpacks.MODID, ("simplyjetpacks" == null ? "" : "simplyjetpacks" + "/") + name).toString());
     }
 
-    private Advancement advancement(Consumer<Advancement> consumer, Advancement parent, IItemProvider item, String path, FrameType frame, String criterionId, @Nullable ICriterionInstance criterion) {
+    private Advancement advancement(Consumer<Advancement> consumer, Advancement parent, ItemLike item, String path, FrameType frame, String criterionId, @Nullable CriterionTriggerInstance criterion) {
         String name = item.asItem().getRegistryName().getPath();
         return Advancement.Builder.advancement().parent(parent)
                 .display(item,
-                        new TranslationTextComponent("advancement.simplyjetpacks." + name + ".title"),
-                        new TranslationTextComponent("advancement.simplyjetpacks." + name + ".description"),
+                        new TranslatableComponent("advancement.simplyjetpacks." + name + ".title"),
+                        new TranslatableComponent("advancement.simplyjetpacks." + name + ".description"),
                         null, frame, true, true, false
                 )
-                .addCriterion(criterionId, criterion == null ? InventoryChangeTrigger.Instance.hasItems(item) : criterion)
+                .addCriterion(criterionId, criterion == null ? InventoryChangeTrigger.TriggerInstance.hasItems(item) : criterion)
                 .save(consumer, new ResourceLocation(SimplyJetpacks.MODID, (path == null ? "" : path + "/") + name).toString());
     }
 
-    private Advancement rootAdvancement(Consumer<Advancement> consumer, IItemProvider item, String criterionId, ICriterionInstance criterion) {
+    private Advancement rootAdvancement(Consumer<Advancement> consumer, ItemLike item, String criterionId, CriterionTriggerInstance criterion) {
         return Advancement.Builder.advancement()
                 .display(item,
-                        new TranslationTextComponent("advancement.simplyjetpacks." + "root" + ".title"),
-                        new TranslationTextComponent("advancement.simplyjetpacks." + "root" + ".description"),
+                        new TranslatableComponent("advancement.simplyjetpacks." + "root" + ".title"),
+                        new TranslatableComponent("advancement.simplyjetpacks." + "root" + ".description"),
                         new ResourceLocation("textures/gui/advancements/backgrounds/" + "stone" + ".png"),
                         FrameType.TASK, true, false, false)
-                .addCriterion("any", PositionTrigger.Instance.located(LocationPredicate.ANY))
+                .addCriterion("any", LocationTrigger.TriggerInstance.located(LocationPredicate.ANY))
                 //.addCriterion(criterionId, criterion)
                 .save(consumer, new ResourceLocation(SimplyJetpacks.MODID, "root").toString());
     }

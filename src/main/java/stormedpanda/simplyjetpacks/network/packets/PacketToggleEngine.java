@@ -1,10 +1,10 @@
 package stormedpanda.simplyjetpacks.network.packets;
 
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
 import stormedpanda.simplyjetpacks.util.JetpackUtil;
 
@@ -12,10 +12,10 @@ import java.util.function.Supplier;
 
 public class PacketToggleEngine {
 
-    public PacketToggleEngine(PacketBuffer buf) {
+    public PacketToggleEngine(FriendlyByteBuf buf) {
     }
 
-    public void toBytes(PacketBuffer buf) {
+    public void toBytes(FriendlyByteBuf buf) {
     }
 
     public PacketToggleEngine() {
@@ -23,7 +23,7 @@ public class PacketToggleEngine {
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            ServerPlayerEntity player = ctx.get().getSender();
+            ServerPlayer player = ctx.get().getSender();
             if (player != null) {
                 ItemStack stack = JetpackUtil.getFromBothSlots(player);
                 Item item = stack.getItem();

@@ -1,10 +1,10 @@
 package stormedpanda.simplyjetpacks.network.packets;
 
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
 import stormedpanda.simplyjetpacks.util.JetpackUtil;
 
@@ -18,17 +18,17 @@ public class PacketUpdateThrottle {
         this.throttleValue = throttleValue;
     }
 
-    public static PacketUpdateThrottle fromBytes(PacketBuffer buffer) {
+    public static PacketUpdateThrottle fromBytes(FriendlyByteBuf  buffer) {
         return new PacketUpdateThrottle(buffer.readInt());
     }
 
-    public static void toBytes(PacketUpdateThrottle message, PacketBuffer buffer) {
+    public static void toBytes(PacketUpdateThrottle message, FriendlyByteBuf buffer) {
         buffer.writeInt(message.throttleValue);
     }
 
     public static void handle(PacketUpdateThrottle message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            ServerPlayerEntity player = ctx.get().getSender();
+            ServerPlayer player = ctx.get().getSender();
             if (player != null) {
                 ItemStack stack = JetpackUtil.getFromBothSlots(player);
                 Item item = stack.getItem();

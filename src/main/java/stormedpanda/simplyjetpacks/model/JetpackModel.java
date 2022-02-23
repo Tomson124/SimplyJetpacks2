@@ -1,9 +1,7 @@
 package stormedpanda.simplyjetpacks.model;
 
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.LivingEntity;
-
+// TODO: remove this.
+/*
 public class JetpackModel extends BipedModel<LivingEntity> {
 
     private final ModelRenderer middle;
@@ -111,4 +109,4 @@ public class JetpackModel extends BipedModel<LivingEntity> {
         model.yRot = y;
         model.zRot = z;
     }
-}
+}*/

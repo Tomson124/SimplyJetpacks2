@@ -1,8 +1,8 @@
 package stormedpanda.simplyjetpacks.network.packets;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 import stormedpanda.simplyjetpacks.handlers.CommonJetpackHandler;
 
 import java.util.function.Supplier;
@@ -25,11 +25,11 @@ public class PacketUpdateInput {
         this.right = right;
     }
 
-    public static PacketUpdateInput fromBytes(PacketBuffer buffer) {
+    public static PacketUpdateInput fromBytes(FriendlyByteBuf buffer) {
         return new PacketUpdateInput(buffer.readBoolean(), buffer.readBoolean(), buffer.readBoolean(), buffer.readBoolean(), buffer.readBoolean(), buffer.readBoolean());
     }
 
-    public static void toBytes(PacketUpdateInput message, PacketBuffer buffer) {
+    public static void toBytes(PacketUpdateInput message, FriendlyByteBuf  buffer) {
         buffer.writeBoolean(message.up);
         buffer.writeBoolean(message.down);
         buffer.writeBoolean(message.forwards);
@@ -40,7 +40,7 @@ public class PacketUpdateInput {
 
     public static void handle(PacketUpdateInput message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            PlayerEntity player = ctx.get().getSender();
+            Player player = ctx.get().getSender();
             if (player != null) {
                 CommonJetpackHandler.update(player, message.up, message.down, message.forwards, message.backwards, message.left, message.right);
             }

@@ -1,22 +1,20 @@
 package stormedpanda.simplyjetpacks.datagen;
 
 import com.google.gson.JsonObject;
-import net.minecraft.data.CustomRecipeBuilder;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.RecipeProvider;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 
-import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
 public class SJRecipeProvider extends RecipeProvider implements IConditionBuilder {
@@ -26,8 +24,8 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
     }
 
     @Override
-    protected void buildShapelessRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
-        CustomRecipeBuilder.special(RegistryHandler.JETPACK_SPECIAL_RECIPE.get()).save(consumer, savePath("jetpack_special_recipe"));
+    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+//        SpecialRecipeBuilder.special((SimpleRecipeSerializer<?>) RegistryHandler.JETPACK_SPECIAL_RECIPE.get()).save(consumer, savePath("jetpack_special_recipe"));
 
         // Simply Jetpacks:
         CustomShapedRecipeBuilder.shaped(RegistryHandler.LEATHER_STRAP.get())
@@ -168,7 +166,7 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
         return new ResourceLocation(SimplyJetpacks.MODID, path).toString();
     }
 
-    public void armorRecipeCombo(Consumer<IFinishedRecipe> consumer, IItemProvider armored, IItemProvider base, IItemProvider plating, String modid) {
+    public void armorRecipeCombo(Consumer<FinishedRecipe> consumer, ItemLike armored, ItemLike base, ItemLike plating, String modid) {
         // armoring
         CustomShapelessRecipeBuilder.shapeless(armored).requires(base).requires(plating).save(consumer, savePath(modid + "/" + armored.asItem().getRegistryName().getPath()));
         // de-armoring

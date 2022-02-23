@@ -28,15 +28,14 @@ import stormedpanda.simplyjetpacks.handlers.CommonJetpackHandler;
 import stormedpanda.simplyjetpacks.handlers.KeybindHandler;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.hud.HUDHandler;
-import stormedpanda.simplyjetpacks.integration.CuriosIntegration;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
 import stormedpanda.simplyjetpacks.item.JetpackType;
 import stormedpanda.simplyjetpacks.item.PilotGogglesItem;
 import stormedpanda.simplyjetpacks.item.SJItemGroup;
+import stormedpanda.simplyjetpacks.model.JetpackModelLayers;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
 import stormedpanda.simplyjetpacks.sound.SJSounds;
 import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
@@ -51,7 +50,7 @@ public class SimplyJetpacks {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public static final SJItemGroup tabSimplyJetpacks = (SJItemGroup) new SJItemGroup().set(RegistryHandler.JETPACK_ENCHANTMENT_TYPE);;
+    public static final SJItemGroup tabSimplyJetpacks = (SJItemGroup) new SJItemGroup().setEnchantmentCategories(RegistryHandler.JETPACK_ENCHANTMENT_TYPE);;
 
     public static final ResourceLocation JETPACK_SLOT = new ResourceLocation(MODID, "gui/empty_jetpack_slot");
 
@@ -62,6 +61,8 @@ public class SimplyJetpacks {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+
+        // TODO: fix this.
         if (ModList.get().isLoaded("curios")) {
             MinecraftForge.EVENT_BUS.addGenericListener(ItemStack.class, this::attachCapabilities);
         }
@@ -74,6 +75,9 @@ public class SimplyJetpacks {
         SimplyJetpacksConfig.register();
         JetpackType.loadAllConfigs();
         RegistryHandler.init();
+
+        // TODO: see if this works.
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> JetpackModelLayers::init);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -125,10 +129,10 @@ public class SimplyJetpacks {
         }
         ItemStack stack = event.getObject();
         if (stack.getItem() instanceof JetpackItem) {
-            event.addCapability(CuriosCapability.ID_ITEM, CuriosIntegration.initJetpackCapabilities(stack));
+            // event.addCapability(CuriosCapability.ID_ITEM, CuriosIntegration.initJetpackCapabilities(stack));
         }
         if (stack.getItem() instanceof PilotGogglesItem) {
-            event.addCapability(CuriosCapability.ID_ITEM, CuriosIntegration.initGogglesCapabilities(stack));
+            // event.addCapability(CuriosCapability.ID_ITEM, CuriosIntegration.initGogglesCapabilities(stack));
         }
     }
 }

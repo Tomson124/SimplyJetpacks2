@@ -4,8 +4,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -43,6 +41,7 @@ public class PotatoJetpackItem extends JetpackItem {
         }
     }
 
+    // TODO: see if this needs fixing.
 /*    @OnlyIn(Dist.CLIENT)
     @Nullable
     @Override

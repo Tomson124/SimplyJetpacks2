@@ -1,34 +1,9 @@
 package stormedpanda.simplyjetpacks.integration;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
-import stormedpanda.simplyjetpacks.SimplyJetpacks;
-import stormedpanda.simplyjetpacks.item.JetpackItem;
-import stormedpanda.simplyjetpacks.item.PilotGogglesItem;
-import stormedpanda.simplyjetpacks.model.JetpackModel;
-import top.theillusivec4.curios.api.CuriosCapability;
-import top.theillusivec4.curios.api.client.ICurioRenderer;
-import top.theillusivec4.curios.api.type.capability.ICurio;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+// TODO: fix this.
 public class CuriosIntegration {
 
-    public static ICapabilityProvider initGogglesCapabilities(ItemStack itemStack) {
+    /*public static ICapabilityProvider initGogglesCapabilities(ItemStack itemStack) {
         return getProvider(new ICurio() {
 
             @Override
@@ -98,9 +73,8 @@ public class CuriosIntegration {
                 return true;
             }
 
-            @Override
             public void render(String identifier, int index, PoseStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-                JetpackModel jetpackModel = new JetpackModel();
+                JetpackModelNew jetpackModel = new JetpackModelNew();
                 ICurio.RenderHelper.followBodyRotations(livingEntity, jetpackModel);
                 VertexConsumer vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, jetpackModel.renderType(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/jetpack_" + ((JetpackItem) itemStack.getItem()).getJetpackType().getName() + ".png")), false, itemStack.getItem().isFoil(itemStack));
                 jetpackModel.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
@@ -118,5 +92,5 @@ public class CuriosIntegration {
                 return CuriosCapability.ITEM.orEmpty(cap, curioOptional);
             }
         };
-    }
+    }*/
 }
