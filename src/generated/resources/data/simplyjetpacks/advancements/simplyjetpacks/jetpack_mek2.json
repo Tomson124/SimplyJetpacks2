@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "simplyjetpacks:jetpack_mek2"
+            "items": [
+              "simplyjetpacks:jetpack_mek2"
+            ]
           }
         ]
       }

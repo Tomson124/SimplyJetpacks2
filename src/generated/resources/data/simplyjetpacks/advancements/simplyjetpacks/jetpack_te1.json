@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "simplyjetpacks:jetpack_te1"
+            "items": [
+              "simplyjetpacks:jetpack_te1"
+            ]
           }
         ]
       }

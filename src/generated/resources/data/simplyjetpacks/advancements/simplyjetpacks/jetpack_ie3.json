@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "simplyjetpacks:jetpack_ie3"
+            "items": [
+              "simplyjetpacks:jetpack_ie3"
+            ]
           }
         ]
       }

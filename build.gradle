@@ -31,7 +31,7 @@ minecraft {
         client {
             workingDirectory project.file('run')
 
-            // Needed for Patchouli in dev.
+            // Needed for Patchouli in dev. TODO: is it still needed?
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
@@ -112,6 +112,7 @@ dependencies {
 
 //    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
 //    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
+    // FIXME: Patchouli breaks data gen, comment out before using `runData`.
     runtimeOnly fg.deobf("curse.maven:patchouli-306770:3528319")
 
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")

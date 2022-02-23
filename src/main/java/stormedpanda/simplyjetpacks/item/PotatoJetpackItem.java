@@ -1,9 +1,12 @@
 package stormedpanda.simplyjetpacks.item;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -12,20 +15,42 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.energy.CapabilityEnergy;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.handlers.CommonJetpackHandler;
+import stormedpanda.simplyjetpacks.model.JetpackModelLayers;
 import stormedpanda.simplyjetpacks.sound.SJSounds;
 import stormedpanda.simplyjetpacks.util.*;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Consumer;
 
 public class PotatoJetpackItem extends JetpackItem {
 
     public PotatoJetpackItem() {
         super(JetpackType.POTATO, JetpackArmorMaterial.POTATO);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void initializeClient(Consumer<IItemRenderProperties> consumer) {
+        consumer.accept(PotatoJetpackItem.Rendering.INSTANCE);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private static class Rendering implements IItemRenderProperties {
+        private static final PotatoJetpackItem.Rendering INSTANCE = new PotatoJetpackItem.Rendering();
+
+        private Rendering() {
+        }
+
+        @Override
+        public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
+            return null;
+        }
     }
 
     @OnlyIn(Dist.CLIENT)

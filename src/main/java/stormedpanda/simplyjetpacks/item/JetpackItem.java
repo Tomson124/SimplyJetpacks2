@@ -62,8 +62,8 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     @OnlyIn(Dist.CLIENT)
-    private static final class Rendering implements IItemRenderProperties {
-        private static final Rendering INSTANCE = new JetpackItem.Rendering();
+    private static class Rendering implements IItemRenderProperties {
+        private static final JetpackItem.Rendering INSTANCE = new JetpackItem.Rendering();
 
         private Rendering() {
         }
