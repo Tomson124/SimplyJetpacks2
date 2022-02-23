@@ -19,7 +19,6 @@ import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.energy.CapabilityEnergy;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.handlers.CommonJetpackHandler;
-import stormedpanda.simplyjetpacks.model.JetpackModelLayers;
 import stormedpanda.simplyjetpacks.sound.SJSounds;
 import stormedpanda.simplyjetpacks.util.*;
 

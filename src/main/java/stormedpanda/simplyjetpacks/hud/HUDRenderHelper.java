@@ -28,36 +28,35 @@ public class HUDRenderHelper {
         int screenWidth = (int) (windowScaleWidth / hudScale);
 
         switch (position) {
-            case TOP_LEFT:
+            case TOP_LEFT -> {
                 yOffset += lineOffset * 9;
                 drawStringLeft(matrix, text, 2 + xOffset, 2 + yOffset, color, hudTextShadow);
-                break;
-            case TOP_CENTER:
+            }
+            case TOP_CENTER -> {
                 yOffset += lineOffset * 9;
                 drawStringCenter(matrix, text, screenWidth / 2 + xOffset, 2 + yOffset, color, hudTextShadow);
-                break;
-            case TOP_RIGHT:
+            }
+            case TOP_RIGHT -> {
                 yOffset += lineOffset * 9;
                 drawStringRight(matrix, text, screenWidth - 2 + xOffset, 2 + yOffset, color, hudTextShadow);
-                break;
-            case LEFT:
+            }
+            case LEFT -> {
                 yOffset += lineOffset * 9;
                 drawStringLeft(matrix, text, 2 + xOffset, screenHeight / 2 + yOffset, color, hudTextShadow);
-                break;
-            case RIGHT:
+            }
+            case RIGHT -> {
                 yOffset += lineOffset * 9;
                 drawStringRight(matrix, text, screenWidth - 2 + xOffset, screenHeight / 2 + yOffset, color, hudTextShadow);
-                break;
-            case BOTTOM_LEFT:
+            }
+            case BOTTOM_LEFT -> {
                 yOffset -= lineOffset * 9;
                 drawStringLeft(matrix, text, 2 + xOffset, screenHeight - 9 + yOffset, color, hudTextShadow);
-                break;
-            case BOTTOM_RIGHT:
+            }
+            case BOTTOM_RIGHT -> {
                 yOffset -= lineOffset * 9;
                 drawStringRight(matrix, text, screenWidth - 2 + xOffset, screenHeight - 9 + yOffset, color, hudTextShadow);
-                break;
-            default:
-                SimplyJetpacks.LOGGER.info("Invalid HUD Position passed to renderer.");
+            }
+            default -> SimplyJetpacks.LOGGER.info("Invalid HUD Position passed to renderer.");
         }
     }
 
