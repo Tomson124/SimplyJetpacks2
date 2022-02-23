@@ -11,7 +11,7 @@ import stormedpanda.simplyjetpacks.SimplyJetpacks;
 public class JetpackModelLayers {
 
     public static final ModelLayerLocation JETPACK_LAYER = new ModelLayerLocation(new ResourceLocation(SimplyJetpacks.MODID, "jetpack_layer"), "main");
-    public static JetpackModel<LivingEntity> JETPACK_MODEL = null;
+    public static JetpackModelNew<LivingEntity> JETPACK_MODEL = null;
 
     public static void init() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(JetpackModelLayers::initLayers);
@@ -19,10 +19,10 @@ public class JetpackModelLayers {
     }
 
     public static void initLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(JETPACK_LAYER, JetpackModel::createLayer);
+        event.registerLayerDefinition(JETPACK_LAYER, JetpackModelNew::createLayer);
     }
 
     public static void initModels(EntityRenderersEvent.AddLayers event) {
-        JETPACK_MODEL = new JetpackModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(JetpackModelLayers.JETPACK_LAYER));
+        JETPACK_MODEL = new JetpackModelNew<>(Minecraft.getInstance().getEntityModels().bakeLayer(JetpackModelLayers.JETPACK_LAYER));
     }
 }

@@ -1,19 +1,19 @@
 package stormedpanda.simplyjetpacks.hud;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.MainWindow;
+import com.mojang.blaze3d.platform.Window;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.gui.Font;
+import net.minecraft.network.chat.Component;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.config.ConfigDefaults;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 
 public class HUDRenderHelper {
 
-    private static final FontRenderer fontRenderer = Minecraft.getInstance().font;
+    private static final Font fontRenderer = Minecraft.getInstance().font;
 
-    public static void drawStringAtPosition(MainWindow window, MatrixStack matrix, ITextComponent text, int lineOffset) {
+    public static void drawStringAtPosition(Window window, PoseStack matrix, Component text, int lineOffset) {
         int windowScaleHeight = window.getGuiScaledHeight();
         int windowScaleWidth = window.getGuiScaledWidth();
 
@@ -27,7 +27,7 @@ public class HUDRenderHelper {
         int screenHeight = (int) (windowScaleHeight / hudScale);
         int screenWidth = (int) (windowScaleWidth / hudScale);
 
-        switch(position) {
+        switch (position) {
             case TOP_LEFT:
                 yOffset += lineOffset * 9;
                 drawStringLeft(matrix, text, 2 + xOffset, 2 + yOffset, color, hudTextShadow);
@@ -61,7 +61,7 @@ public class HUDRenderHelper {
         }
     }
 
-    private static void drawStringLeft(MatrixStack matrix, ITextComponent text, int x, int y, int color, boolean shadow) {
+    private static void drawStringLeft(PoseStack matrix, Component text, int x, int y, int color, boolean shadow) {
         if (shadow) {
             fontRenderer.drawShadow(matrix, text, x, y, color);
         } else {
@@ -69,7 +69,7 @@ public class HUDRenderHelper {
         }
     }
 
-    private static void drawStringCenter(MatrixStack matrix, ITextComponent text, int x, int y, int color, boolean shadow) {
+    private static void drawStringCenter(PoseStack matrix, Component text, int x, int y, int color, boolean shadow) {
         float textWidth = fontRenderer.width(text);
         if (shadow) {
             fontRenderer.drawShadow(matrix, text, x - (textWidth / 2), y, color);
@@ -78,7 +78,7 @@ public class HUDRenderHelper {
         }
     }
 
-    private static void drawStringRight(MatrixStack matrix, ITextComponent text, int x, int y, int color, boolean shadow) {
+    private static void drawStringRight(PoseStack matrix, Component text, int x, int y, int color, boolean shadow) {
         float textWidth = fontRenderer.width(text);
         if (shadow) {
             fontRenderer.drawShadow(matrix, text, x - textWidth, y, color);

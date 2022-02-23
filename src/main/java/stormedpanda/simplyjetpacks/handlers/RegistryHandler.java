@@ -1,6 +1,7 @@
 package stormedpanda.simplyjetpacks.handlers;
 
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -32,10 +33,10 @@ public class RegistryHandler {
     }
 
     // Particles:
-    public static final RegistryObject<BasicParticleType> RAINBOW_PARTICLE = PARTICLE_TYPES.register("rainbow_particle", () -> new BasicParticleType(false));
+    public static final RegistryObject<SimpleParticleType> RAINBOW_PARTICLE = PARTICLE_TYPES.register("rainbow_particle", () -> new SimpleParticleType(false));
 
     // Recipes:
-    public static final RegistryObject<SpecialRecipeSerializer<JetpackSpecialRecipe>> JETPACK_SPECIAL_RECIPE = RECIPE_SERIALIZERS.register("jetpack_special_recipe",() -> new SpecialRecipeSerializer<>(JetpackSpecialRecipe::new));
+    public static final RegistryObject<RecipeSerializer<JetpackSpecialRecipe>> JETPACK_SPECIAL_RECIPE = RECIPE_SERIALIZERS.register("jetpack_special_recipe",() -> new RecipeSerializer<>(JetpackSpecialRecipe::new));
 
     // Enchantments:
     public static final EnchantmentCategory JETPACK_ENCHANTMENT_TYPE = EnchantmentCategory.create("JETPACK", (item -> item instanceof JetpackItem));

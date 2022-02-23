@@ -1,7 +1,7 @@
 package stormedpanda.simplyjetpacks.particle;
 
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 
 public enum JetpackParticleType {
@@ -16,13 +16,13 @@ public enum JetpackParticleType {
     SNOW(ParticleTypes.ITEM_SNOWBALL),
     ;
 
-    public final IParticleData particleData;
+    public final ParticleOptions particleData;
 
-    JetpackParticleType(IParticleData particleData) {
+    JetpackParticleType(ParticleOptions particleData) {
         this.particleData = particleData;
     }
 
-    public IParticleData getParticleData() {
+    public ParticleOptions getParticleData() {
         return particleData;
     }
 }

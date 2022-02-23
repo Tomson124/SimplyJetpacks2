@@ -1,19 +1,31 @@
 package stormedpanda.simplyjetpacks.item;
 
+import com.mojang.math.Vector3d;
+import com.sun.javafx.util.Utils;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import org.lwjgl.system.MathUtil;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.energy.EnergyStorageImpl;
@@ -22,12 +34,14 @@ import stormedpanda.simplyjetpacks.handlers.CommonJetpackHandler;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.hud.IHUDInfoProvider;
 import stormedpanda.simplyjetpacks.model.JetpackModel;
+import stormedpanda.simplyjetpacks.model.JetpackModelLayers;
 import stormedpanda.simplyjetpacks.particle.JetpackParticleType;
 import stormedpanda.simplyjetpacks.util.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyContainer {
 
@@ -45,6 +59,42 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         this.jetpackType = jetpackType;
         this.tier = jetpackType.getTier();
     }
+
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void initializeClient(Consumer<IItemRenderProperties> consumer) {
+        consumer.accept(Rendering.INSTANCE);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private static final class Rendering implements IItemRenderProperties {
+        private static final Rendering INSTANCE = new JetpackItem.Rendering();
+
+        private Rendering() {
+        }
+
+        @Override
+        public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
+            return (A) JetpackModelLayers.JETPACK_MODEL;
+        }
+    }
+
+    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+        return this.jetpackType.getArmorTexture();
+    }
+
+    /*@Nullable
+    @Override
+    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+        return jetpackType.getArmorTexture();
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Nullable
+    @Override
+    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
+        return (A) new JetpackModel();
+    }*/
 
     @Override
     public void onArmorTick(ItemStack stack, Level level, Player player) {
@@ -97,7 +147,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public void toggleEngine(ItemStack stack, Player player) {
         boolean current = NBTUtil.getBoolean(stack, Constants.TAG_ENGINE);
         NBTUtil.flipBoolean(stack, Constants.TAG_ENGINE);
-        TextComponent msg = SJTextUtil.getStateToggle("engineMode", !current);
+        Component msg = SJTextUtil.getStateToggle("engineMode", !current);
         player.displayClientMessage(msg, true);
     }
 
@@ -109,7 +159,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         if (jetpackType.getHoverMode()) {
             boolean current = NBTUtil.getBoolean(stack, Constants.TAG_HOVER);
             NBTUtil.flipBoolean(stack, Constants.TAG_HOVER);
-            TextComponent msg = SJTextUtil.getStateToggle("hoverMode", !current);
+            Component msg = SJTextUtil.getStateToggle("hoverMode", !current);
             player.displayClientMessage(msg, true);
         }
     }
@@ -122,7 +172,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         if (jetpackType.getEmergencyHoverMode()) {
             boolean current = NBTUtil.getBoolean(stack, Constants.TAG_E_HOVER);
             NBTUtil.flipBoolean(stack, Constants.TAG_E_HOVER);
-            TextComponent msg = SJTextUtil.getStateToggle("emergencyHoverMode", !current);
+            Component msg = SJTextUtil.getStateToggle("emergencyHoverMode", !current);
             player.displayClientMessage(msg, true);
         }
     }
@@ -131,7 +181,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         if (jetpackType.getHoverMode()) {
             NBTUtil.setBoolean(stack, Constants.TAG_ENGINE, true);
             NBTUtil.setBoolean(stack, Constants.TAG_HOVER, true);
-            TextComponent msg = SJTextUtil.getEmergencyText();
+            Component msg = SJTextUtil.getEmergencyText();
             player.displayClientMessage(msg, true);
         }
     }
@@ -144,7 +194,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         if (jetpackType.getChargerMode()) {
             boolean current = NBTUtil.getBoolean(stack, Constants.TAG_CHARGER);
             NBTUtil.flipBoolean(stack, Constants.TAG_CHARGER);
-            TextComponent msg = SJTextUtil.getStateToggle("chargerMode", !current);
+            Component msg = SJTextUtil.getStateToggle("chargerMode", !current);
             player.displayClientMessage(msg, true);
         }
     }
@@ -159,7 +209,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT nbt) {
+    public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag nbt) {
         IEnergyContainer container = this;
         return new ICapabilityProvider() {
             @Nonnull
@@ -174,7 +224,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level levelIn, List<TextComponent> tooltip, TooltipFlag flagIn) {
+    public void appendHoverText(ItemStack stack, @Nullable Level levelIn, List<Component> tooltip, TooltipFlag flagIn) {
         if (CapabilityEnergy.ENERGY == null) return;
         SJTextUtil.addBaseInfo(stack, tooltip);
         if (KeyboardUtil.isHoldingShift()) {
@@ -214,7 +264,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     private void setEnergyStored(ItemStack container, int value) {
-        NBTUtil.setInt(container, Constants.TAG_ENERGY, MathHelper.clamp(value, 0, getCapacity(container)));
+        NBTUtil.setInt(container, Constants.TAG_ENERGY, Utils.clamp(value, 0, getCapacity(container)));
     }
 
     public int getEnergyReceive() {
@@ -246,19 +296,6 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     public int getThrottle(ItemStack stack) {
         return stack.getOrCreateTag().contains(Constants.TAG_THROTTLE) ? stack.getOrCreateTag().getInt(Constants.TAG_THROTTLE) : 100;
-    }
-
-    @Nullable
-    @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        return jetpackType.getArmorTexture();
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    @Nullable
-    @Override
-    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
-        return (A) new JetpackModel();
     }
 
     public void useEnergy(ItemStack container, int amount) {
@@ -306,7 +343,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     private void fly(Player player, double y) {
-        Vector3d motion = player.getDeltaMovement();
+        Vec3 motion = player.getDeltaMovement();
         player.setDeltaMovement(motion.get(Direction.Axis.X), y, motion.get(Direction.Axis.Z));
     }
 
@@ -352,21 +389,21 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
                     float speedForward = (float) (player.isSprinting() ? speedSideways * sprintSpeedModifier : speedSideways) * (getThrottle(stack) / 100.0F);
 
                     if (CommonJetpackHandler.isHoldingForwards(player)) {
-                        player.moveRelative(1, new Vector3d(0, 0, speedForward));
+                        player.moveRelative(1, new Vec3(0, 0, speedForward));
                     }
                     if (CommonJetpackHandler.isHoldingBackwards(player)) {
-                        player.moveRelative(1, new Vector3d(0, 0, -speedSideways * 0.8F));
+                        player.moveRelative(1, new Vec3(0, 0, -speedSideways * 0.8F));
                     }
                     if (CommonJetpackHandler.isHoldingLeft(player)) {
-                        player.moveRelative(1, new Vector3d(speedSideways, 0, 0));
+                        player.moveRelative(1, new Vec3(speedSideways, 0, 0));
                     }
                     if (CommonJetpackHandler.isHoldingRight(player)) {
-                        player.moveRelative(1, new Vector3d(-speedSideways, 0, 0));
+                        player.moveRelative(1, new Vec3(-speedSideways, 0, 0));
                     }
                     if (!player.getCommandSenderWorld().isClientSide()) {
                         player.fallDistance = 0.0F;
-                        if (player instanceof ServerPlayerEntity) {
-                            ((ServerPlayerEntity) player).connection.aboveGroundTickCount = 0;
+                        if (player instanceof ServerPlayer) {
+                            ((ServerPlayer) player).connection.aboveGroundTickCount = 0;
                         }
                     }
                 }
@@ -392,7 +429,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void addHUDInfo(ItemStack stack, List<TextComponent> list) {
+    public void addHUDInfo(ItemStack stack, List<Component> list) {
         SJTextUtil.addHUDInfoText(stack, list);
     }
 

@@ -1,5 +1,9 @@
 package stormedpanda.simplyjetpacks.integration;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
@@ -16,6 +20,7 @@ import stormedpanda.simplyjetpacks.item.JetpackItem;
 import stormedpanda.simplyjetpacks.item.PilotGogglesItem;
 import stormedpanda.simplyjetpacks.model.JetpackModel;
 import top.theillusivec4.curios.api.CuriosCapability;
+import top.theillusivec4.curios.api.client.ICurioRenderer;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import javax.annotation.Nonnull;
@@ -32,6 +37,11 @@ public class CuriosIntegration {
             }
 
             @Override
+            public ItemStack getStack() {
+                return itemStack;
+            }
+
+            @Override
             public boolean canRightClickEquip() {
                 return true;
             }
@@ -41,12 +51,13 @@ public class CuriosIntegration {
                 return true;
             }
 
+
             @Override
-            public void render(String identifier, int index, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-                BipedModel<LivingEntity> gogglesModel = new BipedModel<>(1.0F);
-                ICurio.RenderHelper.followHeadRotations(livingEntity, gogglesModel.head);
-                //IVertexBuilder vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, gogglesModel.renderType(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_" + ((PilotGogglesItem) itemStack.getItem()).getType() + "_layer_1.png")), false, itemStack.getItem().isFoil(itemStack));
-                IVertexBuilder vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, gogglesModel.renderType(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_" + ((PilotGogglesItem) itemStack.getItem()).getType() + ".png")), false, itemStack.getItem().isFoil(itemStack));
+            public void render(String identifier, int index, PoseStack matrixStack, RenderType renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+                HumanoidModel<LivingEntity> gogglesModel = new HumanoidModel<>(1.0F);
+                ICurioRenderer.followHeadRotations(livingEntity, gogglesModel.head);
+                //VertexConsumer vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, gogglesModel.renderType(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_" + ((PilotGogglesItem) itemStack.getItem()).getType() + "_layer_1.png")), false, itemStack.getItem().isFoil(itemStack));
+                VertexConsumer vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, gogglesModel.renderType(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_" + ((PilotGogglesItem) itemStack.getItem()).getType() + ".png")), false, itemStack.getItem().isFoil(itemStack));
                 gogglesModel.head.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
             }
         });
@@ -61,13 +72,18 @@ public class CuriosIntegration {
             }
 
             @Override
+            public ItemStack getStack() {
+                return itemStack;
+            }
+
+            @Override
             public boolean canRightClickEquip() {
                 return true;
             }
 
             @Override
             public void curioTick(String identifier, int index, LivingEntity livingEntity) {
-                if (livingEntity instanceof PlayerEntity) {
+                if (livingEntity instanceof Player) {
                     itemStack.onArmorTick(livingEntity.level, (Player) livingEntity);
                 }
             }
@@ -83,10 +99,10 @@ public class CuriosIntegration {
             }
 
             @Override
-            public void render(String identifier, int index, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+            public void render(String identifier, int index, PoseStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
                 JetpackModel jetpackModel = new JetpackModel();
                 ICurio.RenderHelper.followBodyRotations(livingEntity, jetpackModel);
-                IVertexBuilder vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, jetpackModel.renderType(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/jetpack_" + ((JetpackItem) itemStack.getItem()).getJetpackType().getName() + ".png")), false, itemStack.getItem().isFoil(itemStack));
+                VertexConsumer vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, jetpackModel.renderType(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/jetpack_" + ((JetpackItem) itemStack.getItem()).getJetpackType().getName() + ".png")), false, itemStack.getItem().isFoil(itemStack));
                 jetpackModel.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
             }
         });

@@ -4,7 +4,7 @@ import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
 import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 
 import javax.annotation.Nonnull;

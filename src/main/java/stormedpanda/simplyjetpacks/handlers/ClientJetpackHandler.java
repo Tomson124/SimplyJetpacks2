@@ -1,11 +1,11 @@
 package stormedpanda.simplyjetpacks.handlers;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.ParticleStatus;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particles.IParticleData;
+import net.minecraft.client.ParticleStatus;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.TickEvent;
@@ -59,7 +59,7 @@ public class ClientJetpackHandler {
     }
 
     private void showJetpackParticles(Minecraft minecraft, JetpackParticleType particleType) {
-        IParticleData particle = particleType.getParticleData();
+        ParticleOptions particle = particleType.getParticleData();
         Random rand = new Random();
         float random = (rand.nextFloat() - 0.5F) * 0.1F;
         double[] sneakBonus = minecraft.player.isCrouching() ? new double[]{-0.30, -0.10} : new double[]{0, 0};
@@ -78,7 +78,7 @@ public class ClientJetpackHandler {
         //minecraft.level.addParticle(particle, v.x, v.y, v.z, random, -0.2D, random); // alternative method
     }
 
-    public static boolean isFlying(PlayerEntity player) {
+    public static boolean isFlying(Player player) {
         ItemStack stack = JetpackUtil.getFromBothSlots(player);
         if (!stack.isEmpty()) {
             Item item = stack.getItem();

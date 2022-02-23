@@ -42,7 +42,7 @@ public enum JetpackArmorMaterial implements ArmorMaterial {
 		this.knockbackResistance = knockbackResistance;
 	}
 
-	public static void setStats(ArmorMaterialList armor, boolean isArmored, int enchant, int defense) {
+	public static void setStats(JetpackArmorMaterial armor, boolean isArmored, int enchant, int defense) {
 		defense = isArmored ? defense : (defense - 1) / 2;
 		armor.enchantability = enchant;
 		armor.damageReductionAmounts[EquipmentSlot.CHEST.getIndex()] = defense;

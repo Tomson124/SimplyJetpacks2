@@ -1,5 +1,6 @@
 package stormedpanda.simplyjetpacks.util;
 
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.ModList;
@@ -18,7 +19,7 @@ public class JetpackUtil {
     }
 
     public static ItemStack getFromChest(Player player) {
-        return player.getItemBySlot(EquipmentSlotType.CHEST);
+        return player.getItemBySlot(EquipmentSlot.CHEST);
     }
 
     public static void removeFromBothSlots(Player player) {

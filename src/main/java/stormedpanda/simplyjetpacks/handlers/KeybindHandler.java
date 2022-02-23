@@ -1,14 +1,14 @@
 package stormedpanda.simplyjetpacks.handlers;
 
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fmlclient.registry.ClientRegistry;
 import org.lwjgl.glfw.GLFW;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
@@ -25,34 +25,34 @@ public class KeybindHandler {
     private static boolean lastLeftState = false;
     private static boolean lastRightState = false;
 
-    public static KeyBinding JETPACK_GUI_KEY;
-    public static KeyBinding JETPACK_ENGINE_KEY;
-    public static KeyBinding JETPACK_HOVER_KEY;
-    public static KeyBinding JETPACK_EHOVER_KEY;
-    public static KeyBinding JETPACK_CHARGER_KEY;
-    public static KeyBinding JETPACK_THROTTLE_INCREASE;
-    public static KeyBinding JETPACK_THROTTLE_DECREASE;
+    public static KeyMapping JETPACK_GUI_KEY;
+    public static KeyMapping JETPACK_ENGINE_KEY;
+    public static KeyMapping JETPACK_HOVER_KEY;
+    public static KeyMapping JETPACK_EHOVER_KEY;
+    public static KeyMapping JETPACK_CHARGER_KEY;
+    public static KeyMapping JETPACK_THROTTLE_INCREASE;
+    public static KeyMapping JETPACK_THROTTLE_DECREASE;
 
     public static void setup() {
-        JETPACK_GUI_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_gui", GLFW.GLFW_KEY_K, "keybind.simplyjetpacks.category");
+        JETPACK_GUI_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_gui", GLFW.GLFW_KEY_K, "keybind.simplyjetpacks.category");
         ClientRegistry.registerKeyBinding(JETPACK_GUI_KEY);
-        JETPACK_ENGINE_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_engine", GLFW.GLFW_KEY_J, "keybind.simplyjetpacks.category");
+        JETPACK_ENGINE_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_engine", GLFW.GLFW_KEY_J, "keybind.simplyjetpacks.category");
         ClientRegistry.registerKeyBinding(JETPACK_ENGINE_KEY);
-        JETPACK_HOVER_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_hover", GLFW.GLFW_KEY_H, "keybind.simplyjetpacks.category");
+        JETPACK_HOVER_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_hover", GLFW.GLFW_KEY_H, "keybind.simplyjetpacks.category");
         ClientRegistry.registerKeyBinding(JETPACK_HOVER_KEY);
-        JETPACK_EHOVER_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_ehover", GLFW.GLFW_KEY_UNKNOWN, "keybind.simplyjetpacks.category");
+        JETPACK_EHOVER_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_ehover", GLFW.GLFW_KEY_UNKNOWN, "keybind.simplyjetpacks.category");
         ClientRegistry.registerKeyBinding(JETPACK_EHOVER_KEY);
-        JETPACK_CHARGER_KEY = new KeyBinding("keybind.simplyjetpacks.jetpack_charger", GLFW.GLFW_KEY_UNKNOWN, "keybind.simplyjetpacks.category");
+        JETPACK_CHARGER_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_charger", GLFW.GLFW_KEY_UNKNOWN, "keybind.simplyjetpacks.category");
         ClientRegistry.registerKeyBinding(JETPACK_CHARGER_KEY);
-        JETPACK_THROTTLE_INCREASE = new KeyBinding("keybind.simplyjetpacks.jetpack_throttle_increase", GLFW.GLFW_KEY_PERIOD, "keybind.simplyjetpacks.category");
+        JETPACK_THROTTLE_INCREASE = new KeyMapping("keybind.simplyjetpacks.jetpack_throttle_increase", GLFW.GLFW_KEY_PERIOD, "keybind.simplyjetpacks.category");
         ClientRegistry.registerKeyBinding(JETPACK_THROTTLE_INCREASE);
-        JETPACK_THROTTLE_DECREASE = new KeyBinding("keybind.simplyjetpacks.jetpack_throttle_decrease", GLFW.GLFW_KEY_COMMA, "keybind.simplyjetpacks.category");
+        JETPACK_THROTTLE_DECREASE = new KeyMapping("keybind.simplyjetpacks.jetpack_throttle_decrease", GLFW.GLFW_KEY_COMMA, "keybind.simplyjetpacks.category");
         ClientRegistry.registerKeyBinding(JETPACK_THROTTLE_DECREASE);
     }
 
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
-        PlayerEntity player = Minecraft.getInstance().player;
+        Player player = Minecraft.getInstance().player;
         if (player == null) {
             return;
         }

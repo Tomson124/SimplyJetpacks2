@@ -1,11 +1,11 @@
 package stormedpanda.simplyjetpacks.hud;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.MainWindow;
+import com.mojang.blaze3d.platform.Window;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
@@ -34,17 +34,17 @@ public class HUDHandler {
 
                     IHUDInfoProvider provider = (IHUDInfoProvider) chestplate.getItem();
 
-                    List<ITextComponent> renderStrings = new ArrayList<>();
+                    List<Component> renderStrings = new ArrayList<>();
                     provider.addHUDInfo(chestplate, renderStrings);
                     if (renderStrings.isEmpty()) {
                         return;
                     }
                     int count = 0;
-                    MatrixStack matrix = event.getMatrixStack();
+                    PoseStack matrix = event.getMatrixStack();
                     matrix.pushPose();
                     matrix.scale(SimplyJetpacksConfig.hudScale.get(), SimplyJetpacksConfig.hudScale.get(), 1.0F);
-                    MainWindow window = event.getWindow();
-                    for (ITextComponent text : renderStrings) {
+                    Window window = event.getWindow();
+                    for (Component text : renderStrings) {
                         HUDRenderHelper.drawStringAtPosition(window, matrix, text, count);
                         count++;
                     }
