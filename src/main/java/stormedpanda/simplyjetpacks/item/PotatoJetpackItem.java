@@ -65,14 +65,6 @@ public class PotatoJetpackItem extends JetpackItem {
         }
     }
 
-    // TODO: see if this needs fixing.
-/*    @OnlyIn(Dist.CLIENT)
-    @Nullable
-    @Override
-    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
-        return null;
-    }*/
-
     @Override
     public void onArmorTick(ItemStack stack, Level world, Player player) {
         if (!player.isSpectator() && stack == JetpackUtil.getFromBothSlots(player)) {

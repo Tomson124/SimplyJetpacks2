@@ -30,8 +30,6 @@ public class CuriosIntegration {
         CuriosRendererRegistry.register(RegistryHandler.PILOT_GOGGLES_IRON.get(), () -> new PilotGogglesRenderer(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_iron.png")));
         CuriosRendererRegistry.register(RegistryHandler.PILOT_GOGGLES_GOLD.get(), () -> new PilotGogglesRenderer(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_gold.png")));
 
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_POTATO.get(), () -> new JetpackRenderer(getJetpackTexture("potato")));
-
         CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("creative")));
         CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("creative_armored")));
 
