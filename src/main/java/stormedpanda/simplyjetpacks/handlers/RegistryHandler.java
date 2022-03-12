@@ -35,6 +35,7 @@ public class RegistryHandler {
     public static final RegistryObject<SimpleParticleType> RAINBOW_PARTICLE = PARTICLE_TYPES.register("rainbow_particle", () -> new SimpleParticleType(false));
 
     // Recipes:
+    // TODO: fix this.
 //    public static final RegistryObject<RecipeSerializer<JetpackSpecialRecipe>> JETPACK_SPECIAL_RECIPE = RECIPE_SERIALIZERS.register("jetpack_special_recipe",() -> new SimpleRecipeSerializer<>(JetpackSpecialRecipe::new));
 
     // Enchantments:

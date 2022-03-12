@@ -78,19 +78,6 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         return this.jetpackType.getArmorTexture();
     }
 
-    /*@Nullable
-    @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        return jetpackType.getArmorTexture();
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    @Nullable
-    @Override
-    public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
-        return (A) new JetpackModel();
-    }*/
-
     @Override
     public void onArmorTick(ItemStack stack, Level level, Player player) {
         if (!player.isSpectator() && stack == JetpackUtil.getFromBothSlots(player)) {
