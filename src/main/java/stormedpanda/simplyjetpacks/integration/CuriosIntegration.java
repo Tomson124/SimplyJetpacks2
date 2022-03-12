@@ -1,14 +1,42 @@
 package stormedpanda.simplyjetpacks.integration;
 
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.LazyOptional;
+import stormedpanda.simplyjetpacks.SimplyJetpacks;
+import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
+import top.theillusivec4.curios.api.CuriosCapability;
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
+import top.theillusivec4.curios.api.type.capability.ICurio;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 // TODO: fix this.
 public class CuriosIntegration {
 
-    /*public static ICapabilityProvider initGogglesCapabilities(ItemStack itemStack) {
+    private static ResourceLocation getTextures(String name) {
+        return new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/" + name + ".png");
+    }
+
+    public static void initRenderers() {
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getTextures("jetpack_creative")));
+    }
+
+
+    public static ICapabilityProvider initGogglesCapabilities(ItemStack itemStack) {
         return getProvider(new ICurio() {
 
             @Override
             public void playRightClickEquipSound(LivingEntity livingEntity) {
-                livingEntity.level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ((ArmorItem)itemStack.getItem()).getMaterial().getEquipSound(), SoundCategory.PLAYERS, 1.0F, 1.0F);
+                livingEntity.level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ((ArmorItem)itemStack.getItem()).getMaterial().getEquipSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
             }
 
             @Override
@@ -20,21 +48,6 @@ public class CuriosIntegration {
             public boolean canRightClickEquip() {
                 return true;
             }
-
-            @Override
-            public boolean canRender(String identifier, int index, LivingEntity livingEntity) {
-                return true;
-            }
-
-
-            @Override
-            public void render(String identifier, int index, PoseStack matrixStack, RenderType renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-                HumanoidModel<LivingEntity> gogglesModel = new HumanoidModel<>(1.0F);
-                ICurioRenderer.followHeadRotations(livingEntity, gogglesModel.head);
-                //VertexConsumer vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, gogglesModel.renderType(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_" + ((PilotGogglesItem) itemStack.getItem()).getType() + "_layer_1.png")), false, itemStack.getItem().isFoil(itemStack));
-                VertexConsumer vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, gogglesModel.renderType(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_" + ((PilotGogglesItem) itemStack.getItem()).getType() + ".png")), false, itemStack.getItem().isFoil(itemStack));
-                gogglesModel.head.render(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-            }
         });
     }
 
@@ -43,7 +56,7 @@ public class CuriosIntegration {
 
             @Override
             public void playRightClickEquipSound(LivingEntity livingEntity) {
-                livingEntity.level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ((ArmorItem)itemStack.getItem()).getMaterial().getEquipSound(), SoundCategory.PLAYERS, 1.0F, 1.0F);
+                livingEntity.level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ((ArmorItem)itemStack.getItem()).getMaterial().getEquipSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
             }
 
             @Override
@@ -67,18 +80,6 @@ public class CuriosIntegration {
             public boolean canSync(String identifier, int index, LivingEntity livingEntity) {
                 return true;
             }
-
-            @Override
-            public boolean canRender(String identifier, int index, LivingEntity livingEntity) {
-                return true;
-            }
-
-            public void render(String identifier, int index, PoseStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-                JetpackModelNew jetpackModel = new JetpackModelNew();
-                ICurio.RenderHelper.followBodyRotations(livingEntity, jetpackModel);
-                VertexConsumer vertexBuilder = ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, jetpackModel.renderType(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/jetpack_" + ((JetpackItem) itemStack.getItem()).getJetpackType().getName() + ".png")), false, itemStack.getItem().isFoil(itemStack));
-                jetpackModel.renderToBuffer(matrixStack, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-            }
         });
     }
 
@@ -92,5 +93,6 @@ public class CuriosIntegration {
                 return CuriosCapability.ITEM.orEmpty(cap, curioOptional);
             }
         };
-    }*/
+    }
+
 }

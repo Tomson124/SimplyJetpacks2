@@ -28,6 +28,7 @@ import stormedpanda.simplyjetpacks.handlers.CommonJetpackHandler;
 import stormedpanda.simplyjetpacks.handlers.KeybindHandler;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.hud.HUDHandler;
+import stormedpanda.simplyjetpacks.integration.CuriosIntegration;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
 import stormedpanda.simplyjetpacks.item.JetpackType;
 import stormedpanda.simplyjetpacks.item.PilotGogglesItem;
@@ -36,6 +37,7 @@ import stormedpanda.simplyjetpacks.model.JetpackModelLayers;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
 import stormedpanda.simplyjetpacks.sound.SJSounds;
 import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
@@ -91,6 +93,10 @@ public class SimplyJetpacks {
         MinecraftForge.EVENT_BUS.register(new ClientJetpackHandler());
         MinecraftForge.EVENT_BUS.register(new HUDHandler());
         KeybindHandler.setup();
+
+        if (ModList.get().isLoaded("curios")) {
+            CuriosIntegration.initRenderers();
+        }
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
@@ -129,10 +135,10 @@ public class SimplyJetpacks {
         }
         ItemStack stack = event.getObject();
         if (stack.getItem() instanceof JetpackItem) {
-            // event.addCapability(CuriosCapability.ID_ITEM, CuriosIntegration.initJetpackCapabilities(stack));
+             event.addCapability(CuriosCapability.ID_ITEM, CuriosIntegration.initJetpackCapabilities(stack));
         }
         if (stack.getItem() instanceof PilotGogglesItem) {
-            // event.addCapability(CuriosCapability.ID_ITEM, CuriosIntegration.initGogglesCapabilities(stack));
+             event.addCapability(CuriosCapability.ID_ITEM, CuriosIntegration.initGogglesCapabilities(stack));
         }
     }
 }
