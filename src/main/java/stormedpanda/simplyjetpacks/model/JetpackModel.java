@@ -1,112 +1,141 @@
 package stormedpanda.simplyjetpacks.model;
 
-// TODO: remove this.
-/*
-public class JetpackModel extends BipedModel<LivingEntity> {
+import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.entity.LivingEntity;
 
-    private final ModelRenderer middle;
-    private final ModelRenderer leftCanister;
-    private final ModelRenderer rightCanister;
-    private final ModelRenderer leftTip1;
-    private final ModelRenderer leftTip2;
-    private final ModelRenderer rightTip1;
-    private final ModelRenderer rightTip2;
-    private final ModelRenderer leftExhaust1;
-    private final ModelRenderer leftExhaust2;
-    private final ModelRenderer rightExhaust1;
-    private final ModelRenderer rightExhaust2;
+public class JetpackModel<T extends LivingEntity> extends HumanoidModel<T> {
 
-    public JetpackModel() {
-        super(1F, 0F, 64, 64);
-        texWidth = 64;
-        texHeight = 64;
+    private final ModelPart middle;
+    private final ModelPart leftCanister;
+    private final ModelPart rightCanister;
+    private final ModelPart leftTip1;
+    private final ModelPart leftTip2;
+    private final ModelPart rightTip1;
+    private final ModelPart rightTip2;
+    private final ModelPart leftExhaust1;
+    private final ModelPart leftExhaust2;
+    private final ModelPart rightExhaust1;
+    private final ModelPart rightExhaust2;
 
-        middle = new ModelRenderer(this, 0, 54);
-        middle.setPos(0F, 0F, 0F);
-        middle.mirror = true;
-        this.setRotation(middle, 0F, 0F, 0F);
-
-        leftCanister = new ModelRenderer(this, 0, 32);
-        leftCanister.setPos(0F, 0F, 0F);
-        leftCanister.mirror = true;
-        this.setRotation(leftCanister, 0F, 0F, 0F);
-
-        rightCanister = new ModelRenderer(this, 17, 32);
-        rightCanister.setPos(0F, 0F, 0F);
-        rightCanister.mirror = true;
-        this.setRotation(rightCanister, 0F, 0F, 0F);
-
-        leftTip1 = new ModelRenderer(this, 0, 45);
-        leftTip1.setPos(0F, 0F, 0F);
-        leftTip1.mirror = true;
-        this.setRotation(leftTip1, 0F, 0F, 0F);
-
-        leftTip2 = new ModelRenderer(this, 0, 49);
-        leftTip2.setPos(0F, 0F, 0F);
-        leftTip2.mirror = true;
-        this.setRotation(leftTip2, 0F, 0F, 0F);
-
-        rightTip1 = new ModelRenderer(this, 17, 45);
-        rightTip1.setPos(0F, 0F, 0F);
-        rightTip1.mirror = true;
-        this.setRotation(rightTip1, 0F, 0F, 0F);
-
-        rightTip2 = new ModelRenderer(this, 17, 49);
-        rightTip2.setPos(0F, 0F, 0F);
-        rightTip2.mirror = true;
-        this.setRotation(rightTip2, 0F, 0F, 0F);
-
-        leftExhaust1 = new ModelRenderer(this, 35, 32);
-        leftExhaust1.addBox(1F, 9F, 3.1F, 3, 1, 3);
-        leftExhaust1.mirror = true;
-        this.setRotation(leftExhaust1, 0F, 0F, 0F);
-
-        leftExhaust2 = new ModelRenderer(this, 35, 37);
-        leftExhaust2.setPos(0F, 0F, 0F);
-        leftExhaust2.mirror = true;
-        this.setRotation(leftExhaust2, 0F, 0F, 0F);
-
-        rightExhaust1 = new ModelRenderer(this, 48, 32);
-        rightExhaust1.setPos(0F, 0F, 0F);
-        rightExhaust1.mirror = true;
-        this.setRotation(rightExhaust1, 0F, 0F, 0F);
-
-        rightExhaust2 = new ModelRenderer(this, 35, 45);
-        rightExhaust2.setPos(0F, 0F, 0F);
-        rightExhaust2.mirror = true;
-        this.setRotation(rightExhaust2, 0F, 0F, 0F);
-
-        setupCustomModel();
+    public JetpackModel(ModelPart model) {
+        super(model);
+        this.middle = model.getChild("middle");
+        this.leftCanister = model.getChild("leftCanister");
+        this.rightCanister = model.getChild("rightCanister");
+        this.leftTip1 = model.getChild("leftTip1");
+        this.leftTip2 = model.getChild("leftTip2");
+        this.rightTip1 = model.getChild("rightTip1");
+        this.rightTip2 = model.getChild("rightTip2");
+        this.leftExhaust1 = model.getChild("leftExhaust1");
+        this.leftExhaust2 = model.getChild("leftExhaust2");
+        this.rightExhaust1 = model.getChild("rightExhaust1");
+        this.rightExhaust2 = model.getChild("rightExhaust2");
     }
 
-    private void setupCustomModel() {
-        body.addChild(middle);
-        middle.addBox(-2F, 3F, 3.6F, 4, 5, 2);
-        body.addChild(leftCanister);
-        leftCanister.addBox(0.5F, 2F, 2.6F, 4, 7, 4);
-        body.addChild(rightCanister);
-        rightCanister.addBox(-4.5F, 2F, 2.6F, 4, 7, 4);
-        body.addChild(leftTip1);
-        leftTip1.addBox(1F, 1F, 3.1F, 3, 1, 3);
-        body.addChild(leftTip2);
-        leftTip2.addBox(1.5F, -1F, 3.6F, 2, 2, 2);
-        body.addChild(rightTip1);
-        rightTip1.addBox(-4F, 1F, 3.1F, 3, 1, 3);
-        body.addChild(rightTip2);
-        rightTip2.addBox(-3.5F, -1F, 3.6F, 2, 2, 2);
-        body.addChild(leftExhaust1);
-        leftExhaust1.addBox(1F, 9F, 3.1F, 3, 1, 3);
-        body.addChild(leftExhaust2);
-        leftExhaust2.addBox(0.5F, 10F, 2.6F, 4, 3, 4);
-        body.addChild(rightExhaust1);
-        rightExhaust1.addBox(-4F, 9F, 3.1F, 3, 1, 3);
-        body.addChild(rightExhaust2);
-        rightExhaust2.addBox(-4.5F, 10F, 2.6F, 4, 3, 4);
+    public static LayerDefinition createLayer() {
+        MeshDefinition mesh = HumanoidModel.createMesh(new CubeDeformation(1.0F), 0.0F);
+        PartDefinition root = mesh.getRoot();
+
+        root.addOrReplaceChild("middle", CubeListBuilder.create().mirror()
+                .texOffs(0, 54)
+                .addBox(-2F, 3F, 3.6F, 4, 5, 2), PartPose.ZERO);
+
+        root.addOrReplaceChild("leftCanister", CubeListBuilder.create().mirror()
+                .texOffs(0, 32)
+                .addBox(0.5F, 2F, 2.6F, 4, 7, 4), PartPose.ZERO);
+
+        root.addOrReplaceChild("rightCanister", CubeListBuilder.create().mirror()
+                .texOffs(17, 32)
+                .addBox(-4.5F, 2F, 2.6F, 4, 7, 4), PartPose.ZERO);
+
+        root.addOrReplaceChild("leftTip1", CubeListBuilder.create().mirror()
+                .texOffs(0, 45)
+                .addBox(1F, 1F, 3.1F, 3, 1, 3), PartPose.ZERO);
+
+        root.addOrReplaceChild("leftTip2", CubeListBuilder.create().mirror()
+                .texOffs(0, 49)
+                .addBox(1.5F, -1F, 3.6F, 2, 2, 2), PartPose.ZERO);
+
+        root.addOrReplaceChild("rightTip1", CubeListBuilder.create().mirror()
+                .texOffs(17, 45)
+                .addBox(-4F, 1F, 3.1F, 3, 1, 3), PartPose.ZERO);
+
+        root.addOrReplaceChild("rightTip2", CubeListBuilder.create().mirror()
+                .texOffs(17, 49)
+                .addBox(-3.5F, -1F, 3.6F, 2, 2, 2), PartPose.ZERO);
+
+        root.addOrReplaceChild("leftExhaust1", CubeListBuilder.create().mirror()
+                .texOffs(35, 32)
+                .addBox(1F, 9F, 3.1F, 3, 1, 3), PartPose.ZERO);
+
+        root.addOrReplaceChild("leftExhaust2", CubeListBuilder.create().mirror()
+                .texOffs(35, 37)
+                .addBox(0.5F, 10F, 2.6F, 4, 3, 4), PartPose.ZERO);
+
+        root.addOrReplaceChild("rightExhaust1", CubeListBuilder.create().mirror()
+                .texOffs(48, 32)
+                .addBox(-4F, 9F, 3.1F, 3, 1, 3), PartPose.ZERO);
+
+        root.addOrReplaceChild("rightExhaust2", CubeListBuilder.create().mirror()
+                .texOffs(35, 45)
+                .addBox(-4.5F, 10F, 2.6F, 4, 3, 4), PartPose.ZERO);
+
+        return LayerDefinition.create(mesh, 64, 64);
     }
 
-    private void setRotation(ModelRenderer model, float x, float y, float z) {
-        model.xRot = x;
-        model.yRot = y;
-        model.zRot = z;
+    @Override
+    protected Iterable<ModelPart> headParts() {
+        return ImmutableList.of();
     }
-}*/
+
+    @Override
+    protected Iterable<ModelPart> bodyParts() {
+        this.middle.copyFrom(this.body);
+        this.leftCanister.copyFrom(this.middle);
+        this.rightCanister.copyFrom(this.middle);
+        this.leftTip1.copyFrom(this.middle);
+        this.leftTip2.copyFrom(this.middle);
+        this.rightTip1.copyFrom(this.middle);
+        this.rightTip2.copyFrom(this.middle);
+        this.leftExhaust1.copyFrom(this.middle);
+        this.leftExhaust2.copyFrom(this.middle);
+        this.rightExhaust1.copyFrom(this.middle);
+        this.rightExhaust2.copyFrom(this.middle);
+
+        return ImmutableList.of(
+                this.body,
+                this.middle,
+                this.leftCanister,
+                this.rightCanister,
+                this.leftTip1,
+                this.leftTip2,
+                this.rightTip1,
+                this.rightTip2,
+                this.leftExhaust1,
+                this.leftExhaust2,
+                this.rightExhaust1,
+                this.rightExhaust2,
+                this.leftArm,
+                this.rightArm
+        );
+    }
+
+    @Override
+    public void renderToBuffer(PoseStack poseStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+        // Could be used to alter texture of some of the elements?
+        //ResourceLocation TEXTURE = new ResourceLocation(SimplyJetpacks.MODID, "texture_path");
+        //VertexConsumer vertexConsumer = Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderType.entityTranslucent(TEXTURE));
+        super.renderToBuffer(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+    }
+
+    @Override
+    public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+    }
+}

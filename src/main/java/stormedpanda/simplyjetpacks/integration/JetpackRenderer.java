@@ -9,8 +9,8 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import stormedpanda.simplyjetpacks.model.JetpackModel;
 import stormedpanda.simplyjetpacks.model.JetpackModelLayers;
-import stormedpanda.simplyjetpacks.model.JetpackModelNew;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.client.ICurioRenderer;
 
@@ -24,7 +24,7 @@ public class JetpackRenderer implements ICurioRenderer {
 
     @Override
     public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack matrixStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        JetpackModelNew<LivingEntity> model = JetpackModelLayers.JETPACK_MODEL;
+        JetpackModel<LivingEntity> model = JetpackModelLayers.JETPACK_MODEL;
         model.setupAnim(slotContext.entity(), limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         model.prepareMobModel(slotContext.entity(), limbSwing, limbSwingAmount, partialTicks);
         ICurioRenderer.followBodyRotations(slotContext.entity(), model);

@@ -30,48 +30,46 @@ public class CuriosIntegration {
         CuriosRendererRegistry.register(RegistryHandler.PILOT_GOGGLES_IRON.get(), () -> new PilotGogglesRenderer(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_iron.png")));
         CuriosRendererRegistry.register(RegistryHandler.PILOT_GOGGLES_GOLD.get(), () -> new PilotGogglesRenderer(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_gold.png")));
 
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("potato")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_POTATO.get(), () -> new JetpackRenderer(getJetpackTexture("potato")));
 
         CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("creative")));
         CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("creative_armored")));
 
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("vanilla1")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("vanilla1_armored")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("vanilla2")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("vanilla2_armored")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("vanilla3")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("vanilla3_armored")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("vanilla4")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("vanilla4_armored")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_VANILLA1.get(), () -> new JetpackRenderer(getJetpackTexture("vanilla1")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_VANILLA1_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("vanilla1_armored")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_VANILLA2.get(), () -> new JetpackRenderer(getJetpackTexture("vanilla2")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_VANILLA2_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("vanilla2_armored")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_VANILLA3.get(), () -> new JetpackRenderer(getJetpackTexture("vanilla3")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_VANILLA3_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("vanilla3_armored")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_VANILLA4.get(), () -> new JetpackRenderer(getJetpackTexture("vanilla4")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_VANILLA4_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("vanilla4_armored")));
 
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("mek1")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("mek1_armored")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("mek2")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("mek2_armored")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("mek3")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("mek3_armored")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("mek4")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("mek4_armored")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_MEK1.get(), () -> new JetpackRenderer(getJetpackTexture("mek1")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_MEK1_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("mek1_armored")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_MEK2.get(), () -> new JetpackRenderer(getJetpackTexture("mek2")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_MEK2_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("mek2_armored")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_MEK3.get(), () -> new JetpackRenderer(getJetpackTexture("mek3")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_MEK3_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("mek3_armored")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_MEK4.get(), () -> new JetpackRenderer(getJetpackTexture("mek4")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_MEK4_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("mek4_armored")));
 
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("te1")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("te1_armored")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("te2")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("te2_armored")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("te3")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("te3_armored")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("te4")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("te4_armored")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("te5")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("te5_enderium")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_TE1.get(), () -> new JetpackRenderer(getJetpackTexture("te1")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_TE1_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("te1_armored")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_TE2.get(), () -> new JetpackRenderer(getJetpackTexture("te2")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_TE2_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("te2_armored")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_TE3.get(), () -> new JetpackRenderer(getJetpackTexture("te3")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_TE3_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("te3_armored")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_TE4.get(), () -> new JetpackRenderer(getJetpackTexture("te4")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_TE4_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("te4_armored")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_TE5.get(), () -> new JetpackRenderer(getJetpackTexture("te5")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_TE5_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("te5_enderium")));
 
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("ie1")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("ie1_armored")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("ie2")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("ie2_armored")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("ie3")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("ie3_armored")));
-
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_IE1.get(), () -> new JetpackRenderer(getJetpackTexture("ie1")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_IE1_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("ie1_armored")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_IE2.get(), () -> new JetpackRenderer(getJetpackTexture("ie2")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_IE2_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("ie2_armored")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_IE3.get(), () -> new JetpackRenderer(getJetpackTexture("ie3")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_IE3_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("ie3_armored")));
     }
 
     public static ICapabilityProvider initGogglesCapabilities(ItemStack itemStack) {
