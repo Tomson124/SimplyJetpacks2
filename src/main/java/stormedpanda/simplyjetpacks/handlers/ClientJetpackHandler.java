@@ -100,6 +100,6 @@ public class ClientJetpackHandler {
         LocalDate today = LocalDate.now();
         int day = today.getDayOfMonth();
         int month = today.getMonthValue();
-        return day == 14 && month == 3;
+        return day == 14 && month == 2;
     }
 }
