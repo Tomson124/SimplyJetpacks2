@@ -96,7 +96,7 @@ repositories {
     }
     maven {
         name = "curse maven"
-        url = "https://cursemaven.com"
+        url = "https://cursemaven.com/"
         content {
             includeGroup "curse.maven"
         }
