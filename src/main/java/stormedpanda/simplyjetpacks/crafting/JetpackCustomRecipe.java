@@ -1,14 +1,24 @@
 package stormedpanda.simplyjetpacks.crafting;
 
-// TODO: fix this.
-/*public class JetpackSpecialRecipe extends SingleItemRecipe {
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
+import stormedpanda.simplyjetpacks.datagen.SJTags;
+import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
+import stormedpanda.simplyjetpacks.item.JetpackItem;
 
-    public JetpackSpecialRecipe(ResourceLocation recipeId) {
+public class JetpackCustomRecipe extends CustomRecipe {
+
+    public JetpackCustomRecipe(ResourceLocation recipeId) {
         super(recipeId);
     }
 
     @Override
-    public boolean matches(Container inventory, Level world) {
+    public boolean matches(CraftingContainer inventory, Level world) {
         ItemStack jetpack = ItemStack.EMPTY;
         ItemStack particle = ItemStack.EMPTY;
         for (int i = 0; i < inventory.getContainerSize(); ++i) {
@@ -33,7 +43,7 @@ package stormedpanda.simplyjetpacks.crafting;
     }
 
     @Override
-    public ItemStack assemble(Container inventory) {
+    public ItemStack assemble(CraftingContainer inventory) {
         ItemStack jetpack = ItemStack.EMPTY;
         ItemStack particle = ItemStack.EMPTY;
         for (int i = 0; i < inventory.getContainerSize(); ++i) {
@@ -64,6 +74,6 @@ package stormedpanda.simplyjetpacks.crafting;
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return RegistryHandler.JETPACK_SPECIAL_RECIPE.get();
+        return RegistryHandler.JETPACK_CUSTOM_RECIPE.get();
     }
-}*/
+}

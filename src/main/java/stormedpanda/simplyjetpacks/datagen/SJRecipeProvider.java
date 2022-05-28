@@ -4,11 +4,13 @@ import com.google.gson.JsonObject;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
@@ -25,7 +27,7 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
 
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
-//        SpecialRecipeBuilder.special((SimpleRecipeSerializer<?>) RegistryHandler.JETPACK_SPECIAL_RECIPE.get()).save(consumer, savePath("jetpack_special_recipe"));
+        SpecialRecipeBuilder.special((SimpleRecipeSerializer<?>) RegistryHandler.JETPACK_CUSTOM_RECIPE.get()).save(consumer, savePath("jetpack_custom_recipe"));
 
         // Simply Jetpacks:
         CustomShapedRecipeBuilder.shaped(RegistryHandler.LEATHER_STRAP.get())
