@@ -16,6 +16,7 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -68,7 +69,7 @@ public class CustomShapedRecipeBuilder extends ShapedRecipeBuilder {
         return new CustomShapedRecipeBuilder(item, count);
     }
 
-    public CustomShapedRecipeBuilder define(Character character, Tag<Item> item) {
+    public CustomShapedRecipeBuilder define(Character character, TagKey<Item> item) {
         return this.define(character, Ingredient.of(item));
     }
 

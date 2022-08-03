@@ -7,6 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.registries.ForgeRegistries;
 import stormedpanda.simplyjetpacks.datagen.SJTags;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
@@ -31,7 +32,7 @@ public class JetpackCustomRecipe extends CustomRecipe {
                     }
                     jetpack = currentStack.copy();
                 }
-                if (item.getTags().contains(SJTags.PARTICLES.getName())) {
+                if (ForgeRegistries.ITEMS.tags().getTag(SJTags.PARTICLES).contains(item)) {
                     if (!particle.isEmpty()) {
                         return false;
                     }
@@ -56,7 +57,7 @@ public class JetpackCustomRecipe extends CustomRecipe {
                     }
                     jetpack = currentStack.copy();
                 }
-                if (item.getTags().contains(SJTags.PARTICLES.getName())) {
+                if (ForgeRegistries.ITEMS.tags().getTag(SJTags.PARTICLES).contains(item)) {
                     if (!particle.isEmpty()) {
                         return ItemStack.EMPTY;
                     }

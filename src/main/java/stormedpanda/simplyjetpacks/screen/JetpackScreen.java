@@ -16,7 +16,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.gui.widget.ForgeSlider;
-import net.minecraftforge.client.gui.widget.Slider;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.handlers.KeybindHandler;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
@@ -43,7 +42,7 @@ public class JetpackScreen extends Screen {
     private ForgeSlider slider;
 
     public JetpackScreen() {
-        // TODO: fix this
+        // TODO: test this
         super(new TranslatableComponent("screen.simplyjetpacks.jetpack_screen.title"));
         this.width = WIDTH;
         this.height = HEIGHT;
@@ -84,8 +83,10 @@ public class JetpackScreen extends Screen {
                 this.ehover.active = false;
             }
         }
-        addRenderableWidget(slider = new ForgeSlider(relX + 10, relY + 98, 152, 16, new TranslatableComponent("screen.simplyjetpacks.throttle"), new TextComponent("%"),
-                0, 100, jetpackItem.getThrottle(jetpackStack), false, true, s -> {}));
+        /*addRenderableWidget(slider = new ForgeSlider(relX + 10, relY + 98, 152, 16, new TranslatableComponent("screen.simplyjetpacks.throttle"), new TextComponent("%"),
+                0, 100, jetpackItem.getThrottle(jetpackStack), false, true, s -> {})
+        );*/
+        addRenderableWidget(slider = new ForgeSlider(relX + 10, relY + 98, 152, 16, new TranslatableComponent("screen.simplyjetpacks.throttle"), new TextComponent("%"), 0, 100, jetpackItem.getThrottle(jetpackStack), false));
     }
 
     @Override

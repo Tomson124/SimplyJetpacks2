@@ -216,19 +216,18 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         }
     }
 
-    // TODO: fix these
     @Override
-    public boolean showDurabilityBar(ItemStack stack) {
+    public boolean isBarVisible(ItemStack stack) {
         return !isCreative() && getEnergy(stack) > 0;
     }
 
     @Override
-    public double getDurabilityForDisplay(ItemStack stack) {
-        return 1 - getChargeRatio(stack);
+    public int getBarWidth(ItemStack stack) {
+        return (int) (1 - getChargeRatio(stack));
     }
 
     @Override
-    public int getRGBDurabilityForDisplay(ItemStack stack) {
+    public int getBarColor(ItemStack stack) {
         //return MathHelper.hsvToRgb((1 + getChargeRatio(stack)) / 3.0F, 1.0F, 1.0F);
         return 0x03fc49;
     }

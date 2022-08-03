@@ -7,6 +7,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.registries.ForgeRegistries;
+import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.datagen.SJTags;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
@@ -27,8 +29,8 @@ public class JetpackCraftingEvents {
         if (craftedItem instanceof JetpackItem) {
             for (int i = 0; i < event.getInventory().getContainerSize(); i++) {
                 ItemStack input = event.getInventory().getItem(i);
-                // TODO: Fix this
-                if (input.getItem().getTags().contains(SJTags.PARTICLES.getName())) {
+                if (ForgeRegistries.ITEMS.tags().getTag(SJTags.PARTICLES).contains(input.getItem())) {
+                    SimplyJetpacks.LOGGER.info("TAG CHECK HERE");
                     particleRecipe = true;
                     break;
                 }

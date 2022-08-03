@@ -7,6 +7,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -154,8 +155,8 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
         return new ResourceLocation(SimplyJetpacks.MODID, path);
     }
 
-    private static Tags.IOptionalNamedTag<Item> forgeTag(String name) {
-        return ItemTags.createOptional(new ResourceLocation("forge", name));
+    private static TagKey<Item> forgeTag(String name) {
+        return ItemTags.create(new ResourceLocation("forge", name));
     }
 
     private static Ingredient fromJson(String name) {

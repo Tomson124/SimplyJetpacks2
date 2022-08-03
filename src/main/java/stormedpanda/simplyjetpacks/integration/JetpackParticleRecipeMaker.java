@@ -7,9 +7,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
+import net.minecraftforge.registries.ForgeRegistries;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
+import stormedpanda.simplyjetpacks.datagen.SJItemTagsProvider;
 import stormedpanda.simplyjetpacks.datagen.SJTags;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
+import stormedpanda.simplyjetpacks.item.SJItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +22,11 @@ public final class JetpackParticleRecipeMaker {
     public static List<Recipe<?>> createJetpackParticleRecipes() {
         List<Recipe<?>> recipes = new ArrayList<>();
         String group = "simplyjetpacks.particle_customization";
-        // TODO: fix these
-        List<Item> jetpackList = SJTags.JETPACK.getValues();
-        List<Item> particleList = SJTags.PARTICLES.getValues();
+        // TODO: test these
+        List<Item> jetpackList = ForgeRegistries.ITEMS.tags().getTag(SJTags.JETPACK).stream().toList();
+        List<Item> particleList = ForgeRegistries.ITEMS.tags().getTag(SJTags.PARTICLES).stream().toList();
+//        List<Item> jetpackList = SJTags.JETPACK.getValues();
+//        List<Item> particleList = SJTags.PARTICLES.getValues();
         ItemStack jetpackStack;
         ItemStack particleStack;
         for (Item jetpack : jetpackList) {
