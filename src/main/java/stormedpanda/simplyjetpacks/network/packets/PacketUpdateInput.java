@@ -2,7 +2,7 @@ package stormedpanda.simplyjetpacks.network.packets;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.network.NetworkEvent;
 import stormedpanda.simplyjetpacks.handlers.CommonJetpackHandler;
 
 import java.util.function.Supplier;

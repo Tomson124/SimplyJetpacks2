@@ -69,8 +69,8 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         }
 
         @Override
-        public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
-            return (A) JetpackModelLayers.JETPACK_MODEL;
+        public HumanoidModel<?> getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
+            return JetpackModelLayers.JETPACK_MODEL;
         }
     }
 
@@ -216,6 +216,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         }
     }
 
+    // TODO: fix these
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
         return !isCreative() && getEnergy(stack) > 0;

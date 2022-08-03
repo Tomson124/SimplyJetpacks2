@@ -27,6 +27,7 @@ public class JetpackCraftingEvents {
         if (craftedItem instanceof JetpackItem) {
             for (int i = 0; i < event.getInventory().getContainerSize(); i++) {
                 ItemStack input = event.getInventory().getItem(i);
+                // TODO: Fix this
                 if (input.getItem().getTags().contains(SJTags.PARTICLES.getName())) {
                     particleRecipe = true;
                     break;

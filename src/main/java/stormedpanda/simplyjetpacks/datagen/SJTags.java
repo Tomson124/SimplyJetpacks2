@@ -8,6 +8,7 @@ import stormedpanda.simplyjetpacks.SimplyJetpacks;
 
 public class SJTags {
 
+    // TODO: Fix tags
     public static final Tag.Named<Item> PARTICLES = mod("particles");
     public static final Tag.Named<Item> JETPACK = mod("jetpack");
 

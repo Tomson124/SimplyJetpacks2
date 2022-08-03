@@ -47,7 +47,7 @@ public class PotatoJetpackItem extends JetpackItem {
         }
 
         @Override
-        public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
+        public HumanoidModel<?> getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
             return null;
         }
     }

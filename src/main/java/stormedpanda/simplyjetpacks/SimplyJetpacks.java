@@ -7,6 +7,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
@@ -17,8 +19,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fmlserverevents.FMLServerStartingEvent;
-import net.minecraftforge.fmlserverevents.FMLServerStoppingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
@@ -111,19 +111,19 @@ public class SimplyJetpacks {
     }
 
     @SubscribeEvent
-    public void onServerStarting(FMLServerStartingEvent event) {
+    public void onServerStarting(ServerStartingEvent event) {
         LOGGER.info("Server starting...");
     }
 
     @SubscribeEvent
-    public void onServerStopping(FMLServerStoppingEvent event) {
+    public void onServerStopping(ServerStoppingEvent event) {
         LOGGER.info("Server stopping...");
         CommonJetpackHandler.clear();
     }
 
     private void onTextureStitch(TextureStitchEvent.Pre event) {
         if (ModList.get().isLoaded("curios")) {
-            if (event.getMap().location().equals(InventoryMenu.BLOCK_ATLAS)) {
+            if (event.getAtlas().location().equals(InventoryMenu.BLOCK_ATLAS)) {
                 event.addSprite(JETPACK_SLOT);
             }
         }

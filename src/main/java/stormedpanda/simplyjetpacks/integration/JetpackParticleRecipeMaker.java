@@ -19,6 +19,7 @@ public final class JetpackParticleRecipeMaker {
     public static List<Recipe<?>> createJetpackParticleRecipes() {
         List<Recipe<?>> recipes = new ArrayList<>();
         String group = "simplyjetpacks.particle_customization";
+        // TODO: fix these
         List<Item> jetpackList = SJTags.JETPACK.getValues();
         List<Item> particleList = SJTags.PARTICLES.getValues();
         ItemStack jetpackStack;

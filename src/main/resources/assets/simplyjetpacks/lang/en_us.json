@@ -313,5 +313,7 @@
   "curios.identifier.jetpack": "Jetpack",
 
   "death.attack.simplyjetpacks.jetpack_potato": "%1$s attempted to fly a potato!",
-  "death.attack.simplyjetpacks.jetpack_explode": "%1$s spontaneously detonated!"
+  "death.attack.simplyjetpacks.jetpack_explode": "%1$s spontaneously detonated!",
+
+  "screen.simplyjetpacks.jetpack_screen.title": "Jetpack GUI"
 }
