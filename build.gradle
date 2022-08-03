@@ -19,7 +19,7 @@ version = "${minecraft_version}-${mod_version}"
 group = 'stormedpanda.simplyjetpacks'
 archivesBaseName = "SimplyJetpacks2"
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(16)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
     mappings channel: "${mappings_version}", version: "${minecraft_version}"
@@ -37,6 +37,7 @@ minecraft {
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'simplyjetpacks'
 
             mods {
                 simplyjetpacks {
@@ -50,6 +51,21 @@ minecraft {
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'simplyjetpacks'
+
+            mods {
+                simplyjetpacks {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        gameTestServer {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'simplyjetpacks'
 
             mods {
                 simplyjetpacks {
@@ -63,6 +79,7 @@ minecraft {
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'simplyjetpacks'
 
             args '--mod', 'simplyjetpacks', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/'), '--existing', file('src/generated/resources/')
 
@@ -113,14 +130,14 @@ dependencies {
 //    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
 //    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
     // FIXME: Patchouli breaks data gen, comment out before using `runData`.
-    runtimeOnly fg.deobf("curse.maven:patchouli-306770:3528319")
+    runtimeOnly fg.deobf("curse.maven:patchouli-306770:3846086")
 
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 
 //    compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${top_version}:api")
 //    runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.17:${top_version}")
-    runtimeOnly fg.deobf("curse.maven:the-one-probe-245211:3430022")
+    runtimeOnly fg.deobf("curse.maven:the-one-probe-245211:3671753")
 
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}")
@@ -142,7 +159,7 @@ dependencies {
     // FIXME: Immersive Engineering breaks data gen, comment out before using `runData`.
     //runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${immersiveengineering_version}")
 
-    runtimeOnly fg.deobf("curse.maven:configured-457570:3537614")
+    runtimeOnly fg.deobf("curse.maven:configured-457570:3721946")
 }
 
 jar {
@@ -152,8 +169,8 @@ jar {
                 "Specification-Vendor": "stormedpanda",
                 "Specification-Version": "1",
                 "Implementation-Title": project.name,
-                "Implementation-Version": "${version}",
-                "Implementation-Vendor" :"stormedpanda",
+                "Implementation-Version": project.jar.archiveVersion,
+                "Implementation-Vendor":"stormedpanda",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
@@ -173,4 +190,8 @@ publishing {
             url "file:///${project.projectDir}/mcmodsrepo"
         }
     }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
 }

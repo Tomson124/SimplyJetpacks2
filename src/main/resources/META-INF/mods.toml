@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[37,)"
+loaderVersion="[40,)"
 license="The MIT License (MIT)"
 issueTrackerURL="https://github.com/Tomson124/SimplyJetpacks2/issues"
 
@@ -21,14 +21,14 @@ Original Author: tonius11
 [[dependencies.simplyjetpacks]]
 modId="forge"
 mandatory=true
-versionRange="[37,)"
+versionRange="[40,)"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.simplyjetpacks]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.17.1,1.18)"
+versionRange="[1.18.2,1.19)"
 ordering="NONE"
 side="BOTH"
 
