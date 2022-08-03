@@ -1,19 +1,8 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        maven {
-            name = 'forge maven'
-            url = 'https://maven.minecraftforge.net/'
-        }
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-    }
+plugins {
+    id 'idea'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '5.1.+'
 }
-
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'idea'
-apply plugin: 'maven-publish'
 
 version = "${minecraft_version}-${mod_version}"
 group = 'stormedpanda.simplyjetpacks'
@@ -132,12 +121,12 @@ dependencies {
     // FIXME: Patchouli breaks data gen, comment out before using `runData`.
     runtimeOnly fg.deobf("curse.maven:patchouli-306770:3846086")
 
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
+//    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
 //    compileOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.16:${top_version}:api")
 //    runtimeOnly fg.deobf("mcjty.theoneprobe:TheOneProbe-1.17:${top_version}")
-    runtimeOnly fg.deobf("curse.maven:the-one-probe-245211:3671753")
+    runtimeOnly fg.deobf("curse.maven:the-one-probe-245211:3871444")
 
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}")
