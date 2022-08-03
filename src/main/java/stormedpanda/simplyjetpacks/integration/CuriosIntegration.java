@@ -75,14 +75,16 @@ public class CuriosIntegration {
 
             @Override
             public void playRightClickEquipSound(LivingEntity livingEntity) {
-                livingEntity.level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ((ArmorItem)itemStack.getItem()).getMaterial().getEquipSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
+                livingEntity.level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(),
+                        ((ArmorItem) itemStack.getItem()).getMaterial().getEquipSound(), SoundSource.PLAYERS, 1.0F, 1.0F
+                );
             }
 
             @Override
             public ItemStack getStack() {
                 return itemStack;
-            }
 
+            }
             @Override
             public boolean canRightClickEquip() {
                 return true;
@@ -95,7 +97,9 @@ public class CuriosIntegration {
 
             @Override
             public void playRightClickEquipSound(LivingEntity livingEntity) {
-                livingEntity.level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ((ArmorItem)itemStack.getItem()).getMaterial().getEquipSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
+                livingEntity.level.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(),
+                        ((ArmorItem) itemStack.getItem()).getMaterial().getEquipSound(), SoundSource.PLAYERS, 1.0F, 1.0F
+                );
             }
 
             @Override
