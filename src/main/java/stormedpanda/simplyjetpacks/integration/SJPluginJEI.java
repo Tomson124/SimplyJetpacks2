@@ -2,7 +2,7 @@ package stormedpanda.simplyjetpacks.integration;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.VanillaRecipeCategoryUid;
+import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.resources.ResourceLocation;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
@@ -19,7 +19,8 @@ public class SJPluginJEI implements IModPlugin {
     }
 
     @Override
-    public void registerRecipes(IRecipeRegistration registration){
-        registration.addRecipes(JetpackParticleRecipeMaker.createJetpackParticleRecipes(), VanillaRecipeCategoryUid.CRAFTING);
+    public void registerRecipes(IRecipeRegistration registration) {
+        // TODO: test this
+        registration.addRecipes(RecipeTypes.CRAFTING, JetpackParticleRecipeMaker.createJetpackParticleRecipes());
     }
 }

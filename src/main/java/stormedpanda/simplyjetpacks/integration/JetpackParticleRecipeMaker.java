@@ -4,6 +4,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
@@ -17,8 +18,8 @@ import java.util.List;
 
 public final class JetpackParticleRecipeMaker {
 
-    public static List<Recipe<?>> createJetpackParticleRecipes() {
-        List<Recipe<?>> recipes = new ArrayList<>();
+    public static List<CraftingRecipe> createJetpackParticleRecipes() {
+        List<CraftingRecipe> recipes = new ArrayList<>();
         String group = "simplyjetpacks.particle_customization";
         // TODO: test these
         List<Item> jetpackList = ForgeRegistries.ITEMS.tags().getTag(SJTags.JETPACK).stream().toList();
