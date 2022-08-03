@@ -56,7 +56,7 @@ public class JetpackCraftingEvents {
                         if (inputJetpack.isArmored()) {
                             Item itemToReturn = getPlating(inputJetpack.getPlatingId());
                             if (itemToReturn != null) {
-                                ItemEntity item = event.getPlayer().drop(new ItemStack(itemToReturn, 1), false);
+                                ItemEntity item = event.getEntity().drop(new ItemStack(itemToReturn, 1), false);
                                 if (item != null) {
                                     item.setNoPickUpDelay();
                                 }

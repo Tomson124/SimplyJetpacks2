@@ -5,8 +5,9 @@ import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.LocationPredicate;
-import net.minecraft.advancements.critereon.LocationTrigger;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.advancements.critereon.PlayerTrigger;
+import net.minecraft.core.Registry;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
@@ -51,11 +52,13 @@ public class SJAdvancements implements Consumer<Consumer<Advancement>> {
     }
 
     private Advancement jetpackAdvancement(Consumer<Advancement> consumer, Advancement parent, ItemLike item) {
-        String name = item.asItem().getRegistryName().getPath();
+        // TODO: test this
+//        String name = item.asItem().getRegistryName().getPath();
+        String name = Registry.ITEM.getKey(item.asItem()).getPath();
         return Advancement.Builder.advancement().parent(parent)
                 .display(item,
-                        new TranslatableComponent("advancement.simplyjetpacks." + name + ".title"),
-                        new TranslatableComponent("advancement.simplyjetpacks." + name + ".description"),
+                        Component.translatable("advancement.simplyjetpacks." + name + ".title"),
+                        Component.translatable("advancement.simplyjetpacks." + name + ".description"),
                         null, FrameType.TASK, true, true, false
                 )
                 .addCriterion("has_jetpack", InventoryChangeTrigger.TriggerInstance.hasItems(item))
@@ -63,11 +66,12 @@ public class SJAdvancements implements Consumer<Consumer<Advancement>> {
     }
 
     private Advancement advancement(Consumer<Advancement> consumer, Advancement parent, ItemLike item, String path, FrameType frame, String criterionId, @Nullable CriterionTriggerInstance criterion) {
-        String name = item.asItem().getRegistryName().getPath();
+//        String name = item.asItem().getRegistryName().getPath();
+        String name = Registry.ITEM.getKey(item.asItem()).getPath();
         return Advancement.Builder.advancement().parent(parent)
                 .display(item,
-                        new TranslatableComponent("advancement.simplyjetpacks." + name + ".title"),
-                        new TranslatableComponent("advancement.simplyjetpacks." + name + ".description"),
+                        Component.translatable("advancement.simplyjetpacks." + name + ".title"),
+                        Component.translatable("advancement.simplyjetpacks." + name + ".description"),
                         null, frame, true, true, false
                 )
                 .addCriterion(criterionId, criterion == null ? InventoryChangeTrigger.TriggerInstance.hasItems(item) : criterion)
@@ -77,11 +81,11 @@ public class SJAdvancements implements Consumer<Consumer<Advancement>> {
     private Advancement rootAdvancement(Consumer<Advancement> consumer, ItemLike item, String criterionId, CriterionTriggerInstance criterion) {
         return Advancement.Builder.advancement()
                 .display(item,
-                        new TranslatableComponent("advancement.simplyjetpacks." + "root" + ".title"),
-                        new TranslatableComponent("advancement.simplyjetpacks." + "root" + ".description"),
+                        Component.translatable("advancement.simplyjetpacks." + "root" + ".title"),
+                        Component.translatable("advancement.simplyjetpacks." + "root" + ".description"),
                         new ResourceLocation("textures/gui/advancements/backgrounds/" + "stone" + ".png"),
                         FrameType.TASK, true, false, false)
-                .addCriterion("any", LocationTrigger.TriggerInstance.located(LocationPredicate.ANY))
+                .addCriterion("any", PlayerTrigger.TriggerInstance.located(LocationPredicate.ANY))
                 //.addCriterion(criterionId, criterion)
                 .save(consumer, new ResourceLocation(SimplyJetpacks.MODID, "root").toString());
     }

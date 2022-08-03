@@ -1,8 +1,25 @@
-plugins {
+/*plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '5.1.+'
+}*/
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'forge maven'
+            url = 'https://maven.minecraftforge.net/'
+        }
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+    }
 }
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'idea'
+apply plugin: 'maven-publish'
 
 version = "${minecraft_version}-${mod_version}"
 group = 'stormedpanda.simplyjetpacks'

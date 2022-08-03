@@ -8,8 +8,6 @@ import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -43,7 +41,7 @@ public class JetpackScreen extends Screen {
 
     public JetpackScreen() {
         // TODO: test this
-        super(new TranslatableComponent("screen.simplyjetpacks.jetpack_screen.title"));
+        super(Component.translatable("screen.simplyjetpacks.jetpack_screen.title"));
         this.width = WIDTH;
         this.height = HEIGHT;
         this.jetpackItem = (JetpackItem) JetpackUtil.getFromBothSlots(minecraft.player).getItem();
@@ -83,7 +81,7 @@ public class JetpackScreen extends Screen {
                 this.ehover.active = false;
             }
         }
-        addRenderableWidget(slider = new ForgeSlider(relX + 10, relY + 98, 152, 16, new TranslatableComponent("screen.simplyjetpacks.throttle"), new TextComponent("%"), 0, 100, jetpackItem.getThrottle(jetpackStack), true));
+        addRenderableWidget(slider = new ForgeSlider(relX + 10, relY + 98, 152, 16, Component.translatable("screen.simplyjetpacks.throttle"), Component.literal("%"), 0, 100, jetpackItem.getThrottle(jetpackStack), true));
     }
 
     @Override
@@ -95,7 +93,7 @@ public class JetpackScreen extends Screen {
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         blit(matrixStack, relX, relY, 0, 0, WIDTH, HEIGHT);
         InventoryScreen.renderEntityInInventory(relX + 80, relY + 90, 40, (float)(relX + 51) - mouseX, (float)(relY + 75 - 50) - mouseY, minecraft.player);
-        drawCenteredString(matrixStack, minecraft.font, new TranslatableComponent(jetpackStack.getDescriptionId()), relX + 88, relY + 5, 0xFFFFFF);
+        drawCenteredString(matrixStack, minecraft.font, Component.translatable(jetpackStack.getDescriptionId()), relX + 88, relY + 5, 0xFFFFFF);
         RenderSystem.setShaderTexture(0, JETPACK_TEXTURE);
 
         NetworkHandler.sendToServer(new PacketUpdateThrottle(slider.getValueInt()));

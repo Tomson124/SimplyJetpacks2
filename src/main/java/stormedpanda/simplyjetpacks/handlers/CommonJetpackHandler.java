@@ -71,11 +71,11 @@ public class CommonJetpackHandler {
 
     @SubscribeEvent
     public void onLogout(PlayerEvent.PlayerLoggedOutEvent event) {
-        remove(event.getPlayer());
+        remove(event.getEntity());
     }
 
     @SubscribeEvent
     public void onChangeDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
-        remove(event.getPlayer());
+        remove(event.getEntity());
     }
 }

@@ -4,6 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -35,13 +36,14 @@ import stormedpanda.simplyjetpacks.item.PilotGogglesItem;
 import stormedpanda.simplyjetpacks.item.SJItemGroup;
 import stormedpanda.simplyjetpacks.model.JetpackModelLayers;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
-import stormedpanda.simplyjetpacks.sound.SJSounds;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
 import java.util.stream.Collectors;
+
+import static stormedpanda.simplyjetpacks.handlers.KeybindHandler.*;
 
 @Mod(SimplyJetpacks.MODID)
 public class SimplyJetpacks {
@@ -63,6 +65,7 @@ public class SimplyJetpacks {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onRegisterKeyMaps);
 
         // TODO: fix this.
         if (ModList.get().isLoaded("curios")) {
@@ -72,7 +75,7 @@ public class SimplyJetpacks {
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new JetpackCraftingEvents());
         MinecraftForge.EVENT_BUS.register(new CommonJetpackHandler());
-        MinecraftForge.EVENT_BUS.register(new SJSounds());
+//        MinecraftForge.EVENT_BUS.register(new SJSounds());
 
         SimplyJetpacksConfig.register();
         JetpackType.loadAllConfigs();
@@ -92,7 +95,7 @@ public class SimplyJetpacks {
         MinecraftForge.EVENT_BUS.register(new KeybindHandler());
         MinecraftForge.EVENT_BUS.register(new ClientJetpackHandler());
         MinecraftForge.EVENT_BUS.register(new HUDHandler());
-        KeybindHandler.setup();
+//        KeybindHandler.setup();
 
         if (ModList.get().isLoaded("curios")) {
             CuriosIntegration.initRenderers();
@@ -140,5 +143,15 @@ public class SimplyJetpacks {
         if (stack.getItem() instanceof PilotGogglesItem) {
              event.addCapability(CuriosCapability.ID_ITEM, CuriosIntegration.initGogglesCapabilities(stack));
         }
+    }
+
+    private void onRegisterKeyMaps(RegisterKeyMappingsEvent event) {
+        event.register(JETPACK_GUI_KEY);
+        event.register(JETPACK_ENGINE_KEY);
+        event.register(JETPACK_HOVER_KEY);
+        event.register(JETPACK_EHOVER_KEY);
+        event.register(JETPACK_CHARGER_KEY);
+        event.register(JETPACK_THROTTLE_DECREASE);
+        event.register(JETPACK_THROTTLE_INCREASE);
     }
 }

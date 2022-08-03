@@ -2,11 +2,13 @@ package stormedpanda.simplyjetpacks.sound;
 
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import stormedpanda.simplyjetpacks.handlers.ClientJetpackHandler;
+import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -20,7 +22,9 @@ public class JetpackSound extends AbstractTickableSoundInstance {
     private int fadeOut = -1;
 
     public JetpackSound(Player player) {
-        super(SJSounds.JETPACK, SoundSource.PLAYERS);
+//        super(SJSounds.JETPACK, SoundSource.PLAYERS, RandomSource.create());
+        // TODO: test this
+        super(RegistryHandler.JETPACK_SOUND.get(), SoundSource.PLAYERS, RandomSource.create());
         this.player = player;
         this.looping = true;
         PLAYING_FOR.put(player.getId(), this);

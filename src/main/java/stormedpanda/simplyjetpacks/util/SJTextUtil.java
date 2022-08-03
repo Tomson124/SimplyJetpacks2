@@ -2,8 +2,6 @@ package stormedpanda.simplyjetpacks.util;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -24,12 +22,12 @@ public class SJTextUtil {
 
     public static Component translate(String prefix, String suffix, ChatFormatting style, Object... params) {
         String key = String.format("%s.%s.%s", prefix, SimplyJetpacks.MODID, suffix);
-        return new TranslatableComponent(key, params).withStyle(style);
+        return Component.translatable(key, params).withStyle(style);
     }
 
     public static Component translate(String prefix, String suffix, Object... params) {
         String key = String.format("%s.%s.%s", prefix, SimplyJetpacks.MODID, suffix);
-        return new TranslatableComponent(key, params);
+        return Component.translatable(key, params);
     }
 
     public static Component energy(int amount) {
@@ -61,7 +59,7 @@ public class SJTextUtil {
     }
 
     public static Component getShiftText() {
-        return translate("tooltip", "showDetails", new TextComponent("Shift").withStyle(ChatFormatting.GOLD));
+        return translate("tooltip", "showDetails", Component.literal("Shift").withStyle(ChatFormatting.GOLD));
     }
 
     public static void addBaseInfo(ItemStack stack, List<Component> list) {
@@ -90,7 +88,7 @@ public class SJTextUtil {
         Component particle = translate("tooltip", "particle." + JetpackItem.getParticleId(stack), ChatFormatting.WHITE);
         list.add(translate("tooltip", "itemJetpack.particleType", ChatFormatting.GOLD, particle));
 
-        Component throttle = new TextComponent(jetpack.getThrottle(stack) + "%").withStyle(ChatFormatting.WHITE);
+        Component throttle = Component.literal(jetpack.getThrottle(stack) + "%").withStyle(ChatFormatting.WHITE);
         list.add(translate("tooltip", "itemJetpack.throttle", ChatFormatting.GOLD, throttle));
     }
 
@@ -120,13 +118,13 @@ public class SJTextUtil {
 
     public static Component getColoredPercent(int percent) {
         if (percent > 70) {
-            return new TextComponent(String.format("%s%%", percent)).withStyle(ChatFormatting.GREEN);
+            return Component.literal(String.format("%s%%", percent)).withStyle(ChatFormatting.GREEN);
         } else if (percent > 40) {
-            return new TextComponent(String.format("%s%%", percent)).withStyle(ChatFormatting.YELLOW);
+            return Component.literal(String.format("%s%%", percent)).withStyle(ChatFormatting.YELLOW);
         } else if (percent > 10) {
-            return new TextComponent(String.format("%s%%", percent)).withStyle(ChatFormatting.GOLD);
+            return Component.literal(String.format("%s%%", percent)).withStyle(ChatFormatting.GOLD);
         } else if (percent > 0) {
-            return new TextComponent(String.format("%s%%", percent)).withStyle(ChatFormatting.RED);
+            return Component.literal(String.format("%s%%", percent)).withStyle(ChatFormatting.RED);
         } else {
             return translate("hud", "energyDepleted", ChatFormatting.RED);
         }

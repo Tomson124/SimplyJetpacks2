@@ -35,7 +35,8 @@ public class ClientJetpackHandler {
                     if ((!chest.isEmpty() && item instanceof JetpackItem && isFlying(minecraft.player)) ||
                             (item instanceof PotatoJetpackItem && ((PotatoJetpackItem)item).isFired(chest))) {
                         // Show particles:
-                        if (SimplyJetpacksConfig.enableJetpackParticles.get() && (minecraft.options.particles != ParticleStatus.MINIMAL)) {
+                        // TODO: Fix this
+                        if (SimplyJetpacksConfig.enableJetpackParticles.get() && (minecraft.options.particles().get() != ParticleStatus.MINIMAL)) {
                             JetpackParticleType particleType;
                             if (minecraft.player.isInWaterRainOrBubble()) {
                                 particleType = JetpackParticleType.BUBBLES;

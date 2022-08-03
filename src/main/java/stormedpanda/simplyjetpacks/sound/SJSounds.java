@@ -2,9 +2,6 @@ package stormedpanda.simplyjetpacks.sound;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.registries.IForgeRegistry;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 
 public class SJSounds {
@@ -13,11 +10,14 @@ public class SJSounds {
     public static final SoundEvent JETPACK_OTHER = new SoundEvent(new ResourceLocation(SimplyJetpacks.MODID, "jetpack_other"));
     public static final SoundEvent ROCKET = new SoundEvent(new ResourceLocation(SimplyJetpacks.MODID, "rocket"));
 
+    /*// TODO: check this (cringe)
     @SubscribeEvent
-    public void onRegisterSounds(RegistryEvent.Register<SoundEvent> event) {
-        IForgeRegistry<SoundEvent> registry = event.getRegistry();
-        registry.register(JETPACK.setRegistryName("jetpack"));
-        registry.register(JETPACK_OTHER.setRegistryName("jetpack_other"));
-        registry.register(ROCKET.setRegistryName("rocket"));
-    }
+//    public void onRegisterSounds(FMLClientSetupEvent<SoundEvent> event) {
+    public void onRegisterSounds(RegisterEvent.<SoundEvent> event) {
+//        IForgeRegistry<SoundEvent> registry = event.get();
+        IForgeRegistry<SoundEvent> registry = RegistryManager.ACTIVE.getRegistry(ForgeRegistries.Keys.SOUND_EVENTS);
+        registry.register("jetpack", JETPACK);
+        registry.register("jetpack_other", JETPACK_OTHER);
+        registry.register("rocket", ROCKET);
+    }*/
 }

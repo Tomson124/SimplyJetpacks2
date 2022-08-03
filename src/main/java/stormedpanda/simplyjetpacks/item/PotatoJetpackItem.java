@@ -15,11 +15,12 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.energy.CapabilityEnergy;
+import org.jetbrains.annotations.NotNull;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
 import stormedpanda.simplyjetpacks.handlers.CommonJetpackHandler;
-import stormedpanda.simplyjetpacks.sound.SJSounds;
+import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.util.*;
 
 import javax.annotation.Nullable;
@@ -35,19 +36,19 @@ public class PotatoJetpackItem extends JetpackItem {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void initializeClient(Consumer<IItemRenderProperties> consumer) {
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(PotatoJetpackItem.Rendering.INSTANCE);
     }
 
     @OnlyIn(Dist.CLIENT)
-    private static class Rendering implements IItemRenderProperties {
+    private static class Rendering implements IClientItemExtensions {
         private static final PotatoJetpackItem.Rendering INSTANCE = new PotatoJetpackItem.Rendering();
 
         private Rendering() {
         }
 
         @Override
-        public HumanoidModel<?> getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
+        public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
             return null;
         }
     }
@@ -132,7 +133,9 @@ public class PotatoJetpackItem extends JetpackItem {
         NBTUtil.setInt(itemStack, Constants.TAG_ROCKET_TIMER, timer);
         if (timer == 0) {
             this.setFired(itemStack);
-            player.level.playSound(player, player, SJSounds.ROCKET, SoundSource.PLAYERS, 1F, 1F);
+            // TODO: test this
+//            player.level.playSound(player, player, SJSounds.ROCKET, SoundSource.PLAYERS, 1F, 1F);
+            player.level.playSound(player, player, RegistryHandler.ROCKET_SOUND.get(), SoundSource.PLAYERS, 1F, 1F);
         }
     }
 }

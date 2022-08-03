@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
@@ -20,10 +20,11 @@ public class HUDHandler {
     public final Minecraft minecraft = Minecraft.getInstance();
 
     @SubscribeEvent()
-    public void renderOverlay(RenderGameOverlayEvent event) {
-        if (event.getType() != RenderGameOverlayEvent.ElementType.ALL) {
+    public void renderOverlay(RenderGuiOverlayEvent event) {
+        // TODO: fix this cringe
+        /*if (event.getPhase() != RenderGuiOverlayEvent.P.ALL) {
             return;
-        }
+        }*/
         if (SimplyJetpacksConfig.enableJetpackHud.get() && !minecraft.options.hideGui && !minecraft.options.renderDebug) {
             if (minecraft.player != null) {
                 ItemStack chestplate = JetpackUtil.getFromBothSlots(minecraft.player);
@@ -40,7 +41,7 @@ public class HUDHandler {
                         return;
                     }
                     int count = 0;
-                    PoseStack matrix = event.getMatrixStack();
+                    PoseStack matrix = event.getPoseStack();
                     matrix.pushPose();
                     matrix.scale(SimplyJetpacksConfig.hudScale.get(), SimplyJetpacksConfig.hudScale.get(), 1.0F);
                     Window window = event.getWindow();

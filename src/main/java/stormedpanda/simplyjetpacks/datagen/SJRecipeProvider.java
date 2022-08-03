@@ -1,6 +1,7 @@
 package stormedpanda.simplyjetpacks.datagen;
 
 import com.google.gson.JsonObject;
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -170,8 +171,10 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
 
     public void armorRecipeCombo(Consumer<FinishedRecipe> consumer, ItemLike armored, ItemLike base, ItemLike plating, String modid) {
         // armoring
-        CustomShapelessRecipeBuilder.shapeless(armored).requires(base).requires(plating).save(consumer, savePath(modid + "/" + armored.asItem().getRegistryName().getPath()));
+        // TODO: test this (Registry.ITEM.getKey(item.asItem()))
+//        CustomShapelessRecipeBuilder.shapeless(armored).requires(base).requires(plating).save(consumer, savePath(modid + "/" + armored.asItem().getRegistryName().getPath()));
+        CustomShapelessRecipeBuilder.shapeless(armored).requires(base).requires(plating).save(consumer, savePath(modid + "/" + Registry.ITEM.getKey(armored.asItem()).getPath()));
         // de-armoring
-        CustomShapelessRecipeBuilder.shapeless(base).requires(armored).save(consumer, savePath(modid + "/" + base.asItem().getRegistryName().getPath() + "_from_armored"));
+        CustomShapelessRecipeBuilder.shapeless(base).requires(armored).save(consumer, savePath(modid + "/" + Registry.ITEM.getKey(base.asItem()).getPath() + "_from_armored"));
     }
 }
