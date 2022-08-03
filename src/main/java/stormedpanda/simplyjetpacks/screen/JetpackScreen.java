@@ -83,10 +83,7 @@ public class JetpackScreen extends Screen {
                 this.ehover.active = false;
             }
         }
-        /*addRenderableWidget(slider = new ForgeSlider(relX + 10, relY + 98, 152, 16, new TranslatableComponent("screen.simplyjetpacks.throttle"), new TextComponent("%"),
-                0, 100, jetpackItem.getThrottle(jetpackStack), false, true, s -> {})
-        );*/
-        addRenderableWidget(slider = new ForgeSlider(relX + 10, relY + 98, 152, 16, new TranslatableComponent("screen.simplyjetpacks.throttle"), new TextComponent("%"), 0, 100, jetpackItem.getThrottle(jetpackStack), false));
+        addRenderableWidget(slider = new ForgeSlider(relX + 10, relY + 98, 152, 16, new TranslatableComponent("screen.simplyjetpacks.throttle"), new TextComponent("%"), 0, 100, jetpackItem.getThrottle(jetpackStack), true));
     }
 
     @Override
