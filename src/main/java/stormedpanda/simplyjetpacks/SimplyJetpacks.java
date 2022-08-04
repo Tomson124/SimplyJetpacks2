@@ -78,6 +78,7 @@ public class SimplyJetpacks {
 //        MinecraftForge.EVENT_BUS.register(new SJSounds());
 
         SimplyJetpacksConfig.register();
+        // TODO: fix this (1/3)
         JetpackType.loadAllConfigs();
         RegistryHandler.init();
 
@@ -145,6 +146,7 @@ public class SimplyJetpacks {
         }
     }
 
+    // TODO: fix this
     private void onRegisterKeyMaps(RegisterKeyMappingsEvent event) {
         event.register(JETPACK_GUI_KEY);
         event.register(JETPACK_ENGINE_KEY);
