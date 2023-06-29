@@ -1,14 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "S S",
-    "GPG",
-    "R R"
-  ],
   "key": {
-    "S": {
-      "tag": "forge:string"
-    },
     "G": {
       "tag": "forge:nuggets/gold"
     },
@@ -17,8 +9,16 @@
     },
     "R": {
       "tag": "forge:dusts/redstone"
+    },
+    "S": {
+      "tag": "forge:string"
     }
   },
+  "pattern": [
+    "S S",
+    "GPG",
+    "R R"
+  ],
   "result": {
     "item": "simplyjetpacks:jetpack_potato"
   }

@@ -1,23 +1,7 @@
 {
   "parent": "simplyjetpacks:simplyjetpacks/jetpack_ie2",
-  "display": {
-    "icon": {
-      "item": "simplyjetpacks:jetpack_ie3"
-    },
-    "title": {
-      "translate": "advancement.simplyjetpacks.jetpack_ie3.title"
-    },
-    "description": {
-      "translate": "advancement.simplyjetpacks.jetpack_ie3.description"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
   "criteria": {
     "has_jetpack": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -26,7 +10,23 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.simplyjetpacks.jetpack_ie3.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "simplyjetpacks:jetpack_ie3"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.simplyjetpacks.jetpack_ie3.title"
     }
   },
   "requirements": [
