@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " w ",
+    "ici",
+    "iii"
+  ],
+  "key": {
+    "c": { "item": "simplyjetpacks:unit_cryotheum_empty" },
+    "i": { "item": "thermal:ice_charge" },
+    "w": { "item": "minecraft:water_bucket" }
+  },
+  "result": {
+    "item": "simplyjetpacks:unit_cryotheum",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermal"
+    }
+  ]
+}
