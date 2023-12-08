@@ -1,0 +1,24 @@
+{
+  "type": "thermal:smelter",
+  "ingredients": [
+    {
+		"item": "simplyjetpacks:armorplating_te1"
+    },
+    {
+		"tag": "forge:ingots/bronze"
+    }
+  ],
+  "result": [
+    {
+      "item": "simplyjetpacks:armorplating_te2",
+      "count": 1
+    }
+  ],
+  "energy": 3200,
+  "conditions": [
+	{
+	  "type": "forge:mod_loaded",
+      "modid": "thermal"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "type": "thermal:smelter",
+  "ingredients": [
+    {
+		"item": "simplyjetpacks:armorplating_te3"
+    },
+    {
+		"tag": "forge:ingots/enderium"
+    }
+  ],
+  "result": [
+    {
+      "item": "simplyjetpacks:armorplating_te4",
+      "count": 1
+    }
+  ],
+  "energy": 6200,
+  "conditions": [
+	{
+	  "type": "forge:mod_loaded",
+      "modid": "thermal"
+    }
+  ]
+}

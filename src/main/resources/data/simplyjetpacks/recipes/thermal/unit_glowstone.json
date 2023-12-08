@@ -1,0 +1,24 @@
+{
+  "type": "thermal:bottler",
+  "ingredients": [
+	{
+      "item": "simplyjetpacks:unit_glowstone_empty"
+    },
+    {
+      "fluid": "thermal:glowstone",
+      "amount": 4000
+    }
+  ],
+  "result": [
+    {
+      "item": "simplyjetpacks:unit_glowstone"
+    }
+  ],
+  "energy": 6400,
+  "conditions": [
+	{
+    "type": "forge:mod_loaded",
+	"modid": "thermal"
+	}
+  ]
+}
