@@ -6,9 +6,9 @@ import stormedpanda.simplyjetpacks.SimplyJetpacks;
 
 public class SJSounds {
 
-    public static final SoundEvent JETPACK = new SoundEvent(new ResourceLocation(SimplyJetpacks.MODID, "jetpack"));
-    public static final SoundEvent JETPACK_OTHER = new SoundEvent(new ResourceLocation(SimplyJetpacks.MODID, "jetpack_other"));
-    public static final SoundEvent ROCKET = new SoundEvent(new ResourceLocation(SimplyJetpacks.MODID, "rocket"));
+    public static final SoundEvent JETPACK = SoundEvent.createVariableRangeEvent(new ResourceLocation(SimplyJetpacks.MODID, "jetpack"));
+    public static final SoundEvent JETPACK_OTHER = SoundEvent.createVariableRangeEvent(new ResourceLocation(SimplyJetpacks.MODID, "jetpack_other"));
+    public static final SoundEvent ROCKET = SoundEvent.createVariableRangeEvent(new ResourceLocation(SimplyJetpacks.MODID, "rocket"));
 
     /*// TODO: check this (cringe)
     @SubscribeEvent

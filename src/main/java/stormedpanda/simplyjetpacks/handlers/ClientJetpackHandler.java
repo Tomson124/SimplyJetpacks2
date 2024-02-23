@@ -87,7 +87,7 @@ public class ClientJetpackHandler {
                 JetpackItem jetpack = (JetpackItem) item;
                 if (jetpack.isEngineOn(stack) && (jetpack.getEnergy(stack) > 0 || jetpack.isCreative())) {
                     if (jetpack.isHoverOn(stack)) {
-                        return !player.isOnGround();
+                        return !player.onGround();
                     } else {
                         return CommonJetpackHandler.isHoldingUp(player);
                     }
