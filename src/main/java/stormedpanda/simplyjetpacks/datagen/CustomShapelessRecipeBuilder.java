@@ -9,8 +9,9 @@ import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -41,7 +42,7 @@ public class CustomShapelessRecipeBuilder extends ShapelessRecipeBuilder {
     private final List<ICondition> conditions = new ArrayList<>();
 
     public CustomShapelessRecipeBuilder(ItemLike result, int count) {
-        super(result, count);
+        super(RecipeCategory.MISC, result, count); //TODO: Change Recipe Category
         this.result = result.asItem();
         this.count = count;
     }
@@ -100,11 +101,11 @@ public class CustomShapelessRecipeBuilder extends ShapelessRecipeBuilder {
     }
 
     public void save(Consumer<FinishedRecipe> consumer) {
-        this.save(consumer, Registry.ITEM.getKey(this.result));
+        this.save(consumer, BuiltInRegistries.ITEM.getKey(this.result));
     }
 
     public void save(Consumer<FinishedRecipe> consumer, String id) {
-        ResourceLocation resourceLocation = Registry.ITEM.getKey(this.result);
+        ResourceLocation resourceLocation = BuiltInRegistries.ITEM.getKey(this.result);
         if ((new ResourceLocation(id)).equals(resourceLocation)) {
             throw new IllegalStateException("Shapeless Recipe " + id + " should remove its 'save' argument");
         } else {
@@ -161,7 +162,7 @@ public class CustomShapelessRecipeBuilder extends ShapelessRecipeBuilder {
             jsonObject.add("ingredients", ingredientsArray);
 
             JsonObject resultObject = new JsonObject();
-            resultObject.addProperty("item", Registry.ITEM.getKey(this.result).toString());
+            resultObject.addProperty("item", BuiltInRegistries.ITEM.getKey(this.result).toString());
             if (this.count > 1) {
                 resultObject.addProperty("count", this.count);
             }
@@ -172,7 +173,7 @@ public class CustomShapelessRecipeBuilder extends ShapelessRecipeBuilder {
         @Override
         public JsonObject serializeRecipe() {
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("type", Registry.RECIPE_SERIALIZER.getKey(this.getType()).toString());
+            jsonObject.addProperty("type", BuiltInRegistries.RECIPE_SERIALIZER.getKey(this.getType()).toString());
 
             JsonArray conditionsArray = new JsonArray();
             if (!CustomShapelessRecipeBuilder.this.conditions.isEmpty()) {

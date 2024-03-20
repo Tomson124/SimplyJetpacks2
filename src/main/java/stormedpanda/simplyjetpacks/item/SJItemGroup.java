@@ -12,6 +12,7 @@ import javax.annotation.Nonnull;
 public class SJItemGroup extends CreativeModeTab {
 
     public SJItemGroup() {
+        super(new Builder(Row.TOP, ))
         super(SimplyJetpacks.MODID + ".main");
     }
 

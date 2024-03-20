@@ -18,9 +18,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
@@ -183,7 +183,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     public static float getChargeRatio(ItemStack stack) {
-        LazyOptional<IEnergyStorage> optional = stack.getCapability(CapabilityEnergy.ENERGY);
+        LazyOptional<IEnergyStorage> optional = stack.getCapability(ForgeCapabilities.ENERGY);
         if (optional.isPresent()) {
             IEnergyStorage energyStorage = optional.orElseThrow(IllegalStateException::new);
             return (float) energyStorage.getEnergyStored() / energyStorage.getMaxEnergyStored();
@@ -198,7 +198,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
             @Nonnull
             @Override
             public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-                if (cap == CapabilityEnergy.ENERGY)
+                if (cap == ForgeCapabilities.ENERGY)
                     return LazyOptional.of(() -> new EnergyStorageImpl(stack, container)).cast();
                 return LazyOptional.empty();
             }
@@ -208,7 +208,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     @OnlyIn(Dist.CLIENT)
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level levelIn, List<Component> tooltip, TooltipFlag flagIn) {
-        if (CapabilityEnergy.ENERGY == null) return;
+        if (ForgeCapabilities.ENERGY == null) return;
         SJTextUtil.addBaseInfo(stack, tooltip);
         if (KeyboardUtil.isHoldingShift()) {
             SJTextUtil.addShiftInfo(stack, tooltip);
@@ -319,8 +319,8 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     private void charge(ItemStack jetpack, ItemStack item) {
-        if (!item.equals(jetpack) && item.getCapability(CapabilityEnergy.ENERGY).isPresent()) {
-            LazyOptional<IEnergyStorage> optional = item.getCapability(CapabilityEnergy.ENERGY);
+        if (!item.equals(jetpack) && item.getCapability(ForgeCapabilities.ENERGY).isPresent()) {
+            LazyOptional<IEnergyStorage> optional = item.getCapability(ForgeCapabilities.ENERGY);
             if (optional.isPresent()) {
                 IEnergyStorage energyStorage = optional.orElseThrow(IllegalStateException::new);
                 if (isCreative()) {
@@ -353,7 +353,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
             double speedVerticalHover = jetpackType.getSpeedVerticalHover();
             double speedVerticalHoverSlow = jetpackType.getSpeedVerticalHoverSlow();
 
-            if ((flyKeyDown || hoverMode && !player.isOnGround())) {
+            if ((flyKeyDown || hoverMode && !player.onGround())) {
                 if (!isCreative()) {
                     int amount = (int) (player.isSprinting() ? Math.round(getEnergyUsage(stack) * jetpackType.getSprintEnergyModifier()) : getEnergyUsage(stack));
                     useEnergy(stack, amount);
@@ -399,14 +399,14 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
                 }
             }
         }
-        if (!player.level.isClientSide && this.isEHoverOn(stack)) {
+        if (!player.level().isClientSide && this.isEHoverOn(stack)) {
             if ((item.getEnergy(stack) > 0 || this.isCreative()) && (!this.isHoverOn(stack) || !this.isEngineOn(stack))) {
                 if (player.position().get(Direction.Axis.Y) < -5) {
                     this.doEHover(stack, player);
                 } else {
                     if (!player.isCreative() && player.fallDistance - 1.2F >= player.getHealth()) {
                         for (int j = 0; j <= 16; j++) {
-                            if (!player.isOnGround() && !player.isSwimming()) {
+                            if (!player.onGround() && !player.isSwimming()) {
                                 this.doEHover(stack, player);
                                 break;
                             }

@@ -11,8 +11,9 @@ import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -46,7 +47,7 @@ public class CustomShapedRecipeBuilder extends ShapedRecipeBuilder {
     private final List<ICondition> conditions = new ArrayList<>();
 
     public CustomShapedRecipeBuilder(ItemLike result, int count) {
-        super(result, count);
+        super(RecipeCategory.MISC, result, count); //TODO: Change Recipe Category
         this.result = result.asItem();
         this.count = count;
     }
@@ -107,11 +108,11 @@ public class CustomShapedRecipeBuilder extends ShapedRecipeBuilder {
     }
 
     public void save(Consumer<FinishedRecipe> consumer) {
-        this.save(consumer, Registry.ITEM.getKey(this.result));
+        this.save(consumer, BuiltInRegistries.ITEM.getKey(this.result));
     }
 
     public void save(Consumer<FinishedRecipe> consumer, String id) {
-        ResourceLocation resourceLocation = Registry.ITEM.getKey(this.result);
+        ResourceLocation resourceLocation = BuiltInRegistries.ITEM.getKey(this.result);
         if ((new ResourceLocation(id)).equals(resourceLocation)) {
             throw new IllegalStateException("Shaped Recipe " + id + " should remove its 'save' argument");
         } else {
@@ -195,7 +196,7 @@ public class CustomShapedRecipeBuilder extends ShapedRecipeBuilder {
 
             jsonObject.add("key", jsonobject);
             JsonObject ingredientObject = new JsonObject();
-            ingredientObject.addProperty("item", Registry.ITEM.getKey(this.result).toString());
+            ingredientObject.addProperty("item", BuiltInRegistries.ITEM.getKey(this.result).toString());
             if (this.count > 1) {
                 ingredientObject.addProperty("count", this.count);
             }
@@ -206,7 +207,7 @@ public class CustomShapedRecipeBuilder extends ShapedRecipeBuilder {
         @Override
         public JsonObject serializeRecipe() {
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("type", Registry.RECIPE_SERIALIZER.getKey(this.getType()).toString());
+            jsonObject.addProperty("type", BuiltInRegistries.RECIPE_SERIALIZER.getKey(this.getType()).toString());
 
             JsonArray conditionsArray = new JsonArray();
             if (!CustomShapedRecipeBuilder.this.conditions.isEmpty()) {

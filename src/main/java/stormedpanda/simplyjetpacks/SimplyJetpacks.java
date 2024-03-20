@@ -1,7 +1,11 @@
 package stormedpanda.simplyjetpacks;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
@@ -20,6 +24,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
@@ -41,6 +47,7 @@ import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
+import java.lang.reflect.Array;
 import java.util.stream.Collectors;
 
 import static stormedpanda.simplyjetpacks.handlers.KeybindHandler.*;
@@ -55,6 +62,19 @@ public class SimplyJetpacks {
     public static final Logger LOGGER = LogManager.getLogger();
 
     public static final SJItemGroup tabSimplyJetpacks = (SJItemGroup) new SJItemGroup().setEnchantmentCategories(RegistryHandler.JETPACK_ENCHANTMENT_TYPE);;
+
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
+    public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register(SimplyJetpacks.MODID, () -> CreativeModeTab.builder()
+            .withTabsBefore(CreativeModeTabs.COMBAT)
+            .icon(() -> RegistryHandler.JETPACK_CREATIVE.get().getDefaultInstance())
+            .displayItems((parameters, output) -> {
+                int i = 0;
+                Object[] items = RegistryHandler.ITEMS.getEntries().toArray();
+                for (i < RegistryHandler.ITEMS.getEntries().toArray().length, i++) {
+                    ItemStack stack = new ItemStack((Item) items[i]. .get());
+                }
+                output.accept(new ItemStack(RegistryHandler.ARMORPLATING_IE1.get())); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+            }).build());
 
     public static final ResourceLocation JETPACK_SLOT = new ResourceLocation(MODID, "gui/empty_jetpack_slot");
 
@@ -106,7 +126,6 @@ public class SimplyJetpacks {
     private void enqueueIMC(final InterModEnqueueEvent event) {
         if (ModList.get().isLoaded("curios")) {
             InterModComms.sendTo(MODID, CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HEAD.getMessageBuilder().build());
-            InterModComms.sendTo(MODID, CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("jetpack").size(1).icon(JETPACK_SLOT).build());
         }
     }
 
