@@ -4,7 +4,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -26,7 +25,7 @@ import stormedpanda.simplyjetpacks.config.SimplyJetpacksConfig;
 import stormedpanda.simplyjetpacks.crafting.JetpackCraftingEvents;
 import stormedpanda.simplyjetpacks.handlers.ClientJetpackHandler;
 import stormedpanda.simplyjetpacks.handlers.CommonJetpackHandler;
-import stormedpanda.simplyjetpacks.handlers.KeybindHandler;
+import stormedpanda.simplyjetpacks.handlers.KeybindForgeBusHandler;
 import stormedpanda.simplyjetpacks.handlers.RegistryHandler;
 import stormedpanda.simplyjetpacks.hud.HUDHandler;
 import stormedpanda.simplyjetpacks.integration.CuriosIntegration;
@@ -42,8 +41,6 @@ import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
 import java.util.stream.Collectors;
-
-import static stormedpanda.simplyjetpacks.handlers.KeybindHandler.*;
 
 @Mod(SimplyJetpacks.MODID)
 public class SimplyJetpacks {
@@ -65,7 +62,6 @@ public class SimplyJetpacks {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onRegisterKeyMaps);
 
         // TODO: fix this.
         if (ModList.get().isLoaded("curios")) {
@@ -93,7 +89,8 @@ public class SimplyJetpacks {
 
     private void clientSetup(final FMLClientSetupEvent event) {
         LOGGER.info("Client Setup Method registered.");
-        MinecraftForge.EVENT_BUS.register(new KeybindHandler());
+        
+        MinecraftForge.EVENT_BUS.register(new KeybindForgeBusHandler());
         MinecraftForge.EVENT_BUS.register(new ClientJetpackHandler());
         MinecraftForge.EVENT_BUS.register(new HUDHandler());
 //        KeybindHandler.setup();
@@ -144,16 +141,5 @@ public class SimplyJetpacks {
         if (stack.getItem() instanceof PilotGogglesItem) {
              event.addCapability(CuriosCapability.ID_ITEM, CuriosIntegration.initGogglesCapabilities(stack));
         }
-    }
-
-    // TODO: fix this
-    private void onRegisterKeyMaps(RegisterKeyMappingsEvent event) {
-        event.register(JETPACK_GUI_KEY);
-        event.register(JETPACK_ENGINE_KEY);
-        event.register(JETPACK_HOVER_KEY);
-        event.register(JETPACK_EHOVER_KEY);
-        event.register(JETPACK_CHARGER_KEY);
-        event.register(JETPACK_THROTTLE_DECREASE);
-        event.register(JETPACK_THROTTLE_INCREASE);
     }
 }

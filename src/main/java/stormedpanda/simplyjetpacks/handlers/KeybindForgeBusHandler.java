@@ -1,5 +1,6 @@
 package stormedpanda.simplyjetpacks.handlers;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
@@ -15,7 +16,7 @@ import stormedpanda.simplyjetpacks.network.packets.*;
 import stormedpanda.simplyjetpacks.screen.JetpackScreen;
 import stormedpanda.simplyjetpacks.util.JetpackUtil;
 
-public class KeybindHandler {
+public class KeybindForgeBusHandler {
 
     private static boolean lastFlyState = false;
     private static boolean lastDescendState = false;
@@ -23,14 +24,6 @@ public class KeybindHandler {
     private static boolean lastBackwardState = false;
     private static boolean lastLeftState = false;
     private static boolean lastRightState = false;
-
-    /*public static KeyMapping JETPACK_GUI_KEY;
-    public static KeyMapping JETPACK_ENGINE_KEY;
-    public static KeyMapping JETPACK_HOVER_KEY;
-    public static KeyMapping JETPACK_EHOVER_KEY;
-    public static KeyMapping JETPACK_CHARGER_KEY;
-    public static KeyMapping JETPACK_THROTTLE_INCREASE;
-    public static KeyMapping JETPACK_THROTTLE_DECREASE;*/
 
     public static KeyMapping JETPACK_GUI_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_gui", GLFW.GLFW_KEY_K, "keybind.simplyjetpacks.category");
     public static KeyMapping JETPACK_ENGINE_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_engine", GLFW.GLFW_KEY_J, "keybind.simplyjetpacks.category");
@@ -40,47 +33,10 @@ public class KeybindHandler {
     public static KeyMapping JETPACK_THROTTLE_INCREASE = new KeyMapping("keybind.simplyjetpacks.jetpack_throttle_increase", GLFW.GLFW_KEY_PERIOD, "keybind.simplyjetpacks.category");
     public static KeyMapping JETPACK_THROTTLE_DECREASE = new KeyMapping("keybind.simplyjetpacks.jetpack_throttle_decrease", GLFW.GLFW_KEY_COMMA, "keybind.simplyjetpacks.category");
 
-    // TODO: check this
-    /*public static void setup() {
-        JETPACK_GUI_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_gui", GLFW.GLFW_KEY_K, "keybind.simplyjetpacks.category");
-        ClientRegistry.registerKeyBinding(JETPACK_GUI_KEY);
-        JETPACK_ENGINE_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_engine", GLFW.GLFW_KEY_J, "keybind.simplyjetpacks.category");
-        ClientRegistry.registerKeyBinding(JETPACK_ENGINE_KEY);
-        JETPACK_HOVER_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_hover", GLFW.GLFW_KEY_H, "keybind.simplyjetpacks.category");
-        ClientRegistry.registerKeyBinding(JETPACK_HOVER_KEY);
-        JETPACK_EHOVER_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_ehover", GLFW.GLFW_KEY_UNKNOWN, "keybind.simplyjetpacks.category");
-        ClientRegistry.registerKeyBinding(JETPACK_EHOVER_KEY);
-        JETPACK_CHARGER_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_charger", GLFW.GLFW_KEY_UNKNOWN, "keybind.simplyjetpacks.category");
-        ClientRegistry.registerKeyBinding(JETPACK_CHARGER_KEY);
-        JETPACK_THROTTLE_INCREASE = new KeyMapping("keybind.simplyjetpacks.jetpack_throttle_increase", GLFW.GLFW_KEY_PERIOD, "keybind.simplyjetpacks.category");
-        ClientRegistry.registerKeyBinding(JETPACK_THROTTLE_INCREASE);
-        JETPACK_THROTTLE_DECREASE = new KeyMapping("keybind.simplyjetpacks.jetpack_throttle_decrease", GLFW.GLFW_KEY_COMMA, "keybind.simplyjetpacks.category");
-        ClientRegistry.registerKeyBinding(JETPACK_THROTTLE_DECREASE);
-    }*/
-
-    /*@SubscribeEvent
-    public void onKeymapEvent(RegisterKeyMappingsEvent event) {
-        SimplyJetpacks.LOGGER.info("REGISTERING KEY MAP EVENT HERE");
-        JETPACK_GUI_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_gui", GLFW.GLFW_KEY_K, "keybind.simplyjetpacks.category");
-        event.register(JETPACK_GUI_KEY);
-        JETPACK_ENGINE_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_engine", GLFW.GLFW_KEY_J, "keybind.simplyjetpacks.category");
-        event.register(JETPACK_ENGINE_KEY);
-        JETPACK_HOVER_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_hover", GLFW.GLFW_KEY_H, "keybind.simplyjetpacks.category");
-        event.register(JETPACK_HOVER_KEY);
-        JETPACK_EHOVER_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_ehover", GLFW.GLFW_KEY_UNKNOWN, "keybind.simplyjetpacks.category");
-        event.register(JETPACK_EHOVER_KEY);
-        JETPACK_CHARGER_KEY = new KeyMapping("keybind.simplyjetpacks.jetpack_charger", GLFW.GLFW_KEY_UNKNOWN, "keybind.simplyjetpacks.category");
-        event.register(JETPACK_CHARGER_KEY);
-        JETPACK_THROTTLE_INCREASE = new KeyMapping("keybind.simplyjetpacks.jetpack_throttle_increase", GLFW.GLFW_KEY_PERIOD, "keybind.simplyjetpacks.category");
-        event.register(JETPACK_THROTTLE_INCREASE);
-        JETPACK_THROTTLE_DECREASE = new KeyMapping("keybind.simplyjetpacks.jetpack_throttle_decrease", GLFW.GLFW_KEY_COMMA, "keybind.simplyjetpacks.category");
-        event.register(JETPACK_THROTTLE_DECREASE);
-    }*/
-
     @SubscribeEvent
-    public void onKeyInput(InputEvent.InteractionKeyMappingTriggered event) {
+    public void onKeyInput(InputEvent.Key event) {
         Player player = Minecraft.getInstance().player;
-        if (player == null) {
+        if (player == null || event.getAction() != InputConstants.PRESS || Minecraft.getInstance().screen != null) {
             return;
         }
         ItemStack chestStack = JetpackUtil.getFromBothSlots(player);
@@ -91,25 +47,25 @@ public class KeybindHandler {
         }
         if (chestItem instanceof JetpackItem) {
             jetpack = (JetpackItem) chestItem;
-            if (JETPACK_GUI_KEY.isDown()) {
+            if (JETPACK_GUI_KEY.getKey().getValue() == event.getKey()) {
                 Minecraft.getInstance().setScreen(new JetpackScreen());
             }
-            if (JETPACK_ENGINE_KEY.isDown()) {
+            if (JETPACK_ENGINE_KEY.getKey().getValue() == event.getKey()) {
                 NetworkHandler.sendToServer(new PacketToggleEngine());
             }
-            if (JETPACK_HOVER_KEY.isDown()) {
+            if (JETPACK_HOVER_KEY.getKey().getValue() == event.getKey()) {
                 NetworkHandler.sendToServer(new PacketToggleHover());
             }
-            if (JETPACK_EHOVER_KEY.isDown()) {
+            if (JETPACK_EHOVER_KEY.getKey().getValue() == event.getKey()) {
                 NetworkHandler.sendToServer(new PacketToggleEHover());
             }
-            if (JETPACK_CHARGER_KEY.isDown()) {
+            if (JETPACK_CHARGER_KEY.getKey().getValue() == event.getKey()) {
                 NetworkHandler.sendToServer(new PacketToggleCharger());
             }
-            if (JETPACK_THROTTLE_INCREASE.isDown()) {
+            if (JETPACK_THROTTLE_INCREASE.getKey().getValue() == event.getKey()) {
                 NetworkHandler.sendToServer(new PacketUpdateThrottle(Math.max(0, Math.min(100,jetpack.getThrottle(chestStack) + 10))));
             }
-            if (JETPACK_THROTTLE_DECREASE.isDown()) {
+            if (JETPACK_THROTTLE_DECREASE.getKey().getValue() == event.getKey()) {
                 NetworkHandler.sendToServer(new PacketUpdateThrottle(Math.max(0, Math.min(100, jetpack.getThrottle(chestStack) - 10))));
             }
         }

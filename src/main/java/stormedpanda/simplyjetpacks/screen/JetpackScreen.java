@@ -15,7 +15,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.gui.widget.ForgeSlider;
 import stormedpanda.simplyjetpacks.SimplyJetpacks;
-import stormedpanda.simplyjetpacks.handlers.KeybindHandler;
+import stormedpanda.simplyjetpacks.handlers.KeybindForgeBusHandler;
 import stormedpanda.simplyjetpacks.item.JetpackItem;
 import stormedpanda.simplyjetpacks.network.NetworkHandler;
 import stormedpanda.simplyjetpacks.network.packets.*;
@@ -165,7 +165,7 @@ public class JetpackScreen extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (KeybindHandler.JETPACK_GUI_KEY.matches(keyCode, scanCode) || minecraft.options.keyInventory.matches(keyCode, scanCode)) {
+        if (KeybindForgeBusHandler.JETPACK_GUI_KEY.matches(keyCode, scanCode) || minecraft.options.keyInventory.matches(keyCode, scanCode)) {
             minecraft.setScreen(null);
             return true;
         }
