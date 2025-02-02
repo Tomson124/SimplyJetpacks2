@@ -54,6 +54,12 @@ public class NetworkHandler {
                 .decoder(PacketUpdateThrottle::fromBytes)
                 .consumerNetworkThread(PacketUpdateThrottle::handle)
                 .add();
+
+        CHANNEL_INSTANCE.messageBuilder(PacketJetpackConfigSync.class, nextID())
+                .encoder(PacketJetpackConfigSync::toBytes)
+                .decoder(PacketJetpackConfigSync::fromBytes)
+                .consumerNetworkThread(PacketJetpackConfigSync::handle)
+                .add();
     }
 
     public static void sendToClient(Object packet, ServerPlayer player) {

@@ -22,7 +22,6 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
-import tomson124.simplyjetpacks.config.SimplyJetpacksConfig;
 import tomson124.simplyjetpacks.energy.EnergyStorageImpl;
 import tomson124.simplyjetpacks.energy.IEnergyContainer;
 import tomson124.simplyjetpacks.handlers.CommonJetpackHandler;
@@ -337,7 +336,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     public void flyUser(Player player, ItemStack stack, JetpackItem item, Boolean force) {
         if (isEngineOn(stack)) {
             boolean hoverMode = isHoverOn(stack);
-            double hoverSpeed = SimplyJetpacksConfig.invertHoverSneakingBehavior.get() == CommonJetpackHandler.isHoldingDown(player) ? jetpackType.getSpeedVerticalHoverSlow() : jetpackType.getSpeedVerticalHover();
+            double hoverSpeed = CommonJetpackHandler.isInverted(player) == CommonJetpackHandler.isHoldingDown(player) ? jetpackType.getSpeedVerticalHoverSlow() : jetpackType.getSpeedVerticalHover();
             boolean flyKeyDown = force || CommonJetpackHandler.isHoldingUp(player);
             boolean descendKeyDown = CommonJetpackHandler.isHoldingDown(player);
             double currentAccel = jetpackType.getAccelVertical() * (player.getDeltaMovement().get(Direction.Axis.Y) < 0.3D ? 2.5D : 1.0D);

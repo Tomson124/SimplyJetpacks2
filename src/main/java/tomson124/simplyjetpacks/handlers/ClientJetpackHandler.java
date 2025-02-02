@@ -8,10 +8,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import tomson124.simplyjetpacks.SimplyJetpacks;
 import tomson124.simplyjetpacks.config.SimplyJetpacksConfig;
 import tomson124.simplyjetpacks.item.JetpackItem;
+import tomson124.simplyjetpacks.item.JetpackType;
 import tomson124.simplyjetpacks.item.PotatoJetpackItem;
 import tomson124.simplyjetpacks.particle.JetpackParticleType;
 import tomson124.simplyjetpacks.sound.JetpackSound;
@@ -23,6 +26,13 @@ import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientJetpackHandler {
+
+    @SubscribeEvent
+    public void onClientPlayerQuit(final ClientPlayerNetworkEvent.LoggingOut loggedOutEvent) {
+        SimplyJetpacks.LOGGER.info("Reverting jetpack settings to client config.");
+        JetpackType.loadAllConfigs();
+        SimplyJetpacks.LOGGER.info("Client jetpack config successfully reverted.");
+    }
 
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event) {

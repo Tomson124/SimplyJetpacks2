@@ -1,5 +1,8 @@
 package tomson124.simplyjetpacks.config;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.Builder;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -7,8 +10,14 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.server.ServerLifecycleHooks;
 import tomson124.simplyjetpacks.SimplyJetpacks;
 import tomson124.simplyjetpacks.item.JetpackType;
+import tomson124.simplyjetpacks.network.NetworkHandler;
+import tomson124.simplyjetpacks.network.packets.PacketJetpackConfigSync;
+
+import java.util.List;
 
 @Mod.EventBusSubscriber(modid = SimplyJetpacks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SimplyJetpacksConfig {
@@ -200,16 +209,39 @@ public class SimplyJetpacksConfig {
         SERVER_BUILDER.pop();
     }
 
+    public static void sendServerConfigFiles(Player player) {
+        JetpackType.loadAllConfigs();
+        for(JetpackType jetpack : JetpackType.JETPACK_ALL) {
+            NetworkHandler.sendToClient(new PacketJetpackConfigSync(jetpack), (ServerPlayer) player);
+        }
+    }
+
     @SubscribeEvent
     public static void onLoad(final ModConfigEvent.Loading configEvent) {
         SimplyJetpacks.LOGGER.info("Config Loaded: {}", configEvent.getConfig().getFileName());
-        JetpackType.loadAllConfigs();
+
+        // Prevent loading of jetpack configs before common config has been loaded by system.
+        if (configEvent.getConfig().getFileName().equals("simplyjetpacks-common.toml")) {
+            JetpackType.loadAllConfigs();
+        }
     }
 
     @SubscribeEvent
     public static void onFileChange(final ModConfigEvent.Reloading configEvent) {
         SimplyJetpacks.LOGGER.info("Config Re-Loaded: {}", configEvent.getConfig().getFileName());
-        JetpackType.loadAllConfigs();
+
+        if (configEvent.getConfig().getFileName().equals("simplyjetpacks-common.toml")) {
+            // Ensure config is only reloaded for the server side
+            if (FMLEnvironment.dist.isDedicatedServer() || Minecraft.getInstance().isLocalServer()) {
+
+                List<ServerPlayer> playerList = ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers();
+                SimplyJetpacks.LOGGER.info("Server jetpack config updated. Syncing {} player(s) configs.", playerList.size());
+                for (Player player : playerList) {
+                    sendServerConfigFiles(player);
+                }
+                SimplyJetpacks.LOGGER.info("Finished syncing server jetpack configs.");
+            }
+        }
     }
 
     // Client

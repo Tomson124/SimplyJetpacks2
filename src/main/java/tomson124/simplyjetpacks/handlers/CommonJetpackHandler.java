@@ -6,11 +6,14 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class CommonJetpackHandler {
 
+    private static final Set<Player> INVERTED = new HashSet<>();
     private static final Map<Player, Boolean> HOLDING_UP = new HashMap<>();
     private static final Map<Player, Boolean> HOLDING_DOWN = new HashMap<>();
     private static final Map<Player, Boolean> HOLDING_FORWARDS = new HashMap<>();
@@ -20,6 +23,10 @@ public class CommonJetpackHandler {
 
     public static boolean isHoldingUp(Player player) {
         return HOLDING_UP.containsKey(player) && HOLDING_UP.get(player);
+    }
+
+    public static boolean isInverted(Player player) {
+        return INVERTED.contains(player);
     }
 
     public static boolean isHoldingDown(Player player) {
@@ -42,7 +49,13 @@ public class CommonJetpackHandler {
         return HOLDING_RIGHT.containsKey(player) && HOLDING_RIGHT.get(player);
     }
 
-    public static void update(Player player, boolean up, boolean down, boolean forwards, boolean backwards, boolean left, boolean right) {
+    public static void update(Player player, boolean invert, boolean up, boolean down, boolean forwards, boolean backwards, boolean left, boolean right) {
+        if(invert) {
+            INVERTED.add(player);
+        } else {
+            INVERTED.remove(player);
+        }
+
         HOLDING_UP.put(player, up);
         HOLDING_DOWN.put(player, down);
         HOLDING_FORWARDS.put(player, forwards);
@@ -54,6 +67,7 @@ public class CommonJetpackHandler {
     public static void clear() {
         HOLDING_UP.clear();
         HOLDING_FORWARDS.clear();
+        INVERTED.clear();
         HOLDING_DOWN.clear();
         HOLDING_BACKWARDS.clear();
         HOLDING_LEFT.clear();
@@ -63,6 +77,7 @@ public class CommonJetpackHandler {
     public static void remove(Player player) {
         HOLDING_UP.remove(player);
         HOLDING_FORWARDS.remove(player);
+        INVERTED.remove(player);
         HOLDING_DOWN.remove(player);
         HOLDING_BACKWARDS.remove(player);
         HOLDING_LEFT.remove(player);

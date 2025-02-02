@@ -51,7 +51,7 @@ public enum JetpackType {
     TE5_ARMORED("te5_enderium", 5, "te5", true),
     ;
 
-    private static final EnumSet<JetpackType> JETPACK_ALL = EnumSet.allOf(JetpackType.class);
+    public static final EnumSet<JetpackType> JETPACK_ALL = EnumSet.allOf(JetpackType.class);
 
     private final String name;
     private final String configKey;
@@ -147,68 +147,136 @@ public enum JetpackType {
         return energyCapacity;
     }
 
+    public void setEnergyCapacity(int energyCapacity) {
+        this.energyCapacity = energyCapacity;
+    }
+
     public int getEnergyUsage() {
         return energyUsage;
+    }
+
+    public void setEnergyUsage(int energyUsage) {
+        this.energyUsage = energyUsage;
     }
 
     public int getEnergyPerTickIn() {
         return energyPerTickIn;
     }
 
+    public void setEnergyPerTickIn(int energyPerTickIn) {
+        this.energyPerTickIn = energyPerTickIn;
+    }
+
     public int getEnergyPerTickOut() {
         return energyPerTickOut;
+    }
+
+    public void setEnergyPerTickOut(int energyPerTickOut) {
+        this.energyPerTickOut = energyPerTickOut;
     }
 
     public int getArmorReduction() {
         return armorReduction;
     }
 
+    public void setArmorReduction(int armorReduction) {
+        this.armorReduction = armorReduction;
+    }
+
     public int getArmorEnergyPerHit() {
         return armorEnergyPerHit;
+    }
+
+    public void setArmorEnergyPerHit(int armorEnergyPerHit) {
+        this.armorEnergyPerHit = armorEnergyPerHit;
     }
 
     public int getEnchantability() {
         return enchantability;
     }
 
+    public void setEnchantability(int enchantability) {
+        this.enchantability = enchantability;
+    }
+
     public double getSpeedVertical() {
         return speedVertical;
+    }
+
+    public void setSpeedVertical(double speedVertical) {
+        this.speedVertical = speedVertical;
     }
 
     public double getAccelVertical() {
         return accelVertical;
     }
 
+    public void setAccelVertical(double accelVertical) {
+        this.accelVertical = accelVertical;
+    }
+
     public double getSpeedVerticalHover() {
         return speedVerticalHover;
+    }
+
+    public void setSpeedVerticalHover(double speedVerticalHover) {
+        this.speedVerticalHover = speedVerticalHover;
     }
 
     public double getSpeedVerticalHoverSlow() {
         return speedVerticalHoverSlow;
     }
 
+    public void setSpeedVerticalHoverSlow(double speedVerticalHoverSlow) {
+        this.speedVerticalHoverSlow = speedVerticalHoverSlow;
+    }
+
     public double getSpeedSideways() {
         return speedSideways;
+    }
+
+    public void setSpeedSideways(double speedSideways) {
+        this.speedSideways = speedSideways;
     }
 
     public double getSprintSpeedModifier() {
         return sprintSpeedModifier;
     }
 
+    public void setSprintSpeedModifier(double sprintSpeedModifier) {
+        this.sprintSpeedModifier = sprintSpeedModifier;
+    }
+
     public double getSprintEnergyModifier() {
         return sprintEnergyModifier;
+    }
+
+    public void setSprintEnergyModifier(double sprintEnergyModifier) {
+        this.sprintEnergyModifier = sprintEnergyModifier;
     }
 
     public boolean getHoverMode() {
         return hoverMode;
     }
 
+    public void setHoverMode(boolean hoverMode) {
+        this.hoverMode = hoverMode;
+    }
+
     public boolean getEmergencyHoverMode() {
         return emergencyHoverMode;
     }
 
+    public void setEmergencyHoverMode(boolean emergencyHoverMode) {
+        this.emergencyHoverMode = emergencyHoverMode;
+    }
+
     public boolean getChargerMode() {
         return chargerMode;
+    }
+
+    public void setChargerMode(boolean chargerMode) {
+        this.chargerMode = chargerMode;
     }
 
     public boolean isNoAdvancements() {
@@ -217,7 +285,6 @@ public enum JetpackType {
 
     public static void loadAllConfigs() {
         for (JetpackType jetpackType : JETPACK_ALL) {
-            // TODO: fix this (2/3)
             jetpackType.loadConfig();
         }
     }
@@ -231,23 +298,22 @@ public enum JetpackType {
     }
 
     public void loadConfig() {
-        // TODO: fix this (3/3)
-        this.energyCapacity = JetpackDataHolder.DEFAULTS.get(this.configKey)._energyCapacity.getDefault();
-        this.energyUsage = JetpackDataHolder.DEFAULTS.get(this.configKey)._energyUsage.getDefault();
-        this.energyPerTickIn = JetpackDataHolder.DEFAULTS.get(this.configKey)._energyPerTickIn.getDefault();
-        this.energyPerTickOut = JetpackDataHolder.DEFAULTS.get(this.configKey)._energyPerTickOut.getDefault();
-        this.armorReduction = JetpackDataHolder.DEFAULTS.get(this.configKey)._armorReduction.getDefault();
-        this.armorEnergyPerHit = JetpackDataHolder.DEFAULTS.get(this.configKey)._armorEnergyPerHit.getDefault();
-        this.enchantability = JetpackDataHolder.DEFAULTS.get(this.configKey)._enchantability.getDefault();
-        this.speedVertical = JetpackDataHolder.DEFAULTS.get(this.configKey)._speedVertical.getDefault();
-        this.accelVertical = JetpackDataHolder.DEFAULTS.get(this.configKey)._accelVertical.getDefault();
-        this.speedVerticalHover = JetpackDataHolder.DEFAULTS.get(this.configKey)._speedVerticalHover.getDefault();
-        this.speedVerticalHoverSlow = JetpackDataHolder.DEFAULTS.get(this.configKey)._speedVerticalHoverSlow.getDefault();
-        this.speedSideways = JetpackDataHolder.DEFAULTS.get(this.configKey)._speedSideways.getDefault();
-        this.sprintSpeedModifier = JetpackDataHolder.DEFAULTS.get(this.configKey)._sprintSpeedModifier.getDefault();
-        this.sprintEnergyModifier = JetpackDataHolder.DEFAULTS.get(this.configKey)._sprintEnergyModifier.getDefault();
-        this.hoverMode = JetpackDataHolder.DEFAULTS.get(this.configKey)._hoverMode.getDefault();
-        this.emergencyHoverMode = JetpackDataHolder.DEFAULTS.get(this.configKey)._emergencyHoverMode.getDefault();
-        this.chargerMode = JetpackDataHolder.DEFAULTS.get(this.configKey)._chargerMode.getDefault();
+        this.energyCapacity = JetpackDataHolder.DEFAULTS.get(this.configKey)._energyCapacity.get();
+        this.energyUsage = JetpackDataHolder.DEFAULTS.get(this.configKey)._energyUsage.get();
+        this.energyPerTickIn = JetpackDataHolder.DEFAULTS.get(this.configKey)._energyPerTickIn.get();
+        this.energyPerTickOut = JetpackDataHolder.DEFAULTS.get(this.configKey)._energyPerTickOut.get();
+        this.armorReduction = JetpackDataHolder.DEFAULTS.get(this.configKey)._armorReduction.get();
+        this.armorEnergyPerHit = JetpackDataHolder.DEFAULTS.get(this.configKey)._armorEnergyPerHit.get();
+        this.enchantability = JetpackDataHolder.DEFAULTS.get(this.configKey)._enchantability.get();
+        this.speedVertical = JetpackDataHolder.DEFAULTS.get(this.configKey)._speedVertical.get();
+        this.accelVertical = JetpackDataHolder.DEFAULTS.get(this.configKey)._accelVertical.get();
+        this.speedVerticalHover = JetpackDataHolder.DEFAULTS.get(this.configKey)._speedVerticalHover.get();
+        this.speedVerticalHoverSlow = JetpackDataHolder.DEFAULTS.get(this.configKey)._speedVerticalHoverSlow.get();
+        this.speedSideways = JetpackDataHolder.DEFAULTS.get(this.configKey)._speedSideways.get();
+        this.sprintSpeedModifier = JetpackDataHolder.DEFAULTS.get(this.configKey)._sprintSpeedModifier.get();
+        this.sprintEnergyModifier = JetpackDataHolder.DEFAULTS.get(this.configKey)._sprintEnergyModifier.get();
+        this.hoverMode = JetpackDataHolder.DEFAULTS.get(this.configKey)._hoverMode.get();
+        this.emergencyHoverMode = JetpackDataHolder.DEFAULTS.get(this.configKey)._emergencyHoverMode.get();
+        this.chargerMode = JetpackDataHolder.DEFAULTS.get(this.configKey)._chargerMode.get();
     }
 }

@@ -10,6 +10,7 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.glfw.GLFW;
+import tomson124.simplyjetpacks.config.SimplyJetpacksConfig;
 import tomson124.simplyjetpacks.item.JetpackItem;
 import tomson124.simplyjetpacks.network.NetworkHandler;
 import tomson124.simplyjetpacks.network.packets.*;
@@ -19,6 +20,7 @@ import tomson124.simplyjetpacks.util.JetpackUtil;
 public class KeybindForgeBusHandler {
 
     private static boolean lastFlyState = false;
+    private static boolean lastInvertHover = false;
     private static boolean lastDescendState = false;
     private static boolean lastForwardState = false;
     private static boolean lastBackwardState = false;
@@ -75,20 +77,22 @@ public class KeybindForgeBusHandler {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player != null) {
             boolean flyState = mc.player.input.jumping;
+            boolean invertHover = SimplyJetpacksConfig.invertHoverSneakingBehavior.get();
             boolean descendState = mc.player.input.shiftKeyDown;
             boolean forwardState = mc.player.input.up;
             boolean backwardState = mc.player.input.down;
             boolean leftState = mc.player.input.left;
             boolean rightState = mc.player.input.right;
-            if (flyState != lastFlyState || descendState != lastDescendState || forwardState != lastForwardState || backwardState != lastBackwardState || leftState != lastLeftState || rightState != lastRightState) {
+            if (flyState != lastFlyState || invertHover != lastInvertHover || descendState != lastDescendState || forwardState != lastForwardState || backwardState != lastBackwardState || leftState != lastLeftState || rightState != lastRightState) {
                 lastFlyState = flyState;
+                lastInvertHover = invertHover;
                 lastDescendState = descendState;
                 lastForwardState = forwardState;
                 lastBackwardState = backwardState;
                 lastLeftState = leftState;
                 lastRightState = rightState;
-                NetworkHandler.sendToServer(new PacketUpdateInput(flyState, descendState, forwardState, backwardState, leftState, rightState));
-                CommonJetpackHandler.update(mc.player, flyState, descendState, forwardState, backwardState, leftState, rightState);
+                NetworkHandler.sendToServer(new PacketUpdateInput(invertHover, flyState, descendState, forwardState, backwardState, leftState, rightState));
+                CommonJetpackHandler.update(mc.player, invertHover, flyState, descendState, forwardState, backwardState, leftState, rightState);
             }
         }
     }
