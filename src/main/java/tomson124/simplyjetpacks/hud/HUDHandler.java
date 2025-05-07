@@ -6,7 +6,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraftforge.client.gui.overlay.IGuiOverlay;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import tomson124.simplyjetpacks.config.SimplyJetpacksConfig;
 import tomson124.simplyjetpacks.item.JetpackItem;
@@ -15,16 +17,10 @@ import tomson124.simplyjetpacks.util.JetpackUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HUDHandler {
+public final class HUDHandler {
 
-    public final Minecraft minecraft = Minecraft.getInstance();
-
-    @SubscribeEvent()
-    public void renderOverlay(RenderGuiOverlayEvent event) {
-        // TODO: fix this cringe
-        /*if (event.getPhase() != RenderGuiOverlayEvent.P.ALL) {
-            return;
-        }*/
+   private static final IGuiOverlay HUD_OVERLAY = (gui, gfx, partialTick, width, height) -> {
+        var minecraft = Minecraft.getInstance();
         if (SimplyJetpacksConfig.enableJetpackHud.get() && !minecraft.options.hideGui && !minecraft.options.renderDebug) {
             if (minecraft.player != null) {
                 ItemStack chestplate = JetpackUtil.getFromBothSlots(minecraft.player);
@@ -40,17 +36,22 @@ public class HUDHandler {
                         return;
                     }
                     int count = 0;
-                    PoseStack matrix = event.getGuiGraphics().pose();
+                    PoseStack matrix = gfx.pose();
                     matrix.pushPose();
                     matrix.scale(SimplyJetpacksConfig.hudScale.get(), SimplyJetpacksConfig.hudScale.get(), 1.0F);
-                    Window window = event.getWindow();
+                    Window window = minecraft.getWindow();
                     for (Component text : renderStrings) {
-                        HUDRenderHelper.drawStringAtPosition(event.getGuiGraphics(), window, text, count);
+                        HUDRenderHelper.drawStringAtPosition(gfx, window, text, count);
                         count++;
                     }
                     matrix.popPose();
                 }
             }
         }
+    };
+
+    @SubscribeEvent
+    public void registerOverlays(RegisterGuiOverlaysEvent event) {
+        event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), "hud", HUD_OVERLAY);
     }
 }

@@ -3,12 +3,14 @@ package tomson124.simplyjetpacks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -46,6 +48,12 @@ public class SimplyJetpacks {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         CREATIVE_TAB.register(SimplyJetpacks.MODID + ".main", SJItemGroup::new);
         CREATIVE_TAB.register(FMLJavaModLoadingContext.get().getModEventBus());
+
+        var bus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+            bus.register(new HUDHandler());
+        });
 
         // TODO: fix this.
         if (ModList.get().isLoaded("curios")) {
