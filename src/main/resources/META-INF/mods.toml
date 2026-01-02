@@ -1,12 +1,12 @@
 modLoader="javafml"
-loaderVersion="[42,)"
-license="The MIT License (MIT)"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
 issueTrackerURL="https://github.com/Tomson124/SimplyJetpacks2/issues"
 
 [[mods]]
-modId="simplyjetpacks"
-version="${file.jarVersion}"
-displayName="Simply Jetpacks 2"
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
 updateJSONURL="https://raw.githubusercontent.com/simplyjetpacks/updates/main/simplyjetpacks2/update.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/simply-jetpacks-2"
 logoFile="logo.png"
@@ -18,19 +18,19 @@ Jetpacks and Fluxpacks powered by Forge Energy!
 Original Author: tonius11
 '''
 
-[[dependencies.simplyjetpacks]]
-modId="forge"
-mandatory=true
-versionRange="[42,)"
-ordering="NONE"
-side="BOTH"
+#[[dependencies.simplyjetpacks]] TODO: Add back later
+#modId="forge"
+#mandatory=true
+#versionRange="[42,)"
+#ordering="NONE"
+#side="BOTH"
 
-[[dependencies.simplyjetpacks]]
-modId="minecraft"
-mandatory=true
-versionRange="[1.20.1]"
-ordering="NONE"
-side="BOTH"
+#[[dependencies.simplyjetpacks]]
+#modId="minecraft"
+#mandatory=true
+#versionRange="[1.20.1]"
+#ordering="NONE"
+#side="BOTH"
 
 #[[dependencies.simplyjetpacks]]
 #modId="curios"
