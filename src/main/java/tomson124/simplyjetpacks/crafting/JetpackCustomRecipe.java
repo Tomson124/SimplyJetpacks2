@@ -9,7 +9,6 @@ import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
 import tomson124.simplyjetpacks.datagen.SJTags;
 import tomson124.simplyjetpacks.handlers.RegistryHandler;
 import tomson124.simplyjetpacks.item.JetpackItem;

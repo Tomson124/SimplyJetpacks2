@@ -2,6 +2,7 @@ package tomson124.simplyjetpacks.item;
 
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,14 +14,13 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.ICapabilityProvider;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import tomson124.simplyjetpacks.energy.EnergyStorageImpl;
 import tomson124.simplyjetpacks.energy.IEnergyContainer;
@@ -47,7 +47,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
         this.tier = jetpackType.getTier();
     }
 
-    public JetpackItem(JetpackType jetpackType, JetpackArmorMaterial material) {
+    public JetpackItem(JetpackType jetpackType, Holder<ArmorMaterial> material) {
         super(material, Type.CHESTPLATE, new Item.Properties());
         this.jetpackType = jetpackType;
         this.tier = jetpackType.getTier();
@@ -310,7 +310,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider, IEnergyC
     }
 
     private void charge(ItemStack jetpack, ItemStack item) {
-        if (!item.equals(jetpack) && item.getCapability(ForgeCapabilities.ENERGY).isPresent()) {
+        if (!item.equals(jetpack) && item.getCapability(Capabilities.EnergyStorage.ITEM) != null) {
             LazyOptional<IEnergyStorage> optional = item.getCapability(ForgeCapabilities.ENERGY);
             if (optional.isPresent()) {
                 IEnergyStorage energyStorage = optional.orElseThrow(IllegalStateException::new);

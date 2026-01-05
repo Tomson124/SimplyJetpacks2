@@ -1,7 +1,7 @@
 package tomson124.simplyjetpacks.energy;
 
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 
 public class EnergyStorageImpl implements IEnergyStorage {
 

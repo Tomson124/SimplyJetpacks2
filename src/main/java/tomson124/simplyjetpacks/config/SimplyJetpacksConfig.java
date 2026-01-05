@@ -3,15 +3,16 @@ package tomson124.simplyjetpacks.config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.Builder;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
-import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.server.ServerLifecycleHooks;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec.Builder;
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import tomson124.simplyjetpacks.SimplyJetpacks;
 import tomson124.simplyjetpacks.item.JetpackType;
 import tomson124.simplyjetpacks.network.NetworkHandler;
@@ -19,18 +20,18 @@ import tomson124.simplyjetpacks.network.packets.PacketJetpackConfigSync;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = SimplyJetpacks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = SimplyJetpacks.MODID)
 public class SimplyJetpacksConfig {
 
     public static final Builder CLIENT_BUILDER = new Builder();
     public static final Builder COMMON_BUILDER = new Builder();
     public static final Builder SERVER_BUILDER = new Builder();
 
-    public static ForgeConfigSpec CLIENT_CONFIG;
-    public static ForgeConfigSpec COMMON_CONFIG;
-    public static ForgeConfigSpec SERVER_CONFIG;
+    public static ModConfigSpec CLIENT_CONFIG;
+    public static ModConfigSpec COMMON_CONFIG;
+    public static ModConfigSpec SERVER_CONFIG;
 
-    public static void register() {
+    public static void register(ModContainer container) {
         setupClientConfig();
         setupCommonConfig();
         setupServerConfig();
@@ -39,9 +40,9 @@ public class SimplyJetpacksConfig {
         COMMON_CONFIG = COMMON_BUILDER.build();
         SERVER_CONFIG = SERVER_BUILDER.build();
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG);
+        container.registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG);
+        container.registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG);
+        container.registerConfig(ModConfig.Type.SERVER, SERVER_CONFIG);
     }
 
     private static void setupClientConfig() {
@@ -245,31 +246,31 @@ public class SimplyJetpacksConfig {
     }
 
     // Client
-    public static ForgeConfigSpec.BooleanValue invertHoverSneakingBehavior;
-    public static ForgeConfigSpec.BooleanValue enableJetpackSounds;
-    public static ForgeConfigSpec.BooleanValue enableJetpackParticles;
-    public static ForgeConfigSpec.BooleanValue showThrottle;
-    public static ForgeConfigSpec.BooleanValue showExactEnergy;
-    public static ForgeConfigSpec.BooleanValue enableStateMessages;
-    public static ForgeConfigSpec.BooleanValue enableJetpackHud;
-    public static ForgeConfigSpec.BooleanValue showHoverState;
-    public static ForgeConfigSpec.BooleanValue showEHoverState;
-    public static ForgeConfigSpec.BooleanValue showChargerState;
-    public static ForgeConfigSpec.BooleanValue hudTextShadow;
-    public static ForgeConfigSpec.IntValue hudTextColor;
-    public static ForgeConfigSpec.IntValue hudXOffset;
-    public static ForgeConfigSpec.IntValue hudYOffset;
-    public static ForgeConfigSpec.LongValue hudScale;
-    public static ForgeConfigSpec.EnumValue<ConfigDefaults.HUDPosition> hudTextPosition;
+    public static ModConfigSpec.BooleanValue invertHoverSneakingBehavior;
+    public static ModConfigSpec.BooleanValue enableJetpackSounds;
+    public static ModConfigSpec.BooleanValue enableJetpackParticles;
+    public static ModConfigSpec.BooleanValue showThrottle;
+    public static ModConfigSpec.BooleanValue showExactEnergy;
+    public static ModConfigSpec.BooleanValue enableStateMessages;
+    public static ModConfigSpec.BooleanValue enableJetpackHud;
+    public static ModConfigSpec.BooleanValue showHoverState;
+    public static ModConfigSpec.BooleanValue showEHoverState;
+    public static ModConfigSpec.BooleanValue showChargerState;
+    public static ModConfigSpec.BooleanValue hudTextShadow;
+    public static ModConfigSpec.IntValue hudTextColor;
+    public static ModConfigSpec.IntValue hudXOffset;
+    public static ModConfigSpec.IntValue hudYOffset;
+    public static ModConfigSpec.LongValue hudScale;
+    public static ModConfigSpec.EnumValue<ConfigDefaults.HUDPosition> hudTextPosition;
 
     // Common
-    public static ForgeConfigSpec.BooleanValue enableIntegrationVanilla;
-    public static ForgeConfigSpec.BooleanValue enableIntegrationImmersiveEngineering;
-    public static ForgeConfigSpec.BooleanValue enableIntegrationMekanism;
-    public static ForgeConfigSpec.BooleanValue enableIntegrationEnderIO;
-    public static ForgeConfigSpec.BooleanValue enableIntegrationThermalExpansion;
-    public static ForgeConfigSpec.BooleanValue enableIntegrationThermalDynamics;
-    public static ForgeConfigSpec.BooleanValue enableJoinAdvancements;
+    public static ModConfigSpec.BooleanValue enableIntegrationVanilla;
+    public static ModConfigSpec.BooleanValue enableIntegrationImmersiveEngineering;
+    public static ModConfigSpec.BooleanValue enableIntegrationMekanism;
+    public static ModConfigSpec.BooleanValue enableIntegrationEnderIO;
+    public static ModConfigSpec.BooleanValue enableIntegrationThermalExpansion;
+    public static ModConfigSpec.BooleanValue enableIntegrationThermalDynamics;
+    public static ModConfigSpec.BooleanValue enableJoinAdvancements;
 
     // Server
 }

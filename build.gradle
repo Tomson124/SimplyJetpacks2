@@ -305,7 +305,7 @@ sourceSets.main.resources.srcDir generateModMetadata
 // To avoid having to run "generateModMetadata" manually, make it run on every project reload
 neoForge.ideSyncTask generateModMetadata
 
-jar {
+/*jar {
     manifest {
         attributes([
                 "Specification-Title": "simplyjetpacks",
@@ -321,6 +321,7 @@ jar {
 
 jar.finalizedBy('reobfJar')
 //publish.dependsOn('reobfJar')
+*/
 
 // Example configuration to allow publishing using the maven-publish plugin
 publishing {

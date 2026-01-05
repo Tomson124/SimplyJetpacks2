@@ -1,10 +1,10 @@
 package tomson124.simplyjetpacks.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class JetpackConfig {
 
-    public static void createJetpackConfig(ForgeConfigSpec.Builder builder) {
+    public static void createJetpackConfig(ModConfigSpec.Builder builder) {
 
         for (JetpackDataHolder pack : JetpackDataHolder.DEFAULTS.values()) {
             builder.comment(pack.mod).push(pack.mod);

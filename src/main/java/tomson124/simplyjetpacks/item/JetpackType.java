@@ -106,7 +106,7 @@ public enum JetpackType {
         this.configKey = configKey;
         this.armored = armored;
         this.platingId = platingId;
-        this.armorTexture = new ResourceLocation(("simplyjetpacks:textures/models/armor/jetpack_" + name + ".png"));
+        this.armorTexture = ResourceLocation.bySeparator("simplyjetpacks:textures/models/armor/jetpack_" + name + ".png", ':');
         this.noAdvancements = noAdvancements;
     }
 

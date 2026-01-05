@@ -3,8 +3,8 @@ package tomson124.simplyjetpacks.network;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
+import net.neoforged.neoforge.network.registration.NetworkRegistry;
 import tomson124.simplyjetpacks.SimplyJetpacks;
 import tomson124.simplyjetpacks.network.packets.*;
 
@@ -18,7 +18,7 @@ public class NetworkHandler {
     }
 
     public static void registerMessages() {
-        CHANNEL_INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(SimplyJetpacks.MODID, "simplyjetpacks"), () -> "1.0", s -> true, s -> true);
+        CHANNEL_INSTANCE = NetworkRegistry.newSimpleChannel(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "simplyjetpacks"), () -> "1.0", s -> true, s -> true);
 
         CHANNEL_INSTANCE.messageBuilder(PacketToggleEngine.class, nextID())
                 .encoder(PacketToggleEngine::toBytes)

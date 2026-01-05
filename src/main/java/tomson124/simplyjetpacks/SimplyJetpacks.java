@@ -3,20 +3,21 @@ package tomson124.simplyjetpacks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.event.server.ServerStoppingEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.event.server.ServerStoppingEvent;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import tomson124.simplyjetpacks.config.SimplyJetpacksConfig;
@@ -43,7 +44,7 @@ public class SimplyJetpacks {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public SimplyJetpacks() {
+    public SimplyJetpacks(ModContainer container) {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         CREATIVE_TAB.register(SimplyJetpacks.MODID + ".main", SJItemGroup::new);
@@ -57,15 +58,15 @@ public class SimplyJetpacks {
 
         // TODO: fix this.
         if (ModList.get().isLoaded("curios")) {
-            MinecraftForge.EVENT_BUS.addGenericListener(ItemStack.class, this::attachCapabilities);
+            NeoForge.EVENT_BUS.addGenericListener(ItemStack.class, this::attachCapabilities);
         }
 
-        MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new JetpackCraftingEvents());
-        MinecraftForge.EVENT_BUS.register(new CommonJetpackHandler());
-//        MinecraftForge.EVENT_BUS.register(new SJSounds());
+        NeoForge.EVENT_BUS.register(this);
+        NeoForge.EVENT_BUS.register(new JetpackCraftingEvents());
+        NeoForge.EVENT_BUS.register(new CommonJetpackHandler());
+//        NeoForge.EVENT_BUS.register(new SJSounds());
 
-        SimplyJetpacksConfig.register();
+        SimplyJetpacksConfig.register(container);
         RegistryHandler.init();
     }
 
@@ -77,9 +78,9 @@ public class SimplyJetpacks {
     private void clientSetup(final FMLClientSetupEvent event) {
         LOGGER.info("Client Setup Method registered.");
 
-        MinecraftForge.EVENT_BUS.register(new KeybindForgeBusHandler());
-        MinecraftForge.EVENT_BUS.register(new ClientJetpackHandler());
-        MinecraftForge.EVENT_BUS.register(new HUDHandler());
+        NeoForge.EVENT_BUS.register(new KeybindForgeBusHandler());
+        NeoForge.EVENT_BUS.register(new ClientJetpackHandler());
+        NeoForge.EVENT_BUS.register(new HUDHandler());
 
         if (ModList.get().isLoaded("curios")) {
             CuriosIntegration.initRenderers();
