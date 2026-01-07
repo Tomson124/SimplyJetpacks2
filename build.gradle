@@ -225,7 +225,7 @@ configurations {
     }
 }*/
 
-/*dependencies {
+dependencies {
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
@@ -247,17 +247,17 @@ configurations {
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    //minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     // FIXME: Patchouli breaks data gen, comment out before using `runData`.
 //    runtimeOnly fg.deobf("curse.maven:patchouli-306770:3846086")
 
-    compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"))
-    compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
-    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    //compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"))
+    //compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
+    //runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
-    runtimeOnly fg.deobf("curse.maven:the-one-probe-245211:5159287")
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}:api")
+    //runtimeOnly fg.deobf("curse.maven:the-one-probe-245211:5159287")
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api"
 
     //runtimeOnly fg.deobf("curse.maven:redstone-arsenal-70631:3621740")
     //runtimeOnly fg.deobf("curse.maven:redstone-repository-revolved-300750:3622366")
@@ -271,14 +271,14 @@ configurations {
     // FIXME: The follwing mods break genData, comment out before using `runData`.
     //runtimeOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${immersiveengineering_version}")
 
-    runtimeOnly fg.deobf("curse.maven:configured-457570:5180900")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}")
-    runtimeOnly fg.deobf("curse.maven:cofhcore-69162:5374122")
-    runtimeOnly fg.deobf("curse.maven:thermalfoundation-222880:5443583")
-    runtimeOnly fg.deobf("curse.maven:thermalexpansion-69163:5372749")
-    runtimeOnly fg.deobf("curse.maven:thermalinnovation-291737:5372751")
-    runtimeOnly fg.deobf("curse.maven:thermal-dynamics-227443:5372747")
-}*/
+//    runtimeOnly fg.deobf("curse.maven:configured-457570:5180900")
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
+//    runtimeOnly fg.deobf("curse.maven:cofhcore-69162:5374122")
+//    runtimeOnly fg.deobf("curse.maven:thermalfoundation-222880:5443583")
+//    runtimeOnly fg.deobf("curse.maven:thermalexpansion-69163:5372749")
+//    runtimeOnly fg.deobf("curse.maven:thermalinnovation-291737:5372751")
+    //runtimeOnly fg.deobf("curse.maven:thermal-dynamics-227443:5372747")
+}
 
 // This block of code expands all declared replace properties in the specified resource targets.
 // A missing property will result in an error. Properties are expanded using ${} Groovy notation.
