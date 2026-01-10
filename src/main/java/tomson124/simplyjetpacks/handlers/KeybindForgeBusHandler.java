@@ -7,16 +7,19 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
 import org.lwjgl.glfw.GLFW;
+import tomson124.simplyjetpacks.SimplyJetpacks;
 import tomson124.simplyjetpacks.config.SimplyJetpacksConfig;
 import tomson124.simplyjetpacks.item.JetpackItem;
 import tomson124.simplyjetpacks.network.NetworkHandler;
-import tomson124.simplyjetpacks.network.packets.*;
+import tomson124.simplyjetpacks.network.payloads.*;
 import tomson124.simplyjetpacks.screen.JetpackScreen;
 import tomson124.simplyjetpacks.util.JetpackUtil;
 
+@EventBusSubscriber(modid = SimplyJetpacks.MODID)
 public class KeybindForgeBusHandler {
 
     private static boolean lastFlyState = false;
@@ -53,22 +56,22 @@ public class KeybindForgeBusHandler {
                 Minecraft.getInstance().setScreen(new JetpackScreen());
             }
             if (JETPACK_ENGINE_KEY.getKey().getValue() == event.getKey()) {
-                NetworkHandler.sendToServer(new PacketToggleEngine());
+                NetworkHandler.sendToServer(new PayloadToggleEngine());
             }
             if (JETPACK_HOVER_KEY.getKey().getValue() == event.getKey()) {
-                NetworkHandler.sendToServer(new PacketToggleHover());
+                NetworkHandler.sendToServer(new PayloadToggleHover());
             }
             if (JETPACK_EHOVER_KEY.getKey().getValue() == event.getKey()) {
-                NetworkHandler.sendToServer(new PacketToggleEHover());
+                NetworkHandler.sendToServer(new PayloadToggleEHover());
             }
             if (JETPACK_CHARGER_KEY.getKey().getValue() == event.getKey()) {
-                NetworkHandler.sendToServer(new PacketToggleCharger());
+                NetworkHandler.sendToServer(new PayloadToggleCharger());
             }
             if (JETPACK_THROTTLE_INCREASE.getKey().getValue() == event.getKey()) {
-                NetworkHandler.sendToServer(new PacketUpdateThrottle(Math.max(0, Math.min(100,jetpack.getThrottle(chestStack) + 10))));
+                NetworkHandler.sendToServer(new PayloadUpdateThrottle(Math.max(0, Math.min(100,jetpack.getThrottle(chestStack) + 10))));
             }
             if (JETPACK_THROTTLE_DECREASE.getKey().getValue() == event.getKey()) {
-                NetworkHandler.sendToServer(new PacketUpdateThrottle(Math.max(0, Math.min(100, jetpack.getThrottle(chestStack) - 10))));
+                NetworkHandler.sendToServer(new PayloadUpdateThrottle(Math.max(0, Math.min(100, jetpack.getThrottle(chestStack) - 10))));
             }
         }
     }
@@ -91,16 +94,14 @@ public class KeybindForgeBusHandler {
                 lastBackwardState = backwardState;
                 lastLeftState = leftState;
                 lastRightState = rightState;
-                NetworkHandler.sendToServer(new PacketUpdateInput(invertHover, flyState, descendState, forwardState, backwardState, leftState, rightState));
+                NetworkHandler.sendToServer(new PayloadUpdateInput(invertHover, flyState, descendState, forwardState, backwardState, leftState, rightState));
                 CommonJetpackHandler.update(mc.player, invertHover, flyState, descendState, forwardState, backwardState, leftState, rightState);
             }
         }
     }
 
     @SubscribeEvent
-    public void onClientTick(ClientTickEvent evt) {
-        if (evt.phase == TickEvent.Phase.END) {
-            tickEnd();
-        }
+    public void onClientTick(ClientTickEvent.Post evt) {
+        tickEnd();
     }
 }

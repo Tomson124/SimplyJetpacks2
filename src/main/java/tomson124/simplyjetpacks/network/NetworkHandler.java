@@ -1,72 +1,22 @@
 package tomson124.simplyjetpacks.network;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.simple.SimpleChannel;
-import net.neoforged.neoforge.network.registration.NetworkRegistry;
-import tomson124.simplyjetpacks.SimplyJetpacks;
-import tomson124.simplyjetpacks.network.packets.*;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
+import tomson124.simplyjetpacks.network.payloads.*;
 
 public class NetworkHandler {
 
-    public static SimpleChannel CHANNEL_INSTANCE;
-    private static int ID = 0;
+    @SubscribeEvent
+    public static void register(final RegisterPayloadHandlersEvent event) {
+        final PayloadRegistrar registrar = event.registrar("1");
 
-    public static int nextID() {
-        return ID++;
-    }
+        registrar.playToServer(PayloadToggleCharger.TYPE, PayloadToggleCharger.STREAM_CODEC, PayloadToggleCharger::handleServer);
+        registrar.playToServer(PayloadToggleEHover.TYPE, PayloadToggleEHover.STREAM_CODEC, PayloadToggleEHover::handleServer);
+        registrar.playToServer(PayloadToggleEngine.TYPE, PayloadToggleEngine.STREAM_CODEC, PayloadToggleEngine::handleServer);
+        registrar.playToServer(PayloadToggleHover.TYPE, PayloadToggleHover.STREAM_CODEC, PayloadToggleHover::handleServer);
+        registrar.playToServer(PayloadUpdateInput.TYPE, PayloadUpdateInput.STREAM_CODEC, PayloadUpdateInput::handleServer);
+        registrar.playToServer(PayloadUpdateThrottle.TYPE, PayloadUpdateThrottle.STREAM_CODEC, PayloadUpdateThrottle::handleServer);
 
-    public static void registerMessages() {
-        CHANNEL_INSTANCE = NetworkRegistry.newSimpleChannel(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "simplyjetpacks"), () -> "1.0", s -> true, s -> true);
-
-        CHANNEL_INSTANCE.messageBuilder(PacketToggleEngine.class, nextID())
-                .encoder(PacketToggleEngine::toBytes)
-                .decoder(PacketToggleEngine::new)
-                .consumerNetworkThread(PacketToggleEngine::handle)
-                .add();
-        CHANNEL_INSTANCE.messageBuilder(PacketToggleHover.class, nextID())
-                .encoder(PacketToggleHover::toBytes)
-                .decoder(PacketToggleHover::new)
-                .consumerNetworkThread(PacketToggleHover::handle)
-                .add();
-
-        CHANNEL_INSTANCE.messageBuilder(PacketToggleEHover.class, nextID())
-                .encoder(PacketToggleEHover::toBytes)
-                .decoder(PacketToggleEHover::new)
-                .consumerNetworkThread(PacketToggleEHover::handle)
-                .add();
-
-        CHANNEL_INSTANCE.messageBuilder(PacketToggleCharger.class, nextID())
-                .encoder(PacketToggleCharger::toBytes)
-                .decoder(PacketToggleCharger::new)
-                .consumerNetworkThread(PacketToggleCharger::handle)
-                .add();
-
-        CHANNEL_INSTANCE.messageBuilder(PacketUpdateInput.class, nextID())
-                .encoder(PacketUpdateInput::toBytes)
-                .decoder(PacketUpdateInput::fromBytes)
-                .consumerNetworkThread(PacketUpdateInput::handle)
-                .add();
-
-        CHANNEL_INSTANCE.messageBuilder(PacketUpdateThrottle.class, nextID())
-                .encoder(PacketUpdateThrottle::toBytes)
-                .decoder(PacketUpdateThrottle::fromBytes)
-                .consumerNetworkThread(PacketUpdateThrottle::handle)
-                .add();
-
-        CHANNEL_INSTANCE.messageBuilder(PacketJetpackConfigSync.class, nextID())
-                .encoder(PacketJetpackConfigSync::toBytes)
-                .decoder(PacketJetpackConfigSync::fromBytes)
-                .consumerNetworkThread(PacketJetpackConfigSync::handle)
-                .add();
-    }
-
-    public static void sendToClient(Object packet, ServerPlayer player) {
-        CHANNEL_INSTANCE.sendTo(packet, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
-    }
-
-    public static void sendToServer(Object packet) {
-        CHANNEL_INSTANCE.sendToServer(packet);
     }
 }

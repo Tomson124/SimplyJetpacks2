@@ -1,17 +1,8 @@
-package tomson124.simplyjetpacks.network.packets;
+package tomson124.simplyjetpacks.network.payloads;
 
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
-import tomson124.simplyjetpacks.SimplyJetpacks;
-import tomson124.simplyjetpacks.item.JetpackType;
+public class PayloadJetpackConfigSync {
 
-import java.util.Optional;
-import java.util.function.Supplier;
-
-public class PacketJetpackConfigSync {
-
-    private final String configKey;
+    /*private final String configKey;
 
     private final int energyCapacity;
     private final int energyUsage;
@@ -32,7 +23,7 @@ public class PacketJetpackConfigSync {
     private final boolean emergencyHoverMode;
     private final boolean chargerMode;
 
-    public PacketJetpackConfigSync(JetpackType jetpack) {
+    public PayloadJetpackConfigSync(JetpackType jetpack) {
         this.configKey = jetpack.getConfigKey();
 
         this.energyCapacity = jetpack.getEnergyCapacity();
@@ -54,7 +45,7 @@ public class PacketJetpackConfigSync {
         this.chargerMode = jetpack.getChargerMode();
     }
 
-    public PacketJetpackConfigSync(FriendlyByteBuf buf) {
+    public PayloadJetpackConfigSync(FriendlyByteBuf buf) {
         this.configKey = buf.readUtf();
         this.energyCapacity = buf.readInt();
         this.energyUsage = buf.readInt();
@@ -75,11 +66,11 @@ public class PacketJetpackConfigSync {
         this.chargerMode = buf.readBoolean();
     }
 
-    public static PacketJetpackConfigSync fromBytes(FriendlyByteBuf buffer) {
-        return new PacketJetpackConfigSync(buffer);
+    public static PayloadJetpackConfigSync fromBytes(FriendlyByteBuf buffer) {
+        return new PayloadJetpackConfigSync(buffer);
     }
 
-    public static void toBytes(PacketJetpackConfigSync packet, FriendlyByteBuf buffer) {
+    public static void toBytes(PayloadJetpackConfigSync packet, FriendlyByteBuf buffer) {
         buffer.writeUtf(packet.configKey);
         buffer.writeInt(packet.energyCapacity);
         buffer.writeInt(packet.energyUsage);
@@ -100,7 +91,7 @@ public class PacketJetpackConfigSync {
         buffer.writeBoolean(packet.chargerMode);
     }
 
-    public static void handle(PacketJetpackConfigSync message, Supplier<NetworkEvent.Context> ctx) {
+    public static void handle(PayloadJetpackConfigSync message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             if(ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
                 // This is not ideal but would require a pretty significant rewrite to make this better.
@@ -132,5 +123,5 @@ public class PacketJetpackConfigSync {
             }
         });
         ctx.get().setPacketHandled(true);
-    }
+    }*/
 }
