@@ -1,15 +1,15 @@
 package tomson124.simplyjetpacks.hud;
 
 import com.mojang.blaze3d.platform.Window;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
-import net.minecraftforge.client.gui.overlay.IGuiOverlay;
-import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RenderGuiEvent;
+import tomson124.simplyjetpacks.SimplyJetpacks;
 import tomson124.simplyjetpacks.config.SimplyJetpacksConfig;
 import tomson124.simplyjetpacks.item.JetpackItem;
 import tomson124.simplyjetpacks.util.JetpackUtil;
@@ -17,11 +17,13 @@ import tomson124.simplyjetpacks.util.JetpackUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+@EventBusSubscriber(value = Dist.CLIENT, modid = SimplyJetpacks.MODID)
 public final class HUDHandler {
 
-   private static final IGuiOverlay HUD_OVERLAY = (gui, gfx, partialTick, width, height) -> {
+    @SubscribeEvent
+    public void onRegisterGuiOverlays(RenderGuiEvent.Pre event) {
         var minecraft = Minecraft.getInstance();
-        if (SimplyJetpacksConfig.enableJetpackHud.get() && !minecraft.options.hideGui && !minecraft.options.renderDebug) {
+        if (SimplyJetpacksConfig.enableJetpackHud.get() && !minecraft.options.hideGui) {
             if (minecraft.player != null) {
                 ItemStack chestplate = JetpackUtil.getFromBothSlots(minecraft.player);
                 Item item = chestplate.getItem();
@@ -36,7 +38,10 @@ public final class HUDHandler {
                         return;
                     }
                     int count = 0;
-                    PoseStack matrix = gfx.pose();
+
+                    var gfx = event.getGuiGraphics();
+                    var matrix = gfx.pose();
+
                     matrix.pushPose();
                     matrix.scale(SimplyJetpacksConfig.hudScale.get(), SimplyJetpacksConfig.hudScale.get(), 1.0F);
                     Window window = minecraft.getWindow();
@@ -48,10 +53,5 @@ public final class HUDHandler {
                 }
             }
         }
-    };
-
-    @SubscribeEvent
-    public void registerOverlays(RegisterGuiOverlaysEvent event) {
-        event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), "hud", HUD_OVERLAY);
     }
 }

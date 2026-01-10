@@ -3,8 +3,8 @@ package tomson124.simplyjetpacks.util;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import tomson124.simplyjetpacks.SimplyJetpacks;
 import tomson124.simplyjetpacks.config.SimplyJetpacksConfig;
 import tomson124.simplyjetpacks.item.JetpackItem;
@@ -52,7 +52,7 @@ public class SJTextUtil {
     }
 
     public static Component fluidWithMax(FluidStack stack, int tankCapacity) {
-        Component fluidName = stack.getDisplayName();
+        Component fluidName = stack.getHoverName();
         String s1 = String.format(ENERGY_FORMAT, stack.getAmount());
         String s2 = String.format(ENERGY_FORMAT, tankCapacity);
         return translate("misc", "fluidWithMax", fluidName, s1, s2);

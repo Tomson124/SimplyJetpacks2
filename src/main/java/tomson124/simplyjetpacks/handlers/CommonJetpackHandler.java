@@ -1,16 +1,17 @@
 package tomson124.simplyjetpacks.handlers;
 
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import tomson124.simplyjetpacks.SimplyJetpacks;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = SimplyJetpacks.MODID)
 public class CommonJetpackHandler {
 
     private static final Set<Player> INVERTED = new HashSet<>();

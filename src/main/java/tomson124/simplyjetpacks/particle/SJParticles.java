@@ -1,14 +1,14 @@
 package tomson124.simplyjetpacks.particle;
 
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import tomson124.simplyjetpacks.SimplyJetpacks;
 import tomson124.simplyjetpacks.handlers.RegistryHandler;
 
-@Mod.EventBusSubscriber(modid = SimplyJetpacks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber( value = Dist.CLIENT, modid = SimplyJetpacks.MODID)
 public class SJParticles {
 
     @SubscribeEvent

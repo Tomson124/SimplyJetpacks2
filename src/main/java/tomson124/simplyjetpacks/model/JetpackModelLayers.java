@@ -4,16 +4,16 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import tomson124.simplyjetpacks.SimplyJetpacks;
 
-@Mod.EventBusSubscriber(modid = SimplyJetpacks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(value = Dist.CLIENT, modid = SimplyJetpacks.MODID)
 public class JetpackModelLayers {
 
-    public static final ModelLayerLocation JETPACK_LAYER = new ModelLayerLocation(new ResourceLocation(SimplyJetpacks.MODID, "jetpack_layer"), "main");
+    public static final ModelLayerLocation JETPACK_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "jetpack_layer"), "main");
     public static JetpackModel<LivingEntity> JETPACK_MODEL = null;
 
     @SubscribeEvent
