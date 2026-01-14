@@ -15,7 +15,7 @@ public class SJPluginJEI implements IModPlugin {
     @Nonnull
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(SimplyJetpacks.MODID, "simplyjetpacks");
+        return ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "simplyjetpacks");
     }
 
     @Override

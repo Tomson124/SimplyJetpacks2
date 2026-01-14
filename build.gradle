@@ -252,8 +252,8 @@ dependencies {
     // FIXME: Patchouli breaks data gen, comment out before using `runData`.
 //    runtimeOnly fg.deobf("curse.maven:patchouli-306770:3846086")
 
-    //compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"))
-    //compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
     //runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
     //runtimeOnly fg.deobf("curse.maven:the-one-probe-245211:5159287")
