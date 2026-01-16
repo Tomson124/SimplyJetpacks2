@@ -10,45 +10,45 @@ import java.util.EnumSet;
 
 public enum JetpackType {
 
-    POTATO("potato", 1, true),
-    CREATIVE("creative", 5, true),
-    CREATIVE_ARMORED("creative_armored", 5, "creative", true, true),
+    POTATO("potato", 1, true,true, null),
+    CREATIVE("creative", 5, true, true, null),
+    CREATIVE_ARMORED("creative_armored", 5, "creative", true, true, null),
 
-    VANILLA1("vanilla1", 1),
-    VANILLA1_ARMORED("vanilla1_armored", 1, "vanilla1", true, 0),
-    VANILLA2("vanilla2", 2),
-    VANILLA2_ARMORED("vanilla2_armored", 2, "vanilla2", true, 1),
-    VANILLA3("vanilla3", 3),
-    VANILLA3_ARMORED("vanilla3_armored", 3, "vanilla3", true, 2),
-    VANILLA4("vanilla4", 4),
-    VANILLA4_ARMORED("vanilla4_armored", 4, "vanilla4", true, 3),
+    VANILLA1("vanilla1", 1, "c:ingots/iron"),
+    VANILLA1_ARMORED("vanilla1_armored", 1, "vanilla1", true, 0, "c:ingots/iron"),
+    VANILLA2("vanilla2", 2, "c:ingots/gold"),
+    VANILLA2_ARMORED("vanilla2_armored", 2, "vanilla2", true, 1, "c:ingots/gold"),
+    VANILLA3("vanilla3", 3, "c:gems/diamond"),
+    VANILLA3_ARMORED("vanilla3_armored", 3, "vanilla3", true, 2, "c:gems/diamond"),
+    VANILLA4("vanilla4", 4,  "c:ingots/netherite"),
+    VANILLA4_ARMORED("vanilla4_armored", 4, "vanilla4", true, 3, "c:ingots/netherite"),
 
-    IE1("ie1", 1),
-    IE1_ARMORED("ie1_armored", 1, "ie1", true, 4),
-    IE2("ie2", 2),
-    IE2_ARMORED("ie2_armored", 2, "ie2", true, 5),
-    IE3("ie3", 3),
-    IE3_ARMORED("ie3_armored", 3, "ie3", true, 6),
+    IE1("ie1", 1, "c:plates/iron"),
+    IE1_ARMORED("ie1_armored", 1, "ie1", true, 4, "c:plates/iron"),
+    IE2("ie2", 2, "c:plates/aluminum"),
+    IE2_ARMORED("ie2_armored", 2, "ie2", true, 5, "c:plates/aluminum"),
+    IE3("ie3", 3, "c:plates/steel"),
+    IE3_ARMORED("ie3_armored", 3, "ie3", true, 6, "c:plates/steel"),
 
-    MEK1("mek1", 1),
-    MEK1_ARMORED("mek1_armored", 1, "mek1", true, 7),
-    MEK2("mek2", 2),
-    MEK2_ARMORED("mek2_armored", 2, "mek2", true, 8),
-    MEK3("mek3", 3),
-    MEK3_ARMORED("mek3_armored", 3, "mek3", true, 9),
-    MEK4("mek4", 4),
-    MEK4_ARMORED("mek4_armored", 4, "mek4", true, 10),
+    MEK1("mek1", 1, "c:ingots/osmium"),
+    MEK1_ARMORED("mek1_armored", 1, "mek1", true, 7, "c:ingots/osmium"),
+    MEK2("mek2", 2, "c:ingots/osmium"),
+    MEK2_ARMORED("mek2_armored", 2, "mek2", true, 8, "c:ingots/osmium"),
+    MEK3("mek3", 3, "c:ingots/osmium"),
+    MEK3_ARMORED("mek3_armored", 3, "mek3", true, 9, "c:ingots/osmium"),
+    MEK4("mek4", 4, "c:ingots/osmium"),
+    MEK4_ARMORED("mek4_armored", 4, "mek4", true, 10, "c:ingots/osmium"),
 
-    TE1("te1", 1),
-    TE1_ARMORED("te1_armored", 1, "te1", true, 11),
-    TE2("te2", 2),
-    TE2_ARMORED("te2_armored", 2, "te2", true, 12),
-    TE3("te3", 3),
-    TE3_ARMORED("te3_armored", 3, "te3", true, 13),
-    TE4("te4", 4),
-    TE4_ARMORED("te4_armored", 4, "te4", true, 14),
-    TE5("te5", 5, "te5", true),
-    TE5_ARMORED("te5_enderium", 5, "te5", true),
+    TE1("te1", 1, "c:ingots/lead"),
+    TE1_ARMORED("te1_armored", 1, "te1", true, 11, "c:ingots/lead"),
+    TE2("te2", 2, "c:ingots/invar"),
+    TE2_ARMORED("te2_armored", 2, "te2", true, 12, "c:ingots/invar"),
+    TE3("te3", 3, "c:ingots/electrum"),
+    TE3_ARMORED("te3_armored", 3, "te3", true, 13,"c:ingots/electrum"),
+    TE4("te4", 4, "c:ingots/enderium"),
+    TE4_ARMORED("te4_armored", 4, "te4", true, 14, "c:ingots/enderium"),
+    TE5("te5", 5, "te5", true, "redstone_arsenal:flux_plating"),
+    TE5_ARMORED("te5_enderium", 5, "te5", true,"redstone_arsenal:flux_plating"),
     ;
 
     public static final EnumSet<JetpackType> JETPACK_ALL = EnumSet.allOf(JetpackType.class);
@@ -59,7 +59,9 @@ public enum JetpackType {
     private final int platingId;
     private final ResourceLocation armorTexture;
     private final int tier;
+    private final boolean creative;
     private final boolean noAdvancements;
+    private final String craftingMaterial;
 
     private int energyCapacity;
     private int energyUsage;
@@ -68,6 +70,9 @@ public enum JetpackType {
     private int armorReduction;
     private int armorEnergyPerHit;
     private int enchantability;
+
+    private float toughness;
+    private float knockback;
 
     private double speedVertical;
     private double accelVertical;
@@ -80,34 +85,40 @@ public enum JetpackType {
     private boolean emergencyHoverMode;
     private boolean chargerMode;
 
-    JetpackType(String name, int tier) {
-        this(name, tier, name, false, 0, false);
+    JetpackType(String name, int tier, String craftingMaterial) {
+        this(name, tier, name, false, 0, false, false, craftingMaterial);
     }
 
-    JetpackType(String name, int tier, boolean noAdvancements) {
-        this(name, tier, name, false, 0, noAdvancements);
+    JetpackType(String name, int tier, boolean noAdvancements, boolean creative, String craftingMaterial) {
+        this(name, tier, name, false, 0, creative, noAdvancements, craftingMaterial);
     }
 
-    JetpackType(String name, int tier, String configKey, boolean armored) {
-        this(name, tier, configKey, armored, 0, false);
+    JetpackType(String name, int tier, String configKey, boolean armored, String craftingMaterial) {
+        this(name, tier, configKey, armored, 0, false,false, craftingMaterial);
     }
 
-    JetpackType(String name, int tier, String configKey, boolean armored, boolean noAdvancements) {
-        this(name, tier, configKey, armored, 0, noAdvancements);
+    JetpackType(String name, int tier, String configKey, boolean armored, boolean noAdvancements, String craftingMaterial) {
+        this(name, tier, configKey, armored, 0, false, noAdvancements, craftingMaterial);
     }
 
-    JetpackType(String name, int tier, String configKey, boolean armored, int platingId) {
-        this(name, tier, configKey, armored, platingId, false);
+    JetpackType(String name, int tier, String configKey, boolean armored, int platingId, String craftingMaterial) {
+        this(name, tier, configKey, armored, platingId, false, false, craftingMaterial);
     }
 
-    JetpackType(String name, int tier, String configKey, boolean armored, int platingId, boolean noAdvancements) {
+    JetpackType(String name, int tier, String configKey, boolean armored, int platingId, boolean creative, boolean noAdvancements, String craftingMaterial) {
         this.name = name;
         this.tier = tier;
         this.configKey = configKey;
         this.armored = armored;
         this.platingId = platingId;
         this.armorTexture = ResourceLocation.bySeparator("simplyjetpacks:textures/models/armor/jetpack_" + name + ".png", ':');
+        this.creative = creative;
         this.noAdvancements = noAdvancements;
+        this.craftingMaterial = craftingMaterial;
+    }
+
+    public JetpackType getByName(String name) {
+        return JetpackType.valueOf(name);
     }
 
     public String getName() {
@@ -291,9 +302,9 @@ public enum JetpackType {
 
     public static int getDefaultParticles(ItemStack stack) {
         JetpackItem item = (JetpackItem) stack.getItem();
-        if (item.isCreative() || item.getJetpackType().getName().equals("potato")) {
+        /*if (item.isCreative() || item.getJetpackType().getName().equals("potato")) {
             return JetpackParticleType.RAINBOW.ordinal();
-        }
+        }*/
         return JetpackParticleType.FLAME.ordinal();
     }
 
@@ -315,5 +326,25 @@ public enum JetpackType {
         this.hoverMode = JetpackDataHolder.DEFAULTS.get(this.configKey)._hoverMode.get();
         this.emergencyHoverMode = JetpackDataHolder.DEFAULTS.get(this.configKey)._emergencyHoverMode.get();
         this.chargerMode = JetpackDataHolder.DEFAULTS.get(this.configKey)._chargerMode.get();
+    }
+
+    public float getToughness() {
+        return toughness;
+    }
+
+    public float getKnockback() {
+        return knockback;
+    }
+
+    public String getCraftingMaterial() {
+        return this.craftingMaterial;
+    }
+
+    public boolean isCreative() {
+        return this.creative;
+    }
+
+    public boolean isDisabled() {
+        return false; //only for testing purposes
     }
 }

@@ -3,29 +3,51 @@ package tomson124.simplyjetpacks.util;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fml.ModList;
+import net.neoforged.fml.ModList;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.energy.EnergyStorage;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
+import tomson124.simplyjetpacks.compat.CuriosCompat;
+import tomson124.simplyjetpacks.config.SimplyJetpacksConfig;
+import tomson124.simplyjetpacks.init.SJDataComponentTypes;
+import tomson124.simplyjetpacks.item.Jetpack;
 import tomson124.simplyjetpacks.item.JetpackItem;
+import tomson124.simplyjetpacks.item.JetpackRegistry;
 import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.type.capability.ICurio;
 
 public class JetpackUtil {
 
-    public static ItemStack getFromBothSlots(Player player) {
-        ItemStack jetpackItem = ItemStack.EMPTY;
-        if (ModList.get().isLoaded("curios")) {
-            jetpackItem = CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof JetpackItem, player).map(ImmutableTriple::getRight).orElse(ItemStack.EMPTY);
-        }
-        return jetpackItem == ItemStack.EMPTY ? getFromChest(player) : jetpackItem;
+    public static final IEnergyStorage EMPTY_ENERGY_STORAGE = new EnergyStorage(0);
+
+    public static IEnergyStorage getEnergyStorage(ItemStack stack) {
+        var energy = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+        return energy == null ? EMPTY_ENERGY_STORAGE : energy;
     }
 
     public static ItemStack getFromChest(Player player) {
         return player.getItemBySlot(EquipmentSlot.CHEST);
     }
 
-    public static void removeFromBothSlots(Player player) {
-        if (ModList.get().isLoaded("curios")) {
-            ItemStack itemStack = CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof JetpackItem, player).map(ImmutableTriple::getRight).orElse(ItemStack.EMPTY);
-            CuriosApi.getCuriosHelper().getCurio(itemStack).ifPresent(p -> p.curioBreak(itemStack, player));
+    public static ItemStack getFromBothSlots(Player player) {
+        ItemStack jetpackItem = player.getItemBySlot(EquipmentSlot.CHEST);
+        if (!jetpackItem.isEmpty() && jetpackItem.getItem() instanceof JetpackItem) {
+            return jetpackItem;
+        }
+
+        if (SimplyJetpacksConfig.isCuriosEnabled()) {
+            return CuriosCompat.getJetpackCurio(player);
+        }
+
+        return ItemStack.EMPTY;
+    }
+
+    public static void removeFromBothSlots(SlotContext slotContext, Player player) {
+        if (SimplyJetpacksConfig.isCuriosEnabled()) {
+            ItemStack itemStack = CuriosCompat.getJetpackCurio(player);
+            CuriosApi.getCurio(itemStack).ifPresent(p -> p.curioBreak(slotContext));
         } else {
             player.getInventory().removeItem(getFromChest(player));
         }
@@ -59,8 +81,7 @@ public class JetpackUtil {
     // 2 if curios and correct slot
     private static int checkCuriosSlot(ItemStack which, Player player) {
         if (ModList.get().isLoaded("curios")) {
-            ItemStack curioStack = CuriosApi.getCuriosHelper().findEquippedCurio(stack -> stack.getItem() instanceof JetpackItem, player)
-                    .map(ImmutableTriple::getRight).orElse(ItemStack.EMPTY);
+            ItemStack curioStack = CuriosCompat.findMatchingItem(which.getItem(), player);
             if (curioStack.isEmpty()) {
                 return 0;
             } else {
@@ -73,5 +94,14 @@ public class JetpackUtil {
         } else {
             return -1;
         }
+    }
+
+    public static Jetpack getJetpack(ItemStack stack) {
+        var id = stack.get(SJDataComponentTypes.JETPACK_ID);
+        if (id != null) {
+            return JetpackRegistry.getInstance().getJetpackById(id);
+        }
+
+        return Jetpack.UNDEFINED;
     }
 }

@@ -9,13 +9,11 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import tomson124.simplyjetpacks.SimplyJetpacks;
 import tomson124.simplyjetpacks.crafting.JetpackCustomRecipe;
-import tomson124.simplyjetpacks.enchantment.EnchantmentFuelEfficiency;
 import tomson124.simplyjetpacks.item.*;
 
 import java.util.function.Supplier;
@@ -23,19 +21,18 @@ import java.util.function.Supplier;
 public class RegistryHandler {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, SimplyJetpacks.MODID);
-    public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, SimplyJetpacks.MODID);
+    //public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(BuiltInRegistries.ForgeRegistries.ENCHANTMENTS, SimplyJetpacks.MODID);
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(BuiltInRegistries.RECIPE_SERIALIZER, SimplyJetpacks.MODID);
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, SimplyJetpacks.MODID);
     public static final DeferredRegister<MenuType<?>> MENU = DeferredRegister.create(BuiltInRegistries.MENU, SimplyJetpacks.MODID);
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, SimplyJetpacks.MODID);
 
-    public static void init() {
-        ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        ENCHANTMENTS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        RECIPE_SERIALIZERS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        PARTICLE_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
-        MENU.register(FMLJavaModLoadingContext.get().getModEventBus());
-        SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
+    public static void init(IEventBus modBus) {
+        ITEMS.register(modBus);
+        RECIPE_SERIALIZERS.register(modBus);
+        PARTICLE_TYPES.register(modBus);
+        MENU.register(modBus);
+        SOUNDS.register(modBus);
     }
 
     // Particles:
@@ -45,8 +42,8 @@ public class RegistryHandler {
     public static final Supplier<RecipeSerializer<JetpackCustomRecipe>> JETPACK_CUSTOM_RECIPE = RECIPE_SERIALIZERS.register("jetpack_custom_recipe",() -> new SimpleCraftingRecipeSerializer<>((location, category) -> new JetpackCustomRecipe(location)));
 
     // Enchantments:
-    public static final EnchantmentCategory JETPACK_ENCHANTMENT_TYPE = EnchantmentCategory.create("JETPACK", (item -> item instanceof JetpackItem));
-    public static final Supplier<EnchantmentFuelEfficiency> FUEL_EFFICIENCY = ENCHANTMENTS.register("fuel_efficiency", EnchantmentFuelEfficiency::new);
+    //public static final EnchantmentCategory JETPACK_ENCHANTMENT_TYPE = EnchantmentCategory.create("JETPACK", (item -> item instanceof JetpackItem));
+    //public static final Supplier<EnchantmentFuelEfficiency> FUEL_EFFICIENCY = ENCHANTMENTS.register("fuel_efficiency", EnchantmentFuelEfficiency::new);
 
     // Items:
     public static final Supplier<SJItem> LEATHER_STRAP = ITEMS.register("leather_strap", SJItem::new);
@@ -61,7 +58,9 @@ public class RegistryHandler {
     public static final Supplier<PilotGogglesItem> PILOT_GOGGLES_GOLD = ITEMS.register("pilot_goggles_gold", () -> new PilotGogglesItem("gold"));
     public static final Supplier<PilotGogglesItem> PILOT_GOGGLES_IRON = ITEMS.register("pilot_goggles_iron", () -> new PilotGogglesItem("iron"));
 
-    public static final Supplier<PotatoJetpackItem> JETPACK_POTATO = ITEMS.register("jetpack_potato", PotatoJetpackItem::new);
+    public static final DeferredHolder<Item, Item> JETPACK = ITEMS.register("jetpack", JetpackItem::new);
+
+    /*public static final Supplier<PotatoJetpackItem> JETPACK_POTATO = ITEMS.register("jetpack_potato", PotatoJetpackItem::new);
     public static final Supplier<JetpackItem> JETPACK_CREATIVE = ITEMS.register("jetpack_creative", () -> new JetpackItem(JetpackType.CREATIVE));
     public static final Supplier<JetpackItem> JETPACK_CREATIVE_ARMORED = ITEMS.register("jetpack_creative_armored", () -> new JetpackItem(JetpackType.CREATIVE_ARMORED));
 
@@ -91,8 +90,8 @@ public class RegistryHandler {
     public static final Supplier<JetpackItem> JETPACK_TE3_ARMORED = ITEMS.register("jetpack_te3_armored", () -> new JetpackItem(JetpackType.TE3_ARMORED));
     public static final Supplier<JetpackItem> JETPACK_TE4 = ITEMS.register("jetpack_te4", () -> new JetpackItem(JetpackType.TE4));
     public static final Supplier<JetpackItem> JETPACK_TE4_ARMORED = ITEMS.register("jetpack_te4_armored", () -> new JetpackItem(JetpackType.TE4_ARMORED));
-    public static final Supplier<JetpackItem> JETPACK_TE5 = ITEMS.register("jetpack_te5", () -> new JetpackItem(JetpackType.TE5, JetpackArmorMaterial.JETPLATE));
-    public static final Supplier<JetpackItem> JETPACK_TE5_ARMORED = ITEMS.register("jetpack_te5_enderium", () -> new JetpackItem(JetpackType.TE5_ARMORED, JetpackArmorMaterial.JETPLATE));
+    //public static final Supplier<JetpackItem> JETPACK_TE5 = ITEMS.register("jetpack_te5", () -> new JetpackItem(JetpackType.TE5, JetpackArmorMaterial.JETPLATE));
+    //public static final Supplier<JetpackItem> JETPACK_TE5_ARMORED = ITEMS.register("jetpack_te5_enderium", () -> new JetpackItem(JetpackType.TE5_ARMORED, JetpackArmorMaterial.JETPLATE));
 
     public static final Supplier<JetpackItem> JETPACK_IE1 = ITEMS.register("jetpack_ie1", () -> new JetpackItem(JetpackType.IE1));
     public static final Supplier<JetpackItem> JETPACK_IE1_ARMORED = ITEMS.register("jetpack_ie1_armored", () -> new JetpackItem(JetpackType.IE1_ARMORED));
@@ -142,7 +141,7 @@ public class RegistryHandler {
     public static final Supplier<SJItem> UNIT_GLOWSTONE_EMPTY = ITEMS.register("unit_glowstone_empty", SJItem::new);
     public static final Supplier<SJItem> UNIT_GLOWSTONE = ITEMS.register("unit_glowstone", SJItem::new);
 
-    public static final Supplier<SJItem> FLUX_CHESTPLATE = ITEMS.register("flux_chestplate", SJItem::new);
+    public static final Supplier<SJItem> FLUX_CHESTPLATE = ITEMS.register("flux_chestplate", SJItem::new);*/
 
     // Sound Events
     public static final Supplier<SoundEvent> JETPACK_SOUND = SOUNDS.register("jetpack", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "jetpack")));
