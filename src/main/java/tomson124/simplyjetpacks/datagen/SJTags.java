@@ -15,13 +15,13 @@ public class SJTags {
     public static final TagKey<Item> CURIOS_HEAD = curios("head");
     public static final TagKey<Item> CURIOS_JETPACK = curios("jetpack");
 
-    private static TagKey<Item> forge(String path) {
-        return ItemTags.create(new ResourceLocation("forge", path));
+    private static TagKey<Item> neoforge(String path) {
+        return ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", path));
     }
     private static TagKey<Item> mod(String path) {
-        return TagKey.create(Registries.ITEM, new ResourceLocation(SimplyJetpacks.MODID, path));
+        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, path));
     }
     private static TagKey<Item> curios(String path) {
-        return TagKey.create(Registries.ITEM, new ResourceLocation("curios", path));
+        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("curios", path));
     }
 }

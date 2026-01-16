@@ -36,7 +36,7 @@ public final class SJDataGenerator {
         gen.addProvider(true, new SJItemModelProvider(gen, existingFileHelper));
         gen.addProvider(true, dummyProvider);
         gen.addProvider(true, new SJItemTagsProvider(gen.getPackOutput(), event.getLookupProvider(), dummyProvider.contentsGetter(), event.getExistingFileHelper()));
-        gen.addProvider(true, new SJRecipeProvider(gen));
+        gen.addProvider(true, new SJRecipeProvider(output, lookupProvider));
         gen.addProvider(true, new SJAdvancementProvider(output, lookupProvider, existingFileHelper));
 
         DatapackBuiltinEntriesProvider modRegistryProvider = new SJRegistryProvider(gen.getPackOutput(), event.getLookupProvider());

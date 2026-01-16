@@ -1,6 +1,7 @@
 package tomson124.simplyjetpacks.crafting;
 
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Item;
@@ -33,7 +34,7 @@ public class JetpackCustomRecipe extends CustomRecipe {
                     }
                     jetpack = currentStack.copy();
                 }
-                if (ForgeRegistries.ITEMS.tags().getTag(SJTags.PARTICLES).contains(item)) {
+                if (BuiltInRegistries.ITEM.tags().getTag(SJTags.PARTICLES).contains(item)) {
                     if (!particle.isEmpty()) {
                         return false;
                     }

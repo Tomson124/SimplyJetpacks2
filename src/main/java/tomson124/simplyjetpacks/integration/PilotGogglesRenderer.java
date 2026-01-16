@@ -28,6 +28,6 @@ public class PilotGogglesRenderer implements ICurioRenderer {
         HumanoidModel<LivingEntity> model = new HumanoidModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR));
         model.setupAnim(slotContext.entity(), limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         ICurioRenderer.followHeadRotations(slotContext.entity(), model.getHead());
-        model.getHead().render(matrixStack, ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, model.renderType(texture), false, stack.hasFoil()), light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+        model.getHead().render(matrixStack, ItemRenderer.getArmorFoilBuffer(renderTypeBuffer, model.renderType(texture), stack.hasFoil()), light, OverlayTexture.NO_OVERLAY);
     }
 }

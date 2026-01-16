@@ -6,9 +6,9 @@ import tomson124.simplyjetpacks.SimplyJetpacks;
 
 public class SJSounds {
 
-    public static final SoundEvent JETPACK = SoundEvent.createVariableRangeEvent(new ResourceLocation(SimplyJetpacks.MODID, "jetpack"));
-    public static final SoundEvent JETPACK_OTHER = SoundEvent.createVariableRangeEvent(new ResourceLocation(SimplyJetpacks.MODID, "jetpack_other"));
-    public static final SoundEvent ROCKET = SoundEvent.createVariableRangeEvent(new ResourceLocation(SimplyJetpacks.MODID, "rocket"));
+    public static final SoundEvent JETPACK = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "jetpack"));
+    public static final SoundEvent JETPACK_OTHER = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "jetpack_other"));
+    public static final SoundEvent ROCKET = SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "rocket"));
 
     /*// TODO: check this (cringe)
     @SubscribeEvent

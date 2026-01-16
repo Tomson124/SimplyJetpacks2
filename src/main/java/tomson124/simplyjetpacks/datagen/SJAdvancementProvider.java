@@ -1,21 +1,19 @@
 package tomson124.simplyjetpacks.datagen;
 
 import net.minecraft.advancements.*;
-import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -33,10 +31,10 @@ public class SJAdvancementProvider extends AdvancementProvider {
     public SJAdvancementProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
         // Add an instance of our generator to the list parameter. This can be done as many times as you want.
         // Having multiple generators is purely for organization, all functionality can be achieved with a single generator.
-        super(output, lookupProvider, existingFileHelper, List.of(new MyAdvancementGenerator()));
+        super(output, lookupProvider, existingFileHelper, List.of(new SJAdvancementGenerator()));
     }
 
-    private static final class MyAdvancementGenerator implements AdvancementProvider.AdvancementGenerator {
+    private static final class SJAdvancementGenerator implements AdvancementProvider.AdvancementGenerator {
         @Override
         public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> saver, ExistingFileHelper existingFileHelper) {
             // Create an advancement builder using the static #advancement() method.
@@ -55,17 +53,9 @@ public class SJAdvancementProvider extends AdvancementProvider {
                     false,
                     false
                 )
-                .rewards(
-                    // Alternatively, use addExperience() to add to an existing builder.
-                    AdvancementRewards.Builder.experience(100)
-                        // Alternatively, use loot() to create a new builder.
-                        .addLootTable(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath("minecraft", "chests/igloo")))
-                        // Alternatively, use recipe() to create a new builder.
-                        .addRecipe(ResourceLocation.fromNamespaceAndPath("minecraft", "iron_ingot"))
-                        // Alternatively, use function() to create a new builder.
-                        .runs(ResourceLocation.fromNamespaceAndPath("examplemod", "example_function"))
-                )
+                .rewards(AdvancementRewards.Builder.experience(100))
                 .addCriterion("install_mod", PlayerTrigger.TriggerInstance.located(EntityPredicate.Builder.entity()))
+                .addCriterion("crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Blocks.CRAFTING_TABLE))
                 .requirements(AdvancementRequirements.allOf(List.of("install_mod")))
                 .save(saver, ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "root"), existingFileHelper);
 
@@ -82,17 +72,40 @@ public class SJAdvancementProvider extends AdvancementProvider {
                     }
                     if (currentJetpack != null) {
                         if (lastJetpackType == null || lastJetpackType.getTier() > type.getTier()) {
-                            lastRoot = generateJetpack(builder, (JetpackItem) currentJetpack.get(), currentJetpack.getId(), saver);
+                            lastRoot = generateJetpack(builder, (JetpackItem) currentJetpack.get(), saver);
                         } else {
-                            lastRoot = generateJetpack(lastRoot, (JetpackItem) currentJetpack.get(), currentJetpack.getId(), saver);
+                            lastRoot = generateJetpack(lastRoot, (JetpackItem) currentJetpack.get(), saver);
                         }
                         lastJetpackType = type;
                     }
                 }
             }
+
+            // Vanilla:
+            AdvancementHolder vanilla1 = generateJetpack(builder, RegistryHandler.JETPACK_VANILLA1.get(), saver);
+            AdvancementHolder vanilla2 = generateJetpack(vanilla1, RegistryHandler.JETPACK_VANILLA2.get(), saver);
+            AdvancementHolder vanilla3 = generateJetpack(vanilla2, RegistryHandler.JETPACK_VANILLA3.get(), saver);
+            AdvancementHolder vanilla4 = generateJetpack(vanilla3, RegistryHandler.JETPACK_VANILLA4.get(), saver);
+            // Mekanism:
+            AdvancementHolder mek1 = generateJetpack(builder, RegistryHandler.JETPACK_MEK1.get(), saver);
+            AdvancementHolder mek2 = generateJetpack(mek1, RegistryHandler.JETPACK_MEK2.get(), saver);
+            AdvancementHolder mek3 = generateJetpack(mek2, RegistryHandler.JETPACK_MEK3.get(), saver);
+            AdvancementHolder mek4 = generateJetpack(mek3, RegistryHandler.JETPACK_MEK4.get(), saver);
+            // Immersive Engineering:
+            AdvancementHolder ie1 = generateJetpack(builder, RegistryHandler.JETPACK_IE1.get(), saver);
+            AdvancementHolder ie2 = generateJetpack(ie1, RegistryHandler.JETPACK_IE2.get(), saver);
+            AdvancementHolder ie3 = generateJetpack(ie2, RegistryHandler.JETPACK_IE3.get(), saver);
+            // Thermal:
+            AdvancementHolder te1 = generateJetpack(builder, RegistryHandler.JETPACK_TE1.get(), saver);
+            AdvancementHolder te2 = generateJetpack(te1, RegistryHandler.JETPACK_TE2.get(), saver);
+            AdvancementHolder te3 = generateJetpack(te2, RegistryHandler.JETPACK_TE3.get(), saver);
+            AdvancementHolder te4 = generateJetpack(te3, RegistryHandler.JETPACK_TE4.get(), saver);
+            //AdvancementHolder te5 = generateJetpack(te4, RegistryHandler.JETPACK_TE5.get(), saver);
+            //AdvancementHolder te5_armored = generateJetpack(te5, RegistryHandler.JETPACK_TE5_ARMORED.get(), saver);
         }
 
-        private AdvancementHolder generateJetpack(AdvancementHolder parent, JetpackItem displayItem, ResourceLocation namespace, Consumer<AdvancementHolder> consumer) {
+        private AdvancementHolder generateJetpack(AdvancementHolder parent, JetpackItem displayItem, Consumer<AdvancementHolder> consumer) {
+            ResourceLocation namespace = ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, BuiltInRegistries.ITEM.getKey(displayItem.asItem()).getPath());
             String advancementPath = "advancement." + namespace.getNamespace() + "." + namespace.getPath();
             return Advancement.Builder.advancement().parent(parent)
                 .display(

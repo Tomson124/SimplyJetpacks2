@@ -10,6 +10,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
 import tomson124.simplyjetpacks.SimplyJetpacks;
 import tomson124.simplyjetpacks.config.SimplyJetpacksConfig;
@@ -56,22 +57,22 @@ public class KeybindForgeBusHandler {
                 Minecraft.getInstance().setScreen(new JetpackScreen());
             }
             if (JETPACK_ENGINE_KEY.getKey().getValue() == event.getKey()) {
-                NetworkHandler.sendToServer(new PayloadToggleEngine());
+                PacketDistributor.sendToServer(new PayloadToggleEngine());
             }
             if (JETPACK_HOVER_KEY.getKey().getValue() == event.getKey()) {
-                NetworkHandler.sendToServer(new PayloadToggleHover());
+                PacketDistributor.sendToServer(new PayloadToggleHover());
             }
             if (JETPACK_EHOVER_KEY.getKey().getValue() == event.getKey()) {
-                NetworkHandler.sendToServer(new PayloadToggleEHover());
+                PacketDistributor.sendToServer(new PayloadToggleEHover());
             }
             if (JETPACK_CHARGER_KEY.getKey().getValue() == event.getKey()) {
-                NetworkHandler.sendToServer(new PayloadToggleCharger());
+                PacketDistributor.sendToServer(new PayloadToggleCharger());
             }
             if (JETPACK_THROTTLE_INCREASE.getKey().getValue() == event.getKey()) {
-                NetworkHandler.sendToServer(new PayloadUpdateThrottle(Math.max(0, Math.min(100,jetpack.getThrottle(chestStack) + 10))));
+                PacketDistributor.sendToServer(new PayloadUpdateThrottle(Math.max(0, Math.min(100,jetpack.getThrottle(chestStack) + 10))));
             }
             if (JETPACK_THROTTLE_DECREASE.getKey().getValue() == event.getKey()) {
-                NetworkHandler.sendToServer(new PayloadUpdateThrottle(Math.max(0, Math.min(100, jetpack.getThrottle(chestStack) - 10))));
+                PacketDistributor.sendToServer(new PayloadUpdateThrottle(Math.max(0, Math.min(100, jetpack.getThrottle(chestStack) - 10))));
             }
         }
     }
@@ -94,7 +95,7 @@ public class KeybindForgeBusHandler {
                 lastBackwardState = backwardState;
                 lastLeftState = leftState;
                 lastRightState = rightState;
-                NetworkHandler.sendToServer(new PayloadUpdateInput(invertHover, flyState, descendState, forwardState, backwardState, leftState, rightState));
+                PacketDistributor.sendToServer(new PayloadUpdateInput(invertHover, flyState, descendState, forwardState, backwardState, leftState, rightState));
                 CommonJetpackHandler.update(mc.player, invertHover, flyState, descendState, forwardState, backwardState, leftState, rightState);
             }
         }

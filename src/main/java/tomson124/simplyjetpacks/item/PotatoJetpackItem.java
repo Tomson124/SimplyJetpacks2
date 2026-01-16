@@ -31,16 +31,8 @@ public class PotatoJetpackItem extends JetpackItem {
         super(JetpackType.POTATO, JetpackArmorMaterial.POTATO);
     }
 
-    @OnlyIn(Dist.CLIENT)
     @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(IClientItemExtensions.DEFAULT);
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level levelIn, List<Component> tooltip, TooltipFlag flagIn) {
-        //if (Capabilities.EnergyStorage. == null) return;
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
         tooltip.add(SJTextUtil.translate("tooltip", "jetpack_potato"));
         SJTextUtil.addBaseInfo(stack, tooltip);
         if (KeyboardUtil.isHoldingShift()) {
@@ -50,7 +42,6 @@ public class PotatoJetpackItem extends JetpackItem {
         }
     }
 
-    @Override
     public void onArmorTick(ItemStack stack, Level world, Player player) {
         if (!player.isSpectator() && stack == JetpackUtil.getFromBothSlots(player)) {
             this.flyUser(player, stack, this, true);
@@ -66,7 +57,8 @@ public class PotatoJetpackItem extends JetpackItem {
             if (this.isFired(stack)) {
                 super.flyUser(player, stack, item, true);
                 player.yHeadRot += 37.5F;
-                if (item.getEnergy(stack) <= 0) {
+                var energyItem = JetpackUtil.getEnergyStorage(new ItemStack(item));
+                if (energyItem.getEnergyStored() <= 0) {
                     Random random = new Random();
                     player.getInventory().removeItem(stack);
                     if (!player.getCommandSenderWorld().isClientSide()) {
