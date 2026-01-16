@@ -56,6 +56,36 @@ public class JetpackArmorMaterial {
 		this.knockbackResistance = knockbackResistance;
 	}
 
+	public static final Holder<ArmorMaterial> POTATO =
+			ARMOR_MATERIALS.register("potato", () -> new ArmorMaterial(
+					// Determines the defense value of this armor material, depending on what armor piece it is.
+					Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+						map.put(ArmorItem.Type.BOOTS, 0);
+						map.put(ArmorItem.Type.LEGGINGS, 0);
+						map.put(ArmorItem.Type.CHESTPLATE, 0);
+						map.put(ArmorItem.Type.HELMET, 1);
+						map.put(ArmorItem.Type.BODY, 0);
+					}),
+					15, SoundEvents.ARMOR_EQUIP_LEATHER,  () -> Ingredient.of(Tags.Items.LEATHERS),
+					// Determines the texture locations of the armor to apply when rendering
+					// This can also be specified by overriding 'IItemExtension#getArmorTexture' on your item if the armor texture needs to be more dynamic
+					List.of(
+							// Creates a new armor texture that will be located at:
+							// - 'assets/mod_id/textures/models/armor/copper_layer_1.png' for the outer texture
+							// - 'assets/mod_id/textures/models/armor/copper_layer_2.png' for the inner texture (only legs)
+							new ArmorMaterial.Layer(
+									ResourceLocation.fromNamespaceAndPath(MOD_ID, "copper")
+							),
+							// Creates a new armor texture that will be rendered on top of the previous at:
+							// - 'assets/mod_id/textures/models/armor/copper_layer_1_overlay.png' for the outer texture
+							// - 'assets/mod_id/textures/models/armor/copper_layer_2_overlay.png' for the inner texture (only legs)
+							// 'true' means that the armor material is dyeable; however, the item must also be added to the 'minecraft:dyeable' tag
+							new ArmorMaterial.Layer(
+									ResourceLocation.fromNamespaceAndPath(MOD_ID, "copper"), "_overlay", true
+							)
+					), 0, 0
+			));
+
 	public static final Holder<ArmorMaterial> PILOT_GOGGLES =
 			ARMOR_MATERIALS.register("pilot_goggles", () -> new ArmorMaterial(
 					// Determines the defense value of this armor material, depending on what armor piece it is.

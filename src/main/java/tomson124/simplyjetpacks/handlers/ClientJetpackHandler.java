@@ -6,11 +6,11 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
-import net.minecraftforge.event.TickEvent;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import tomson124.simplyjetpacks.SimplyJetpacks;
 import tomson124.simplyjetpacks.config.SimplyJetpacksConfig;
 import tomson124.simplyjetpacks.item.JetpackItem;
@@ -24,45 +24,43 @@ import tomson124.simplyjetpacks.util.Pos3D;
 import java.time.LocalDate;
 import java.util.Random;
 
-@OnlyIn(Dist.CLIENT)
+@EventBusSubscriber(value = Dist.CLIENT, modid = SimplyJetpacks.MODID)
 public class ClientJetpackHandler {
 
     @SubscribeEvent
-    public void onClientPlayerQuit(final ClientPlayerNetworkEvent.LoggingOut loggedOutEvent) {
+    public void onClientPlayerQuit(ClientPlayerNetworkEvent.LoggingOut loggedOutEvent) {
         SimplyJetpacks.LOGGER.info("Reverting jetpack settings to client config.");
         JetpackType.loadAllConfigs();
         SimplyJetpacks.LOGGER.info("Client jetpack config successfully reverted.");
     }
 
     @SubscribeEvent
-    public void onClientTick(TickEvent.ClientTickEvent event) {
+    public void onClientTick(ClientTickEvent.Post event) {
         Minecraft minecraft = Minecraft.getInstance();
-        if (event.phase == TickEvent.Phase.END) {
-            if (minecraft.player != null && minecraft.level != null) {
-                if (!minecraft.isPaused() && !minecraft.player.isSpectator() && !minecraft.player.getAbilities().flying) {
-                    ItemStack chest = JetpackUtil.getFromBothSlots(minecraft.player);
-                    Item item = chest.getItem();
-                    if ((!chest.isEmpty() && item instanceof JetpackItem && isFlying(minecraft.player)) ||
-                            (item instanceof PotatoJetpackItem && ((PotatoJetpackItem)item).isFired(chest))) {
-                        // Show particles:
-                        // TODO: Fix this
-                        if (SimplyJetpacksConfig.enableJetpackParticles.get() && (minecraft.options.particles().get() != ParticleStatus.MINIMAL)) {
-                            JetpackParticleType particleType;
-                            if (minecraft.player.isInWaterRainOrBubble()) {
-                                particleType = JetpackParticleType.BUBBLES;
-                            } else if (checkValentines()) {
-                                particleType = JetpackParticleType.HEARTS;
-                            } else {
-                                particleType = JetpackParticleType.values()[JetpackItem.getParticleId(chest)];
-                            }
-                            if (particleType.getParticleData() != null) {
-                                showJetpackParticles(minecraft, particleType);
-                            }
+        if (minecraft.player != null && minecraft.level != null) {
+            if (!minecraft.isPaused() && !minecraft.player.isSpectator() && !minecraft.player.getAbilities().flying) {
+                ItemStack chest = JetpackUtil.getFromBothSlots(minecraft.player);
+                Item item = chest.getItem();
+                if ((!chest.isEmpty() && item instanceof JetpackItem && isFlying(minecraft.player)) ||
+                        (item instanceof PotatoJetpackItem && ((PotatoJetpackItem)item).isFired(chest))) {
+                    // Show particles:
+                    // TODO: Fix this
+                    if (SimplyJetpacksConfig.enableJetpackParticles.get() && (minecraft.options.particles().get() != ParticleStatus.MINIMAL)) {
+                        JetpackParticleType particleType;
+                        if (minecraft.player.isInWaterRainOrBubble()) {
+                            particleType = JetpackParticleType.BUBBLES;
+                        } else if (checkValentines()) {
+                            particleType = JetpackParticleType.HEARTS;
+                        } else {
+                            particleType = JetpackParticleType.values()[JetpackItem.getParticleId(chest)];
                         }
-                        // Play sounds:
-                        if (SimplyJetpacksConfig.enableJetpackSounds.get() && !JetpackSound.playing(minecraft.player.getId())) {
-                            minecraft.getSoundManager().play(new JetpackSound(minecraft.player));
+                        if (particleType.getParticleData() != null) {
+                            showJetpackParticles(minecraft, particleType);
                         }
+                    }
+                    // Play sounds:
+                    if (SimplyJetpacksConfig.enableJetpackSounds.get() && !JetpackSound.playing(minecraft.player.getId())) {
+                        minecraft.getSoundManager().play(new JetpackSound(minecraft.player));
                     }
                 }
             }
@@ -95,7 +93,8 @@ public class ClientJetpackHandler {
             Item item = stack.getItem();
             if (item instanceof JetpackItem) {
                 JetpackItem jetpack = (JetpackItem) item;
-                if (jetpack.isEngineOn(stack) && (jetpack.getEnergy(stack) > 0 || jetpack.isCreative())) {
+                var energyItem = JetpackUtil.getEnergyStorage(new ItemStack(jetpack));
+                if (jetpack.isEngineOn(stack) && (energyItem.getEnergyStored() > 0 || jetpack.isCreative())) {
                     if (jetpack.isHoverOn(stack)) {
                         return !player.onGround();
                     } else {
