@@ -1,36 +1,30 @@
-package tomson124.simplyjetpacks.integration;
+package tomson124.simplyjetpacks.compat;
 
-import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import tomson124.simplyjetpacks.SimplyJetpacks;
+import tomson124.simplyjetpacks.compat.curios.JetpackCurios;
 import tomson124.simplyjetpacks.handlers.RegistryHandler;
+import tomson124.simplyjetpacks.integration.PilotGogglesRenderer;
+import tomson124.simplyjetpacks.item.JetpackItem;
+import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.CuriosCapability;
+import top.theillusivec4.curios.api.SlotResult;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
-import top.theillusivec4.curios.api.type.capability.ICurio;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import java.util.function.Predicate;
 
-public class CuriosIntegration {
-
-    private static ResourceLocation getJetpackTexture(String name) {
-        return new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/jetpack_" + name + ".png");
-    }
+public class CuriosCompat {
 
     // TODO: See if this can be dynamic.
     public static void initRenderers() {
-        CuriosRendererRegistry.register(RegistryHandler.PILOT_GOGGLES_IRON.get(), () -> new PilotGogglesRenderer(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_iron.png")));
-        CuriosRendererRegistry.register(RegistryHandler.PILOT_GOGGLES_GOLD.get(), () -> new PilotGogglesRenderer(new ResourceLocation(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_gold.png")));
+        CuriosRendererRegistry.register(RegistryHandler.PILOT_GOGGLES_IRON.get(), () -> new PilotGogglesRenderer(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_iron.png")));
+        CuriosRendererRegistry.register(RegistryHandler.PILOT_GOGGLES_GOLD.get(), () -> new PilotGogglesRenderer(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_gold.png")));
 
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("creative")));
+        /*CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("creative")));
         CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("creative_armored")));
 
         CuriosRendererRegistry.register(RegistryHandler.JETPACK_VANILLA1.get(), () -> new JetpackRenderer(getJetpackTexture("vanilla1")));
@@ -59,18 +53,43 @@ public class CuriosIntegration {
         CuriosRendererRegistry.register(RegistryHandler.JETPACK_TE3_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("te3_armored")));
         CuriosRendererRegistry.register(RegistryHandler.JETPACK_TE4.get(), () -> new JetpackRenderer(getJetpackTexture("te4")));
         CuriosRendererRegistry.register(RegistryHandler.JETPACK_TE4_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("te4_armored")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_TE5.get(), () -> new JetpackRenderer(getJetpackTexture("te5")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_TE5_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("te5_enderium")));
+        //CuriosRendererRegistry.register(RegistryHandler.JETPACK_TE5.get(), () -> new JetpackRenderer(getJetpackTexture("te5")));
+        //CuriosRendererRegistry.register(RegistryHandler.JETPACK_TE5_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("te5_enderium")));
 
         CuriosRendererRegistry.register(RegistryHandler.JETPACK_IE1.get(), () -> new JetpackRenderer(getJetpackTexture("ie1")));
         CuriosRendererRegistry.register(RegistryHandler.JETPACK_IE1_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("ie1_armored")));
         CuriosRendererRegistry.register(RegistryHandler.JETPACK_IE2.get(), () -> new JetpackRenderer(getJetpackTexture("ie2")));
         CuriosRendererRegistry.register(RegistryHandler.JETPACK_IE2_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("ie2_armored")));
         CuriosRendererRegistry.register(RegistryHandler.JETPACK_IE3.get(), () -> new JetpackRenderer(getJetpackTexture("ie3")));
-        CuriosRendererRegistry.register(RegistryHandler.JETPACK_IE3_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("ie3_armored")));
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK_IE3_ARMORED.get(), () -> new JetpackRenderer(getJetpackTexture("ie3_armored")));*/
     }
 
-    public static ICapabilityProvider initGogglesCapabilities(ItemStack itemStack) {
+    public static ItemStack findMatchingItem(Item item, LivingEntity entity) {
+        return CuriosApi.getCuriosInventory(entity)
+                .map(e -> e.findFirstCurio(item))
+                .flatMap(e -> e.map(SlotResult::stack))
+                .orElse(ItemStack.EMPTY);
+    }
+
+    public static ItemStack findMatchingItem(Predicate<ItemStack> predicate, LivingEntity entity) {
+        return CuriosApi.getCuriosInventory(entity)
+                .map(e -> e.findFirstCurio(predicate))
+                .flatMap(e -> e.map(SlotResult::stack))
+                .orElse(ItemStack.EMPTY);
+    }
+
+    public static ItemStack getJetpackCurio(LivingEntity entity) {
+        return CuriosApi.getCuriosInventory(entity)
+                .map(e -> e.findFirstCurio(itemstack -> itemstack.getItem() instanceof JetpackItem))
+                .flatMap(e -> e.map(SlotResult::stack))
+                .orElse(ItemStack.EMPTY);
+    }
+
+    private static ResourceLocation getJetpackTexture(String name) {
+        return ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "textures/models/armor/jetpack_" + name + ".png");
+    }
+
+    /*public static ICapabilityProvider initGogglesCapabilities(ItemStack itemStack) {
         return getProvider(new ICurio() {
 
             @Override
@@ -78,16 +97,6 @@ public class CuriosIntegration {
                 livingEntity.getCommandSenderWorld().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(),
                         ((ArmorItem) itemStack.getItem()).getMaterial().getEquipSound(), SoundSource.PLAYERS, 1.0F, 1.0F
                 );
-            }
-
-            @Override
-            public ItemStack getStack() {
-                return itemStack;
-
-            }
-            @Override
-            public boolean canRightClickEquip() {
-                return true;
             }
         });
     }
@@ -103,39 +112,15 @@ public class CuriosIntegration {
             }
 
             @Override
-            public ItemStack getStack() {
-                return itemStack;
-            }
-
-            @Override
-            public boolean canRightClickEquip() {
-                return true;
-            }
-
-            @Override
             public void curioTick(String identifier, int index, LivingEntity livingEntity) {
                 if (livingEntity instanceof Player) {
                     itemStack.onArmorTick(livingEntity.getCommandSenderWorld(), (Player) livingEntity);
                 }
             }
-
-            @Override
-            public boolean canSync(String identifier, int index, LivingEntity livingEntity) {
-                return true;
-            }
         });
+    }*/
+
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.registerItem(CuriosCapability.ITEM, (stack, context) -> new JetpackCurios(stack), RegistryHandler.JETPACK.get());
     }
-
-    private static ICapabilityProvider getProvider(ICurio curio) {
-        return new ICapabilityProvider() {
-            private final LazyOptional<ICurio> curioOptional = LazyOptional.of(() -> curio);
-
-            @Nonnull
-            @Override
-            public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-                return CuriosCapability.ITEM.orEmpty(cap, curioOptional);
-            }
-        };
-    }
-
 }

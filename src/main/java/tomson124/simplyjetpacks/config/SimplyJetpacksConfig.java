@@ -5,7 +5,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.config.ModConfigEvent;
@@ -16,7 +16,7 @@ import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import tomson124.simplyjetpacks.SimplyJetpacks;
 import tomson124.simplyjetpacks.item.JetpackType;
 import tomson124.simplyjetpacks.network.NetworkHandler;
-import tomson124.simplyjetpacks.network.packets.PacketJetpackConfigSync;
+import tomson124.simplyjetpacks.network.payloads.PayloadJetpackConfigSync;
 
 import java.util.List;
 
@@ -210,12 +210,12 @@ public class SimplyJetpacksConfig {
         SERVER_BUILDER.pop();
     }
 
-    public static void sendServerConfigFiles(Player player) {
+    /*public static void sendServerConfigFiles(Player player) {
         JetpackType.loadAllConfigs();
         for(JetpackType jetpack : JetpackType.JETPACK_ALL) {
-            NetworkHandler.sendToClient(new PacketJetpackConfigSync(jetpack), (ServerPlayer) player);
+            NetworkHandler.sendToClient(new PayloadJetpackConfigSync(jetpack), (ServerPlayer) player);
         }
-    }
+    }*/
 
     @SubscribeEvent
     public static void onLoad(final ModConfigEvent.Loading configEvent) {
@@ -237,12 +237,20 @@ public class SimplyJetpacksConfig {
 
                 List<ServerPlayer> playerList = ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers();
                 SimplyJetpacks.LOGGER.info("Server jetpack config updated. Syncing {} player(s) configs.", playerList.size());
-                for (Player player : playerList) {
+                /*for (Player player : playerList) {
                     sendServerConfigFiles(player);
-                }
+                }*/
                 SimplyJetpacks.LOGGER.info("Finished syncing server jetpack configs.");
             }
         }
+    }
+
+    public static boolean isCuriosInstalled() {
+        return ModList.get().isLoaded("curios");
+    }
+
+    public static boolean isCuriosEnabled() {
+        return isCuriosInstalled() && enableCuriosIntegration.get();
     }
 
     // Client
@@ -270,6 +278,7 @@ public class SimplyJetpacksConfig {
     public static ModConfigSpec.BooleanValue enableIntegrationEnderIO;
     public static ModConfigSpec.BooleanValue enableIntegrationThermalExpansion;
     public static ModConfigSpec.BooleanValue enableIntegrationThermalDynamics;
+    public static ModConfigSpec.BooleanValue enableCuriosIntegration;
     public static ModConfigSpec.BooleanValue enableJoinAdvancements;
 
     // Server
