@@ -28,14 +28,14 @@ import java.util.Random;
 public class ClientJetpackHandler {
 
     @SubscribeEvent
-    public void onClientPlayerQuit(ClientPlayerNetworkEvent.LoggingOut loggedOutEvent) {
+    public static void onClientPlayerQuit(ClientPlayerNetworkEvent.LoggingOut loggedOutEvent) {
         SimplyJetpacks.LOGGER.info("Reverting jetpack settings to client config.");
         JetpackType.loadAllConfigs();
         SimplyJetpacks.LOGGER.info("Client jetpack config successfully reverted.");
     }
 
     @SubscribeEvent
-    public void onClientTick(ClientTickEvent.Post event) {
+    public static void onClientTick(ClientTickEvent.Post event) {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player != null && minecraft.level != null) {
             if (!minecraft.isPaused() && !minecraft.player.isSpectator() && !minecraft.player.getAbilities().flying) {
@@ -52,7 +52,7 @@ public class ClientJetpackHandler {
                         } else if (checkValentines()) {
                             particleType = JetpackParticleType.HEARTS;
                         } else {
-                            particleType = JetpackParticleType.values()[JetpackItem.getParticleId(chest)];
+                            particleType = JetpackParticleType.byId(JetpackItem.getParticleId(chest));
                         }
                         if (particleType.getParticleData() != null) {
                             showJetpackParticles(minecraft, particleType);
@@ -67,7 +67,7 @@ public class ClientJetpackHandler {
         }
     }
 
-    private void showJetpackParticles(Minecraft minecraft, JetpackParticleType particleType) {
+    private static void showJetpackParticles(Minecraft minecraft, JetpackParticleType particleType) {
         ParticleOptions particle = particleType.getParticleData();
         Random rand = new Random();
         float random = (rand.nextFloat() - 0.5F) * 0.1F;

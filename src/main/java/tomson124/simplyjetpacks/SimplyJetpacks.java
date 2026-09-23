@@ -3,24 +3,21 @@ package tomson124.simplyjetpacks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import tomson124.simplyjetpacks.config.SimplyJetpacksConfig;
-import tomson124.simplyjetpacks.crafting.JetpackCraftingEvents;
 import tomson124.simplyjetpacks.handlers.CommonJetpackHandler;
 import tomson124.simplyjetpacks.handlers.RegistryHandler;
 import tomson124.simplyjetpacks.init.SJDataComponentTypes;
+import tomson124.simplyjetpacks.item.JetpackRegistry;
 import tomson124.simplyjetpacks.item.SJItemGroup;
-import tomson124.simplyjetpacks.network.NetworkHandler;
 
 @Mod(SimplyJetpacks.MODID)
 public class SimplyJetpacks {
@@ -33,68 +30,34 @@ public class SimplyJetpacks {
     public static final Logger LOGGER = LogManager.getLogger();
 
     public SimplyJetpacks(IEventBus eventBus, ModContainer container) {
-        eventBus.register(this);
         CREATIVE_TAB.register(SimplyJetpacks.MODID + ".main", SJItemGroup::new);
-
-        /*var bus = FMLJavaModLoadingContext.get().getModEventBus();
-
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-            bus.register(new HUDHandler());
-        });*/
-
-        /*// TODO: fix this.
-        if (ModList.get().isLoaded("curios")) {
-            NeoForge.EVENT_BUS.addGenericListener(ItemStack.class, this::attachCapabilities);
-        }*/
-
+        CREATIVE_TAB.register(eventBus);
         SJDataComponentTypes.REGISTRY.register(eventBus);
-
-        eventBus.register(new JetpackCraftingEvents());
-        eventBus.register(new CommonJetpackHandler());
-//        NeoForge.EVENT_BUS.register(new SJSounds());
+        RegistryHandler.init(eventBus);
 
         SimplyJetpacksConfig.register(container);
 
         eventBus.addListener(this::commonSetup);
         eventBus.addListener(this::clientSetup);
-        RegistryHandler.init(eventBus);
-        eventBus.register(new NetworkHandler());
+
+        NeoForge.EVENT_BUS.register(JetpackRegistry.getInstance());
+        NeoForge.EVENT_BUS.addListener(this::onServerStopping);
     }
 
-    @SubscribeEvent
     private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.info("Common Setup Method registered.");
+        // Stats come from the common config, which has loaded by now.
+        event.enqueueWork(() -> JetpackRegistry.getInstance().loadJetpacks());
     }
 
-    @SubscribeEvent
     private void clientSetup(final FMLClientSetupEvent event) {
         LOGGER.info("Client Setup Method registered.");
-
-        //NeoForge.EVENT_BUS.register(new KeybindForgeBusHandler());
-        //NeoForge.EVENT_BUS.register(new ClientJetpackHandler());
-        //NeoForge.EVENT_BUS.register(new HUDHandler());
-
-        /*if (ModList.get().isLoaded("curios")) {
-            CuriosIntegration.initRenderers();
-        }*/
+        // Client-only wiring lives in ClientSetupHandler so this class never touches client classes.
     }
 
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-        LOGGER.info("Server starting...");
-    }
-
-    @SubscribeEvent
-    public void onServerStopping(ServerStoppingEvent event) {
+    private void onServerStopping(ServerStoppingEvent event) {
         LOGGER.info("Server stopping...");
         CommonJetpackHandler.clear();
-    }
-
-    @SubscribeEvent
-    public void onPlayerLogin(final PlayerEvent.PlayerLoggedInEvent loggedInEvent) {
-        SimplyJetpacks.LOGGER.info("{} logging in. Syncing server jetpack configs with client.", loggedInEvent.getEntity().getName().getString());
-        //SimplyJetpacksConfig.sendServerConfigFiles(loggedInEvent.getEntity());
-        SimplyJetpacks.LOGGER.info("Finished syncing server jetpack configs.");
     }
 
     /*private void attachCapabilities(AttachCapabilitiesEvent<ItemStack> event) {

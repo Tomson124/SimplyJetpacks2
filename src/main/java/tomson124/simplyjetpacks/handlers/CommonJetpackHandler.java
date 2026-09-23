@@ -86,12 +86,12 @@ public class CommonJetpackHandler {
     }
 
     @SubscribeEvent
-    public void onLogout(PlayerEvent.PlayerLoggedOutEvent event) {
+    public static void onLogout(PlayerEvent.PlayerLoggedOutEvent event) {
         remove(event.getEntity());
     }
 
     @SubscribeEvent
-    public void onChangeDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
+    public static void onChangeDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         remove(event.getEntity());
     }
 }

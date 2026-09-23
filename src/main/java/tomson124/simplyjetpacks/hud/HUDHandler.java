@@ -21,7 +21,7 @@ import java.util.List;
 public final class HUDHandler {
 
     @SubscribeEvent
-    public void onRegisterGuiOverlays(RenderGuiEvent.Pre event) {
+    public static void onRegisterGuiOverlays(RenderGuiEvent.Pre event) {
         var minecraft = Minecraft.getInstance();
         if (SimplyJetpacksConfig.enableJetpackHud.get() && !minecraft.options.hideGui) {
             if (minecraft.player != null) {
