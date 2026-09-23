@@ -9,6 +9,7 @@ public class ConfigDefaults {
     public static final boolean enableIntegrationEnderIO = true;
     public static final boolean enableIntegrationThermalExpansion = true;
     public static final boolean enableIntegrationThermalDynamics = true;
+    public static final boolean enableCuriosIntegration = true;
 
     // Controls
     public static final boolean invertHoverSneakingBehavior = false;

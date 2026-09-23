@@ -8,6 +8,7 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import tomson124.simplyjetpacks.SimplyJetpacks;
 import tomson124.simplyjetpacks.compat.curios.JetpackCurios;
 import tomson124.simplyjetpacks.handlers.RegistryHandler;
+import tomson124.simplyjetpacks.integration.JetpackRenderer;
 import tomson124.simplyjetpacks.integration.PilotGogglesRenderer;
 import tomson124.simplyjetpacks.item.JetpackItem;
 import top.theillusivec4.curios.api.CuriosApi;
@@ -19,10 +20,11 @@ import java.util.function.Predicate;
 
 public class CuriosCompat {
 
-    // TODO: See if this can be dynamic.
     public static void initRenderers() {
         CuriosRendererRegistry.register(RegistryHandler.PILOT_GOGGLES_IRON.get(), () -> new PilotGogglesRenderer(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_iron.png")));
         CuriosRendererRegistry.register(RegistryHandler.PILOT_GOGGLES_GOLD.get(), () -> new PilotGogglesRenderer(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_gold.png")));
+
+        CuriosRendererRegistry.register(RegistryHandler.JETPACK.get(), JetpackRenderer::new);
 
         /*CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("creative")));
         CuriosRendererRegistry.register(RegistryHandler.JETPACK_CREATIVE.get(), () -> new JetpackRenderer(getJetpackTexture("creative_armored")));

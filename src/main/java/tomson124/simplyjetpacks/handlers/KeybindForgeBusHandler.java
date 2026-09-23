@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
@@ -15,12 +16,11 @@ import org.lwjgl.glfw.GLFW;
 import tomson124.simplyjetpacks.SimplyJetpacks;
 import tomson124.simplyjetpacks.config.SimplyJetpacksConfig;
 import tomson124.simplyjetpacks.item.JetpackItem;
-import tomson124.simplyjetpacks.network.NetworkHandler;
 import tomson124.simplyjetpacks.network.payloads.*;
 import tomson124.simplyjetpacks.screen.JetpackScreen;
 import tomson124.simplyjetpacks.util.JetpackUtil;
 
-@EventBusSubscriber(modid = SimplyJetpacks.MODID)
+@EventBusSubscriber(value = Dist.CLIENT, modid = SimplyJetpacks.MODID)
 public class KeybindForgeBusHandler {
 
     private static boolean lastFlyState = false;
@@ -39,8 +39,13 @@ public class KeybindForgeBusHandler {
     public static KeyMapping JETPACK_THROTTLE_INCREASE = new KeyMapping("keybind.simplyjetpacks.jetpack_throttle_increase", GLFW.GLFW_KEY_PERIOD, "keybind.simplyjetpacks.category");
     public static KeyMapping JETPACK_THROTTLE_DECREASE = new KeyMapping("keybind.simplyjetpacks.jetpack_throttle_decrease", GLFW.GLFW_KEY_COMMA, "keybind.simplyjetpacks.category");
 
+    private static int throttlePercent(ItemStack stack, int delta) {
+        int current = (int) Math.round(JetpackUtil.getThrottle(stack) * 100D);
+        return Math.max(0, Math.min(100, current + delta));
+    }
+
     @SubscribeEvent
-    public void onKeyInput(InputEvent.Key event) {
+    public static void onKeyInput(InputEvent.Key event) {
         Player player = Minecraft.getInstance().player;
         if (player == null || event.getAction() != InputConstants.PRESS || Minecraft.getInstance().screen != null) {
             return;
@@ -102,7 +107,7 @@ public class KeybindForgeBusHandler {
     }
 
     @SubscribeEvent
-    public void onClientTick(ClientTickEvent.Post evt) {
+    public static void onClientTick(ClientTickEvent.Post evt) {
         tickEnd();
     }
 }

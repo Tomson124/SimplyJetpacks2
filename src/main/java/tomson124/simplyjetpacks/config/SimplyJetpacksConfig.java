@@ -187,6 +187,12 @@ public class SimplyJetpacksConfig {
                 .worldRestart()
                 .define("enableIntegrationThermalDynamics", ConfigDefaults.enableIntegrationThermalDynamics);
 
+        enableCuriosIntegration = COMMON_BUILDER
+                .comment("Enable wearing Jetpacks in a Curios slot.")
+                .translation("config.simplyjetpacks.enableCuriosIntegration")
+                .worldRestart()
+                .define("enableCuriosIntegration", ConfigDefaults.enableCuriosIntegration);
+
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.comment("Jetpack Tuning Configurations").push("tuning");
