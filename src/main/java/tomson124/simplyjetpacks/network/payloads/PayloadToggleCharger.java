@@ -11,7 +11,7 @@ import tomson124.simplyjetpacks.util.JetpackUtil;
 
 public record PayloadToggleCharger() implements CustomPacketPayload {
 
-    public static final CustomPacketPayload.Type<PayloadToggleCharger> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "my_data"));
+    public static final CustomPacketPayload.Type<PayloadToggleCharger> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "toggle_charger"));
 
     public static final StreamCodec<ByteBuf, PayloadToggleCharger> STREAM_CODEC = StreamCodec.unit(new PayloadToggleCharger());
 

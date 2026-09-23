@@ -12,7 +12,7 @@ import tomson124.simplyjetpacks.util.JetpackUtil;
 
 public record PayloadToggleEngine() implements CustomPacketPayload {
 
-    public static final CustomPacketPayload.Type<PayloadToggleEngine> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "my_data"));
+    public static final CustomPacketPayload.Type<PayloadToggleEngine> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "toggle_engine"));
 
     public static final StreamCodec<ByteBuf, PayloadToggleEngine> STREAM_CODEC = StreamCodec.unit(new PayloadToggleEngine());
 

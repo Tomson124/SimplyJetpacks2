@@ -10,7 +10,7 @@ import tomson124.simplyjetpacks.handlers.CommonJetpackHandler;
 
 public record PayloadUpdateInput(boolean invert, boolean up, boolean down, boolean forwards, boolean backwards, boolean left, boolean right) implements CustomPacketPayload {
 
-    public static final CustomPacketPayload.Type<PayloadUpdateInput> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "my_data"));
+    public static final CustomPacketPayload.Type<PayloadUpdateInput> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "update_input"));
 
     public static final StreamCodec<ByteBuf, PayloadUpdateInput> STREAM_CODEC = StreamCodec.of(PayloadUpdateInput::encode, PayloadUpdateInput::decode);
 

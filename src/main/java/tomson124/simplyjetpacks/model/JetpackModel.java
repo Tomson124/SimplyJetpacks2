@@ -125,13 +125,13 @@ public class JetpackModel<T extends LivingEntity> extends HumanoidModel<T> {
                 this.rightArm
         );
     }
-
+    
     @Override
-    public void renderToBuffer(PoseStack poseStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(PoseStack poseStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, int color) {
         // Could be used to alter texture of some of the elements?
         //ResourceLocation TEXTURE = new ResourceLocation(SimplyJetpacks.MODID, "texture_path");
         //VertexConsumer vertexConsumer = Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderType.entityTranslucent(TEXTURE));
-        super.renderToBuffer(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+        super.renderToBuffer(poseStackIn, bufferIn, packedLightIn, packedOverlayIn, color);
     }
 
     @Override

@@ -11,7 +11,7 @@ import tomson124.simplyjetpacks.util.JetpackUtil;
 
 public record PayloadToggleHover() implements CustomPacketPayload {
 
-    public static final CustomPacketPayload.Type<PayloadToggleHover> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "my_data"));
+    public static final CustomPacketPayload.Type<PayloadToggleHover> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "toggle_hover"));
 
     public static final StreamCodec<ByteBuf, PayloadToggleHover> STREAM_CODEC = StreamCodec.unit(new PayloadToggleHover());
 
