@@ -11,6 +11,7 @@ public class SJTags {
 
     public static final TagKey<Item> PARTICLES = mod("particles");
     public static final TagKey<Item> JETPACK = mod("jetpack");
+    public static final TagKey<Item> ENCHANTABLE_JETPACK = mod("enchantable/jetpack");
 
     public static final TagKey<Item> CURIOS_HEAD = curios("head");
     public static final TagKey<Item> CURIOS_JETPACK = curios("jetpack");

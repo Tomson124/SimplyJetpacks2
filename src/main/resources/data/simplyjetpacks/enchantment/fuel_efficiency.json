@@ -1,0 +1,20 @@
+{
+  "description": {
+    "translate": "enchantment.simplyjetpacks.fuel_efficiency"
+  },
+  "supported_items": "#simplyjetpacks:enchantable/jetpack",
+  "weight": 6,
+  "max_level": 4,
+  "max_cost": {
+    "base": 45,
+    "per_level_above_first": 9
+  },
+  "min_cost": {
+    "base": 2,
+    "per_level_above_first": 8
+  },
+  "anvil_cost": 2,
+  "slots": [
+    "chest"
+  ]
+}

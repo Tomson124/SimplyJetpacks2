@@ -14,15 +14,23 @@ public class SJItemGroup extends CreativeModeTab {
     public SJItemGroup() {
         super(CreativeModeTab.builder()
                 .title(Component.translatable("itemGroup." + SimplyJetpacks.MODID + ".main"))
-                .icon(()-> new ItemStack(RegistryHandler.JETPACK_CREATIVE.get()))
-                // I have *zero* clue why this is required for this mod _exclusively_ but I don't care enough to figure out, why.
+                .icon(() -> new ItemStack(RegistryHandler.JETPACK.get()))
                 .backgroundTexture(ResourceLocation.fromNamespaceAndPath("minecraft", "textures/gui/container/creative_inventory/tab_items.png"))
                 .displayItems((params, output) -> {
-                    for(DeferredHolder<Item, ? extends Item> i : RegistryHandler.ITEMS.getEntries()) {
+                    for (DeferredHolder<Item, ? extends Item> i : RegistryHandler.ITEMS.getEntries()) {
                         Item item = i.get();
-                        output.accept(new ItemStack(item));
-                        if (item instanceof JetpackItem jetpackItem) {
-                            output.accept(jetpackItem.asChargedCopy());
+                        if (!(item instanceof JetpackItem)) {
+                            output.accept(new ItemStack(item));
+                        }
+                    }
+
+                    for (Jetpack jetpack : JetpackRegistry.getInstance().getJetpacks()) {
+                        if (jetpack.disabled) {
+                            continue;
+                        }
+                        output.accept(JetpackItem.createStack(jetpack, false));
+                        if (!jetpack.creative) {
+                            output.accept(JetpackItem.createStack(jetpack, true));
                         }
                     }
                 }));
