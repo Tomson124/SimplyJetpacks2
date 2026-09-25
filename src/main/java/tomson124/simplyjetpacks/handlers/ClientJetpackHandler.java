@@ -15,7 +15,6 @@ import tomson124.simplyjetpacks.SimplyJetpacks;
 import tomson124.simplyjetpacks.config.SimplyJetpacksConfig;
 import tomson124.simplyjetpacks.item.JetpackItem;
 import tomson124.simplyjetpacks.item.JetpackType;
-import tomson124.simplyjetpacks.item.PotatoJetpackItem;
 import tomson124.simplyjetpacks.particle.JetpackParticleType;
 import tomson124.simplyjetpacks.sound.JetpackSound;
 import tomson124.simplyjetpacks.util.JetpackUtil;
@@ -41,8 +40,7 @@ public class ClientJetpackHandler {
             if (!minecraft.isPaused() && !minecraft.player.isSpectator() && !minecraft.player.getAbilities().flying) {
                 ItemStack chest = JetpackUtil.getFromBothSlots(minecraft.player);
                 Item item = chest.getItem();
-                if ((!chest.isEmpty() && item instanceof JetpackItem && isFlying(minecraft.player)) ||
-                        (item instanceof PotatoJetpackItem && ((PotatoJetpackItem)item).isFired(chest))) {
+                if ((!chest.isEmpty() && item instanceof JetpackItem && isFlying(minecraft.player))) {
                     // Show particles:
                     // TODO: Fix this
                     if (SimplyJetpacksConfig.enableJetpackParticles.get() && (minecraft.options.particles().get() != ParticleStatus.MINIMAL)) {
@@ -91,10 +89,9 @@ public class ClientJetpackHandler {
         ItemStack stack = JetpackUtil.getFromBothSlots(player);
         if (!stack.isEmpty()) {
             Item item = stack.getItem();
-            if (item instanceof JetpackItem) {
-                JetpackItem jetpack = (JetpackItem) item;
-                var energyItem = JetpackUtil.getEnergyStorage(new ItemStack(jetpack));
-                if (jetpack.isEngineOn(stack) && (energyItem.getEnergyStored() > 0 || jetpack.isCreative())) {
+            if (item instanceof JetpackItem jetpack) {
+                var energyItem = JetpackUtil.getEnergyStorage(stack);
+                if (jetpack.isEngineOn(stack) && (energyItem.getEnergyStored() > 0 || jetpack.isCreative(stack))) {
                     if (jetpack.isHoverOn(stack)) {
                         return !player.onGround();
                     } else {

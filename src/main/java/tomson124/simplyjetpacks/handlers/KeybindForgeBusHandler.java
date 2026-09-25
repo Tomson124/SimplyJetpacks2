@@ -57,7 +57,6 @@ public class KeybindForgeBusHandler {
             chestItem = chestStack.getItem();
         }
         if (chestItem instanceof JetpackItem) {
-            jetpack = (JetpackItem) chestItem;
             if (JETPACK_GUI_KEY.getKey().getValue() == event.getKey()) {
                 Minecraft.getInstance().setScreen(new JetpackScreen());
             }
@@ -73,11 +72,12 @@ public class KeybindForgeBusHandler {
             if (JETPACK_CHARGER_KEY.getKey().getValue() == event.getKey()) {
                 PacketDistributor.sendToServer(new PayloadToggleCharger());
             }
+            // Throttle travels as a whole percentage; nudge it in 20% steps.
             if (JETPACK_THROTTLE_INCREASE.getKey().getValue() == event.getKey()) {
-                PacketDistributor.sendToServer(new PayloadUpdateThrottle(Math.max(0, Math.min(100,jetpack.getThrottle(chestStack) + 10))));
+                PacketDistributor.sendToServer(new PayloadUpdateThrottle(throttlePercent(chestStack, +20)));
             }
             if (JETPACK_THROTTLE_DECREASE.getKey().getValue() == event.getKey()) {
-                PacketDistributor.sendToServer(new PayloadUpdateThrottle(Math.max(0, Math.min(100, jetpack.getThrottle(chestStack) - 10))));
+                PacketDistributor.sendToServer(new PayloadUpdateThrottle(throttlePercent(chestStack, -20)));
             }
         }
     }
