@@ -1,11 +1,12 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "P": {
       "item": "simplyjetpacks:particle_blend"
     },
     "T": {
-      "item": "minecraft:coal"
+      "item": "minecraft:soul_torch"
     }
   },
   "pattern": [
@@ -14,6 +15,7 @@
     " T "
   ],
   "result": {
-    "item": "simplyjetpacks:particle_smoke"
+    "count": 1,
+    "id": "simplyjetpacks:particle_soul"
   }
 }

@@ -117,7 +117,7 @@ public class JetpackArmorMaterial {
 			));
 
 	public static final Holder<ArmorMaterial> JETPACK =
-			ARMOR_MATERIALS.register("jetpack_Only", () -> new ArmorMaterial(
+			ARMOR_MATERIALS.register("jetpack", () -> new ArmorMaterial(
 					// Determines the defense value of this armor material, depending on what armor piece it is.
 					Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 						map.put(ArmorItem.Type.BOOTS, 0);
@@ -147,7 +147,7 @@ public class JetpackArmorMaterial {
 			));
 
 	public static final Holder<ArmorMaterial> JETPACK_ARMORED =
-			ARMOR_MATERIALS.register("jetpack_ARMORED", () -> new ArmorMaterial(
+			ARMOR_MATERIALS.register("jetpack_armored", () -> new ArmorMaterial(
 					// Determines the defense value of this armor material, depending on what armor piece it is.
 					Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 						map.put(ArmorItem.Type.BOOTS, 0);

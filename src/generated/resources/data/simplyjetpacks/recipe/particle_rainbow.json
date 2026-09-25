@@ -1,17 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "B": {
-      "tag": "forge:dyes/blue"
+      "tag": "c:dyes/blue"
     },
     "G": {
-      "tag": "forge:dyes/green"
+      "tag": "c:dyes/green"
     },
     "P": {
       "item": "simplyjetpacks:particle_blend"
     },
     "R": {
-      "tag": "forge:dyes/red"
+      "tag": "c:dyes/red"
     }
   },
   "pattern": [
@@ -20,6 +21,7 @@
     "G B"
   ],
   "result": {
-    "item": "simplyjetpacks:particle_rainbow"
+    "count": 1,
+    "id": "simplyjetpacks:particle_rainbow"
   }
 }

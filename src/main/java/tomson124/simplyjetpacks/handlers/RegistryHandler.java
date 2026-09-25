@@ -28,6 +28,7 @@ public class RegistryHandler {
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, SimplyJetpacks.MODID);
 
     public static void init(IEventBus modBus) {
+        JetpackArmorMaterial.ARMOR_MATERIALS.register(modBus);
         ITEMS.register(modBus);
         RECIPE_SERIALIZERS.register(modBus);
         PARTICLE_TYPES.register(modBus);
@@ -39,7 +40,7 @@ public class RegistryHandler {
     public static final Supplier<SimpleParticleType> RAINBOW_PARTICLE = PARTICLE_TYPES.register("rainbow_particle", () -> new SimpleParticleType(false));
 
     // Recipes:
-    public static final Supplier<RecipeSerializer<JetpackCustomRecipe>> JETPACK_CUSTOM_RECIPE = RECIPE_SERIALIZERS.register("jetpack_custom_recipe",() -> new SimpleCraftingRecipeSerializer<>((location, category) -> new JetpackCustomRecipe(location)));
+    public static final Supplier<RecipeSerializer<JetpackCustomRecipe>> JETPACK_CUSTOM_RECIPE = RECIPE_SERIALIZERS.register("jetpack_custom_recipe", () -> new SimpleCraftingRecipeSerializer<>(JetpackCustomRecipe::new));
 
     // Enchantments:
     //public static final EnchantmentCategory JETPACK_ENCHANTMENT_TYPE = EnchantmentCategory.create("JETPACK", (item -> item instanceof JetpackItem));
@@ -58,7 +59,7 @@ public class RegistryHandler {
     public static final Supplier<PilotGogglesItem> PILOT_GOGGLES_GOLD = ITEMS.register("pilot_goggles_gold", () -> new PilotGogglesItem("gold"));
     public static final Supplier<PilotGogglesItem> PILOT_GOGGLES_IRON = ITEMS.register("pilot_goggles_iron", () -> new PilotGogglesItem("iron"));
 
-    public static final DeferredHolder<Item, Item> JETPACK = ITEMS.register("jetpack", JetpackItem::new);
+    public static final DeferredHolder<Item, JetpackItem> JETPACK = ITEMS.register("jetpack", JetpackItem::new);
 
     /*public static final Supplier<PotatoJetpackItem> JETPACK_POTATO = ITEMS.register("jetpack_potato", PotatoJetpackItem::new);
     public static final Supplier<JetpackItem> JETPACK_CREATIVE = ITEMS.register("jetpack_creative", () -> new JetpackItem(JetpackType.CREATIVE));
