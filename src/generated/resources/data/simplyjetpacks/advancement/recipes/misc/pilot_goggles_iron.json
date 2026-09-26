@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_leather_strap": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplyjetpacks:leather_strap"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simplyjetpacks:pilot_goggles_iron"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_leather_strap"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplyjetpacks:pilot_goggles_iron"
+    ]
+  }
+}

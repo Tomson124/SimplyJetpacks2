@@ -1,0 +1,55 @@
+{
+  "parent": "simplyjetpacks:simplyjetpacks/te1",
+  "criteria": {
+    "has_jetpack": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplyjetpacks:jetpack"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.simplyjetpacks.te2.description"
+    },
+    "icon": {
+      "components": {
+        "minecraft:attribute_modifiers": {
+          "modifiers": [
+            {
+              "type": "minecraft:generic.armor",
+              "amount": 2.0,
+              "id": "simplyjetpacks:armor.jetpack",
+              "operation": "add_value",
+              "slot": "chest"
+            },
+            {
+              "type": "minecraft:generic.armor_toughness",
+              "amount": 0.0,
+              "id": "simplyjetpacks:armor.jetpack",
+              "operation": "add_value",
+              "slot": "chest"
+            }
+          ]
+        },
+        "simplyjetpacks:jetpack_energy": 0,
+        "simplyjetpacks:jetpack_id": "simplyjetpacks:te2"
+      },
+      "count": 1,
+      "id": "simplyjetpacks:jetpack"
+    },
+    "title": {
+      "translate": "advancement.simplyjetpacks.te2.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_jetpack"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,51 @@
+{
+  "parent": "minecraft:story/root",
+  "criteria": {
+    "crafting_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:crafting_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "install_mod": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {}
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.simplyjetpacks.root.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplyjetpacks:jetpack"
+    },
+    "title": {
+      "translate": "advancements.simplyjetpacks.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "install_mod",
+      "crafting_table"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

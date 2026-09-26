@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_particle_blend": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplyjetpacks:particle_blend"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simplyjetpacks:particle_smoke"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_particle_blend"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplyjetpacks:particle_smoke"
+    ]
+  }
+}
