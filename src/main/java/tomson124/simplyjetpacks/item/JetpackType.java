@@ -1,9 +1,9 @@
 package tomson124.simplyjetpacks.item;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import tomson124.simplyjetpacks.config.JetpackDataHolder;
+import tomson124.simplyjetpacks.config.SimplyJetpacksConfig;
 import tomson124.simplyjetpacks.particle.JetpackParticleType;
 
 import java.util.EnumSet;
@@ -300,32 +300,64 @@ public enum JetpackType {
         }
     }
 
-    public static int getDefaultParticles(ItemStack stack) {
-        JetpackItem item = (JetpackItem) stack.getItem();
-        /*if (item.isCreative() || item.getJetpackType().getName().equals("potato")) {
+    public int getDefaultParticle() {
+        if (this.creative || this.name.equals("potato")) {
             return JetpackParticleType.RAINBOW.ordinal();
-        }*/
+        }
         return JetpackParticleType.FLAME.ordinal();
     }
 
     public void loadConfig() {
-        this.energyCapacity = JetpackDataHolder.DEFAULTS.get(this.configKey)._energyCapacity.get();
-        this.energyUsage = JetpackDataHolder.DEFAULTS.get(this.configKey)._energyUsage.get();
-        this.energyPerTickIn = JetpackDataHolder.DEFAULTS.get(this.configKey)._energyPerTickIn.get();
-        this.energyPerTickOut = JetpackDataHolder.DEFAULTS.get(this.configKey)._energyPerTickOut.get();
-        this.armorReduction = JetpackDataHolder.DEFAULTS.get(this.configKey)._armorReduction.get();
-        this.armorEnergyPerHit = JetpackDataHolder.DEFAULTS.get(this.configKey)._armorEnergyPerHit.get();
-        this.enchantability = JetpackDataHolder.DEFAULTS.get(this.configKey)._enchantability.get();
-        this.speedVertical = JetpackDataHolder.DEFAULTS.get(this.configKey)._speedVertical.get();
-        this.accelVertical = JetpackDataHolder.DEFAULTS.get(this.configKey)._accelVertical.get();
-        this.speedVerticalHover = JetpackDataHolder.DEFAULTS.get(this.configKey)._speedVerticalHover.get();
-        this.speedVerticalHoverSlow = JetpackDataHolder.DEFAULTS.get(this.configKey)._speedVerticalHoverSlow.get();
-        this.speedSideways = JetpackDataHolder.DEFAULTS.get(this.configKey)._speedSideways.get();
-        this.sprintSpeedModifier = JetpackDataHolder.DEFAULTS.get(this.configKey)._sprintSpeedModifier.get();
-        this.sprintEnergyModifier = JetpackDataHolder.DEFAULTS.get(this.configKey)._sprintEnergyModifier.get();
-        this.hoverMode = JetpackDataHolder.DEFAULTS.get(this.configKey)._hoverMode.get();
-        this.emergencyHoverMode = JetpackDataHolder.DEFAULTS.get(this.configKey)._emergencyHoverMode.get();
-        this.chargerMode = JetpackDataHolder.DEFAULTS.get(this.configKey)._chargerMode.get();
+        JetpackDataHolder data = JetpackDataHolder.DEFAULTS.get(this.configKey);
+        if (data == null) {
+            return;
+        }
+
+        // During datagen (and before the common config loads) the spec values aren't readable yet, so
+        // fall back to the hardcoded defaults on the holder.
+        if (!isConfigLoaded()) {
+            this.energyCapacity = data.energyCapacity;
+            this.energyUsage = data.energyUsage;
+            this.energyPerTickIn = data.energyPerTickIn;
+            this.energyPerTickOut = data.energyPerTickOut;
+            this.armorReduction = data.armorReduction;
+            this.armorEnergyPerHit = data.armorEnergyPerHit;
+            this.enchantability = data.enchantability;
+            this.speedVertical = data.speedVertical;
+            this.accelVertical = data.accelVertical;
+            this.speedVerticalHover = data.speedVerticalHover;
+            this.speedVerticalHoverSlow = data.speedVerticalHoverSlow;
+            this.speedSideways = data.speedSideways;
+            this.sprintSpeedModifier = data.sprintSpeedModifier;
+            this.sprintEnergyModifier = data.sprintEnergyModifier;
+            this.hoverMode = data.hoverMode;
+            this.emergencyHoverMode = data.emergencyHoverMode;
+            this.chargerMode = data.chargerMode;
+            return;
+        }
+
+        this.energyCapacity = data._energyCapacity.get();
+        this.energyUsage = data._energyUsage.get();
+        this.energyPerTickIn = data._energyPerTickIn.get();
+        this.energyPerTickOut = data._energyPerTickOut.get();
+        this.armorReduction = data._armorReduction.get();
+        this.armorEnergyPerHit = data._armorEnergyPerHit.get();
+        this.enchantability = data._enchantability.get();
+        this.speedVertical = data._speedVertical.get();
+        this.accelVertical = data._accelVertical.get();
+        this.speedVerticalHover = data._speedVerticalHover.get();
+        this.speedVerticalHoverSlow = data._speedVerticalHoverSlow.get();
+        this.speedSideways = data._speedSideways.get();
+        this.sprintSpeedModifier = data._sprintSpeedModifier.get();
+        this.sprintEnergyModifier = data._sprintEnergyModifier.get();
+        this.hoverMode = data._hoverMode.get();
+        this.emergencyHoverMode = data._emergencyHoverMode.get();
+        this.chargerMode = data._chargerMode.get();
+    }
+
+    private static boolean isConfigLoaded() {
+        var spec = SimplyJetpacksConfig.COMMON_CONFIG;
+        return spec != null && spec.isLoaded();
     }
 
     public float getToughness() {

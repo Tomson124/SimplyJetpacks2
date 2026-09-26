@@ -6,6 +6,8 @@ import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import tomson124.simplyjetpacks.SimplyJetpacks;
+import tomson124.simplyjetpacks.item.JetpackType;
+import tomson124.simplyjetpacks.item.JetpackVariants;
 
 public class SJItemModelProvider extends ItemModelProvider {
 
@@ -30,91 +32,27 @@ public class SJItemModelProvider extends ItemModelProvider {
         builder(itemGenerated, "pilot_goggles_gold");
         builder(itemGenerated, "pilot_goggles_iron");
 
-        builder(itemGenerated, "jetpack_potato");
-        builder(itemGenerated, "jetpack_creative");
-        builder(itemGenerated, "jetpack_creative_armored");
+        jetpackModel(itemGenerated);
+    }
+    
+    private void jetpackModel(ModelFile itemGenerated) {
+        // Each variant's own model, named after its texture.
+        for (JetpackType type : JetpackType.values()) {
+            builder(itemGenerated, "jetpack_" + type.getName());
+        }
 
-        builder(itemGenerated, "jetpack_vanilla1");
-        builder(itemGenerated, "jetpack_vanilla1_armored");
-        builder(itemGenerated, "jetpack_vanilla2");
-        builder(itemGenerated, "jetpack_vanilla2_armored");
-        builder(itemGenerated, "jetpack_vanilla3");
-        builder(itemGenerated, "jetpack_vanilla3_armored");
-        builder(itemGenerated, "jetpack_vanilla4");
-        builder(itemGenerated, "jetpack_vanilla4_armored");
+        ItemModelBuilder jetpack = getBuilder("jetpack")
+                .parent(itemGenerated)
+                .texture("layer0", "item/jetpack_vanilla1");
 
-        builder(itemGenerated, "jetpack_mek1");
-        builder(itemGenerated, "jetpack_mek1_armored");
-        builder(itemGenerated, "jetpack_mek2");
-        builder(itemGenerated, "jetpack_mek2_armored");
-        builder(itemGenerated, "jetpack_mek3");
-        builder(itemGenerated, "jetpack_mek3_armored");
-        builder(itemGenerated, "jetpack_mek4");
-        builder(itemGenerated, "jetpack_mek4_armored");
-
-        builder(itemGenerated, "jetpack_te1");
-        builder(itemGenerated, "jetpack_te1_armored");
-        builder(itemGenerated, "jetpack_te2");
-        builder(itemGenerated, "jetpack_te2_armored");
-        builder(itemGenerated, "jetpack_te3");
-        builder(itemGenerated, "jetpack_te3_armored");
-        builder(itemGenerated, "jetpack_te4");
-        builder(itemGenerated, "jetpack_te4_armored");
-        builder(itemGenerated, "jetpack_te5");
-        builder(itemGenerated, "jetpack_te5_enderium");
-
-        builder(itemGenerated, "jetpack_ie1");
-        builder(itemGenerated, "jetpack_ie1_armored");
-        builder(itemGenerated, "jetpack_ie2");
-        builder(itemGenerated, "jetpack_ie2_armored");
-        builder(itemGenerated, "jetpack_ie3");
-        builder(itemGenerated, "jetpack_ie3_armored");
-        
-        builder(itemGenerated, "armorplating_mek1");
-        builder(itemGenerated, "armorplating_mek2");
-        builder(itemGenerated, "armorplating_mek3");
-        builder(itemGenerated, "armorplating_mek4");
-
-        builder(itemGenerated, "armorplating_te1");
-        builder(itemGenerated, "armorplating_te2");
-        builder(itemGenerated, "armorplating_te3");
-        builder(itemGenerated, "armorplating_te4");
-        builder(itemGenerated, "armorplating_te5");
-        builder(itemGenerated, "armorplating_te5_enderium");
-
-        builder(itemGenerated, "armorplating_ie1");
-        builder(itemGenerated, "armorplating_ie2");
-        builder(itemGenerated, "armorplating_ie3");
-
-        builder(itemGenerated, "thruster_vanilla1");
-        builder(itemGenerated, "thruster_vanilla2");
-        builder(itemGenerated, "thruster_vanilla3");
-        builder(itemGenerated, "thruster_vanilla4");
-        
-        builder(itemGenerated, "thruster_mek1");
-        builder(itemGenerated, "thruster_mek2");
-        builder(itemGenerated, "thruster_mek3");
-        builder(itemGenerated, "thruster_mek4");
-
-        builder(itemGenerated, "thruster_te1");
-        builder(itemGenerated, "thruster_te2");
-        builder(itemGenerated, "thruster_te3");
-        builder(itemGenerated, "thruster_te4");
-        builder(itemGenerated, "thruster_te5");
-
-        builder(itemGenerated, "thruster_ie1");
-        builder(itemGenerated, "thruster_ie2");
-        builder(itemGenerated, "thruster_ie3");
-
-        builder(itemGenerated, "cryogenic_crystal");
-        builder(itemGenerated, "unit_cryogenic");
-        builder(itemGenerated, "unit_glowstone_empty");
-        builder(itemGenerated, "unit_glowstone");
-
-        builder(itemGenerated, "flux_chestplate");
-
-        // Patchouli:
-        builder(itemGenerated, "guidebook");
+        // Overrides are matched with >=, so they must be emitted in ascending index order.
+        JetpackType[] types = JetpackType.values();
+        for (JetpackType type : types) {
+            jetpack.override()
+                    .predicate(JetpackVariants.PROPERTY_ID, JetpackVariants.indexOf(type.getName()))
+                    .model(getExistingFile(modLoc("item/jetpack_" + type.getName())))
+                    .end();
+        }
     }
 
     private ItemModelBuilder builder(ModelFile itemGenerated, String name) {

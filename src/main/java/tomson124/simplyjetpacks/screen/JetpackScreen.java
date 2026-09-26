@@ -38,14 +38,15 @@ public class JetpackScreen extends Screen {
 
     private ImageButton engine, hover, ehover, charger;
     private ExtendedSlider slider;
+    /** Last throttle sent to the server, so we only send on change rather than every frame. */
+    private int lastSentThrottle;
 
     public JetpackScreen() {
-        // TODO: test this
         super(Component.translatable("screen.simplyjetpacks.jetpack_screen.title"));
         this.width = WIDTH;
         this.height = HEIGHT;
-        this.jetpackItem = (JetpackItem) JetpackUtil.getFromBothSlots(minecraft.player).getItem();
         this.jetpackStack = JetpackUtil.getFromBothSlots(minecraft.player);
+        this.jetpackItem = jetpackStack.getItem() instanceof JetpackItem item ? item : null;
     }
 
     @Override
@@ -54,34 +55,25 @@ public class JetpackScreen extends Screen {
         int relY = (this.height - HEIGHT) / 2;
 
         addRenderableWidget(this.engine = new ImageButton(relX + 120, relY + 16, 20, 20, new WidgetSprites(JETPACK_TEXTURE, JETPACK_TEXTURE), button -> PacketDistributor.sendToServer(new PayloadToggleEngine())));
-        //addRenderableWidget(this.hover = new ImageButton(relX + 120, relY + 38, 20, 20, 216, 0, 20, JETPACK_TEXTURE, button -> PacketDistributor.sendToServer(new PacketToggleHover())));
 
-        Item item = jetpackStack.getItem();
-        if (item instanceof JetpackItem) {
-            JetpackItem jetpack = (JetpackItem) item;
-            if (jetpack.getJetpackType().getHoverMode()) {
-                addRenderableWidget(this.hover = new ImageButton(relX + 120, relY + 38, 20, 20, new WidgetSprites(JETPACK_TEXTURE, JETPACK_TEXTURE), button -> PacketDistributor.sendToServer(new PayloadToggleHover())));
-                this.hover.active = true;
-            } else {
-                addRenderableWidget(this.hover = new ImageButton(relX + 120, relY + 38, 20, 20, new WidgetSprites(JETPACK_TEXTURE, JETPACK_TEXTURE), button -> PacketDistributor.sendToServer(new PayloadToggleHover())));
-                this.hover.active = false;
-            }
-            if (jetpack.getJetpackType().getChargerMode()) {
-                addRenderableWidget(this.charger = new ImageButton(relX + 142, relY + 16, 20, 20, new WidgetSprites(JETPACK_TEXTURE, JETPACK_TEXTURE), button -> PacketDistributor.sendToServer(new PayloadToggleCharger())));
-                this.charger.active = true;
-            } else {
-                addRenderableWidget(this.charger = new ImageButton(relX + 142, relY + 16, 20, 20, new WidgetSprites(JETPACK_TEXTURE, JETPACK_TEXTURE), button -> PacketDistributor.sendToServer(new PayloadToggleCharger())));
-                this.charger.active = false;
-            }
-            if (jetpack.getJetpackType().getEmergencyHoverMode()) {
-                addRenderableWidget(this.ehover = new ImageButton(relX + 142, relY + 38, 20, 20, new WidgetSprites(JETPACK_TEXTURE, JETPACK_TEXTURE), button -> PacketDistributor.sendToServer(new PayloadToggleEHover())));
-                this.ehover.active = true;
-            } else {
-                addRenderableWidget(this.ehover = new ImageButton(relX + 142, relY + 38, 20, 20, new WidgetSprites(JETPACK_TEXTURE, JETPACK_TEXTURE), button -> PacketDistributor.sendToServer(new PayloadToggleEHover())));
-                this.ehover.active = false;
-            }
+        if (jetpackItem != null) {
+            var jetpack = JetpackUtil.getJetpack(jetpackStack);
+
+            addRenderableWidget(this.hover = new ImageButton(relX + 120, relY + 38, 20, 20, new WidgetSprites(JETPACK_TEXTURE, JETPACK_TEXTURE), button -> PacketDistributor.sendToServer(new PayloadToggleHover())));
+            this.hover.active = jetpack.hoverMode;
+
+            addRenderableWidget(this.charger = new ImageButton(relX + 142, relY + 16, 20, 20, new WidgetSprites(JETPACK_TEXTURE, JETPACK_TEXTURE), button -> PacketDistributor.sendToServer(new PayloadToggleCharger())));
+            this.charger.active = jetpack.chargerMode;
+
+            addRenderableWidget(this.ehover = new ImageButton(relX + 142, relY + 38, 20, 20, new WidgetSprites(JETPACK_TEXTURE, JETPACK_TEXTURE), button -> PacketDistributor.sendToServer(new PayloadToggleEHover())));
+            this.ehover.active = jetpack.emergencyHoverMode;
         }
-        addRenderableWidget(slider = new ExtendedSlider(relX + 10, relY + 98, 152, 16, Component.translatable("screen.simplyjetpacks.throttle"), Component.literal("%"), 0, 100, jetpackItem.getThrottle(jetpackStack), true));
+
+        // Throttle is stored as a 0..1 multiplier but presented as a percentage.
+        this.lastSentThrottle = (int) Math.round(JetpackUtil.getThrottle(jetpackStack) * 100D);
+        addRenderableWidget(slider = new ExtendedSlider(relX + 10, relY + 98, 152, 16,
+                Component.translatable("screen.simplyjetpacks.throttle"), Component.literal("%"),
+                0, 100, lastSentThrottle, true));
     }
 
     @Override
@@ -99,18 +91,24 @@ public class JetpackScreen extends Screen {
         float angleX = -((mouseX - halfScreenWidth) / halfScreenWidth * LEAN_FACTOR);
         float angleY = -(((mouseY + 25) - halfScreenHeight) / halfScreenHeight * LEAN_FACTOR);
 
-        InventoryScreen.renderEntityInInventoryFollowsAngle(graphics, relX + 80, relY + 90, 40, angleX, angleY, minecraft.player);
-        graphics.drawCenteredString(minecraft.font, Component.translatable(jetpackStack.getDescriptionId()), relX + 88, relY + 5, 0xFFFFFF);
+        // 1.21 takes a scissor box (x1,y1,x2,y2) plus scale rather than a centre point.
+        InventoryScreen.renderEntityInInventoryFollowsAngle(graphics,
+                relX + 55, relY + 25, relX + 105, relY + 95,
+                40, 0.0625F, angleX, angleY, minecraft.player);
+        graphics.drawCenteredString(minecraft.font, jetpackStack.getHoverName(), relX + 88, relY + 5, 0xFFFFFF);
         RenderSystem.setShaderTexture(0, JETPACK_TEXTURE);
 
-        PacketDistributor.sendToServer(new PayloadUpdateThrottle(slider.getValueInt()));
+        if (slider.getValueInt() != lastSentThrottle) {
+            lastSentThrottle = slider.getValueInt();
+            PacketDistributor.sendToServer(new PayloadUpdateThrottle(lastSentThrottle));
+        }
 
         int amount = getEnergyBarAmount(); // Texture height
         int barOffset = 78 - amount;
         int barX = 0;
         boolean useGradient = false;
 
-        switch (jetpackItem.getModId()) {
+        switch (JetpackUtil.getJetpack(jetpackStack).getModId()) {
             case ("mek"):
                 barX = 28;
                 break;
@@ -122,7 +120,7 @@ public class JetpackScreen extends Screen {
                 break;
         }
 
-        if (jetpackItem.isCreative()) {
+        if (jetpackItem != null && jetpackItem.isCreative(jetpackStack)) {
             graphics.blit(JETPACK_TEXTURE, relX + 10, relY + 16, 70, 178, 14, 78);
         } else {
             graphics.blit(JETPACK_TEXTURE, relX + 10, relY + 16, barX, 178, 14, 78);
@@ -135,13 +133,12 @@ public class JetpackScreen extends Screen {
                 graphics.blit(JETPACK_TEXTURE, relX + 10, relY + 16 + 1 + barOffset, barX + 14, 178 + 1, 14, amount - 2);
             }
         }
-        // This does not update like a screen container :(
+
         if (mouseX >= relX + 10 && mouseY >= relY + 16 && mouseX < relX + 10 + 14 && mouseY < relY + 16 + 78) {
             Component text;
-            //text = SJTextUtil.energyWithMax(jetpackItem.getEnergy(jetpackStack), jetpackItem.getCapacity(jetpackStack));
-            if (jetpackItem.isCreative()) {
+            if (jetpackItem != null && jetpackItem.isCreative(jetpackStack)) {
                 text = SJTextUtil.translate("tooltip", "infiniteEnergy", ChatFormatting.LIGHT_PURPLE);
-            } else if (jetpackItem.getEnergy(jetpackStack) == 0) {
+            } else if (JetpackUtil.getEnergyStorage(jetpackStack).getEnergyStored() == 0) {
                 text = SJTextUtil.translate("hud", "energyDepleted", ChatFormatting.RED);
             } else text = null;
             if (text != null) {
@@ -153,13 +150,12 @@ public class JetpackScreen extends Screen {
 
     private int getEnergyBarAmount() {
         Item item = jetpackStack.getItem();
-        if (item instanceof JetpackItem) {
-            JetpackItem jetpack = (JetpackItem) item;
-            if (jetpack.isCreative()) {
+        if (item instanceof JetpackItem jetpack) {
+            if (jetpack.isCreative(jetpackStack)) {
                 return 78;
             }
-            int i = jetpack.getEnergy(jetpackStack);
-            int j = jetpack.getCapacity(jetpackStack);
+            int i = JetpackUtil.getEnergyStorage(jetpackStack).getEnergyStored();
+            int j = JetpackUtil.getEnergyStorage(jetpackStack).getMaxEnergyStored();
             return (int) (j != 0 && i != 0 ? (long) i * 78 / j : 0);
         }
         return 0;

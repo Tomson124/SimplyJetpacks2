@@ -35,11 +35,12 @@ public class SJItemTagsProvider extends ItemTagsProvider {
         ;
 
         tag(SJTags.JETPACK)
-                .add(RegistryHandler.JETPACK_POTATO.get())
-                .add(RegistryHandler.JETPACK_CREATIVE.get())
-                .add(RegistryHandler.JETPACK_CREATIVE_ARMORED.get())
+                //.add(RegistryHandler.JETPACK_POTATO.get())
+                .add(RegistryHandler.JETPACK.get())
+                //.add(RegistryHandler.JETPACK_CREATIVE.get())
+                //.add(RegistryHandler.JETPACK_CREATIVE_ARMORED.get())
                 
-                .add(RegistryHandler.JETPACK_VANILLA1.get())
+                /*.add(RegistryHandler.JETPACK_VANILLA1.get())
                 .add(RegistryHandler.JETPACK_VANILLA1_ARMORED.get())
                 .add(RegistryHandler.JETPACK_VANILLA2.get())
                 .add(RegistryHandler.JETPACK_VANILLA2_ARMORED.get())
@@ -73,7 +74,11 @@ public class SJItemTagsProvider extends ItemTagsProvider {
                 .add(RegistryHandler.JETPACK_IE2.get())
                 .add(RegistryHandler.JETPACK_IE2_ARMORED.get())
                 .add(RegistryHandler.JETPACK_IE3.get())
-                .add(RegistryHandler.JETPACK_IE3_ARMORED.get())
+                .add(RegistryHandler.JETPACK_IE3_ARMORED.get())*/
+        ;
+
+        tag(SJTags.ENCHANTABLE_JETPACK)
+                .add(RegistryHandler.JETPACK.get())
         ;
 
         // Curios:
@@ -83,7 +88,8 @@ public class SJItemTagsProvider extends ItemTagsProvider {
         ;
         tag(SJTags.CURIOS_JETPACK)
                 //.add(RegistryHandler.JETPACK_POTATO.get())
-                .add(RegistryHandler.JETPACK_CREATIVE.get())
+                .add(RegistryHandler.JETPACK.get())
+                /*.add(RegistryHandler.JETPACK_CREATIVE.get())
                 .add(RegistryHandler.JETPACK_CREATIVE_ARMORED.get())
 
                 .add(RegistryHandler.JETPACK_VANILLA1.get())
@@ -120,7 +126,7 @@ public class SJItemTagsProvider extends ItemTagsProvider {
                 .add(RegistryHandler.JETPACK_IE2.get())
                 .add(RegistryHandler.JETPACK_IE2_ARMORED.get())
                 .add(RegistryHandler.JETPACK_IE3.get())
-                .add(RegistryHandler.JETPACK_IE3_ARMORED.get())
+                .add(RegistryHandler.JETPACK_IE3_ARMORED.get())*/
         ;
     }
 }

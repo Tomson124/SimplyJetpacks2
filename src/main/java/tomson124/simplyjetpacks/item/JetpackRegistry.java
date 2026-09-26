@@ -9,6 +9,7 @@ import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import tomson124.simplyjetpacks.SimplyJetpacks;
+import tomson124.simplyjetpacks.network.payloads.PayloadJetpackConfigSync;
 
 import java.io.*;
 import java.util.*;
@@ -23,7 +24,7 @@ public class JetpackRegistry {
 
     @SubscribeEvent
     public void onDatapackSync(OnDatapackSyncEvent event) {
-        var payload = new SyncJetpacksPayload(this.getJetpacks());
+        var payload = new PayloadJetpackConfigSync(this.getJetpacks());
         var player = event.getPlayer();
 
         if (player != null) {
@@ -67,22 +68,6 @@ public class JetpackRegistry {
         return this.jetpacks.getOrDefault(id, Jetpack.UNDEFINED);
     }
 
-    public Item getCoilForTier(int tier) {
-        float tiers = this.tiers.size();
-        float index = this.tiers.indexOf(tier);
-
-        if (index / tiers > 0.75F)
-            return ModItems.ULTIMATE_COIL.get();
-
-        if (index / tiers > 0.5F)
-            return ModItems.ELITE_COIL.get();
-
-        if (index / tiers > 0.25F)
-            return ModItems.ADVANCED_COIL.get();
-
-        return ModItems.BASIC_COIL.get();
-    }
-
     public boolean isErrored() {
         return this.isErrored;
     }
@@ -109,7 +94,7 @@ public class JetpackRegistry {
         return jetpacks;
     }
 
-    public void loadJetpacks(SyncJetpacksPayload payload) {
+    public void loadJetpacks(PayloadJetpackConfigSync payload) {
         this.jetpacks.clear();
 
         for (var jetpack : payload.jetpacks()) {

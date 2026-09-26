@@ -3,7 +3,9 @@ package tomson124.simplyjetpacks.item;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -16,36 +18,36 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
-import tomson124.simplyjetpacks.config.SimplyJetpacksConfig;
 import tomson124.simplyjetpacks.handlers.CommonJetpackHandler;
 import tomson124.simplyjetpacks.hud.IHUDInfoProvider;
+import tomson124.simplyjetpacks.init.SJDataComponentTypes;
 import tomson124.simplyjetpacks.model.JetpackModelLayers;
-import tomson124.simplyjetpacks.particle.JetpackParticleType;
-import tomson124.simplyjetpacks.util.*;
+import tomson124.simplyjetpacks.util.JetpackUtil;
+import tomson124.simplyjetpacks.util.KeyboardUtil;
+import tomson124.simplyjetpacks.util.SJTextUtil;
 
 import java.util.List;
+import java.util.function.Consumer;
+
+import static tomson124.simplyjetpacks.util.JetpackUtil.getThrottle;
 
 public class JetpackItem extends ArmorItem implements IHUDInfoProvider {
 
-    //private final JetpackType jetpackType;
-    //public final int tier;
-
-
-
-    /*public JetpackItem(JetpackType jetpackType) {
-        super(jetpackType.isArmored() ? JetpackArmorMaterial.JETPACK_ARMORED : JetpackArmorMaterial.JETPACK, Type.CHESTPLATE, new Item.Properties().setNoRepair());
-        this.jetpackType = jetpackType;
-        this.tier = jetpackType.getTier();
+    public JetpackItem() {
+        this(JetpackArmorMaterial.JETPACK);
     }
 
-    public JetpackItem(JetpackType jetpackType, Holder<ArmorMaterial> material) {
-        super(material, Type.CHESTPLATE, new Item.Properties());
-        this.jetpackType = jetpackType;
-        this.tier = jetpackType.getTier();
-    }*/
+    protected JetpackItem(Holder<ArmorMaterial> material) {
+        super(material, Type.CHESTPLATE, new Item.Properties().stacksTo(1).setNoRepair());
+    }
 
-    public JetpackItem() {
-        super(JetpackArmorMaterial.JETPACK_ARMORED, Type.CHESTPLATE, new Item.Properties().setNoRepair());
+    public static ItemStack createStack(Jetpack jetpack, boolean charged) {
+        ItemStack stack = new ItemStack(tomson124.simplyjetpacks.handlers.RegistryHandler.JETPACK.get());
+        stack.set(SJDataComponentTypes.JETPACK_ID, jetpack.getId());
+        stack.set(DataComponents.ATTRIBUTE_MODIFIERS, jetpack.createAttributeModifiers());
+        stack.set(DataComponents.RARITY, jetpack.rarity);
+        stack.set(SJDataComponentTypes.JETPACK_ENERGY, charged || jetpack.creative ? jetpack.capacity : 0);
+        return stack;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -61,8 +63,20 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider {
         }
     }
 
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        return this.jetpackType.getArmorTexture();
+    @Override
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(Rendering.INSTANCE);
+    }
+
+    @Override
+    public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
+        return JetpackUtil.getJetpack(stack).getArmorTexture();
+    }
+
+    @Override
+    public @NotNull Component getName(@NotNull ItemStack stack) {
+        var jetpack = JetpackUtil.getJetpack(stack);
+        return jetpack == Jetpack.UNDEFINED ? super.getName(stack) : jetpack.getDisplayName();
     }
 
     @Override
@@ -70,110 +84,114 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider {
         if (holder instanceof Player player && !player.isSpectator()
                 && !player.getAbilities().flying && JetpackUtil.checkTickForEquippedSlot(vanillaIndex, stack, player)) {
             flyUser(player, stack, this, false);
-            if (this.jetpackType.getChargerMode() && this.isChargerOn(stack)) {
+            if (JetpackUtil.getJetpack(stack).chargerMode && this.isChargerOn(stack)) {
                 chargeInventory(player, stack);
             }
         }
         super.inventoryTick(stack, level, holder, vanillaIndex, selected);
     }
 
-    /*public JetpackType getJetpackType() {
-        return jetpackType;
-    }
-
-    public boolean isCreative() {
-        return jetpackType.getName().contains("creative");
-    }*/
-
-    @Override
-    public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
-        var jetpack = JetpackUtil.getJetpack(stack);
-        return SimplyJetpacksConfig.ENCHANTABLE_JETPACKS.get() && jetpack.enchantablilty > 0;
-    }
-
-    @Override
-    public int getEnchantmentValue() {
-        return super.getEnchantmentValue() + .getEnchantability();
+    public boolean isCreative(ItemStack stack) {
+        return JetpackUtil.getJetpack(stack).creative;
     }
 
     @Override
     public boolean isFoil(ItemStack stack) {
-        return super.isFoil(stack) || isCreative();
+        return super.isFoil(stack) || isCreative(stack);
     }
 
-    public String getModId() {
-        String name = jetpackType.getName();
-        if (name.contains("mek")) {
-            return "mek";
-        }
-        if (name.contains("ie")) {
-            return "ie";
-        }
-        return "sj";
+    @Override
+    public boolean isEnchantable(ItemStack stack) {
+        return JetpackUtil.getJetpack(stack).enchantablilty > 0;
     }
+
+    @Override
+    public int getEnchantmentValue(ItemStack stack) {
+        return JetpackUtil.getJetpack(stack).enchantablilty;
+    }
+
+    // -- Toggles ------------------------------------------------------------------------------------
 
     public boolean isEngineOn(ItemStack stack) {
-        return NBTUtil.getBoolean(stack, Constants.TAG_ENGINE);
+        return stack.getOrDefault(SJDataComponentTypes.JETPACK_ENGINE, false);
     }
 
     public void toggleEngine(ItemStack stack, Player player) {
-        boolean current = NBTUtil.getBoolean(stack, Constants.TAG_ENGINE);
-        NBTUtil.flipBoolean(stack, Constants.TAG_ENGINE);
-        Component msg = SJTextUtil.getStateToggle("engineMode", !current);
-        player.displayClientMessage(msg, true);
+        boolean next = !isEngineOn(stack);
+        stack.set(SJDataComponentTypes.JETPACK_ENGINE, next);
+        player.displayClientMessage(SJTextUtil.getStateToggle("engineMode", next), true);
     }
 
     public boolean isHoverOn(ItemStack stack) {
-        return NBTUtil.getBoolean(stack, Constants.TAG_HOVER);
+        return stack.getOrDefault(SJDataComponentTypes.JETPACK_HOVER, false);
     }
 
     public void toggleHover(ItemStack stack, Player player) {
-        if (jetpackType.getHoverMode()) {
-            boolean current = NBTUtil.getBoolean(stack, Constants.TAG_HOVER);
-            NBTUtil.flipBoolean(stack, Constants.TAG_HOVER);
-            Component msg = SJTextUtil.getStateToggle("hoverMode", !current);
-            player.displayClientMessage(msg, true);
+        if (JetpackUtil.getJetpack(stack).hoverMode) {
+            boolean next = !isHoverOn(stack);
+            stack.set(SJDataComponentTypes.JETPACK_HOVER, next);
+            player.displayClientMessage(SJTextUtil.getStateToggle("hoverMode", next), true);
         }
     }
 
     public boolean isEHoverOn(ItemStack stack) {
-        return NBTUtil.getBoolean(stack, Constants.TAG_E_HOVER);
+        return stack.getOrDefault(SJDataComponentTypes.JETPACK_E_HOVER, false);
     }
 
     public void toggleEHover(ItemStack stack, Player player) {
-        if (jetpackType.getEmergencyHoverMode()) {
-            boolean current = NBTUtil.getBoolean(stack, Constants.TAG_E_HOVER);
-            NBTUtil.flipBoolean(stack, Constants.TAG_E_HOVER);
-            Component msg = SJTextUtil.getStateToggle("emergencyHoverMode", !current);
-            player.displayClientMessage(msg, true);
+        if (JetpackUtil.getJetpack(stack).emergencyHoverMode) {
+            boolean next = !isEHoverOn(stack);
+            stack.set(SJDataComponentTypes.JETPACK_E_HOVER, next);
+            player.displayClientMessage(SJTextUtil.getStateToggle("emergencyHoverMode", next), true);
         }
     }
 
     private void doEHover(ItemStack stack, Player player) {
-        if (jetpackType.getHoverMode()) {
-            NBTUtil.setBoolean(stack, Constants.TAG_ENGINE, true);
-            NBTUtil.setBoolean(stack, Constants.TAG_HOVER, true);
-            Component msg = SJTextUtil.getEmergencyText();
-            player.displayClientMessage(msg, true);
+        if (JetpackUtil.getJetpack(stack).hoverMode) {
+            stack.set(SJDataComponentTypes.JETPACK_ENGINE, true);
+            stack.set(SJDataComponentTypes.JETPACK_HOVER, true);
+            player.displayClientMessage(SJTextUtil.getEmergencyText(), true);
         }
     }
 
     public boolean isChargerOn(ItemStack stack) {
-        return NBTUtil.getBoolean(stack, Constants.TAG_CHARGER);
+        return stack.getOrDefault(SJDataComponentTypes.JETPACK_CHARGER, false);
     }
 
     public void toggleCharger(ItemStack stack, Player player) {
-        if (jetpackType.getChargerMode()) {
-            boolean current = NBTUtil.getBoolean(stack, Constants.TAG_CHARGER);
-            NBTUtil.flipBoolean(stack, Constants.TAG_CHARGER);
-            Component msg = SJTextUtil.getStateToggle("chargerMode", !current);
-            player.displayClientMessage(msg, true);
+        if (JetpackUtil.getJetpack(stack).chargerMode) {
+            boolean next = !isChargerOn(stack);
+            stack.set(SJDataComponentTypes.JETPACK_CHARGER, next);
+            player.displayClientMessage(SJTextUtil.getStateToggle("chargerMode", next), true);
         }
+    }
+
+    // -- Particles ----------------------------------------------------------------------------------
+
+    public static ItemStack setParticleId(ItemStack stack, ItemStack particle) {
+        String key = particle.getDescriptionId().split("item.simplyjetpacks.particle_")[1].toUpperCase();
+        setParticleId(stack, tomson124.simplyjetpacks.particle.JetpackParticleType.valueOf(key).ordinal());
+        return stack;
+    }
+
+    public static void setParticleId(ItemStack stack, int id) {
+        stack.set(SJDataComponentTypes.JETPACK_PARTICLE, id);
+    }
+
+    public static int getParticleId(ItemStack stack) {
+        var id = stack.get(SJDataComponentTypes.JETPACK_PARTICLE);
+        return id != null ? id : JetpackUtil.getJetpack(stack).defaultParticle;
+    }
+
+    // -- Energy -------------------------------------------------------------------------------------
+
+    public int getCapacity(ItemStack stack) {
+        return JetpackUtil.getJetpack(stack).capacity;
     }
 
     public static float getChargeRatio(ItemStack stack) {
         var energy = JetpackUtil.getEnergyStorage(stack);
-        if (energy != null) {
+        if (energy != null && energy.getMaxEnergyStored() > 0) {
             return (float) energy.getEnergyStored() / energy.getMaxEnergyStored();
         }
         return 0;
@@ -191,9 +209,7 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider {
 
     @Override
     public boolean isBarVisible(ItemStack stack) {
-        var energy = JetpackUtil.getEnergyStorage(stack);
-        var jetpack = JetpackUtil.getJetpack(stack);
-        return !jetpack.creative && energy.getEnergyStored() > 0;
+        return !JetpackUtil.getJetpack(stack).creative && JetpackUtil.getEnergyStorage(stack).getEnergyStored() > 0;
     }
 
     @Override
@@ -206,59 +222,10 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider {
         return 0x03fc49;
     }
 
-    public ItemStack asChargedCopy() {
-        ItemStack full = new ItemStack(this);
-        NBTUtil.setInt(full, Constants.TAG_ENERGY, jetpackType.getEnergyCapacity());
-        return full;
-    }
-
-    // TODO: find where MathHelper went and remove this.
-    public static int clamp(int min, int value, int max) {
-        if (value < min) return min;
-        if (value > max) return max;
-        return value;
-    }
-
-    /*private void setEnergyStored(ItemStack container, int value) {
-        NBTUtil.setInt(container, Constants.TAG_ENERGY, clamp(value, 0, getCapacity(container)));
-    }
-
-    public int getEnergyReceive() {
-        return jetpackType.getEnergyPerTickIn();
-    }
-
-    public int getEnergyExtract() {
-        return jetpackType.getEnergyUsage();
-    }*/
-
-    public static ItemStack setParticleId(ItemStack stack, ItemStack particle) {
-        String key = particle.getDescriptionId().split("item.simplyjetpacks.particle_")[1].toUpperCase();
-        int id = JetpackParticleType.valueOf(key).ordinal();
-        NBTUtil.setInt(stack, Constants.TAG_PARTICLE, id);
-        return stack;
-    }
-
-    public static void setParticleId(ItemStack stack, int id) {
-        NBTUtil.setInt(stack, Constants.TAG_PARTICLE, id);
-    }
-
-    public static int getParticleId(ItemStack stack) {
-        return stack.getOrCreateTag().contains(Constants.TAG_PARTICLE) ? stack.getOrCreateTag().getInt(Constants.TAG_PARTICLE) : JetpackType.getDefaultParticles(stack);
-    }
-
-    public void setThrottle(ItemStack stack, int value) {
-        NBTUtil.setInt(stack, Constants.TAG_THROTTLE, value);
-    }
-
-    public int getThrottle(ItemStack stack) {
-        return stack.getOrCreateTag().contains(Constants.TAG_THROTTLE) ? stack.getOrCreateTag().getInt(Constants.TAG_THROTTLE) : 100;
-    }
-
     public int getEnergyUsage(ItemStack stack) {
-        int baseUsage = jetpackType.getEnergyUsage();
-        //int level = EnchantmentHelper.getItemEnchantmentLevel(RegistryHandler.FUEL_EFFICIENCY.get(), stack);
-        //return level != 0 ? (int) Math.round(baseUsage * (5 - level) / 5.0D) : baseUsage;
-        return baseUsage;
+        int baseUsage = JetpackUtil.getJetpack(stack).usage;
+        int level = JetpackUtil.getFuelEfficiencyLevel(stack);
+        return level != 0 ? (int) Math.round(baseUsage * (5 - level) / 5.0D) : baseUsage;
     }
 
     public void chargeInventory(Player player, ItemStack stack) {
@@ -266,11 +233,9 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider {
         var jetpack = JetpackUtil.getJetpack(stack);
         if (!player.getCommandSenderWorld().isClientSide) {
             if (energy.getEnergyStored() > 0 || jetpack.creative) {
-                // Charge hands
                 for (ItemStack itemStack : player.getHandSlots()) {
                     charge(stack, itemStack);
                 }
-                // Charge equipment
                 for (ItemStack itemStack : player.getArmorSlots()) {
                     charge(stack, itemStack);
                 }
@@ -278,26 +243,32 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider {
         }
     }
 
-    private void charge(ItemStack stack, ItemStack item) {
+    /** Moves energy out of the jetpack and into another held/worn item. */
+    private void charge(ItemStack stack, ItemStack target) {
+        if (target.isEmpty() || target == stack) {
+            return;
+        }
+        var targetEnergy = JetpackUtil.getEnergyStorage(target);
+        if (targetEnergy == null || !targetEnergy.canReceive()) {
+            return;
+        }
         var jetpack = JetpackUtil.getJetpack(stack);
-        if (!item.equals(stack)) {
-            var energy = JetpackUtil.getEnergyStorage(stack);
-            if (jetpack.creative) {
-                energy.receiveEnergy(1000, false);
-            } else {
-                energy.receiveEnergy(getEnergyUsage(stack),false);
-            }
+        int rate = getEnergyUsage(stack);
+        if (jetpack.creative) {
+            targetEnergy.receiveEnergy(rate, false);
+            return;
+        }
+        var source = JetpackUtil.getEnergyStorage(stack);
+        int available = source.extractEnergy(rate, true);
+        int accepted = targetEnergy.receiveEnergy(available, false);
+        if (accepted > 0) {
+            source.extractEnergy(accepted, false);
         }
     }
 
     private void fly(Player player, double y) {
         Vec3 motion = player.getDeltaMovement();
         player.setDeltaMovement(motion.get(Direction.Axis.X), y, motion.get(Direction.Axis.Z));
-    }
-
-    @Override
-    public boolean isEnchantable(ItemStack itemStack) {
-        return itemStack.getItem() instanceof JetpackItem;
     }
 
     public void flyUser(Player player, ItemStack stack, JetpackItem item, Boolean force) {
@@ -333,16 +304,16 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider {
                         fly(player, Math.min(player.getDeltaMovement().get(Direction.Axis.Y) + currentAccel, -hoverSpeed));
                     }
 
-                    double baseSpeedSideways = jetpack.speedSide; ;
+                    double baseSpeedSideways = jetpack.speedSide;
                     double sprintSpeedModifier = jetpack.sprintSpeedModifier;
-                    float speedSideways = (float) (player.isCrouching() ? baseSpeedSideways * 0.5F : baseSpeedSideways) * (getThrottle(stack) / 100.0F);
-                    float speedForward = (float) (player.isSprinting() ? speedSideways * sprintSpeedModifier : speedSideways) * (getThrottle(stack) / 100.0F);
+                    double speedSideways = (player.isCrouching() ? baseSpeedSideways * 0.5D : baseSpeedSideways) * getThrottle(stack);
+                    double speedForward = (player.isSprinting() ? speedSideways * sprintSpeedModifier : speedSideways);
 
                     if (CommonJetpackHandler.isHoldingForwards(player)) {
                         player.moveRelative(1, new Vec3(0, 0, speedForward));
                     }
                     if (CommonJetpackHandler.isHoldingBackwards(player)) {
-                        player.moveRelative(1, new Vec3(0, 0, -speedSideways * 0.8F));
+                        player.moveRelative(1, new Vec3(0, 0, -speedSideways * 0.8D));
                     }
                     if (CommonJetpackHandler.isHoldingLeft(player)) {
                         player.moveRelative(1, new Vec3(speedSideways, 0, 0));
@@ -352,27 +323,20 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider {
                     }
                     if (!player.getCommandSenderWorld().isClientSide()) {
                         player.fallDistance = 0.0F;
-                        if (player instanceof ServerPlayer) {
-                            ((ServerPlayer) player).connection.aboveGroundTickCount = 0;
+                        if (player instanceof ServerPlayer serverPlayer) {
+                            serverPlayer.connection.aboveGroundTickCount = 0;
                         }
                     }
                 }
             }
         }
         if (!player.getCommandSenderWorld().isClientSide && this.isEHoverOn(stack)) {
-            var energyItem = JetpackUtil.getEnergyStorage(new ItemStack(item));
-            if ((energyItem.getEnergyStored() > 0 || jetpack.creative) && (!this.isHoverOn(stack) || !this.isEngineOn(stack))) {
-                if (player.position().get(Direction.Axis.Y) < -69) {
+            if ((energy.getEnergyStored() > 0 || jetpack.creative) && (!this.isHoverOn(stack) || !this.isEngineOn(stack))) {
+                if (player.position().get(Direction.Axis.Y) < player.level().getMinBuildHeight() + 5) {
                     this.doEHover(stack, player);
-                } else {
-                    if (!player.isCreative() && player.fallDistance - 1.2F >= player.getHealth()) {
-                        for (int j = 0; j <= 16; j++) {
-                            if (!player.onGround() && !player.isSwimming()) {
-                                this.doEHover(stack, player);
-                                break;
-                            }
-                        }
-                    }
+                } else if (!player.isCreative() && player.fallDistance - 1.2F >= player.getHealth()
+                        && !player.onGround() && !player.isSwimming()) {
+                    this.doEHover(stack, player);
                 }
             }
         }

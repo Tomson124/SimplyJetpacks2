@@ -10,6 +10,8 @@ import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import tomson124.simplyjetpacks.SimplyJetpacks;
+import tomson124.simplyjetpacks.item.JetpackRegistry;
+import tomson124.simplyjetpacks.item.JetpackType;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -26,7 +28,9 @@ public final class SJDataGenerator {
         PackOutput output = gen.getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
-        // Required for 1.20 data-gen
+        JetpackType.loadAllConfigs();
+        JetpackRegistry.getInstance().loadJetpacks();
+
         BlockTagsProvider dummyProvider = new BlockTagsProvider(gen.getPackOutput(), event.getLookupProvider(), SimplyJetpacks.MODID, existingFileHelper) {
             @Override
             protected void addTags(HolderLookup.Provider provider) {}

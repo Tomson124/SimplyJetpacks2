@@ -1,6 +1,5 @@
 package tomson124.simplyjetpacks.item;
 
-import com.google.gson.JsonObject;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.locale.Language;
 import net.minecraft.network.FriendlyByteBuf;
@@ -8,7 +7,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -54,6 +52,13 @@ public class Jetpack {
     public double sprintSpeedModifier;
     public double sprintEnergyModifier;
 
+    public boolean armored = false;
+    public int platingId = 0;
+    public boolean hoverMode = true;
+    public boolean emergencyHoverMode = true;
+    public boolean chargerMode = true;
+    public int defaultParticle = 0;
+
     public Jetpack(String name, int tier, int armorPoints, int enchantability, String craftingMaterialString, float toughness, float knockbackResistance) {
         this.id = ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID,name);
         this.name = name;
@@ -61,7 +66,7 @@ public class Jetpack {
         this.tier = tier;
         this.armorPoints = armorPoints;
         this.enchantablilty = enchantability;
-        this.craftingMaterialString = craftingMaterialString;
+        this.craftingMaterialString = craftingMaterialString == null ? "null" : craftingMaterialString;
         this.toughness = toughness;
         this.knockbackResistance = knockbackResistance;
     }
@@ -115,6 +120,35 @@ public class Jetpack {
         return this;
     }
 
+    public Jetpack setModes(boolean armored, int platingId, boolean hoverMode, boolean emergencyHoverMode, boolean chargerMode, int defaultParticle) {
+        this.armored = armored;
+        this.platingId = platingId;
+        this.hoverMode = hoverMode;
+        this.emergencyHoverMode = emergencyHoverMode;
+        this.chargerMode = chargerMode;
+        this.defaultParticle = defaultParticle;
+        return this;
+    }
+
+    public boolean isArmored() {
+        return this.armored;
+    }
+
+    /** Which mod's tier this jetpack belongs to; drives the energy bar styling in the jetpack screen. */
+    public String getModId() {
+        if (this.name.contains("mek")) {
+            return "mek";
+        }
+        if (this.name.contains("ie")) {
+            return "ie";
+        }
+        return "sj";
+    }
+
+    public ResourceLocation getArmorTexture() {
+        return ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "textures/models/armor/jetpack_" + this.name + ".png");
+    }
+
     public int getTier() {
         return this.tier;
     }
@@ -123,14 +157,18 @@ public class Jetpack {
         if (this.craftingMaterial == null) {
             this.craftingMaterial = Ingredient.EMPTY;
 
-            if (!this.craftingMaterialString.equalsIgnoreCase("null")) {
-                var parts = craftingMaterialString.split(":");
+            if (this.craftingMaterialString != null && !this.craftingMaterialString.equalsIgnoreCase("null")) {
+                var parts = this.craftingMaterialString.split(":");
+
                 if (parts.length >= 3 && this.craftingMaterialString.startsWith("tag:")) {
-                    var tag = ItemTags.create(ResourceLocation.fromNamespaceAndPath(parts[1], parts[2]));
-                    this.craftingMaterial = Ingredient.of(tag);
+                    // Explicit "tag:namespace:path".
+                    this.craftingMaterial = Ingredient.of(ItemTags.create(
+                            ResourceLocation.fromNamespaceAndPath(parts[1], parts[2])));
                 } else if (parts.length >= 2) {
-                    BuiltInRegistries.ITEM.getOptional(ResourceLocation.fromNamespaceAndPath(parts[0], parts[1]))
-                            .ifPresent(value -> this.craftingMaterial = Ingredient.of(value));
+                    var id = ResourceLocation.fromNamespaceAndPath(parts[0], parts[1]);
+                    var item = BuiltInRegistries.ITEM.getOptional(id);
+                    this.craftingMaterial = item.<Ingredient>map(Ingredient::of)
+                            .orElseGet(() -> Ingredient.of(ItemTags.create(id)));
                 }
             }
         }
@@ -139,9 +177,16 @@ public class Jetpack {
     }
 
     public Component getDisplayName() {
-        var key = String.format("jetpack.%s.name", this.name.replaceAll(" ", "_"));
+        var safeName = this.name.replaceAll(" ", "_");
+
+        var key = String.format("jetpack.%s.name", safeName);
         if (Language.getInstance().has(key)) {
             return Component.translatable(key);
+        }
+
+        var legacyKey = String.format("item.%s.jetpack_%s", SimplyJetpacks.MODID, safeName);
+        if (Language.getInstance().has(legacyKey)) {
+            return Component.translatable(legacyKey);
         }
 
         return Component.literal(this.displayName);
@@ -186,6 +231,14 @@ public class Jetpack {
         buffer.writeDouble(this.speedHoverSlow);
         buffer.writeDouble(this.sprintSpeedModifier);
         buffer.writeDouble(this.sprintEnergyModifier);
+
+        buffer.writeBoolean(this.armored);
+        buffer.writeVarInt(this.platingId);
+        buffer.writeBoolean(this.hoverMode);
+        buffer.writeBoolean(this.emergencyHoverMode);
+        buffer.writeBoolean(this.chargerMode);
+        buffer.writeVarInt(this.defaultParticle);
+        buffer.writeBoolean(this.curios);
     }
 
     public static void encode(FriendlyByteBuf buffer, Jetpack jetpack) {
@@ -221,6 +274,16 @@ public class Jetpack {
 
         jetpack.setStats(capacity, usage, speedVert, accelVert, speedSide, speedHover, speedHoverSlow, sprintSpeed, sprintFuel);
 
+        var armored = buffer.readBoolean();
+        var platingId = buffer.readVarInt();
+        var hoverMode = buffer.readBoolean();
+        var emergencyHoverMode = buffer.readBoolean();
+        var chargerMode = buffer.readBoolean();
+        var defaultParticle = buffer.readVarInt();
+
+        jetpack.setModes(armored, platingId, hoverMode, emergencyHoverMode, chargerMode, defaultParticle);
+        jetpack.setCurios(buffer.readBoolean());
+
         return jetpack;
     }
 
@@ -228,8 +291,8 @@ public class Jetpack {
         var name = type.getName();
         var disable = type.isDisabled();
         var tier = type.getTier();
-        var armorPoints = 0; // TEST
-        var enchantability = 0; // TEST
+        var armorPoints = type.isArmored() ? type.getArmorReduction() : Math.max(0, (type.getArmorReduction() - 1) / 2);
+        var enchantability = type.getEnchantability();
         var craftingMaterialString = type.getCraftingMaterial();
         var creative = type.isCreative();
         var rarity = type.getRarity();
@@ -249,9 +312,11 @@ public class Jetpack {
         var speedHover = type.getSpeedVerticalHover();
         var speedHoverSlow = type.getSpeedVerticalHoverSlow();
         var sprintSpeedModifier = type.getSprintSpeedModifier();
-        var sprintEnergyModifier = type.getSprintSpeedModifier();
+        var sprintEnergyModifier = type.getSprintEnergyModifier();
 
         jetpack.setStats(capacity, usage, speedVert, accelVert, speedSide, speedHover, speedHoverSlow, sprintSpeedModifier, sprintEnergyModifier);
+        jetpack.setModes(type.isArmored(), type.getPlatingId(), type.getHoverMode(), type.getEmergencyHoverMode(),
+                type.getChargerMode(), type.getDefaultParticle());
 
         return jetpack;
     }

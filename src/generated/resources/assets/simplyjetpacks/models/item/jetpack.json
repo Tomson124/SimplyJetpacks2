@@ -1,0 +1,218 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "simplyjetpacks:item/jetpack_potato",
+      "predicate": {
+        "simplyjetpacks:variant": 0.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_creative",
+      "predicate": {
+        "simplyjetpacks:variant": 1.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_creative_armored",
+      "predicate": {
+        "simplyjetpacks:variant": 2.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_vanilla1",
+      "predicate": {
+        "simplyjetpacks:variant": 3.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_vanilla1_armored",
+      "predicate": {
+        "simplyjetpacks:variant": 4.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_vanilla2",
+      "predicate": {
+        "simplyjetpacks:variant": 5.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_vanilla2_armored",
+      "predicate": {
+        "simplyjetpacks:variant": 6.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_vanilla3",
+      "predicate": {
+        "simplyjetpacks:variant": 7.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_vanilla3_armored",
+      "predicate": {
+        "simplyjetpacks:variant": 8.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_vanilla4",
+      "predicate": {
+        "simplyjetpacks:variant": 9.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_vanilla4_armored",
+      "predicate": {
+        "simplyjetpacks:variant": 10.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_ie1",
+      "predicate": {
+        "simplyjetpacks:variant": 11.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_ie1_armored",
+      "predicate": {
+        "simplyjetpacks:variant": 12.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_ie2",
+      "predicate": {
+        "simplyjetpacks:variant": 13.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_ie2_armored",
+      "predicate": {
+        "simplyjetpacks:variant": 14.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_ie3",
+      "predicate": {
+        "simplyjetpacks:variant": 15.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_ie3_armored",
+      "predicate": {
+        "simplyjetpacks:variant": 16.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_mek1",
+      "predicate": {
+        "simplyjetpacks:variant": 17.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_mek1_armored",
+      "predicate": {
+        "simplyjetpacks:variant": 18.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_mek2",
+      "predicate": {
+        "simplyjetpacks:variant": 19.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_mek2_armored",
+      "predicate": {
+        "simplyjetpacks:variant": 20.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_mek3",
+      "predicate": {
+        "simplyjetpacks:variant": 21.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_mek3_armored",
+      "predicate": {
+        "simplyjetpacks:variant": 22.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_mek4",
+      "predicate": {
+        "simplyjetpacks:variant": 23.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_mek4_armored",
+      "predicate": {
+        "simplyjetpacks:variant": 24.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_te1",
+      "predicate": {
+        "simplyjetpacks:variant": 25.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_te1_armored",
+      "predicate": {
+        "simplyjetpacks:variant": 26.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_te2",
+      "predicate": {
+        "simplyjetpacks:variant": 27.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_te2_armored",
+      "predicate": {
+        "simplyjetpacks:variant": 28.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_te3",
+      "predicate": {
+        "simplyjetpacks:variant": 29.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_te3_armored",
+      "predicate": {
+        "simplyjetpacks:variant": 30.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_te4",
+      "predicate": {
+        "simplyjetpacks:variant": 31.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_te4_armored",
+      "predicate": {
+        "simplyjetpacks:variant": 32.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_te5",
+      "predicate": {
+        "simplyjetpacks:variant": 33.0
+      }
+    },
+    {
+      "model": "simplyjetpacks:item/jetpack_te5_enderium",
+      "predicate": {
+        "simplyjetpacks:variant": 34.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "simplyjetpacks:item/jetpack_vanilla1"
+  }
+}
