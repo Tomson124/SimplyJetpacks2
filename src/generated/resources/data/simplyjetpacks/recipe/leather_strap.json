@@ -1,11 +1,12 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "L": {
-      "tag": "forge:leather"
+      "tag": "c:leather"
     }
   },
   "pattern": [
@@ -13,6 +14,7 @@
     "LIL"
   ],
   "result": {
-    "item": "simplyjetpacks:leather_strap"
+    "count": 1,
+    "id": "simplyjetpacks:leather_strap"
   }
 }

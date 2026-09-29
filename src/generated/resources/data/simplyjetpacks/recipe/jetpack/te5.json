@@ -1,0 +1,44 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "group": "simplyjetpacks.jetpack_armored",
+  "ingredients": [
+    {
+      "type": "neoforge:components",
+      "components": {
+        "simplyjetpacks:jetpack_id": "simplyjetpacks:te5"
+      },
+      "items": "simplyjetpacks:jetpack"
+    },
+    {
+      "item": "minecraft:iron_chestplate"
+    }
+  ],
+  "result": {
+    "components": {
+      "minecraft:attribute_modifiers": {
+        "modifiers": [
+          {
+            "type": "minecraft:generic.armor",
+            "amount": 12.0,
+            "id": "simplyjetpacks:armor.jetpack",
+            "operation": "add_value",
+            "slot": "chest"
+          },
+          {
+            "type": "minecraft:generic.armor_toughness",
+            "amount": 0.0,
+            "id": "simplyjetpacks:armor.jetpack",
+            "operation": "add_value",
+            "slot": "chest"
+          }
+        ]
+      },
+      "minecraft:rarity": "epic",
+      "simplyjetpacks:jetpack_energy": 0,
+      "simplyjetpacks:jetpack_id": "simplyjetpacks:te5"
+    },
+    "count": 1,
+    "id": "simplyjetpacks:jetpack"
+  }
+}

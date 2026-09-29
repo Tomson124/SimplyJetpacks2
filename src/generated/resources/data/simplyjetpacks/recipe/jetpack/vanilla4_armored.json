@@ -1,0 +1,44 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "group": "simplyjetpacks.jetpack_armored",
+  "ingredients": [
+    {
+      "type": "neoforge:components",
+      "components": {
+        "simplyjetpacks:jetpack_id": "simplyjetpacks:vanilla4"
+      },
+      "items": "simplyjetpacks:jetpack"
+    },
+    {
+      "item": "minecraft:netherite_chestplate"
+    }
+  ],
+  "result": {
+    "components": {
+      "minecraft:attribute_modifiers": {
+        "modifiers": [
+          {
+            "type": "minecraft:generic.armor",
+            "amount": 8.0,
+            "id": "simplyjetpacks:armor.jetpack",
+            "operation": "add_value",
+            "slot": "chest"
+          },
+          {
+            "type": "minecraft:generic.armor_toughness",
+            "amount": 0.0,
+            "id": "simplyjetpacks:armor.jetpack",
+            "operation": "add_value",
+            "slot": "chest"
+          }
+        ]
+      },
+      "minecraft:rarity": "rare",
+      "simplyjetpacks:jetpack_energy": 0,
+      "simplyjetpacks:jetpack_id": "simplyjetpacks:vanilla4_armored"
+    },
+    "count": 1,
+    "id": "simplyjetpacks:jetpack"
+  }
+}

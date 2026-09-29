@@ -1,0 +1,48 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "simplyjetpacks.jetpack",
+  "key": {
+    "M": {
+      "tag": "c:ingots/osmium"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "item": "simplyjetpacks:leather_strap"
+    }
+  },
+  "pattern": [
+    "M M",
+    "MSM",
+    "R R"
+  ],
+  "result": {
+    "components": {
+      "minecraft:attribute_modifiers": {
+        "modifiers": [
+          {
+            "type": "minecraft:generic.armor",
+            "amount": 3.0,
+            "id": "simplyjetpacks:armor.jetpack",
+            "operation": "add_value",
+            "slot": "chest"
+          },
+          {
+            "type": "minecraft:generic.armor_toughness",
+            "amount": 0.0,
+            "id": "simplyjetpacks:armor.jetpack",
+            "operation": "add_value",
+            "slot": "chest"
+          }
+        ]
+      },
+      "minecraft:rarity": "uncommon",
+      "simplyjetpacks:jetpack_energy": 0,
+      "simplyjetpacks:jetpack_id": "simplyjetpacks:mek3"
+    },
+    "count": 1,
+    "id": "simplyjetpacks:jetpack"
+  }
+}
