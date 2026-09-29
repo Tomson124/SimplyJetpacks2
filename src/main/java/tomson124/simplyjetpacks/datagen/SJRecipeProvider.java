@@ -1,22 +1,25 @@
 package tomson124.simplyjetpacks.datagen;
 
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 import tomson124.simplyjetpacks.SimplyJetpacks;
 import tomson124.simplyjetpacks.handlers.RegistryHandler;
+import tomson124.simplyjetpacks.item.Jetpack;
+import tomson124.simplyjetpacks.item.JetpackItem;
+import tomson124.simplyjetpacks.item.JetpackRegistry;
+import tomson124.simplyjetpacks.util.JetpackUtil;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -28,154 +31,144 @@ public class SJRecipeProvider extends RecipeProvider implements IConditionBuilde
 
     @Override
     protected void buildRecipes(RecipeOutput output) {
-        //SpecialRecipeBuilder.special(SimpleCraftingRecipeSerializer(SimpleCraftingRecipeSerializer<?>) RegistryHandler.JETPACK_CUSTOM_RECIPE.get()).save(output, savePath("jetpack_custom_recipe"));
-
         // Simply Jetpacks:
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryHandler.LEATHER_STRAP.get())
                 .pattern("LIL")
                 .pattern("LIL")
-                .define('I', forgeTag("ingots/iron"))
-                .define('L', forgeTag("leather"))
+                .define('I', commonTag("ingots/iron"))
+                .define('L', commonTag("leather"))
+                .unlockedBy("has_leather", has(Items.LEATHER))
                 .save(output);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryHandler.PILOT_GOGGLES_GOLD.get())
                 .pattern(" S ")
                 .pattern("GIG")
                 .define('S', RegistryHandler.LEATHER_STRAP.get())
-                .define('G', forgeTag("glass_panes"))
-                .define('I', forgeTag("ingots/gold"))
+                .define('G', commonTag("glass_panes"))
+                .define('I', commonTag("ingots/gold"))
+                .unlockedBy("has_leather_strap", has(RegistryHandler.LEATHER_STRAP.get()))
                 .save(output);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RegistryHandler.PILOT_GOGGLES_IRON.get())
                 .pattern(" S ")
                 .pattern("GIG")
                 .define('S', RegistryHandler.LEATHER_STRAP.get())
-                .define('G', forgeTag("glass_panes"))
-                .define('I', forgeTag("ingots/iron"))
+                .define('G', commonTag("glass_panes"))
+                .define('I', commonTag("ingots/iron"))
+                .unlockedBy("has_leather_strap", has(RegistryHandler.LEATHER_STRAP.get()))
                 .save(output);
 
-        CustomShapelessRecipeBuilder.shapeless(RegistryHandler.PARTICLE_BLEND.get(), 2)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, RegistryHandler.PARTICLE_BLEND.get(), 2)
                 .requires(Items.COAL)
                 .requires(Items.CLAY_BALL)
                 .requires(Items.GUNPOWDER)
                 .requires(Items.BONE_MEAL)
+                .unlockedBy("has_gunpowder", has(Items.GUNPOWDER))
                 .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, RegistryHandler.PARTICLE_NONE.get())
-                .pattern(" T ")
-                .pattern("TPT")
-                .pattern(" T ")
-                .define('T', Items.GLASS)
-                .define('P', RegistryHandler.PARTICLE_BLEND.get())
-                .save(output);
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, RegistryHandler.PARTICLE_FLAME.get())
-                .pattern(" T ")
-                .pattern("TPT")
-                .pattern(" T ")
-                .define('T', Items.TORCH)
-                .define('P', RegistryHandler.PARTICLE_BLEND.get())
-                .save(output);
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, RegistryHandler.PARTICLE_SMOKE.get())
-                .pattern(" T ")
-                .pattern("TPT")
-                .pattern(" T ")
-                .define('T', Items.COAL)
-                .define('P', RegistryHandler.PARTICLE_BLEND.get())
-                .save(output);
+        particleRecipe(output, RegistryHandler.PARTICLE_NONE.get(), Items.GLASS);
+        particleRecipe(output, RegistryHandler.PARTICLE_FLAME.get(), Items.TORCH);
+        particleRecipe(output, RegistryHandler.PARTICLE_SMOKE.get(), Items.COAL);
+        particleRecipe(output, RegistryHandler.PARTICLE_SOUL.get(), Items.SOUL_TORCH);
+        particleRecipe(output, RegistryHandler.PARTICLE_SNOW.get(), Items.SNOWBALL);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, RegistryHandler.PARTICLE_RAINBOW.get())
                 .pattern(" R ")
                 .pattern(" P ")
                 .pattern("G B")
-                .define('R', forgeTag("dyes/red"))
-                .define('G', forgeTag("dyes/green"))
-                .define('B', forgeTag("dyes/blue"))
+                .define('R', commonTag("dyes/red"))
+                .define('G', commonTag("dyes/green"))
+                .define('B', commonTag("dyes/blue"))
                 .define('P', RegistryHandler.PARTICLE_BLEND.get())
+                .unlockedBy("has_particle_blend", has(RegistryHandler.PARTICLE_BLEND.get()))
                 .save(output);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, RegistryHandler.PARTICLE_SOUL.get())
+        jetpackRecipes(output);
+    }
+
+    /**
+     * Jetpacks all share one registered item, so each variant is generated from its {@link Jetpack} entry
+     * with the identity baked into the result stack rather than declared as a distinct item recipe.
+     */
+    private void jetpackRecipes(RecipeOutput output) {
+        for (Jetpack jetpack : JetpackRegistry.getInstance().getJetpacks()) {
+            if (jetpack.disabled || jetpack.creative) {
+                continue;
+            }
+
+            Ingredient material = jetpack.getCraftingMaterial();
+            if (material == Ingredient.EMPTY) {
+                continue;
+            }
+
+            if (!jetpack.armored) {
+                JetpackRecipeBuilder.of(JetpackItem.createStack(jetpack, false))
+                        .pattern("M M")
+                        .pattern("MSM")
+                        .pattern("R R")
+                        .define('M', material)
+                        .define('S', Ingredient.of(RegistryHandler.LEATHER_STRAP.get()))
+                        .define('R', Ingredient.of(Items.REDSTONE))
+                        .group("simplyjetpacks.jetpack")
+                        .unlockedBy("has_leather_strap", has(RegistryHandler.LEATHER_STRAP.get()))
+                        .save(output, modId("jetpack/" + jetpack.name));
+                continue;
+            }
+
+            // Armoured variants are the un-armoured pack plus its plating, and can be taken apart again.
+            Jetpack base = JetpackRegistry.getInstance()
+                    .getJetpackById(ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, stripArmored(jetpack.name)));
+            Item plating = platingFor(jetpack.platingId);
+            if (base == Jetpack.UNDEFINED || plating == null) {
+                continue;
+            }
+
+            JetpackRecipeBuilder.of(JetpackItem.createStack(jetpack, false))
+                    .requires(JetpackUtil.ingredientFor(base))
+                    .requires(Ingredient.of(plating))
+                    .group("simplyjetpacks.jetpack_armored")
+                    .unlockedBy("has_leather_strap", has(RegistryHandler.LEATHER_STRAP.get()))
+                    .save(output, modId("jetpack/" + jetpack.name));
+
+            JetpackRecipeBuilder.of(JetpackItem.createStack(base, false))
+                    .requires(JetpackUtil.ingredientFor(jetpack))
+                    .group("simplyjetpacks.jetpack")
+                    .unlockedBy("has_leather_strap", has(RegistryHandler.LEATHER_STRAP.get()))
+                    .save(output, modId("jetpack/" + base.name + "_from_armored"));
+        }
+    }
+
+    private void particleRecipe(RecipeOutput output, Item result, Item surround) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, result)
                 .pattern(" T ")
                 .pattern("TPT")
                 .pattern(" T ")
-                .define('T', Items.SOUL_TORCH)
+                .define('T', surround)
                 .define('P', RegistryHandler.PARTICLE_BLEND.get())
+                .unlockedBy("has_particle_blend", has(RegistryHandler.PARTICLE_BLEND.get()))
                 .save(output);
+    }
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, RegistryHandler.PARTICLE_SNOW.get())
-                .pattern(" T ")
-                .pattern("TPT")
-                .pattern(" T ")
-                .define('T', Items.SNOWBALL)
-                .define('P', RegistryHandler.PARTICLE_BLEND.get())
-                .save(output);
+    private static String stripArmored(String name) {
+        return name.endsWith("_armored") ? name.substring(0, name.length() - "_armored".length()) : name;
+    }
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.TRANSPORTATION, RegistryHandler.JETPACK_POTATO.get())
-                .pattern("S S")
-                .pattern("GPG")
-                .pattern("R R")
-                .define('S', forgeTag("string"))
-                .define('G', forgeTag("nuggets/gold"))
-                .define('P', forgeTag("crops/potato"))
-                .define('R', forgeTag("dusts/redstone"))
-                .save(output);
-
-        // Testing:
-        /*CustomShapedRecipeBuilder.shaped(RegistryHandler.JETPACK_CREATIVE_ARMORED.get())
-                .pattern("S S")
-                .pattern("GPG")
-                .pattern("R R")
-                .define('S', forgeTag("string"))
-                .define('G', forgeTag("nuggets/gold"))
-                .define('P', forgeTag("crops/potato"))
-                .define('R', forgeTag("dusts/redstone"))
-                .save(output);
-
-        CustomShapelessRecipeBuilder.shapeless(RegistryHandler.JETPACK_CREATIVE.get(), 2)
-                .requires(Items.COAL)
-                .requires(Items.CLAY_BALL)
-                .requires(Items.GUNPOWDER)
-                .requires(Items.BONE_MEAL)
-                .save(output);*/
-
-        // Vanilla:
-        armorRecipeCombo(output, RegistryHandler.JETPACK_VANILLA1_ARMORED.get(), RegistryHandler.JETPACK_VANILLA1.get(), Items.IRON_CHESTPLATE, "vanilla");
-        armorRecipeCombo(output, RegistryHandler.JETPACK_VANILLA2_ARMORED.get(), RegistryHandler.JETPACK_VANILLA2.get(), Items.GOLDEN_CHESTPLATE, "vanilla");
-        armorRecipeCombo(output, RegistryHandler.JETPACK_VANILLA3_ARMORED.get(), RegistryHandler.JETPACK_VANILLA3.get(), Items.DIAMOND_CHESTPLATE, "vanilla");
-        armorRecipeCombo(output, RegistryHandler.JETPACK_VANILLA4_ARMORED.get(), RegistryHandler.JETPACK_VANILLA4.get(), Items.NETHERITE_CHESTPLATE, "vanilla");
-        // Thermal:
-
-        // Mekanism:
-
-        // Immersive Engineering:
+    private static Item platingFor(int id) {
+        return switch (id) {
+            case 0 -> Items.IRON_CHESTPLATE;
+            case 1 -> Items.GOLDEN_CHESTPLATE;
+            case 2 -> Items.DIAMOND_CHESTPLATE;
+            case 3 -> Items.NETHERITE_CHESTPLATE;
+            default -> null;
+        };
     }
 
     private static ResourceLocation modId(String path) {
         return ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, path);
     }
 
-    private static TagKey<Item> forgeTag(String name) {
-        return ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge", name));
+    /** 1.21 moved the cross-mod tag namespace from {@code forge:} to {@code c:}. */
+    private static TagKey<Item> commonTag(String name) {
+        return ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", name));
     }
-    /*
-    private static Ingredient fromJson(String name) {
-        JsonObject object = new JsonObject();
-        object.addProperty("item", name);
-        return Ingredient.fromJson(object);
-    }*/
-
-    private static String savePath(String path) {
-        return ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, path).toString();
-    }
-
-    public void armorRecipeCombo(RecipeOutput output, ItemLike armored, ItemLike base, ItemLike plating, String modid) {
-        // armoring
-        // TODO: test this (Registry.ITEM.getKey(item.asItem()))
-//        CustomShapelessRecipeBuilder.shapeless(armored).requires(base).requires(plating).save(output, savePath(modid + "/" + armored.asItem().getRegistryName().getPath()));
-        CustomShapelessRecipeBuilder.shapeless(armored).requires(base).requires(plating).save(output, savePath(modid + "/" + BuiltInRegistries.ITEM.getKey(armored.asItem()).getPath()));
-        // de-armoring
-        CustomShapelessRecipeBuilder.shapeless(base).requires(armored).save(output, savePath(modid + "/" + BuiltInRegistries.ITEM.getKey(base.asItem()).getPath() + "_from_armored"));
-    }
-
 }
