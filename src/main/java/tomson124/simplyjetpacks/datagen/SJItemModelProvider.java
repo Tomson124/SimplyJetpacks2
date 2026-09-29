@@ -34,7 +34,7 @@ public class SJItemModelProvider extends ItemModelProvider {
 
         jetpackModel(itemGenerated);
     }
-    
+
     private void jetpackModel(ModelFile itemGenerated) {
         // Each variant's own model, named after its texture.
         for (JetpackType type : JetpackType.values()) {
