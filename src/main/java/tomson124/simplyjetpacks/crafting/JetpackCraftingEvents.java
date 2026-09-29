@@ -1,90 +1,78 @@
 package tomson124.simplyjetpacks.crafting;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import tomson124.simplyjetpacks.SimplyJetpacks;
 import tomson124.simplyjetpacks.datagen.SJTags;
-import tomson124.simplyjetpacks.handlers.RegistryHandler;
+import tomson124.simplyjetpacks.init.SJDataComponentTypes;
 import tomson124.simplyjetpacks.item.JetpackItem;
-import tomson124.simplyjetpacks.item.JetpackType;
-import tomson124.simplyjetpacks.util.NBTUtil;
+import tomson124.simplyjetpacks.util.JetpackUtil;
 
+/**
+ * Carries energy, particle choice and armour plating across when a jetpack is used as a crafting
+ * ingredient to build a higher tier.
+ */
+@EventBusSubscriber(modid = SimplyJetpacks.MODID)
 public class JetpackCraftingEvents {
 
-    // TODO: improve this
     @SubscribeEvent
-    public void onItemCrafted(PlayerEvent.ItemCraftedEvent event) {
+    public static void onItemCrafted(PlayerEvent.ItemCraftedEvent event) {
         ItemStack craftedStack = event.getCrafting();
-        Item craftedItem = event.getCrafting().getItem();
-        int storedEnergy;
-        CompoundTag tags;
-        boolean particleRecipe = false; // if particle as ingredient, then true
+        if (!(craftedStack.getItem() instanceof JetpackItem craftedItem)) {
+            return;
+        }
 
-        if (craftedItem instanceof JetpackItem) {
-            for (int i = 0; i < event.getInventory().getContainerSize(); i++) {
-                ItemStack input = event.getInventory().getItem(i);
-                if (ForgeRegistries.ITEMS.tags().getTag(SJTags.PARTICLES).contains(input.getItem())) {
-                    SimplyJetpacks.LOGGER.info("TAG CHECK HERE");
-                    particleRecipe = true;
-                    break;
-                }
+        var inventory = event.getInventory();
+
+        // A particle swap is handled entirely by JetpackCustomRecipe; don't also run the upgrade path.
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            if (inventory.getItem(i).is(SJTags.PARTICLES)) {
+                return;
             }
-            if (!particleRecipe) {
-                for (int i = 0; i < event.getInventory().getContainerSize(); i++) {
-                    ItemStack input = event.getInventory().getItem(i);
-                    if (!(input.getItem() instanceof JetpackItem)) {
-                        continue;
-                    }
-                    if (input.getItem() instanceof JetpackItem) {
-                        JetpackType inputJetpack = ((JetpackItem) input.getItem()).getJetpackType();
-                        // ENERGY/PARTICLES:
-                        tags = NBTUtil.getTagCompound(input).copy();
-                        storedEnergy = NBTUtil.getInt(input, "Energy");
-                        craftedStack.setTag(tags);
-                        int energyToTransfer = Math.min(storedEnergy, ((JetpackItem) craftedItem).getCapacity(input));
-                        //JetpackParticleType particleType = inputJetpack.getParticleType(input);
-                        int particleId = JetpackItem.getParticleId(input);
-                        //((JetpackItem) craftedItem).setParticleType(craftedStack, particleType);
-                        JetpackItem.setParticleId(craftedStack, particleId);
-                        // ARMORPLATING:
-                        if (inputJetpack.isArmored()) {
-                            Item itemToReturn = getPlating(inputJetpack.getPlatingId());
-                            if (itemToReturn != null) {
-                                ItemEntity item = event.getEntity().drop(new ItemStack(itemToReturn, 1), false);
-                                if (item != null) {
-                                    item.setNoPickUpDelay();
-                                }
-                            }
-                        }
-                        break;
+        }
+
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            ItemStack input = inventory.getItem(i);
+            if (!(input.getItem() instanceof JetpackItem)) {
+                continue;
+            }
+
+            var inputJetpack = JetpackUtil.getJetpack(input);
+
+            // ENERGY: never more than the new pack can hold.
+            int storedEnergy = input.getOrDefault(SJDataComponentTypes.JETPACK_ENERGY, 0);
+            craftedStack.set(SJDataComponentTypes.JETPACK_ENERGY,
+                    Math.min(storedEnergy, craftedItem.getCapacity(craftedStack)));
+
+            // PARTICLES:
+            JetpackItem.setParticleId(craftedStack, JetpackItem.getParticleId(input));
+
+            // ARMORPLATING: hand back the plating that was consumed with the old pack.
+            if (inputJetpack.armored) {
+                Item itemToReturn = getPlating(inputJetpack.platingId);
+                if (itemToReturn != null) {
+                    ItemEntity item = event.getEntity().drop(new ItemStack(itemToReturn, 1), false);
+                    if (item != null) {
+                        item.setNoPickUpDelay();
                     }
                 }
             }
+            break;
         }
     }
 
-    public Item getPlating(int id) {
+    public static Item getPlating(int id) {
         return switch (id) {
             case 0 -> Items.IRON_CHESTPLATE;
             case 1 -> Items.GOLDEN_CHESTPLATE;
             case 2 -> Items.DIAMOND_CHESTPLATE;
             case 3 -> Items.NETHERITE_CHESTPLATE;
-            case 4 -> RegistryHandler.ARMORPLATING_IE1.get();
-            case 5 -> RegistryHandler.ARMORPLATING_IE2.get();
-            case 6 -> RegistryHandler.ARMORPLATING_IE3.get();
-            case 7 -> RegistryHandler.ARMORPLATING_MEK1.get();
-            case 8 -> RegistryHandler.ARMORPLATING_MEK2.get();
-            case 9 -> RegistryHandler.ARMORPLATING_MEK3.get();
-            case 10 -> RegistryHandler.ARMORPLATING_MEK4.get();
-            case 11 -> RegistryHandler.ARMORPLATING_TE1.get();
-            case 12 -> RegistryHandler.ARMORPLATING_TE2.get();
-            case 13 -> RegistryHandler.ARMORPLATING_TE3.get();
-            case 14 -> RegistryHandler.ARMORPLATING_TE4.get();
+            // Modded plating items are not registered yet; see RegistryHandler.
             default -> null;
         };
     }
