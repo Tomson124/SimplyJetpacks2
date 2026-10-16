@@ -5,6 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -29,11 +30,10 @@ public class PilotGogglesItem extends ArmorItem {
         return materialType;
     }
 
-    @Nullable
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        return ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_" + this.materialType + ".png").toString();
+    @Override
+    public @Nullable ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
+        return ResourceLocation.fromNamespaceAndPath(SimplyJetpacks.MODID, "textures/models/armor/pilot_goggles_" + this.materialType + ".png");
     }
-
 
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable Level levelIn, List<Component> tooltip, TooltipFlag flagIn) {
