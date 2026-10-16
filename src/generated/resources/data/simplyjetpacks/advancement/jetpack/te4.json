@@ -1,5 +1,5 @@
 {
-  "parent": "simplyjetpacks:root",
+  "parent": "simplyjetpacks:jetpack/te3",
   "criteria": {
     "has_jetpack": {
       "conditions": {
@@ -14,7 +14,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.simplyjetpacks.mek1.description"
+      "translate": "advancement.simplyjetpacks.jetpack_te4.description"
     },
     "icon": {
       "components": {
@@ -22,7 +22,7 @@
           "modifiers": [
             {
               "type": "minecraft:generic.armor",
-              "amount": 2.0,
+              "amount": 3.0,
               "id": "simplyjetpacks:armor.jetpack",
               "operation": "add_value",
               "slot": "chest"
@@ -36,14 +36,15 @@
             }
           ]
         },
+        "minecraft:rarity": "rare",
         "simplyjetpacks:jetpack_energy": 0,
-        "simplyjetpacks:jetpack_id": "simplyjetpacks:mek1"
+        "simplyjetpacks:jetpack_id": "simplyjetpacks:te4"
       },
       "count": 1,
       "id": "simplyjetpacks:jetpack"
     },
     "title": {
-      "translate": "advancement.simplyjetpacks.mek1.title"
+      "translate": "advancement.simplyjetpacks.jetpack_te4.title"
     }
   },
   "requirements": [

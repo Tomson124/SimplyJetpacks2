@@ -1,5 +1,5 @@
 {
-  "parent": "simplyjetpacks:root",
+  "parent": "simplyjetpacks:jetpack/vanilla1",
   "criteria": {
     "has_jetpack": {
       "conditions": {
@@ -14,7 +14,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.simplyjetpacks.ie1.description"
+      "translate": "advancement.simplyjetpacks.jetpack_vanilla2.description"
     },
     "icon": {
       "components": {
@@ -37,13 +37,13 @@
           ]
         },
         "simplyjetpacks:jetpack_energy": 0,
-        "simplyjetpacks:jetpack_id": "simplyjetpacks:ie1"
+        "simplyjetpacks:jetpack_id": "simplyjetpacks:vanilla2"
       },
       "count": 1,
       "id": "simplyjetpacks:jetpack"
     },
     "title": {
-      "translate": "advancement.simplyjetpacks.ie1.title"
+      "translate": "advancement.simplyjetpacks.jetpack_vanilla2.title"
     }
   },
   "requirements": [

@@ -1,5 +1,5 @@
 {
-  "parent": "simplyjetpacks:simplyjetpacks/mek1",
+  "parent": "simplyjetpacks:jetpack/vanilla2",
   "criteria": {
     "has_jetpack": {
       "conditions": {
@@ -14,7 +14,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.simplyjetpacks.mek2.description"
+      "translate": "advancement.simplyjetpacks.jetpack_vanilla3.description"
     },
     "icon": {
       "components": {
@@ -22,7 +22,7 @@
           "modifiers": [
             {
               "type": "minecraft:generic.armor",
-              "amount": 2.0,
+              "amount": 3.0,
               "id": "simplyjetpacks:armor.jetpack",
               "operation": "add_value",
               "slot": "chest"
@@ -36,14 +36,15 @@
             }
           ]
         },
+        "minecraft:rarity": "uncommon",
         "simplyjetpacks:jetpack_energy": 0,
-        "simplyjetpacks:jetpack_id": "simplyjetpacks:mek2"
+        "simplyjetpacks:jetpack_id": "simplyjetpacks:vanilla3"
       },
       "count": 1,
       "id": "simplyjetpacks:jetpack"
     },
     "title": {
-      "translate": "advancement.simplyjetpacks.mek2.title"
+      "translate": "advancement.simplyjetpacks.jetpack_vanilla3.title"
     }
   },
   "requirements": [

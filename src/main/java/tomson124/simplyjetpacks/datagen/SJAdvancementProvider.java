@@ -97,7 +97,7 @@ public class SJAdvancementProvider extends AdvancementProvider {
 
         private AdvancementHolder generateJetpack(AdvancementHolder parent, Jetpack jetpack, Consumer<AdvancementHolder> consumer) {
             ResourceLocation namespace = jetpack.getId();
-            String advancementPath = "advancement." + namespace.getNamespace() + "." + namespace.getPath();
+            String advancementPath = "advancement." + namespace.getNamespace() + "." + "jetpack_" + namespace.getPath();
             return Advancement.Builder.advancement().parent(parent)
                 .display(
                     JetpackItem.createStack(jetpack, false),
@@ -113,7 +113,7 @@ public class SJAdvancementProvider extends AdvancementProvider {
                 // Matches any jetpack: the trigger has no component predicate, and every variant shares an item.
                 .addCriterion("has_jetpack", InventoryChangeTrigger.TriggerInstance.hasItems(
                         ItemPredicate.Builder.item().of(RegistryHandler.JETPACK.get())))
-                .save(consumer, namespace.getNamespace() + ":" + namespace.getNamespace() + "/" + namespace.getPath());
+                .save(consumer, namespace.getNamespace() + ":" + "jetpack" + "/" + namespace.getPath());
         }
     }
 }

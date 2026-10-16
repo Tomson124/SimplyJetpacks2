@@ -1,5 +1,5 @@
 {
-  "parent": "simplyjetpacks:simplyjetpacks/ie1",
+  "parent": "simplyjetpacks:jetpack/ie2",
   "criteria": {
     "has_jetpack": {
       "conditions": {
@@ -14,7 +14,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.simplyjetpacks.ie2.description"
+      "translate": "advancement.simplyjetpacks.jetpack_ie3.description"
     },
     "icon": {
       "components": {
@@ -22,7 +22,7 @@
           "modifiers": [
             {
               "type": "minecraft:generic.armor",
-              "amount": 2.0,
+              "amount": 3.0,
               "id": "simplyjetpacks:armor.jetpack",
               "operation": "add_value",
               "slot": "chest"
@@ -36,14 +36,15 @@
             }
           ]
         },
+        "minecraft:rarity": "uncommon",
         "simplyjetpacks:jetpack_energy": 0,
-        "simplyjetpacks:jetpack_id": "simplyjetpacks:ie2"
+        "simplyjetpacks:jetpack_id": "simplyjetpacks:ie3"
       },
       "count": 1,
       "id": "simplyjetpacks:jetpack"
     },
     "title": {
-      "translate": "advancement.simplyjetpacks.ie2.title"
+      "translate": "advancement.simplyjetpacks.jetpack_ie3.title"
     }
   },
   "requirements": [

@@ -14,7 +14,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.simplyjetpacks.te1.description"
+      "translate": "advancement.simplyjetpacks.jetpack_vanilla1.description"
     },
     "icon": {
       "components": {
@@ -37,13 +37,13 @@
           ]
         },
         "simplyjetpacks:jetpack_energy": 0,
-        "simplyjetpacks:jetpack_id": "simplyjetpacks:te1"
+        "simplyjetpacks:jetpack_id": "simplyjetpacks:vanilla1"
       },
       "count": 1,
       "id": "simplyjetpacks:jetpack"
     },
     "title": {
-      "translate": "advancement.simplyjetpacks.te1.title"
+      "translate": "advancement.simplyjetpacks.jetpack_vanilla1.title"
     }
   },
   "requirements": [

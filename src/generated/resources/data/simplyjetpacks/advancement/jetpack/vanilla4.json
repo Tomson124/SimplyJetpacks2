@@ -1,5 +1,5 @@
 {
-  "parent": "simplyjetpacks:simplyjetpacks/te2",
+  "parent": "simplyjetpacks:jetpack/vanilla3",
   "criteria": {
     "has_jetpack": {
       "conditions": {
@@ -14,7 +14,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.simplyjetpacks.te3.description"
+      "translate": "advancement.simplyjetpacks.jetpack_vanilla4.description"
     },
     "icon": {
       "components": {
@@ -36,15 +36,15 @@
             }
           ]
         },
-        "minecraft:rarity": "uncommon",
+        "minecraft:rarity": "rare",
         "simplyjetpacks:jetpack_energy": 0,
-        "simplyjetpacks:jetpack_id": "simplyjetpacks:te3"
+        "simplyjetpacks:jetpack_id": "simplyjetpacks:vanilla4"
       },
       "count": 1,
       "id": "simplyjetpacks:jetpack"
     },
     "title": {
-      "translate": "advancement.simplyjetpacks.te3.title"
+      "translate": "advancement.simplyjetpacks.jetpack_vanilla4.title"
     }
   },
   "requirements": [
