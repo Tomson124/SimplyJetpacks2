@@ -13,7 +13,7 @@ public class SJTags {
     public static final TagKey<Item> JETPACK = mod("jetpack");
     public static final TagKey<Item> ENCHANTABLE_JETPACK = mod("enchantable/jetpack");
 
-    public static final TagKey<Item> CURIOS_HEAD = curios("head");
+    public static final TagKey<Item> CURIOS_PILOT_GOGGLES = curios("pilot_goggles");
     public static final TagKey<Item> CURIOS_JETPACK = curios("jetpack");
 
     private static TagKey<Item> neoforge(String path) {

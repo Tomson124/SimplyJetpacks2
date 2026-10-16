@@ -1,4 +1,4 @@
 {
   "entities": ["player"],
-  "slots": ["jetpack"]
+  "slots": ["jetpack", "pilot_goggles"]
 }

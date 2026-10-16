@@ -82,7 +82,7 @@ public class SJItemTagsProvider extends ItemTagsProvider {
         ;
 
         // Curios:
-        tag(SJTags.CURIOS_HEAD)
+        tag(SJTags.CURIOS_PILOT_GOGGLES)
                 .add(RegistryHandler.PILOT_GOGGLES_GOLD.get())
                 .add(RegistryHandler.PILOT_GOGGLES_IRON.get())
         ;

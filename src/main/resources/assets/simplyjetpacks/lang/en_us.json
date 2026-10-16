@@ -312,6 +312,7 @@
   "guidebook.simplyjetpacks.subtitle": "The Complete Guide",
 
   "curios.identifier.jetpack": "Jetpack",
+  "curios.identifier.pilot_goggles": "Pilot Goggles",
 
   "death.attack.simplyjetpacks.jetpack_potato": "%1$s attempted to fly a potato!",
   "death.attack.simplyjetpacks.jetpack_explode": "%1$s spontaneously detonated!",
