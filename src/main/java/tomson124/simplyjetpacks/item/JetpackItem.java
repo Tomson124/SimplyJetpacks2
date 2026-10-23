@@ -16,9 +16,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import org.jetbrains.annotations.NotNull;
 import tomson124.simplyjetpacks.handlers.CommonJetpackHandler;
+import tomson124.simplyjetpacks.handlers.RegistryHandler;
 import tomson124.simplyjetpacks.hud.IHUDInfoProvider;
 import tomson124.simplyjetpacks.init.SJDataComponentTypes;
 import tomson124.simplyjetpacks.model.JetpackModelLayers;
@@ -63,9 +67,9 @@ public class JetpackItem extends ArmorItem implements IHUDInfoProvider {
         }
     }
 
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(Rendering.INSTANCE);
+    @SubscribeEvent
+    public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+        event.registerItem(Rendering.INSTANCE, RegistryHandler.JETPACK.get());
     }
 
     @Override
